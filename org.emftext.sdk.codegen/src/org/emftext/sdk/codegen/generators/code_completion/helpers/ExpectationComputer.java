@@ -30,13 +30,13 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * The ExpectationComputer can be used to compute all possible
  * elements that can follow a given element in a syntax.
  */
-// TODO the parameter 'scopeID' can probably be removed
 public class ExpectationComputer {
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	/**
-	 * Computes a list of expected elements that can follow 'syntaxElement'.
+	 * Computes the list of elements that can follow 'syntaxElement'
+	 * according to the given syntax definition.
 	 * 
 	 * @param syntax
 	 * @param syntaxElement
@@ -52,6 +52,14 @@ public class ExpectationComputer {
 		return expectations;
 	}
 
+	/**
+	 * Computes the list of elements that 'syntaxElement' can start
+	 * with according to the given syntax definition.
+	 * 
+	 * @param syntax
+	 * @param syntaxElement
+	 * @return
+	 */
 	public Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
 		// convert 'firstSet' to expectations
@@ -62,16 +70,24 @@ public class ExpectationComputer {
 		return expectations;
 	}
 
-	private IExpectedElement createExpectedElement(EObject nextFirst) {
-		if (nextFirst instanceof CsString) {
-			CsString keyword = (CsString) nextFirst;
+	/**
+	 * Converts the given syntax definition element to an instance of
+	 * IExpectedElement. The element must be a terminal symbol (i.e.,
+	 * either a CsString or a Placeholder).
+	 * 
+	 * @param syntaxElement the element to convert
+	 * @return
+	 */
+	private IExpectedElement createExpectedElement(EObject syntaxElement) {
+		if (syntaxElement instanceof CsString) {
+			CsString keyword = (CsString) syntaxElement;
 			return new ExpectedKeyword(keyword.getValue());
-		} else if (nextFirst instanceof Placeholder) {
-			Placeholder placeholder = (Placeholder) nextFirst;
+		} else if (syntaxElement instanceof Placeholder) {
+			Placeholder placeholder = (Placeholder) syntaxElement;
 			GenFeature genFeature = placeholder.getFeature();
 			return new ExpectedFeature(genFeature, csUtil.findContainingRule(placeholder).getMetaclass(), placeholder.getToken().getName());
 		} else {
-			throw new IllegalArgumentException(nextFirst.toString());
+			throw new IllegalArgumentException(syntaxElement.toString());
 		}
 	}
 
@@ -92,13 +108,13 @@ public class ExpectationComputer {
 		Rule rule = csUtil.findContainingRule(syntaxElement);
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
-			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement, "", ""));
+			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement));
 		} else if (syntaxElement instanceof Choice) {
-			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement, "", ""));
+			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement));
 		} else if (syntaxElement instanceof Sequence) {
-			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, "", ""));
+			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement));
 		} else if (syntaxElement instanceof Rule) {
- 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition(), "", ""));
+ 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition()));
 		} else {
 			throw new IllegalArgumentException(syntaxElement.toString());
 		}
@@ -107,6 +123,7 @@ public class ExpectationComputer {
 
 	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
+		
 		// while climbing up the tree to find an element to the right,
 		// we must consider that * and ? compounds are their right element
 		// on their own, because they can be empty
@@ -154,6 +171,8 @@ public class ExpectationComputer {
 
 	private Set<EObject> computeFollowSetIfObjectCanBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
+		// TODO the check for emptiness must be extended work recursively
+		// (i.e., the first set contains the empty sentence - epsilon)
 		if (canBeEmpty(syntaxElement)) {
 			result.addAll(computeFollowSet(syntax, syntaxElement));
 		}
@@ -179,32 +198,29 @@ public class ExpectationComputer {
 	}
 
 	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
-			CompoundDefinition compoundDef, String message, String scopeID) {
-		Choice choice = compoundDef.getDefinitions();
-		return computeFirstSetForChoice(syntax, rule, choice, message, scopeID);
+			CompoundDefinition compound) {
+		Choice choice = compound.getDefinitions();
+		return computeFirstSetForChoice(syntax, rule, choice);
 	}
 
-	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice,
-			String message, String scopeID) {
+	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice) {
 		
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 
 		List<Sequence> options = choice.getOptions();
 		int i = 0;
 		for (Sequence sequence : options) {
-			// TODO mseifert: create new nested scope
-			firstSet.addAll(computeFirstSetForSequence(syntax, rule, sequence, message, scopeID + "." + i));
+			firstSet.addAll(computeFirstSetForSequence(syntax, rule, sequence));
 			i++;
 		}
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence,
-			String message, String scopeID) {
+	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence) {
 
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		for (Definition definition : sequence.getParts()) {
-			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, definition, message, scopeID));
+			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, definition));
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
@@ -216,76 +232,33 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 	
-	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition,
-			String message, String scopeID) {
+	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition) {
 
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
-		String cardinality = csUtil.computeCardinalityString(definition);
-
-		if ("+".equals(cardinality)) {
-			// expected element before STAR or QUESTIONMARK or PLUS
-			// TODO
-			//addExpectationCodeForDefinition(syntax, rule, definition, scopeID + ": Before * or + or ?", scopeID, expectations);
-		}
 		if (definition instanceof CompoundDefinition) {
-			CompoundDefinition compoundDef = (CompoundDefinition) definition;
-			// expected element is a Compound
-			// TODO
-			firstSet.addAll(computeFirstSetForCompound(syntax, rule, compoundDef, scopeID + ": Compound", scopeID + ".X"));
+			firstSet.addAll(computeFirstSetForCompound(syntax, rule, (CompoundDefinition) definition));
 		} else if (definition instanceof CsString) {
-			final CsString csString = (CsString) definition;
-			// expected element is a CsString
-			firstSet.addAll(computeFirstSetForKeyword(syntax, csString, scopeID + ": CsString", scopeID));
+			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition));
 		} else if (definition instanceof WhiteSpaces) {
 			// ignore
 		} else if (definition instanceof LineBreak) {
 			// ignore
 		} else {
 			assert definition instanceof Terminal;
-			final Terminal terminal = (Terminal) definition;
-			// expected element is a Terminal
-			firstSet.addAll(computeFirstSetForTerminal(syntax, rule, terminal, "Terminal", scopeID));
-		}
-		
-		if ("*".equals(cardinality) || "?".equals(cardinality)) {
-			// expected element after STAR or QUESTIONMARK
-			//Set<EObject> followSet = computeFollowSet(syntax, definition);
-			//firstSet.addAll(computeFirstSet(syntax, followSet));
-		}
-		if ("*".equals(cardinality) || "+".equals(cardinality)) {
-			// expected element after STAR or PLUS
-			// TODO
-			//addExpectationCodeForDefinition(syntax, rule, definition, scopeID + ": After * or +", scopeID, expectations);
+			firstSet.addAll(computeFirstSetForTerminal(syntax, rule, (Terminal) definition));
 		}
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword,
-			String message, String scopeID) {
-
+	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		firstSet.add(keyword);
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, String message, String scopeID) {
+	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
-		//final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
-		// TODO use this code to convert syntax element to expected element
-		//expectations.add(new ExpectedFeature(genFeature.getEcoreFeature(), csUtil.getScopeID(terminal), message));
-		/*
-		sc.add("addExpectedElement(new "
-				+ expectedStructuralFeatureClassName + "(\""
-				+ getScopeID(terminal) + "\", " 
-				+ discardFollowingExpectations + ", "
-				+ genClass.getGenPackage().getReflectionPackageName() + "."
-				+ genClass.getGenPackage().getPackageInterfaceName()
-				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
-				+ "()" + ".getEStructuralFeature("
-				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element, \"" + message + "\"), \"" + scopeID + ": Terminal\");");
-				*/
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 		if (ecoreFeature instanceof EAttribute) {
@@ -303,25 +276,23 @@ public class ExpectationComputer {
 		if (!ecoreReference.isContainment()) {
 			// for non-containments we add the terminal, but
 			// we do not add it for containments, because the
-			// rules  for the concrete subclass will fill the 
+			// rules for the concrete subclasses will fill the 
 			// firstSet
 			firstSet.add(terminal);
 			return firstSet;
 		}
-		// TODO we probably need to consider subclass restrictions that may
-		// be set for the terminal
 		assert terminal instanceof Containment;
 		Containment containment = (Containment) terminal;
+		// we need to consider subclass restrictions that may
+		// be set for the terminal
 		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
 		for (GenClass subType : subTypes) {
 			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
 			int i = 0;
 			for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
 				Rule nextFeatureTypeRule = (Rule) iterator.next();
-				String featurePath = genFeature.getName() + "->" + nextFeatureTypeRule.getMetaclass().getName();
-				System.out.println("Handling subrule " + featurePath);
 				Choice choice = nextFeatureTypeRule.getDefinition();
-				firstSet.addAll(computeFirstSetForChoice(syntax, nextFeatureTypeRule, choice, "containment for " + featurePath, scopeID + "." + i));
+				firstSet.addAll(computeFirstSetForChoice(syntax, nextFeatureTypeRule, choice));
 				i++;
 			}
 		}
