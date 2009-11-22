@@ -14,7 +14,6 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-
 // Abstract super class for all expected elements. Provides methods to
 // set and retrieve the document range, where the element is expected.
 // This range is expressed using four integers - two denoting the range

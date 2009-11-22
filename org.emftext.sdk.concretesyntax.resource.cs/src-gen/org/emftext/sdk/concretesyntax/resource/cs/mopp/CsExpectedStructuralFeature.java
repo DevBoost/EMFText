@@ -40,7 +40,7 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 		return tokenName;
 	}
 	
-	public String toString() {
+	public java.lang.String toString() {
 		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + feature.getEContainingClass().getName();
 	}
 	

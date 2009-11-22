@@ -13,7 +13,7 @@ options {
 
 @lexer::members {
 	public java.util.List<org.antlr.runtime.RecognitionException> lexerExceptions  = new java.util.ArrayList<org.antlr.runtime.RecognitionException>();
-	public java.util.List<java.lang.Integer> lexerExceptionsPosition       = new java.util.ArrayList<java.lang.Integer>();
+	public java.util.List<java.lang.Integer> lexerExceptionsPosition = new java.util.ArrayList<java.lang.Integer>();
 	
 	public void reportError(org.antlr.runtime.RecognitionException e) {
 		lexerExceptions.add(e);
@@ -74,14 +74,11 @@ options {
 			return;
 		}
 		int currentIndex = java.lang.Math.max(0, input.index());
-		//System.out.println("addExpectedElement() currentIndex = " + currentIndex);
 		for (int index = lastTokenIndex; index < currentIndex; index++) {
-			//System.out.println("addExpectedElement() index = " + index);
 			if (index >= input.size()) {
 				break;
 			}
 			org.antlr.runtime.CommonToken tokenAtIndex = (org.antlr.runtime.CommonToken) input.get(index);
-			//System.out.println("addExpectedElement() tokenAtIndex = " + tokenAtIndex);
 			stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;
 			if (tokenAtIndex.getChannel() != 99) {
 				stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;
@@ -180,6 +177,7 @@ options {
 	
 	protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime.RecognitionException {
 		this.lastPosition = 0;
+		// required because the lexer class can not be subclassed
 		((CsLexer) getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
 		((CsLexer) getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
 		java.lang.Object typeObject = getTypeObject();
@@ -543,7 +541,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a3, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a3, element);
 			}
 		}
 	)
@@ -588,8 +586,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a5, element);
-				copyLocalizationInfos((CommonToken) a5, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a5, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a5, proxy);
 			}
 		}
 	)
@@ -623,7 +621,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a6, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a6, element);
 					}
 				}
 			)
@@ -677,8 +675,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy);
 							}
 							collectHiddenTokens(element);
-							copyLocalizationInfos((CommonToken) a8, element);
-							copyLocalizationInfos((CommonToken) a8, proxy);
+							copyLocalizationInfos((org.antlr.runtime.CommonToken) a8, element);
+							copyLocalizationInfos((org.antlr.runtime.CommonToken) a8, proxy);
 						}
 					}
 				)
@@ -742,8 +740,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 										addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy);
 									}
 									collectHiddenTokens(element);
-									copyLocalizationInfos((CommonToken) a10, element);
-									copyLocalizationInfos((CommonToken) a10, proxy);
+									copyLocalizationInfos((org.antlr.runtime.CommonToken) a10, element);
+									copyLocalizationInfos((org.antlr.runtime.CommonToken) a10, proxy);
 								}
 							}
 						)
@@ -978,6 +976,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "@"));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "DEFINE"));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "PRIORITIZE"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, ";"));
 			}
 			
 			(
@@ -1015,6 +1014,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "@"));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "DEFINE"));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "PRIORITIZE"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, ";"));
 					}
 					
 				)
@@ -1207,7 +1207,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -1254,8 +1254,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
-				copyLocalizationInfos((CommonToken) a2, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, proxy);
 			}
 		}
 	)
@@ -1290,7 +1290,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a3, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a3, element);
 					}
 				}
 			)
@@ -1356,8 +1356,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), proxy);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a6, element);
-						copyLocalizationInfos((CommonToken) a6, proxy);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a6, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a6, proxy);
 					}
 				}
 			)
@@ -1391,7 +1391,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 									element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), resolved);
 								}
 								collectHiddenTokens(element);
-								copyLocalizationInfos((CommonToken) a7, element);
+								copyLocalizationInfos((org.antlr.runtime.CommonToken) a7, element);
 							}
 						}
 					)
@@ -1440,7 +1440,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -1484,7 +1484,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
 			}
 		}
 	)
@@ -1553,8 +1553,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a1, element);
-				copyLocalizationInfos((CommonToken) a1, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, proxy);
 			}
 		}
 	)
@@ -1746,7 +1746,7 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -1786,8 +1786,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
-				copyLocalizationInfos((CommonToken) a0, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, proxy);
 			}
 		}
 	)
@@ -1834,8 +1834,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
-				copyLocalizationInfos((CommonToken) a2, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, proxy);
 			}
 		}
 	)
@@ -1912,8 +1912,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
-				copyLocalizationInfos((CommonToken) a0, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, proxy);
 			}
 		}
 	)
@@ -2002,8 +2002,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
-				copyLocalizationInfos((CommonToken) a0, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, proxy);
 			}
 		}
 	)
@@ -2047,7 +2047,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
 			}
 		}
 	)
@@ -2091,7 +2091,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a4, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a4, element);
 			}
 		}
 	)
@@ -2138,7 +2138,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a6, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a6, element);
 					}
 				}
 			)
@@ -2219,8 +2219,8 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
-				copyLocalizationInfos((CommonToken) a0, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, proxy);
 			}
 		}
 	)
@@ -2272,8 +2272,8 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a2, element);
-						copyLocalizationInfos((CommonToken) a2, proxy);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, proxy);
 					}
 				}
 			)
@@ -2325,8 +2325,8 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy);
 								}
 								collectHiddenTokens(element);
-								copyLocalizationInfos((CommonToken) a4, element);
-								copyLocalizationInfos((CommonToken) a4, proxy);
+								copyLocalizationInfos((org.antlr.runtime.CommonToken) a4, element);
+								copyLocalizationInfos((org.antlr.runtime.CommonToken) a4, proxy);
 							}
 						}
 					)
@@ -2489,7 +2489,7 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -2538,7 +2538,7 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a1, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, element);
 			}
 		}
 	)
@@ -2615,7 +2615,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
 			}
 		}
 	)
@@ -2647,7 +2647,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a3, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a3, element);
 			}
 		}
 	)
@@ -2703,7 +2703,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a6, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a6, element);
 					}
 				}
 			)
@@ -2760,8 +2760,8 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), proxy);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a1, element);
-				copyLocalizationInfos((CommonToken) a1, proxy);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, proxy);
 			}
 		}
 	)
@@ -2866,7 +2866,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -2908,7 +2908,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a2, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
 			}
 		}
 	)
@@ -2954,7 +2954,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES, resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a4, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a4, element);
 					}
 				}
 			)
@@ -3023,7 +3023,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a1, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a1, element);
 			}
 		}
 	)
@@ -3157,7 +3157,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), resolved);
 				}
 				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken) a0, element);
+				copyLocalizationInfos((org.antlr.runtime.CommonToken) a0, element);
 			}
 		}
 	)
@@ -3203,7 +3203,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), resolved);
 						}
 						collectHiddenTokens(element);
-						copyLocalizationInfos((CommonToken) a2, element);
+						copyLocalizationInfos((org.antlr.runtime.CommonToken) a2, element);
 					}
 				}
 			)

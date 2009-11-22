@@ -21,7 +21,7 @@ public interface ICsExpectedElement {
 	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens);
 	public int getStartExcludingHiddenTokens();
 	public int getStartIncludingHiddenTokens();
-	public String getPrefix();
-	public void setPrefix(String prefix);
+	public java.lang.String getPrefix();
+	public void setPrefix(java.lang.String prefix);
 	public int getFollowSetID();
 }
