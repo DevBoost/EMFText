@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -45,7 +43,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		return new ITextParserGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -80,7 +78,6 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		sc.add("public void terminate();");
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

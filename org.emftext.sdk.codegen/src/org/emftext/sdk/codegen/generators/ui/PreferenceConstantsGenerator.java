@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -31,7 +29,7 @@ public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.PREFERENCE_CONSTANTS);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -57,7 +55,6 @@ public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 		sc.add("public static final String EDITOR_PROXY_COLOR = \"_proxy_color\";");
 		sc.addLineBreak();
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

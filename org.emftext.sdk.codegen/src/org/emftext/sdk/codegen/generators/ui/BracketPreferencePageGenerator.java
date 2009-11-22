@@ -36,8 +36,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT_LIST;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -65,7 +63,8 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -82,7 +81,6 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

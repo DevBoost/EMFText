@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -43,7 +41,7 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		return new IParseResultGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -57,7 +55,6 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

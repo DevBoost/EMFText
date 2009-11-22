@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,7 +33,7 @@ public class ITextTokenGenerator extends JavaBaseGenerator {
 		return new ITextTokenGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -65,7 +63,6 @@ public class ITextTokenGenerator extends JavaBaseGenerator {
 		sc.add("public String getText();");
 		sc.add("}");
 		
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -40,7 +38,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 		return new IURIMappingGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,7 +58,6 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 		
 		sc.add("public " + URI + " getTargetIdentifier();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

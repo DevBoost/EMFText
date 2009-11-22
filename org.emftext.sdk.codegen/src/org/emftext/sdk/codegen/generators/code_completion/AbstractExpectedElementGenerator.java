@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,10 +36,10 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		return new AbstractExpectedElementGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
-		sc.addLineBreak();
 		sc.addLineBreak();
 		
 		sc.add("// Abstract super class for all expected elements. Provides methods to");
@@ -130,7 +128,6 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

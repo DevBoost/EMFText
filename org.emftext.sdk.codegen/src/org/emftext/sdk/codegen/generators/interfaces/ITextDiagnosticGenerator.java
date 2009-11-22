@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		return new ITextDiagnosticGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -77,7 +75,6 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element);");
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

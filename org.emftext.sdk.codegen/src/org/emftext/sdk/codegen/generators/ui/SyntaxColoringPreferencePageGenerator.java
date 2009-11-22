@@ -50,8 +50,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VIEWER;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -85,7 +83,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		return new SyntaxColoringPreferencePageGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -523,7 +521,6 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

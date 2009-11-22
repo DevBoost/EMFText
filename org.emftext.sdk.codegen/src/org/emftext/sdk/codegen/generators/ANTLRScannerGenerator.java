@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -36,7 +34,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -66,7 +64,6 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		out.write(sc.toString());
 		return true;
 	}
 

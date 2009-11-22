@@ -30,7 +30,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRINTER_WRI
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_WRITER;
 
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -190,10 +189,8 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		List<Rule> rules = prepare();
-		
-		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -205,8 +202,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		addMethods(sc, rules);
 
 		sc.add("}");
-		
-		out.write(sc.toString());
 		return true;
 	}
 

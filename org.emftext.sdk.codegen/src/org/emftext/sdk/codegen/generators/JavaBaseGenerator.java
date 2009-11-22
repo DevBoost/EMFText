@@ -19,24 +19,20 @@ import org.emftext.sdk.util.StreamUtil;
 
 public abstract class JavaBaseGenerator extends BaseGenerator {
 
-	public JavaBaseGenerator(GenerationContext context, EArtifact artifact) {
-		super(context, artifact);
-	}
-
-	public JavaBaseGenerator() {
+	protected JavaBaseGenerator() {
 		super();
 	}
 
-	@Deprecated
-	public JavaBaseGenerator(GenerationContext context, String packageName,
-			String className) {
-		super(context, packageName, className);
+	public JavaBaseGenerator(GenerationContext context, EArtifact artifact) {
+		super(context, artifact);
 	}
 
 	final public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		addLicenceHeader(sc);
-		return generateJavaContents(sc, out);
+		boolean success = generateJavaContents(sc);
+		out.write(sc.toString());
+		return success;
 	}
 
 	private void addLicenceHeader(StringComposite sc) {
@@ -96,6 +92,5 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 
 	}
 
-	public abstract boolean generateJavaContents(StringComposite sc,
-			PrintWriter out);
+	public abstract boolean generateJavaContents(StringComposite sc);
 }

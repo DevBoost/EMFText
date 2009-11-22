@@ -21,8 +21,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,7 +36,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.DUMMY_E_OBJECT);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,7 +56,6 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

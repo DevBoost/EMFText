@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -105,8 +104,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -117,7 +115,6 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 		addGetBracketPairsMethod(sc);
 		sc.add("}");
 		
-		out.write(sc.toString());
 		return true;
 	}
 

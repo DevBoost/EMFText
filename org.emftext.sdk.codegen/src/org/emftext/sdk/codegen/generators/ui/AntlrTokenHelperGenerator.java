@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -34,7 +32,8 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.ANTLR_TOKEN_HELPER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -81,7 +80,6 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

@@ -24,8 +24,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.METHOD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -46,7 +44,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		return new EObjectUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -103,7 +101,6 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

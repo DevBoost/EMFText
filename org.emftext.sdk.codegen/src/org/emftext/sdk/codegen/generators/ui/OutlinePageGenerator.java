@@ -36,8 +36,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -59,7 +57,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		outlinePageTreeViewerClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -72,7 +70,6 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

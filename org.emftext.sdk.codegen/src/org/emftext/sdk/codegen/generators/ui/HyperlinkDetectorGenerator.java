@@ -24,8 +24,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.REGION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -45,7 +43,7 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		hyperlinkClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -59,7 +57,6 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		addDetectHyperlinksMethod(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

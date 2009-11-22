@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -54,7 +52,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		return new IMetaInformationGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -139,7 +137,6 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		sc.add("// @return a hover text provider which provides the hover text of an <code>EObject</code>");
 		sc.add("public " + iHoverTextProviderClassName  + " getHoverTextProvider();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

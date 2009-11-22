@@ -23,8 +23,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_I
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -44,7 +42,7 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -56,7 +54,6 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

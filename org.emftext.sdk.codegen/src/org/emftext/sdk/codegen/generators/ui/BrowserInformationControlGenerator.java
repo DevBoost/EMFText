@@ -49,8 +49,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WINDOW_EVENT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -72,7 +70,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		htmlPrinterClassName = getContext().getQualifiedClassName(EArtifact.HTML_PRINTER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -604,7 +602,6 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

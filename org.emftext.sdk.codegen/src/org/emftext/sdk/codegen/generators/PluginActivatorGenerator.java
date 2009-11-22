@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MESSAGE_DIA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
@@ -41,7 +39,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,12 +51,10 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addStartMethod(sc);
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
@@ -66,8 +62,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		addLogErrorMethod(sc);
 	}
 
-	private void addLogErrorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addLogErrorMethod(StringComposite sc) {
 		sc.add("// Helper method for error logging.");
 		sc.add("//");
 		sc.add("// @param message");
@@ -97,8 +92,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addShowErrorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addShowErrorMethod(StringComposite sc) {
 		sc.add("public static void showErrorDialog(final String title, final String message) {");
 		sc.add(DISPLAY + ".getDefault().asyncExec(new Runnable() {");
 		sc.add("public void run() {");
@@ -112,16 +106,14 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addGetDefaultMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetDefaultMethod(StringComposite sc) {
 		sc.add("public static " + getResourceClassName() + " getDefault() {");
 		sc.add("return plugin;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addStopMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addStopMethod(StringComposite sc) {
 		sc.add("public void stop(" + BUNDLE_CONTEXT + " context) throws Exception {");
 		sc.add("plugin = null;");
 		sc.add("super.stop(context);");
@@ -129,8 +121,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addStartMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addStartMethod(StringComposite sc) {
 		sc.add("public void start(" + BUNDLE_CONTEXT + " context) throws Exception {");
 		sc.add("super.start(context);");
 		sc.add("plugin = this;");
@@ -138,15 +129,14 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		String resourcePluginName = EPlugins.RESOURCE_PLUGIN.getName(getContext().getConcreteSyntax());
 
 		sc.add("public static final String PLUGIN_ID = \"" + resourcePluginName + "\";");

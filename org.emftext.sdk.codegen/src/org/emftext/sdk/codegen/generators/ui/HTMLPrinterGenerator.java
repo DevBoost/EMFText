@@ -26,8 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_PRESENTATION;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -44,7 +42,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.HTML_PRINTER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -590,7 +588,6 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addLineBreak();
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

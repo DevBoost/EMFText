@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		return new IContextDependentURIFragmentFactoryGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -64,7 +62,6 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		sc.add("// @return");
 		sc.add("public " + iContextDependentURIFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

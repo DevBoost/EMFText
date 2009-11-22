@@ -20,8 +20,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,8 +36,7 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,7 +49,7 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.add(E_CLASS + " eClass = object.eClass();");
 		sc.add("String label = \"<strong>\" + eClass.getName() + \"</strong>\";");
 		sc.add("for (" + E_ATTRIBUTE + " attribute : eClass.getEAllAttributes()) {");
-		sc.add("" + OBJECT + " value = null;");
+		sc.add(OBJECT + " value = null;");
 		sc.add("try {");
 		sc.add("value = object.eGet(attribute);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
@@ -66,7 +63,6 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		
-		out.write(sc.toString());
 		return true;
 	}
 

@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.util;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		return new UnicodeConverterGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -281,7 +279,6 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("return \"UTF-8\";");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

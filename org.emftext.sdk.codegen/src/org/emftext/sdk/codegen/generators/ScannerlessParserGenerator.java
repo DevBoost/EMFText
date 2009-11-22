@@ -36,7 +36,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -120,8 +119,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -134,8 +132,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		addMethodsForRules(sc);
 		sc.add("}");
-		
-		out.write(sc.toString());
 		return true;
 	}
 

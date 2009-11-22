@@ -53,8 +53,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URL;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -84,7 +82,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		textHoverClassName = getContext().getQualifiedClassName(EArtifact.TEXT_HOVER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -101,7 +99,6 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

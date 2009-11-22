@@ -56,8 +56,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.XML_MEMENTO;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -77,7 +75,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		this.editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -96,7 +94,6 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

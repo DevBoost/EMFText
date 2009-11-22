@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -31,7 +29,7 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.POSITION_CATEGORY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -39,7 +37,6 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		sc.add("public enum " + getResourceClassName() + " {");
 		sc.add("BRACKET, DEFINTION, PROXY;");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

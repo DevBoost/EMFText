@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -40,7 +38,7 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 		return new MapUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -88,7 +86,6 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 		sc.add("return castedCopy;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

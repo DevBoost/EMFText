@@ -29,8 +29,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVEN
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_KEY_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -50,7 +48,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -65,7 +63,6 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

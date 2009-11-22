@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -29,7 +30,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 	private EPlugins plugin;
 
 	public BuildPropertiesGenerator(GenerationContext context, EPlugins plugin) {
-		super(context, "", "build.properties");
+		super(context, EArtifact.BUILD_PROPERTIES);
 		this.plugin = plugin;
 	}
 

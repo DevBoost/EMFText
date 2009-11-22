@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -42,7 +40,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		return new IReferenceResolverSwitchGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -61,7 +59,6 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -20,8 +20,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -42,11 +40,11 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 		return new CopiedEListGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		// TODO override remove() method of iterators
+		// TODO mseifert: override remove() method of iterators
 		sc.add("public class " + getResourceClassName() + "<E> implements " + E_LIST + "<E> {");
 		sc.addLineBreak();
 		sc.add("private static final long serialVersionUID = 604726114003869602L;");
@@ -173,7 +171,6 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

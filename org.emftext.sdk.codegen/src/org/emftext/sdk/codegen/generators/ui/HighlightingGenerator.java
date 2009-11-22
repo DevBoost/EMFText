@@ -44,8 +44,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_SELECT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -82,7 +80,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		eObjectSelectClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -94,7 +92,6 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

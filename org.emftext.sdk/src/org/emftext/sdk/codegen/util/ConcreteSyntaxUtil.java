@@ -286,6 +286,11 @@ public class ConcreteSyntaxUtil {
 	}
 
 	public String getPackageName(ConcreteSyntax syntax, EPlugins plugin, String packageSuffix) {
+		if (plugin == null) {
+			// this is the case for artifacts that are generated for
+			// multiple plug-ins
+			return null;
+		}
 		String basePackage = plugin.getBasePackage(syntax);
 		if ("".equals(basePackage)) {
 			return packageSuffix;

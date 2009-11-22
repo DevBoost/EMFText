@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 		return new IReferenceResolveResultGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -139,7 +137,6 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("// identifier.");
 		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

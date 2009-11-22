@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,7 +36,7 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		return new ILocationMapGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -101,7 +99,6 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		sc.add("// @return");
 		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(int startOffset, int endOffset);");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -17,7 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -62,7 +61,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		this.proxyReference = proxyReference;
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 
 		sc.add("package " + context.getResolverPackageName() + ";");
 		sc.addLineBreak();
@@ -88,7 +87,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 						"// save options in a field or leave method empty if this resolver does not depend on any option");
 		sc.add("}");
 
-		out.print(sc.toString());
 		return true;
 	}
 

@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -43,7 +41,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		return new ExpectedStructuralFeatureGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -86,7 +84,6 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

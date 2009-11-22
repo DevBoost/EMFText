@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -40,7 +39,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -50,8 +49,6 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 		addTokenStyleImplClass(sc);
 		addGetDefaultStyleMethod(sc);
 		sc.add("}");
-		
-		out.write(sc.toString());
 		return true;
 	}
 

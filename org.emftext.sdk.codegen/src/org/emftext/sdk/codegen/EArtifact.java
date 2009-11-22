@@ -156,6 +156,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public enum EArtifact {
 	
+	BUILD_PROPERTIES(null, null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES), 
+	DOT_CLASSPATH(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH), 
+	DOT_PROJECT(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT), 
+
 	// the classes
 	ANTLR_LEXER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER),
 	ANTLR_SCANNER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "AntlrScanner", new ANTLRScannerGenerator(), OptionTypes.OVERRIDE_SCANNER),
@@ -196,6 +200,7 @@ public enum EArtifact {
 	
 	DEFAULT_TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", new DefaultTokenResolverGenerator(), OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER),
 	DEFAULT_RESOLVER_DELEGATE(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE), 
+	TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS), 
 
 	ANTLR_TOKEN_HELPER(RESOURCE_PLUGIN, UI_PACKAGE, "", "AntlrTokenHelper", new AntlrTokenHelperGenerator(), OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER), 
 	BRACKET_SET(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketSet", new BracketSetGenerator(), OptionTypes.OVERRIDE_BRACKET_SET),

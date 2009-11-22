@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_PARSE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_STREAM;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,7 +33,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,8 +51,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		
-		out.write(sc.toString());
 		return true;
 	}
 

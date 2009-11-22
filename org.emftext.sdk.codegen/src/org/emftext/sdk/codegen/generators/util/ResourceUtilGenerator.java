@@ -27,8 +27,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -49,7 +47,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		return new ResourceUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -119,7 +117,6 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("return containsErrors(resource) || containsWarnings(resource);");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -49,8 +47,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 	}
 	
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -59,6 +56,13 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 		
 		addFields(sc);
 		addConstructor(sc);
+		addMethods(sc);
+		
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
 		addCreateTokenResolverMethod(sc);
 		addCreateCollectInTokenResolverMethod(sc);
 		addRegisterTokenResolverMethod(sc);
@@ -66,11 +70,6 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 		addDeRegisterTokenResolverMethod(sc);
 		addInternalCreateResolverMethod(sc);
 		addInternalRegisterTokenResolverMethod(sc);
-		
-		sc.add("}");
-		
-		out.print(sc.toString());
-		return true;
 	}
 
 	private void addInternalRegisterTokenResolverMethod(StringComposite sc) {

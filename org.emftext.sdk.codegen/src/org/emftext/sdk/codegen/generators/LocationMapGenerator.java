@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -39,7 +37,7 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.LOCATION_MAP);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -175,7 +173,6 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		sc.add("return result;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

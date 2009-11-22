@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.util;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,7 +36,7 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		return new StringUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -283,7 +281,6 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("return text.matches(UNICODE_SEQUENCE_REGEXP);");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

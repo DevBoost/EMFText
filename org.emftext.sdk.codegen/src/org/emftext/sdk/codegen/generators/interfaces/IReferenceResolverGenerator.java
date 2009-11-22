@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -43,7 +41,7 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator {
 		return new IReferenceResolverGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -81,7 +79,6 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator {
 		sc.add("public String deResolve(ReferenceType element, ContainerType container, " + E_REFERENCE + " reference);");
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

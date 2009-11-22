@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROPERTY_SHEET_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
 
-import java.io.PrintWriter;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -46,7 +44,7 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		eObjectSelectionName = context.getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,7 +52,6 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

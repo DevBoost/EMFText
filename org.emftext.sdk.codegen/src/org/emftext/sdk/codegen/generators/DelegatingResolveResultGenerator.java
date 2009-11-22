@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -33,7 +31,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.DELEGATING_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -91,7 +89,6 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

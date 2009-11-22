@@ -24,8 +24,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.REGION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLED_TEXT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -51,7 +49,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -64,7 +62,6 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

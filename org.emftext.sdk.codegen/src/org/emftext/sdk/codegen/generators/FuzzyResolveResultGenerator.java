@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -34,7 +32,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -93,7 +91,6 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

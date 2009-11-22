@@ -13,8 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
@@ -29,8 +29,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
-
-import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -81,7 +79,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		return new CodeCompletionHelperGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -97,8 +95,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
-		
-		out.print(sc.toString());
 		return true;
 	}
 
@@ -424,7 +420,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
 		// TODO mseifert: this is done twice (was already calculated in getFinalExpectedElementAt())
 		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
-		// TODO remove this debug statement
+		// TODO mseifert: remove this debug statement
 		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
 		sc.addLineBreak();

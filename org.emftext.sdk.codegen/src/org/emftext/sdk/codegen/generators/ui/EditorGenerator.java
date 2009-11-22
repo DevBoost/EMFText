@@ -67,8 +67,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_EDITOR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -102,7 +100,8 @@ public class EditorGenerator extends JavaBaseGenerator {
 		backgroundParsingStrategyClassName = getContext().getQualifiedClassName(EArtifact.BACKGROUND_PARSING_STRATEGY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -117,8 +116,6 @@ public class EditorGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		
-		out.print(sc.toString());
 		return true;
 	}
 

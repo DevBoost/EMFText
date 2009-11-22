@@ -21,8 +21,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		qualifiedReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -173,7 +171,6 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

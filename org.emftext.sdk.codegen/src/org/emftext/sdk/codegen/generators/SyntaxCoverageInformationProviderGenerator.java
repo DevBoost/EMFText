@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 
-import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -41,8 +40,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,8 +50,6 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 		addGetClassesWithSyntaxMethod(sc);
 		addGetStartSymbolsMethod(sc);
 		sc.add("}");
-		
-		out.write(sc.toString());
 		return true;
 	}
 

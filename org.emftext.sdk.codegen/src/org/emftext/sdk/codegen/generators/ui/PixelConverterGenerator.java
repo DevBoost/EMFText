@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT_METRIC
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.JFACE_DIALOG;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -40,7 +38,7 @@ public class PixelConverterGenerator extends JavaBaseGenerator {
 		return new PixelConverterGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -78,7 +76,6 @@ public class PixelConverterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

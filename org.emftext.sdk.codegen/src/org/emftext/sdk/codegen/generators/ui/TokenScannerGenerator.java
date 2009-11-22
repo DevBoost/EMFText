@@ -23,8 +23,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_ATTRIBUTE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -46,7 +44,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");
@@ -60,7 +58,6 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

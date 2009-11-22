@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,7 +33,7 @@ public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
 		return new SyntaxColoringHelperGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -65,7 +63,6 @@ public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
 		sc.add("return languageID + \"$\" + tokenName + \"$\" + styleProperty.getSuffix();");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

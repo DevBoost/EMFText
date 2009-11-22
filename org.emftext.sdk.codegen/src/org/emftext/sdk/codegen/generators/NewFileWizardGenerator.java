@@ -43,7 +43,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -72,7 +71,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -84,9 +83,6 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		
-		out.write(sc.toString());
-		out.flush();
 		return true;
 	}
 

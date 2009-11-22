@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -37,7 +35,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		return new IBackgroundParsingListenerGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,8 +51,6 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		sc.add("// @param resource the resource that has changed");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource);");
 		sc.add("}");
-		
-		out.print(sc.toString());
 		return true;
 	}
 }

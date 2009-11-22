@@ -26,8 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -44,7 +42,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
@@ -52,6 +50,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
 
 		addFields(sc);
+		addMethods(sc);
+		
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
 		addResolveMethod(sc);
 		addCheckElementMethod(sc);
 		addCastMethod(sc);
@@ -61,10 +66,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		addMatchesMethod2(sc);
 		addGetNameMethod(sc);
 		addTypeCheckMethod(sc);
-		
-		sc.add("}");
-		out.print(sc.toString());
-		return true;
 	}
 
 	private void addGetNameMethod(StringComposite sc) {

@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,8 +33,7 @@ public class ParseResultGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -69,8 +66,6 @@ public class ParseResultGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-    	
-		out.print(sc.toString());
     	return true;	
     }
 

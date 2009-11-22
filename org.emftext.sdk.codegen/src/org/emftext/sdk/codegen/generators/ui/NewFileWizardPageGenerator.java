@@ -34,8 +34,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD_PAGE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -56,7 +54,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		return new NewFileWizardPageGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -70,7 +68,6 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

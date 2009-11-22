@@ -26,8 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_E
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -47,7 +45,7 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
 		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -84,7 +82,6 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
         sc.add("return settingComposite;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

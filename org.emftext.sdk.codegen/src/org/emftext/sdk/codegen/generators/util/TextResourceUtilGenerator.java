@@ -21,8 +21,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -46,7 +44,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator {
 		return new TextResourceUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -74,7 +72,6 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("return (" + textResourceClassName + ") csResource;");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

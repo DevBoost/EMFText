@@ -52,8 +52,8 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	private List<GenerationProblem> errors;
 	private List<GenerationProblem> warnings;
 	protected GenerationContext context;
-	private String className;
-	private String packageName;
+	private String resourceClassName;
+	private String resourcePackageName;
 
 	protected ClassNameHelper classNameHelper;
 
@@ -73,21 +73,10 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 
 		this.context = context;
 		this.classNameHelper = new ClassNameHelper(context);
-		this.packageName = context.getPackageName(artifact);
-		this.className = context.getClassName(artifact);
+		this.resourcePackageName = context.getPackageName(artifact);
+		this.resourceClassName = context.getClassName(artifact);
 	}
-	
-	@Deprecated
-	public BaseGenerator(GenerationContext context, String packageName, String className) {
-		errors = new LinkedList<GenerationProblem>();
-		warnings = new LinkedList<GenerationProblem>();
 
-		this.context = context;
-		this.classNameHelper = new ClassNameHelper(context);
-		this.packageName = packageName;
-		this.className = className;
-	}
-	
 	public ClassNameHelper getClassNameHelper() {
 		return classNameHelper;
 	}
@@ -114,8 +103,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	public void addProblem(GenerationProblem problem){
 		if (problem.getSeverity().equals(GenerationProblem.Severity.ERROR)) {
 			errors.add(problem);
-		}
-		else {
+		} else {
 			warnings.add(problem);
 		}
 	}
@@ -132,18 +120,17 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	}
 	
 	protected String getResourceClassName() {
-    	return className;
+    	return resourceClassName;
     }
     
     protected String getResourcePackageName() {
-    	return packageName;
+    	return resourcePackageName;
     }
     
     protected String getObjectTypeName(String typeName){
-    	if(BaseGenerator.javaNativeTypeMapping.containsKey(typeName)){
+    	if (BaseGenerator.javaNativeTypeMapping.containsKey(typeName)) {
     		return BaseGenerator.javaNativeTypeMapping.get(typeName);
     	}
     	return typeName;
     }
-    
 }

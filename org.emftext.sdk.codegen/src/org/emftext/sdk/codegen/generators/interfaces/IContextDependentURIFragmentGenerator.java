@@ -16,8 +16,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -41,7 +39,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		return new IContextDependentURIFragmentGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -102,8 +100,6 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("// @return <code>true</code> if <code>resolve()</code> was called successfully before.");
 		sc.add("public boolean isResolved();");
 		sc.add("}");
-		
-		out.print(sc.toString());
 		return true;
 	}
 }

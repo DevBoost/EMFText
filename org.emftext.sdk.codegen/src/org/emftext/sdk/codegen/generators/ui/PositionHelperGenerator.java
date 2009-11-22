@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_POSITIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -36,18 +34,15 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.POSITION_HELPER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A helper class to add, get or remove positions with a specific category in a document.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-
 		addMethods(sc);
-		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

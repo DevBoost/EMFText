@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -37,7 +35,7 @@ public class InputStreamProcessorGenerator extends JavaBaseGenerator {
 		return new InputStreamProcessorGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 
 		sc.add("package " + getResourcePackageName() + ";");
@@ -56,7 +54,6 @@ public class InputStreamProcessorGenerator extends JavaBaseGenerator {
 		
 		sc.add("}");
 		
-		out.print(sc.toString());
 		return true;
 	}
 }

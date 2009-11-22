@@ -18,8 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -40,7 +38,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator {
 		return new StreamUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -68,7 +66,6 @@ public class StreamUtilGenerator extends JavaBaseGenerator {
 		sc.add("return content.toString();");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

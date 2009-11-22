@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -45,7 +44,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		this.targetPackage = targetPackage;
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 
 		sc.add("package " + context.getPackageName(targetPackage) + ";");
 		sc.addLineBreak();
@@ -55,7 +54,6 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		sc.add("public class " + className + " {");
 		sc.add("}");
 
-		out.write(sc.toString());
 		return true;
 	}
 

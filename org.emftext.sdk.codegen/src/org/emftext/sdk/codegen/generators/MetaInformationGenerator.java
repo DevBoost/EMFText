@@ -21,8 +21,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STRE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -51,19 +49,16 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 	
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " implements " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
+        sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
         sc.addLineBreak();
     	addMethods(sc);
-    	
         sc.add("}");
     	
-		out.print(sc.toString());
     	return true;	
 	}
 

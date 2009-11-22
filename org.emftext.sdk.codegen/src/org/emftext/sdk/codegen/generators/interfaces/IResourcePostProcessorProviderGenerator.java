@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -38,7 +36,7 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator {
 		return new IResourcePostProcessorProviderGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,7 +50,6 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator {
 		sc.add("// resource are successfully parsed.");
 		sc.add("public " + iResourcePostProcessorClassName + " getResourcePostProcessor();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

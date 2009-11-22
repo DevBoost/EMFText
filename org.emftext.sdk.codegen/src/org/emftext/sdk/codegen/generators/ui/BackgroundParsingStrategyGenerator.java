@@ -21,8 +21,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.JOB;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -42,7 +40,8 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,7 +57,6 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		addCancelMethod(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +42,7 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,7 +52,6 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
         addGetFoldableClassesMethod(sc);
 		sc.add("}");
 		
-		out.write(sc.toString());
 		return true;
 	}
 

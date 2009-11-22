@@ -23,8 +23,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERAT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATION_CHAIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -48,7 +46,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 		return new CopiedEObjectInternalEListGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		//TODO mseifert: override remove() method of iterators
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -153,7 +151,6 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 		sc.add("return original.setUnique(index, object);");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -18,7 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -53,19 +52,18 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	private final NameUtil nameUtil = new NameUtil();
 	
 	private TokenDefinition definition;
-	private String qualifiedDefaultTokenResolverClassName;
+	private String defaultTokenResolverClassName;
 	
 	public TokenResolverGenerator() {
 		super();
 	}
 	
 	private TokenResolverGenerator(GenerationContext context) {
-		// TODO uses deprecated constructor, check for problems
-		super(context, context.getResolverPackageName(), null);
-		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
+		super(context, EArtifact.TOKEN_RESOLVER);
+		this.defaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
@@ -85,7 +83,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 			generateResolveMethod2(sc);
 		    generatorUtil.addSetOptionsMethod(sc, "importedResolver.setOptions(options);");
 		} else {
-			sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
+			sc.add("private " + defaultTokenResolverClassName + " defaultTokenResolver = new " + defaultTokenResolverClassName + "();");
 			sc.addLineBreak();
 			generateDeResolveMethod1(sc);
 			generateResolveMethod1(sc);
@@ -93,7 +91,6 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 		}
 		sc.add("}");
 		
-		out.print(sc.toString());
 		return true;
 	}
 

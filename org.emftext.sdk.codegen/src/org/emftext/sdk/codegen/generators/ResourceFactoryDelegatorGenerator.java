@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -53,8 +51,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
-		
+	public boolean generateJavaContents(StringComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -65,7 +62,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 		sc.add("protected " + MAP + "<String, " + RESOURCE + ".Factory> factories = null;");
 		sc.addLineBreak();
 
-		sc.add("public "+ MAP + "<String, " + RESOURCE + ".Factory> getResourceFactoriesMap() {");
+		sc.add("public " + MAP + "<String, " + RESOURCE + ".Factory> getResourceFactoriesMap() {");
 		sc.add("return factories;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -94,8 +91,6 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 		addInitMethod(sc);
 
 		sc.add("}");
-		
-		out.print(sc.toString());
     	return true;	
     }
 	

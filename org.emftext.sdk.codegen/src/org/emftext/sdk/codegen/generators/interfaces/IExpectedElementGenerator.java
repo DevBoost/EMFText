@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -37,7 +35,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		return new IExpectedElementGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -54,7 +52,6 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("public void setPrefix(" + STRING + " prefix);");
 		sc.add("public int getFollowSetID();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

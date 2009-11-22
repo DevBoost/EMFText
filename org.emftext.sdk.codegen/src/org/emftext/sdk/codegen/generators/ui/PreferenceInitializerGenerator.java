@@ -17,8 +17,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -52,7 +50,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		return new PreferenceInitializerGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() +";");
 		sc.addLineBreak();
@@ -153,7 +151,6 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("return colorAsRGB[0] + \",\" +colorAsRGB[1] + \",\"+ colorAsRGB[2];");
 		sc.add("}");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

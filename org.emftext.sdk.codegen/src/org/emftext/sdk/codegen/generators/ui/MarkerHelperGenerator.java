@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -43,7 +41,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		markeHelperClassName = getContext().getQualifiedClassName(EArtifact.MARKER_HELPER);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -57,7 +55,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 

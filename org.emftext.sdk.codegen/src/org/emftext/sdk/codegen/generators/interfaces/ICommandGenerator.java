@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,7 +33,7 @@ public class ICommandGenerator extends JavaBaseGenerator {
 		return new ICommandGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -48,7 +46,6 @@ public class ICommandGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public boolean execute(ContextType context);");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }

@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,7 +33,7 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator {
 		return new IReferenceMappingGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -63,7 +61,6 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator {
 		sc.add("// mapping result.");
 		sc.add("public String getWarning();");
 		sc.add("}");
-		out.print(sc.toString());
 		return true;
 	}
 }
