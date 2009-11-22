@@ -12,7 +12,9 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -28,9 +30,14 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * The ExpectationComputer can be used to compute all possible
- * elements that can follow a given element in a syntax.
+ * elements that can follow a given element in a syntax. If uses
+ * the well-known construction of FIRST and FOLLOW sets from
+ * context-free grammars.
  */
 public class ExpectationComputer {
+
+	// a constant used to represent the empty sentence
+	public final static EObject EPSILON = new DynamicEObjectImpl();
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -62,6 +69,7 @@ public class ExpectationComputer {
 	 */
 	public Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
+		firstSet.remove(EPSILON);
 		// convert 'firstSet' to expectations
 		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
 		for (EObject next : firstSet) {
@@ -158,6 +166,7 @@ public class ExpectationComputer {
 			result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement.eContainer()));
 			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer()));
 		}
+		result.remove(EPSILON);
 		return result;
 	}
 
@@ -171,9 +180,7 @@ public class ExpectationComputer {
 
 	private Set<EObject> computeFollowSetIfObjectCanBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
-		// TODO mseifert: the check for emptiness must be extended work recursively
-		// (i.e., the first set contains the empty sentence - epsilon)
-		if (canBeEmpty(syntaxElement)) {
+		if (canBeEmpty(syntax, syntaxElement)) {
 			result.addAll(computeFollowSet(syntax, syntaxElement));
 		}
 		return result;
@@ -188,13 +195,13 @@ public class ExpectationComputer {
 		return canBeEmpty;
 	}
 
-	private boolean canBeEmpty(EObject syntaxElement) {
-		String cardinality = "";
-		if (syntaxElement instanceof Definition) {
-			cardinality = csUtil.computeCardinalityString((Definition) syntaxElement);
-		}
-		boolean canBeEmpty = "*".equals(cardinality) || "?".equals(cardinality);
-		return canBeEmpty;
+	private boolean canBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
+		// the check for emptiness works recursively by computing the
+		// first set. if the first set contains the empty sentence (epsilon)
+		// the syntax for the subtree induced by the given syntax element
+		// can potentially be empty
+		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
+		return firstSet.contains(EPSILON);
 	}
 
 	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
@@ -224,7 +231,7 @@ public class ExpectationComputer {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
-			if (canBeEmpty(definition)) {
+			if (canBeEmpty(syntax, definition)) {
 				continue;
 			}
 			break;
@@ -235,8 +242,8 @@ public class ExpectationComputer {
 	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition) {
 
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
-		if (definition instanceof CompoundDefinition) {
-			firstSet.addAll(computeFirstSetForCompound(syntax, rule, (CompoundDefinition) definition));
+		if (definition instanceof CardinalityDefinition) {
+			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition));
 		} else if (definition instanceof CsString) {
 			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition));
 		} else if (definition instanceof WhiteSpaces) {
@@ -244,12 +251,28 @@ public class ExpectationComputer {
 		} else if (definition instanceof LineBreak) {
 			// ignore
 		} else {
+			// there should be not other subclasses
+			assert false;
+		}
+		return firstSet;
+	}
+
+	private Set<EObject> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition) {
+
+		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+		String cardinality = csUtil.computeCardinalityString(definition);
+		if ("?".equals(cardinality) || "*".equals(cardinality)) {
+			firstSet.add(EPSILON);
+		}
+		if (definition instanceof CompoundDefinition) {
+			firstSet.addAll(computeFirstSetForCompound(syntax, rule, (CompoundDefinition) definition));
+		} else {
 			assert definition instanceof Terminal;
 			firstSet.addAll(computeFirstSetForTerminal(syntax, rule, (Terminal) definition));
 		}
 		return firstSet;
 	}
-
+	
 	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		firstSet.add(keyword);
