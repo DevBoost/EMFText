@@ -22,8 +22,11 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
@@ -37,7 +40,11 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 public class ExpectationComputer {
 
 	// a constant used to represent the empty sentence
-	public final static EObject EPSILON = new DynamicEObjectImpl();
+	public final static EObject EPSILON = new DynamicEObjectImpl() {
+		public String toString() {
+			return "EPSILON";
+		}
+	};
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -99,20 +106,17 @@ public class ExpectationComputer {
 		}
 	}
 
-	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, Set<EObject> syntaxElements) {
-		return computeFirstSet(syntax, syntaxElements.toArray(new EObject[syntaxElements.size()]));
-	}
-	
-	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject... syntaxElements) {
-		Set<EObject> result = new LinkedHashSet<EObject>();
-		for (EObject next : syntaxElements) {
-			result.addAll(computeFirstSet(syntax, next));
-		}
-		return result;
-	}
-
 	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+		if (syntaxElement instanceof STAR) {
+			return firstSet;
+		}
+		if (syntaxElement instanceof QUESTIONMARK) {
+			return firstSet;
+		}
+		if (syntaxElement instanceof PLUS) {
+			return firstSet;
+		}
 		Rule rule = csUtil.findContainingRule(syntaxElement);
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
@@ -131,6 +135,15 @@ public class ExpectationComputer {
 
 	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
+		if (syntaxElement instanceof STAR) {
+			return result;
+		}
+		if (syntaxElement instanceof QUESTIONMARK) {
+			return result;
+		}
+		if (syntaxElement instanceof PLUS) {
+			return result;
+		}
 		
 		// while climbing up the tree to find an element to the right,
 		// we must consider that * and ? compounds are their right element
@@ -152,8 +165,11 @@ public class ExpectationComputer {
 			if (childrenList.size() > index + 1) {
 				// found an element next right
 				EObject nextInList = (EObject) childrenList.get(index + 1);
-				result.addAll(computeFirstSet(syntax, nextInList));
-				result.addAll(computeFollowSetIfObjectCanBeEmpty(syntax, nextInList));
+				Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList);
+				result.addAll(firstSetOfNext);
+				if (firstSetOfNext.contains(EPSILON)) {
+					result.addAll(computeFollowSet(syntax, nextInList));
+				}
 			} else {
 				// object was the last one in the list, 
 				// we must try one level higher
@@ -163,6 +179,7 @@ public class ExpectationComputer {
 			assert syntaxElement == children;
 			// object was the only one stored in the reference, 
 			// we must try one level higher
+			// TODO is this correct?
 			result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement.eContainer()));
 			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer()));
 		}
@@ -178,14 +195,6 @@ public class ExpectationComputer {
 		return result;
 	}
 
-	private Set<EObject> computeFollowSetIfObjectCanBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
-		Set<EObject> result = new LinkedHashSet<EObject>();
-		if (canBeEmpty(syntax, syntaxElement)) {
-			result.addAll(computeFollowSet(syntax, syntaxElement));
-		}
-		return result;
-	}
-
 	private boolean canBeRepeated(EObject syntaxElement) {
 		String cardinality = "";
 		if (syntaxElement instanceof Definition) {
@@ -193,21 +202,6 @@ public class ExpectationComputer {
 		}
 		boolean canBeEmpty = "*".equals(cardinality) || "+".equals(cardinality);
 		return canBeEmpty;
-	}
-
-	private boolean canBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
-		if (syntaxElement instanceof WhiteSpaces) {
-			return true;
-		}
-		if (syntaxElement instanceof LineBreak) {
-			return true;
-		}
-		// the check for emptiness works recursively by computing the
-		// first set. if the first set contains the empty sentence (epsilon)
-		// the syntax for the subtree induced by the given syntax element
-		// can potentially be empty
-		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
-		return firstSet.contains(EPSILON);
 	}
 
 	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
@@ -233,11 +227,14 @@ public class ExpectationComputer {
 
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		for (Definition definition : sequence.getParts()) {
-			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, definition));
-			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
-				continue;
+			Set<EObject> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition);
+			// when the previous part contains EPSILON and the current does not
+			// we need to remove it
+			if (firstSet.contains(EPSILON) && !firstSetForDefinition.contains(EPSILON)) {
+				firstSet.remove(EPSILON);
 			}
-			if (canBeEmpty(syntax, definition)) {
+			firstSet.addAll(firstSetForDefinition);
+			if (firstSetForDefinition.contains(EPSILON)) {
 				continue;
 			}
 			break;
@@ -253,11 +250,11 @@ public class ExpectationComputer {
 		} else if (definition instanceof CsString) {
 			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition));
 		} else if (definition instanceof WhiteSpaces) {
-			// ignore
+			firstSet.add(EPSILON);
 		} else if (definition instanceof LineBreak) {
-			// ignore
+			firstSet.add(EPSILON);
 		} else {
-			// there should be not other subclasses
+			// there should be no other subclasses
 			assert false;
 		}
 		return firstSet;
@@ -312,17 +309,15 @@ public class ExpectationComputer {
 		}
 		assert terminal instanceof Containment;
 		Containment containment = (Containment) terminal;
+		
 		// we need to consider subclass restrictions that may
 		// be set for the terminal
 		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
 		for (GenClass subType : subTypes) {
 			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
-			int i = 0;
 			for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
 				Rule nextFeatureTypeRule = (Rule) iterator.next();
-				Choice choice = nextFeatureTypeRule.getDefinition();
-				firstSet.addAll(computeFirstSetForChoice(syntax, nextFeatureTypeRule, choice));
-				i++;
+				firstSet.addAll(computeFirstSet(syntax, nextFeatureTypeRule));
 			}
 		}
 		return firstSet;
