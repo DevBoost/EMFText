@@ -64,7 +64,7 @@ import org.emftext.access.resource.IToken;
  */
 public class EMFTextAccessProxy implements InvocationHandler {
 
-	protected static Class<?> [] defaultAccessInterfaces = {
+	public static Class<?> [] DEFAULT_ACCESS_INTERFACES = {
 			IColorManager.class,
 			IConfigurable.class,
 			IEditor.class,
@@ -101,7 +101,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	 */
 	public static Object get(Object impl, Class<?> accessInterface) {
 		//proxies are not cached because also new objects (e.g., Parser, Printer) might be created
-		return get(impl, accessInterface, defaultAccessInterfaces);
+		return get(impl, accessInterface, DEFAULT_ACCESS_INTERFACES);
 	}
 
 	/**
@@ -117,9 +117,9 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	 *         delegates all method calls to 'impl'
 	 */
 	public static Object get(Object impl, Class<?> accessInterface, Class<?>[] additionalAccessInterfaces) {
-		Class<?>[] allAccessInterfaces = new Class<?>[defaultAccessInterfaces.length + additionalAccessInterfaces.length];
+		Class<?>[] allAccessInterfaces = new Class<?>[DEFAULT_ACCESS_INTERFACES.length + additionalAccessInterfaces.length];
 		int i = 0;
-		for (Class<?> nextInterface : defaultAccessInterfaces) {
+		for (Class<?> nextInterface : DEFAULT_ACCESS_INTERFACES) {
 			allAccessInterfaces[i] = nextInterface;
 			i++;
 		}
