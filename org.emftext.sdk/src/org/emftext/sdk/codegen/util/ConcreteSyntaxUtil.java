@@ -481,4 +481,9 @@ public class ConcreteSyntaxUtil {
 		}
 		return types;
 	}
+
+	public List<Containment> findContainments(ConcreteSyntax syntax) {
+		Collection<Containment> containments = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
+		return new ArrayList<Containment>(containments);
+	}
 }
