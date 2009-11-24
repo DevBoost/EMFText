@@ -138,7 +138,7 @@ public class CsCodeCompletionHelper {
 						org.eclipse.emf.ecore.EClass classType = (org.eclipse.emf.ecore.EClass) featureType;
 						return deriveProposals(classType, metaInformation, content, cursorOffset);
 					} else {
-						return handleNCReference(content, metaInformation, cursorOffset, container);
+						return handleNCReference(metaInformation, container, reference, expectedElement.getPrefix());
 					}
 				}
 			} else if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
@@ -199,11 +199,11 @@ public class CsCodeCompletionHelper {
 		return result;
 	}
 	
-	private java.util.Collection<String> handleNCReference(String content, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, int cursorOffset, org.eclipse.emf.ecore.EObject container) {
+	private java.util.Collection<String> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix) {
 		// handle non-containment references
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EObject> result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolveResult<org.eclipse.emf.ecore.EObject>(true);
-		resolverSwitch.resolveFuzzy("", container, 0, result);
+		resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject>> mappings = result.getMappings();
 		if (mappings != null) {
 			java.util.Collection<String> resultSet = new java.util.HashSet<String>();
