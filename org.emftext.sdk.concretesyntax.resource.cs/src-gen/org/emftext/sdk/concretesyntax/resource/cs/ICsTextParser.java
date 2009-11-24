@@ -39,4 +39,5 @@ public interface ICsTextParser extends org.emftext.sdk.concretesyntax.resource.c
 	
 	// Signals the parse to terminates the parsing as soon as possible.
 	public void terminate();
+	public void setLocalLocationMap(org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap localLocationMap);
 }

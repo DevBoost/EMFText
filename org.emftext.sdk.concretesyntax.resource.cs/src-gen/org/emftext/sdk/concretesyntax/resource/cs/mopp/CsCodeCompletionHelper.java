@@ -33,7 +33,8 @@ public class CsCodeCompletionHelper {
 	public java.util.Collection<String> computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, String content, int cursorOffset) {
 		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(content.getBytes());
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser = metaInformation.createParser(inputStream, null);
-		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = java.util.Arrays.asList(parseToExpectedElements(parser));
+		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
+		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = java.util.Arrays.asList(parseToExpectedElements(parser, locationMap));
 		if (expectedElements == null) {
 			return java.util.Collections.emptyList();
 		}
@@ -50,7 +51,8 @@ public class CsCodeCompletionHelper {
 		return sortedProposals;
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser, org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
+		parser.setLocalLocationMap(locationMap);
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = parser.parseToExpectedElements(null);
 		if (expectedElements == null) {
 			return new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[0];
@@ -68,7 +70,7 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtIndex = expectedElements.get(i);
 			for (int j = i + 1; j < expectedElements.size();) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtNext = expectedElements.get(j);
-				if (elementAtIndex.equals(elementAtNext) &&				elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+				if (elementAtIndex.equals(elementAtNext) && elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
 					expectedElements.remove(j);
 				} else {
 					j++;
