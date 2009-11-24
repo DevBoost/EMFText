@@ -6016,11 +6016,11 @@ public class CsParser extends CsANTLRParserBase {
     static final String DFA36_maxS =
         "\1\44\4\uffff\1\0\4\uffff";
     static final String DFA36_acceptS =
-        "\1\uffff\1\7\1\10\1\6\1\1\1\uffff\1\2\1\3\1\4\1\5";
+        "\1\uffff\1\1\1\7\1\10\1\6\1\uffff\1\2\1\3\1\4\1\5";
     static final String DFA36_specialS =
         "\5\uffff\1\0\4\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\1\5\1\uffff\1\4\1\uffff\1\1\31\uffff\1\3\1\uffff\1\2",
+            "\1\5\1\uffff\1\1\1\uffff\1\2\31\uffff\1\4\1\uffff\1\3",
             "",
             "",
             "",
