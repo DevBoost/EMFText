@@ -20,8 +20,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // parser for different regions in the document, valid proposals are computed.
 public class CsCodeCompletionHelper {
 	
-	private final static org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil eClassUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil();
-	
 	// Computes a set of proposals for the given document assuming the cursor is
 	// at 'cursorOffset'. The proposals are derived using the meta information, i.e.,
 	// the generated language plug-in.
@@ -31,7 +29,9 @@ public class CsCodeCompletionHelper {
 	// @param cursorOffset
 	// @return
 	public java.util.Collection<String> computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource originalResource, String content, int cursorOffset) {
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource(originalResource.getURI());
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		// the shadow resource needs the same URI because reference resolvers may use the URI to resolve external references
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.createResource(originalResource.getURI());
 		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(content.getBytes());
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = resource.getMetaInformation();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser = metaInformation.createParser(inputStream, null);
@@ -44,7 +44,6 @@ public class CsCodeCompletionHelper {
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]), cursorOffset));
 		setPrefix(expectedElementsAt, content, cursorOffset);
-		System.out.println(" PARSER returned expectation: " + expectedElementsAt + " for offset " + cursorOffset);
 		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);
 		
 		final java.util.List<String> sortedProposals = new java.util.ArrayList<String>(proposals);
@@ -110,7 +109,6 @@ public class CsCodeCompletionHelper {
 			}
 		}
 		end = Math.min(end, cursorOffset);
-		System.out.println("substring(" + end + ", " + cursorOffset + ")");
 		final String prefix = content.substring(end, Math.min(content.length(), cursorOffset));
 		System.out.println("Found prefix '" + prefix + "'");
 		return prefix;
@@ -144,11 +142,7 @@ public class CsCodeCompletionHelper {
 				}
 			}
 			if (container == null) {
-				// if no container was found we create a dummy container
-				if (container == null) {
-					org.eclipse.emf.ecore.EClass featureClass = feature.getEContainingClass();
-					container = featureClass.getEPackage().getEFactoryInstance().create(featureClass);
-				}
+				return java.util.Collections.emptySet();
 			}
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
