@@ -130,7 +130,14 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
 			org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
 			org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
-			org.eclipse.emf.ecore.EObject container = expectedFeature.getContainer();
+			org.eclipse.emf.ecore.resource.Resource resource = expectedFeature.getContainer().eResource();
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
+			org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
+			java.util.List<org.eclipse.emf.ecore.EObject> elementsAtCursor = locationMap.getElementsAt(cursorOffset);
+			org.eclipse.emf.ecore.EObject container = null;
+			if (elementsAtCursor.size() > 0) {
+				container = elementsAtCursor.get(0);
+			}
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
 				if (featureType instanceof org.eclipse.emf.ecore.EClass) {
