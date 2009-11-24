@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -56,7 +57,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		sc.add("// @param container The object that contains the reference.");
 		sc.add("// @param reference The reference that points to the target of the reference.");
 		sc.add("// @param result an object to store the result of the resolve operation.");
-		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");
+		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");
 		
 		sc.add("}");
 		return true;

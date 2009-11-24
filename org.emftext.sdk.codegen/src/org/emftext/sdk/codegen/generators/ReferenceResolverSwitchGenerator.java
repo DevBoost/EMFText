@@ -14,6 +14,8 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
@@ -80,7 +82,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private void generateResolveFuzzyMethod(StringComposite sc) {
 		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
 		
-		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, int position, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> result) {");
+		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> result) {");
 		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
@@ -88,16 +90,9 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
 			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
-
-			// TODO use the feature constant instead of the feature name, but NOT the way it is done
-			// in the next line, because this does not work when genClass is a super typer of  
-			// container.eClass(). Sub types do have different feature IDs for inherited features
-			// than the super types.
-			//sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
-			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass().getEStructuralFeature(\"" + genFeature.getName() + "\");");
-			
-			sc.add("if (feature instanceof " + org.eclipse.emf.ecore.EReference.class.getName() + ") {");
-			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
+			sc.add(E_STRUCTURAL_FEATURE + " feature = container.eClass().getEStructuralFeature(reference.getName());");
+			sc.add("if (feature instanceof " + E_REFERENCE + ") {");
+			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + E_REFERENCE + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
 		}

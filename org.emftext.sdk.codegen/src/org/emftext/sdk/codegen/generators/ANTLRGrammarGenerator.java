@@ -137,6 +137,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String contextDependentURIFragmentFactoryClassName;
 	private String expectedCsStringClassName;
 	private String expectedStructuralFeatureClassName;
+	private String iTextResourceClassName;
+	private String iCommandClassName;
+	private String iParseResultClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -160,7 +163,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private int followSetID;
 
 	private ExpectationComputer computer = new ExpectationComputer();
-	
+
+
 	public ANTLRGrammarGenerator() {
 		super();
 	}
@@ -175,6 +179,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 		expectedCsStringClassName = context.getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
 		expectedStructuralFeatureClassName = context.getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
+		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
+		iCommandClassName = context.getQualifiedClassName(EArtifact.I_COMMAND);
+		iParseResultClassName = context.getQualifiedClassName(EArtifact.I_PARSE_RESULT);
 	}
 
 	private void initOptions() {
@@ -646,7 +653,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ getClassNameHelper().getI_EXPECTED_ELEMENT() + ">();");
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
-		//sc.add("private " + I_TEXT_RESOURCE + " resource;");
 		sc.add("//helper lists to allow a lexer to pass errors to its parser");
 		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION
 				+ "> lexerExceptions = " + COLLECTIONS
@@ -656,7 +662,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "> lexerExceptionsPosition = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<" + INTEGER
 				+ ">());");
-		//sc.add("private int lastNonHiddenTokenIndex;");
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
 		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
@@ -666,10 +671,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
 		sc.add("public " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
-				+ "> parseToExpectedElements(" + E_CLASS + " type) {");
+				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource) {");
 		sc.add("rememberExpectedElements = true;");
 		sc.add("parseToIndexTypeObject = type;");
-		sc.add("parse();");
+		sc.add(iParseResultClassName + " result = parse();");
+		sc.add("if (result != null) {");
+		sc.add(E_OBJECT + " root = result.getRoot();");
+		sc.add("if (root != null) {");
+		sc.add("dummyResource.getContents().add(root);");
+		sc.add("}");
+		sc.add("for (" + iCommandClassName + "<" + iTextResourceClassName + "> command : result.getPostParseCommands()) {");
+		sc.add("command.execute(dummyResource);");
+		sc.add("}");
+		sc.add("}");
 		sc.add("return this.expectedElements;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -680,12 +694,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ E_OBJECT + " target) {");
 		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
-		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("if (locationMap == null) {");
+		sc.add("// the locationMap can be null if the parser is used for");
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
 		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
@@ -702,12 +716,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ " source, final " + E_OBJECT + " target) {");
 		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
-		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("if (locationMap == null) {");
+		sc.add("// the locationMap can be null if the parser is used for");
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("if (source == null) {");
+		sc.add("return true;");
+		sc.add("}");
 		sc.add("locationMap.setCharStart(target, source.getStartIndex());");
 		sc.add("locationMap.setCharEnd(target, source.getStopIndex());");
 		sc.add("locationMap.setColumn(target, source.getCharPositionInLine());");
@@ -1202,7 +1219,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 						+ "().getEStructuralFeature("
 						+ generatorUtil.getFeatureConstant(genClass, genFeature)
-						+ "), element, \"" + expectedFeature.getTokenName() +"\"));");
+						+ "), \"" + expectedFeature.getTokenName() +"\"));");
 			} else if (expectedElement instanceof ExpectedKeyword) {
 				ExpectedKeyword expectedKeyword = (ExpectedKeyword) expectedElement;
 				String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(expectedKeyword.getKeyword());

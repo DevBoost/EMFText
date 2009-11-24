@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -51,13 +50,11 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " feature;");
-		sc.add("private " + E_OBJECT + " container;");
 		sc.add("private String tokenName;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(int followSetID, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container, String tokenName) {");
+		sc.add("public " + getResourceClassName() + "(int followSetID, " + E_STRUCTURAL_FEATURE + " feature, String tokenName) {");
 		sc.add("super(followSetID);");
 		sc.add("this.feature = feature;");
-		sc.add("this.container = container;");
 		sc.add("this.tokenName = tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -65,16 +62,12 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("return feature;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + E_OBJECT + " getContainer() {");
-		sc.add("return container;");
-		sc.add("}");
-		sc.addLineBreak();
 		sc.add("public String getTokenName() {");
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " toString() {");
-		sc.add("return super.toString() + \" EFeature \\\"\" + feature.getName() + \"\\\" in \" + feature.getEContainingClass().getName();");
+		sc.add("return super.toString() + \" EFeature \" + feature.getEContainingClass().getName() + \".\" + feature.getName();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(" + OBJECT + " o) {");
