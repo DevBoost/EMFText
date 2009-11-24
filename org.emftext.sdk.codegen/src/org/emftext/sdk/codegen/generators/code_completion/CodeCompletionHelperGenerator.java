@@ -395,10 +395,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]), cursorOffset));");
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
-		// TODO mseifert: this is done twice (was already calculated in getFinalExpectedElementAt())
-		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
-		// TODO mseifert: remove this debug statement
-		//sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);");
 		sc.addLineBreak();
 		sc.add("final " + LIST + "<String> sortedProposals = new " + ARRAY_LIST + "<String>(proposals);");
@@ -416,9 +412,11 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("removeDuplicateEntries(expectedElements);");
 		sc.add("removeInvalidEntriesAtEnd(expectedElements);");
+		/*
 		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
 		sc.add("System.out.println(\"PARSER EXPECTS:   \" + expectedElement);");
 		sc.add("}");
+		*/
 		sc.add("return expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
