@@ -41,7 +41,7 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 	}
 	
 	public java.lang.String toString() {
-		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + feature.getEContainingClass().getName();
+		return super.toString() + " EFeature " + feature.getEContainingClass().getName() + "." + feature.getName() + " in " + container;
 	}
 	
 	public boolean equals(java.lang.Object o) {
