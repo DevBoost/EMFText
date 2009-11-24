@@ -34,7 +34,7 @@ public class CsCodeCompletionHelper {
 		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(content.getBytes());
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = resource.getMetaInformation();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser = metaInformation.createParser(inputStream, null);
-		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = java.util.Arrays.asList(parseToExpectedElements(parser, resource));
 		if (expectedElements == null) {
 			return java.util.Collections.emptyList();
