@@ -330,10 +330,14 @@ options {
 		return parseResult;
 	}
 	
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> parseToExpectedElements(org.eclipse.emf.ecore.EClass type) {
+	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> parseToExpectedElements(org.eclipse.emf.ecore.EClass type, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource dummyResource) {
 		rememberExpectedElements = true;
 		parseToIndexTypeObject = type;
 		parse();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parse();
+		for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource> command : result.getPostParseCommands()) {
+			command.execute(dummyResource);
+		}
 		return this.expectedElements;
 	}
 	
