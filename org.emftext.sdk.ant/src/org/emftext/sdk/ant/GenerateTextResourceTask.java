@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.creators.PluginsCreator.Result;
-import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
@@ -49,8 +48,6 @@ public class GenerateTextResourceTask extends Task {
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
-	// TODO remove this
-	private boolean generateExpectationsCode;
 
 	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
 	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
@@ -71,9 +68,6 @@ public class GenerateTextResourceTask extends Task {
 			taskloader.setThreadContextLoader();
 		}
 
-		if (generateExpectationsCode) {
-			ANTLRGrammarGenerator.ADD_EXPECTATION_ELEMEMT_CALLS = true;
-		}
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
@@ -117,7 +111,6 @@ public class GenerateTextResourceTask extends Task {
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-		ANTLRGrammarGenerator.ADD_EXPECTATION_ELEMEMT_CALLS = false;
 		// Reset the Thread's original ClassLoader.
 		if (taskloader != null) {
 			taskloader.resetThreadContextLoader();
@@ -235,9 +228,5 @@ public class GenerateTextResourceTask extends Task {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				extension,
 				factory);
-	}
-
-	public void setGenerateExpectationsCode(boolean generateExpectationsCode) {
-		this.generateExpectationsCode = generateExpectationsCode;
 	}
 }

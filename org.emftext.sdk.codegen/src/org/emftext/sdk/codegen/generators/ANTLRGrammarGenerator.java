@@ -115,11 +115,6 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
-	// this is a temporary flag used to develop the code
-	// completion feature
-	// TODO mseifert: remove this flag
-	public static boolean ADD_EXPECTATION_ELEMEMT_CALLS = true;
-
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
 	 * a parse from the root.
@@ -1199,9 +1194,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationsCode(StringComposite sc, Set<IExpectedElement> expectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
 		// TODO potential performance improvement: instead of creating
 		// new instances for the expected elements we could create all
 		// of them beforehand (e.g., as final static fields) and reuse 
