@@ -108,8 +108,8 @@ public class CsCodeCompletionHelper {
 			}
 		}
 		end = Math.min(end, cursorOffset);
-		//System.out.println("substring("+end+","+offset+")");
-		final String prefix = content.substring(end, Math.min(content.length(), cursorOffset + 1));
+		System.out.println("substring(" + end + ", " + cursorOffset + ")");
+		final String prefix = content.substring(end, Math.min(content.length(), cursorOffset));
 		System.out.println("Found prefix '" + prefix + "'");
 		return prefix;
 	}
