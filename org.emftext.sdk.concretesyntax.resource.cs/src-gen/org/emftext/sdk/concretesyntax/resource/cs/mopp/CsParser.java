@@ -6008,18 +6008,18 @@ public class CsParser extends CsANTLRParserBase {
     static final String DFA36_eofS =
         "\12\uffff";
     static final String DFA36_minS =
-        "\1\4\1\0\10\uffff";
+        "\1\4\2\uffff\1\0\6\uffff";
     static final String DFA36_maxS =
-        "\1\44\1\0\10\uffff";
+        "\1\44\2\uffff\1\0\6\uffff";
     static final String DFA36_acceptS =
-        "\2\uffff\1\2\1\3\1\4\1\5\1\10\1\6\1\7\1\1";
+        "\1\uffff\1\6\1\1\1\uffff\1\2\1\3\1\4\1\5\1\10\1\7";
     static final String DFA36_specialS =
-        "\1\uffff\1\0\10\uffff}>";
+        "\3\uffff\1\0\6\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\1\1\1\uffff\1\11\1\uffff\1\10\31\uffff\1\7\1\uffff\1\6",
+            "\1\3\1\uffff\1\2\1\uffff\1\11\31\uffff\1\1\1\uffff\1\10",
+            "",
+            "",
             "\1\uffff",
-            "",
-            "",
             "",
             "",
             "",
@@ -6065,22 +6065,22 @@ public class CsParser extends CsANTLRParserBase {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA36_1 = input.LA(1);
+                        int LA36_3 = input.LA(1);
 
                          
-                        int index36_1 = input.index();
+                        int index36_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred37_Cs()) ) {s = 2;}
+                        if ( (synpred37_Cs()) ) {s = 4;}
 
-                        else if ( (synpred38_Cs()) ) {s = 3;}
+                        else if ( (synpred38_Cs()) ) {s = 5;}
 
-                        else if ( (synpred39_Cs()) ) {s = 4;}
+                        else if ( (synpred39_Cs()) ) {s = 6;}
 
-                        else if ( (synpred40_Cs()) ) {s = 5;}
+                        else if ( (synpred40_Cs()) ) {s = 7;}
 
                          
-                        input.seek(index36_1);
+                        input.seek(index36_3);
                         if ( s>=0 ) return s;
                         break;
             }

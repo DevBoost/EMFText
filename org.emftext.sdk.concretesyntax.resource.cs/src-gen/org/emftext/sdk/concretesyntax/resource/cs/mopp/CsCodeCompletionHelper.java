@@ -44,7 +44,7 @@ public class CsCodeCompletionHelper {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]), cursorOffset));
 		setPrefix(expectedElementsAt, content, cursorOffset);
 		System.out.println(" PARSER returned expectation: " + expectedElementsAt + " for offset " + cursorOffset);
-		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
+		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset, locationMap);
 		
 		final java.util.List<String> sortedProposals = new java.util.ArrayList<String>(proposals);
 		java.util.Collections.sort(sortedProposals);
@@ -116,15 +116,15 @@ public class CsCodeCompletionHelper {
 		return prefix;
 	}
 	
-	private java.util.Collection<String> deriveProposals(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements, String content, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, int cursorOffset) {
+	private java.util.Collection<String> deriveProposals(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements, String content, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, int cursorOffset, org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
 		java.util.Collection<String> resultSet = new java.util.HashSet<String>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement : expectedElements) {
-			resultSet.addAll(deriveProposals(expectedElement, content, metaInformation, cursorOffset));
+			resultSet.addAll(deriveProposals(expectedElement, content, metaInformation, cursorOffset, locationMap));
 		}
 		return resultSet;
 	}
 	
-	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement, String content, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, int cursorOffset) {
+	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement, String content, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, int cursorOffset, org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
 		if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) expectedElement;
 			return deriveProposal(csString, content, cursorOffset);
@@ -132,9 +132,6 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
 			org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
 			org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
-			org.eclipse.emf.ecore.resource.Resource resource = expectedFeature.getContainer().eResource();
-			org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
-			org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 			java.util.List<org.eclipse.emf.ecore.EObject> elementsAtCursor = locationMap.getElementsAt(cursorOffset);
 			org.eclipse.emf.ecore.EObject container = null;
 			if (elementsAtCursor.size() > 0) {
@@ -145,7 +142,7 @@ public class CsCodeCompletionHelper {
 				if (featureType instanceof org.eclipse.emf.ecore.EClass) {
 					if (reference.isContainment()) {
 						org.eclipse.emf.ecore.EClass classType = (org.eclipse.emf.ecore.EClass) featureType;
-						return deriveProposals(classType, metaInformation, content, cursorOffset);
+						return deriveProposals(classType, metaInformation, content, cursorOffset, locationMap);
 					} else {
 						return handleNCReference(metaInformation, container, reference, expectedElement.getPrefix());
 					}
@@ -154,7 +151,7 @@ public class CsCodeCompletionHelper {
 				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
 				if (featureType instanceof org.eclipse.emf.ecore.EEnum) {
 					org.eclipse.emf.ecore.EEnum enumType = (org.eclipse.emf.ecore.EEnum) featureType;
-					return deriveProposals(expectedElement, enumType, content, cursorOffset);
+					return deriveProposals(expectedElement, enumType, content, cursorOffset, locationMap);
 				} else {
 					// handle EAttributes (derive default value depending on
 					// the type of the attribute, figure out token resolver, and
@@ -172,7 +169,7 @@ public class CsCodeCompletionHelper {
 		return java.util.Collections.emptyList();
 	}
 	
-	private java.util.Collection<String> deriveProposals(org.eclipse.emf.ecore.EClass type,org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, String content, int cursorOffset) {
+	private java.util.Collection<String> deriveProposals(org.eclipse.emf.ecore.EClass type,org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, String content, int cursorOffset, org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
 		java.util.Collection<String> allProposals = new java.util.HashSet<String>();
 		// find all sub classes and call parseToExpectedElements() for each
 		// of them
@@ -190,13 +187,13 @@ public class CsCodeCompletionHelper {
 			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]), 0));
 			setPrefix(expectedElementsAt, content, 0);
 			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + cursorOffset);
-			java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
+			java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset, locationMap);
 			allProposals.addAll(proposals);
 		}
 		return allProposals;
 	}
 	
-	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset) {
+	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset, org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
 		java.util.Collection<org.eclipse.emf.ecore.EEnumLiteral> enumLiterals = enumType.getELiterals();
 		java.util.Collection<String> result = new java.util.HashSet<String>();
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
@@ -218,7 +215,6 @@ public class CsCodeCompletionHelper {
 			java.util.Collection<String> resultSet = new java.util.HashSet<String>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
 				final String identifier = mapping.getIdentifier();
-				System.out.println("deriveProposals() " + identifier);
 				resultSet.add(identifier);
 			}
 			return resultSet;
