@@ -306,7 +306,7 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 
 		StringBuffer result = new StringBuffer();
 		GenFeature feature = getFeature();
-		if (feature != null) {
+		if (feature != null && feature.getEcoreFeature() != null) {
 			result.append(feature.getName());
 		}
 		result.append("['");
