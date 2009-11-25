@@ -82,7 +82,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void addMapping(String identifier, ReferenceType target) {");
-		sc.add("if (resolveFuzzy && target == null) {");
+		sc.add("if (!resolveFuzzy && target == null) {");
 		sc.add("throw new IllegalArgumentException(\"Mapping references to null is only allowed for fuzzy resolution.\");");
 		sc.add("}");
 		sc.add("addMapping(identifier, target, null);");
