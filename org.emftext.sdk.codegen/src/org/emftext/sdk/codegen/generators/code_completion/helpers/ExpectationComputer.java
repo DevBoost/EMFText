@@ -28,7 +28,6 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
@@ -62,24 +61,6 @@ public class ExpectationComputer {
 	private Map<GenClass, Collection<Rule>> ruleCache = new LinkedHashMap<GenClass, Collection<Rule>>();
 
 	/**
-	 * Computes the list of elements that can follow 'syntaxElement'
-	 * according to the given syntax definition.
-	 * 
-	 * @param syntax
-	 * @param syntaxElement
-	 * @return
-	 */
-	public Set<IExpectedElement> computeFollowExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
-		Set<EObject> followSet = computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>());
-		// convert 'followSet' to expectations
-		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
-		for (EObject next : followSet) {
-			expectations.add(createExpectedElement(next));
-		}
-		return expectations;
-	}
-
-	/**
 	 * Computes the list of elements that 'syntaxElement' can start
 	 * with according to the given syntax definition.
 	 * 
@@ -87,7 +68,8 @@ public class ExpectationComputer {
 	 * @param syntaxElement
 	 * @return
 	 */
-	public Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
+	/*
+	private Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
 		firstSet.remove(EPSILON);
 		// convert 'firstSet' to expectations
@@ -97,27 +79,7 @@ public class ExpectationComputer {
 		}
 		return expectations;
 	}
-
-	/**
-	 * Converts the given syntax definition element to an instance of
-	 * IExpectedElement. The element must be a terminal symbol (i.e.,
-	 * either a CsString or a Placeholder).
-	 * 
-	 * @param syntaxElement the element to convert
-	 * @return
-	 */
-	private IExpectedElement createExpectedElement(EObject syntaxElement) {
-		if (syntaxElement instanceof CsString) {
-			CsString keyword = (CsString) syntaxElement;
-			return new ExpectedKeyword(keyword.getValue());
-		} else if (syntaxElement instanceof Placeholder) {
-			Placeholder placeholder = (Placeholder) syntaxElement;
-			GenFeature genFeature = placeholder.getFeature();
-			return new ExpectedFeature(genFeature, csUtil.findContainingRule(placeholder).getMetaclass(), placeholder.getToken().getName());
-		} else {
-			throw new IllegalArgumentException(syntaxElement.toString());
-		}
-	}
+	*/
 
 	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();

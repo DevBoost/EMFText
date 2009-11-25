@@ -190,6 +190,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.ABSTRACT_EXPECTED_ELEMENT));
 	    creators.add(new GenericArtifactCreator(EArtifact.EXPECTED_CS_STRING));
 	    creators.add(new GenericArtifactCreator(EArtifact.EXPECTED_STRUCTURAL_FEATURE));
+	    creators.add(new GenericArtifactCreator(EArtifact.EXPECTED_TERMINAL));
 
 	    creators.add(new GenericArtifactCreator(EArtifact.CAST_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.COPIED_E_LIST));

@@ -26,7 +26,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 
 	private String iConfigurableClassName;
 	private String iParseResultClassName;
-	private String iExpectedElementClassName;
+	private String expectedTerminalClassName;
 	private String iTextResourceClassName;
 
 	public ITextParserGenerator() {
@@ -37,7 +37,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.I_TEXT_PARSER);
 		iConfigurableClassName = getContext().getQualifiedClassName(EArtifact.I_CONFIGURABLE);
 		iParseResultClassName = getContext().getQualifiedClassName(EArtifact.I_PARSE_RESULT);
-		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
+		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 	}
 
@@ -73,7 +73,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		sc.add("// position.");
 		sc.add("//");
 		sc.add("// The class 'type' is used as start symbol.");
-		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource);");
+		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource);");
 		sc.addLineBreak();
 		
 		sc.add("// Signals the parse to terminates the parsing as soon as possible.");

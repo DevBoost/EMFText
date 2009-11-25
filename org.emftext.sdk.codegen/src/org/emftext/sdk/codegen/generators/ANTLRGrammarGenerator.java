@@ -63,6 +63,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
@@ -78,9 +79,6 @@ import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectationComputer;
-import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectedFeature;
-import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectedKeyword;
-import org.emftext.sdk.codegen.generators.code_completion.helpers.IExpectedElement;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -135,6 +133,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String iTextResourceClassName;
 	private String iCommandClassName;
 	private String iParseResultClassName;
+	private String expectedTerminalClassName;
+	private String iExpectedElementClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -159,6 +159,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
+	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
+	private int idCounter = 0;
 
 	public ANTLRGrammarGenerator() {
 		super();
@@ -177,6 +179,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 		iCommandClassName = context.getQualifiedClassName(EArtifact.I_COMMAND);
 		iParseResultClassName = context.getQualifiedClassName(EArtifact.I_PARSE_RESULT);
+		expectedTerminalClassName = context.getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
+		iExpectedElementClassName = context.getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 	}
 
 	private void initOptions() {
@@ -243,14 +247,18 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
+		StringComposite subComposite = new ANTLRGrammarComposite();
+		addRules(subComposite);
+		addTokenDefinitions(subComposite);
+
 		sc.add("@members{");
 		addFields(sc);
 		addMethods(lexerName, parserName, sc);
+		addTerminalConstants(sc);
 		sc.add("}");
 		sc.addLineBreak();
-
-		addRules(sc);
-		addTokenDefinitions(sc);
+		
+		sc.add(subComposite.toString());
 
 		writer.print(sc.toString());
 		return getCollectedErrors().size() == 0;
@@ -643,9 +651,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
 		sc.add("private boolean reachedIndex = false;");
-		sc.add("private " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
+		sc.add("private " + LIST + "<" + expectedTerminalClassName
 				+ "> expectedElements = new " + ARRAY_LIST + "<"
-				+ getClassNameHelper().getI_EXPECTED_ELEMENT() + ">();");
+				+ expectedTerminalClassName + ">();");
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("//helper lists to allow a lexer to pass errors to its parser");
@@ -665,7 +673,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
+		sc.add("public " + LIST + "<" + expectedTerminalClassName
 				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource) {");
 		sc.add("rememberExpectedElements = true;");
 		sc.add("parseToIndexTypeObject = type;");
@@ -737,7 +745,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// for the current parse run. the concrete set of element that
 		// can be thrown away is determined by the cursor index where
 		// code completion is requested
-		sc.add("public void addExpectedElement(" + getClassNameHelper().getI_EXPECTED_ELEMENT()
+		sc.add("public void addExpectedElement(" + expectedTerminalClassName
 				+ " expectedElement) {");
 		//sc.add("if (this.state.failed) {");
 		//sc.add("return;");
@@ -818,11 +826,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("returns [ " + E_OBJECT + " element = null]");
 		sc.add(":");
 		sc.add("{");
-		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
+		Set<EObject> expectations = new LinkedHashSet<EObject>();
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
 			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
 			for (Rule startRule : startRules) {
-				expectations.addAll(computer.computeFirstExpectations(syntax, startRule));
+				expectations.addAll(computer.computeFirstSet(syntax, startRule));
 			}
 		}
 		sc.add("// follow set for start rule(s)");
@@ -1134,7 +1142,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				continue;
 			}
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
-			Set<IExpectedElement> expectations = computer.computeFollowExpectations(syntax, definition);
+			Set<EObject> expectations = computer.computeFollowSet(syntax, definition);
 			String cardinality = csUtil.computeCardinalityString(definition);
 			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
 			}
@@ -1145,13 +1153,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				String subScopeID = scopeID + "." + i;
 
 				CompoundDefinition compoundDef = (CompoundDefinition) definition;
-				/*
-				sc.add("{");
-				sc.add("// expected element is a Compound");
-				addExpectationCodeForCompound(sc, rule, compoundDef, scopeID + ": Compound", subScopeID, true);
-				sc.add("}");
-				*/
-
 				sc.add("(");
 				count = printChoice(compoundDef.getDefinitions(), rule, sc,
 						count, eClassesReferenced, subScopeID);
@@ -1159,23 +1160,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				i++;
 			} else if (definition instanceof CsString) {
 				final CsString csString = (CsString) definition;
-				/*
-				sc.add("{");
-				sc.add("// expected element is a CsString");
-				addExpectationCodeForCsString(sc, csString, scopeID + ": CsString", scopeID, true);
-				sc.add("}");
-				*/
 				count = printCsString(csString, rule, sc, count,
 						eClassesReferenced);
 			} else {
 				assert definition instanceof Terminal;
 				final Terminal terminal = (Terminal) definition;
-				/*
-				sc.add("{");
-				sc.add("// expected element is a Terminal");
-				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", scopeID, true);
-				sc.add("}");
-				*/
 				count = printTerminal(terminal, rule, sc, count,
 						eClassesReferenced);
 			}
@@ -1193,36 +1182,53 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return count;
 	}
 
-	private void addExpectationsCode(StringComposite sc, Set<IExpectedElement> expectations) {
+	private void addExpectationsCode(StringComposite sc, Set<EObject> expectations) {
 		// TODO potential performance improvement: instead of creating
 		// new instances for the expected elements we could create all
 		// of them beforehand (e.g., as final static fields) and reuse 
 		// them afterwards
-		for (IExpectedElement expectedElement : expectations) {
-			if (expectedElement instanceof ExpectedFeature) {
-				ExpectedFeature expectedFeature = (ExpectedFeature) expectedElement;
-				GenFeature genFeature = expectedFeature.getGenFeature();
-				GenClass genClass = expectedFeature.getRuleMetaClass();
-				sc.add("addExpectedElement(new "
+		for (EObject expectedElement : expectations) {
+			String terminalID = getID(expectedElement);
+			sc.add("addExpectedElement(new "
+					+ expectedTerminalClassName + 
+					"(" + terminalID + ", " + followSetID + "));");
+		}
+		followSetID++;
+	}
+	
+	private void addTerminalConstants(StringComposite sc) {
+		for (EObject expectedElement : idMap.keySet()) {
+			String terminalID = idMap.get(expectedElement);
+			if (expectedElement instanceof Placeholder) {
+				Placeholder placeholder = (Placeholder) expectedElement;
+				GenFeature genFeature = placeholder.getFeature();
+				GenClass genClass = csUtil.findContainingRule(placeholder).getMetaclass();
+				sc.add("private final static " + iExpectedElementClassName + " " + terminalID + " = new "
 						+ expectedStructuralFeatureClassName + 
-						"(" + followSetID + ", "
-						+ genClass.getGenPackage().getReflectionPackageName() + "."
+						"(" + genClass.getGenPackage().getReflectionPackageName() + "."
 						+ genClass.getGenPackage().getPackageInterfaceName()
 						+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 						+ "().getEStructuralFeature("
 						+ generatorUtil.getFeatureConstant(genClass, genFeature)
-						+ "), \"" + expectedFeature.getTokenName() +"\"));");
-			} else if (expectedElement instanceof ExpectedKeyword) {
-				ExpectedKeyword expectedKeyword = (ExpectedKeyword) expectedElement;
-				String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(expectedKeyword.getKeyword());
-				sc.add("addExpectedElement(new " + expectedCsStringClassName 
+						+ "), \"" + placeholder.getToken().getName() +"\");");
+			} else if (expectedElement instanceof CsString) {
+				CsString expectedKeyword = (CsString) expectedElement;
+				String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(expectedKeyword.getValue());
+				sc.add("private final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedCsStringClassName 
 						//+ "(\"" + expectedKeyword.getScopeID() + "\", true, \"" + escapedCsString + "\"), \"message\");");
-						+ "(" + followSetID + ", \"" + escapedCsString + "\"));");
+						+ "(\"" + escapedCsString + "\");");
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
 		}
-		followSetID++;
+	}
+
+	private String getID(EObject expectedElement) {
+		if (!idMap.containsKey(expectedElement)) {
+			idMap.put(expectedElement, "TERMINAL_" + idCounter);
+			idCounter++;
+		}
+		return idMap.get(expectedElement);
 	}
 
 	private int printCsString(CsString csString, Rule rule, StringComposite sc,

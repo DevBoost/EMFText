@@ -52,8 +52,8 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("private " + E_STRUCTURAL_FEATURE + " feature;");
 		sc.add("private String tokenName;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(int followSetID, " + E_STRUCTURAL_FEATURE + " feature, String tokenName) {");
-		sc.add("super(followSetID);");
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, String tokenName) {");
+		sc.add("super();");
 		sc.add("this.feature = feature;");
 		sc.add("this.tokenName = tokenName;");
 		sc.add("}");

@@ -46,8 +46,8 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.add("private String value;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(int followSetID, String value) {");
-		sc.add("super(followSetID);");
+		sc.add("public " + getResourceClassName() + "(String value) {");
+		sc.add("super();");
 		sc.add("this.value = value;");
 		sc.add("}");
 		sc.addLineBreak();

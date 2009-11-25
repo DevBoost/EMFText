@@ -55,6 +55,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private String referenceResolveResultClassName;
 	private String iTextResourceClassName;
 	private String iLocationMapClassName;
+	private String expectedTerminalClassName;
 
 	public CodeCompletionHelperGenerator() {
 		super();
@@ -62,7 +63,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private CodeCompletionHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.CODE_COMPLETION_HELPER);
-		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 		iMetaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 		iTextParserClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PARSER);
 		iReferenceResolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER_SWITCH);
@@ -74,8 +74,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 		iLocationMapClassName = getContext().getQualifiedClassName(EArtifact.I_LOCATION_MAP);
 		stringUtilClassName = getContext().getQualifiedClassName(EArtifact.STRING_UTIL);
+		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 		expectedCsStringClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
 		expectedStructuralFeatureClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
+		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -120,12 +122,12 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetEndMethod(StringComposite sc) {
-		sc.add("private int getEnd(" + iExpectedElementClassName + "[] allExpectedElements, int indexInList) {");
-		sc.add(iExpectedElementClassName + " elementAtIndex = allExpectedElements[indexInList];");
+		sc.add("private int getEnd(" + expectedTerminalClassName + "[] allExpectedElements, int indexInList) {");
+		sc.add(expectedTerminalClassName + " elementAtIndex = allExpectedElements[indexInList];");
 		sc.add("int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();");
 		sc.add("int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();");
 		sc.add("for (int i = indexInList + 1; i < allExpectedElements.length; i++) {");
-		sc.add(iExpectedElementClassName + " elementAtI = allExpectedElements[i];");
+		sc.add(expectedTerminalClassName + " elementAtI = allExpectedElements[i];");
 		sc.add("int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();");
 		sc.add("int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();");
 		sc.add("if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {");
@@ -137,11 +139,11 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addSetPrefixMethod(StringComposite sc) {
-		sc.add("private void setPrefix(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, String content, int cursorOffset) {");
+		sc.add("private void setPrefix(" + LIST + "<" + expectedTerminalClassName + "> allExpectedElements, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("for (" + iExpectedElementClassName + " expectedElementAtCursor : allExpectedElements) {");
+		sc.add("for (" + expectedTerminalClassName + " expectedElementAtCursor : allExpectedElements) {");
 		sc.add("expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));");
 		sc.add("}");
 		sc.add("}");
@@ -149,10 +151,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addDeriveProposalMethod1(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<String> deriveProposal(" + expectedCsStringClassName + " csString, String content, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<String> deriveProposal(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
-		sc.add("if (proposal.startsWith(csString.getPrefix())) {");
+		sc.add("if (proposal.startsWith(prefix)) {");
 		sc.add("result.add(proposal);");
 		sc.add("}");
 		sc.add("return result;");
@@ -161,7 +163,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addDeriveProposalsMethod4(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<String> deriveProposals(" + iExpectedElementClassName + " expectedElement, " + E_ENUM + " enumType, String content, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<String> deriveProposals(" + expectedTerminalClassName + " expectedElement, " + E_ENUM + " enumType, String content, int cursorOffset) {");
 		sc.add(COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
 		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
@@ -231,12 +233,13 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addDeriveProposalsMethod2(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<String> deriveProposals(" + iExpectedElementClassName + " expectedElement, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<String> deriveProposals(" + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
 		sc.add(iMetaInformationClassName + " metaInformation = resource.getMetaInformation();");
 		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
+		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
-		sc.add("return deriveProposal(csString, content, cursorOffset);");
+		sc.add("return deriveProposal(csString, content, expectedTerminal.getPrefix(), cursorOffset);");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
 		sc.add(expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");
@@ -268,14 +271,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		//sc.add(E_CLASS + " classType = (" + E_CLASS + ") featureType;");
 		//sc.add("return deriveProposals(classType, metaInformation, content, cursorOffset, locationMap);");
 		sc.add("} else {");
-		sc.add("return handleNCReference(metaInformation, container, reference, expectedElement.getPrefix());");
+		sc.add("return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix());");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
 		sc.add("if (featureType instanceof " + E_ENUM + ") {");
 		sc.add(E_ENUM + " enumType = (" + E_ENUM + ") featureType;");
-		sc.add("return deriveProposals(expectedElement, enumType, content, cursorOffset);");
+		sc.add("return deriveProposals(expectedTerminal, enumType, content, cursorOffset);");
 		sc.add("} else {");
 		sc.add("// handle EAttributes (derive default value depending on");
 		sc.add("// the type of the attribute, figure out token resolver, and");
@@ -296,9 +299,9 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addDeriveProposalsMethod1(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<String> deriveProposals(" + LIST + "<" + iExpectedElementClassName + "> expectedElements, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<String> deriveProposals(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
 		sc.add(COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
-		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
+		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
 		sc.add("resultSet.addAll(deriveProposals(expectedElement, content, resource, cursorOffset));");
 		sc.add("}");
 		sc.add("return resultSet;");
@@ -307,12 +310,12 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFindPrefixMethod(StringComposite sc) {
-		sc.add("private String findPrefix(" + LIST + "<" + iExpectedElementClassName + "> expectedElements, " + iExpectedElementClassName + " expectedAtCursor, String content, int cursorOffset) {");
+		sc.add("private String findPrefix(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, " + expectedTerminalClassName + " expectedAtCursor, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return \"\";");
 		sc.add("}");
 		sc.add("int end = 0;");
-		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
+		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
 		sc.add("if (expectedElement == expectedAtCursor) {");
 		sc.add("final int start = expectedElement.getStartExcludingHiddenTokens();");
 		sc.add("if (start >= 0  && start < Integer.MAX_VALUE) {");
@@ -333,10 +336,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addRemoveInvalidEntriesAtEndMethod(StringComposite sc) {
-		sc.add("private void removeInvalidEntriesAtEnd(" + LIST + "<" + iExpectedElementClassName + "> expectedElements) {");
+		sc.add("private void removeInvalidEntriesAtEnd(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
-		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
-		sc.add(iExpectedElementClassName + " elementAtNext = expectedElements.get(i + 1);");
+		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
+		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(i + 1);");
 		sc.add("if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() && shouldRemove(elementAtIndex.getFollowSetID(), elementAtNext.getFollowSetID())) {");
 		sc.add("expectedElements.remove(i + 1);");
 		sc.add("} else {");
@@ -348,11 +351,11 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addRemoveDuplicateEntriesMethod(StringComposite sc) {
-		sc.add("private void removeDuplicateEntries(" + LIST + "<" + iExpectedElementClassName + "> expectedElements) {");
+		sc.add("private void removeDuplicateEntries(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1; i++) {");
-		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
+		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add("for (int j = i + 1; j < expectedElements.size();) {");
-		sc.add(iExpectedElementClassName + " elementAtNext = expectedElements.get(j);");
+		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(j);");
 		sc.add("if (elementAtIndex.equals(elementAtNext) && elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {");
 		sc.add("expectedElements.remove(j);");
 		sc.add("} else {");
@@ -388,14 +391,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
 		sc.add(iMetaInformationClassName + " metaInformation = resource.getMetaInformation();");
 		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
-		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = " + ARRAYS + ".asList(parseToExpectedElements(parser, resource));");
+		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = " + ARRAYS + ".asList(parseToExpectedElements(parser, resource));");
 		sc.add("if (expectedElements == null) {");
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
 		sc.add("if (expectedElements.size() == 0) {");
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]), cursorOffset));");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]), cursorOffset));");
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);");
 		sc.addLineBreak();
@@ -407,10 +410,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + iExpectedElementClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser, " + iTextResourceClassName + " resource) {");
-		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = parser.parseToExpectedElements(null, resource);");
+		sc.add("public " + expectedTerminalClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser, " + iTextResourceClassName + " resource) {");
+		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = parser.parseToExpectedElements(null, resource);");
 		sc.add("if (expectedElements == null) {");
-		sc.add("return new " + iExpectedElementClassName + "[0];");
+		sc.add("return new " + expectedTerminalClassName + "[0];");
 		sc.add("}");
 		sc.add("removeDuplicateEntries(expectedElements);");
 		sc.add("removeInvalidEntriesAtEnd(expectedElements);");
@@ -419,16 +422,16 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("System.out.println(\"PARSER EXPECTS:   \" + expectedElement);");
 		sc.add("}");
 		*/
-		sc.add("return expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]);");
+		sc.add("return expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetExpectedElementsAtMethod(StringComposite sc) {
-		sc.add("public " + iExpectedElementClassName + "[] getElementsExpectedAt(" + iExpectedElementClassName + "[] allExpectedElements, int cursorOffset) {");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
+		sc.add("public " + expectedTerminalClassName + "[] getElementsExpectedAt(" + expectedTerminalClassName + "[] allExpectedElements, int cursorOffset) {");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
 		sc.add("for (int i = 0; i < allExpectedElements.length; i++) {");
-		sc.add(iExpectedElementClassName + " expectedElement = allExpectedElements[i];");
+		sc.add(expectedTerminalClassName + " expectedElement = allExpectedElements[i];");
 		sc.addLineBreak();
 		sc.add("int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();");
 		sc.add("//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();");
@@ -439,7 +442,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("expectedAtCursor.add(expectedElement);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return expectedAtCursor.toArray(new " + iExpectedElementClassName + "[expectedAtCursor.size()]);");
+		sc.add("return expectedAtCursor.toArray(new " + expectedTerminalClassName + "[expectedAtCursor.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -456,29 +459,30 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		// and after the cursor position exist and which action should be taken.
 		// For example, when a StructuralFeature is expected right before the
 		// cursor and a CsString right after, we should return both elements.
-		sc.add("public " + iExpectedElementClassName + "[] getExpectedElements(final " + iExpectedElementClassName + "[] allExpectedElements, int cursorOffset) {");
+		sc.add("public " + expectedTerminalClassName + "[] getExpectedElements(final " + expectedTerminalClassName + "[] allExpectedElements, int cursorOffset) {");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset));");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset));");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
 		sc.add("allExpectedAtCursor.addAll(expectedAfterCursor);");
 		sc.add("if (expectedBeforeCursor != null) {");
-		sc.add("for (" + iExpectedElementClassName + " expectedBefore : expectedBeforeCursor) {");
+		sc.add("for (" + expectedTerminalClassName + " terminalBefore : expectedBeforeCursor) {");
+		sc.add(iExpectedElementClassName + " expectedBefore = (" + iExpectedElementClassName + ") terminalBefore.getTerminal();");
 		sc.add("// if the thing right before the cursor is something that could");
 		sc.add("// be long we add it to the list of proposals");
 		sc.add("if (expectedBefore instanceof " + expectedStructuralFeatureClassName + ") {");
-		sc.add("allExpectedAtCursor.add(expectedBefore);");
+		sc.add("allExpectedAtCursor.add(terminalBefore);");
 		sc.add("}");
 		sc.add("// if the thing right before the cursor is a keyword");
 		sc.add("// we add it to the list of proposals");
 		sc.add("if (expectedBefore instanceof " + expectedCsStringClassName + ") {");
-		sc.add("allExpectedAtCursor.add(expectedBefore);");
+		sc.add("allExpectedAtCursor.add(terminalBefore);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return allExpectedAtCursor.toArray(new " + iExpectedElementClassName + "[allExpectedAtCursor.size()]);");
+		sc.add("return allExpectedAtCursor.toArray(new " + expectedTerminalClassName + "[allExpectedAtCursor.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

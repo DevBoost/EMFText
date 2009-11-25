@@ -71,6 +71,7 @@ import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElemen
 import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.ExpectedTerminalGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ICommandGenerator;
@@ -279,6 +280,7 @@ public enum EArtifact {
 	EXPECTED_CS_STRING(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedCsString", new ExpectedCsStringGenerator(), OptionTypes.OVERRIDE_EXPECTED_CS_STRING),
 	EXPECTED_STRUCTURAL_FEATURE(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedStructuralFeature", new ExpectedStructuralFeatureGenerator(), OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE),
 	ABSTRACT_EXPECTED_ELEMENT(RESOURCE_PLUGIN, CC_PACKAGE, "", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT),
+	EXPECTED_TERMINAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL),
 	
 	CAST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
 	COPIED_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),

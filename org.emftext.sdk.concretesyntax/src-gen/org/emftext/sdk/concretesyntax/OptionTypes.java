@@ -1331,7 +1331,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LICENCE_HEADER(150, "LICENCE_HEADER", "licenceHeader");
+	LICENCE_HEADER(150, "LICENCE_HEADER", "licenceHeader"), /**
+	 * The '<em><b>OVERRIDE EXPECTED TERMINAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_TERMINAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTED_TERMINAL(151, "OVERRIDE_EXPECTED_TERMINAL", "overrideExpectedTerminal");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3571,6 +3579,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int LICENCE_HEADER_VALUE = 150;
 
 	/**
+	 * The '<em><b>OVERRIDE EXPECTED TERMINAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTED TERMINAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_TERMINAL
+	 * @model literal="overrideExpectedTerminal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTED_TERMINAL_VALUE = 151;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3727,6 +3750,7 @@ public enum OptionTypes implements Enumerator {
 			SAVE_CHANGED_RESOURCES_ONLY,
 			OVERRIDE_NEW_FILE_CONTENT_PROVIDER,
 			LICENCE_HEADER,
+			OVERRIDE_EXPECTED_TERMINAL,
 		};
 
 	/**
@@ -3925,6 +3949,7 @@ public enum OptionTypes implements Enumerator {
 			case SAVE_CHANGED_RESOURCES_ONLY_VALUE: return SAVE_CHANGED_RESOURCES_ONLY;
 			case OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE: return OVERRIDE_NEW_FILE_CONTENT_PROVIDER;
 			case LICENCE_HEADER_VALUE: return LICENCE_HEADER;
+			case OVERRIDE_EXPECTED_TERMINAL_VALUE: return OVERRIDE_EXPECTED_TERMINAL;
 		}
 		return null;
 	}
