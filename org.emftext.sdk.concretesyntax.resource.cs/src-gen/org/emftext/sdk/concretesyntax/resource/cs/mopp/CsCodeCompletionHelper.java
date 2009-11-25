@@ -58,9 +58,6 @@ public class CsCodeCompletionHelper {
 		}
 		removeDuplicateEntries(expectedElements);
 		removeInvalidEntriesAtEnd(expectedElements);
-		for (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement : expectedElements) {
-			System.out.println("PARSER EXPECTS:   " + expectedElement);
-		}
 		return expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]);
 	}
 	
@@ -233,8 +230,10 @@ public class CsCodeCompletionHelper {
 	
 	private java.util.Collection<String> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, int cursorOffset) {
 		String proposal = csString.getValue();
-		java.util.Collection<String> result = new java.util.HashSet<String>(1);
-		result.add(proposal);
+		java.util.Collection<String> result = new java.util.HashSet<String>();
+		if (proposal.startsWith(csString.getPrefix())) {
+			result.add(proposal);
+		}
 		return result;
 	}
 	
@@ -257,7 +256,11 @@ public class CsCodeCompletionHelper {
 				// if the thing right before the cursor is something that could
 				// be long we add it to the list of proposals
 				if (expectedBefore instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) {
-					//allExpectedAtCursor.clear();
+					allExpectedAtCursor.add(expectedBefore);
+				}
+				// if the thing right before the cursor is a keyword
+				// we add it to the list of proposals
+				if (expectedBefore instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
 					allExpectedAtCursor.add(expectedBefore);
 				}
 			}

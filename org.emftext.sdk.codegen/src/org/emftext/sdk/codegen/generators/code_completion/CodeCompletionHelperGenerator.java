@@ -151,8 +151,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private void addDeriveProposalMethod1(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<String> deriveProposal(" + expectedCsStringClassName + " csString, String content, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
-		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>(1);");
+		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
+		sc.add("if (proposal.startsWith(csString.getPrefix())) {");
 		sc.add("result.add(proposal);");
+		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -467,7 +469,11 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// if the thing right before the cursor is something that could");
 		sc.add("// be long we add it to the list of proposals");
 		sc.add("if (expectedBefore instanceof " + expectedStructuralFeatureClassName + ") {");
-		sc.add("//allExpectedAtCursor.clear();");
+		sc.add("allExpectedAtCursor.add(expectedBefore);");
+		sc.add("}");
+		sc.add("// if the thing right before the cursor is a keyword");
+		sc.add("// we add it to the list of proposals");
+		sc.add("if (expectedBefore instanceof " + expectedCsStringClassName + ") {");
 		sc.add("allExpectedAtCursor.add(expectedBefore);");
 		sc.add("}");
 		sc.add("}");
