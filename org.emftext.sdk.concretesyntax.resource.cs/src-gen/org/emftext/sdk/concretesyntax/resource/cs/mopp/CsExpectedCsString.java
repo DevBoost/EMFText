@@ -19,8 +19,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAbstractExpectedElement {
 	private String value;
 	
-	public CsExpectedCsString(int followSetID, String value) {
-		super(followSetID);
+	public CsExpectedCsString(String value) {
+		super();
 		this.value = value;
 	}
 	

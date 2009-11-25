@@ -22,77 +22,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // relevant characters).
 public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement {
 	
-	private int startIncludingHiddenTokens;
-	private int startExcludingHiddenTokens;
-	private String prefix;
-	private int followSetID;
-	private boolean discardFollowingExpectations;
-	
-	public CsAbstractExpectedElement(int followSetID) {
-		this.followSetID = followSetID;
+	public CsAbstractExpectedElement() {
+		super();
 	}
 	
-	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
-		assert startExcludingHiddenTokens <= startExcludingHiddenTokens;
-		assert startIncludingHiddenTokens <= startExcludingHiddenTokens;
-		
-		this.startIncludingHiddenTokens = startIncludingHiddenTokens;
-		this.startExcludingHiddenTokens = startExcludingHiddenTokens;
-	}
-	
-	public int getStartIncludingHiddenTokens() {
-		return startIncludingHiddenTokens;
-	}
-	
-	public int getStartExcludingHiddenTokens() {
-		return startExcludingHiddenTokens;
-	}
-	
-	public int getFollowSetID() {
-		return followSetID;
-	}
-	
-	public String getPrefix() {
-		return prefix;
-	}
-	
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
-	
-	// Checks whether the cursor index is inside the range of
-	// relevant characters, not considering hidden tokens
-	// (e.g., whitespace).
-	public boolean isAt(int cursorIndex) {
-		if (startExcludingHiddenTokens <= cursorIndex && true) {
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean isAfter(int cursorIndex) {
-		return startIncludingHiddenTokens > cursorIndex;
-	}
-	
-	public boolean isUnknown(int cursorIndex) {
-		return startIncludingHiddenTokens > cursorIndex && true;
-	}
-	
-	public boolean discardFollowingExpectations() {
-		return discardFollowingExpectations;
-	}
-	
-	public String toString() {
-		return		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +		" followSetID = " + followSetID;
-	}
-	
-	private String toString(int index) {
-		if (index == -1) {
-			return "MIN";
-		} else if (index == Integer.MAX_VALUE) {
-			return "*";
-		} else {
-			return "" + index;
-		}
-	}
 }

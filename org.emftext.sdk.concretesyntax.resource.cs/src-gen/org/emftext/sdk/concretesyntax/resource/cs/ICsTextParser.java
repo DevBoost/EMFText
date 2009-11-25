@@ -35,7 +35,7 @@ public interface ICsTextParser extends org.emftext.sdk.concretesyntax.resource.c
 	// position.
 	//
 	// The class 'type' is used as start symbol.
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> parseToExpectedElements(org.eclipse.emf.ecore.EClass type, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource dummyResource);
+	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> parseToExpectedElements(org.eclipse.emf.ecore.EClass type, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource dummyResource);
 	
 	// Signals the parse to terminates the parsing as soon as possible.
 	public void terminate();
