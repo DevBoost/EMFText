@@ -1,13 +1,17 @@
 package org.emftext.sdk.codegen.generators.code_completion.helpers;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -18,6 +22,7 @@ import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
@@ -30,6 +35,7 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.util.EObjectUtil;
 
 /**
  * The ExpectationComputer can be used to compute all possible
@@ -49,6 +55,13 @@ public class ExpectationComputer {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	/**
+	 * A cache for the set of rules that are applicable for a certain GenClass.
+	 * This cache is needed because the lookup of the rules is performed very
+	 * often and perform quite bad for large syntax definitions.
+	 */
+	private Map<GenClass, Collection<Rule>> ruleCache = new LinkedHashMap<GenClass, Collection<Rule>>();
+
+	/**
 	 * Computes the list of elements that can follow 'syntaxElement'
 	 * according to the given syntax definition.
 	 * 
@@ -57,7 +70,7 @@ public class ExpectationComputer {
 	 * @return
 	 */
 	public Set<IExpectedElement> computeFollowExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
-		Set<EObject> followSet = computeFollowSet(syntax, syntaxElement);
+		Set<EObject> followSet = computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>());
 		// convert 'followSet' to expectations
 		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
 		for (EObject next : followSet) {
@@ -134,6 +147,10 @@ public class ExpectationComputer {
 	}
 
 	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
+		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>());
+	}
+	
+	private Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
 		if (syntaxElement instanceof STAR) {
 			return result;
@@ -145,16 +162,38 @@ public class ExpectationComputer {
 			return result;
 		}
 		
-		// while climbing up the tree to find an element to the right,
-		// we must consider that * and ? compounds are their right element
-		// on their own, because they can be empty
-
 		EReference reference = syntaxElement.eContainmentFeature();
 		EObject container = syntaxElement.eContainer();
 		if (container == null) {
 			return result;
 		}
 		if (container instanceof Rule) {
+			// find all containments that refer to this rule and
+			// compute follow set for these containments. finally add them
+			List<Rule> allRules = syntax.getAllRules();
+			for (Rule rule : allRules) {
+				Collection<Containment> containments = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
+				for (Containment containment : containments) {
+					EList<GenClass> allowedSubTypes = csUtil.getAllowedSubTypes(containment);
+					for (GenClass subType : allowedSubTypes) {
+						Collection<Rule> subRules;
+						if (ruleCache.containsKey(subType)) {
+							subRules = ruleCache.get(subType);
+						} else {
+							subRules = csUtil.getRules(syntax, subType);
+							ruleCache.put(subType, subRules);
+						}
+						// ignore used rules
+						if (usedRules.contains(rule)) {
+							continue;
+						}
+						if (subRules.contains(container)) {
+							usedRules.add(rule);
+							result.addAll(computeFollowSet(syntax, containment, usedRules));
+						}
+					}
+				}
+			}
 			return result;
 		}
 		Object children = container.eGet(reference);
@@ -168,31 +207,30 @@ public class ExpectationComputer {
 				Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList);
 				result.addAll(firstSetOfNext);
 				if (firstSetOfNext.contains(EPSILON)) {
-					result.addAll(computeFollowSet(syntax, nextInList));
+					result.addAll(computeFollowSet(syntax, nextInList, usedRules));
 				}
 			} else {
 				// object was the last one in the list, 
 				// we must try one level higher
-				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer()));
+				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 			}
 		} else if (children instanceof EObject) {
 			assert syntaxElement == children;
 			// object was the only one stored in the reference, 
 			// we must try one level higher
-			// TODO is this correct?
 			result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement.eContainer()));
-			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer()));
+			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 		}
 		result.remove(EPSILON);
 		return result;
 	}
 
 	private Collection<EObject> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement) {
-		Set<EObject> result = new LinkedHashSet<EObject>();
 		if (canBeRepeated(syntaxElement)) {
-			result.addAll(computeFirstSet(syntax, syntaxElement));
+			return computeFirstSet(syntax, syntaxElement);
+		} else {
+			return Collections.emptySet();
 		}
-		return result;
 	}
 
 	private boolean canBeRepeated(EObject syntaxElement) {
@@ -207,11 +245,11 @@ public class ExpectationComputer {
 	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
 			CompoundDefinition compound) {
 		Choice choice = compound.getDefinitions();
-		return computeFirstSetForChoice(syntax, rule, choice);
+		Set<EObject> firstSet = computeFirstSetForChoice(syntax, rule, choice);
+		return firstSet;
 	}
 
 	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice) {
-		
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 
 		List<Sequence> options = choice.getOptions();
@@ -224,7 +262,6 @@ public class ExpectationComputer {
 	}
 
 	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence) {
-
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		for (Definition definition : sequence.getParts()) {
 			Set<EObject> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition);
@@ -243,7 +280,6 @@ public class ExpectationComputer {
 	}
 	
 	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition) {
-
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		if (definition instanceof CardinalityDefinition) {
 			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition));
@@ -261,7 +297,6 @@ public class ExpectationComputer {
 	}
 
 	private Set<EObject> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition) {
-
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		String cardinality = csUtil.computeCardinalityString(definition);
 		if ("?".equals(cardinality) || "*".equals(cardinality)) {
@@ -277,7 +312,7 @@ public class ExpectationComputer {
 	}
 	
 	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+		Set<EObject> firstSet = new LinkedHashSet<EObject>(1);
 		firstSet.add(keyword);
 		return firstSet;
 	}
