@@ -41,6 +41,11 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 		}
 		IStatus status = genModel.validate();
 		if (status.getSeverity() == IStatus.ERROR) {
+			// TODO we can give more detailed information about what is wrong
+			// with the genmodel by iterating over status.getChildren(), but
+			// the question is how to pass this information to the user in a 
+			// meaningful way. Often there is a lot of errors in the genmodel
+			// and adding all of them to the resource might cause confusion. 
 			String path = genModel.eResource().getURI().toString();
 			addProblem(resource, ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path), 0, 0, 0, 0);
 		}
