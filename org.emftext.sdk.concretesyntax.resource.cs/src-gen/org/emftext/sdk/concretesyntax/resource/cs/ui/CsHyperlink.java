@@ -60,12 +60,8 @@ public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink 
 			org.eclipse.ui.IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 			try {
 				org.eclipse.ui.IEditorPart activeEditor = page.getActiveEditor();
-				if (isSupported(file.getFileExtension())) {
-					page.openEditor(new org.eclipse.ui.part.FileEditorInput(file), activeEditor.getSite().getId());
-				} else {
-					org.eclipse.ui.IEditorDescriptor desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());
-					page.openEditor(new org.eclipse.ui.part.FileEditorInput(file), desc.getId());
-				}
+				org.eclipse.ui.IEditorDescriptor desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());
+				page.openEditor(new org.eclipse.ui.part.FileEditorInput(file), desc.getId());
 				org.eclipse.ui.IEditorPart editorPart = activeEditor;
 				if (editorPart instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 					org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor emftEditor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) editorPart;
@@ -75,10 +71,6 @@ public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink 
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	private boolean isSupported(String fileExtension) {
-		return true;
 	}
 	
 	private org.eclipse.core.resources.IFile getIFileFromResource() {

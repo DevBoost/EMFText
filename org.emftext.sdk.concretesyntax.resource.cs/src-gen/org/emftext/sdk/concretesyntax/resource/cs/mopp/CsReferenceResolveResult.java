@@ -55,7 +55,7 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	}
 	
 	public void addMapping(String identifier, ReferenceType target) {
-		if (resolveFuzzy && target == null) {
+		if (!resolveFuzzy && target == null) {
 			throw new IllegalArgumentException("Mapping references to null is only allowed for fuzzy resolution.");
 		}
 		addMapping(identifier, target, null);

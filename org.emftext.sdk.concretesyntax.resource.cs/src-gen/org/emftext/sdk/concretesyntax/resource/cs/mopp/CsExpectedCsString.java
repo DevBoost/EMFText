@@ -29,7 +29,7 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 	}
 	
 	public String toString() {
-		return super.toString() + " CsString \"" + value + "\"";
+		return "CsString \"" + value + "\"";
 	}
 	
 	public boolean equals(Object o) {

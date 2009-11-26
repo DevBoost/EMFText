@@ -35,7 +35,7 @@ public class CsExpectedTerminal {
 	}
 	
 	public String toString() {
-		return " Expected Terminal \"" + terminal + "\"" + toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")";
+		return terminal.toString();
 	}
 	
 	private String toString(int index) {
