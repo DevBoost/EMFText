@@ -1339,7 +1339,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTED_TERMINAL(151, "OVERRIDE_EXPECTED_TERMINAL", "overrideExpectedTerminal");
+	OVERRIDE_EXPECTED_TERMINAL(151, "OVERRIDE_EXPECTED_TERMINAL", "overrideExpectedTerminal"), /**
+	 * The '<em><b>OVERRIDE COMPLETION PROPOSAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPLETION_PROPOSAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COMPLETION_PROPOSAL(152, "OVERRIDE_COMPLETION_PROPOSAL", "overrideCompletionProposal");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3594,6 +3602,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_EXPECTED_TERMINAL_VALUE = 151;
 
 	/**
+	 * The '<em><b>OVERRIDE COMPLETION PROPOSAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COMPLETION PROPOSAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPLETION_PROPOSAL
+	 * @model literal="overrideCompletionProposal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COMPLETION_PROPOSAL_VALUE = 152;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3751,6 +3774,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_NEW_FILE_CONTENT_PROVIDER,
 			LICENCE_HEADER,
 			OVERRIDE_EXPECTED_TERMINAL,
+			OVERRIDE_COMPLETION_PROPOSAL,
 		};
 
 	/**
@@ -3950,6 +3974,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE: return OVERRIDE_NEW_FILE_CONTENT_PROVIDER;
 			case LICENCE_HEADER_VALUE: return LICENCE_HEADER;
 			case OVERRIDE_EXPECTED_TERMINAL_VALUE: return OVERRIDE_EXPECTED_TERMINAL;
+			case OVERRIDE_COMPLETION_PROPOSAL_VALUE: return OVERRIDE_COMPLETION_PROPOSAL;
 		}
 		return null;
 	}

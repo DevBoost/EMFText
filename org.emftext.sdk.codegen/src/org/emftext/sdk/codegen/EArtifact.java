@@ -23,8 +23,8 @@ import static org.emftext.sdk.Constants.MOPP_PACKAGE;
 import static org.emftext.sdk.Constants.ROOT_PACKAGE;
 import static org.emftext.sdk.Constants.UI_PACKAGE;
 import static org.emftext.sdk.Constants.UTIL_PACKAGE;
-import static org.emftext.sdk.EPlugins.RESOURCE_PLUGIN;
 import static org.emftext.sdk.EPlugins.ANTLR_PLUGIN;
+import static org.emftext.sdk.EPlugins.RESOURCE_PLUGIN;
 
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
@@ -45,11 +45,11 @@ import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
+import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.NewFileContentProviderGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.generators.PluginActivatorGenerator;
-import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.ProblemClassGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
@@ -69,6 +69,7 @@ import org.emftext.sdk.codegen.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.generators.UnexpectedContentTypeExceptionGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElementGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.CompletionProposalGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedTerminalGenerator;
@@ -281,6 +282,7 @@ public enum EArtifact {
 	EXPECTED_STRUCTURAL_FEATURE(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedStructuralFeature", new ExpectedStructuralFeatureGenerator(), OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE),
 	ABSTRACT_EXPECTED_ELEMENT(RESOURCE_PLUGIN, CC_PACKAGE, "", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT),
 	EXPECTED_TERMINAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL),
+	COMPLETION_PROPOSAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "CompletionProposal", new CompletionProposalGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROPOSAL), 
 	
 	CAST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
 	COPIED_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),

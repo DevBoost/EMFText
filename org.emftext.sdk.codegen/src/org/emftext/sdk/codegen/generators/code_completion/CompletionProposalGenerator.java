@@ -1,0 +1,76 @@
+package org.emftext.sdk.codegen.generators.code_completion;
+
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARABLE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class CompletionProposalGenerator extends JavaBaseGenerator {
+
+	public CompletionProposalGenerator() {
+		super();
+	}
+
+	private CompletionProposalGenerator(GenerationContext context) {
+		super(context, EArtifact.COMPLETION_PROPOSAL);
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new CompletionProposalGenerator(context);
+	}
+
+	public boolean generateJavaContents(StringComposite sc) {
+		
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		
+		sc.add("// A proposal for completing an incomplete document.");
+		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
+		sc.add("private " + STRING + " insertString;");
+		sc.add("private boolean startsWithPrefix;");
+		sc.addLineBreak();
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, boolean startsWithPrefix) {");
+		sc.add("super();");
+		sc.add("this.insertString = insertString;");
+		sc.add("this.startsWithPrefix = startsWithPrefix;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + STRING + " getInsertString() {");
+		sc.add("return insertString;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public boolean getStartsWithPrefix() {");
+		sc.add("return startsWithPrefix;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public boolean equals(Object object) {");
+		sc.add("if (object instanceof " + getResourceClassName() + ") {");
+		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
+		sc.add("return other.getInsertString().equals(getInsertString());");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public int hashCode() {");
+		sc.add("return getInsertString().hashCode();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public int compareTo(" + getResourceClassName() + " object) {");
+		sc.add("if (object instanceof " + getResourceClassName() + ") {");
+		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
+		sc.add("// proposals that start with the prefix are preferred over the ones that do not");
+		sc.add("int startCompare = (startsWithPrefix ? 1 : 0) - (other.getStartsWithPrefix() ? 1 : 0);");
+		sc.add("// if both proposals start with the prefix of both do not the insert string is compared");
+		sc.add("return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;");
+		sc.add("}");
+		sc.add("return -1;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		return true;
+	}
+}

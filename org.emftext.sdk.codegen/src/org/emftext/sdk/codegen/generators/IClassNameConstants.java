@@ -350,6 +350,7 @@ public class IClassNameConstants {
 	public static String COMBO = Combo.class.getName();
 	public static String COMMON_TOKEN = CommonToken.class.getName();
 	public static String COMPARATOR = Comparator.class.getName();
+	public static String COMPARABLE = Comparable.class.getName();
 	public static String COMPLETION_PROPOSAL = CompletionProposal.class.getName();
 	public static String COMPOSED_ADAPTER_FACTORY = ComposedAdapterFactory.class.getName();
 	public static String COMPOSITE = Composite.class.getName();

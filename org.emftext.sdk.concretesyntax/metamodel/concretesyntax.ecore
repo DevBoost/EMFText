@@ -295,6 +295,7 @@
     <eLiterals name="OVERRIDE_NEW_FILE_CONTENT_PROVIDER" value="149" literal="overrideNewFileContentProvider"/>
     <eLiterals name="LICENCE_HEADER" value="150" literal="licenceHeader"/>
     <eLiterals name="OVERRIDE_EXPECTED_TERMINAL" value="151" literal="overrideExpectedTerminal"/>
+    <eLiterals name="OVERRIDE_COMPLETION_PROPOSAL" value="152" literal="overrideCompletionProposal"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
