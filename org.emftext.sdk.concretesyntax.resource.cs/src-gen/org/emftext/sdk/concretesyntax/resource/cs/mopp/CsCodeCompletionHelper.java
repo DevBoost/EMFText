@@ -44,11 +44,14 @@ public class CsCodeCompletionHelper {
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[expectedElements.size()]), cursorOffset));
 		setPrefix(expectedElementsAt, content, cursorOffset);
-		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);
-		
-		final java.util.List<String> sortedProposals = new java.util.ArrayList<String>(proposals);
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);
+		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>(proposals);
 		java.util.Collections.sort(sortedProposals);
-		return sortedProposals;
+		final java.util.List<java.lang.String> sortedStrings = new java.util.ArrayList<java.lang.String>(sortedProposals.size());
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal nextProposal : sortedProposals) {
+			sortedStrings.add(nextProposal.getInsertString());
+		}
+		return sortedStrings;
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[] parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -111,15 +114,15 @@ public class CsCodeCompletionHelper {
 		return prefix;
 	}
 	
-	private java.util.Collection<String> deriveProposals(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
-		java.util.Collection<String> resultSet = new java.util.HashSet<String>();
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement : expectedElements) {
 			resultSet.addAll(deriveProposals(expectedElement, content, resource, cursorOffset));
 		}
 		return resultSet;
 	}
 	
-	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = resource.getMetaInformation();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement) expectedTerminal.getTerminal();
@@ -146,6 +149,7 @@ public class CsCodeCompletionHelper {
 				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
 				if (featureType instanceof org.eclipse.emf.ecore.EClass) {
 					if (reference.isContainment()) {
+						// the FOLLOW set should contain only non-containment references
 						assert false;
 					} else {
 						return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix());
@@ -160,7 +164,7 @@ public class CsCodeCompletionHelper {
 					// handle EAttributes (derive default value depending on
 					// the type of the attribute, figure out token resolver, and
 					// call deResolve())
-					return handleAttribute(metaInformation, expectedFeature, container, attribute);
+					return handleAttribute(metaInformation, expectedFeature, container, attribute, expectedTerminal.getPrefix());
 				}
 			} else {
 				// there should be no other subclass of EStructuralFeature
@@ -173,37 +177,38 @@ public class CsCodeCompletionHelper {
 		return java.util.Collections.emptyList();
 	}
 	
-	private java.util.Collection<String> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset) {
 		java.util.Collection<org.eclipse.emf.ecore.EEnumLiteral> enumLiterals = enumType.getELiterals();
-		java.util.Collection<String> result = new java.util.HashSet<String>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
 			String prefix = expectedElement.getPrefix();
 			if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
-				result.add(proposal);
+				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix)));
 			}
 		}
 		return result;
 	}
 	
-	private java.util.Collection<String> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix) {
-		// handle non-containment references
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix) {
+		// proposals for non-containment references are derived by calling the
+		// reference resolver switch in fuzzy mode.
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EObject> result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolveResult<org.eclipse.emf.ecore.EObject>(true);
 		resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject>> mappings = result.getMappings();
 		if (mappings != null) {
-			java.util.Collection<String> resultSet = new java.util.HashSet<String>();
+			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
 				final String identifier = mapping.getIdentifier();
-				resultSet.add(identifier);
+				resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, true));
 			}
 			return resultSet;
 		}
 		return java.util.Collections.emptyList();
 	}
 	
-	private java.util.Collection<String> handleAttribute(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EAttribute attribute) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleAttribute(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EAttribute attribute, java.lang.String prefix) {
 		java.lang.Object defaultValue = getDefaultValue(attribute);
 		if (defaultValue != null) {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = metaInformation.getTokenResolverFactory();
@@ -212,8 +217,10 @@ public class CsCodeCompletionHelper {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 				if (tokenResolver != null) {
 					String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
-					java.util.Collection<String> resultSet = new java.util.HashSet<String>();
-					resultSet.add(defaultValueAsString);
+					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+					if (defaultValueAsString.startsWith(prefix) && !defaultValueAsString.equals(prefix)) {
+						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, !"".equals(prefix)));
+					}
 					return resultSet;
 				}
 			}
@@ -230,11 +237,11 @@ public class CsCodeCompletionHelper {
 		return attribute.getDefaultValue();
 	}
 	
-	private java.util.Collection<String> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
-		java.util.Collection<String> result = new java.util.HashSet<String>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
-			result.add(proposal);
+			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix)));
 		}
 		return result;
 	}
@@ -284,12 +291,9 @@ public class CsCodeCompletionHelper {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedAtCursor = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>();
 		for (int i = 0; i < allExpectedElements.length; i++) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement = allExpectedElements[i];
-			
 			int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();
-			//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
 			int end = getEnd(allExpectedElements, i);
-			//System.out.println("END = " + end + " for " + expectedElement);
-			if (cursorOffset >= startIncludingHidden &&			cursorOffset <= end) {
+			if (cursorOffset >= startIncludingHidden && cursorOffset <= end) {
 				expectedAtCursor.add(expectedElement);
 			}
 		}
