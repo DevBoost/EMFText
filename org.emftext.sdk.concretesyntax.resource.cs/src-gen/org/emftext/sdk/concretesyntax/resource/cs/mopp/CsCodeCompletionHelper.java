@@ -178,7 +178,8 @@ public class CsCodeCompletionHelper {
 		java.util.Collection<String> result = new java.util.HashSet<String>();
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
-			if (proposal.startsWith(expectedElement.getPrefix())) {
+			String prefix = expectedElement.getPrefix();
+			if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
 				result.add(proposal);
 			}
 		}

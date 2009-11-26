@@ -168,7 +168,8 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
 		sc.add("String proposal = literal.getLiteral();");
-		sc.add("if (proposal.startsWith(expectedElement.getPrefix())) {");
+		sc.add("String prefix = expectedElement.getPrefix();");
+		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
 		sc.add("result.add(proposal);");
 		sc.add("}");
 		sc.add("}");
