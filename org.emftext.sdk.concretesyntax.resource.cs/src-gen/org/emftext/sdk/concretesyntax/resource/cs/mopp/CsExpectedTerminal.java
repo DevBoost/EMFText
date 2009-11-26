@@ -19,6 +19,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public class CsExpectedTerminal {
 	private int followSetID;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal;
+	private int startIncludingHiddenTokens;
+	private int startExcludingHiddenTokens;
+	private String prefix;
 	
 	public CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID) {
 		super();
@@ -35,26 +38,12 @@ public class CsExpectedTerminal {
 	}
 	
 	public String toString() {
-		return terminal.toString();
-	}
-	
-	private String toString(int index) {
-		if (index == -1) {
-			return "MIN";
-		} else if (index == Integer.MAX_VALUE) {
-			return "*";
-		} else {
-			return "" + index;
-		}
+		return terminal == null ? "null" : terminal.toString();
 	}
 	
 	public boolean equals(Object o) {
 		return this.terminal.equals(((CsExpectedTerminal) o).terminal);
 	}
-	private int startIncludingHiddenTokens;
-	private int startExcludingHiddenTokens;
-	private String prefix;
-	private boolean discardFollowingExpectations;
 	
 	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
 		assert startExcludingHiddenTokens <= startExcludingHiddenTokens;
@@ -78,28 +67,6 @@ public class CsExpectedTerminal {
 	
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
-	}
-	
-	// Checks whether the cursor index is inside the range of
-	// relevant characters, not considering hidden tokens
-	// (e.g., whitespace).
-	public boolean isAt(int cursorIndex) {
-		if (startExcludingHiddenTokens <= cursorIndex && true) {
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean isAfter(int cursorIndex) {
-		return startIncludingHiddenTokens > cursorIndex;
-	}
-	
-	public boolean isUnknown(int cursorIndex) {
-		return startIncludingHiddenTokens > cursorIndex && true;
-	}
-	
-	public boolean discardFollowingExpectations() {
-		return discardFollowingExpectations;
 	}
 	
 }
