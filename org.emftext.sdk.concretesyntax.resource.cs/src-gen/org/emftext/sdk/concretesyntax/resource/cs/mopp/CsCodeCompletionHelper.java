@@ -232,7 +232,7 @@ public class CsCodeCompletionHelper {
 	private java.util.Collection<String> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
 		java.util.Collection<String> result = new java.util.HashSet<String>();
-		if (proposal.startsWith(prefix)) {
+		if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
 			result.add(proposal);
 		}
 		return result;

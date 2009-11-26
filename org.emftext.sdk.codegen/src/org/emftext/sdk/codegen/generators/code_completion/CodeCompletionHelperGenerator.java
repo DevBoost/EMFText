@@ -154,7 +154,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("private " + COLLECTION + "<String> deriveProposal(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
-		sc.add("if (proposal.startsWith(prefix)) {");
+		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
 		sc.add("result.add(proposal);");
 		sc.add("}");
 		sc.add("return result;");
