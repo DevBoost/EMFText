@@ -6,7 +6,6 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-// TODO remove unused code
 public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 
 	private String iExpectedElementClassName;
@@ -34,6 +33,9 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.add("private int followSetID;");
 		sc.add("private " + iExpectedElementClassName + " terminal;");
+		sc.add("private int startIncludingHiddenTokens;");
+		sc.add("private int startExcludingHiddenTokens;");
+		sc.add("private String prefix;");
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "(" + iExpectedElementClassName + " terminal, int followSetID) {");
 		sc.add("super();");
@@ -50,27 +52,12 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String toString() {");
-		//sc.add("return \" Expected Terminal \\\"\" + terminal + \"\\\"\" + toString(startIncludingHiddenTokens) + \"(\" + toString(startExcludingHiddenTokens) + \")\";");
-		sc.add("return terminal.toString();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private String toString(int index) {");
-		sc.add("if (index == -1) {");
-		sc.add("return \"MIN\";");
-		sc.add("} else if (index == Integer.MAX_VALUE) {");
-		sc.add("return \"*\";");
-		sc.add("} else {");
-		sc.add("return \"\" + index;");
-		sc.add("}");
+		sc.add("return terminal == null ? \"null\" : terminal.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(Object o) {");
 		sc.add("return this.terminal.equals(((" + getResourceClassName() + ") o).terminal);");
 		sc.add("}");
-		sc.add("private int startIncludingHiddenTokens;");
-		sc.add("private int startExcludingHiddenTokens;");
-		sc.add("private String prefix;");
-		sc.add("private boolean discardFollowingExpectations;");
 		sc.addLineBreak();
 		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {");
 		sc.add("assert startExcludingHiddenTokens <= startExcludingHiddenTokens;");
@@ -94,30 +81,6 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void setPrefix(String prefix) {");
 		sc.add("this.prefix = prefix;");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("// Checks whether the cursor index is inside the range of");
-		sc.add("// relevant characters, not considering hidden tokens");
-		sc.add("// (e.g., whitespace).");
-		
-		sc.add("public boolean isAt(int cursorIndex) {");
-		sc.add("if (startExcludingHiddenTokens <= cursorIndex && true) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean isAfter(int cursorIndex) {");
-		sc.add("return startIncludingHiddenTokens > cursorIndex;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean isUnknown(int cursorIndex) {");
-		sc.add("return startIncludingHiddenTokens > cursorIndex && true;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean discardFollowingExpectations() {");
-		sc.add("return discardFollowingExpectations;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
