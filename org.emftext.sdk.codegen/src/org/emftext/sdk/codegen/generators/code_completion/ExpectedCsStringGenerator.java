@@ -56,7 +56,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String toString() {");
-		sc.add("return super.toString() + \" CsString \\\"\" + value + \"\\\"\";");
+		sc.add("return \"CsString \\\"\" + value + \"\\\"\";");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(Object o) {");

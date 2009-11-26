@@ -50,7 +50,8 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String toString() {");
-		sc.add("return \" Expected Terminal \\\"\" + terminal + \"\\\"\" + toString(startIncludingHiddenTokens) + \"(\" + toString(startExcludingHiddenTokens) + \")\";");
+		//sc.add("return \" Expected Terminal \\\"\" + terminal + \"\\\"\" + toString(startIncludingHiddenTokens) + \"(\" + toString(startExcludingHiddenTokens) + \")\";");
+		sc.add("return terminal.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String toString(int index) {");

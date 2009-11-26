@@ -68,19 +68,6 @@ public class ExpectationComputer {
 	 * @param syntaxElement
 	 * @return
 	 */
-	/*
-	private Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
-		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
-		firstSet.remove(EPSILON);
-		// convert 'firstSet' to expectations
-		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
-		for (EObject next : firstSet) {
-			expectations.add(createExpectedElement(next));
-		}
-		return expectations;
-	}
-	*/
-
 	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		if (syntaxElement instanceof STAR) {

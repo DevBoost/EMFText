@@ -830,7 +830,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
 			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
 			for (Rule startRule : startRules) {
-				expectations.addAll(computer.computeFirstSet(syntax, startRule));
+				Set<EObject> firstSet = computer.computeFirstSet(syntax, startRule);
+				firstSet.remove(ExpectationComputer.EPSILON);
+				expectations.addAll(firstSet);
 			}
 		}
 		sc.add("// follow set for start rule(s)");

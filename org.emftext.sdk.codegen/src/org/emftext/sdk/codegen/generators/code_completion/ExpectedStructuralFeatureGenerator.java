@@ -67,7 +67,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " toString() {");
-		sc.add("return super.toString() + \" EFeature \" + feature.getEContainingClass().getName() + \".\" + feature.getName();");
+		sc.add("return \"EFeature \" + feature.getEContainingClass().getName() + \".\" + feature.getName();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(" + OBJECT + " o) {");
