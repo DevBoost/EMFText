@@ -35,21 +35,43 @@ public class CsCodeCompletionHelper {
 		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(content.getBytes());
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = resource.getMetaInformation();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser = metaInformation.createParser(inputStream, null);
-		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements = java.util.Arrays.asList(parseToExpectedElements(parser, resource));
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[] expectedElements = parseToExpectedElements(parser, resource);
 		if (expectedElements == null) {
 			return java.util.Collections.emptyList();
 		}
-		if (expectedElements.size() == 0) {
+		if (expectedElements.length == 0) {
 			return java.util.Collections.emptyList();
 		}
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[expectedElements.size()]), cursorOffset));
-		setPrefixes(expectedElementsAt, content, cursorOffset);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedAfterCursor = java.util.Arrays.asList(getElementsExpectedAt(expectedElements, cursorOffset));
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedBeforeCursor = java.util.Arrays.asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));
+		System.out.println("parseToCursor(" + cursorOffset + ") BEFORE CURSOR " + expectedBeforeCursor);
+		System.out.println("parseToCursor(" + cursorOffset + ") AFTER CURSOR  " + expectedAfterCursor);
+		setPrefixes(expectedAfterCursor, content, cursorOffset);
+		setPrefixes(expectedBeforeCursor, content, cursorOffset);
 		// first we derive all possible proposals from the set of elements that are expected at the cursor position
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);
-		// second, the proposals are sorted according to their relevance
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> allProposals = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset);
+		// second, the left proposals (i.e., the ones before the cursor) are
+		// checked whether they contain incomplete features
+		// if this is the case the right proposals (i.e., the ones after the cursor)
+		// are remove, because it does not make sense to propose them until the element
+		// before the cursor was completed
+		boolean foundIncompleteFeatureInLeftProposals = false;
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal leftProposal : leftProposals) {
+			if (leftProposal.isStructuralFeature()) {
+				foundIncompleteFeatureInLeftProposals = true;
+				break;
+			}
+		}
+		allProposals.addAll(leftProposals);
+		if (!foundIncompleteFeatureInLeftProposals) {
+			allProposals.addAll(rightProposals);
+		}
+		// third, the proposals are sorted according to their relevance
 		// proposals that matched the prefix are preferred over ones that did not
 		// afterward proposals are sorted alphabetically
-		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>(proposals);
+		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>(allProposals);
 		java.util.Collections.sort(sortedProposals);
 		// finally the proposal objects are converted to strings
 		final java.util.List<java.lang.String> sortedStrings = new java.util.ArrayList<java.lang.String>(sortedProposals.size());
@@ -186,7 +208,7 @@ public class CsCodeCompletionHelper {
 			String proposal = literal.getLiteral();
 			String prefix = expectedElement.getPrefix();
 			if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
-				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix)));
+				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), true));
 			}
 		}
 		return result;
@@ -203,7 +225,9 @@ public class CsCodeCompletionHelper {
 			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
 				final String identifier = mapping.getIdentifier();
-				resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, true));
+				// the proposal can be added without checking the prefix because this is
+				// performed by the reference resolvers
+				resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, true, true));
 			}
 			return resultSet;
 		}
@@ -221,7 +245,7 @@ public class CsCodeCompletionHelper {
 					String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
 					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 					if (defaultValueAsString.startsWith(prefix) && !defaultValueAsString.equals(prefix)) {
-						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, !"".equals(prefix)));
+						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, !"".equals(prefix), true));
 					}
 					return resultSet;
 				}
@@ -243,41 +267,9 @@ public class CsCodeCompletionHelper {
 		String proposal = csString.getValue();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
-			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix)));
+			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), false));
 		}
 		return result;
-	}
-	
-	// Returns the element(s) that is most suitable at the given cursor
-	// index based on the list of expected elements.
-	//
-	// @param cursorOffset
-	// @param allExpectedElements
-	// @return
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[] getExpectedElements(final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[] allExpectedElements, int cursorOffset) {
-		
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedAfterCursor = java.util.Arrays.asList(getElementsExpectedAt(allExpectedElements, cursorOffset));
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedBeforeCursor = java.util.Arrays.asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));
-		System.out.println("parseToCursor(" + cursorOffset + ") BEFORE CURSOR " + expectedBeforeCursor);
-		System.out.println("parseToCursor(" + cursorOffset + ") AFTER CURSOR  " + expectedAfterCursor);
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> allExpectedAtCursor = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>();
-		allExpectedAtCursor.addAll(expectedAfterCursor);
-		if (expectedBeforeCursor != null) {
-			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal terminalBefore : expectedBeforeCursor) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedBefore = (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement) terminalBefore.getTerminal();
-				// if the thing right before the cursor is something that could
-				// be long we add it to the list of proposals
-				if (expectedBefore instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) {
-					allExpectedAtCursor.add(terminalBefore);
-				}
-				// if the thing right before the cursor is a keyword
-				// we add it to the list of proposals
-				if (expectedBefore instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
-					allExpectedAtCursor.add(terminalBefore);
-				}
-			}
-		}
-		return allExpectedAtCursor.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[allExpectedAtCursor.size()]);
 	}
 	
 	// for each given expected elements the prefix is calculated

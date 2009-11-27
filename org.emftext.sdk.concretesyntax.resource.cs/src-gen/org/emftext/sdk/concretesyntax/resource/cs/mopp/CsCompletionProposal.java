@@ -18,11 +18,13 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
 	private java.lang.String insertString;
 	private boolean startsWithPrefix;
+	private boolean structuralFeature;
 	
-	public CsCompletionProposal(java.lang.String insertString, boolean startsWithPrefix) {
+	public CsCompletionProposal(java.lang.String insertString, boolean startsWithPrefix, boolean structuralFeature) {
 		super();
 		this.insertString = insertString;
 		this.startsWithPrefix = startsWithPrefix;
+		this.structuralFeature = structuralFeature;
 	}
 	
 	public java.lang.String getInsertString() {
@@ -31,6 +33,10 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	
 	public boolean getStartsWithPrefix() {
 		return startsWithPrefix;
+	}
+	
+	public boolean isStructuralFeature() {
+		return structuralFeature;
 	}
 	
 	public boolean equals(Object object) {
