@@ -101,6 +101,7 @@ public class ExpectationComputer {
 	
 	private Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
+		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement));
 		if (syntaxElement instanceof STAR) {
 			return result;
 		}
@@ -167,7 +168,6 @@ public class ExpectationComputer {
 			assert syntaxElement == children;
 			// object was the only one stored in the reference, 
 			// we must try one level higher
-			result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement.eContainer()));
 			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 		}
 		result.remove(EPSILON);

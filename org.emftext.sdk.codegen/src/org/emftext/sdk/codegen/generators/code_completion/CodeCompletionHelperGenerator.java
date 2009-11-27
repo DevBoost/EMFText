@@ -118,7 +118,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addGetDefaultValueMethod(sc);
 		addDeriveProposalMethod1(sc);
 		addGetExpectedElementsMethod(sc);
-		addSetPrefixMethod(sc);
+		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
 	}
@@ -140,13 +140,17 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addSetPrefixMethod(StringComposite sc) {
-		sc.add("private void setPrefix(" + LIST + "<" + expectedTerminalClassName + "> allExpectedElements, String content, int cursorOffset) {");
+	private void addSetPrefixesMethod(StringComposite sc) {
+		sc.add("// for each given expected elements the prefix is calculated");
+		sc.add("// the prefix depends on the current document content, the cursor position, and");
+		sc.add("// the position where the element is expected");
+		sc.add("private void setPrefixes(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("for (" + expectedTerminalClassName + " expectedElementAtCursor : allExpectedElements) {");
-		sc.add("expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));");
+		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
+		sc.add(STRING + " prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);");
+		sc.add("expectedElement.setPrefix(prefix);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -259,9 +263,9 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (container == null) {");
-		sc.add("return " + COLLECTIONS + ".emptySet();");
-		sc.add("}");
+		
+		// creating a dummy container is not a solution either, because the container
+		// is not part of the resource and not correctly inserted in the object tree
 		/*
 		sc.add("if (container == null) {");
 		sc.add("// if no container was found we create a dummy container");
@@ -402,10 +406,15 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]), cursorOffset));");
-		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
+		sc.add("setPrefixes(expectedElementsAt, content, cursorOffset);");
+		sc.add("// first we derive all possible proposals from the set of elements that are expected at the cursor position");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);");
+		sc.add("// second, the proposals are sorted according to their relevance");
+		sc.add("// proposals that matched the prefix are preferred over ones that did not");
+		sc.add("// afterward proposals are sorted alphabetically");
 		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(proposals);");
 		sc.add(COLLECTIONS + ".sort(sortedProposals);");
+		sc.add("// finally the proposal objects are converted to strings");
 		sc.add("final " + LIST + "<" + STRING + "> sortedStrings = new " + ARRAY_LIST + "<" + STRING + ">(sortedProposals.size());");
 		sc.add("for (" + completionProposalClassName + " nextProposal : sortedProposals) {");
 		sc.add("sortedStrings.add(nextProposal.getInsertString());");

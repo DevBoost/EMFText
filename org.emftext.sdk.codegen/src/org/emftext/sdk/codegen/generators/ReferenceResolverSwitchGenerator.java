@@ -83,6 +83,13 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
 		
 		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> result) {");
+		// TODO this is a temporary workaround to avoid NPEs when this switch is called
+		// and not container was available. a better solution would be to pass the resource
+		// instead of the container, but that implies a change to the reference resolver
+		// interface
+		sc.add("if (container == null) {");
+		sc.add("return;");
+		sc.add("}");
 		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
