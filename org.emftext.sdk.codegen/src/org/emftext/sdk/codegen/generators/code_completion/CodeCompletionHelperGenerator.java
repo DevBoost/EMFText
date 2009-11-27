@@ -406,8 +406,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("if (expectedElements.length == 0) {");
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
-		//sc.add(LIST + "<" + expectedTerminalClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]), cursorOffset));");
-		
+
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
@@ -420,20 +419,12 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset);");
-		sc.add("// second, the left proposals (i.e., the ones before the cursor) are");
-		sc.add("// checked whether they contain incomplete features");
-		sc.add("// if this is the case the right proposals (i.e., the ones after the cursor)");
-		sc.add("// are remove, because it does not make sense to propose them until the element");
-		sc.add("// before the cursor was completed");
-		sc.add("boolean foundIncompleteFeatureInLeftProposals = false;");
-		sc.add("for (" + completionProposalClassName + " leftProposal : leftProposals) {");
-		sc.add("if (leftProposal.isStructuralFeature()) {");
-		sc.add("foundIncompleteFeatureInLeftProposals = true;");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("}");
+		sc.add("// second, the set of left proposals (i.e., the ones before the cursor) is");
+		sc.add("// checked for emptiness. if the set is empty, the right proposals (i.e., ");
+		sc.add("// the ones after the cursor are removed, because it does not make sense to");
+		sc.add("// propose them until the element before the cursor was completed");
 		sc.add("allProposals.addAll(leftProposals);");
-		sc.add("if (!foundIncompleteFeatureInLeftProposals) {");
+		sc.add("if (leftProposals.isEmpty()) {");
 		sc.add("allProposals.addAll(rightProposals);");
 		sc.add("}");
 		sc.add("// third, the proposals are sorted according to their relevance");

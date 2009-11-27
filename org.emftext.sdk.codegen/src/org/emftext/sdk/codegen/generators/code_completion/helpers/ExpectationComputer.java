@@ -145,30 +145,35 @@ public class ExpectationComputer {
 				}
 			}
 			return result;
-		}
-		Object children = container.eGet(reference);
-		// search the next element to the right in the syntax rule tree
-		if (children instanceof List<?>) {
-			List<?> childrenList = (List<?>) children;
-			int index = childrenList.indexOf(syntaxElement);
-			if (childrenList.size() > index + 1) {
-				// found an element next right
-				EObject nextInList = (EObject) childrenList.get(index + 1);
-				Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList);
-				result.addAll(firstSetOfNext);
-				if (firstSetOfNext.contains(EPSILON)) {
-					result.addAll(computeFollowSet(syntax, nextInList, usedRules));
+		} else if (container instanceof Choice) {
+			// we need to skip choices because the other alternatives in
+			// a choice must not be included in the FOLLOW set
+			result.addAll(computeFollowSet(syntax, container, usedRules));
+		} else {
+			Object children = container.eGet(reference);
+			// search the next element to the right in the syntax rule tree
+			if (children instanceof List<?>) {
+				List<?> childrenList = (List<?>) children;
+				int index = childrenList.indexOf(syntaxElement);
+				if (childrenList.size() > index + 1) {
+					// found an element next right
+					EObject nextInList = (EObject) childrenList.get(index + 1);
+					Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList);
+					result.addAll(firstSetOfNext);
+					if (firstSetOfNext.contains(EPSILON)) {
+						result.addAll(computeFollowSet(syntax, nextInList, usedRules));
+					}
+				} else {
+					// object was the last one in the list, 
+					// we must try one level higher
+					result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 				}
-			} else {
-				// object was the last one in the list, 
+			} else if (children instanceof EObject) {
+				assert syntaxElement == children;
+				// object was the only one stored in the reference, 
 				// we must try one level higher
 				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 			}
-		} else if (children instanceof EObject) {
-			assert syntaxElement == children;
-			// object was the only one stored in the reference, 
-			// we must try one level higher
-			result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
 		}
 		result.remove(EPSILON);
 		return result;
