@@ -52,20 +52,12 @@ public class CsCodeCompletionHelper {
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> allProposals = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset);
-		// second, the left proposals (i.e., the ones before the cursor) are
-		// checked whether they contain incomplete features
-		// if this is the case the right proposals (i.e., the ones after the cursor)
-		// are remove, because it does not make sense to propose them until the element
-		// before the cursor was completed
-		boolean foundIncompleteFeatureInLeftProposals = false;
-		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal leftProposal : leftProposals) {
-			if (leftProposal.isStructuralFeature()) {
-				foundIncompleteFeatureInLeftProposals = true;
-				break;
-			}
-		}
+		// second, the set of left proposals (i.e., the ones before the cursor) is
+		// checked for emptiness. if the set is empty, the right proposals (i.e., 
+		// the ones after the cursor are removed, because it does not make sense to
+		// propose them until the element before the cursor was completed
 		allProposals.addAll(leftProposals);
-		if (!foundIncompleteFeatureInLeftProposals) {
+		if (leftProposals.isEmpty()) {
 			allProposals.addAll(rightProposals);
 		}
 		// third, the proposals are sorted according to their relevance
