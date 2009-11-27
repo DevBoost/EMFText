@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
@@ -117,7 +118,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addHandleAttributeMethod(sc);
 		addGetDefaultValueMethod(sc);
 		addDeriveProposalMethod1(sc);
-		addGetExpectedElementsMethod(sc);
 		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
@@ -161,7 +161,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix)));");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), false));");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
@@ -176,7 +176,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String proposal = literal.getLiteral();");
 		sc.add("String prefix = expectedElement.getPrefix();");
 		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix)));");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return result;");
@@ -209,7 +209,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (defaultValueAsString.startsWith(prefix) && !defaultValueAsString.equals(prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, !\"\".equals(prefix)));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -232,8 +232,9 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
 		sc.add("final String identifier = mapping.getIdentifier();");
-		// TODO check prefix
-		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, true));");
+		sc.add("// the proposal can be added without checking the prefix because this is");
+		sc.add("// performed by the reference resolvers");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, true, true));");
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -398,21 +399,47 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
 		sc.add(iMetaInformationClassName + " metaInformation = resource.getMetaInformation();");
 		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
-		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = " + ARRAYS + ".asList(parseToExpectedElements(parser, resource));");
+		sc.add(expectedTerminalClassName + "[] expectedElements = parseToExpectedElements(parser, resource);");
 		sc.add("if (expectedElements == null) {");
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
-		sc.add("if (expectedElements.size() == 0) {");
+		sc.add("if (expectedElements.length == 0) {");
 		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]), cursorOffset));");
-		sc.add("setPrefixes(expectedElementsAt, content, cursorOffset);");
+		//sc.add(LIST + "<" + expectedTerminalClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + expectedTerminalClassName + "[expectedElements.size()]), cursorOffset));");
+		
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));");
+		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
+		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
+		
+		sc.add("setPrefixes(expectedAfterCursor, content, cursorOffset);");
+		sc.add("setPrefixes(expectedBeforeCursor, content, cursorOffset);");
+
 		sc.add("// first we derive all possible proposals from the set of elements that are expected at the cursor position");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);");
-		sc.add("// second, the proposals are sorted according to their relevance");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset);");
+		sc.add("// second, the left proposals (i.e., the ones before the cursor) are");
+		sc.add("// checked whether they contain incomplete features");
+		sc.add("// if this is the case the right proposals (i.e., the ones after the cursor)");
+		sc.add("// are remove, because it does not make sense to propose them until the element");
+		sc.add("// before the cursor was completed");
+		sc.add("boolean foundIncompleteFeatureInLeftProposals = false;");
+		sc.add("for (" + completionProposalClassName + " leftProposal : leftProposals) {");
+		sc.add("if (leftProposal.isStructuralFeature()) {");
+		sc.add("foundIncompleteFeatureInLeftProposals = true;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("allProposals.addAll(leftProposals);");
+		sc.add("if (!foundIncompleteFeatureInLeftProposals) {");
+		sc.add("allProposals.addAll(rightProposals);");
+		sc.add("}");
+		sc.add("// third, the proposals are sorted according to their relevance");
 		sc.add("// proposals that matched the prefix are preferred over ones that did not");
 		sc.add("// afterward proposals are sorted alphabetically");
-		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(proposals);");
+		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(allProposals);");
 		sc.add(COLLECTIONS + ".sort(sortedProposals);");
 		sc.add("// finally the proposal objects are converted to strings");
 		sc.add("final " + LIST + "<" + STRING + "> sortedStrings = new " + ARRAY_LIST + "<" + STRING + ">(sortedProposals.size());");
@@ -449,46 +476,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("return expectedAtCursor.toArray(new " + expectedTerminalClassName + "[expectedAtCursor.size()]);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetExpectedElementsMethod(StringComposite sc) {
-		sc.add("// Returns the element(s) that is most suitable at the given cursor");
-		sc.add("// index based on the list of expected elements.");
-		sc.add("//");
-		sc.add("// @param cursorOffset");
-		sc.add("// @param allExpectedElements");
-		sc.add("// @return");
-		
-		// TODO mseifert: figure out what other combinations of elements before
-		// and after the cursor position exist and which action should be taken.
-		// For example, when a StructuralFeature is expected right before the
-		// cursor and a CsString right after, we should return both elements.
-		sc.add("public " + expectedTerminalClassName + "[] getExpectedElements(final " + expectedTerminalClassName + "[] allExpectedElements, int cursorOffset) {");
-		sc.addLineBreak();
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset));");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));");
-		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
-		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
-		sc.add("allExpectedAtCursor.addAll(expectedAfterCursor);");
-		sc.add("if (expectedBeforeCursor != null) {");
-		sc.add("for (" + expectedTerminalClassName + " terminalBefore : expectedBeforeCursor) {");
-		sc.add(iExpectedElementClassName + " expectedBefore = (" + iExpectedElementClassName + ") terminalBefore.getTerminal();");
-		sc.add("// if the thing right before the cursor is something that could");
-		sc.add("// be long we add it to the list of proposals");
-		sc.add("if (expectedBefore instanceof " + expectedStructuralFeatureClassName + ") {");
-		sc.add("allExpectedAtCursor.add(terminalBefore);");
-		sc.add("}");
-		sc.add("// if the thing right before the cursor is a keyword");
-		sc.add("// we add it to the list of proposals");
-		sc.add("if (expectedBefore instanceof " + expectedCsStringClassName + ") {");
-		sc.add("allExpectedAtCursor.add(terminalBefore);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return allExpectedAtCursor.toArray(new " + expectedTerminalClassName + "[allExpectedAtCursor.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

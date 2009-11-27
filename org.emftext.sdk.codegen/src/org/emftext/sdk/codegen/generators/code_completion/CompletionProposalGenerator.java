@@ -30,31 +30,22 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		
 		sc.add("// A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
-		sc.add("private " + STRING + " insertString;");
-		sc.add("private boolean startsWithPrefix;");
-		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, boolean startsWithPrefix) {");
-		sc.add("super();");
-		sc.add("this.insertString = insertString;");
-		sc.add("this.startsWithPrefix = startsWithPrefix;");
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
 		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + STRING + " getInsertString() {");
-		sc.add("return insertString;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean getStartsWithPrefix() {");
-		sc.add("return startsWithPrefix;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean equals(Object object) {");
-		sc.add("if (object instanceof " + getResourceClassName() + ") {");
-		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
-		sc.add("return other.getInsertString().equals(getInsertString());");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetInsertStringMethod(sc);
+		addGetStartsWithPrefixMethod(sc);
+		addIsStructuralFeaturemethod(sc);
+		addEqualsMethod(sc);
+		addHashCodeMethod(sc);
+	}
+
+	private void addHashCodeMethod(StringComposite sc) {
 		sc.add("public int hashCode() {");
 		sc.add("return getInsertString().hashCode();");
 		sc.add("}");
@@ -70,7 +61,54 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.add("return -1;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addEqualsMethod(StringComposite sc) {
+		sc.add("public boolean equals(Object object) {");
+		sc.add("if (object instanceof " + getResourceClassName() + ") {");
+		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
+		sc.add("return other.getInsertString().equals(getInsertString());");
 		sc.add("}");
-		return true;
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addIsStructuralFeaturemethod(StringComposite sc) {
+		sc.add("public boolean isStructuralFeature() {");
+		sc.add("return structuralFeature;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetStartsWithPrefixMethod(StringComposite sc) {
+		sc.add("public boolean getStartsWithPrefix() {");
+		sc.add("return startsWithPrefix;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetInsertStringMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getInsertString() {");
+		sc.add("return insertString;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, boolean startsWithPrefix, boolean structuralFeature) {");
+		sc.add("super();");
+		sc.add("this.insertString = insertString;");
+		sc.add("this.startsWithPrefix = startsWithPrefix;");
+		sc.add("this.structuralFeature = structuralFeature;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + STRING + " insertString;");
+		sc.add("private boolean startsWithPrefix;");
+		sc.add("private boolean structuralFeature;");
+		sc.addLineBreak();
 	}
 }
