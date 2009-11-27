@@ -241,4 +241,32 @@ public class CsStringUtil {
 	public static boolean isUnicodeSequence(String text) {
 		return text.matches(UNICODE_SEQUENCE_REGEXP);
 	}
-}
+	
+	public static String matchCamelCase(String query, String str) {
+		String head = "";
+		int i;
+		for (i = 0; i < query.length(); i++) {
+			char charI = query.charAt(i);
+			if (Character.isLowerCase(charI)) {
+				head += charI;
+			} else {
+				break;
+			}
+		}
+		if (i > 0) {
+			head += "[^A-Z]*";
+		}
+		String tail = query.substring(i);
+		String re = "\\b(";
+		tail = tail.replaceAll("\\*", ".*?");
+		re += head + tail.replaceAll("([A-Z][^A-Z]*)", "$1[^A-Z]*");
+		re +=  ".*?)\\b";
+		java.util.regex.Pattern regex = java.util.regex.Pattern.compile(re);
+		java.util.regex.Matcher m = regex.matcher(str);
+		if (m.find()) {
+			return m.group();
+		} else {
+			return null;
+		}
+	}
+	}

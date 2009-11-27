@@ -121,6 +121,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
+		addMatchesMethod(sc);
 	}
 
 	private void addGetEndMethod(StringComposite sc) {
@@ -138,6 +139,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("return Integer.MAX_VALUE;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addSetPrefixesMethod(StringComposite sc) {
@@ -160,10 +162,17 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposal(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
+		sc.add("if (matches(proposal, prefix)) {");
 		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), false));");
 		sc.add("}");
 		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addMatchesMethod(StringComposite sc) {
+		sc.add("private boolean matches(" + STRING + " proposal, " + STRING + " prefix) {");
+		sc.add("return (proposal.startsWith(prefix) || " + stringUtilClassName + ".matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -175,7 +184,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
 		sc.add("String proposal = literal.getLiteral();");
 		sc.add("String prefix = expectedElement.getPrefix();");
-		sc.add("if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {");
+		sc.add("if (matches(proposal, prefix)) {");
 		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("}");
@@ -208,7 +217,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("if (tokenResolver != null) {");
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add("if (defaultValueAsString.startsWith(prefix) && !defaultValueAsString.equals(prefix)) {");
+		sc.add("if (matches(defaultValueAsString, prefix)) {");
 		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("return resultSet;");

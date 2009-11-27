@@ -15,6 +15,8 @@ package org.emftext.sdk.codegen.generators.util;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATCHER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -280,7 +282,42 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("public static boolean isUnicodeSequence(String text) {");
 		sc.add("return text.matches(UNICODE_SEQUENCE_REGEXP);");
 		sc.add("}");
+		sc.addLineBreak();
+		
+		addMatchCamelCaseMethod(sc);
+
 		sc.add("}");
 		return true;
+	}
+
+	private void addMatchCamelCaseMethod(StringComposite sc) {
+		sc.add("public static String matchCamelCase(String query, String str) {");
+		sc.add("String head = \"\";");
+		sc.add("int i;");
+		sc.add("for (i = 0; i < query.length(); i++) {");
+		sc.add("char charI = query.charAt(i);");
+		sc.add("if (Character.isLowerCase(charI)) {");
+		sc.add("head += charI;");
+		sc.add("} else {");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (i > 0) {");
+		sc.add("head += \"[^A-Z]*\";");
+		sc.add("}");
+		sc.add("String tail = query.substring(i);");
+		sc.add("String re = \"\\\\b(\";");
+		sc.add("tail = tail.replaceAll(\"\\\\*\", \".*?\");");
+		sc.add("re += head + tail.replaceAll(\"([A-Z][^A-Z]*)\", \"$1[^A-Z]*\");");
+		sc.add("re +=  \".*?)\\\\b\";");
+		sc.add(PATTERN + " regex = " + PATTERN + ".compile(re);");
+		sc.add(MATCHER + " m = regex.matcher(str);");
+		sc.add("if (m.find()) {");
+		sc.add("return m.group();");
+		sc.add("} else {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }

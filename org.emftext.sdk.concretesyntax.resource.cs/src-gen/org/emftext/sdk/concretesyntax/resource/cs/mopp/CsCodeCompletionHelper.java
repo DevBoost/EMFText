@@ -199,7 +199,7 @@ public class CsCodeCompletionHelper {
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
 			String prefix = expectedElement.getPrefix();
-			if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
+			if (matches(proposal, prefix)) {
 				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), true));
 			}
 		}
@@ -236,7 +236,7 @@ public class CsCodeCompletionHelper {
 				if (tokenResolver != null) {
 					String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
 					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
-					if (defaultValueAsString.startsWith(prefix) && !defaultValueAsString.equals(prefix)) {
+					if (matches(defaultValueAsString, prefix)) {
 						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, !"".equals(prefix), true));
 					}
 					return resultSet;
@@ -258,7 +258,7 @@ public class CsCodeCompletionHelper {
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
-		if (proposal.startsWith(prefix) && !proposal.equals(prefix)) {
+		if (matches(proposal, prefix)) {
 			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), false));
 		}
 		return result;
@@ -304,4 +304,9 @@ public class CsCodeCompletionHelper {
 		}
 		return Integer.MAX_VALUE;
 	}
+	
+	private boolean matches(java.lang.String proposal, java.lang.String prefix) {
+		return (proposal.startsWith(prefix) || org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);
+	}
+	
 }
