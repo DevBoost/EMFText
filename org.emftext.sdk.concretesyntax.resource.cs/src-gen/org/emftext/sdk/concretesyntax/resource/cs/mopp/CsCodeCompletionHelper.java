@@ -43,10 +43,15 @@ public class CsCodeCompletionHelper {
 			return java.util.Collections.emptyList();
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[expectedElements.size()]), cursorOffset));
-		setPrefix(expectedElementsAt, content, cursorOffset);
+		setPrefixes(expectedElementsAt, content, cursorOffset);
+		// first we derive all possible proposals from the set of elements that are expected at the cursor position
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> proposals = deriveProposals(expectedElementsAt, content, resource, cursorOffset);
+		// second, the proposals are sorted according to their relevance
+		// proposals that matched the prefix are preferred over ones that did not
+		// afterward proposals are sorted alphabetically
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>(proposals);
 		java.util.Collections.sort(sortedProposals);
+		// finally the proposal objects are converted to strings
 		final java.util.List<java.lang.String> sortedStrings = new java.util.ArrayList<java.lang.String>(sortedProposals.size());
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal nextProposal : sortedProposals) {
 			sortedStrings.add(nextProposal.getInsertString());
@@ -141,9 +146,6 @@ public class CsCodeCompletionHelper {
 				if (!container.eIsProxy()) {
 					break;
 				}
-			}
-			if (container == null) {
-				return java.util.Collections.emptySet();
 			}
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
@@ -278,12 +280,16 @@ public class CsCodeCompletionHelper {
 		return allExpectedAtCursor.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[allExpectedAtCursor.size()]);
 	}
 	
-	private void setPrefix(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> allExpectedElements, String content, int cursorOffset) {
+	// for each given expected elements the prefix is calculated
+	// the prefix depends on the current document content, the cursor position, and
+	// the position where the element is expected
+	private void setPrefixes(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements, String content, int cursorOffset) {
 		if (cursorOffset < 0) {
 			return;
 		}
-		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElementAtCursor : allExpectedElements) {
-			expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement : expectedElements) {
+			java.lang.String prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);
+			expectedElement.setPrefix(prefix);
 		}
 	}
 	

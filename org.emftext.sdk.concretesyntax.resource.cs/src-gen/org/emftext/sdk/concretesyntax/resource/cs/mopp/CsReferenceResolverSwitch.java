@@ -69,6 +69,9 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 	}
 	
 	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EObject> result) {
+		if (container == null) {
+			return;
+		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getGenPackageDependentElement().isInstance(container)) {
 			CsFuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenPackage> frr = new CsFuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(result);
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
