@@ -243,6 +243,9 @@ public class CsStringUtil {
 	}
 	
 	public static String matchCamelCase(String query, String str) {
+		if (!query.matches("[A-Za-z\\*]+")) {
+			return null;
+		}
 		String head = "";
 		int i;
 		for (i = 0; i < query.length(); i++) {
@@ -269,4 +272,5 @@ public class CsStringUtil {
 			return null;
 		}
 	}
-	}
+	
+}

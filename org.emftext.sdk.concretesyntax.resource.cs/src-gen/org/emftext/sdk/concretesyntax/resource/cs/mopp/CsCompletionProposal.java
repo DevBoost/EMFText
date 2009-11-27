@@ -17,18 +17,24 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // A proposal for completing an incomplete document.
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
 	private java.lang.String insertString;
+	private java.lang.String prefix;
 	private boolean startsWithPrefix;
 	private boolean structuralFeature;
 	
-	public CsCompletionProposal(java.lang.String insertString, boolean startsWithPrefix, boolean structuralFeature) {
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, boolean structuralFeature) {
 		super();
 		this.insertString = insertString;
+		this.prefix = prefix;
 		this.startsWithPrefix = startsWithPrefix;
 		this.structuralFeature = structuralFeature;
 	}
 	
 	public java.lang.String getInsertString() {
 		return insertString;
+	}
+	
+	public java.lang.String getPrefix() {
+		return prefix;
 	}
 	
 	public boolean getStartsWithPrefix() {

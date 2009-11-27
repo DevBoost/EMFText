@@ -39,6 +39,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 
 	private void addMethods(StringComposite sc) {
 		addGetInsertStringMethod(sc);
+		addGetPrefixMethod(sc);
 		addGetStartsWithPrefixMethod(sc);
 		addIsStructuralFeaturemethod(sc);
 		addEqualsMethod(sc);
@@ -95,10 +96,18 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addGetPrefixMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getPrefix() {");
+		sc.add("return prefix;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, boolean startsWithPrefix, boolean structuralFeature) {");
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, boolean structuralFeature) {");
 		sc.add("super();");
 		sc.add("this.insertString = insertString;");
+		sc.add("this.prefix = prefix;");
 		sc.add("this.startsWithPrefix = startsWithPrefix;");
 		sc.add("this.structuralFeature = structuralFeature;");
 		sc.add("}");
@@ -107,6 +116,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STRING + " insertString;");
+		sc.add("private " + STRING + " prefix;");
 		sc.add("private boolean startsWithPrefix;");
 		sc.add("private boolean structuralFeature;");
 		sc.addLineBreak();

@@ -28,7 +28,7 @@ public class CsCodeCompletionHelper {
 	// @param content the documents content
 	// @param cursorOffset
 	// @return
-	public java.util.Collection<String> computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource originalResource, String content, int cursorOffset) {
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource originalResource, String content, int cursorOffset) {
 		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
 		// the shadow resource needs the same URI because reference resolvers may use the URI to resolve external references
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.createResource(originalResource.getURI());
@@ -65,12 +65,7 @@ public class CsCodeCompletionHelper {
 		// afterward proposals are sorted alphabetically
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>(allProposals);
 		java.util.Collections.sort(sortedProposals);
-		// finally the proposal objects are converted to strings
-		final java.util.List<java.lang.String> sortedStrings = new java.util.ArrayList<java.lang.String>(sortedProposals.size());
-		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal nextProposal : sortedProposals) {
-			sortedStrings.add(nextProposal.getInsertString());
-		}
-		return sortedStrings;
+		return sortedProposals;
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[] parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -200,7 +195,7 @@ public class CsCodeCompletionHelper {
 			String proposal = literal.getLiteral();
 			String prefix = expectedElement.getPrefix();
 			if (matches(proposal, prefix)) {
-				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), true));
+				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, prefix, !"".equals(prefix), true));
 			}
 		}
 		return result;
@@ -219,7 +214,7 @@ public class CsCodeCompletionHelper {
 				final String identifier = mapping.getIdentifier();
 				// the proposal can be added without checking the prefix because this is
 				// performed by the reference resolvers
-				resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, true, true));
+				resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, prefix, true, true));
 			}
 			return resultSet;
 		}
@@ -237,7 +232,7 @@ public class CsCodeCompletionHelper {
 					String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
 					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 					if (matches(defaultValueAsString, prefix)) {
-						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, !"".equals(prefix), true));
+						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(defaultValueAsString, prefix, !"".equals(prefix), true));
 					}
 					return resultSet;
 				}
@@ -259,7 +254,7 @@ public class CsCodeCompletionHelper {
 		String proposal = csString.getValue();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		if (matches(proposal, prefix)) {
-			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, !"".equals(prefix), false));
+			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, prefix, !"".equals(prefix), false));
 		}
 		return result;
 	}

@@ -28,15 +28,16 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
 		String content = viewer.getDocument().get();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper();
-		java.util.Collection<String> proposals = helper.computeCompletionProposals(textResource, content, offset);
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> proposals = helper.computeCompletionProposals(textResource, content, offset);
 		
 		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[proposals.size()];
 		int i = 0;
-		for (String proposal : proposals) {
-			org.eclipse.jface.text.contentassist.IContextInformation info = new org.eclipse.jface.text.contentassist.ContextInformation(proposal, proposal);
-			String contentBefore = content.substring(0, offset);
-			String insertString = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.getMissingTail(contentBefore, proposal);
-			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(insertString, offset, 0, insertString.length(), null, proposal, info, proposal);
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal proposal : proposals) {
+			String proposalString = proposal.getInsertString();
+			String prefix = proposal.getPrefix();
+			org.eclipse.jface.text.contentassist.IContextInformation info = new org.eclipse.jface.text.contentassist.ContextInformation(proposalString, proposalString);
+			int begin = offset - prefix.length();
+			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, prefix.length(), proposalString.length(), null, proposalString, info, proposalString);
 		}
 		return result;
 	}

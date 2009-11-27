@@ -292,6 +292,9 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 
 	private void addMatchCamelCaseMethod(StringComposite sc) {
 		sc.add("public static String matchCamelCase(String query, String str) {");
+		sc.add("if (!query.matches(\"[A-Za-z\\\\*]+\")) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add("String head = \"\";");
 		sc.add("int i;");
 		sc.add("for (i = 0; i < query.length(); i++) {");

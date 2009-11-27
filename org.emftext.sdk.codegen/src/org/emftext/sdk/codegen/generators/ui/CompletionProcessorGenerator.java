@@ -32,6 +32,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 public class CompletionProcessorGenerator extends JavaBaseGenerator {
 
 	private String editorClassName;
+	private String completionProposalClassName;
 
 	public CompletionProcessorGenerator() {
 		super();
@@ -40,6 +41,7 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 	private CompletionProcessorGenerator(GenerationContext context) {
 		super(context, EArtifact.COMPLETION_PROCESSOR);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
+		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
 	}
 
 	public boolean generateJavaContents(StringComposite sc) {
@@ -119,15 +121,18 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
 		sc.add("String content = viewer.getDocument().get();");
 		sc.add(getClassNameHelper().getCODE_COMPLETION_HELPER() + " helper = new " + getClassNameHelper().getCODE_COMPLETION_HELPER() + "();");
-		sc.add(COLLECTION + "<String> proposals = helper.computeCompletionProposals(textResource, content, offset);");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> proposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.size()];");
 		sc.add("int i = 0;");
-		sc.add("for (String proposal : proposals) {");
-		sc.add(I_CONTEXT_INFORMATION + " info = new " + CONTEXT_INFORMATION + "(proposal, proposal);");
-		sc.add("String contentBefore = content.substring(0, offset);");
-		sc.add("String insertString = " + getClassNameHelper().getSTRING_UTIL() + ".getMissingTail(contentBefore, proposal);");
-		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(insertString, offset, 0, insertString.length(), null, proposal, info, proposal);");
+		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");
+		sc.add("String proposalString = proposal.getInsertString();");
+		sc.add("String prefix = proposal.getPrefix();");
+		sc.add(I_CONTEXT_INFORMATION + " info = new " + CONTEXT_INFORMATION + "(proposalString, proposalString);");
+		sc.add("int begin = offset - prefix.length();");
+		//sc.add("String contentBefore = content.substring(0, offset);");
+		//sc.add("String insertString = " + getClassNameHelper().getSTRING_UTIL() + ".getMissingTail(contentBefore, proposal);");
+		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, prefix.length(), proposalString.length(), null, proposalString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");

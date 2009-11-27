@@ -163,7 +163,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (matches(proposal, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), false));");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), false));");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
@@ -185,7 +185,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String proposal = literal.getLiteral();");
 		sc.add("String prefix = expectedElement.getPrefix();");
 		sc.add("if (matches(proposal, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, !\"\".equals(prefix), true));");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return result;");
@@ -218,7 +218,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (matches(defaultValueAsString, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, !\"\".equals(prefix), true));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -243,7 +243,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("final String identifier = mapping.getIdentifier();");
 		sc.add("// the proposal can be added without checking the prefix because this is");
 		sc.add("// performed by the reference resolvers");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, true, true));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true));");
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -401,7 +401,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// @param cursorOffset");
 		sc.add("// @return");
 		
-		sc.add("public " + COLLECTION + "<String> computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
+		sc.add("public " + COLLECTION + "<" + completionProposalClassName + "> computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
 		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
 		sc.add("// the shadow resource needs the same URI because reference resolvers may use the URI to resolve external references");
 		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(originalResource.getURI());");
@@ -441,12 +441,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// afterward proposals are sorted alphabetically");
 		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(allProposals);");
 		sc.add(COLLECTIONS + ".sort(sortedProposals);");
+		/*
 		sc.add("// finally the proposal objects are converted to strings");
 		sc.add("final " + LIST + "<" + STRING + "> sortedStrings = new " + ARRAY_LIST + "<" + STRING + ">(sortedProposals.size());");
 		sc.add("for (" + completionProposalClassName + " nextProposal : sortedProposals) {");
 		sc.add("sortedStrings.add(nextProposal.getInsertString());");
 		sc.add("}");
-		sc.add("return sortedStrings;");
+		*/
+		sc.add("return sortedProposals;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
