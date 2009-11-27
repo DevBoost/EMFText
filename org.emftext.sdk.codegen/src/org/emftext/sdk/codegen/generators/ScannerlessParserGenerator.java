@@ -99,10 +99,12 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	private String qualifiedTokenResolverFactoryClassName;
-	private String qualifiedDummyEObjectClassName;
-	private String qualifiedTokenResolveResultClassName;
-	private String qualifiedContextDependentURIFragmentFactoryClassName;
+	private String contextDependentURIFragmentFactoryClassName;
+	private String dummyEObjectClassName;
+	private String exptectedTerminalClassName;
+	private String tokenResolveResultClassName;
+	private String tokenResolverFactoryClassName;
+
 	private Set<String> parseMethods = new LinkedHashSet<String>();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	
@@ -112,10 +114,11 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 
 	private ScannerlessParserGenerator(GenerationContext context) {
 		super(context, EArtifact.SCANNERLESS_PARSER);
-		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		this.qualifiedDummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
-		this.qualifiedTokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
-		this.qualifiedContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
+		this.dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
+		this.tokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
+		this.contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		this.exptectedTerminalClassName = context.getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 	}
 
 	@Override
@@ -267,7 +270,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
     	sc.add(E_OBJECT + " proxyObject = proxyClass.getEPackage().getEFactoryInstance().create(proxyClass);"); 
     	//sc.add("collectHiddenTokens(element);");
     	sc.add("registerContextDependentProxy(new " + 
-    			qualifiedContextDependentURIFragmentFactoryClassName + 
+    			contextDependentURIFragmentFactoryClassName + 
     			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
 		sc.add("// add proxy");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
@@ -276,7 +279,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		generatorUtil.addRegisterContextDependentProxyMethod(sc, qualifiedContextDependentURIFragmentFactoryClassName, false, getClassNameHelper());
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentURIFragmentFactoryClassName, false, getClassNameHelper());
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -470,9 +473,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		addDiscardTokensMethod(sc);
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, qualifiedDummyEObjectClassName, getClassNameHelper());
+		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getClassNameHelper());
 		generatorUtil.addAddObjectToListMethod(sc);
-		generatorUtil.addGetFreshTokenResolveResultMethod(sc, qualifiedTokenResolveResultClassName);
+		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
 		getContext().addGetMetaInformationMethod(sc);
 		// this is the two parameter version
@@ -608,13 +611,13 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add(E_STRUCTURAL_FEATURE + " eFeature = container.eClass().getEStructuralFeature(featureConstant);");
 		sc.add("if (eFeature.getUpperBound() == 1) {");
 		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
-		sc.add("addMapEntry(container, eFeature, (" + qualifiedDummyEObjectClassName +") object);");
+		sc.add("addMapEntry(container, eFeature, (" + dummyEObjectClassName +") object);");
 		sc.add("} else {");
 		sc.add("container.eSet(eFeature, object);");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
-		sc.add("addMapEntry(container, eFeature, (" + qualifiedDummyEObjectClassName +") object);");
+		sc.add("addMapEntry(container, eFeature, (" + dummyEObjectClassName +") object);");
 		sc.add("} else {");
 		sc.add("addObjectToList(container, featureConstant, object);");
 		sc.add("}");
@@ -732,7 +735,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT() + "> parseToExpectedElements(" + E_CLASS + " type, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("public " + LIST + "<" + exptectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -953,8 +956,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
 		sc.add("private " + LINKED_LIST + "<ICommand> commands;");
-		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + qualifiedTokenResolverFactoryClassName + "();");
-		sc.add("private " + qualifiedTokenResolveResultClassName + " tokenResolveResult = new " + qualifiedTokenResolveResultClassName + "();");
+		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
+		sc.add("private " + tokenResolveResultClassName + " tokenResolveResult = new " + tokenResolveResultClassName + "();");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
 		sc.add("private ParseError parseError;");
