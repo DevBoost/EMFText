@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -21,12 +24,15 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IExpectedElementGenerator extends JavaBaseGenerator {
 
+	private String iExpectedElementClassName;
+
 	public IExpectedElementGenerator() {
 		super();
 	}
 
 	private IExpectedElementGenerator(GenerationContext context) {
 		super(context, EArtifact.I_EXPECTED_ELEMENT);
+		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -43,13 +49,9 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("// stream.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		/*
-		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens);");
-		sc.add("public int getStartExcludingHiddenTokens();");
-		sc.add("public int getStartIncludingHiddenTokens();");
-		sc.add("public " + STRING + " getPrefix();");
-		sc.add("public void setPrefix(" + STRING + " prefix);");
-		*/
+		sc.add("public " + STRING +" getTokenName();");
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower);");
+		sc.add("public " + COLLECTION + "<" + iExpectedElementClassName + "> getFollowers();");
 		sc.add("}");
 		return true;
 	}

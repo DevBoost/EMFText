@@ -627,5 +627,4 @@ public class IClassNameConstants {
 	public static String XML_MEMENTO = XMLMemento.class.getName();
 	public static String COMMON_TOKEN_STREAM = CommonTokenStream.class.getName();
 	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
-
 }

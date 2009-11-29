@@ -401,7 +401,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// @param cursorOffset");
 		sc.add("// @return");
 		
-		sc.add("public " + COLLECTION + "<" + completionProposalClassName + "> computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
+		sc.add("public " + completionProposalClassName + "[] computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
 		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
 		sc.add("// the shadow resource needs the same URI because reference resolvers may use the URI to resolve external references");
 		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(originalResource.getURI());");
@@ -410,10 +410,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
 		sc.add(expectedTerminalClassName + "[] expectedElements = parseToExpectedElements(parser, resource);");
 		sc.add("if (expectedElements == null) {");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("return new " + completionProposalClassName + "[0];");
 		sc.add("}");
 		sc.add("if (expectedElements.length == 0) {");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("return new " + completionProposalClassName + "[0];");
 		sc.add("}");
 
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
@@ -448,7 +448,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("sortedStrings.add(nextProposal.getInsertString());");
 		sc.add("}");
 		*/
-		sc.add("return sortedProposals;");
+		sc.add("return sortedProposals.toArray(new " + completionProposalClassName + "[sortedProposals.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

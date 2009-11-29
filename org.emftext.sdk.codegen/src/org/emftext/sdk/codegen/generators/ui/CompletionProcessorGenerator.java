@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMPLETION_PROPOSAL;
@@ -121,9 +120,9 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
 		sc.add("String content = viewer.getDocument().get();");
 		sc.add(getClassNameHelper().getCODE_COMPLETION_HELPER() + " helper = new " + getClassNameHelper().getCODE_COMPLETION_HELPER() + "();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> proposals = helper.computeCompletionProposals(textResource, content, offset);");
+		sc.add(completionProposalClassName + "[] proposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
-		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.size()];");
+		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.length];");
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");
 		sc.add("String proposalString = proposal.getInsertString();");

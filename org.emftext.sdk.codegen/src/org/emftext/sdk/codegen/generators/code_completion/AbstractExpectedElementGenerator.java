@@ -13,6 +13,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -43,17 +47,27 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("// Abstract super class for all expected elements. Provides methods to");
-		sc.add("// set and retrieve the document range, where the element is expected.");
-		sc.add("// This range is expressed using four integers - two denoting the range");
-		sc.add("// including hidden tokens (e.g., whitespace) and two denoting the range");
-		sc.add("// excluding those token (i.e., the part of the document containing the");
-		sc.add("// relevant characters).");
+		sc.add("// add followers");
 		sc.add("public abstract class " + getResourceClassName() + " implements " + iExpectedElementClassName + " {");
 		sc.addLineBreak();
+		sc.add("private " + SET + "<" + iExpectedElementClassName + "> followers = new " + LINKED_HASH_SET + "<" + iExpectedElementClassName + ">();");
+		sc.addLineBreak();
+		
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
+		
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower) {");
+		sc.add("followers.add(follower);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public " + COLLECTION + "<" + iExpectedElementClassName + "> getFollowers() {");
+		sc.add("return followers;");
+		sc.add("}");
+		sc.addLineBreak();
+
 		sc.add("}");
 		return true;
 	}

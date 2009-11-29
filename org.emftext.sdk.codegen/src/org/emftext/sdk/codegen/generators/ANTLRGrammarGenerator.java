@@ -30,6 +30,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
@@ -41,6 +42,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
@@ -110,6 +112,15 @@ import org.emftext.sdk.util.StringUtil;
  * allows to create model instances from plain text files.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * 
+ * TODO mseifert: to implement code completion for LL(1+) languages we need to use the
+ * last follow set that was added before the last element was parsed completely.
+ * so whenever an element (EObject) is complete we need to store the token index
+ * (getTokenStream().index()) and the last follow set. To compute the completion
+ * proposals, the follow set must be reduced using the token at the stored index.
+ * the remaining subset is then queries for its follows, where the same procedure
+ * is applied again (reduction using next token). this is performed until the
+ * cursor position is reached.
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
@@ -161,6 +172,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
 	private int idCounter = 0;
+
+	private Map<String, Set<EObject>> followSetMap = new LinkedHashMap<String, Set<EObject>>();
 
 	public ANTLRGrammarGenerator() {
 		super();
@@ -221,7 +234,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
-		sc.add("k = 1;"); // this is needed to make the code completion work
+		//sc.add("k = 1;"); // this is needed to make the code completion work
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -297,6 +310,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
+		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc,
 				contextDependentURIFragmentFactoryClassName, true, getClassNameHelper());
@@ -304,6 +318,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
 		addTerminateMethod(sc);
+		addCompletedElementMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -454,6 +469,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("currentTarget = newEObject;");
 		sc.add("}");
 		sc.add("return currentTarget;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCompletedElementMethod(StringComposite sc) {
+		sc.add("protected void completedElement(Object element) {");
+		sc.add("if (element instanceof " + E_OBJECT + ") {");
+		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
+		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size();");
+		sc.add("System.out.println(\"COMPLETED : \" + element + \" TOKEN INDEX = \" + tokenIndexOfLastCompleteElement + \" EXP INDEX = \" + expectedElementsIndexOfLastCompleteElement);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -650,7 +676,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private boolean rememberExpectedElements = false;");
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
-		sc.add("private boolean reachedIndex = false;");
 		sc.add("private " + LIST + "<" + expectedTerminalClassName
 				+ "> expectedElements = new " + ARRAY_LIST + "<"
 				+ expectedTerminalClassName + ">();");
@@ -669,6 +694,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private int stopExcludingHiddenTokens;");
 		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
 		sc.add("private boolean terminateParsing;");
+		sc.add("private int tokenIndexOfLastCompleteElement;");
+		sc.add("private int expectedElementsIndexOfLastCompleteElement;");
 		sc.addLineBreak();
 	}
 
@@ -677,6 +704,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource) {");
 		sc.add("rememberExpectedElements = true;");
 		sc.add("parseToIndexTypeObject = type;");
+		sc.add("final " + COMMON_TOKEN_STREAM + " tokenStream = (" + COMMON_TOKEN_STREAM + ") getTokenStream();");
 		sc.add(iParseResultClassName + " result = parse();");
 		sc.add("if (result != null) {");
 		sc.add(E_OBJECT + " root = result.getRoot();");
@@ -686,6 +714,65 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("for (" + iCommandClassName + "<" + iTextResourceClassName + "> command : result.getPostParseCommands()) {");
 		sc.add("command.execute(dummyResource);");
 		sc.add("}");
+		sc.add("}");
+		sc.add("// remove all expected elements that were added after the last complete element");
+		sc.add("expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);");
+		sc.add("int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();");
+		sc.add(SET + "<" + expectedTerminalClassName + "> currentFollowSet = new " + LINKED_HASH_SET +"<" + expectedTerminalClassName + ">();");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> newFollowSet = new " + ARRAY_LIST +"<" + expectedTerminalClassName + ">();");
+		sc.add("for (int i = expectedElementsIndexOfLastCompleteElement; i >= 0; i--) {");
+		sc.add(expectedTerminalClassName + " expectedElementI = expectedElements.get(i);");
+		sc.add("if (expectedElementI.getFollowSetID() == lastFollowSetID) {");
+		sc.add("System.out.println(\"FOLLOW ELEMENT \" + expectedElementI);");
+		sc.add("currentFollowSet.add(expectedElementI);");
+		sc.add("} else {");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		// now the follow set IDs must be calculated dynamically
+		sc.add("int followSetID = " + followSetID + ";");
+		sc.add("int i;");
+		sc.add("for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {");
+		sc.add(COMMON_TOKEN + " nextToken = (" + COMMON_TOKEN + ") tokenStream.get(i);");
+		sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
+		sc.add("if (nextToken.getChannel() == 99) {");
+		sc.add("// hidden tokens do not reduce the follow set");
+		sc.add("} else {");
+		sc.add("// now that we have found the next visible token the position for that expected terminals");
+		sc.add("// can be set");
+		sc.add("for (" + expectedTerminalClassName + " nextFollow : newFollowSet) {");
+		// TODO this is somewhat inefficient since the token stream is searched from
+		// the beginning
+		sc.add("lastTokenIndex = 0;");
+		sc.add("setPosition(nextFollow, i);");
+		sc.add("}");
+		sc.add("newFollowSet.clear();");
+		sc.add("// normal tokens do reduce the follow set - only elements that match the token are kept");
+		sc.add("for (" + expectedTerminalClassName + " nextFollow : currentFollowSet) {");
+		sc.add("System.out.println(\"CHECKING : \" + nextFollow);");
+		sc.add("if (nextFollow.getTerminal().getTokenName().equals(getTokenNames()[nextToken.getType()])) {");
+		sc.add("// keep this one - it matches");
+		sc.add("System.out.println(\"MATCH! \" + nextFollow);");
+		sc.add(COLLECTION + "<" + iExpectedElementClassName + "> newFollowers = nextFollow.getTerminal().getFollowers();");
+		sc.add("for (" + iExpectedElementClassName + " newFollower : newFollowers) {");
+		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(newFollower, followSetID);");
+		sc.add("newFollowSet.add(newFollowTerminal);");
+		sc.add("expectedElements.add(newFollowTerminal);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("currentFollowSet.clear();");
+		sc.add("currentFollowSet.addAll(newFollowSet);");
+		sc.add("}");
+		sc.add("followSetID++;");
+		sc.add("}");
+		sc.add("// after the last token in the stream we must set the position for the elements that were");
+		sc.add("// added during the last iteration of the loop");
+		sc.add("for (" + expectedTerminalClassName + " nextFollow : newFollowSet) {");
+		// TODO this is somewhat inefficient since the token stream is searched from
+		// the beginning
+		sc.add("lastTokenIndex = 0;");
+		sc.add("setPosition(nextFollow, i);");
 		sc.add("}");
 		sc.add("return this.expectedElements;");
 		sc.add("}");
@@ -753,10 +840,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("if (this.reachedIndex) {");
-		sc.add("return;");
+		sc.add("setPosition(expectedElement, input.index());");
+		//sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
+		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
-		sc.add("int currentIndex = " + MATH + ".max(0, input.index());");
+		sc.addLineBreak();
+	}
+
+	private void addSetPositionMethod(StringComposite sc) {
+		sc.add("public void setPosition(" + expectedTerminalClassName
+				+ " expectedElement, int tokenIndex) {");
+		sc.add("int currentIndex = " + MATH + ".max(0, tokenIndex);");
 		//sc.add("//System.out.println(\"addExpectedElement() currentIndex = \" + currentIndex);");
 		//sc.add("int startExcludingHidden = currentIndex;");
 		sc.add("for (int index = lastTokenIndex; index < currentIndex; index++) {");
@@ -773,8 +867,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("lastTokenIndex = " + MATH + ".max(0, currentIndex);");
 		sc.add("expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);");
-		//sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
-		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -837,12 +929,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 		sc.add("// follow set for start rule(s)");
 		addExpectationsCode(sc, expectations);
+		sc.add("expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
 		int i = 0;
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
-			// there may also be rule for subclasses of the start symbol class
+			// there may also be rules for subclasses of the start symbol class
 			// thus, we create an alternative for each rule
 			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
 			for (Rule startRule : startRules) {
@@ -1145,6 +1238,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<EObject> expectations = computer.computeFollowSet(syntax, definition);
+			addToFollowSetMap(definition, expectations);
 			String cardinality = csUtil.computeCardinalityString(definition);
 			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
 			}
@@ -1182,6 +1276,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.addLineBreak();
 		}
 		return count;
+	}
+
+	private void addToFollowSetMap(Definition definition, Set<EObject> expectations) {
+		// only terminal are important here
+		if (definition instanceof Placeholder || definition instanceof CsString) {
+			followSetMap.put(getID(definition), expectations);
+		}
 	}
 
 	private void addExpectationsCode(StringComposite sc, Set<EObject> expectations) {
@@ -1223,11 +1324,20 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
 		}
+		sc.addLineBreak();
+		sc.add("// wire the terminals");
+		sc.add("static {");
+		for (String firstID : followSetMap.keySet()) {
+			for (EObject follower : followSetMap.get(firstID)) {
+				sc.add(firstID + ".addFollower(" + getID(follower)+ ");");
+			}
+		}
+		sc.add("}");
 	}
 
 	private String getID(EObject expectedElement) {
 		if (!idMap.containsKey(expectedElement)) {
-			idMap.put(expectedElement, "TERMINAL_" + idCounter);
+			idMap.put(expectedElement, "SYNTAX_ELEMENT_" + idCounter);
 			idCounter++;
 		}
 		return idMap.get(expectedElement);

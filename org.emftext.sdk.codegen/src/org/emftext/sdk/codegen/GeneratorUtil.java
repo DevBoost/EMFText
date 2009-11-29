@@ -54,8 +54,8 @@ public class GeneratorUtil {
 	}
 
 	public void addCodeToSetFeature(StringComposite sc,
-			final GenClass genClass, final String featureConstant,
-			final EStructuralFeature eFeature, String expressionToBeSet) {
+			GenClass genClass, String featureConstant,
+			EStructuralFeature eFeature, String expressionToBeSet) {
 		
 		if (eFeature.getUpperBound() == 1) {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
@@ -82,6 +82,7 @@ public class GeneratorUtil {
 						+ ", " + expressionToBeSet + ");");
 			}
 		}
+		sc.add("completedElement(" + expressionToBeSet + ");");
 	}
 
 	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, ClassNameHelper classNameHelper) {
