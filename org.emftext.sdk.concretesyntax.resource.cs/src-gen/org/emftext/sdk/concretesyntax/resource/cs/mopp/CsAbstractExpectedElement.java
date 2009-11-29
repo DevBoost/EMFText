@@ -15,15 +15,21 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 // Abstract super class for all expected elements. Provides methods to
-// set and retrieve the document range, where the element is expected.
-// This range is expressed using four integers - two denoting the range
-// including hidden tokens (e.g., whitespace) and two denoting the range
-// excluding those token (i.e., the part of the document containing the
-// relevant characters).
+// add followers
 public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement {
+	
+	private java.util.Set<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> followers = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement>();
 	
 	public CsAbstractExpectedElement() {
 		super();
+	}
+	
+	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower) {
+		followers.add(follower);
+	}
+	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getFollowers() {
+		return followers;
 	}
 	
 }

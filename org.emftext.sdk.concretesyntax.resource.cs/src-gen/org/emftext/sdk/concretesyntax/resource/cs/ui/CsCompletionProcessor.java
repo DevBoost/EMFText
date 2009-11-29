@@ -28,9 +28,9 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
 		String content = viewer.getDocument().get();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper();
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> proposals = helper.computeCompletionProposals(textResource, content, offset);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal[] proposals = helper.computeCompletionProposals(textResource, content, offset);
 		
-		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[proposals.size()];
+		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[proposals.length];
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal proposal : proposals) {
 			String proposalString = proposal.getInsertString();

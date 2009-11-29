@@ -18,4 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 // stream.
 public interface ICsExpectedElement {
 	
+	public java.lang.String getTokenName();
+	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower);
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getFollowers();
 }
