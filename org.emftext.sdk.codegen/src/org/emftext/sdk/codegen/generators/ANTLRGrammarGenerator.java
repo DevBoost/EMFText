@@ -1325,12 +1325,26 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		sc.addLineBreak();
-		sc.add("// wire the terminals");
-		sc.add("static {");
+		int units = 100;
+		int i = 0;
+		int max = 0;
 		for (String firstID : followSetMap.keySet()) {
+			if (i % units == 0) {
+				sc.add("public static void wire" + (i / units) + "() {");
+				max++;
+			}
 			for (EObject follower : followSetMap.get(firstID)) {
 				sc.add(firstID + ".addFollower(" + getID(follower)+ ");");
 			}
+			if (i % units == units - 1 || i == followSetMap.keySet().size() - 1) {
+				sc.add("}");
+			}
+			i++;
+		}
+		sc.add("// wire the terminals");
+		sc.add("static {");
+		for (int c = 0; c < max; c++) {
+			sc.add("wire" + c + "();");
 		}
 		sc.add("}");
 	}
