@@ -852,9 +852,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// code completion is requested
 		sc.add("public void addExpectedElement(" + expectedTerminalClassName
 				+ " expectedElement) {");
-		//sc.add("if (this.state.failed) {");
-		//sc.add("return;");
-		//sc.add("}");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
@@ -869,15 +866,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("public void setPosition(" + expectedTerminalClassName
 				+ " expectedElement, int tokenIndex) {");
 		sc.add("int currentIndex = " + MATH + ".max(0, tokenIndex);");
-		//sc.add("//System.out.println(\"addExpectedElement() currentIndex = \" + currentIndex);");
-		//sc.add("int startExcludingHidden = currentIndex;");
 		sc.add("for (int index = lastTokenIndex; index < currentIndex; index++) {");
-		//sc.add("//System.out.println(\"addExpectedElement() index = \" + index);");
 		sc.add("if (index >= input.size()) {");
 		sc.add("break;");
 		sc.add("}");
 		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
-		//sc.add("//System.out.println(\"addExpectedElement() tokenAtIndex = \" + tokenAtIndex);");
 		sc.add("stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
 		sc.add("if (tokenAtIndex.getChannel() != 99) {");
 		sc.add("stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
@@ -901,8 +894,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ " input, int ttype, " + BIT_SET + " follow) throws "
 				+ RECOGNITION_EXCEPTION + " {");
 		sc.add("if (!rememberExpectedElements) {");
-		sc
-				.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
+		sc.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
 		sc.add("} else {");
 		sc.add("return null;");
 		sc.add("}");
@@ -1258,8 +1250,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Set<EObject> expectations = computer.computeFollowSet(syntax, definition);
 			addToFollowSetMap(definition, expectations);
 			String cardinality = csUtil.computeCardinalityString(definition);
-			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
-			}
 			if (!"".equals(cardinality)) {
 				sc.add("(");
 			}
@@ -1343,25 +1333,31 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		sc.addLineBreak();
-		int units = 100;
+		
+		// we need to split the code to wire the terminals with their
+		// followers, because the code does exceed the 64KB limit for
+		// methods if the grammar is big
+		final int METHOD_CALLS_PER_METHOD = 100;
 		int i = 0;
-		int max = 0;
+		int numberOfMethods = 0;
+		// create multiple wireX() methods
 		for (String firstID : followSetMap.keySet()) {
-			if (i % units == 0) {
-				sc.add("public static void wire" + (i / units) + "() {");
-				max++;
+			if (i % METHOD_CALLS_PER_METHOD == 0) {
+				sc.add("public static void wire" + (i / METHOD_CALLS_PER_METHOD) + "() {");
+				numberOfMethods++;
 			}
 			for (EObject follower : followSetMap.get(firstID)) {
 				sc.add(firstID + ".addFollower(" + getID(follower)+ ");");
 			}
-			if (i % units == units - 1 || i == followSetMap.keySet().size() - 1) {
+			if (i % METHOD_CALLS_PER_METHOD == METHOD_CALLS_PER_METHOD - 1 || i == followSetMap.keySet().size() - 1) {
 				sc.add("}");
 			}
 			i++;
 		}
+		// call all wireX() methods from the static constructor
 		sc.add("// wire the terminals");
 		sc.add("static {");
-		for (int c = 0; c < max; c++) {
+		for (int c = 0; c < numberOfMethods; c++) {
 			sc.add("wire" + c + "();");
 		}
 		sc.add("}");
