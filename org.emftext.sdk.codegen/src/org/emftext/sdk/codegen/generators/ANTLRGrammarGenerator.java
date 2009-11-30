@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BIT_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -49,7 +50,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -58,7 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.antlr.runtime.ANTLRStringStream;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.BasicEList;
@@ -111,16 +110,20 @@ import org.emftext.sdk.util.StringUtil;
  * checked by this generator) it can be used to generate a text parser which
  * allows to create model instances from plain text files.
  * 
- * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * To enable code completion the grammar is augmented with addition code. For
+ * example, for each terminal a field is created and all terminals are connected
+ * to their follow set. During code completion the parser runs in a special mode
+ * (rememberExpectations=true). To derive the set of elements that can potentially
+ * occur after the cursor, the last follow set that was added before the last 
+ * complete element is needing. Whenever an element (EObject) is complete during
+ * parsing, the current token index (getTokenStream().index()) and the last follow 
+ * set is stored. To compute the completion proposals, this preliminary follow set 
+ * must be reduced using the token at the stored index. The remaining subset is 
+ * then queried for its follows, where the same procedure is applied again 
+ * (reduction using the next token). this is performed until the cursor position 
+ * (end of the document) is reached.
  * 
- * TODO mseifert: to implement code completion for LL(1+) languages we need to use the
- * last follow set that was added before the last element was parsed completely.
- * so whenever an element (EObject) is complete we need to store the token index
- * (getTokenStream().index()) and the last follow set. To compute the completion
- * proposals, the follow set must be reduced using the token at the stored index.
- * the remaining subset is then queries for its follows, where the same procedure
- * is applied again (reduction using next token). this is performed until the
- * cursor position is reached.
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
@@ -134,7 +137,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
 	
-	// some qualified class names that are repeatedly used
+	// some fully qualified names of classes that are repeatedly used
 	private String tokenResolverFactoryClassName;
 	private String dummyEObjectClassName;
 	private String tokenResolveResultClassName;
@@ -146,6 +149,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String iParseResultClassName;
 	private String expectedTerminalClassName;
 	private String iExpectedElementClassName;
+	private String parseResultClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -153,7 +157,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 */
 	private Map<String, Collection<String>> genClassNames2superClassNames;
 	private Collection<GenClass> allGenClasses;
-	private ArrayList<String> keywordTokens;
+	private List<String> keywordTokens;
 
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -170,9 +174,23 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
+	/**
+	 * A map that contains the terminal elements of the syntax specification
+	 * (keywords and placeholders) to the name of the field that represents
+	 * them.
+	 */
 	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
+	
+	/**
+	 * A counter that is used to indicate the next free id in 'idMap'.
+	 */
 	private int idCounter = 0;
 
+	/**
+	 * A map that contains names of fields representing terminals and their
+	 * follow set. This map is used to create the code that links terminals
+	 * and the potential next elements (i.e., their follow set).
+	 */
 	private Map<String, Set<EObject>> followSetMap = new LinkedHashMap<String, Set<EObject>>();
 
 	public ANTLRGrammarGenerator() {
@@ -194,6 +212,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		iParseResultClassName = context.getQualifiedClassName(EArtifact.I_PARSE_RESULT);
 		expectedTerminalClassName = context.getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 		iExpectedElementClassName = context.getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
+		parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 	}
 
 	private void initOptions() {
@@ -206,6 +225,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 		
 		keywordTokens = new ArrayList<String>();
+		// TODO this does not include the keywords in imported syntaxes - is this a problem?
 		Collection<CsString> allKeywords = EObjectUtil.getObjectsByType(concreteSyntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 		for (CsString nextKeyword : allKeywords) {
 			keywordTokens.add(nextKeyword.getValue());
@@ -234,13 +254,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
-		//sc.add("k = 1;"); // this is needed to make the code completion work
 		sc.add("}");
 		sc.addLineBreak();
 
 		// the lexer: package definition and error handling
 		sc.add("@lexer::header {");
-		sc.add("package " + super.getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -250,19 +269,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e) {");
 		sc.add("lexerExceptions.add(e);");
-		sc.add("lexerExceptionsPosition.add(((" + ANTLRStringStream.class.getName() + ") input).index());");
+		sc.add("lexerExceptionsPosition.add(((" + ANTLR_STRING_STREAM + ") input).index());");
 		sc.add("}");
 		sc.add("}");
 
 		// the parser: package definition and entry (doParse) method
 		sc.add("@header{");
-		sc.add("package " + super.getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");
 		sc.add("}");
 		sc.addLineBreak();
 
-		StringComposite subComposite = new ANTLRGrammarComposite();
-		addRules(subComposite);
-		addTokenDefinitions(subComposite);
+		StringComposite grammarCore = new ANTLRGrammarComposite();
+		addRules(grammarCore);
+		addTokenDefinitions(grammarCore);
 
 		sc.add("@members{");
 		addFields(sc);
@@ -271,10 +290,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add(subComposite.toString());
+		sc.add(grammarCore.toString());
 
 		writer.print(sc.toString());
-		return getCollectedErrors().size() == 0;
+		return getCollectedErrors().isEmpty();
 	}
 
 	private void addRules(StringComposite sc) {
@@ -427,8 +446,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addParseMethod(StringComposite sc) {
-		String parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
-
 		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
 		sc.add("// RecognitionExceptions.");
 		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
@@ -478,6 +495,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (element instanceof " + E_OBJECT + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size();");
+		// TODO mseifert: remove this debug output
 		sc.add("System.out.println(\"COMPLETED : \" + element + \" TOKEN INDEX = \" + tokenIndexOfLastCompleteElement + \" EXP INDEX = \" + expectedElementsIndexOfLastCompleteElement);");
 		sc.add("}");
 		sc.add("}");
@@ -1351,7 +1369,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private String getID(EObject expectedElement) {
 		if (!idMap.containsKey(expectedElement)) {
-			idMap.put(expectedElement, "SYNTAX_ELEMENT_" + idCounter);
+			idMap.put(expectedElement, "TERMINAL_" + idCounter);
 			idCounter++;
 		}
 		return idMap.get(expectedElement);
@@ -1359,17 +1377,16 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private int printCsString(CsString csString, Rule rule, StringComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
-		final String identifier = "a" + count;
+		String identifier = "a" + count;
 		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
-		// addExpectationCode(sc, csString, identifier);
 		sc.add("if (element == null) {");
 		sc.add("element = "
 				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),
 						dummyEObjectClassName) + ";");
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("copyLocalizationInfos((CommonToken)" + identifier
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
 		return ++count;
@@ -1406,7 +1423,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					// remember which classes are referenced to add choice rules
 					// for these classes later
 					if (!eClassesReferenced.keySet().contains(type)) {
-						eClassesReferenced.put(type, new HashSet<Terminal>());
+						eClassesReferenced.put(type, new LinkedHashSet<Terminal>());
 					}
 
 					eClassesReferenced.get(type).add(terminal);
