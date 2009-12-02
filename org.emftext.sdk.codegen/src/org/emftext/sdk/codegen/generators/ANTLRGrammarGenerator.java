@@ -157,7 +157,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 */
 	private Map<String, Collection<String>> genClassNames2superClassNames;
 	private Collection<GenClass> allGenClasses;
-	private List<String> keywordTokens;
+	private Set<String> keywords;
 
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -224,11 +224,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		allGenClasses = genClassFinder.findAllGenClasses(concreteSyntax, true, true);
 		genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 		
-		keywordTokens = new ArrayList<String>();
-		// TODO this does not include the keywords in imported syntaxes - is this a problem?
-		Collection<CsString> allKeywords = EObjectUtil.getObjectsByType(concreteSyntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
-		for (CsString nextKeyword : allKeywords) {
-			keywordTokens.add(nextKeyword.getValue());
+		keywords = new LinkedHashSet<String>();
+		
+		List<Rule> allRules = concreteSyntax.getAllRules();
+		for (Rule rule : allRules) {
+			Collection<CsString> keywordsInRule = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
+			for (CsString nextKeyword : keywordsInRule) {
+				keywords.add(nextKeyword.getValue());
+			}
 		}
 	}
 
@@ -1651,8 +1654,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(":");
 
 		sc.add(definition.getRegex());
-		// TODO why do we handle the keyword tokens differently?
-		// we must document this behavior!
+		// keyword tokens do never go to channel 99, because they
+		// are contained in the grammar. if they are sent to channel
+		// 99 rules containing the keywords will never be matched
 		if (definition.isHidden() && !isKeyword(definition)) {
 			sc.add("{ _channel = 99; }");
 		}
@@ -1660,10 +1664,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private boolean isKeyword(TokenDefinition definition) {
-		// TODO this comparison of the regular expression should be
-		// replaced by a comparison of the two automata
+		// this comparison of the regular expression should in theory be
+		// replaced by a comparison of the two automata. however, ANTLR
+		// does not compare the in-line tokens (keywords) and the defined
+		// tokens using automata, but uses a string comparison of the 
+		// regular expressions. if we compare the tokens using the automata
+		// the resulting ANTLR grammars will not work.
 		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length() - 1);
-		return keywordTokens.contains(assumeKeyword);
+		boolean contains = keywords.contains(assumeKeyword);
+		return contains;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
