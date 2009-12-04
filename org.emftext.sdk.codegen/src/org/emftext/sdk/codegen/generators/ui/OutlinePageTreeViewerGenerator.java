@@ -56,6 +56,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 	private void addMethods(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		addSetSelectionMethod(sc);
+		addHandleInvalidSelectionMethod(sc);
 		addRefreshMethod1(sc);
 		addRefreshMethod2(sc);
 		addRefreshMethod3(sc);
@@ -107,9 +108,18 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.add("suppressNotifications = false;");
 		sc.add("}");
 		sc.add("}");
+		sc.
+		addLineBreak();
+	}
+	
+	private void addHandleInvalidSelectionMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("protected void handleInvalidSelection(" + I_SELECTION + " selection, " + I_SELECTION + " newSelection) {");
+		sc.add("//this may not fire a selection changed event to avoid cyclic events between editor and outline");
+		sc.add("}");
 		sc.addLineBreak();
 	}
-
+	
 	private void addFireSelectionChangedMethod(StringComposite sc) {
 		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add("if (suppressNotifications == true) return;");
