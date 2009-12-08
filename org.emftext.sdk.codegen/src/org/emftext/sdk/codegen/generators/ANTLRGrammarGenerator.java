@@ -446,6 +446,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("public void terminate() {");
 		sc.add("terminateParsing = true;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addParseMethod(StringComposite sc) {
@@ -497,9 +498,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("protected void completedElement(Object element) {");
 		sc.add("if (element instanceof " + E_OBJECT + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
-		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size();");
+		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
 		// TODO mseifert: remove this debug output
-		sc.add("System.out.println(\"COMPLETED : \" + element + \" TOKEN INDEX = \" + tokenIndexOfLastCompleteElement + \" EXP INDEX = \" + expectedElementsIndexOfLastCompleteElement);");
+		//sc.add("System.out.println(\"COMPLETED : \" + element + \" TOKEN INDEX = \" + tokenIndexOfLastCompleteElement + \" EXP INDEX = \" + expectedElementsIndexOfLastCompleteElement);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
