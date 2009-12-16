@@ -17,7 +17,7 @@ package org.emftext.sdk.regex;
 
 
 
-import org.antlr.runtime.*;
+import org.antlr.runtime3_2_0.*;
 
 public class ANTLRexpLexer extends Lexer {
     public static final int T__12=12;

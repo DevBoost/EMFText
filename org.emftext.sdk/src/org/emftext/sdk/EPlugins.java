@@ -54,7 +54,7 @@ public enum EPlugins {
 		
 		@Override
 		public String getPluginName(ConcreteSyntax syntax) {
-			return "org.emftext.commons.antlr3_1_1";
+			return "org.emftext.commons.antlr3_2_0";
 		}
 
 		@Override

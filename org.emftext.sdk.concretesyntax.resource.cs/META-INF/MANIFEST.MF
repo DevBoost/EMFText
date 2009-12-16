@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.resources,org.emftext.access;resoluti
  e.emf.ecore,org.eclipse.emf.ecore.edit,org.eclipse.emf.edit.ui,org.ec
  lipse.emf.workspace,org.eclipse.jface,org.eclipse.jface.text,org.ecli
  pse.ui,org.eclipse.ui.editors,org.eclipse.ui.ide,org.eclipse.ui.views
- ,org.emftext.sdk.concretesyntax,org.emftext.sdk,org.emftext.sdk.antlr
+ ,org.emftext.sdk.concretesyntax,org.emftext.sdk,org.emftext.sdk.antlr3_2_0
  ;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

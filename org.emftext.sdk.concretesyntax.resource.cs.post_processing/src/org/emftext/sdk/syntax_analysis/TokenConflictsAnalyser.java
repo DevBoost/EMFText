@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;

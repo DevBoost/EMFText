@@ -3,7 +3,7 @@
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 
-import org.antlr.runtime.*;
+import org.antlr.runtime3_2_0.*;
 
 public class CsLexer extends Lexer {
     public static final int T__42=42;
@@ -51,12 +51,12 @@ public class CsLexer extends Lexer {
     public static final int T__41=41;
     public static final int T__18=18;
 
-    	public java.util.List<org.antlr.runtime.RecognitionException> lexerExceptions  = new java.util.ArrayList<org.antlr.runtime.RecognitionException>();
+    	public java.util.List<org.antlr.runtime3_2_0.RecognitionException> lexerExceptions  = new java.util.ArrayList<org.antlr.runtime3_2_0.RecognitionException>();
     	public java.util.List<java.lang.Integer> lexerExceptionsPosition = new java.util.ArrayList<java.lang.Integer>();
     	
-    	public void reportError(org.antlr.runtime.RecognitionException e) {
+    	public void reportError(org.antlr.runtime3_2_0.RecognitionException e) {
     		lexerExceptions.add(e);
-    		lexerExceptionsPosition.add(((org.antlr.runtime.ANTLRStringStream) input).index());
+    		lexerExceptionsPosition.add(((org.antlr.runtime3_2_0.ANTLRStringStream) input).index());
     	}
 
 

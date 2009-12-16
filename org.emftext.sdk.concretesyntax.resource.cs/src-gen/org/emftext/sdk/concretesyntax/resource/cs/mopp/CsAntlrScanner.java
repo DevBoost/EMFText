@@ -16,9 +16,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsAntlrScanner implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner {
 	
-	private org.antlr.runtime.Lexer antlrLexer;
+	private org.antlr.runtime3_2_0.Lexer antlrLexer;
 	
-	public CsAntlrScanner(org.antlr.runtime.Lexer antlrLexer) {
+	public CsAntlrScanner(org.antlr.runtime3_2_0.Lexer antlrLexer) {
 		this.antlrLexer = antlrLexer;
 	}
 	
@@ -26,13 +26,13 @@ public class CsAntlrScanner implements org.emftext.sdk.concretesyntax.resource.c
 		if (antlrLexer.getCharStream() == null) {
 			return null;
 		}
-		final org.antlr.runtime.Token current = antlrLexer.nextToken();
+		final org.antlr.runtime3_2_0.Token current = antlrLexer.nextToken();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken(current);
 		return result;
 	}
 	
 	public void setText(java.lang.String text) {
-		antlrLexer.setCharStream(new org.antlr.runtime.ANTLRStringStream(text));
+		antlrLexer.setCharStream(new org.antlr.runtime3_2_0.ANTLRStringStream(text));
 	}
 	
 }

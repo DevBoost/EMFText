@@ -14,13 +14,13 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-public abstract class CsANTLRParserBase extends org.antlr.runtime.Parser implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser {
+public abstract class CsANTLRParserBase extends org.antlr.runtime3_2_0.Parser implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser {
 	
-	public CsANTLRParserBase(org.antlr.runtime.TokenStream input) {
+	public CsANTLRParserBase(org.antlr.runtime3_2_0.TokenStream input) {
 		super(input);
 	}
 	
-	public CsANTLRParserBase(org.antlr.runtime.TokenStream input, org.antlr.runtime.RecognizerSharedState state) {
+	public CsANTLRParserBase(org.antlr.runtime3_2_0.TokenStream input, org.antlr.runtime3_2_0.RecognizerSharedState state) {
 		super(input, state);
 	}
 	

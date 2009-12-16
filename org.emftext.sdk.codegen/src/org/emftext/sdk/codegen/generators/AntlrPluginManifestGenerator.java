@@ -57,6 +57,6 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 
 	@Override
 	protected String getBundleName(GenerationContext context) {
-		return "ANTLR 3.1.1 Runtime Classes";
+		return "ANTLR 3.2.0 Runtime Classes";
 	}
 }

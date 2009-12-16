@@ -28,7 +28,7 @@ public interface Constants {
 	public String MOPP_PACKAGE = "mopp";
 	public String ANALYSIS_PACKAGE = "analysis";
 
-	public String ANTLR_RUNTIME_PACKAGE = "org.antlr.runtime";
+	public String ANTLR_RUNTIME_PACKAGE = "org.antlr.runtime3_2_0";
 	public String ANTLR_RUNTIME_DEBUG_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".debug";
 	public String ANTLR_RUNTIME_MISC_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".misc";
 	public String ANTLR_RUNTIME_TREE_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".tree";

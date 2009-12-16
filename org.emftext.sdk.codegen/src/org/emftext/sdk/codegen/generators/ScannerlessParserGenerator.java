@@ -42,9 +42,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime3_2_0.ANTLRInputStream;
+import org.antlr.runtime3_2_0.CommonTokenStream;
+import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EAttribute;
