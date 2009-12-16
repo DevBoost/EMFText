@@ -32,6 +32,10 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		}
 	}
 	
+	protected void handleInvalidSelection(org.eclipse.jface.viewers.ISelection selection, org.eclipse.jface.viewers.ISelection newSelection) {
+		//this may not fire a selection changed event to avoid cyclic events between editor and outline
+	}
+	
 	public void refresh(Object element, boolean updateLabels) {
 		super.refresh(element, updateLabels);
 		expandToLevel(getAutoExpandLevel());
