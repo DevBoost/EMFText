@@ -38,6 +38,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITING_DOMAIN_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ITEM_PROPERTY_DESCRIPTOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ITEM_PROPERTY_SOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_MONITOR;
@@ -83,6 +84,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private String activatorClassName;
 	private String colorManagerClassName;
 	private String backgroundParsingStrategyClassName;
+	private String natureClassName;
 
 	public EditorGenerator() {
 		super();
@@ -98,6 +100,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
 		backgroundParsingStrategyClassName = getContext().getQualifiedClassName(EArtifact.BACKGROUND_PARSING_STRATEGY);
+		natureClassName = getContext().getQualifiedClassName(EArtifact.NATURE);
 	}
 
 	@Override
@@ -412,7 +415,10 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private void addInitializeResourceObjectMethod(StringComposite sc) {
 		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT + " editorInput) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") editorInput;");
-		sc.add("String path = input.getFile().getFullPath().toString();");
+		sc.add(I_FILE + " inputFile = input.getFile();");
+		// TODO activating the DSL nature here is ugly
+		sc.add(natureClassName + ".activate(inputFile.getProject());");
+		sc.add("String path = inputFile.getFullPath().toString();");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " loadedResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resourceSet.getResource(uri, false);");

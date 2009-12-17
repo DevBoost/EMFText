@@ -306,4 +306,16 @@ public abstract class GenerationContext {
 	public void setLicenceText(String text) {
 		this.licenceText = text;
 	}
+
+	// TODO this does not belong here
+	public String getBuilderID() {
+		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		return pluginID + ".builder";
+	}
+
+	// TODO this does not belong here
+	public String getNatureID() {
+		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		return pluginID + ".nature";
+	}
 }

@@ -1,14 +1,16 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class BuilderGenerator extends BaseGenerator {
+public class BuilderGenerator extends JavaBaseGenerator {
 
 	private String iBuilderClassName;
 	private String textResourceClassName;
@@ -27,8 +29,9 @@ public class BuilderGenerator extends BaseGenerator {
 		return new BuilderGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iBuilderClassName + " {");
@@ -36,7 +39,6 @@ public class BuilderGenerator extends BaseGenerator {
 		addBuildMethod(sc);
 		sc.add("}");
 		
-		out.print(sc.toString());
 		return true;
 	}
 

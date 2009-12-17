@@ -48,6 +48,7 @@ import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
+import org.emftext.sdk.codegen.generators.NatureGenerator;
 import org.emftext.sdk.codegen.generators.NewFileContentProviderGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.generators.ParseResultGenerator;
@@ -203,6 +204,7 @@ public enum EArtifact {
 	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
 	SYNTAX_COVERAGE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER),
 
+	NATURE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Nature", new NatureGenerator(), OptionTypes.OVERRIDE_NATURE),
 	BUILDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Builder", new BuilderGenerator(), OptionTypes.OVERRIDE_BUILDER),
 	BUILDER_ADAPTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BuilderAdapter", new BuilderAdapterGenerator(), OptionTypes.OVERRIDE_BUILDER_ADAPTER),
 	I_BUILDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Builder", new IBuilderGenerator(), OptionTypes.OVERRIDE_IBUILDER),

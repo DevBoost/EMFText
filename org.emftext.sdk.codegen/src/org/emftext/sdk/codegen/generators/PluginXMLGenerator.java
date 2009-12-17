@@ -36,6 +36,7 @@ public class PluginXMLGenerator implements IGenerator {
 
 	private GenerationContext context;
 	private String pluginID;
+	private String builderID;
 
 	public PluginXMLGenerator() {
 		super();
@@ -45,6 +46,7 @@ public class PluginXMLGenerator implements IGenerator {
 		super();
 		this.context = context;
 		pluginID = EPlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+		builderID = context.getBuilderID();
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -148,8 +150,16 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
-		sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + pluginID + ".builder\" name=\"" + concreteSyntax.getName() + " Builder\">");
-		sc.add("<builder hasNature=\"false\">");
+		sc.add("<extension id=\"" + context.getNatureID() + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
+		sc.add("<runtime>");
+		sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.NATURE)+ "\" />"); 
+		sc.add("</runtime>");
+		sc.add("<builder id=\"" + builderID + "\" />"); 
+		sc.add("</extension>");
+		sc.addLineBreak();
+		   
+		sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
+		sc.add("<builder hasNature=\"true\">");
 		sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.BUILDER_ADAPTER)+ "\" />");
 		sc.add("</builder>");
 		sc.add("</extension>");

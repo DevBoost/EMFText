@@ -12,15 +12,12 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import java.io.PrintWriter;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class BuilderAdapterGenerator extends BaseGenerator {
+public class BuilderAdapterGenerator extends JavaBaseGenerator {
 
 	private String iBuilderClassName;
 	private String builderClassName;
@@ -41,19 +38,20 @@ public class BuilderAdapterGenerator extends BaseGenerator {
 		return new BuilderAdapterGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
-		
+
+	@Override
+	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + INCREMENTAL_PROJECT_BUILDER + " {");
+		sc.addLineBreak();
+		sc.add("public final static String BUILDER_ID = \"" + getContext().getBuilderID() + "\";");
 		sc.addLineBreak();
 		sc.add("private " + iBuilderClassName + " builder = new " + builderClassName + "();");
 		sc.addLineBreak();
 		addBuildMethod(sc);
 		sc.add("}");
 		
-		out.print(sc.toString());
 		return true;
 	}
 
