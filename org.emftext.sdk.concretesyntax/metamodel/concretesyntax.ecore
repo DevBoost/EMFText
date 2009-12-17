@@ -296,6 +296,9 @@
     <eLiterals name="LICENCE_HEADER" value="150" literal="licenceHeader"/>
     <eLiterals name="OVERRIDE_EXPECTED_TERMINAL" value="151" literal="overrideExpectedTerminal"/>
     <eLiterals name="OVERRIDE_COMPLETION_PROPOSAL" value="152" literal="overrideCompletionProposal"/>
+    <eLiterals name="OVERRIDE_BUILDER" value="153" literal="overrideBuilder"/>
+    <eLiterals name="OVERRIDE_BUILDER_ADAPTER" value="154" literal="overrideBuilderAdapter"/>
+    <eLiterals name="OVERRIDE_I_BUILDER" value="155" literal="overrideIBuilder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

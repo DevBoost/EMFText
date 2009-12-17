@@ -33,6 +33,8 @@ import org.emftext.sdk.codegen.generators.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
 import org.emftext.sdk.codegen.generators.BracketInformationProviderGenerator;
+import org.emftext.sdk.codegen.generators.BuilderAdapterGenerator;
+import org.emftext.sdk.codegen.generators.BuilderGenerator;
 import org.emftext.sdk.codegen.generators.ContextDependentURIFragmentFactoryGenerator;
 import org.emftext.sdk.codegen.generators.ContextDependentURIFragmentGenerator;
 import org.emftext.sdk.codegen.generators.DefaultResolverDelegateGenerator;
@@ -75,6 +77,7 @@ import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeat
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedTerminalGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IBuilderGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ICommandGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IConfigurableGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IContextDependentURIFragmentFactoryGenerator;
@@ -199,6 +202,10 @@ public enum EArtifact {
 	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),
 	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
 	SYNTAX_COVERAGE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER),
+
+	BUILDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Builder", new BuilderGenerator(), OptionTypes.OVERRIDE_BUILDER),
+	BUILDER_ADAPTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BuilderAdapter", new BuilderAdapterGenerator(), OptionTypes.OVERRIDE_BUILDER_ADAPTER),
+	I_BUILDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Builder", new IBuilderGenerator(), OptionTypes.OVERRIDE_IBUILDER),
 	
 	DEFAULT_TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", new DefaultTokenResolverGenerator(), OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER),
 	DEFAULT_RESOLVER_DELEGATE(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE), 

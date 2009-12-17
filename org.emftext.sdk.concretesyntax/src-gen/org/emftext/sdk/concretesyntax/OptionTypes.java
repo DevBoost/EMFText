@@ -1347,7 +1347,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COMPLETION_PROPOSAL(152, "OVERRIDE_COMPLETION_PROPOSAL", "overrideCompletionProposal");
+	OVERRIDE_COMPLETION_PROPOSAL(152, "OVERRIDE_COMPLETION_PROPOSAL", "overrideCompletionProposal"), /**
+	 * The '<em><b>OVERRIDE BUILDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BUILDER(153, "OVERRIDE_BUILDER", "overrideBuilder"), /**
+	 * The '<em><b>OVERRIDE BUILDER ADAPTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILDER_ADAPTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BUILDER_ADAPTER(154, "OVERRIDE_BUILDER_ADAPTER", "overrideBuilderAdapter"), /**
+	 * The '<em><b>OVERRIDE IBUILDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBUILDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IBUILDER(155, "OVERRIDE_I_BUILDER", "overrideIBuilder");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3617,6 +3641,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_COMPLETION_PROPOSAL_VALUE = 152;
 
 	/**
+	 * The '<em><b>OVERRIDE BUILDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BUILDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILDER
+	 * @model literal="overrideBuilder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BUILDER_VALUE = 153;
+
+	/**
+	 * The '<em><b>OVERRIDE BUILDER ADAPTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BUILDER ADAPTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILDER_ADAPTER
+	 * @model literal="overrideBuilderAdapter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BUILDER_ADAPTER_VALUE = 154;
+
+	/**
+	 * The '<em><b>OVERRIDE IBUILDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IBUILDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBUILDER
+	 * @model name="OVERRIDE_I_BUILDER" literal="overrideIBuilder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IBUILDER_VALUE = 155;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3775,6 +3844,9 @@ public enum OptionTypes implements Enumerator {
 			LICENCE_HEADER,
 			OVERRIDE_EXPECTED_TERMINAL,
 			OVERRIDE_COMPLETION_PROPOSAL,
+			OVERRIDE_BUILDER,
+			OVERRIDE_BUILDER_ADAPTER,
+			OVERRIDE_IBUILDER,
 		};
 
 	/**
@@ -3975,6 +4047,9 @@ public enum OptionTypes implements Enumerator {
 			case LICENCE_HEADER_VALUE: return LICENCE_HEADER;
 			case OVERRIDE_EXPECTED_TERMINAL_VALUE: return OVERRIDE_EXPECTED_TERMINAL;
 			case OVERRIDE_COMPLETION_PROPOSAL_VALUE: return OVERRIDE_COMPLETION_PROPOSAL;
+			case OVERRIDE_BUILDER_VALUE: return OVERRIDE_BUILDER;
+			case OVERRIDE_BUILDER_ADAPTER_VALUE: return OVERRIDE_BUILDER_ADAPTER;
+			case OVERRIDE_IBUILDER_VALUE: return OVERRIDE_IBUILDER;
 		}
 		return null;
 	}

@@ -76,6 +76,7 @@ import org.antlr.runtime3_2_0.Token;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -83,6 +84,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -312,6 +314,7 @@ import org.osgi.framework.BundleContext;
  * and use constants instead. 
  */
 public class IClassNameConstants {
+	
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR = AbstractReusableInformationControlCreator.class.getName();
@@ -322,6 +325,7 @@ public class IClassNameConstants {
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER = AdapterFactoryLabelProvider.class.getName();
 	public static String ADAPTER_IMPL = AdapterImpl.class.getName();
 	public static String ANNOTATION = Annotation.class.getName();
+	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
 	public static String ANTLR_PARSER = org.antlr.runtime3_2_0.Parser.class.getName();
 	public static String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
 	public static String ARRAYS = java.util.Arrays.class.getName();
@@ -349,8 +353,9 @@ public class IClassNameConstants {
 	public static String COLOR_SELECTOR = ColorSelector.class.getName();
 	public static String COMBO = Combo.class.getName();
 	public static String COMMON_TOKEN = CommonToken.class.getName();
-	public static String COMPARATOR = Comparator.class.getName();
+	public static String COMMON_TOKEN_STREAM = CommonTokenStream.class.getName();
 	public static String COMPARABLE = Comparable.class.getName();
+	public static String COMPARATOR = Comparator.class.getName();
 	public static String COMPLETION_PROPOSAL = CompletionProposal.class.getName();
 	public static String COMPOSED_ADAPTER_FACTORY = ComposedAdapterFactory.class.getName();
 	public static String COMPOSITE = Composite.class.getName();
@@ -406,6 +411,7 @@ public class IClassNameConstants {
 	public static String HASH_SET = HashSet.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
+	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
 	public static String INPUT_STREAM_READER = InputStreamReader.class.getName();
 	public static String INTEGER = Integer.class.getName();
@@ -453,6 +459,7 @@ public class IClassNameConstants {
 	public static String I_PREFERENCE_STORE = IPreferenceStore.class.getName();
 	public static String I_PRESENTATION_RECONCILER = IPresentationReconciler.class.getName();
 	public static String I_PROGRESS_MONITOR = IProgressMonitor.class.getName();
+	public static String I_PROJECT = IProject.class.getName();
 	public static String I_PROPERTY_DESCRIPTOR = IPropertyDescriptor.class.getName();
 	public static String I_PROPERTY_SHEET_PAGE = IPropertySheetPage.class.getName();
 	public static String I_PROPERTY_SOURCE = IPropertySource.class.getName();
@@ -625,6 +632,4 @@ public class IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
-	public static String COMMON_TOKEN_STREAM = CommonTokenStream.class.getName();
-	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
 }
