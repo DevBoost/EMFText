@@ -32,9 +32,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -363,18 +365,74 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated NOT
 	 */
 	public EList<Rule> getAllRules() {
-		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;		
-		EList<Rule> l = new BasicEList<Rule>();
-    	l.addAll(getRules());
-    	
-		for(Import aImport : getImports()) {
-    		ConcreteSyntax importedCS = aImport.getConcreteSyntax();
-    		if (importedCS != null) l.addAll(importedCS.getAllRules());
-    	}
-	
-    	return new EcoreEList.UnmodifiableEList<Rule>(this, eFeature, l.size(), l.toArray());
- 	}
+		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
+		EList<Rule> l = new BasicEList<Rule>(getRules().size());
+		for (Rule rule : getRules()) {
+			// don't add rules that are @override rules with remove=true
+			if (!isOverrideRemoveRule(rule)) {
+				l.add(rule);
+			}
+		}
+		for (Import aImport : getImports()) {
+			ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+			if (importedCS != null) {
+				outer: for (Rule importedRule : importedCS.getAllRules()) {
+					for (Rule rule : getRules()) {
+						// don't add rules that have @override rules for same
+						// meta-class
+						if (isOverrideRule(rule, importedRule.getMetaclass())) {
+							continue outer;
+						}
+					}
+					l.add(importedRule);
+				}
+			}
+		}
+		return new EcoreEList.UnmodifiableEList<Rule>(this, eFeature, l.size(),
+				l.toArray());
+	}
 
+	/**
+	 * @generated NOT
+	 */
+	private boolean isOverrideRemoveRule(Rule rule) {
+		return hasAnnotation(rule, AnnotationType.OVERRIDE, "remove", "true");
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	private boolean isOverrideRule(Rule rule, GenClass metaClass) {
+		// TODO figure out why 'metaClass == null' is needed
+		if (metaClass == null || rule.getMetaclass() == metaClass) {
+			if (hasAnnotation(rule, AnnotationType.OVERRIDE, null, null)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	private boolean hasAnnotation(Rule rule, AnnotationType type, String key,
+			String value) {
+		for (Annotation annotation : rule.getAnnotations()) {
+			if (annotation.getType() == type) {
+				if (key != null) {
+					for (KeyValuePair parameter : annotation.getParameters()) {
+						if (key.equals(parameter.getKey())
+								&& parameter.getValue().equals(value)) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

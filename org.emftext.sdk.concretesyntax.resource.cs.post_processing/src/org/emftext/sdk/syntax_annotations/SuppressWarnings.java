@@ -39,12 +39,12 @@ public class SuppressWarnings extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		Collection<Diagnostic> warningsToRemove = new ArrayList<Diagnostic>();
+	    Collection<Diagnostic> warningsToRemove = new ArrayList<Diagnostic>();
 		Collection<Annotation> annotations = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getAnnotation());
 		for (Annotation annotation : annotations) {
 			AnnotationType type = annotation.getType();
-			Collection<String> warningsToSuppress = getWarningsToSuppress(resource, annotation);
 			if (type == AnnotationType.SUPPRESS_WARNINGS) {
+				Collection<String> warningsToSuppress = getWarningsToSuppress(resource, annotation);
 				EObject annotatedElement = annotation.eContainer();
 				List<Diagnostic> warnings = resource.getWarnings();
 				for (Diagnostic warning : warnings) {
