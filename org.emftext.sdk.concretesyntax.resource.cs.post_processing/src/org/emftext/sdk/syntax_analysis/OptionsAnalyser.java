@@ -67,6 +67,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
 		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
 		NON_STANDARD_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
+		NON_STANDARD_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
 	}
 
 	@Override
