@@ -300,6 +300,7 @@
     <eLiterals name="OVERRIDE_BUILDER_ADAPTER" value="154" literal="overrideBuilderAdapter"/>
     <eLiterals name="OVERRIDE_I_BUILDER" value="155" literal="overrideIBuilder"/>
     <eLiterals name="OVERRIDE_NATURE" value="156" literal="overrideNature"/>
+    <eLiterals name="ADDITIONAL_DEPENDENCIES" value="157" literal="additionalDependencies"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

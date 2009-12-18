@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -81,6 +82,13 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 			imports.add(qualifiedBasePluginName);
 		}
 		
+		String additionalDependenciesString = 
+			OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES);
+		if (additionalDependenciesString != null) {
+			String[] additionalDependencies = additionalDependenciesString.split(",");
+			imports.addAll(Arrays.asList(additionalDependencies));
+		}
+
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");
 		}

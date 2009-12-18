@@ -1379,7 +1379,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NATURE(156, "OVERRIDE_NATURE", "overrideNature");
+	OVERRIDE_NATURE(156, "OVERRIDE_NATURE", "overrideNature"), /**
+	 * The '<em><b>ADDITIONAL DEPENDENCIES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_DEPENDENCIES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_DEPENDENCIES(157, "ADDITIONAL_DEPENDENCIES", "additionalDependencies");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3709,6 +3717,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_NATURE_VALUE = 156;
 
 	/**
+	 * The '<em><b>ADDITIONAL DEPENDENCIES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL DEPENDENCIES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_DEPENDENCIES
+	 * @model literal="additionalDependencies"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_DEPENDENCIES_VALUE = 157;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3871,6 +3894,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_BUILDER_ADAPTER,
 			OVERRIDE_IBUILDER,
 			OVERRIDE_NATURE,
+			ADDITIONAL_DEPENDENCIES,
 		};
 
 	/**
@@ -4075,6 +4099,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_BUILDER_ADAPTER_VALUE: return OVERRIDE_BUILDER_ADAPTER;
 			case OVERRIDE_IBUILDER_VALUE: return OVERRIDE_IBUILDER;
 			case OVERRIDE_NATURE_VALUE: return OVERRIDE_NATURE;
+			case ADDITIONAL_DEPENDENCIES_VALUE: return ADDITIONAL_DEPENDENCIES;
 		}
 		return null;
 	}

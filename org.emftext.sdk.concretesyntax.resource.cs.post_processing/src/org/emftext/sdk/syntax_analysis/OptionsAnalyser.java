@@ -62,6 +62,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		STRING_OPTIONS.add(OptionTypes.BASE_RESOURCE_PLUGIN);
 		STRING_OPTIONS.add(OptionTypes.ANTLR_PLUGIN_ID);
 		STRING_OPTIONS.add(OptionTypes.LICENCE_HEADER);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
 		
 		NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
 		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
