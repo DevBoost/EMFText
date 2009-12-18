@@ -31,6 +31,7 @@ import org.emftext.sdk.syntax_analysis.DuplicateTokenStyleAnalyser;
 import org.emftext.sdk.syntax_analysis.FeatureCardinalityAnalyser;
 import org.emftext.sdk.syntax_analysis.GenModelAnalyser;
 import org.emftext.sdk.syntax_analysis.LeftRecursionAnalyser;
+import org.emftext.sdk.syntax_analysis.LicenceHeaderAnalyser;
 import org.emftext.sdk.syntax_analysis.MissingRulesAnalyser;
 import org.emftext.sdk.syntax_analysis.ModifierAnalyser;
 import org.emftext.sdk.syntax_analysis.OppositeReferenceAnalyser;
@@ -103,6 +104,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new TokenConflictsAnalyser());
 		postProcessors.add(new CollectInTokenAnalyser());
 		postProcessors.add(new CsStringAnalyser());
+		postProcessors.add(new LicenceHeaderAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		

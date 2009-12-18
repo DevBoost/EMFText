@@ -64,7 +64,8 @@ public enum ECsProblemType {
 	TOKEN_OVERLAPPING(CsEProblemType.WARNING), 
 	CYCLIC_SYNTAX_IMPORT(CsEProblemType.ERROR), 
 	EMPTY_CS_STRING(CsEProblemType.ERROR), 
-	NON_STANDARD_OPTION(CsEProblemType.WARNING),
+	NON_STANDARD_OPTION(CsEProblemType.WARNING), 
+	LICENCE_HEADER_NOT_FOUND(CsEProblemType.WARNING),
 	;
 
 	private CsEProblemType problemType;
