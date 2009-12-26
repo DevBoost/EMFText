@@ -20,7 +20,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.util.UnicodeConverter;
@@ -112,19 +116,29 @@ public class TokenSorter {
 		return nonReachables;
 	}
 
-	public List<TokenDefinition> getConflicting(List<TokenDefinition> ds)
+	/**
+	 * Compares all given token definitions and determines conflicting definitions.
+	 * For each conflicting definition the set of overlapping definitions is returned.
+	 * 
+	 * @param definitions
+	 * @return
+	 * @throws SorterException
+	 */
+	public Map<TokenDefinition, Set<TokenDefinition>> getConflicting(List<TokenDefinition> definitions)
 			throws SorterException {
-		List<TokenDefinition> conflicting = new ArrayList<TokenDefinition>();
-		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
+		Map<TokenDefinition, Set<TokenDefinition>> conflicting = new LinkedHashMap<TokenDefinition, Set<TokenDefinition>>();
+		List<ComparableTokenDefinition> compareables = translateToComparables(definitions);
 		for (int i = 0; i < compareables.size(); i++) {
+			ComparableTokenDefinition ci = compareables.get(i);
+			Set<TokenDefinition> previousDefinitions = new LinkedHashSet<TokenDefinition>();
 			for (int j = 0; j < i; j++) {
-
-				ComparableTokenDefinition ci = compareables.get(i);
 				ComparableTokenDefinition cj = compareables.get(j);
 				if (doIntersect(ci.getAutomaton(), cj.getAutomaton())) {
-					conflicting.add(ci.getDef());
+					previousDefinitions.add(cj.getDef());
 				}
-
+			}
+			if (!previousDefinitions.isEmpty()) {
+				conflicting.put(ci.getDef(), previousDefinitions);
 			}
 		}
 		return conflicting;

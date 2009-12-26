@@ -16,7 +16,10 @@ package org.emftext.sdk.syntax_analysis;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.common.util.EList;
@@ -28,13 +31,14 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.emftext.sdk.regex.SorterException;
 import org.emftext.sdk.regex.TokenSorter;
+import org.emftext.sdk.util.StringUtil;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDefinition> conflicting = Collections.emptyList();
+		Map<TokenDefinition, Set<TokenDefinition>> conflicting = Collections.emptyMap();
 		EList<TokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
 		List<TokenDefinition> unreachable = Collections.emptyList();
@@ -60,13 +64,18 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 							+ "' is not reachable", tokenDirective);
 
 		}
-		for (TokenDefinition tokenDirective : conflicting) {
+		for (TokenDefinition tokenDirective : conflicting.keySet()) {
+			Set<TokenDefinition> previousDefinitions = conflicting.get(tokenDirective);
+			Set<String> nameSet = new HashSet<String>();
+			for (TokenDefinition nextDefinition : previousDefinitions) {
+				nameSet.add(nextDefinition.getName());
+			}
+			String names = StringUtil.explode(nameSet, ", ");
 			addProblem(resource, ECsProblemType.TOKEN_OVERLAPPING,
-					"The token definition '" + tokenDirective.getRegex()
-							+ "' overlaps with a previous token definition.",
+					"The token definition " + tokenDirective.getName()
+							+ " overlaps with previous token definition(s) (" + names + ").",
 					tokenDirective);
 		}
-
 	}
 
 	private List<TokenDefinition> getDirectivesMatchingEmptyString(
