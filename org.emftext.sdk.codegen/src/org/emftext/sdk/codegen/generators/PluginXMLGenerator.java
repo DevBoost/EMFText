@@ -157,13 +157,16 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<builder id=\"" + builderID + "\" />"); 
 		sc.add("</extension>");
 		sc.addLineBreak();
-		   
-		sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
-		sc.add("<builder hasNature=\"true\">");
-		sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.BUILDER_ADAPTER)+ "\" />");
-		sc.add("</builder>");
-		sc.add("</extension>");
-		sc.addLineBreak();
+
+		boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
+		if (!disableBuilder) {
+			sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
+			sc.add("<builder hasNature=\"true\">");
+			sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.BUILDER_ADAPTER)+ "\" />");
+			sc.add("</builder>");
+			sc.add("</extension>");
+			sc.addLineBreak();
+		}
 		
 		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
 		sc.addLineBreak();

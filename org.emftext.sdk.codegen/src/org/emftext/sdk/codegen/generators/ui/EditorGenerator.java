@@ -71,8 +71,10 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class EditorGenerator extends JavaBaseGenerator {
 
@@ -413,11 +415,15 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInitializeResourceObjectMethod(StringComposite sc) {
+		boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.DISABLE_BUILDER);
+
 		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT + " editorInput) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") editorInput;");
 		sc.add(I_FILE + " inputFile = input.getFile();");
-		// TODO activating the DSL nature here is ugly
-		sc.add(natureClassName + ".activate(inputFile.getProject());");
+		if (!disableBuilder) {
+			// TODO activating the DSL nature here is ugly
+			sc.add(natureClassName + ".activate(inputFile.getProject());");
+		}
 		sc.add("String path = inputFile.getFullPath().toString();");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");

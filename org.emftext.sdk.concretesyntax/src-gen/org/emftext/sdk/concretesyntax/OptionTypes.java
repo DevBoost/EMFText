@@ -1387,7 +1387,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_DEPENDENCIES(157, "ADDITIONAL_DEPENDENCIES", "additionalDependencies");
+	ADDITIONAL_DEPENDENCIES(157, "ADDITIONAL_DEPENDENCIES", "additionalDependencies"), /**
+	 * The '<em><b>DISABLE BUILDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_BUILDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_BUILDER(158, "DISABLE_BUILDER", "disableBuilder");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3732,6 +3740,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int ADDITIONAL_DEPENDENCIES_VALUE = 157;
 
 	/**
+	 * The '<em><b>DISABLE BUILDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE BUILDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_BUILDER
+	 * @model literal="disableBuilder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_BUILDER_VALUE = 158;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3895,6 +3918,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IBUILDER,
 			OVERRIDE_NATURE,
 			ADDITIONAL_DEPENDENCIES,
+			DISABLE_BUILDER,
 		};
 
 	/**
@@ -4100,6 +4124,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IBUILDER_VALUE: return OVERRIDE_IBUILDER;
 			case OVERRIDE_NATURE_VALUE: return OVERRIDE_NATURE;
 			case ADDITIONAL_DEPENDENCIES_VALUE: return ADDITIONAL_DEPENDENCIES;
+			case DISABLE_BUILDER_VALUE: return DISABLE_BUILDER;
 		}
 		return null;
 	}

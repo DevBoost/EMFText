@@ -301,6 +301,7 @@
     <eLiterals name="OVERRIDE_I_BUILDER" value="155" literal="overrideIBuilder"/>
     <eLiterals name="OVERRIDE_NATURE" value="156" literal="overrideNature"/>
     <eLiterals name="ADDITIONAL_DEPENDENCIES" value="157" literal="additionalDependencies"/>
+    <eLiterals name="DISABLE_BUILDER" value="158" literal="disableBuilder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

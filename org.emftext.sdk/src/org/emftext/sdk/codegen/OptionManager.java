@@ -95,6 +95,9 @@ public class OptionManager {
 		if (option == OptionTypes.SAVE_CHANGED_RESOURCES_ONLY) {
 			return false;
 		}
+		if (option == OptionTypes.DISABLE_BUILDER) {
+			return false;
+		}
 		return true;
 	}
 
