@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -31,6 +32,8 @@ public class IBuilderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
+		sc.addLineBreak();
+		sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
 		sc.addLineBreak();
 		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
 		sc.add("}");
