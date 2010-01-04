@@ -27,7 +27,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  */
 public class GenModelAnalyser extends AbstractPostProcessor {
 
-	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel (%s) is invalid. Please reconcile it.";
+	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel (%s) is invalid. Please reconcile it. Error message is '%s'.";
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
@@ -40,14 +40,24 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 			return;
 		}
 		IStatus status = genModel.validate();
-		if (status.getSeverity() == IStatus.ERROR) {
-			// TODO we can give more detailed information about what is wrong
-			// with the genmodel by iterating over status.getChildren(), but
-			// the question is how to pass this information to the user in a 
-			// meaningful way. Often there is a lot of errors in the genmodel
-			// and adding all of them to the resource might cause confusion. 
-			String path = genModel.eResource().getURI().toString();
-			addProblem(resource, ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path), 0, 0, 0, 0);
+		addProblems(genModel, resource, status);
+	}
+
+	private void addProblems(GenModel genModel, CsResource resource, IStatus... statusObjects) {
+		for (IStatus status : statusObjects) {
+			if (status.getSeverity() == IStatus.ERROR) {
+				// we give more detailed information about what is wrong
+				// with the genmodel by iterating over status.getChildren().
+				//
+				// however, passing all this information to the user might 
+				// cause confusion. for the time being all errors are annotated, 
+				// which favors confusion by too much information over confusion 
+				// caused by missing information.
+				String path = genModel.eResource().getURI().toString();
+				String message = status.getMessage();
+				addProblem(resource, ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path, message), 0, 0, 0, 0);
+				addProblems(genModel, resource, status.getChildren());
+			}
 		}
 	}
 
