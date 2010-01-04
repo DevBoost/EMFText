@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2009 
+ * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
