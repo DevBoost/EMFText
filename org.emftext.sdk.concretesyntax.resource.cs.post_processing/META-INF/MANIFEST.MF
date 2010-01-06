@@ -5,7 +5,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel Post Processing
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs.post_p
  rocessing; singleton:=true
-Bundle-Version: 1.2.0.v200911130906
+Bundle-Version: 1.2.0.qualifier
 Require-Bundle: org.emftext.sdk.concretesyntax,org.emftext.sdk.concret
  esyntax.resource.cs,org.eclipse.emf,org.eclipse.emf.edit.ui,org.eclip
  se.emf.ecore,org.eclipse.emf.ecore.edit,org.eclipse.emf.codegen.ecore

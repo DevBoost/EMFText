@@ -4,7 +4,7 @@ Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK
 Bundle-SymbolicName: org.emftext.sdk; singleton:=true
-Bundle-Version: 1.2.0.v200911130906
+Bundle-Version: 1.2.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
  .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
