@@ -56,8 +56,12 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addBuildMethod(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
+		sc.add("return build(kind, args, monitor, builder);");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor, final " + iBuilderClassName + " builder) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_PROJECT + " project = this.getProject();");
 		sc.add(I_RESOURCE_DELTA + " delta = getDelta(project);");
 		sc.add("if (delta == null) {");
