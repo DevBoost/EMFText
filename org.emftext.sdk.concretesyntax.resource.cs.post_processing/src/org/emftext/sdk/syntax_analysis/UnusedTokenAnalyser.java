@@ -44,7 +44,11 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 			}
 		}
 		for (TokenDefinition definition : activeTokens) {
-			String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length()-1);
+			String regex = definition.getRegex();
+			if (regex.length() < 2) {
+				continue;
+			}
+			String assumeKeyword = regex.substring(1, regex.length() - 1);
 			
 			if (!definition.isUsed() && !keywordTokens.contains(assumeKeyword)) {
 				addProblem(resource, ECsProblemType.UNUSED_TOKEN, "Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
