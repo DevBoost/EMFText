@@ -1395,7 +1395,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_BUILDER(158, "DISABLE_BUILDER", "disableBuilder");
+	DISABLE_BUILDER(158, "DISABLE_BUILDER", "disableBuilder"), /**
+	 * The '<em><b>ADDITIONAL EXPORTS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_EXPORTS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_EXPORTS(159, "ADDITIONAL_EXPORTS", "additionalExports");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3755,6 +3763,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int DISABLE_BUILDER_VALUE = 158;
 
 	/**
+	 * The '<em><b>ADDITIONAL EXPORTS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL EXPORTS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_EXPORTS
+	 * @model literal="additionalExports"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_EXPORTS_VALUE = 159;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3919,6 +3942,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_NATURE,
 			ADDITIONAL_DEPENDENCIES,
 			DISABLE_BUILDER,
+			ADDITIONAL_EXPORTS,
 		};
 
 	/**
@@ -4125,6 +4149,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_NATURE_VALUE: return OVERRIDE_NATURE;
 			case ADDITIONAL_DEPENDENCIES_VALUE: return ADDITIONAL_DEPENDENCIES;
 			case DISABLE_BUILDER_VALUE: return DISABLE_BUILDER;
+			case ADDITIONAL_EXPORTS_VALUE: return ADDITIONAL_EXPORTS;
 		}
 		return null;
 	}

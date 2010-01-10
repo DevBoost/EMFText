@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -53,6 +54,7 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 		if (csUtil.getResolverFileNames(syntax).size() > 0) {
 			exports.add(context.getPackageName(EArtifact.PACKAGE_ANALYSIS));
 		}
+		exports.addAll(getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_EXPORTS));
 		return exports;
 	}
 
@@ -82,12 +84,7 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 			imports.add(qualifiedBasePluginName);
 		}
 		
-		String additionalDependenciesString = 
-			OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES);
-		if (additionalDependenciesString != null) {
-			String[] additionalDependencies = additionalDependenciesString.split(",");
-			imports.addAll(Arrays.asList(additionalDependencies));
-		}
+		imports.addAll(getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES));
 
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");
@@ -100,6 +97,17 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 		imports.remove(EPlugins.RESOURCE_PLUGIN.getName(syntax));
 		
 		return imports;
+	}
+
+	private Collection<String> getAdditionalPackages(ConcreteSyntax syntax, OptionTypes option) {
+		String additionalPackagesString = 
+			OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+		if (additionalPackagesString != null) {
+			String[] additionalPackages = additionalPackagesString.split(",");
+			return Arrays.asList(additionalPackages);
+		} else {
+			return Collections.emptySet();
+		}
 	}
 
 	private void addImports(Collection<String> requiredBundles,
