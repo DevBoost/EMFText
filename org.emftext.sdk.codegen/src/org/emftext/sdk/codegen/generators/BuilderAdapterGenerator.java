@@ -45,6 +45,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + INCREMENTAL_PROJECT_BUILDER + " {");
 		sc.addLineBreak();
+		sc.add("// the ID of the default, generated builder");
 		sc.add("public final static String BUILDER_ID = \"" + getContext().getBuilderID() + "\";");
 		sc.addLineBreak();
 		sc.add("private " + iBuilderClassName + " builder = new " + builderClassName + "();");

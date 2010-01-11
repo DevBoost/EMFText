@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTAINER_SELECTION_DIALOG;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ADAPTABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTAINER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
@@ -164,6 +165,10 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.add("if (ssel.size() > 1)");
 		sc.add("return;");
 		sc.add("Object obj = ssel.getFirstElement();");
+		sc.add("// test for IAdaptable");
+		sc.add("if ((! (obj instanceof " + I_RESOURCE + ")) && (obj instanceof " + I_ADAPTABLE + ")) {");
+		sc.add("obj = (" + I_RESOURCE + ") ((" + I_ADAPTABLE + ") obj).getAdapter(" + I_RESOURCE + ".class);");
+		sc.add("}");
 		sc.add("if (obj instanceof " + I_RESOURCE + ") {");
 		sc.add(I_CONTAINER + " container;");
 		sc.add("if (obj instanceof " + I_CONTAINER + ") {");

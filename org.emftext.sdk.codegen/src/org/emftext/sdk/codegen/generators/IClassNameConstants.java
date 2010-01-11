@@ -425,6 +425,7 @@ public class IClassNameConstants {
 	public static String IO_EXCEPTION = IOException.class.getName();
 	public static String ITERATOR = Iterator.class.getName();
 	public static String I_ACTION = IAction.class.getName();
+	public static String I_ADAPTABLE = org.eclipse.core.runtime.IAdaptable.class.getName();
 	public static String I_ANNOTATION_HOVER = IAnnotationHover.class.getName();
 	public static String I_COMMAND = ICommand.class.getName();
 	public static String I_COMPLETION_PROPOSAL = ICompletionProposal.class.getName();
