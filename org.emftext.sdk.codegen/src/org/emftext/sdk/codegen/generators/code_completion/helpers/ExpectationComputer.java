@@ -69,6 +69,15 @@ public class ExpectationComputer {
 	 * @return
 	 */
 	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
+		return computeFirstSet(syntax,syntaxElement, new LinkedHashSet<GenClass>());
+	}
+	
+	
+	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
+		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
+	}
+	
+	private Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		if (syntaxElement instanceof STAR) {
 			return firstSet;
@@ -80,28 +89,25 @@ public class ExpectationComputer {
 			return firstSet;
 		}
 		Rule rule = csUtil.findContainingRule(syntaxElement);
+		
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
-			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement));
+			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement, contributingNonterminals));
 		} else if (syntaxElement instanceof Choice) {
-			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement));
+			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement, contributingNonterminals));
 		} else if (syntaxElement instanceof Sequence) {
-			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement));
+			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, contributingNonterminals));
 		} else if (syntaxElement instanceof Rule) {
- 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition()));
+ 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition(), contributingNonterminals));
 		} else {
 			throw new IllegalArgumentException(syntaxElement.toString());
 		}
 		return firstSet;
 	}
-
-	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
-		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>());
-	}
-	
-	private Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules) {
+		
+	private Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
-		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement));
+		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals));
 		if (syntaxElement instanceof STAR) {
 			return result;
 		}
@@ -139,7 +145,7 @@ public class ExpectationComputer {
 						}
 						if (subRules.contains(container)) {
 							usedRules.add(rule);
-							result.addAll(computeFollowSet(syntax, containment, usedRules));
+							result.addAll(computeFollowSet(syntax, containment, usedRules, contributingNonterminals));
 						}
 					}
 				}
@@ -148,7 +154,7 @@ public class ExpectationComputer {
 		} else if (container instanceof Choice) {
 			// we need to skip choices because the other alternatives in
 			// a choice must not be included in the FOLLOW set
-			result.addAll(computeFollowSet(syntax, container, usedRules));
+			result.addAll(computeFollowSet(syntax, container, usedRules, contributingNonterminals));
 		} else {
 			Object children = container.eGet(reference);
 			// search the next element to the right in the syntax rule tree
@@ -158,30 +164,30 @@ public class ExpectationComputer {
 				if (childrenList.size() > index + 1) {
 					// found an element next right
 					EObject nextInList = (EObject) childrenList.get(index + 1);
-					Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList);
+					Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList, contributingNonterminals);
 					result.addAll(firstSetOfNext);
 					if (firstSetOfNext.contains(EPSILON)) {
-						result.addAll(computeFollowSet(syntax, nextInList, usedRules));
+						result.addAll(computeFollowSet(syntax, nextInList, usedRules, contributingNonterminals));
 					}
 				} else {
 					// object was the last one in the list, 
 					// we must try one level higher
-					result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
+					result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules, contributingNonterminals));
 				}
 			} else if (children instanceof EObject) {
 				assert syntaxElement == children;
 				// object was the only one stored in the reference, 
 				// we must try one level higher
-				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules));
+				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules, contributingNonterminals));
 			}
 		}
 		result.remove(EPSILON);
 		return result;
 	}
 
-	private Collection<EObject> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement) {
+	private Collection<EObject> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
 		if (canBeRepeated(syntaxElement)) {
-			return computeFirstSet(syntax, syntaxElement);
+			return computeFirstSet(syntax, syntaxElement, contributingNonterminals);
 		} else {
 			return Collections.emptySet();
 		}
@@ -197,28 +203,28 @@ public class ExpectationComputer {
 	}
 
 	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
-			CompoundDefinition compound) {
+			CompoundDefinition compound,Set<GenClass> contributingNonterminals) {
 		Choice choice = compound.getDefinitions();
-		Set<EObject> firstSet = computeFirstSetForChoice(syntax, rule, choice);
+		Set<EObject> firstSet = computeFirstSetForChoice(syntax, rule, choice, contributingNonterminals);
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice) {
+	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 
 		List<Sequence> options = choice.getOptions();
 		int i = 0;
 		for (Sequence sequence : options) {
-			firstSet.addAll(computeFirstSetForSequence(syntax, rule, sequence));
+			firstSet.addAll(computeFirstSetForSequence(syntax, rule, sequence, contributingNonterminals));
 			i++;
 		}
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence) {
+	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence,Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		for (Definition definition : sequence.getParts()) {
-			Set<EObject> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition);
+			Set<EObject> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition, contributingNonterminals);
 			// when the previous part contains EPSILON and the current does not
 			// we need to remove it
 			if (firstSet.contains(EPSILON) && !firstSetForDefinition.contains(EPSILON)) {
@@ -233,12 +239,12 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 	
-	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition) {
+	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		if (definition instanceof CardinalityDefinition) {
-			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition));
+			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition, contributingNonterminals));
 		} else if (definition instanceof CsString) {
-			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition));
+			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition, contributingNonterminals));
 		} else if (definition instanceof WhiteSpaces) {
 			firstSet.add(EPSILON);
 		} else if (definition instanceof LineBreak) {
@@ -250,28 +256,28 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition) {
+	private Set<EObject> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition,Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		String cardinality = csUtil.computeCardinalityString(definition);
 		if ("?".equals(cardinality) || "*".equals(cardinality)) {
 			firstSet.add(EPSILON);
 		}
 		if (definition instanceof CompoundDefinition) {
-			firstSet.addAll(computeFirstSetForCompound(syntax, rule, (CompoundDefinition) definition));
+			firstSet.addAll(computeFirstSetForCompound(syntax, rule, (CompoundDefinition) definition, contributingNonterminals));
 		} else {
 			assert definition instanceof Terminal;
-			firstSet.addAll(computeFirstSetForTerminal(syntax, rule, (Terminal) definition));
+			firstSet.addAll(computeFirstSetForTerminal(syntax, rule, (Terminal) definition, contributingNonterminals));
 		}
 		return firstSet;
 	}
 	
-	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword) {
+	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>(1);
 		firstSet.add(keyword);
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal) {
+	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		final GenFeature genFeature = terminal.getFeature();
 
@@ -303,10 +309,15 @@ public class ExpectationComputer {
 		// be set for the terminal
 		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
 		for (GenClass subType : subTypes) {
+			if(contributingNonterminals.contains(subType))
+				continue;
 			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
 			for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
 				Rule nextFeatureTypeRule = (Rule) iterator.next();
-				firstSet.addAll(computeFirstSet(syntax, nextFeatureTypeRule));
+				if(contributingNonterminals.contains(nextFeatureTypeRule.getMetaclass()))
+					continue;
+				contributingNonterminals.add(nextFeatureTypeRule.getMetaclass());
+				firstSet.addAll(computeFirstSet(syntax, nextFeatureTypeRule, contributingNonterminals));
 			}
 		}
 		return firstSet;
