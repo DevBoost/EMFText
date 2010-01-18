@@ -23,23 +23,40 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
- * A analyser that checks that all token names start with a capital letter.
+ * A analyser that checks that all token names start with a capital letter
+ * and that they do not contain dashes.
  */
 public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidNames(syntax);
+		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidCapitalization(syntax);
 		for (TokenDefinition next : wrongDefinitions) {
 			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
 		}
+
+		wrongDefinitions = getTokenDefinitionsWithDashes(syntax);
+		for (TokenDefinition next : wrongDefinitions) {
+			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
+		}
 	}
 
-	public List<TokenDefinition> getTokenDefinitionsWithInvalidNames(ConcreteSyntax syntax) {
+	private List<TokenDefinition> getTokenDefinitionsWithInvalidCapitalization(ConcreteSyntax syntax) {
 		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
 		for (TokenDefinition definition : syntax.getActiveTokens()) {
 			char firstLetter = definition.getName().charAt(0);
 			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
+				result.add(definition);
+			}
+		}
+		return result;
+	}
+
+	private List<TokenDefinition> getTokenDefinitionsWithDashes(ConcreteSyntax syntax) {
+		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
+		for (TokenDefinition definition : syntax.getActiveTokens()) {
+			String name = definition.getName();
+			if (name != null && name.contains("-")) {
 				result.add(definition);
 			}
 		}
