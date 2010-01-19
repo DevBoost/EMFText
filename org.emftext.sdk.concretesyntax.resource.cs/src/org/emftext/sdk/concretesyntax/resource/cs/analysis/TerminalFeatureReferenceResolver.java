@@ -15,6 +15,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -156,11 +157,15 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		if (rule == null) {
 			return;
 		}
-		if (rule.getMetaclass().eIsProxy()) {
+		GenClass metaclass = rule.getMetaclass();
+		if (metaclass.eIsProxy()) {
+			return;
+		}
+		if (metaclass.getEcoreClass() == null) {
 			return;
 		}
 		FeatureResolveResult resultForFeature = new FeatureResolveResultImpl(result); 
-		for (GenFeature feature : rule.getMetaclass().getAllGenFeatures()) {
+		for (GenFeature feature : metaclass.getAllGenFeatures()) {
 			filter.accept(feature, resultForFeature);
 		}
 		if (resultForFeature.foundFeatureWithCorrectName() && !result.wasResolved()) {
