@@ -103,29 +103,32 @@ public class TokenSorter {
 			throws SorterException {
 		List<TokenDefinition> nonReachables = new ArrayList<TokenDefinition>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
-		for (int i = 0; i < compareables.size(); i++) {
-			for (int j = 0; j < i; j++) {
-				ComparableTokenDefinition ci = compareables.get(i);
-				ComparableTokenDefinition cj = compareables.get(j);
-				if (isSubLanguage(ci.getAutomaton(), cj.getAutomaton())) {
-					nonReachables.add(ci.getDef());
-				}
+		Automaton unionPreviosDefinitions = new Automaton();
+		for (int i = 0; i < compareables.size() - 1; i++) {
+			unionPreviosDefinitions = unionPreviosDefinitions
+					.union(compareables.get(i).getAutomaton());
+			ComparableTokenDefinition currentTokenDefinition = compareables.get(i+1);
 
+			if (isSubLanguage(currentTokenDefinition.getAutomaton(),
+					unionPreviosDefinitions)) {
+				nonReachables.add(currentTokenDefinition.getDef());
 			}
+
 		}
 		return nonReachables;
 	}
 
 	/**
-	 * Compares all given token definitions and determines conflicting definitions.
-	 * For each conflicting definition the set of overlapping definitions is returned.
+	 * Compares all given token definitions and determines conflicting
+	 * definitions. For each conflicting definition the set of overlapping
+	 * definitions is returned.
 	 * 
 	 * @param definitions
 	 * @return
 	 * @throws SorterException
 	 */
-	public Map<TokenDefinition, Set<TokenDefinition>> getConflicting(List<TokenDefinition> definitions)
-			throws SorterException {
+	public Map<TokenDefinition, Set<TokenDefinition>> getConflicting(
+			List<TokenDefinition> definitions) throws SorterException {
 		Map<TokenDefinition, Set<TokenDefinition>> conflicting = new LinkedHashMap<TokenDefinition, Set<TokenDefinition>>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(definitions);
 		for (int i = 0; i < compareables.size(); i++) {
@@ -208,7 +211,8 @@ public class TokenSorter {
 	 *             occurs if a parser error occurs
 	 */
 	private String parseRegExp(String exp) throws Exception {
-		String regex = RegexpTranslationHelper.translateAntLRToAutomatonStyle(exp);
+		String regex = RegexpTranslationHelper
+				.translateAntLRToAutomatonStyle(exp);
 		regex = convertUnicode(regex);
 
 		return regex;
