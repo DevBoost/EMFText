@@ -15,22 +15,27 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.RegexReference;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class RegexReferenceTargetReferenceResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<org.emftext.sdk.concretesyntax.RegexReference, org.emftext.sdk.concretesyntax.TokenDefinition> {
+public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolver<RegexReference, NormalToken> {
 	
-	public void resolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.RegexReference container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, final org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> result) {
+	public void resolve(String identifier, RegexReference container, EReference reference, int position, boolean resolveFuzzy, final ICsReferenceResolveResult<NormalToken> result) {
 		ConcreteSyntax syntax = findRoot(container);
 		if (syntax == null) {
 			return;
 		}
-		Collection<TokenDefinition> tokenDefinitions = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTokenDefinition());
-		for (TokenDefinition tokenDefinition : tokenDefinitions) {
+		Collection<NormalToken> tokenDefinitions = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getNormalToken());
+		for (NormalToken tokenDefinition : tokenDefinitions) {
 			String name = tokenDefinition.getName();
 			if (resolveFuzzy) {
 				result.addMapping(name, tokenDefinition);
@@ -56,12 +61,10 @@ public class RegexReferenceTargetReferenceResolver implements org.emftext.sdk.co
 		}
 	}
 
-	public java.lang.String deResolve(org.emftext.sdk.concretesyntax.TokenDefinition element, org.emftext.sdk.concretesyntax.RegexReference container, org.eclipse.emf.ecore.EReference reference) {
+	public String deResolve(NormalToken element, RegexReference container, EReference reference) {
 		return element.getName();
 	}
 	
-	public void setOptions(java.util.Map<?,?> options) {
-		// save options in a field or leave method empty if this resolver does not depend on any option
+	public void setOptions(Map<?,?> options) {
 	}
-	
 }

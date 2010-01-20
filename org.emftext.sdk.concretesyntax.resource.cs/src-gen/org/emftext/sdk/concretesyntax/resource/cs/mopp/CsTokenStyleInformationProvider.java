@@ -64,6 +64,9 @@ public class CsTokenStyleInformationProvider {
 		if ("DEFINE".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}
+		if ("PARTIAL".equals(tokenName)) {
+			return new TokenStyleImpl(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
+		}
 		if ("COLLECT".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}

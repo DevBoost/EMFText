@@ -114,6 +114,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			print_org_emftext_sdk_concretesyntax_NormalToken((org.emftext.sdk.concretesyntax.NormalToken) element, globaltab, out);
 			return;
 		}
+		if (element instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
+			print_org_emftext_sdk_concretesyntax_PartialTokenDefinition((org.emftext.sdk.concretesyntax.PartialTokenDefinition) element, globaltab, out);
+			return;
+		}
 		if (element instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
 			print_org_emftext_sdk_concretesyntax_TokenPriorityDirective((org.emftext.sdk.concretesyntax.TokenPriorityDirective) element, globaltab, out);
 			return;
@@ -1577,10 +1581,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		java.lang.String localtab = outertab;
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(8);
 		java.lang.Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX));
-		printCountingMap.put("regex", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME));
 		printCountingMap.put("name", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX));
+		printCountingMap.put("regex", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_REFERENCES));
 		printCountingMap.put("attributeReferences", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME));
@@ -1748,6 +1752,98 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 	}
 	
+	public void print_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition element, java.lang.String outertab, java.io.PrintWriter out) {
+		java.lang.String localtab = outertab;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME));
+		printCountingMap.put("name", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX));
+		printCountingMap.put("regex", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS));
+		printCountingMap.put("regexParts", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
+		// print collected hidden tokens
+		int count;
+		boolean iterate = true;
+		java.io.StringWriter sWriter = null;
+		java.io.PrintWriter out1 = null;
+		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("DEFINE");
+		//////////////DEFINITION PART BEGINS (WhiteSpaces):
+		out.print(" ");
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("PARTIAL");
+		//////////////DEFINITION PART BEGINS (WhiteSpaces):
+		out.print(" ");
+		//////////////DEFINITION PART BEGINS (PlaceholderUsingDefaultToken):
+		count = printCountingMap.get("name");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME));
+			if (o != null) {
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((java.lang.Object) o, element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), element));
+			}
+			printCountingMap.put("name", count - 1);
+		}
+		//////////////DEFINITION PART BEGINS (Containment):
+		count = printCountingMap.get("regexParts");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
+			}
+			printCountingMap.put("regexParts", count - 1);
+		}
+		//////////////DEFINITION PART BEGINS (CompoundDefinition):
+		iterate = true;
+		while (iterate) {
+			sWriter = new java.io.StringWriter();
+			out1 = new java.io.PrintWriter(sWriter);
+			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			print_org_emftext_sdk_concretesyntax_PartialTokenDefinition_0(element, localtab, out1, printCountingMap1);
+			if (printCountingMap.equals(printCountingMap1)) {
+				iterate = false;
+				out1.close();
+			} else {
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+	}
+	public void print_org_emftext_sdk_concretesyntax_PartialTokenDefinition_0(org.emftext.sdk.concretesyntax.PartialTokenDefinition element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		java.lang.String localtab = outertab;
+		int count;
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("+");
+		//////////////DEFINITION PART BEGINS (Containment):
+		count = printCountingMap.get("regexParts");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
+			}
+			printCountingMap.put("regexParts", count - 1);
+		}
+	}
+	
 	public void print_org_emftext_sdk_concretesyntax_TokenPriorityDirective(org.emftext.sdk.concretesyntax.TokenPriorityDirective element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
@@ -1810,7 +1906,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			if (o != null) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver resolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getRegexReferenceTargetReferenceResolver().deResolve((org.emftext.sdk.concretesyntax.TokenDefinition) o, element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET)), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), element));
+				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getRegexReferenceTargetReferenceResolver().deResolve((org.emftext.sdk.concretesyntax.NormalToken) o, element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET)), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), element));
 			}
 			printCountingMap.put("target", count - 1);
 		}

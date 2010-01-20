@@ -218,6 +218,9 @@ options {
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.NormalToken.class) {
 				return parse_org_emftext_sdk_concretesyntax_NormalToken();
 			}
+			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PartialTokenDefinition.class) {
+				return parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition();
+			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.TokenPriorityDirective.class) {
 				return parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
 			}
@@ -350,7 +353,7 @@ options {
 				break;
 			}
 		}
-		int followSetID = 149;
+		int followSetID = 156;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			org.antlr.runtime3_2_0.CommonToken nextToken = (org.antlr.runtime3_2_0.CommonToken) tokenStream.get(i);
@@ -543,76 +546,80 @@ options {
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_22 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_23 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("{");
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_24 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("DEFINE");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_25 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("PRIORITIZE");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_26 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_27 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_28 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("{");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_29 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), "QUOTED_34_34_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_30 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_31 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("{");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_32 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_33 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_34 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(":");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_35 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), "QUOTED_60_62");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_36 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), "QUOTED_60_62");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_37 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("WITH");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_38 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("SYNTAX");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_39 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_40 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), "QUOTED_60_62");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_41 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("=");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_42 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), "QUOTED_34_34_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_43 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("::=");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_44 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), "QUOTED_34_34_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_45 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_46 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_47 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_48 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_49 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("(");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_50 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), "HEXNUMBER");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_51 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("!");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_52 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_53 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("|");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_54 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(")");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_55 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_56 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_57 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_58 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("+");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_59 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("*");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_60 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("?");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_61 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_62 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_63 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_64 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), "QUOTED_39_39_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_65 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_66 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), "QUOTED_39_39_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_67 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_68 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_69 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), "QUOTED_39_39_92");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_70 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(":");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_71 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_72 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_73 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_74 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), "NUMBER");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_75 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_76 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAtomicRegex().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__ATOMIC_EXPRESSION), "QUOTED_36_36");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_77 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_78 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("+");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_79 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("COLLECT");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_80 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("IN");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_81 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_82 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_83 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("COLOR");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_84 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), "HEXNUMBER");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_85 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_86 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_87 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_88 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_89 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("(");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_90 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), "QUALIFIED_NAME");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_91 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_92 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(")");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_93 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("=");
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_94 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), "QUOTED_34_34_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_25 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("DEFINE");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_26 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("PRIORITIZE");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_27 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_28 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_29 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("{");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_30 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), "QUOTED_34_34_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_31 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_32 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("{");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_33 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_34 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("}");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_35 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(":");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_36 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), "QUOTED_60_62");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_37 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), "QUOTED_60_62");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_38 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("WITH");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_39 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("SYNTAX");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_40 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_41 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), "QUOTED_60_62");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_42 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("=");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_43 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), "QUOTED_34_34_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_44 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("::=");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_45 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), "QUOTED_34_34_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_46 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_47 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_48 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_49 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_50 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("(");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_51 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), "HEXNUMBER");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_52 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("!");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_53 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_54 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("|");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_55 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(")");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_56 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_57 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_58 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_59 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("+");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_60 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("*");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_61 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("?");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_62 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_63 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_64 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("[");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_65 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), "QUOTED_39_39_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_66 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_67 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), "QUOTED_39_39_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_68 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_69 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("]");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_70 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), "QUOTED_39_39_92");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_71 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(":");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_72 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_73 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_74 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_75 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), "NUMBER");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_76 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_77 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAtomicRegex().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__ATOMIC_EXPRESSION), "QUOTED_36_36");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_78 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_79 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("+");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_80 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("COLLECT");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_81 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("IN");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_82 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_83 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("PARTIAL");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_84 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_85 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("+");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_86 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_87 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("COLOR");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_88 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), "HEXNUMBER");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_89 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_90 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(";");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_91 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_92 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_93 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("(");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_94 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), "QUALIFIED_NAME");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_95 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(",");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_96 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(")");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_97 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString("=");
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_98 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), "QUOTED_34_34_92");
 	
 	public static void wire0() {
 		TERMINAL_2.addFollower(TERMINAL_3);
@@ -665,60 +672,42 @@ options {
 		TERMINAL_23.addFollower(TERMINAL_24);
 		TERMINAL_23.addFollower(TERMINAL_25);
 		TERMINAL_23.addFollower(TERMINAL_26);
-		TERMINAL_27.addFollower(TERMINAL_0);
-		TERMINAL_27.addFollower(TERMINAL_24);
-		TERMINAL_27.addFollower(TERMINAL_25);
-		TERMINAL_27.addFollower(TERMINAL_26);
-		TERMINAL_26.addFollower(TERMINAL_11);
-		TERMINAL_26.addFollower(TERMINAL_12);
-		TERMINAL_11.addFollower(TERMINAL_28);
-		TERMINAL_28.addFollower(TERMINAL_29);
-		TERMINAL_28.addFollower(TERMINAL_30);
-		TERMINAL_30.addFollower(TERMINAL_12);
-		TERMINAL_12.addFollower(TERMINAL_31);
-		TERMINAL_31.addFollower(TERMINAL_0);
-		TERMINAL_31.addFollower(TERMINAL_32);
-		TERMINAL_31.addFollower(TERMINAL_33);
-		TERMINAL_17.addFollower(TERMINAL_34);
-		TERMINAL_34.addFollower(TERMINAL_35);
+		TERMINAL_23.addFollower(TERMINAL_27);
+		TERMINAL_28.addFollower(TERMINAL_0);
+		TERMINAL_28.addFollower(TERMINAL_24);
+		TERMINAL_28.addFollower(TERMINAL_25);
+		TERMINAL_28.addFollower(TERMINAL_26);
+		TERMINAL_28.addFollower(TERMINAL_27);
+		TERMINAL_27.addFollower(TERMINAL_11);
+		TERMINAL_27.addFollower(TERMINAL_12);
+		TERMINAL_11.addFollower(TERMINAL_29);
+		TERMINAL_29.addFollower(TERMINAL_30);
+		TERMINAL_29.addFollower(TERMINAL_31);
+		TERMINAL_31.addFollower(TERMINAL_12);
+		TERMINAL_12.addFollower(TERMINAL_32);
+		TERMINAL_32.addFollower(TERMINAL_0);
+		TERMINAL_32.addFollower(TERMINAL_33);
+		TERMINAL_32.addFollower(TERMINAL_34);
+		TERMINAL_17.addFollower(TERMINAL_35);
 		TERMINAL_35.addFollower(TERMINAL_36);
-		TERMINAL_35.addFollower(TERMINAL_37);
-		TERMINAL_35.addFollower(TERMINAL_17);
-		TERMINAL_35.addFollower(TERMINAL_18);
 		TERMINAL_36.addFollower(TERMINAL_37);
+		TERMINAL_36.addFollower(TERMINAL_38);
 		TERMINAL_36.addFollower(TERMINAL_17);
 		TERMINAL_36.addFollower(TERMINAL_18);
 		TERMINAL_37.addFollower(TERMINAL_38);
+		TERMINAL_37.addFollower(TERMINAL_17);
+		TERMINAL_37.addFollower(TERMINAL_18);
 		TERMINAL_38.addFollower(TERMINAL_39);
 		TERMINAL_39.addFollower(TERMINAL_40);
-		TERMINAL_39.addFollower(TERMINAL_17);
-		TERMINAL_39.addFollower(TERMINAL_18);
+		TERMINAL_40.addFollower(TERMINAL_41);
 		TERMINAL_40.addFollower(TERMINAL_17);
 		TERMINAL_40.addFollower(TERMINAL_18);
-		TERMINAL_20.addFollower(TERMINAL_41);
-		TERMINAL_41.addFollower(TERMINAL_42);
-		TERMINAL_42.addFollower(TERMINAL_22);
-		TERMINAL_32.addFollower(TERMINAL_43);
-		TERMINAL_43.addFollower(TERMINAL_44);
-		TERMINAL_43.addFollower(TERMINAL_45);
-		TERMINAL_43.addFollower(TERMINAL_46);
-		TERMINAL_43.addFollower(TERMINAL_47);
-		TERMINAL_43.addFollower(TERMINAL_48);
-		TERMINAL_43.addFollower(TERMINAL_49);
-		TERMINAL_43.addFollower(TERMINAL_50);
-		TERMINAL_43.addFollower(TERMINAL_51);
-		TERMINAL_52.addFollower(TERMINAL_0);
-		TERMINAL_52.addFollower(TERMINAL_32);
-		TERMINAL_52.addFollower(TERMINAL_33);
-		TERMINAL_53.addFollower(TERMINAL_44);
-		TERMINAL_53.addFollower(TERMINAL_45);
-		TERMINAL_53.addFollower(TERMINAL_46);
-		TERMINAL_53.addFollower(TERMINAL_47);
-		TERMINAL_53.addFollower(TERMINAL_48);
-		TERMINAL_53.addFollower(TERMINAL_49);
-		TERMINAL_53.addFollower(TERMINAL_50);
-		TERMINAL_53.addFollower(TERMINAL_51);
-		TERMINAL_44.addFollower(TERMINAL_44);
+		TERMINAL_41.addFollower(TERMINAL_17);
+		TERMINAL_41.addFollower(TERMINAL_18);
+		TERMINAL_20.addFollower(TERMINAL_42);
+		TERMINAL_42.addFollower(TERMINAL_43);
+		TERMINAL_43.addFollower(TERMINAL_22);
+		TERMINAL_33.addFollower(TERMINAL_44);
 		TERMINAL_44.addFollower(TERMINAL_45);
 		TERMINAL_44.addFollower(TERMINAL_46);
 		TERMINAL_44.addFollower(TERMINAL_47);
@@ -726,123 +715,10 @@ options {
 		TERMINAL_44.addFollower(TERMINAL_49);
 		TERMINAL_44.addFollower(TERMINAL_50);
 		TERMINAL_44.addFollower(TERMINAL_51);
-		TERMINAL_44.addFollower(TERMINAL_53);
 		TERMINAL_44.addFollower(TERMINAL_52);
-		TERMINAL_44.addFollower(TERMINAL_54);
-		TERMINAL_45.addFollower(TERMINAL_55);
-		TERMINAL_55.addFollower(TERMINAL_56);
-		TERMINAL_56.addFollower(TERMINAL_57);
-		TERMINAL_57.addFollower(TERMINAL_58);
-		TERMINAL_57.addFollower(TERMINAL_59);
-		TERMINAL_57.addFollower(TERMINAL_60);
-		TERMINAL_57.addFollower(TERMINAL_44);
-		TERMINAL_57.addFollower(TERMINAL_45);
-		TERMINAL_57.addFollower(TERMINAL_46);
-		TERMINAL_57.addFollower(TERMINAL_47);
-		TERMINAL_57.addFollower(TERMINAL_48);
-		TERMINAL_57.addFollower(TERMINAL_49);
-		TERMINAL_57.addFollower(TERMINAL_50);
-		TERMINAL_57.addFollower(TERMINAL_51);
-		TERMINAL_57.addFollower(TERMINAL_53);
-		TERMINAL_57.addFollower(TERMINAL_52);
-		TERMINAL_57.addFollower(TERMINAL_54);
-		TERMINAL_46.addFollower(TERMINAL_61);
-		TERMINAL_61.addFollower(TERMINAL_62);
-		TERMINAL_62.addFollower(TERMINAL_58);
-		TERMINAL_62.addFollower(TERMINAL_59);
-		TERMINAL_62.addFollower(TERMINAL_60);
-		TERMINAL_62.addFollower(TERMINAL_44);
-		TERMINAL_62.addFollower(TERMINAL_45);
-		TERMINAL_62.addFollower(TERMINAL_46);
-		TERMINAL_62.addFollower(TERMINAL_47);
-		TERMINAL_62.addFollower(TERMINAL_48);
-		TERMINAL_62.addFollower(TERMINAL_49);
-		TERMINAL_62.addFollower(TERMINAL_50);
-		TERMINAL_62.addFollower(TERMINAL_51);
-		TERMINAL_62.addFollower(TERMINAL_53);
-		TERMINAL_62.addFollower(TERMINAL_52);
-		TERMINAL_62.addFollower(TERMINAL_54);
-		TERMINAL_47.addFollower(TERMINAL_63);
-		TERMINAL_63.addFollower(TERMINAL_64);
-		TERMINAL_64.addFollower(TERMINAL_65);
-		TERMINAL_65.addFollower(TERMINAL_66);
-		TERMINAL_66.addFollower(TERMINAL_67);
-		TERMINAL_66.addFollower(TERMINAL_68);
-		TERMINAL_67.addFollower(TERMINAL_69);
-		TERMINAL_69.addFollower(TERMINAL_68);
-		TERMINAL_68.addFollower(TERMINAL_58);
-		TERMINAL_68.addFollower(TERMINAL_59);
-		TERMINAL_68.addFollower(TERMINAL_60);
-		TERMINAL_68.addFollower(TERMINAL_44);
-		TERMINAL_68.addFollower(TERMINAL_45);
-		TERMINAL_68.addFollower(TERMINAL_46);
-		TERMINAL_68.addFollower(TERMINAL_47);
-		TERMINAL_68.addFollower(TERMINAL_48);
-		TERMINAL_68.addFollower(TERMINAL_49);
-		TERMINAL_68.addFollower(TERMINAL_50);
-		TERMINAL_68.addFollower(TERMINAL_51);
-		TERMINAL_68.addFollower(TERMINAL_53);
-		TERMINAL_68.addFollower(TERMINAL_52);
-		TERMINAL_68.addFollower(TERMINAL_54);
-		TERMINAL_48.addFollower(TERMINAL_70);
-		TERMINAL_48.addFollower(TERMINAL_58);
-		TERMINAL_48.addFollower(TERMINAL_59);
-		TERMINAL_48.addFollower(TERMINAL_60);
-		TERMINAL_48.addFollower(TERMINAL_44);
-		TERMINAL_48.addFollower(TERMINAL_45);
-		TERMINAL_48.addFollower(TERMINAL_46);
-		TERMINAL_48.addFollower(TERMINAL_47);
-		TERMINAL_48.addFollower(TERMINAL_48);
-		TERMINAL_48.addFollower(TERMINAL_49);
-		TERMINAL_48.addFollower(TERMINAL_50);
-		TERMINAL_48.addFollower(TERMINAL_51);
-		TERMINAL_48.addFollower(TERMINAL_53);
-		TERMINAL_48.addFollower(TERMINAL_52);
-		TERMINAL_48.addFollower(TERMINAL_54);
-		TERMINAL_70.addFollower(TERMINAL_71);
-		TERMINAL_71.addFollower(TERMINAL_72);
-		TERMINAL_71.addFollower(TERMINAL_58);
-		TERMINAL_71.addFollower(TERMINAL_59);
-		TERMINAL_71.addFollower(TERMINAL_60);
-		TERMINAL_71.addFollower(TERMINAL_44);
-		TERMINAL_71.addFollower(TERMINAL_45);
-		TERMINAL_71.addFollower(TERMINAL_46);
-		TERMINAL_71.addFollower(TERMINAL_47);
-		TERMINAL_71.addFollower(TERMINAL_48);
-		TERMINAL_71.addFollower(TERMINAL_49);
-		TERMINAL_71.addFollower(TERMINAL_50);
-		TERMINAL_71.addFollower(TERMINAL_51);
-		TERMINAL_71.addFollower(TERMINAL_53);
-		TERMINAL_71.addFollower(TERMINAL_52);
-		TERMINAL_71.addFollower(TERMINAL_54);
-		TERMINAL_72.addFollower(TERMINAL_73);
-		TERMINAL_73.addFollower(TERMINAL_72);
-		TERMINAL_73.addFollower(TERMINAL_58);
-		TERMINAL_73.addFollower(TERMINAL_59);
-		TERMINAL_73.addFollower(TERMINAL_60);
-		TERMINAL_73.addFollower(TERMINAL_44);
-		TERMINAL_73.addFollower(TERMINAL_45);
-		TERMINAL_73.addFollower(TERMINAL_46);
-		TERMINAL_73.addFollower(TERMINAL_47);
-		TERMINAL_73.addFollower(TERMINAL_48);
-		TERMINAL_73.addFollower(TERMINAL_49);
-		TERMINAL_73.addFollower(TERMINAL_50);
-		TERMINAL_73.addFollower(TERMINAL_51);
-		TERMINAL_73.addFollower(TERMINAL_53);
-		TERMINAL_73.addFollower(TERMINAL_52);
-		TERMINAL_73.addFollower(TERMINAL_54);
-		TERMINAL_49.addFollower(TERMINAL_44);
-		TERMINAL_49.addFollower(TERMINAL_45);
-		TERMINAL_49.addFollower(TERMINAL_46);
-		TERMINAL_49.addFollower(TERMINAL_47);
-		TERMINAL_49.addFollower(TERMINAL_48);
-		TERMINAL_49.addFollower(TERMINAL_49);
-		TERMINAL_49.addFollower(TERMINAL_50);
-		TERMINAL_49.addFollower(TERMINAL_51);
-		TERMINAL_54.addFollower(TERMINAL_58);
-		TERMINAL_54.addFollower(TERMINAL_59);
-		TERMINAL_54.addFollower(TERMINAL_60);
-		TERMINAL_54.addFollower(TERMINAL_44);
+		TERMINAL_53.addFollower(TERMINAL_0);
+		TERMINAL_53.addFollower(TERMINAL_33);
+		TERMINAL_53.addFollower(TERMINAL_34);
 		TERMINAL_54.addFollower(TERMINAL_45);
 		TERMINAL_54.addFollower(TERMINAL_46);
 		TERMINAL_54.addFollower(TERMINAL_47);
@@ -850,49 +726,24 @@ options {
 		TERMINAL_54.addFollower(TERMINAL_49);
 		TERMINAL_54.addFollower(TERMINAL_50);
 		TERMINAL_54.addFollower(TERMINAL_51);
-		TERMINAL_54.addFollower(TERMINAL_53);
 		TERMINAL_54.addFollower(TERMINAL_52);
-		TERMINAL_54.addFollower(TERMINAL_54);
-		TERMINAL_50.addFollower(TERMINAL_44);
-		TERMINAL_50.addFollower(TERMINAL_45);
-		TERMINAL_50.addFollower(TERMINAL_46);
-		TERMINAL_50.addFollower(TERMINAL_47);
-		TERMINAL_50.addFollower(TERMINAL_48);
-		TERMINAL_50.addFollower(TERMINAL_49);
-		TERMINAL_50.addFollower(TERMINAL_50);
-		TERMINAL_50.addFollower(TERMINAL_51);
-		TERMINAL_50.addFollower(TERMINAL_53);
-		TERMINAL_50.addFollower(TERMINAL_52);
-		TERMINAL_50.addFollower(TERMINAL_54);
-		TERMINAL_51.addFollower(TERMINAL_74);
-		TERMINAL_74.addFollower(TERMINAL_44);
-		TERMINAL_74.addFollower(TERMINAL_45);
-		TERMINAL_74.addFollower(TERMINAL_46);
-		TERMINAL_74.addFollower(TERMINAL_47);
-		TERMINAL_74.addFollower(TERMINAL_48);
-		TERMINAL_74.addFollower(TERMINAL_49);
-		TERMINAL_74.addFollower(TERMINAL_50);
-		TERMINAL_74.addFollower(TERMINAL_51);
-		TERMINAL_74.addFollower(TERMINAL_53);
-		TERMINAL_74.addFollower(TERMINAL_52);
-		TERMINAL_74.addFollower(TERMINAL_54);
-		TERMINAL_24.addFollower(TERMINAL_75);
-		TERMINAL_75.addFollower(TERMINAL_76);
-		TERMINAL_75.addFollower(TERMINAL_77);
-		TERMINAL_78.addFollower(TERMINAL_76);
-		TERMINAL_78.addFollower(TERMINAL_77);
-		TERMINAL_79.addFollower(TERMINAL_80);
-		TERMINAL_80.addFollower(TERMINAL_81);
-		TERMINAL_81.addFollower(TERMINAL_27);
-		TERMINAL_25.addFollower(TERMINAL_82);
-		TERMINAL_82.addFollower(TERMINAL_27);
-		TERMINAL_76.addFollower(TERMINAL_78);
-		TERMINAL_76.addFollower(TERMINAL_79);
-		TERMINAL_76.addFollower(TERMINAL_27);
-		TERMINAL_77.addFollower(TERMINAL_78);
-		TERMINAL_77.addFollower(TERMINAL_79);
-		TERMINAL_77.addFollower(TERMINAL_27);
-		TERMINAL_58.addFollower(TERMINAL_44);
+		TERMINAL_45.addFollower(TERMINAL_45);
+		TERMINAL_45.addFollower(TERMINAL_46);
+		TERMINAL_45.addFollower(TERMINAL_47);
+		TERMINAL_45.addFollower(TERMINAL_48);
+		TERMINAL_45.addFollower(TERMINAL_49);
+		TERMINAL_45.addFollower(TERMINAL_50);
+		TERMINAL_45.addFollower(TERMINAL_51);
+		TERMINAL_45.addFollower(TERMINAL_52);
+		TERMINAL_45.addFollower(TERMINAL_54);
+		TERMINAL_45.addFollower(TERMINAL_53);
+		TERMINAL_45.addFollower(TERMINAL_55);
+		TERMINAL_46.addFollower(TERMINAL_56);
+		TERMINAL_56.addFollower(TERMINAL_57);
+		TERMINAL_57.addFollower(TERMINAL_58);
+		TERMINAL_58.addFollower(TERMINAL_59);
+		TERMINAL_58.addFollower(TERMINAL_60);
+		TERMINAL_58.addFollower(TERMINAL_61);
 		TERMINAL_58.addFollower(TERMINAL_45);
 		TERMINAL_58.addFollower(TERMINAL_46);
 		TERMINAL_58.addFollower(TERMINAL_47);
@@ -900,10 +751,164 @@ options {
 		TERMINAL_58.addFollower(TERMINAL_49);
 		TERMINAL_58.addFollower(TERMINAL_50);
 		TERMINAL_58.addFollower(TERMINAL_51);
-		TERMINAL_58.addFollower(TERMINAL_53);
 		TERMINAL_58.addFollower(TERMINAL_52);
 		TERMINAL_58.addFollower(TERMINAL_54);
-		TERMINAL_59.addFollower(TERMINAL_44);
+		TERMINAL_58.addFollower(TERMINAL_53);
+		TERMINAL_58.addFollower(TERMINAL_55);
+		TERMINAL_47.addFollower(TERMINAL_62);
+		TERMINAL_62.addFollower(TERMINAL_63);
+		TERMINAL_63.addFollower(TERMINAL_59);
+		TERMINAL_63.addFollower(TERMINAL_60);
+		TERMINAL_63.addFollower(TERMINAL_61);
+		TERMINAL_63.addFollower(TERMINAL_45);
+		TERMINAL_63.addFollower(TERMINAL_46);
+		TERMINAL_63.addFollower(TERMINAL_47);
+		TERMINAL_63.addFollower(TERMINAL_48);
+		TERMINAL_63.addFollower(TERMINAL_49);
+		TERMINAL_63.addFollower(TERMINAL_50);
+		TERMINAL_63.addFollower(TERMINAL_51);
+		TERMINAL_63.addFollower(TERMINAL_52);
+		TERMINAL_63.addFollower(TERMINAL_54);
+		TERMINAL_63.addFollower(TERMINAL_53);
+		TERMINAL_63.addFollower(TERMINAL_55);
+		TERMINAL_48.addFollower(TERMINAL_64);
+		TERMINAL_64.addFollower(TERMINAL_65);
+		TERMINAL_65.addFollower(TERMINAL_66);
+		TERMINAL_66.addFollower(TERMINAL_67);
+		TERMINAL_67.addFollower(TERMINAL_68);
+		TERMINAL_67.addFollower(TERMINAL_69);
+		TERMINAL_68.addFollower(TERMINAL_70);
+		TERMINAL_70.addFollower(TERMINAL_69);
+		TERMINAL_69.addFollower(TERMINAL_59);
+		TERMINAL_69.addFollower(TERMINAL_60);
+		TERMINAL_69.addFollower(TERMINAL_61);
+		TERMINAL_69.addFollower(TERMINAL_45);
+		TERMINAL_69.addFollower(TERMINAL_46);
+		TERMINAL_69.addFollower(TERMINAL_47);
+		TERMINAL_69.addFollower(TERMINAL_48);
+		TERMINAL_69.addFollower(TERMINAL_49);
+		TERMINAL_69.addFollower(TERMINAL_50);
+		TERMINAL_69.addFollower(TERMINAL_51);
+		TERMINAL_69.addFollower(TERMINAL_52);
+		TERMINAL_69.addFollower(TERMINAL_54);
+		TERMINAL_69.addFollower(TERMINAL_53);
+		TERMINAL_69.addFollower(TERMINAL_55);
+		TERMINAL_49.addFollower(TERMINAL_71);
+		TERMINAL_49.addFollower(TERMINAL_59);
+		TERMINAL_49.addFollower(TERMINAL_60);
+		TERMINAL_49.addFollower(TERMINAL_61);
+		TERMINAL_49.addFollower(TERMINAL_45);
+		TERMINAL_49.addFollower(TERMINAL_46);
+		TERMINAL_49.addFollower(TERMINAL_47);
+		TERMINAL_49.addFollower(TERMINAL_48);
+		TERMINAL_49.addFollower(TERMINAL_49);
+		TERMINAL_49.addFollower(TERMINAL_50);
+		TERMINAL_49.addFollower(TERMINAL_51);
+		TERMINAL_49.addFollower(TERMINAL_52);
+		TERMINAL_49.addFollower(TERMINAL_54);
+		TERMINAL_49.addFollower(TERMINAL_53);
+		TERMINAL_49.addFollower(TERMINAL_55);
+		TERMINAL_71.addFollower(TERMINAL_72);
+		TERMINAL_72.addFollower(TERMINAL_73);
+		TERMINAL_72.addFollower(TERMINAL_59);
+		TERMINAL_72.addFollower(TERMINAL_60);
+		TERMINAL_72.addFollower(TERMINAL_61);
+		TERMINAL_72.addFollower(TERMINAL_45);
+		TERMINAL_72.addFollower(TERMINAL_46);
+		TERMINAL_72.addFollower(TERMINAL_47);
+		TERMINAL_72.addFollower(TERMINAL_48);
+		TERMINAL_72.addFollower(TERMINAL_49);
+		TERMINAL_72.addFollower(TERMINAL_50);
+		TERMINAL_72.addFollower(TERMINAL_51);
+		TERMINAL_72.addFollower(TERMINAL_52);
+		TERMINAL_72.addFollower(TERMINAL_54);
+		TERMINAL_72.addFollower(TERMINAL_53);
+		TERMINAL_72.addFollower(TERMINAL_55);
+		TERMINAL_73.addFollower(TERMINAL_74);
+		TERMINAL_74.addFollower(TERMINAL_73);
+		TERMINAL_74.addFollower(TERMINAL_59);
+		TERMINAL_74.addFollower(TERMINAL_60);
+		TERMINAL_74.addFollower(TERMINAL_61);
+		TERMINAL_74.addFollower(TERMINAL_45);
+		TERMINAL_74.addFollower(TERMINAL_46);
+		TERMINAL_74.addFollower(TERMINAL_47);
+		TERMINAL_74.addFollower(TERMINAL_48);
+		TERMINAL_74.addFollower(TERMINAL_49);
+		TERMINAL_74.addFollower(TERMINAL_50);
+		TERMINAL_74.addFollower(TERMINAL_51);
+		TERMINAL_74.addFollower(TERMINAL_52);
+		TERMINAL_74.addFollower(TERMINAL_54);
+		TERMINAL_74.addFollower(TERMINAL_53);
+		TERMINAL_74.addFollower(TERMINAL_55);
+		TERMINAL_50.addFollower(TERMINAL_45);
+		TERMINAL_50.addFollower(TERMINAL_46);
+		TERMINAL_50.addFollower(TERMINAL_47);
+		TERMINAL_50.addFollower(TERMINAL_48);
+		TERMINAL_50.addFollower(TERMINAL_49);
+		TERMINAL_50.addFollower(TERMINAL_50);
+		TERMINAL_50.addFollower(TERMINAL_51);
+		TERMINAL_50.addFollower(TERMINAL_52);
+		TERMINAL_55.addFollower(TERMINAL_59);
+		TERMINAL_55.addFollower(TERMINAL_60);
+		TERMINAL_55.addFollower(TERMINAL_61);
+		TERMINAL_55.addFollower(TERMINAL_45);
+		TERMINAL_55.addFollower(TERMINAL_46);
+		TERMINAL_55.addFollower(TERMINAL_47);
+		TERMINAL_55.addFollower(TERMINAL_48);
+		TERMINAL_55.addFollower(TERMINAL_49);
+		TERMINAL_55.addFollower(TERMINAL_50);
+		TERMINAL_55.addFollower(TERMINAL_51);
+		TERMINAL_55.addFollower(TERMINAL_52);
+		TERMINAL_55.addFollower(TERMINAL_54);
+		TERMINAL_55.addFollower(TERMINAL_53);
+		TERMINAL_55.addFollower(TERMINAL_55);
+		TERMINAL_51.addFollower(TERMINAL_45);
+		TERMINAL_51.addFollower(TERMINAL_46);
+		TERMINAL_51.addFollower(TERMINAL_47);
+		TERMINAL_51.addFollower(TERMINAL_48);
+		TERMINAL_51.addFollower(TERMINAL_49);
+		TERMINAL_51.addFollower(TERMINAL_50);
+		TERMINAL_51.addFollower(TERMINAL_51);
+		TERMINAL_51.addFollower(TERMINAL_52);
+		TERMINAL_51.addFollower(TERMINAL_54);
+		TERMINAL_51.addFollower(TERMINAL_53);
+		TERMINAL_51.addFollower(TERMINAL_55);
+		TERMINAL_52.addFollower(TERMINAL_75);
+		TERMINAL_75.addFollower(TERMINAL_45);
+		TERMINAL_75.addFollower(TERMINAL_46);
+		TERMINAL_75.addFollower(TERMINAL_47);
+		TERMINAL_75.addFollower(TERMINAL_48);
+		TERMINAL_75.addFollower(TERMINAL_49);
+		TERMINAL_75.addFollower(TERMINAL_50);
+		TERMINAL_75.addFollower(TERMINAL_51);
+		TERMINAL_75.addFollower(TERMINAL_52);
+		TERMINAL_75.addFollower(TERMINAL_54);
+		TERMINAL_75.addFollower(TERMINAL_53);
+		TERMINAL_75.addFollower(TERMINAL_55);
+		TERMINAL_24.addFollower(TERMINAL_76);
+		TERMINAL_76.addFollower(TERMINAL_77);
+		TERMINAL_76.addFollower(TERMINAL_78);
+		TERMINAL_79.addFollower(TERMINAL_77);
+		TERMINAL_79.addFollower(TERMINAL_78);
+		TERMINAL_80.addFollower(TERMINAL_81);
+		TERMINAL_81.addFollower(TERMINAL_82);
+		TERMINAL_82.addFollower(TERMINAL_28);
+		TERMINAL_25.addFollower(TERMINAL_83);
+		TERMINAL_83.addFollower(TERMINAL_84);
+		TERMINAL_84.addFollower(TERMINAL_77);
+		TERMINAL_84.addFollower(TERMINAL_78);
+		TERMINAL_85.addFollower(TERMINAL_77);
+		TERMINAL_85.addFollower(TERMINAL_78);
+		TERMINAL_26.addFollower(TERMINAL_86);
+		TERMINAL_86.addFollower(TERMINAL_28);
+		TERMINAL_77.addFollower(TERMINAL_79);
+		TERMINAL_77.addFollower(TERMINAL_80);
+		TERMINAL_77.addFollower(TERMINAL_28);
+		TERMINAL_77.addFollower(TERMINAL_85);
+		TERMINAL_78.addFollower(TERMINAL_79);
+		TERMINAL_78.addFollower(TERMINAL_80);
+		TERMINAL_78.addFollower(TERMINAL_28);
+		TERMINAL_78.addFollower(TERMINAL_85);
 		TERMINAL_59.addFollower(TERMINAL_45);
 		TERMINAL_59.addFollower(TERMINAL_46);
 		TERMINAL_59.addFollower(TERMINAL_47);
@@ -911,10 +916,10 @@ options {
 		TERMINAL_59.addFollower(TERMINAL_49);
 		TERMINAL_59.addFollower(TERMINAL_50);
 		TERMINAL_59.addFollower(TERMINAL_51);
-		TERMINAL_59.addFollower(TERMINAL_53);
 		TERMINAL_59.addFollower(TERMINAL_52);
 		TERMINAL_59.addFollower(TERMINAL_54);
-		TERMINAL_60.addFollower(TERMINAL_44);
+		TERMINAL_59.addFollower(TERMINAL_53);
+		TERMINAL_59.addFollower(TERMINAL_55);
 		TERMINAL_60.addFollower(TERMINAL_45);
 		TERMINAL_60.addFollower(TERMINAL_46);
 		TERMINAL_60.addFollower(TERMINAL_47);
@@ -922,39 +927,51 @@ options {
 		TERMINAL_60.addFollower(TERMINAL_49);
 		TERMINAL_60.addFollower(TERMINAL_50);
 		TERMINAL_60.addFollower(TERMINAL_51);
-		TERMINAL_60.addFollower(TERMINAL_53);
 		TERMINAL_60.addFollower(TERMINAL_52);
 		TERMINAL_60.addFollower(TERMINAL_54);
+		TERMINAL_60.addFollower(TERMINAL_53);
+		TERMINAL_60.addFollower(TERMINAL_55);
+		TERMINAL_61.addFollower(TERMINAL_45);
+		TERMINAL_61.addFollower(TERMINAL_46);
+		TERMINAL_61.addFollower(TERMINAL_47);
+		TERMINAL_61.addFollower(TERMINAL_48);
+		TERMINAL_61.addFollower(TERMINAL_49);
+		TERMINAL_61.addFollower(TERMINAL_50);
+		TERMINAL_61.addFollower(TERMINAL_51);
+		TERMINAL_61.addFollower(TERMINAL_52);
+		TERMINAL_61.addFollower(TERMINAL_54);
+		TERMINAL_61.addFollower(TERMINAL_53);
+		TERMINAL_61.addFollower(TERMINAL_55);
 		TERMINAL_1.addFollower(TERMINAL_2);
-		TERMINAL_29.addFollower(TERMINAL_83);
-		TERMINAL_83.addFollower(TERMINAL_84);
-		TERMINAL_84.addFollower(TERMINAL_85);
-		TERMINAL_84.addFollower(TERMINAL_86);
-		TERMINAL_85.addFollower(TERMINAL_87);
-		TERMINAL_87.addFollower(TERMINAL_85);
-		TERMINAL_87.addFollower(TERMINAL_86);
-		TERMINAL_86.addFollower(TERMINAL_29);
-		TERMINAL_86.addFollower(TERMINAL_30);
-		TERMINAL_0.addFollower(TERMINAL_88);
+		TERMINAL_30.addFollower(TERMINAL_87);
+		TERMINAL_87.addFollower(TERMINAL_88);
 		TERMINAL_88.addFollower(TERMINAL_89);
-		TERMINAL_88.addFollower(TERMINAL_0);
-		TERMINAL_88.addFollower(TERMINAL_1);
-		TERMINAL_88.addFollower(TERMINAL_2);
-		TERMINAL_88.addFollower(TERMINAL_32);
-		TERMINAL_88.addFollower(TERMINAL_24);
-		TERMINAL_89.addFollower(TERMINAL_90);
+		TERMINAL_88.addFollower(TERMINAL_90);
+		TERMINAL_89.addFollower(TERMINAL_91);
+		TERMINAL_91.addFollower(TERMINAL_89);
 		TERMINAL_91.addFollower(TERMINAL_90);
+		TERMINAL_90.addFollower(TERMINAL_30);
+		TERMINAL_90.addFollower(TERMINAL_31);
+		TERMINAL_0.addFollower(TERMINAL_92);
+		TERMINAL_92.addFollower(TERMINAL_93);
 		TERMINAL_92.addFollower(TERMINAL_0);
 		TERMINAL_92.addFollower(TERMINAL_1);
 		TERMINAL_92.addFollower(TERMINAL_2);
-		TERMINAL_92.addFollower(TERMINAL_32);
+		TERMINAL_92.addFollower(TERMINAL_33);
 		TERMINAL_92.addFollower(TERMINAL_24);
-		TERMINAL_90.addFollower(TERMINAL_93);
-		TERMINAL_90.addFollower(TERMINAL_91);
-		TERMINAL_90.addFollower(TERMINAL_92);
 		TERMINAL_93.addFollower(TERMINAL_94);
-		TERMINAL_94.addFollower(TERMINAL_91);
-		TERMINAL_94.addFollower(TERMINAL_92);
+		TERMINAL_95.addFollower(TERMINAL_94);
+		TERMINAL_96.addFollower(TERMINAL_0);
+		TERMINAL_96.addFollower(TERMINAL_1);
+		TERMINAL_96.addFollower(TERMINAL_2);
+		TERMINAL_96.addFollower(TERMINAL_33);
+		TERMINAL_96.addFollower(TERMINAL_24);
+		TERMINAL_94.addFollower(TERMINAL_97);
+		TERMINAL_94.addFollower(TERMINAL_95);
+		TERMINAL_94.addFollower(TERMINAL_96);
+		TERMINAL_97.addFollower(TERMINAL_98);
+		TERMINAL_98.addFollower(TERMINAL_95);
+		TERMINAL_98.addFollower(TERMINAL_96);
 	}
 	// wire the terminals
 	static {
@@ -1558,6 +1575,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 32));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 32));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 32));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 32));
 			}
 			
 			(
@@ -1581,7 +1599,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 33));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 33));
 					}
 					
 					a23 = ';' {
@@ -1597,6 +1615,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 34));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 34));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 34));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 34));
 					}
 					
 				)
@@ -1607,6 +1626,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 35));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 35));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 35));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 35));
 			}
 			
 			a24 = '}' {
@@ -1641,7 +1661,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 38));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_29, 38));
 			}
 			
 			a26 = '{' {
@@ -1653,8 +1673,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_29, 39));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 39));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 39));
 			}
 			
 			(
@@ -1678,16 +1698,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_29, 40));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 40));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 40));
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_29, 41));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 41));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 41));
 			}
 			
 			a28 = '}' {
@@ -1718,7 +1738,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 44));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 44));
 	}
 	
 	a30 = '{' {
@@ -1731,8 +1751,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 45));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 45));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 45));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 45));
 	}
 	
 	(
@@ -1758,14 +1778,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		)*		{
 			// expected elements (follow set)
 			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 46));
-			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 46));
 			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 46));
+			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 46));
 		}
 		
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 47));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 47));
 	}
 	
 	a32 = '}' {
@@ -1815,7 +1835,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 49));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_35, 49));
 	}
 	
 	a1 = ':' {
@@ -1827,7 +1847,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_35, 50));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_36, 50));
 	}
 	
 	(
@@ -1864,8 +1884,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_36, 51));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_37, 51));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 51));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 51));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 51));
 	}
@@ -1902,7 +1922,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_37, 52));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 52));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 52));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 52));
 			}
@@ -1911,7 +1931,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_37, 53));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 53));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 53));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 53));
 	}
@@ -1927,7 +1947,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 54));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_39, 54));
 			}
 			
 			a5 = 'SYNTAX' {
@@ -1939,7 +1959,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_39, 55));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_40, 55));
 			}
 			
 			(
@@ -1976,7 +1996,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_40, 56));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_41, 56));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 56));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 56));
 			}
@@ -2069,7 +2089,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_41, 60));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_42, 60));
 	}
 	
 	a1 = '=' {
@@ -2081,7 +2101,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_42, 61));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_43, 61));
 	}
 	
 	(
@@ -2145,7 +2165,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 			{
 				// expected elements (follow set)
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 63));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 63));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 63));
 			}
 			
 		)
@@ -2153,7 +2173,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	)*	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 64));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 64));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 64));
 	}
 	
 	(
@@ -2190,7 +2210,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_43, 65));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 65));
 	}
 	
 	a2 = '::=' {
@@ -2202,7 +2222,6 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 66));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 66));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 66));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 66));
@@ -2210,6 +2229,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 66));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 66));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 66));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 66));
 	}
 	
 	(
@@ -2231,7 +2251,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 67));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 67));
 	}
 	
 	a4 = ';' {
@@ -2244,8 +2264,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 68));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 68));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 68));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 68));
 	}
 	
 ;
@@ -2275,7 +2295,6 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 		
 	)+	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 69));
@@ -2283,9 +2302,10 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 69));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 69));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 69));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 69));
 	}
 	
 ;
@@ -2313,9 +2333,9 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 70));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 70));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 70));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 70));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 70));
 	}
 	
 	(
@@ -2329,7 +2349,6 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 71));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 71));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 71));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 71));
@@ -2337,6 +2356,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 71));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 71));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 71));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 71));
 			}
 			
 			(
@@ -2358,18 +2378,18 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 72));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 72));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 72));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 72));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 72));
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 73));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 73));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 73));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 73));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 73));
 	}
 	
 ;
@@ -2408,7 +2428,6 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 74));
@@ -2416,9 +2435,10 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 74));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 74));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 74));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 74));
 	}
 	
 ;
@@ -2461,7 +2481,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 75));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_56, 75));
 	}
 	
 	a1 = '[' {
@@ -2473,7 +2493,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_56, 76));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_57, 76));
 	}
 	
 	(
@@ -2510,7 +2530,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_57, 77));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 77));
 	}
 	
 	a3 = ']' {
@@ -2522,10 +2542,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 78));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 78));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 78));
@@ -2533,9 +2552,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 78));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 78));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 78));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 78));
 	}
 	
 	(
@@ -2559,7 +2579,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 79));
@@ -2567,9 +2586,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 79));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 79));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 79));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 79));
 	}
 	
 ;
@@ -2612,7 +2632,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 80));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_62, 80));
 	}
 	
 	a1 = '[' {
@@ -2624,7 +2644,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_62, 81));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_63, 81));
 	}
 	
 	a2 = ']' {
@@ -2636,10 +2656,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 82));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 82));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 82));
@@ -2647,9 +2666,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 82));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 82));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 82));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 82));
 	}
 	
 	(
@@ -2673,7 +2693,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 83));
@@ -2681,9 +2700,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 83));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 83));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 83));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 83));
 	}
 	
 ;
@@ -2726,7 +2746,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_63, 84));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_64, 84));
 	}
 	
 	a1 = '[' {
@@ -2738,7 +2758,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_64, 85));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_65, 85));
 	}
 	
 	(
@@ -2771,7 +2791,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_65, 86));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_66, 86));
 	}
 	
 	a3 = ',' {
@@ -2783,7 +2803,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_66, 87));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_67, 87));
 	}
 	
 	(
@@ -2816,8 +2836,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_67, 88));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_68, 88));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_69, 88));
 	}
 	
 	(
@@ -2831,7 +2851,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_69, 89));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_70, 89));
 			}
 			
 			(
@@ -2864,14 +2884,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_68, 90));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_69, 90));
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_68, 91));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_69, 91));
 	}
 	
 	a7 = ']' {
@@ -2883,10 +2903,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 92));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 92));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 92));
@@ -2894,9 +2913,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 92));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 92));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 92));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 92));
 	}
 	
 	(
@@ -2920,7 +2940,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 93));
@@ -2928,9 +2947,10 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 93));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 93));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 93));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 93));
 	}
 	
 ;
@@ -2973,11 +2993,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_70, 94));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 94));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_71, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 94));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 94));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 94));
@@ -2985,9 +3004,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 94));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 94));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 94));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 94));
 	}
 	
 	(
@@ -3001,7 +3021,7 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_71, 95));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_72, 95));
 			}
 			
 			(
@@ -3038,11 +3058,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_72, 96));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 96));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 96));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 96));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 96));
@@ -3050,9 +3069,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 96));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 96));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 96));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 96));
 			}
 			
 			(
@@ -3066,7 +3086,7 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 97));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_74, 97));
 					}
 					
 					(
@@ -3103,11 +3123,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_72, 98));
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 98));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 98));
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 98));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 98));
@@ -3115,20 +3134,20 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 98));
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 98));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 98));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 98));
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_72, 99));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 99));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 99));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 99));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 99));
@@ -3136,19 +3155,19 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 99));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 99));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 99));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 99));
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 100));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 100));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 100));
@@ -3156,9 +3175,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 100));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 100));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 100));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 100));
 	}
 	
 	(
@@ -3182,7 +3202,6 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 101));
@@ -3190,9 +3209,10 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 101));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 101));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 101));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 101));
 	}
 	
 ;
@@ -3210,7 +3230,6 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 102));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 102));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 102));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 102));
@@ -3218,6 +3237,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 102));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 102));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 102));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 102));
 	}
 	
 	(
@@ -3239,7 +3259,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 103));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 103));
 	}
 	
 	a2 = ')' {
@@ -3251,10 +3271,9 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_58, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 104));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 104));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 104));
@@ -3262,9 +3281,10 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 104));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 104));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 104));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 104));
 	}
 	
 	(
@@ -3288,7 +3308,6 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 105));
@@ -3296,9 +3315,10 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 105));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 105));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 105));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 105));
 	}
 	
 ;
@@ -3337,7 +3357,6 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 106));
@@ -3345,9 +3364,10 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 106));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 106));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 106));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 106));
 	}
 	
 ;
@@ -3365,7 +3385,7 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_74, 107));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_75, 107));
 	}
 	
 	(
@@ -3398,7 +3418,6 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 108));
@@ -3406,9 +3425,10 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 108));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 108));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 108));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 108));
 	}
 	
 ;
@@ -3459,7 +3479,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_75, 111));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_76, 111));
 	}
 	
 	(
@@ -3492,8 +3512,8 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_76, 112));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 112));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 112));
 	}
 	
 	(
@@ -3515,9 +3535,9 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 113));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 113));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 113));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 113));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 113));
 	}
 	
 	(
@@ -3531,8 +3551,8 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_76, 114));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 114));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 114));
 			}
 			
 			(
@@ -3554,18 +3574,18 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 115));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 115));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 115));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 115));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 115));
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 116));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 116));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 116));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 116));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 116));
 	}
 	
 	(
@@ -3579,7 +3599,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 117));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_81, 117));
 			}
 			
 			a7 = 'IN' {
@@ -3591,7 +3611,7 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_81, 118));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_82, 118));
 			}
 			
 			(
@@ -3624,14 +3644,147 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 119));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 119));
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 120));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 120));
+	}
+	
+;
+
+parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null]
+@init{
+}
+:
+	a0 = 'DEFINE' {
+		if (element == null) {
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+		}
+		collectHiddenTokens(element);
+		copyLocalizationInfos((org.antlr.runtime3_2_0.CommonToken)a0, element);
+	}
+	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_83, 121));
+	}
+	
+	a1 = 'PARTIAL' {
+		if (element == null) {
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+		}
+		collectHiddenTokens(element);
+		copyLocalizationInfos((org.antlr.runtime3_2_0.CommonToken)a1, element);
+	}
+	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_84, 122));
+	}
+	
+	(
+		a2 = QUALIFIED_NAME		
+		{
+			if (terminateParsing) {
+				throw new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException();
+			}
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+			}
+			if (a2 != null) {
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+				tokenResolver.setOptions(getOptions());
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result = getFreshTokenResolveResult();
+				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), result);
+				java.lang.Object resolvedObject = result.getResolvedToken();
+				if (resolvedObject == null) {
+					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_2_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_2_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_2_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_2_0.CommonToken) a2).getStopIndex());
+				}
+				java.lang.String resolved = (java.lang.String)resolvedObject;
+				if (resolved != null) {
+					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), resolved);
+					completedElement(resolved);
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((org.antlr.runtime3_2_0.CommonToken) a2, element);
+			}
+		}
+	)
+	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 123));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123));
+	}
+	
+	(
+		a3_0 = parse_org_emftext_sdk_concretesyntax_RegexPart		{
+			if (terminateParsing) {
+				throw new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException();
+			}
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+			}
+			if (a3_0 != null) {
+				if (a3_0 != null) {
+					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a3_0);
+					completedElement(a3_0);
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos(a3_0, element); 			}
+		}
+	)
+	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 124));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 124));
+	}
+	
+	(
+		(
+			a4 = '+' {
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((org.antlr.runtime3_2_0.CommonToken)a4, element);
+			}
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 125));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 125));
+			}
+			
+			(
+				a5_0 = parse_org_emftext_sdk_concretesyntax_RegexPart				{
+					if (terminateParsing) {
+						throw new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException();
+					}
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
+					}
+					if (a5_0 != null) {
+						if (a5_0 != null) {
+							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a5_0);
+							completedElement(a5_0);
+						}
+						collectHiddenTokens(element);
+						copyLocalizationInfos(a5_0, element); 					}
+				}
+			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 126));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 126));
+			}
+			
+		)
+		
+	)*	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 127));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 127));
 	}
 	
 ;
@@ -3649,7 +3802,7 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_82, 121));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_86, 128));
 	}
 	
 	(
@@ -3686,7 +3839,7 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 122));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 129));
 	}
 	
 ;
@@ -3725,9 +3878,10 @@ parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 123));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 123));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 130));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 130));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 130));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 130));
 	}
 	
 ;
@@ -3757,7 +3911,7 @@ parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.con
 				String resolved = (String) resolvedObject;
 				org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				collectHiddenTokens(element);
-				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.RegexReference, org.emftext.sdk.concretesyntax.TokenDefinition>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getRegexReferenceTargetReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), resolved, proxy);
+				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.RegexReference, org.emftext.sdk.concretesyntax.NormalToken>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getRegexReferenceTargetReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), resolved, proxy);
 				if (proxy != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), proxy);
 					completedElement(proxy);
@@ -3770,9 +3924,10 @@ parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.con
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 124));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 124));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 124));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_79, 131));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_80, 131));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 131));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 131));
 	}
 	
 ;
@@ -3790,17 +3945,17 @@ parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 125));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 125));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 132));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 132));
 	}
 	
 ;
@@ -3818,17 +3973,17 @@ parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 126));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 126));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 133));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 133));
 	}
 	
 ;
@@ -3846,17 +4001,17 @@ parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concr
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_44, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 127));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 127));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 134));
 	}
 	
 ;
@@ -3874,7 +4029,7 @@ parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretes
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 128));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 135));
 	}
 	
 ;
@@ -3913,7 +4068,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_83, 129));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_87, 136));
 	}
 	
 	a1 = 'COLOR' {
@@ -3925,7 +4080,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_84, 130));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_88, 137));
 	}
 	
 	(
@@ -3958,8 +4113,8 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 131));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_86, 131));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_89, 138));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 138));
 	}
 	
 	(
@@ -3973,7 +4128,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_87, 132));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 139));
 			}
 			
 			(
@@ -4006,16 +4161,16 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 133));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_86, 133));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_89, 140));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 140));
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_85, 134));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_86, 134));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_89, 141));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 141));
 	}
 	
 	a5 = ';' {
@@ -4027,8 +4182,8 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_29, 135));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 135));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 142));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 142));
 	}
 	
 ;
@@ -4046,7 +4201,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_88, 136));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 143));
 	}
 	
 	(
@@ -4079,12 +4234,12 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_89, 137));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 137));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 137));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 137));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 137));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 137));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_93, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 144));
 	}
 	
 	(
@@ -4098,7 +4253,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 138));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 145));
 			}
 			
 			(
@@ -4120,8 +4275,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 139));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 139));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 146));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 146));
 			}
 			
 			(
@@ -4135,7 +4290,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 140));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 147));
 					}
 					
 					(
@@ -4157,16 +4312,16 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 141));
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 141));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 148));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 148));
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 142));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 142));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 149));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 149));
 			}
 			
 			a6 = ')' {
@@ -4178,22 +4333,22 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 143));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 143));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 143));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 143));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 143));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 150));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 150));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 150));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 150));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 150));
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 144));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_32, 144));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 144));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 151));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 151));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 151));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 151));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 151));
 	}
 	
 ;
@@ -4232,9 +4387,9 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_93, 145));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 145));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 145));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_97, 152));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 152));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 152));
 	}
 	
 	(
@@ -4248,7 +4403,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 146));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_98, 153));
 			}
 			
 			(
@@ -4281,16 +4436,16 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 147));
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 147));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 154));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 154));
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 148));
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 148));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_95, 155));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 155));
 	}
 	
 ;
@@ -4298,7 +4453,8 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]
 :
 	c0 = parse_org_emftext_sdk_concretesyntax_NormalToken{ element = c0; /* this is a subclass choice */ }
-	|	c1 = parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective{ element = c1; /* this is a subclass choice */ }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition{ element = c1; /* this is a subclass choice */ }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective{ element = c2; /* this is a subclass choice */ }
 	
 ;
 

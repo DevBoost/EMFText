@@ -50,12 +50,6 @@
 		<builder id="org.emftext.sdk.concretesyntax.resource.cs.builder" />
 	</extension>
 	
-	<extension point="org.eclipse.core.resources.builders" id="org.emftext.sdk.concretesyntax.resource.cs.builder" name="cs Builder">
-		<builder hasNature="true">
-			<run class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilderAdapter" />
-		</builder>
-	</extension>
-	
 	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
 	
 	<extension point="org.eclipse.emf.ecore.extension_parser">
