@@ -31,7 +31,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -51,7 +51,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final NameUtil nameUtil = new NameUtil();
 	
-	private TokenDefinition definition;
+	private CompleteTokenDefinition definition;
 	private String defaultTokenResolverClassName;
 	
 	public TokenResolverGenerator() {
@@ -217,7 +217,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 		return new TokenResolverGenerator(context);
 	}
 
-	public void setTokenDefinition(TokenDefinition tokenDefinition) {
+	public void setTokenDefinition(CompleteTokenDefinition tokenDefinition) {
 		this.definition = tokenDefinition;
 	}
 

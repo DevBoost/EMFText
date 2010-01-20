@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -33,7 +33,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> activeTokens = syntax.getActiveTokens();
+		List<CompleteTokenDefinition> activeTokens = syntax.getActiveTokens();
 		TreeIterator<EObject> allContents = syntax.eAllContents();
 		List<String> keywordTokens = new ArrayList<String>();
 		while (allContents.hasNext()) {
@@ -43,7 +43,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 				keywordTokens.add(s.getValue());
 			}
 		}
-		for (TokenDefinition definition : activeTokens) {
+		for (CompleteTokenDefinition definition : activeTokens) {
 			String regex = definition.getRegex();
 			if (regex.length() < 2) {
 				continue;

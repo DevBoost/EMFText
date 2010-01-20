@@ -33,7 +33,7 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface QuotedToken extends TokenDefinition {
+public interface QuotedToken extends CompleteTokenDefinition {
 	/**
 	 * Returns the value of the '<em><b>Prefix</b></em>' attribute.
 	 * The default value is <code>""</code>.

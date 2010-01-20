@@ -33,13 +33,13 @@ import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
@@ -130,7 +130,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TokenDefinition> activeTokens;
+	protected EList<CompleteTokenDefinition> activeTokens;
 
 	/**
 	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
@@ -170,7 +170,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TokenDefinition> syntheticTokens;
+	protected EList<CompleteTokenDefinition> syntheticTokens;
 
 	/**
 	 * The cached value of the '{@link #getTokenStyles() <em>Token Styles</em>}' containment reference list.
@@ -318,9 +318,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TokenDefinition> getActiveTokens() {
+	public EList<CompleteTokenDefinition> getActiveTokens() {
 		if (activeTokens == null) {
-			activeTokens = new EObjectResolvingEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS);
+			activeTokens = new EObjectResolvingEList<CompleteTokenDefinition>(CompleteTokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS);
 		}
 		return activeTokens;
 	}
@@ -530,9 +530,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TokenDefinition> getSyntheticTokens() {
+	public EList<CompleteTokenDefinition> getSyntheticTokens() {
 		if (syntheticTokens == null) {
-			syntheticTokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
+			syntheticTokens = new EObjectContainmentEList<CompleteTokenDefinition>(CompleteTokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 		}
 		return syntheticTokens;
 	}
@@ -661,7 +661,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS:
 				getActiveTokens().clear();
-				getActiveTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				getActiveTokens().addAll((Collection<? extends CompleteTokenDefinition>)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				getImports().clear();
@@ -677,7 +677,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
 				getSyntheticTokens().clear();
-				getSyntheticTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				getSyntheticTokens().addAll((Collection<? extends CompleteTokenDefinition>)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				getTokenStyles().clear();

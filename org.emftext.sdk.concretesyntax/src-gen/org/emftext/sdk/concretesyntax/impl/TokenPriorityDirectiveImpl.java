@@ -17,8 +17,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 
 /**
@@ -43,7 +43,7 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	 * @generated
 	 * @ordered
 	 */
-	protected TokenDefinition token;
+	protected CompleteTokenDefinition token;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,10 +69,10 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TokenDefinition getToken() {
+	public CompleteTokenDefinition getToken() {
 		if (token != null && token.eIsProxy()) {
 			InternalEObject oldToken = (InternalEObject)token;
-			token = (TokenDefinition)eResolveProxy(oldToken);
+			token = (CompleteTokenDefinition)eResolveProxy(oldToken);
 			if (token != oldToken) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN, oldToken, token));
@@ -86,7 +86,7 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TokenDefinition basicGetToken() {
+	public CompleteTokenDefinition basicGetToken() {
 		return token;
 	}
 
@@ -95,8 +95,8 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setToken(TokenDefinition newToken) {
-		TokenDefinition oldToken = token;
+	public void setToken(CompleteTokenDefinition newToken) {
+		CompleteTokenDefinition oldToken = token;
 		token = newToken;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN, oldToken, token));
@@ -126,7 +126,7 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN:
-				setToken((TokenDefinition)newValue);
+				setToken((CompleteTokenDefinition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -141,7 +141,7 @@ public class TokenPriorityDirectiveImpl extends TokenDirectiveImpl implements To
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN:
-				setToken((TokenDefinition)null);
+				setToken((CompleteTokenDefinition)null);
 				return;
 		}
 		super.eUnset(featureID);

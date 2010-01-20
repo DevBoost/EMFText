@@ -16,7 +16,7 @@ package org.emftext.sdk;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * A class that can be used to analyse collect-in features. This class
@@ -51,7 +51,7 @@ public class CollectInFeatureHelper {
 	}
 
 	private boolean isCollectInFeatureWithoutImports(ConcreteSyntax syntax, EStructuralFeature feature) {
-		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			final String attributeName = tokenDefinition.getAttributeName();
 			final boolean isCollectToken = attributeName != null;
 			if (!isCollectToken) {

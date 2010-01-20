@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -28,19 +28,19 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);
-		for (TokenDefinition duplicate : duplicateDefinitions) {
+		List<CompleteTokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);
+		for (CompleteTokenDefinition duplicate : duplicateDefinitions) {
 			addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_NAME, "Duplicate token name " + duplicate.getName() + " (names are not case sensitive).", duplicate);
 		}
 	}
 
-	public List<TokenDefinition> getDuplicateTokenDefinitions(ConcreteSyntax syntax) {
-		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
+	public List<CompleteTokenDefinition> getDuplicateTokenDefinitions(ConcreteSyntax syntax) {
+		List<CompleteTokenDefinition> duplicateTokens = new ArrayList<CompleteTokenDefinition>();
 		
 		List<String> foundTokenNames = new ArrayList<String>();
-		List<TokenDefinition> tokens = syntax.getActiveTokens();
+		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
 		for (int i = 0; i < tokens.size(); i++) {
-			TokenDefinition token_i = tokens.get(i);
+			CompleteTokenDefinition token_i = tokens.get(i);
 			String token_i_name = token_i.getName();
 			if (foundTokenNames.contains(token_i_name.toLowerCase())) {
 				continue;
@@ -51,7 +51,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 			boolean foundDuplicate = false;
 			// name was not found before
 			for (int j = i + 1; j < tokens.size(); j++) {
-				TokenDefinition token_j = tokens.get(j);
+				CompleteTokenDefinition token_j = tokens.get(j);
 				if (token_j.getName().equalsIgnoreCase(token_i_name)) {
 					duplicateTokens.add(token_j);
 					foundDuplicate = true;

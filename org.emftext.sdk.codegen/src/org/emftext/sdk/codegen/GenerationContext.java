@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -258,7 +258,7 @@ public abstract class GenerationContext {
 		return csUtil.getResolverPackagePath(getConcreteSyntax());
 	}
 
-	public File getTokenResolverFile(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
+	public File getTokenResolverFile(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_TOKEN_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
 		return new File(getSourceFolder(EPlugins.RESOURCE_PLUGIN, doOverride).getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);

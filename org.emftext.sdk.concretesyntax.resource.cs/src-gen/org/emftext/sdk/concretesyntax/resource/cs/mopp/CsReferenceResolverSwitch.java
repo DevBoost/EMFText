@@ -114,7 +114,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholder().isInstance(container)) {
-			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
+			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.CompleteTokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.CompleteTokenDefinition>(result);
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				placeholderTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Placeholder) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
@@ -128,7 +128,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().isInstance(container)) {
-			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
+			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.CompleteTokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.CompleteTokenDefinition>(result);
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				tokenPriorityDirectiveTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.TokenPriorityDirective) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);

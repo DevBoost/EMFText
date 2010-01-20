@@ -23,7 +23,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 /**
@@ -72,7 +72,7 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 
 	private boolean searchForPredefinedTokenDeclaration(ConcreteSyntax syntax,
 			EPredefinedTokens predefinedToken) {
-		for (TokenDefinition next : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition next : syntax.getActiveTokens()) {
 			if (predefinedToken.getTokenName().equals(next.getName())) {
 				// found a declaration for the predefined token
 				return true;

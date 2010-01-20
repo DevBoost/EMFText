@@ -40,12 +40,12 @@ public interface TokenPriorityDirective extends TokenDirective {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Token</em>' reference.
-	 * @see #setToken(TokenDefinition)
+	 * @see #setToken(CompleteTokenDefinition)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenPriorityDirective_Token()
 	 * @model required="true"
 	 * @generated
 	 */
-	TokenDefinition getToken();
+	CompleteTokenDefinition getToken();
 
 	/**
 	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective#getToken <em>Token</em>}' reference.
@@ -55,6 +55,6 @@ public interface TokenPriorityDirective extends TokenDirective {
 	 * @see #getToken()
 	 * @generated
 	 */
-	void setToken(TokenDefinition value);
+	void setToken(CompleteTokenDefinition value);
 
 } // TokenPriorityDirective

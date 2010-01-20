@@ -25,7 +25,7 @@ import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.RegexpTranslationHelper;
@@ -38,14 +38,14 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		TokenSorter ts = new TokenSorter();
-		Map<TokenDefinition, Set<TokenDefinition>> conflicting = Collections.emptyMap();
-		EList<TokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
+		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = Collections.emptyMap();
+		EList<CompleteTokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
-		List<TokenDefinition> unreachable = Collections.emptyList();
+		List<CompleteTokenDefinition> unreachable = Collections.emptyList();
 		try {
 			conflicting = ts.getConflicting(allTokenDefinitions);
-			List<TokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
-			for (TokenDefinition tokenDirective : directivesMatchingEmptyString) {
+			List<CompleteTokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
+			for (CompleteTokenDefinition tokenDirective : directivesMatchingEmptyString) {
 				addProblem(resource, ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition '" + tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
@@ -56,7 +56,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
-		for (TokenDefinition tokenDirective : unreachable) {
+		for (CompleteTokenDefinition tokenDirective : unreachable) {
 			conflicting.remove(tokenDirective);
 
 			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
@@ -64,10 +64,10 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 							+ "' is not reachable", tokenDirective);
 
 		}
-		for (TokenDefinition tokenDirective : conflicting.keySet()) {
-			Set<TokenDefinition> previousDefinitions = conflicting.get(tokenDirective);
+		for (CompleteTokenDefinition tokenDirective : conflicting.keySet()) {
+			Set<CompleteTokenDefinition> previousDefinitions = conflicting.get(tokenDirective);
 			Set<String> nameSet = new HashSet<String>();
-			for (TokenDefinition nextDefinition : previousDefinitions) {
+			for (CompleteTokenDefinition nextDefinition : previousDefinitions) {
 				nameSet.add(nextDefinition.getName());
 			}
 			String names = StringUtil.explode(nameSet, ", ");
@@ -78,11 +78,11 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private List<TokenDefinition> getDirectivesMatchingEmptyString(
-			EList<TokenDefinition> allTokenDirectives) throws SorterException,
+	private List<CompleteTokenDefinition> getDirectivesMatchingEmptyString(
+			EList<CompleteTokenDefinition> allTokenDirectives) throws SorterException,
 			IOException, RecognitionException {
-		List<TokenDefinition> emptyMatchers = new ArrayList<TokenDefinition>();
-		for (TokenDefinition def : allTokenDirectives) {
+		List<CompleteTokenDefinition> emptyMatchers = new ArrayList<CompleteTokenDefinition>();
+		for (CompleteTokenDefinition def : allTokenDirectives) {
 
 			String regex = RegexpTranslationHelper
 					.translateAntLRToJavaStyle(def.getRegex());

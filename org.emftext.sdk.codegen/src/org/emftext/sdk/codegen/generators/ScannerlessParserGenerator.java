@@ -77,7 +77,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.regex.ANTLRexpLexer;
@@ -662,7 +662,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("while (true) {");
 		sc.add("boolean found = false;");
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isHidden()) {
 				String field = getFieldName(tokenDefinition);
 				sc.add("// TODO add tokens to collect-in features");
@@ -974,8 +974,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addTokenPatterns(StringComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<String> tokenNames = new ArrayList<String>();
-		List<TokenDefinition> tokens = syntax.getActiveTokens();
-		for (TokenDefinition tokenDefinition : tokens) {
+		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+		for (CompleteTokenDefinition tokenDefinition : tokens) {
 			String fieldName = getFieldName(tokenDefinition);
 			String regex = tokenDefinition.getRegex();
 			String tokenName = tokenDefinition.getName();
@@ -1009,8 +1009,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addTokensField(StringComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		Set<String> tokenNames = new LinkedHashSet<String>();
-		List<TokenDefinition> tokens = syntax.getActiveTokens();
-		for (TokenDefinition tokenDefinition : tokens) {
+		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+		for (CompleteTokenDefinition tokenDefinition : tokens) {
 			String tokenName = tokenDefinition.getName();
 			tokenNames.add("\"" + tokenName + "\"");
 		}
@@ -1024,7 +1024,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("private final static " + STRING + "[] tokenNames = new " + STRING + "[] {" + StringUtil.explode(tokenNames, ",") + "};");
 	}
 
-	private String getFieldName(TokenDefinition tokenDefinition) {
+	private String getFieldName(CompleteTokenDefinition tokenDefinition) {
 		return "TOKEN_" + tokenDefinition.getName();
 	}
 
@@ -1355,7 +1355,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addCodeForTerminal(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Terminal terminal) {
 		if (terminal instanceof Placeholder) {
 			Placeholder defaultTokenTerminal = (Placeholder) terminal;
-			TokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
+			CompleteTokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
 			sc.add("// match regexp \"" + regexp.replaceAll("\n", "").replace("\r", "") + "\"");
 			String fieldName = getFieldName(tokenDefinition);

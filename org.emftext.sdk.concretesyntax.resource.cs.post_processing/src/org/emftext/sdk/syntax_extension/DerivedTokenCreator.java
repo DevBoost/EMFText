@@ -21,7 +21,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 /**
@@ -43,7 +43,7 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 				boolean hasPrefix = placeholder.getNormalizedPrefix() != null;
 				boolean hasSuffix = placeholder.getNormalizedSuffix() != null;
 				if (hasPrefix && hasSuffix) {
-					TokenDefinition definition = findToken(syntax, tokenDerivator, placeholder);
+					CompleteTokenDefinition definition = findToken(syntax, tokenDerivator, placeholder);
 					if (definition == null) {
 						definition = createNewToken(syntax, tokenDerivator, placeholder);
 					}
@@ -53,13 +53,13 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 		}
 	}
 
-	private TokenDefinition findToken(ConcreteSyntax syntax,
+	private CompleteTokenDefinition findToken(ConcreteSyntax syntax,
 			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
 		
 		for (TokenDirective next : syntax.getSyntheticTokens()) {
 			String expression = tokenDerivator.deriveTokenExpression(placeholder);
-			if (next instanceof TokenDefinition) {
-				TokenDefinition token = (TokenDefinition) next;
+			if (next instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition token = (CompleteTokenDefinition) next;
 				if (expression.equals(token.getRegex())) {
 					return token;
 				}
@@ -68,7 +68,7 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 		return null;
 	}
 
-	private TokenDefinition createNewToken(ConcreteSyntax syntax,
+	private CompleteTokenDefinition createNewToken(ConcreteSyntax syntax,
 			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
 		// a token definition must be created
 		QuotedToken newToken = ConcretesyntaxFactory.eINSTANCE.createQuotedToken();

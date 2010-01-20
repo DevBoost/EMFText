@@ -1030,14 +1030,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PARTIAL_TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl <em>Complete Token Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDefinition()
+	 * @see org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompleteTokenDefinition()
 	 * @generated
 	 */
-	int TOKEN_DEFINITION = 25;
+	int COMPLETE_TOKEN_DEFINITION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1046,7 +1046,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__NAME = ABSTRACT_TOKEN_DEFINITION__NAME;
+	int COMPLETE_TOKEN_DEFINITION__NAME = ABSTRACT_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1055,7 +1055,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__REGEX = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int COMPLETE_TOKEN_DEFINITION__REGEX = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1064,7 +1064,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1073,7 +1073,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_NAME = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1082,7 +1082,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__HIDDEN = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 3;
+	int COMPLETE_TOKEN_DEFINITION__HIDDEN = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1091,16 +1091,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__USED = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 4;
+	int COMPLETE_TOKEN_DEFINITION__USED = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>Token Definition</em>' class.
+	 * The number of structural features of the '<em>Complete Token Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 5;
+	int COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.
@@ -1119,7 +1119,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__NAME = TOKEN_DEFINITION__NAME;
+	int NORMAL_TOKEN__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1128,7 +1128,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
+	int NORMAL_TOKEN__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1137,7 +1137,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ATTRIBUTE_REFERENCES = TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
+	int NORMAL_TOKEN__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1146,7 +1146,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ATTRIBUTE_NAME = TOKEN_DEFINITION__ATTRIBUTE_NAME;
+	int NORMAL_TOKEN__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1155,7 +1155,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__HIDDEN = TOKEN_DEFINITION__HIDDEN;
+	int NORMAL_TOKEN__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1164,7 +1164,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__USED = TOKEN_DEFINITION__USED;
+	int NORMAL_TOKEN__USED = COMPLETE_TOKEN_DEFINITION__USED;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1173,7 +1173,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ANNOTATIONS = TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int NORMAL_TOKEN__ANNOTATIONS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Regex Parts</b></em>' containment reference list.
@@ -1182,7 +1182,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__REGEX_PARTS = TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int NORMAL_TOKEN__REGEX_PARTS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Normal Token</em>' class.
@@ -1191,7 +1191,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int NORMAL_TOKEN_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl <em>Quoted Token</em>}' class.
@@ -1210,7 +1210,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__NAME = TOKEN_DEFINITION__NAME;
+	int QUOTED_TOKEN__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1219,7 +1219,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
+	int QUOTED_TOKEN__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1228,7 +1228,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ATTRIBUTE_REFERENCES = TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
+	int QUOTED_TOKEN__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1237,7 +1237,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ATTRIBUTE_NAME = TOKEN_DEFINITION__ATTRIBUTE_NAME;
+	int QUOTED_TOKEN__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1246,7 +1246,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__HIDDEN = TOKEN_DEFINITION__HIDDEN;
+	int QUOTED_TOKEN__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1255,7 +1255,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__USED = TOKEN_DEFINITION__USED;
+	int QUOTED_TOKEN__USED = COMPLETE_TOKEN_DEFINITION__USED;
 
 	/**
 	 * The feature id for the '<em><b>Prefix</b></em>' attribute.
@@ -1264,7 +1264,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__PREFIX = TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int QUOTED_TOKEN__PREFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
@@ -1273,7 +1273,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__SUFFIX = TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int QUOTED_TOKEN__SUFFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Escape Character</b></em>' attribute.
@@ -1282,7 +1282,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ESCAPE_CHARACTER = TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int QUOTED_TOKEN__ESCAPE_CHARACTER = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Synthesized Regex</b></em>' attribute.
@@ -1291,7 +1291,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__SYNTHESIZED_REGEX = TOKEN_DEFINITION_FEATURE_COUNT + 3;
+	int QUOTED_TOKEN__SYNTHESIZED_REGEX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Token</em>' class.
@@ -1300,7 +1300,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 4;
+	int QUOTED_TOKEN_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.
@@ -2444,58 +2444,58 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getPartialTokenDefinition();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition <em>Complete Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Token Definition</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition
+	 * @return the meta object for class '<em>Complete Token Definition</em>'.
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition
 	 * @generated
 	 */
-	EClass getTokenDefinition();
+	EClass getCompleteTokenDefinition();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Attribute References</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences()
-	 * @see #getTokenDefinition()
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences()
+	 * @see #getCompleteTokenDefinition()
 	 * @generated
 	 */
-	EReference getTokenDefinition_AttributeReferences();
+	EReference getCompleteTokenDefinition_AttributeReferences();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeName <em>Attribute Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName <em>Attribute Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Attribute Name</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeName()
-	 * @see #getTokenDefinition()
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName()
+	 * @see #getCompleteTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getTokenDefinition_AttributeName();
+	EAttribute getCompleteTokenDefinition_AttributeName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenDefinition#isHidden <em>Hidden</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isHidden <em>Hidden</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Hidden</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#isHidden()
-	 * @see #getTokenDefinition()
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isHidden()
+	 * @see #getCompleteTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getTokenDefinition_Hidden();
+	EAttribute getCompleteTokenDefinition_Hidden();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenDefinition#isUsed <em>Used</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isUsed <em>Used</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Used</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#isUsed()
-	 * @see #getTokenDefinition()
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isUsed()
+	 * @see #getCompleteTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getTokenDefinition_Used();
+	EAttribute getCompleteTokenDefinition_Used();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.NormalToken <em>Normal Token</em>}'.
@@ -3448,14 +3448,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass PARTIAL_TOKEN_DEFINITION = eINSTANCE.getPartialTokenDefinition();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl <em>Complete Token Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDefinition()
+		 * @see org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompleteTokenDefinition()
 		 * @generated
 		 */
-		EClass TOKEN_DEFINITION = eINSTANCE.getTokenDefinition();
+		EClass COMPLETE_TOKEN_DEFINITION = eINSTANCE.getCompleteTokenDefinition();
 
 		/**
 		 * The meta object literal for the '<em><b>Attribute References</b></em>' reference list feature.
@@ -3463,7 +3463,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = eINSTANCE.getTokenDefinition_AttributeReferences();
+		EReference COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = eINSTANCE.getCompleteTokenDefinition_AttributeReferences();
 
 		/**
 		 * The meta object literal for the '<em><b>Attribute Name</b></em>' attribute feature.
@@ -3471,7 +3471,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TOKEN_DEFINITION__ATTRIBUTE_NAME = eINSTANCE.getTokenDefinition_AttributeName();
+		EAttribute COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME = eINSTANCE.getCompleteTokenDefinition_AttributeName();
 
 		/**
 		 * The meta object literal for the '<em><b>Hidden</b></em>' attribute feature.
@@ -3479,7 +3479,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TOKEN_DEFINITION__HIDDEN = eINSTANCE.getTokenDefinition_Hidden();
+		EAttribute COMPLETE_TOKEN_DEFINITION__HIDDEN = eINSTANCE.getCompleteTokenDefinition_Hidden();
 
 		/**
 		 * The meta object literal for the '<em><b>Used</b></em>' attribute feature.
@@ -3487,7 +3487,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TOKEN_DEFINITION__USED = eINSTANCE.getTokenDefinition_Used();
+		EAttribute COMPLETE_TOKEN_DEFINITION__USED = eINSTANCE.getCompleteTokenDefinition_Used();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.

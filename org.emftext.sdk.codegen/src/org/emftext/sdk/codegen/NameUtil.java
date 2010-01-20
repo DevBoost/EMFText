@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen;
 
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * A utility class that can be used to derive names for different artifacts
@@ -29,7 +29,7 @@ public class NameUtil {
 		return csUtil.getPackageName(syntax, artifact.getPlugin(), artifact.getPackage());
 	}
 	
-	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition definition, boolean inImportedSyntax) {
+	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition definition, boolean inImportedSyntax) {
 		if (inImportedSyntax) {
 			syntax = csUtil.getContainingSyntax(syntax, definition);
 		}

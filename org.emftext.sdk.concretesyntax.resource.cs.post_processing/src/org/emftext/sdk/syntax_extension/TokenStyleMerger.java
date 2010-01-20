@@ -25,7 +25,7 @@ import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
@@ -60,8 +60,8 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 	}
 
 	private void addTokenStylesForComments(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
-		Collection<TokenDefinition> tokens = syntax.getActiveTokens();
-		for (TokenDefinition tokenDefinition : tokens) {
+		Collection<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+		for (CompleteTokenDefinition tokenDefinition : tokens) {
 			String regex = tokenDefinition.getRegex();
 			if (isCommentPattern(regex)) {
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
@@ -80,7 +80,7 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<PlaceholderInQuotes> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholders) {
-				TokenDefinition token = placeholder.getToken();
+				CompleteTokenDefinition token = placeholder.getToken();
 				if (token == null) {
 					continue;
 				}

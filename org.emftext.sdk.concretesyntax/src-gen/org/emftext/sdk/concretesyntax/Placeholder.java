@@ -34,7 +34,7 @@ public interface Placeholder extends Terminal {
 
 	/**
 	 * Returns the value of the '<em><b>Token</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Token</em>' reference isn't clear,
@@ -42,13 +42,13 @@ public interface Placeholder extends Terminal {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Token</em>' reference.
-	 * @see #setToken(TokenDefinition)
+	 * @see #setToken(CompleteTokenDefinition)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getPlaceholder_Token()
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences
 	 * @model opposite="attributeReferences" required="true"
 	 * @generated
 	 */
-	TokenDefinition getToken();
+	CompleteTokenDefinition getToken();
 
 	/**
 	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Placeholder#getToken <em>Token</em>}' reference.
@@ -58,5 +58,5 @@ public interface Placeholder extends Terminal {
 	 * @see #getToken()
 	 * @generated
 	 */
-	void setToken(TokenDefinition value);
+	void setToken(CompleteTokenDefinition value);
 } // Placeholder

@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.NormalToken;
  * @generated
  */
 public class NormalTokenItemProvider
-	extends TokenDefinitionItemProvider
+	extends CompleteTokenDefinitionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

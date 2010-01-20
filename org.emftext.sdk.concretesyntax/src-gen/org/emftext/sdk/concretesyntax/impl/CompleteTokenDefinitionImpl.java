@@ -23,10 +23,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.RegexOwner;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 
 
@@ -37,17 +37,17 @@ import org.emftext.sdk.concretesyntax.TokenDirective;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getRegex <em>Regex</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isHidden <em>Hidden</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isUsed <em>Used</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getRegex <em>Regex</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#isHidden <em>Hidden</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#isUsed <em>Used</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl implements TokenDefinition {
+public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitionImpl implements CompleteTokenDefinition {
 	/**
 	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,7 +113,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TokenDefinitionImpl() {
+	protected CompleteTokenDefinitionImpl() {
 		super();
 	}
 
@@ -124,7 +124,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.TOKEN_DEFINITION;
+		return ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION;
 	}
 
 
@@ -146,7 +146,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	 */
 	public EList<Placeholder> getAttributeReferences() {
 		if (attributeReferences == null) {
-			attributeReferences = new EObjectWithInverseResolvingEList<Placeholder>(Placeholder.class, this, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
+			attributeReferences = new EObjectWithInverseResolvingEList<Placeholder>(Placeholder.class, this, ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
 		}
 		return attributeReferences;
 	}
@@ -169,7 +169,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 		String oldAttributeName = attributeName;
 		attributeName = newAttributeName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
 	}
 
 	/**
@@ -203,7 +203,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferences()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -217,7 +217,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return ((InternalEList<?>)getAttributeReferences()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -231,15 +231,15 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX:
 				return getRegex();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return getAttributeReferences();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return getAttributeName();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__HIDDEN:
 				return isHidden();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__USED:
 				return isUsed();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -254,11 +254,11 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				getAttributeReferences().clear();
 				getAttributeReferences().addAll((Collection<? extends Placeholder>)newValue);
 				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName((String)newValue);
 				return;
 		}
@@ -273,10 +273,10 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				getAttributeReferences().clear();
 				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
 				return;
 		}
@@ -291,15 +291,15 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX:
 				return REGEX_EDEFAULT == null ? getRegex() != null : !REGEX_EDEFAULT.equals(getRegex());
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return attributeReferences != null && !attributeReferences.isEmpty();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__HIDDEN:
 				return isHidden() != HIDDEN_EDEFAULT;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__USED:
 				return isUsed() != USED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -319,7 +319,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 		}
 		if (baseClass == RegexOwner.class) {
 			switch (derivedFeatureID) {
-				case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX: return ConcretesyntaxPackage.REGEX_OWNER__REGEX;
+				case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX: return ConcretesyntaxPackage.REGEX_OWNER__REGEX;
 				default: return -1;
 			}
 		}
@@ -340,7 +340,7 @@ public abstract class TokenDefinitionImpl extends AbstractTokenDefinitionImpl im
 		}
 		if (baseClass == RegexOwner.class) {
 			switch (baseFeatureID) {
-				case ConcretesyntaxPackage.REGEX_OWNER__REGEX: return ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX;
+				case ConcretesyntaxPackage.REGEX_OWNER__REGEX: return ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX;
 				default: return -1;
 			}
 		}

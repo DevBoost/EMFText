@@ -10,7 +10,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -25,8 +25,8 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		Collection<TokenDefinition> cyclicTokens = findCyclicTokens(syntax);
-		for (TokenDefinition cyclicToken : cyclicTokens) {
+		Collection<CompleteTokenDefinition> cyclicTokens = findCyclicTokens(syntax);
+		for (CompleteTokenDefinition cyclicToken : cyclicTokens) {
 			addProblem(
 					resource,
 					ECsProblemType.CYCLIC_TOKEN_DEFINITION,
@@ -41,11 +41,11 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 		return true;
 	}
 
-	private Collection<TokenDefinition> findCyclicTokens(ConcreteSyntax syntax) {
-		Set<TokenDefinition> cyclicTokens = new LinkedHashSet<TokenDefinition>();
+	private Collection<CompleteTokenDefinition> findCyclicTokens(ConcreteSyntax syntax) {
+		Set<CompleteTokenDefinition> cyclicTokens = new LinkedHashSet<CompleteTokenDefinition>();
 		
-		List<TokenDefinition> activeTokens = syntax.getActiveTokens();
-		for (TokenDefinition tokenDefinition : activeTokens) {
+		List<CompleteTokenDefinition> activeTokens = syntax.getActiveTokens();
+		for (CompleteTokenDefinition tokenDefinition : activeTokens) {
 			if (hasReferenceTo(tokenDefinition, tokenDefinition)) {
 				cyclicTokens.add(tokenDefinition);
 			}
@@ -53,26 +53,26 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 		return cyclicTokens;
 	}
 
-	private boolean hasReferenceTo(TokenDefinition source,
-			TokenDefinition target) {
-		Set<TokenDefinition> references = collectReferences(source);
+	private boolean hasReferenceTo(CompleteTokenDefinition source,
+			CompleteTokenDefinition target) {
+		Set<CompleteTokenDefinition> references = collectReferences(source);
 		return references.contains(target);
 	}
 
-	private Set<TokenDefinition> collectReferences(TokenDefinition token) {
-		LinkedHashSet<TokenDefinition> visitedReferences = new LinkedHashSet<TokenDefinition>();
+	private Set<CompleteTokenDefinition> collectReferences(CompleteTokenDefinition token) {
+		LinkedHashSet<CompleteTokenDefinition> visitedReferences = new LinkedHashSet<CompleteTokenDefinition>();
 		collectReferences(token, visitedReferences);
 		return visitedReferences;
 	}
 	
-	private void collectReferences(TokenDefinition token, Set<TokenDefinition> visitedReferences) {
+	private void collectReferences(CompleteTokenDefinition token, Set<CompleteTokenDefinition> visitedReferences) {
 		if (token instanceof NormalToken) {
 			NormalToken sourceToken = (NormalToken) token;
 			List<RegexPart> parts = sourceToken.getRegexParts();
 			for (RegexPart part : parts) {
 				if (part instanceof RegexReference) {
 					RegexReference reference = (RegexReference) part;
-					TokenDefinition target = reference.getTarget();
+					CompleteTokenDefinition target = reference.getTarget();
 					if (target != null) {
 						if (!visitedReferences.contains(target)) {
 							visitedReferences.add(target);

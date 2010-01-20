@@ -95,7 +95,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EObjectUtil;
@@ -568,7 +568,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addCollectHiddenTokensMethod(String lexerName, StringComposite sc) {
-		List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getActiveTokens());
+		List<CompleteTokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getActiveTokens());
 		sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
 		if (!collectTokenDefinitions.isEmpty()) {
 			// sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
@@ -590,7 +590,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("if (_channel == 99) {");
 			// sc.add("System.out.println(\"\t\" + token);");
 
-			for (TokenDefinition tokenDefinition : collectTokenDefinitions) {
+			for (CompleteTokenDefinition tokenDefinition : collectTokenDefinitions) {
 				String attributeName = tokenDefinition.getAttributeName();
 				// figure out which feature the token belongs to
 				sc.add("if (token.getType() == " + lexerName + "."
@@ -905,10 +905,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private List<TokenDefinition> collectCollectTokenDefinitions(
-			List<TokenDefinition> tokenDefinitions) {
-		List<TokenDefinition> collectList = new LinkedList<TokenDefinition>();
-		for (TokenDefinition tokenDefinition : tokenDefinitions) {
+	private List<CompleteTokenDefinition> collectCollectTokenDefinitions(
+			List<CompleteTokenDefinition> tokenDefinitions) {
+		List<CompleteTokenDefinition> collectList = new LinkedList<CompleteTokenDefinition>();
+		for (CompleteTokenDefinition tokenDefinition : tokenDefinitions) {
 			String attributeName = tokenDefinition.getAttributeName();
 			if (attributeName != null) {
 				collectList.add(tokenDefinition);
@@ -1438,7 +1438,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		} else {
 			assert terminal instanceof Placeholder;
 			Placeholder placeholder = (Placeholder) terminal;
-			TokenDefinition token = placeholder.getToken();
+			CompleteTokenDefinition token = placeholder.getToken();
 			String tokenName = token.getName();
 
 			sc.add(ident + " = " + tokenName);
@@ -1645,12 +1645,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addTokenDefinitions(StringComposite sc) {
-		for (TokenDefinition tokenDefinition : concreteSyntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : concreteSyntax.getActiveTokens()) {
 			printToken(tokenDefinition, sc);
 		}
 	}
 
-	private void printToken(TokenDefinition definition, StringComposite sc) {
+	private void printToken(CompleteTokenDefinition definition, StringComposite sc) {
 		sc.add(definition.getName());
 		sc.add(":");
 
@@ -1664,7 +1664,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(";");
 	}
 
-	private boolean isKeyword(TokenDefinition definition) {
+	private boolean isKeyword(CompleteTokenDefinition definition) {
 		// this comparison of the regular expression should in theory be
 		// replaced by a comparison of the two automata. however, ANTLR
 		// does not compare the in-line tokens (keywords) and the defined

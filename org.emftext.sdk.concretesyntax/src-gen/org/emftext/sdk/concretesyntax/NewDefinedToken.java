@@ -24,6 +24,6 @@ package org.emftext.sdk.concretesyntax;
  * @model abstract="true"
  * @generated
  */
-public interface NewDefinedToken extends TokenDefinition {
+public interface NewDefinedToken extends CompleteTokenDefinition {
 
 } // NewDefinedToken

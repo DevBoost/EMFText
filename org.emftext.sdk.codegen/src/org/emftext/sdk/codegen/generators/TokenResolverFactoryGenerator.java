@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.NameUtil;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * Generates a TokenResolverFactory which will contain a mapping from 
@@ -142,7 +142,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 		sc.add("tokenName2TokenResolver = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
 		sc.add("featureName2CollectInTokenResolver = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
 		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
-		for (TokenDefinition definition : concreteSyntax.getActiveTokens()) {
+		for (CompleteTokenDefinition definition : concreteSyntax.getActiveTokens()) {
 			if (!definition.isUsed()) {
 				continue;
 			}

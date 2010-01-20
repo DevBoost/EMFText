@@ -62,7 +62,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
@@ -265,11 +265,11 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	}
 
 	private void generateStandardTokens() {
-		List<TokenDefinition> toRemove = new ArrayList<TokenDefinition>();
+		List<CompleteTokenDefinition> toRemove = new ArrayList<CompleteTokenDefinition>();
 		EList<TokenDirective> existing = cSyntax.getTokens();
 		for (TokenDirective tokenDirective : existing) {
-			if (tokenDirective instanceof TokenDefinition) {
-				TokenDefinition def = (TokenDefinition) tokenDirective;
+			if (tokenDirective instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition def = (CompleteTokenDefinition) tokenDirective;
 				if (def.getName().equals("INTEGER") ||
 						def.getName().equals("FLOAT") ||
 						def.getName().equals("COMMENT")) {

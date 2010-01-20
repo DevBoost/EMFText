@@ -29,7 +29,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.ANTLRexpLexer;
@@ -45,13 +45,13 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		for (Iterator<EObject> i = resource.getAllContents(); i.hasNext();) {
 			EObject next = i.next();
-			if (next instanceof TokenDefinition) {
-				checkRegexp(resource, (TokenDefinition) next);
+			if (next instanceof CompleteTokenDefinition) {
+				checkRegexp(resource, (CompleteTokenDefinition) next);
 			}
 		}
 	}
 
-	private void checkRegexp(CsResource resource, TokenDefinition tokenDefinition) {
+	private void checkRegexp(CsResource resource, CompleteTokenDefinition tokenDefinition) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
 		w.print(tokenDefinition.getRegex());

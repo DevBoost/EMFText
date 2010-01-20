@@ -20,7 +20,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -43,12 +43,12 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     	for (Import nextImport : syntax.getImports()) {
     		ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
     		if (importedSyntax != null) {
-    			List<TokenDefinition> importedTokens = importedSyntax.getActiveTokens();
+    			List<CompleteTokenDefinition> importedTokens = importedSyntax.getActiveTokens();
     			// for each token we must check whether we have already
     			// a token with the same name - if the regular expressions
     			// match we're fine, otherwise we have a conflict
-    			for (TokenDefinition importedToken : importedTokens) {
-    				TokenDefinition previousToken = findTokenWithSameName(allImportedTokens, importedToken);
+    			for (CompleteTokenDefinition importedToken : importedTokens) {
+    				CompleteTokenDefinition previousToken = findTokenWithSameName(allImportedTokens, importedToken);
     				if (previousToken == null) {
     					// no token with the same name was found
     					allImportedTokens.add(importedToken);
@@ -80,15 +80,15 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		List<String> overriddenTokens = new ArrayList<String>();
     	// now handle token overriding
     	for (TokenDirective importedToken : allImportedTokens) {
-			TokenDefinition previousToken = findTokenWithSameName(mergeResult, importedToken);
+			CompleteTokenDefinition previousToken = findTokenWithSameName(mergeResult, importedToken);
 			if (previousToken == null) {
 				// no token with the same name was found
 				mergeResult.add(importedToken);
 			} else {
 				// there is a token with this name which overrides the
 				// imported token
-				assert importedToken instanceof TokenDefinition;
-				TokenDefinition importedTokenDefinition = (TokenDefinition) importedToken;
+				assert importedToken instanceof CompleteTokenDefinition;
+				CompleteTokenDefinition importedTokenDefinition = (CompleteTokenDefinition) importedToken;
 				overriddenTokens.add(importedTokenDefinition.getName());
 				redirect(importedTokenDefinition, previousToken);
 				continue;
@@ -108,7 +108,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		allTokenDirectives.clear();
     	allTokenDirectives.addAll(mergeResult);
     	
-    	List<TokenDefinition> activeTokens = syntax.getActiveTokens();
+    	List<CompleteTokenDefinition> activeTokens = syntax.getActiveTokens();
     	activeTokens.clear();
 
     	List<TokenDirective> handledDirectives = new ArrayList<TokenDirective>();
@@ -120,16 +120,16 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     		handledDirectives.add(tokenDirective);
 			if (tokenDirective instanceof TokenPriorityDirective) {
 				TokenPriorityDirective priorityDirective = (TokenPriorityDirective) tokenDirective;
-				TokenDefinition prioritizedToken = priorityDirective.getToken();
-				activeTokens.add((TokenDefinition) prioritizedToken);
+				CompleteTokenDefinition prioritizedToken = priorityDirective.getToken();
+				activeTokens.add((CompleteTokenDefinition) prioritizedToken);
 				handledDirectives.add(prioritizedToken);
 			} else {
-				activeTokens.add((TokenDefinition) tokenDirective);
+				activeTokens.add((CompleteTokenDefinition) tokenDirective);
 			}
 		}
 	}
 
-	private void redirect(TokenDefinition oldToken, TokenDefinition newToken) {
+	private void redirect(CompleteTokenDefinition oldToken, CompleteTokenDefinition newToken) {
 		List<Placeholder> references = oldToken.getAttributeReferences();
 		List<Placeholder> referencesToRedirect = new ArrayList<Placeholder>();
 		referencesToRedirect.addAll(references);
@@ -140,11 +140,11 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 
 	private void handleTokenDirective(List<TokenDirective> mergeResult,
 			TokenDirective tokenDirective) {
-		if (tokenDirective instanceof TokenDefinition) {
+		if (tokenDirective instanceof CompleteTokenDefinition) {
 			// only add definitions that are not contained already
 			// they may have been inserted before by a TokenPriorityDirective
 			if (!mergeResult.contains(tokenDirective)) {
-				mergeResult.add((TokenDefinition) tokenDirective);
+				mergeResult.add((CompleteTokenDefinition) tokenDirective);
 			}
 		} else if (tokenDirective instanceof TokenPriorityDirective) {
 			//TokenPriorityDirective priorityDirective = (TokenPriorityDirective) tokenDirective;
@@ -156,15 +156,15 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		}
 	}
 
-	private TokenDefinition findTokenWithSameName(
+	private CompleteTokenDefinition findTokenWithSameName(
 			List<TokenDirective> tokens,
 			TokenDirective tokenDirective) {
 		for (TokenDirective directive : tokens) {
-			if (!(directive instanceof TokenDefinition)) {
+			if (!(directive instanceof CompleteTokenDefinition)) {
 				continue;
 			}
-			TokenDefinition token = (TokenDefinition) tokenDirective;
-			TokenDefinition tokenDefinition = (TokenDefinition) directive;
+			CompleteTokenDefinition token = (CompleteTokenDefinition) tokenDirective;
+			CompleteTokenDefinition tokenDefinition = (CompleteTokenDefinition) directive;
 			if (token.getName().equals(tokenDefinition.getName())) {
 				return tokenDefinition;
 			}
@@ -172,7 +172,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		return null;
 	}
 
-	private boolean isCompatible(TokenDefinition previousToken, TokenDefinition newToken) {
+	private boolean isCompatible(CompleteTokenDefinition previousToken, CompleteTokenDefinition newToken) {
 		String existingRegex = previousToken.getRegex();
 		String importedRegex = newToken.getRegex();
 		if (existingRegex.equals(importedRegex)) {

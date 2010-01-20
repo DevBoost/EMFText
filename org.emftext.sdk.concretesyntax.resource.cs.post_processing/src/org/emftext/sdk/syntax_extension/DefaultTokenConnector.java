@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -45,7 +45,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 			if (next instanceof PlaceholderUsingDefaultToken) {
 				PlaceholderUsingDefaultToken placeholder = (PlaceholderUsingDefaultToken) next;
 				// this placeholder must use the standard token
-				TokenDefinition definition = findToken(syntax, standardTokenName);
+				CompleteTokenDefinition definition = findToken(syntax, standardTokenName);
 				if (definition == null) {
 					addProblem(resource, ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
 				} else {
@@ -55,9 +55,9 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 		}
 	}
 
-	private TokenDefinition findToken(ConcreteSyntax syntax,
+	private CompleteTokenDefinition findToken(ConcreteSyntax syntax,
 			String standardTokenName) {
-		for (TokenDefinition next : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition next : syntax.getActiveTokens()) {
 			if (standardTokenName.equals(next.getName())) {
 				return next;
 			}

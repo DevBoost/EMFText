@@ -47,7 +47,7 @@ import org.emftext.sdk.concretesyntax.RegexReference;
  *
  * @generated
  */
-public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken {
+public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements NormalToken {
 	/**
 	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

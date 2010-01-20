@@ -20,7 +20,7 @@ import java.util.List;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -32,13 +32,13 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> tokens = syntax.getActiveTokens();
-		Collection<TokenDefinition> handledTokens = new LinkedHashSet<TokenDefinition>(); 
-		for (TokenDefinition tokenDefinition1 : tokens) {
+		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+		Collection<CompleteTokenDefinition> handledTokens = new LinkedHashSet<CompleteTokenDefinition>(); 
+		for (CompleteTokenDefinition tokenDefinition1 : tokens) {
 			if (tokenDefinition1 instanceof QuotedToken) {
 				handledTokens.add(tokenDefinition1);
 				QuotedToken quotedToken1 = (QuotedToken) tokenDefinition1;
-				for (TokenDefinition tokenDefinition2 : tokens) {
+				for (CompleteTokenDefinition tokenDefinition2 : tokens) {
 					if (tokenDefinition2 instanceof QuotedToken) {
 						QuotedToken quotedToken2 = (QuotedToken) tokenDefinition2;
 						// ignore the first token when searching for a second

@@ -18,24 +18,24 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 
-public class TokenPriorityDirectiveTokenReferenceResolver implements ICsReferenceResolver<TokenPriorityDirective, TokenDefinition> {
+public class TokenPriorityDirectiveTokenReferenceResolver implements ICsReferenceResolver<TokenPriorityDirective, CompleteTokenDefinition> {
 	
-	public String deResolve(TokenDefinition element, TokenPriorityDirective container, EReference reference) {
+	public String deResolve(CompleteTokenDefinition element, TokenPriorityDirective container, EReference reference) {
 		return element.getName();
 	}
 	
-	public void resolve(String identifier, TokenPriorityDirective container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<TokenDefinition> result) {
+	public void resolve(String identifier, TokenPriorityDirective container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<CompleteTokenDefinition> result) {
 		ConcreteSyntax syntax = (ConcreteSyntax) container.eContainer();
 		List<TokenDirective> tokens = syntax.getAllTokenDirectives();
 		for (TokenDirective tokenDirective : tokens) {
-			if (tokenDirective instanceof TokenDefinition) {
-				TokenDefinition token = (TokenDefinition) tokenDirective;
+			if (tokenDirective instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition token = (CompleteTokenDefinition) tokenDirective;
 				if (resolveFuzzy) {
 					if (token.getName().startsWith(identifier)) {
 						result.addMapping(identifier, token);

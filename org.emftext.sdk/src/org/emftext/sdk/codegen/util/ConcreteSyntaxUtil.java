@@ -50,7 +50,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EClassUtil;
 import org.emftext.sdk.util.EObjectUtil;
@@ -74,11 +74,11 @@ public class ConcreteSyntaxUtil {
 		return false;
 	}
 
-	public boolean isImportedToken(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
+	public boolean isImportedToken(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		return !syntax.equals(getContainingSyntax(syntax, tokenDefinition));
 	}
 
-	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax, TokenDefinition baseDefinition) {
+	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax, CompleteTokenDefinition baseDefinition) {
 		EObject container = baseDefinition.eContainer();
 		if (container instanceof ConcreteSyntax) {
 			return (ConcreteSyntax) container;
@@ -230,7 +230,7 @@ public class ConcreteSyntaxUtil {
 	public Collection<String> getTokenResolverFileNames(ConcreteSyntax syntax) {
 		Collection<String> resolverFileNames = new LinkedHashSet<String>();
 		
-		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (!tokenDefinition.isUsed()) {
 				continue;
 			}
@@ -259,7 +259,7 @@ public class ConcreteSyntaxUtil {
 		return proxyReference.getGenClass().getName() + StringUtil.capitalize(proxyReference.getName()) + Constants.CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 
-	public String getTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
+	public String getTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 
 		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(syntax, tokenDefinition));
 		boolean isCollect = tokenDefinition.getAttributeName() != null;

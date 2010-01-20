@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.util.UnicodeConverter;
 
 import dk.brics.automaton.Automaton;
@@ -36,10 +36,10 @@ public class TokenSorter {
 	private class ComparableTokenDefinition implements
 			Comparable<ComparableTokenDefinition> {
 		private Automaton automaton;
-		private TokenDefinition def;
+		private CompleteTokenDefinition def;
 
 		public ComparableTokenDefinition(String regString, Automaton aut,
-				TokenDefinition definition) {
+				CompleteTokenDefinition definition) {
 			automaton = aut;
 			def = definition;
 		}
@@ -48,7 +48,7 @@ public class TokenSorter {
 			return automaton;
 		}
 
-		public TokenDefinition getDef() {
+		public CompleteTokenDefinition getDef() {
 			return def;
 		}
 
@@ -99,9 +99,9 @@ public class TokenSorter {
 		// return firstLanguage.subsetOf(secondLanguage);
 	}
 
-	public List<TokenDefinition> getNonReachables(List<TokenDefinition> ds)
+	public List<CompleteTokenDefinition> getNonReachables(List<CompleteTokenDefinition> ds)
 			throws SorterException {
-		List<TokenDefinition> nonReachables = new ArrayList<TokenDefinition>();
+		List<CompleteTokenDefinition> nonReachables = new ArrayList<CompleteTokenDefinition>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
 		Automaton unionPreviousDefinitions = new Automaton();
 		for (int i = 0; i < compareables.size() - 1; i++) {
@@ -127,13 +127,13 @@ public class TokenSorter {
 	 * @return
 	 * @throws SorterException
 	 */
-	public Map<TokenDefinition, Set<TokenDefinition>> getConflicting(
-			List<TokenDefinition> definitions) throws SorterException {
-		Map<TokenDefinition, Set<TokenDefinition>> conflicting = new LinkedHashMap<TokenDefinition, Set<TokenDefinition>>();
+	public Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> getConflicting(
+			List<CompleteTokenDefinition> definitions) throws SorterException {
+		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = new LinkedHashMap<CompleteTokenDefinition, Set<CompleteTokenDefinition>>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(definitions);
 		for (int i = 0; i < compareables.size(); i++) {
 			ComparableTokenDefinition ci = compareables.get(i);
-			Set<TokenDefinition> previousDefinitions = new LinkedHashSet<TokenDefinition>();
+			Set<CompleteTokenDefinition> previousDefinitions = new LinkedHashSet<CompleteTokenDefinition>();
 			for (int j = 0; j < i; j++) {
 				ComparableTokenDefinition cj = compareables.get(j);
 				if (doIntersect(ci.getAutomaton(), cj.getAutomaton())) {
@@ -147,19 +147,19 @@ public class TokenSorter {
 		return conflicting;
 	}
 
-	public List<TokenDefinition> sortTokens(List<TokenDefinition> toSort,
+	public List<CompleteTokenDefinition> sortTokens(List<CompleteTokenDefinition> toSort,
 			boolean ignoreUnreachables) throws SorterException {
 		List<ComparableTokenDefinition> compareables = translateToComparables(toSort);
 
 		Collections.sort(compareables);
 		// doSort(compareables);
 
-		List<TokenDefinition> resultList = new ArrayList<TokenDefinition>();
+		List<CompleteTokenDefinition> resultList = new ArrayList<CompleteTokenDefinition>();
 		for (ComparableTokenDefinition directive : compareables) {
 			resultList.add(directive.getDef());
 		}
 		if (!ignoreUnreachables) {
-			List<TokenDefinition> conflicting = getNonReachables(resultList);
+			List<CompleteTokenDefinition> conflicting = getNonReachables(resultList);
 			if (conflicting.size() > 0) {
 				throw new SorterException(
 						"Sorting Tokens failed. Grammar contains unreachable tokens",
@@ -170,10 +170,10 @@ public class TokenSorter {
 	}
 
 	private List<ComparableTokenDefinition> translateToComparables(
-			List<TokenDefinition> toSort) throws SorterException {
+			List<CompleteTokenDefinition> toSort) throws SorterException {
 		List<ComparableTokenDefinition> compareables = new ArrayList<ComparableTokenDefinition>();
 
-		for (TokenDefinition def : toSort) {
+		for (CompleteTokenDefinition def : toSort) {
 			String original = def.getRegex();
 			compareables.add(createComparableTokenDirective(original, def));
 		}
@@ -181,7 +181,7 @@ public class TokenSorter {
 	}
 
 	private ComparableTokenDefinition createComparableTokenDirective(
-			String original, TokenDefinition def) throws SorterException {
+			String original, CompleteTokenDefinition def) throws SorterException {
 		String transformedRegExp = null;
 		try {
 			transformedRegExp = parseRegExp(original);

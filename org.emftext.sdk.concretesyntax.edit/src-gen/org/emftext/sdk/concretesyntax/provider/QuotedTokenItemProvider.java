@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.QuotedToken;
  * @generated
  */
 public class QuotedTokenItemProvider
-	extends TokenDefinitionItemProvider
+	extends CompleteTokenDefinitionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

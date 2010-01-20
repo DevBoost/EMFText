@@ -17,14 +17,15 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -38,7 +39,7 @@ import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.PartialToken;
+import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
@@ -53,7 +54,6 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
@@ -309,19 +309,19 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ConcretesyntaxPackage.TOKEN_DEFINITION: {
-				TokenDefinition tokenDefinition = (TokenDefinition)theEObject;
-				T result = caseTokenDefinition(tokenDefinition);
-				if (result == null) result = caseAbstractTokenDefinition(tokenDefinition);
-				if (result == null) result = caseTokenDirective(tokenDefinition);
-				if (result == null) result = caseRegexOwner(tokenDefinition);
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION: {
+				CompleteTokenDefinition completeTokenDefinition = (CompleteTokenDefinition)theEObject;
+				T result = caseCompleteTokenDefinition(completeTokenDefinition);
+				if (result == null) result = caseAbstractTokenDefinition(completeTokenDefinition);
+				if (result == null) result = caseTokenDirective(completeTokenDefinition);
+				if (result == null) result = caseRegexOwner(completeTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.NORMAL_TOKEN: {
 				NormalToken normalToken = (NormalToken)theEObject;
 				T result = caseNormalToken(normalToken);
-				if (result == null) result = caseTokenDefinition(normalToken);
+				if (result == null) result = caseCompleteTokenDefinition(normalToken);
 				if (result == null) result = caseAnnotable(normalToken);
 				if (result == null) result = caseRegexComposite(normalToken);
 				if (result == null) result = caseAbstractTokenDefinition(normalToken);
@@ -333,7 +333,7 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.QUOTED_TOKEN: {
 				QuotedToken quotedToken = (QuotedToken)theEObject;
 				T result = caseQuotedToken(quotedToken);
-				if (result == null) result = caseTokenDefinition(quotedToken);
+				if (result == null) result = caseCompleteTokenDefinition(quotedToken);
 				if (result == null) result = caseAbstractTokenDefinition(quotedToken);
 				if (result == null) result = caseTokenDirective(quotedToken);
 				if (result == null) result = caseRegexOwner(quotedToken);
@@ -812,17 +812,17 @@ public class ConcretesyntaxSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Token Definition</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Complete Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Token Definition</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Complete Token Definition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTokenDefinition(TokenDefinition object) {
+	public T caseCompleteTokenDefinition(CompleteTokenDefinition object) {
 		return null;
 	}
 

@@ -20,16 +20,16 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, TokenDefinition> {
+public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, CompleteTokenDefinition> {
 
 	public void resolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
-			ICsReferenceResolveResult<TokenDefinition> result) {
+			ICsReferenceResolveResult<CompleteTokenDefinition> result) {
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -45,13 +45,13 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 		searchForToken(identifier, resolveFuzzy, result, syntax);
 	}
 
-	public String deResolve(TokenDefinition element, Placeholder container,
+	public String deResolve(CompleteTokenDefinition element, Placeholder container,
 			EReference reference) {
 		return element.getName();
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<TokenDefinition> result) {
+			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<CompleteTokenDefinition> result) {
 		EObject root = CsEObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;
@@ -71,9 +71,9 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 	}
 
 	private boolean searchForToken(String identifier, boolean resolveFuzzy,
-			ICsReferenceResolveResult<TokenDefinition> result,
+			ICsReferenceResolveResult<CompleteTokenDefinition> result,
 			ConcreteSyntax nextImportedSyntax) {
-		for (TokenDefinition tokenDefinition : nextImportedSyntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : nextImportedSyntax.getActiveTokens()) {
 			final String tokenName = tokenDefinition.getName();
 			if (tokenName.equals(identifier) && !resolveFuzzy) {
 				result.addMapping(identifier, tokenDefinition);

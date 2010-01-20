@@ -35,7 +35,7 @@ import org.emftext.sdk.concretesyntax.QuotedToken;
  *
  * @generated
  */
-public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken {
+public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements QuotedToken {
 	/**
 	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->

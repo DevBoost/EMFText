@@ -17,14 +17,15 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -38,7 +39,7 @@ import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.PartialToken;
+import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
@@ -53,7 +54,6 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
@@ -217,8 +217,8 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createPartialTokenDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseTokenDefinition(TokenDefinition object) {
-				return createTokenDefinitionAdapter();
+			public Adapter caseCompleteTokenDefinition(CompleteTokenDefinition object) {
+				return createCompleteTokenDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseNormalToken(NormalToken object) {
@@ -648,16 +648,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition <em>Complete Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition
+	 * @see org.emftext.sdk.concretesyntax.CompleteTokenDefinition
 	 * @generated
 	 */
-	public Adapter createTokenDefinitionAdapter() {
+	public Adapter createCompleteTokenDefinitionAdapter() {
 		return null;
 	}
 

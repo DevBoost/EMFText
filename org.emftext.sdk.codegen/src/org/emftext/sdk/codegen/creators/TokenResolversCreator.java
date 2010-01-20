@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.TokenResolverGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * Creates the Java files for the token resolvers using the content
@@ -40,7 +40,7 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
-		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (!tokenDefinition.isUsed()) {
 				continue;
 			}

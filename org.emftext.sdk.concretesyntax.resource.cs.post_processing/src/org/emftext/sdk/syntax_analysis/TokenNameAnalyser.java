@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -30,20 +30,20 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidCapitalization(syntax);
-		for (TokenDefinition next : wrongDefinitions) {
+		List<CompleteTokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidCapitalization(syntax);
+		for (CompleteTokenDefinition next : wrongDefinitions) {
 			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
 		}
 
 		wrongDefinitions = getTokenDefinitionsWithDashes(syntax);
-		for (TokenDefinition next : wrongDefinitions) {
+		for (CompleteTokenDefinition next : wrongDefinitions) {
 			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
 		}
 	}
 
-	private List<TokenDefinition> getTokenDefinitionsWithInvalidCapitalization(ConcreteSyntax syntax) {
-		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
-		for (TokenDefinition definition : syntax.getActiveTokens()) {
+	private List<CompleteTokenDefinition> getTokenDefinitionsWithInvalidCapitalization(ConcreteSyntax syntax) {
+		List<CompleteTokenDefinition> result = new ArrayList<CompleteTokenDefinition>();
+		for (CompleteTokenDefinition definition : syntax.getActiveTokens()) {
 			char firstLetter = definition.getName().charAt(0);
 			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
 				result.add(definition);
@@ -52,9 +52,9 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 		return result;
 	}
 
-	private List<TokenDefinition> getTokenDefinitionsWithDashes(ConcreteSyntax syntax) {
-		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
-		for (TokenDefinition definition : syntax.getActiveTokens()) {
+	private List<CompleteTokenDefinition> getTokenDefinitionsWithDashes(ConcreteSyntax syntax) {
+		List<CompleteTokenDefinition> result = new ArrayList<CompleteTokenDefinition>();
+		for (CompleteTokenDefinition definition : syntax.getActiveTokens()) {
 			String name = definition.getName();
 			if (name != null && name.contains("-")) {
 				result.add(definition);

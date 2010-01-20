@@ -21,7 +21,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -57,7 +57,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 
 	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, TokenStyle tokenStyle) {
 		String name = tokenStyle.getTokenName();
-		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
+		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (name.equals(tokenDefinition.getName())) {
 				return true;
 			}

@@ -123,7 +123,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 
 	/**
 	 * Returns the value of the '<em><b>Active Tokens</b></em>' reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Active Tokens</em>' reference list isn't clear,
@@ -135,7 +135,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @model transient="true"
 	 * @generated
 	 */
-	EList<TokenDefinition> getActiveTokens();
+	EList<CompleteTokenDefinition> getActiveTokens();
 
 	/**
 	 * Returns the value of the '<em><b>All Start Symbols</b></em>' reference list.
@@ -279,7 +279,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 
 	/**
 	 * Returns the value of the '<em><b>Synthetic Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Synthetic Tokens</em>' containment reference list isn't clear,
@@ -291,7 +291,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @model containment="true" transient="true"
 	 * @generated
 	 */
-	EList<TokenDefinition> getSyntheticTokens();
+	EList<CompleteTokenDefinition> getSyntheticTokens();
 
 	/**
 	 * Returns the value of the '<em><b>Options</b></em>' containment reference list.

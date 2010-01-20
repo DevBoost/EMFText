@@ -23,18 +23,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences <em>Attribute References</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#isHidden <em>Hidden</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#isUsed <em>Used</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName <em>Attribute Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isHidden <em>Hidden</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isUsed <em>Used</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition()
+ * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition()
  * @model abstract="true"
  * @generated
  */
-public interface TokenDefinition extends AbstractTokenDefinition, TokenDirective, RegexOwner {
+public interface CompleteTokenDefinition extends AbstractTokenDefinition, TokenDirective, RegexOwner {
 	/**
 	 * Returns the value of the '<em><b>Attribute References</b></em>' reference list.
 	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Placeholder}.
@@ -46,7 +46,7 @@ public interface TokenDefinition extends AbstractTokenDefinition, TokenDirective
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attribute References</em>' reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_AttributeReferences()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_AttributeReferences()
 	 * @see org.emftext.sdk.concretesyntax.Placeholder#getToken
 	 * @model opposite="token"
 	 * @generated
@@ -63,14 +63,14 @@ public interface TokenDefinition extends AbstractTokenDefinition, TokenDirective
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attribute Name</em>' attribute.
 	 * @see #setAttributeName(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_AttributeName()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_AttributeName()
 	 * @model
 	 * @generated
 	 */
 	String getAttributeName();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeName <em>Attribute Name</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName <em>Attribute Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Attribute Name</em>' attribute.
@@ -88,7 +88,7 @@ public interface TokenDefinition extends AbstractTokenDefinition, TokenDirective
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Hidden</em>' attribute.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Hidden()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_Hidden()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
@@ -103,7 +103,7 @@ public interface TokenDefinition extends AbstractTokenDefinition, TokenDirective
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Used</em>' attribute.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Used()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_Used()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
