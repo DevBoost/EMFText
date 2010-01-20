@@ -17,6 +17,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -208,8 +209,12 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createRegexReferenceAdapter();
 			}
 			@Override
-			public Adapter casePartialToken(PartialToken object) {
-				return createPartialTokenAdapter();
+			public Adapter caseAbstractTokenDefinition(AbstractTokenDefinition object) {
+				return createAbstractTokenDefinitionAdapter();
+			}
+			@Override
+			public Adapter casePartialTokenDefinition(PartialTokenDefinition object) {
+				return createPartialTokenDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseTokenDefinition(TokenDefinition object) {
@@ -615,16 +620,30 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PartialToken <em>Partial Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.AbstractTokenDefinition <em>Abstract Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PartialToken
+	 * @see org.emftext.sdk.concretesyntax.AbstractTokenDefinition
 	 * @generated
 	 */
-	public Adapter createPartialTokenAdapter() {
+	public Adapter createAbstractTokenDefinitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PartialTokenDefinition <em>Partial Token Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.PartialTokenDefinition
+	 * @generated
+	 */
+	public Adapter createPartialTokenDefinitionAdapter() {
 		return null;
 	}
 

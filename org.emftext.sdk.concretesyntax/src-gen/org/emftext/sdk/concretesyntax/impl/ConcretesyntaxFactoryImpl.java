@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
@@ -111,7 +112,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
 			case ConcretesyntaxPackage.ATOMIC_REGEX: return createAtomicRegex();
 			case ConcretesyntaxPackage.REGEX_REFERENCE: return createRegexReference();
-			case ConcretesyntaxPackage.PARTIAL_TOKEN: return createPartialToken();
+			case ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION: return createPartialTokenDefinition();
 			case ConcretesyntaxPackage.NORMAL_TOKEN: return createNormalToken();
 			case ConcretesyntaxPackage.QUOTED_TOKEN: return createQuotedToken();
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE: return createTokenPriorityDirective();
@@ -312,9 +313,9 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PartialToken createPartialToken() {
-		PartialTokenImpl partialToken = new PartialTokenImpl();
-		return partialToken;
+	public PartialTokenDefinition createPartialTokenDefinition() {
+		PartialTokenDefinitionImpl partialTokenDefinition = new PartialTokenDefinitionImpl();
+		return partialTokenDefinition;
 	}
 
 	/**

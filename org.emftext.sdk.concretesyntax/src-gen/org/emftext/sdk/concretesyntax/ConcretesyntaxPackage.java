@@ -357,7 +357,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 37;
+	int ANNOTABLE = 38;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -956,14 +956,51 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int REGEX_REFERENCE_FEATURE_COUNT = REGEX_PART_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PartialTokenImpl <em>Partial Token</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.AbstractTokenDefinitionImpl <em>Abstract Token Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.PartialTokenImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialToken()
+	 * @see org.emftext.sdk.concretesyntax.impl.AbstractTokenDefinitionImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstractTokenDefinition()
 	 * @generated
 	 */
-	int PARTIAL_TOKEN = 23;
+	int ABSTRACT_TOKEN_DEFINITION = 23;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TOKEN_DEFINITION__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Token Definition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PartialTokenDefinitionImpl <em>Partial Token Definition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.PartialTokenDefinitionImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialTokenDefinition()
+	 * @generated
+	 */
+	int PARTIAL_TOKEN_DEFINITION = 24;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTIAL_TOKEN_DEFINITION__NAME = ABSTRACT_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -972,7 +1009,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARTIAL_TOKEN__REGEX = TOKEN_DIRECTIVE_FEATURE_COUNT + 0;
+	int PARTIAL_TOKEN_DEFINITION__REGEX = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Regex Parts</b></em>' containment reference list.
@@ -981,16 +1018,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARTIAL_TOKEN__REGEX_PARTS = TOKEN_DIRECTIVE_FEATURE_COUNT + 1;
+	int PARTIAL_TOKEN_DEFINITION__REGEX_PARTS = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Partial Token</em>' class.
+	 * The number of structural features of the '<em>Partial Token Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARTIAL_TOKEN_FEATURE_COUNT = TOKEN_DIRECTIVE_FEATURE_COUNT + 2;
+	int PARTIAL_TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
@@ -1000,16 +1037,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDefinition()
 	 * @generated
 	 */
-	int TOKEN_DEFINITION = 24;
-
-	/**
-	 * The feature id for the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOKEN_DEFINITION__REGEX = TOKEN_DIRECTIVE_FEATURE_COUNT + 0;
+	int TOKEN_DEFINITION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1018,7 +1046,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__NAME = TOKEN_DIRECTIVE_FEATURE_COUNT + 1;
+	int TOKEN_DEFINITION__NAME = ABSTRACT_TOKEN_DEFINITION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Regex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_DEFINITION__REGEX = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1027,7 +1064,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = TOKEN_DIRECTIVE_FEATURE_COUNT + 2;
+	int TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1036,7 +1073,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_NAME = TOKEN_DIRECTIVE_FEATURE_COUNT + 3;
+	int TOKEN_DEFINITION__ATTRIBUTE_NAME = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1045,7 +1082,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__HIDDEN = TOKEN_DIRECTIVE_FEATURE_COUNT + 4;
+	int TOKEN_DEFINITION__HIDDEN = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1054,7 +1091,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__USED = TOKEN_DIRECTIVE_FEATURE_COUNT + 5;
+	int TOKEN_DEFINITION__USED = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Token Definition</em>' class.
@@ -1063,7 +1100,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION_FEATURE_COUNT = TOKEN_DIRECTIVE_FEATURE_COUNT + 6;
+	int TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.
@@ -1073,16 +1110,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalToken()
 	 * @generated
 	 */
-	int NORMAL_TOKEN = 25;
-
-	/**
-	 * The feature id for the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NORMAL_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
+	int NORMAL_TOKEN = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1092,6 +1120,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @ordered
 	 */
 	int NORMAL_TOKEN__NAME = TOKEN_DEFINITION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Regex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NORMAL_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1164,16 +1201,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedToken()
 	 * @generated
 	 */
-	int QUOTED_TOKEN = 26;
-
-	/**
-	 * The feature id for the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
+	int QUOTED_TOKEN = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1183,6 +1211,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @ordered
 	 */
 	int QUOTED_TOKEN__NAME = TOKEN_DEFINITION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Regex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUOTED_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1273,7 +1310,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenPriorityDirective()
 	 * @generated
 	 */
-	int TOKEN_PRIORITY_DIRECTIVE = 27;
+	int TOKEN_PRIORITY_DIRECTIVE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Token</b></em>' reference.
@@ -1301,7 +1338,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getContainment()
 	 * @generated
 	 */
-	int CONTAINMENT = 28;
+	int CONTAINMENT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1347,7 +1384,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholder()
 	 * @generated
 	 */
-	int PLACEHOLDER = 29;
+	int PLACEHOLDER = 30;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1393,7 +1430,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingSpecifiedToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 30;
+	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 31;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1439,7 +1476,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingDefaultToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_DEFAULT_TOKEN = 31;
+	int PLACEHOLDER_USING_DEFAULT_TOKEN = 32;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1485,7 +1522,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderInQuotes()
 	 * @generated
 	 */
-	int PLACEHOLDER_IN_QUOTES = 32;
+	int PLACEHOLDER_IN_QUOTES = 33;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1558,7 +1595,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 33;
+	int OPTION = 34;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1596,7 +1633,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 34;
+	int ABSTRACT = 35;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1616,7 +1653,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 35;
+	int TOKEN_STYLE = 36;
 
 	/**
 	 * The feature id for the '<em><b>Token Name</b></em>' attribute.
@@ -1662,7 +1699,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 36;
+	int ANNOTATION = 37;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1699,7 +1736,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 38;
+	int KEY_VALUE_PAIR = 39;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -1736,7 +1773,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 39;
+	int OPTION_TYPES = 40;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -1746,7 +1783,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 40;
+	int FONT_STYLE = 41;
 
 
 	/**
@@ -1757,7 +1794,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 41;
+	int ANNOTATION_TYPE = 42;
 
 
 	/**
@@ -2376,14 +2413,35 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getRegexReference_Target();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.PartialToken <em>Partial Token</em>}'.
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.AbstractTokenDefinition <em>Abstract Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Partial Token</em>'.
-	 * @see org.emftext.sdk.concretesyntax.PartialToken
+	 * @return the meta object for class '<em>Abstract Token Definition</em>'.
+	 * @see org.emftext.sdk.concretesyntax.AbstractTokenDefinition
 	 * @generated
 	 */
-	EClass getPartialToken();
+	EClass getAbstractTokenDefinition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.AbstractTokenDefinition#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.emftext.sdk.concretesyntax.AbstractTokenDefinition#getName()
+	 * @see #getAbstractTokenDefinition()
+	 * @generated
+	 */
+	EAttribute getAbstractTokenDefinition_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.PartialTokenDefinition <em>Partial Token Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Partial Token Definition</em>'.
+	 * @see org.emftext.sdk.concretesyntax.PartialTokenDefinition
+	 * @generated
+	 */
+	EClass getPartialTokenDefinition();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
@@ -2394,17 +2452,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTokenDefinition();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition#getName()
-	 * @see #getTokenDefinition()
-	 * @generated
-	 */
-	EAttribute getTokenDefinition_Name();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
@@ -3373,14 +3420,32 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference REGEX_REFERENCE__TARGET = eINSTANCE.getRegexReference_Target();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.PartialTokenImpl <em>Partial Token</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.AbstractTokenDefinitionImpl <em>Abstract Token Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.PartialTokenImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialToken()
+		 * @see org.emftext.sdk.concretesyntax.impl.AbstractTokenDefinitionImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstractTokenDefinition()
 		 * @generated
 		 */
-		EClass PARTIAL_TOKEN = eINSTANCE.getPartialToken();
+		EClass ABSTRACT_TOKEN_DEFINITION = eINSTANCE.getAbstractTokenDefinition();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_TOKEN_DEFINITION__NAME = eINSTANCE.getAbstractTokenDefinition_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.PartialTokenDefinitionImpl <em>Partial Token Definition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.PartialTokenDefinitionImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialTokenDefinition()
+		 * @generated
+		 */
+		EClass PARTIAL_TOKEN_DEFINITION = eINSTANCE.getPartialTokenDefinition();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
@@ -3391,14 +3456,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TOKEN_DEFINITION = eINSTANCE.getTokenDefinition();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TOKEN_DEFINITION__NAME = eINSTANCE.getTokenDefinition_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Attribute References</b></em>' reference list feature.

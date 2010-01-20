@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -292,18 +293,26 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ConcretesyntaxPackage.PARTIAL_TOKEN: {
-				PartialToken partialToken = (PartialToken)theEObject;
-				T result = casePartialToken(partialToken);
-				if (result == null) result = caseTokenDirective(partialToken);
-				if (result == null) result = caseRegexComposite(partialToken);
-				if (result == null) result = caseRegexOwner(partialToken);
+			case ConcretesyntaxPackage.ABSTRACT_TOKEN_DEFINITION: {
+				AbstractTokenDefinition abstractTokenDefinition = (AbstractTokenDefinition)theEObject;
+				T result = caseAbstractTokenDefinition(abstractTokenDefinition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION: {
+				PartialTokenDefinition partialTokenDefinition = (PartialTokenDefinition)theEObject;
+				T result = casePartialTokenDefinition(partialTokenDefinition);
+				if (result == null) result = caseAbstractTokenDefinition(partialTokenDefinition);
+				if (result == null) result = caseTokenDirective(partialTokenDefinition);
+				if (result == null) result = caseRegexComposite(partialTokenDefinition);
+				if (result == null) result = caseRegexOwner(partialTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.TOKEN_DEFINITION: {
 				TokenDefinition tokenDefinition = (TokenDefinition)theEObject;
 				T result = caseTokenDefinition(tokenDefinition);
+				if (result == null) result = caseAbstractTokenDefinition(tokenDefinition);
 				if (result == null) result = caseTokenDirective(tokenDefinition);
 				if (result == null) result = caseRegexOwner(tokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
@@ -315,6 +324,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTokenDefinition(normalToken);
 				if (result == null) result = caseAnnotable(normalToken);
 				if (result == null) result = caseRegexComposite(normalToken);
+				if (result == null) result = caseAbstractTokenDefinition(normalToken);
 				if (result == null) result = caseTokenDirective(normalToken);
 				if (result == null) result = caseRegexOwner(normalToken);
 				if (result == null) result = defaultCase(theEObject);
@@ -324,6 +334,7 @@ public class ConcretesyntaxSwitch<T> {
 				QuotedToken quotedToken = (QuotedToken)theEObject;
 				T result = caseQuotedToken(quotedToken);
 				if (result == null) result = caseTokenDefinition(quotedToken);
+				if (result == null) result = caseAbstractTokenDefinition(quotedToken);
 				if (result == null) result = caseTokenDirective(quotedToken);
 				if (result == null) result = caseRegexOwner(quotedToken);
 				if (result == null) result = defaultCase(theEObject);
@@ -771,17 +782,32 @@ public class ConcretesyntaxSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Partial Token</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Partial Token</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Token Definition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePartialToken(PartialToken object) {
+	public T caseAbstractTokenDefinition(AbstractTokenDefinition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Partial Token Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Partial Token Definition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePartialTokenDefinition(PartialTokenDefinition object) {
 		return null;
 	}
 

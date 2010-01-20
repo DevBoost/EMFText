@@ -159,13 +159,13 @@ public interface ConcretesyntaxFactory extends EFactory {
 	RegexReference createRegexReference();
 
 	/**
-	 * Returns a new object of class '<em>Partial Token</em>'.
+	 * Returns a new object of class '<em>Partial Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Partial Token</em>'.
+	 * @return a new object of class '<em>Partial Token Definition</em>'.
 	 * @generated
 	 */
-	PartialToken createPartialToken();
+	PartialTokenDefinition createPartialTokenDefinition();
 
 	/**
 	 * Returns a new object of class '<em>Normal Token</em>'.

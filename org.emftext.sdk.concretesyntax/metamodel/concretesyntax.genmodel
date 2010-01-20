@@ -253,9 +253,11 @@
     <genClasses ecoreClass="concretesyntax.ecore#//RegexReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//RegexReference/target"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//PartialToken"/>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//AbstractTokenDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//AbstractTokenDefinition/name"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//PartialTokenDefinition"/>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//TokenDefinition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//TokenDefinition/attributeReferences"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/attributeName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/hidden"/>

@@ -110,9 +110,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//NormalToken"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PartialToken" eSuperTypes="#//TokenDirective #//RegexComposite"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TokenDefinition" abstract="true" eSuperTypes="#//TokenDirective #//RegexOwner">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractTokenDefinition" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PartialTokenDefinition" eSuperTypes="#//AbstractTokenDefinition #//TokenDirective #//RegexComposite"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenDefinition" abstract="true" eSuperTypes="#//AbstractTokenDefinition #//TokenDirective #//RegexOwner">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferences" upperBound="-1"
         eType="#//Placeholder" eOpposite="#//Placeholder/token"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
