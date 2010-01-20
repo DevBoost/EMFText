@@ -47,6 +47,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -278,19 +279,22 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		}
 		
 		cSyntax.getTokens().removeAll(toRemove);
-		intToken = concretesyntaxFactory.createNormalToken();
-		intToken.setName("INTEGER");
-		intToken.setRegex("('-')?('1'..'9')('0'..'9')*|'0'");
-		floatToken = concretesyntaxFactory.createNormalToken();
-		floatToken.setName("FLOAT");
-		floatToken.setRegex("('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
-		comment = concretesyntaxFactory.createNormalToken();
-		comment.setName("COMMENT");
-		comment.setRegex("'//'(~('\\n'|'\\r'|'\\uffff'))*");
+		intToken = createToken("INTEGER", "('-')?('1'..'9')('0'..'9')*|'0'");
+		floatToken = createToken("FLOAT", "('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
+		comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
 		
 		cSyntax.getTokens().add(comment);
 		cSyntax.getTokens().add(intToken);
 		cSyntax.getTokens().add(floatToken);
+	}
+
+	private NormalToken createToken(String name, String expression) {
+		NormalToken newToken = concretesyntaxFactory.createNormalToken();
+		newToken.setName(name);
+		AtomicRegex regex = concretesyntaxFactory.createAtomicRegex();
+		regex.setAtomicExpression(expression);
+		newToken.getRegexParts().add(regex);
+		return newToken;
 	}
 
 	private void generateFeatureSyntax(Choice featureSyntaxChoice,
