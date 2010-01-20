@@ -23,12 +23,14 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.RegexComposite;
+import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
 
@@ -105,7 +107,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 * @generated NOT
 	 */
 	public String getRegex() {
-		return getRegex(this, new LinkedHashSet<NormalToken>());
+		return getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
 	}
 	
 	/**
@@ -113,29 +115,35 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getRegex(NormalToken token, Set<NormalToken> visitedTokens) {
+	public String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens) {
 		visitedTokens.add(token);
 
 		StringBuilder result = new StringBuilder();
-		for (RegexPart part : token.getRegexParts()) {
-			if (part instanceof AtomicRegex) {
-				result.append(part.getRegex());
-			} else if (part instanceof RegexReference) {
-				RegexReference reference = (RegexReference) part;
-				NormalToken target = reference.getTarget();
-				if (target == null) {
-					continue;
+		if (token instanceof RegexComposite) {
+			RegexComposite composite = (RegexComposite) token;
+			for (RegexPart part : composite.getRegexParts()) {
+				if (part instanceof AtomicRegex) {
+					result.append(part.getRegex());
+				} else if (part instanceof RegexReference) {
+					RegexReference reference = (RegexReference) part;
+					AbstractTokenDefinition target = reference.getTarget();
+					if (target == null) {
+						continue;
+					}
+					if (target.eIsProxy()) {
+						continue;
+					}
+					if (visitedTokens.contains(target)) {
+						continue;
+					}
+					Set<AbstractTokenDefinition> subVisitedTokens = new LinkedHashSet<AbstractTokenDefinition>();
+					subVisitedTokens.addAll(visitedTokens);
+					result.append(getRegex(target, subVisitedTokens));
 				}
-				if (target.eIsProxy()) {
-					continue;
-				}
-				if (visitedTokens.contains(target)) {
-					continue;
-				}
-				Set<NormalToken> subVisitedTokens = new LinkedHashSet<NormalToken>();
-				subVisitedTokens.addAll(visitedTokens);
-				result.append(getRegex(target, subVisitedTokens));
 			}
+		} else if (token instanceof RegexOwner) {
+			RegexOwner owner = (RegexOwner) token;
+			result.append(owner.getRegex());
 		}
 		return result.toString();
 	}

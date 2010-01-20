@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.RegexPart;
@@ -55,24 +56,24 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 
 	private boolean hasReferenceTo(CompleteTokenDefinition source,
 			CompleteTokenDefinition target) {
-		Set<CompleteTokenDefinition> references = collectReferences(source);
+		Set<AbstractTokenDefinition> references = collectReferences(source);
 		return references.contains(target);
 	}
 
-	private Set<CompleteTokenDefinition> collectReferences(CompleteTokenDefinition token) {
-		LinkedHashSet<CompleteTokenDefinition> visitedReferences = new LinkedHashSet<CompleteTokenDefinition>();
+	private Set<AbstractTokenDefinition> collectReferences(CompleteTokenDefinition token) {
+		LinkedHashSet<AbstractTokenDefinition> visitedReferences = new LinkedHashSet<AbstractTokenDefinition>();
 		collectReferences(token, visitedReferences);
 		return visitedReferences;
 	}
 	
-	private void collectReferences(CompleteTokenDefinition token, Set<CompleteTokenDefinition> visitedReferences) {
+	private void collectReferences(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedReferences) {
 		if (token instanceof NormalToken) {
 			NormalToken sourceToken = (NormalToken) token;
 			List<RegexPart> parts = sourceToken.getRegexParts();
 			for (RegexPart part : parts) {
 				if (part instanceof RegexReference) {
 					RegexReference reference = (RegexReference) part;
-					CompleteTokenDefinition target = reference.getTarget();
+					AbstractTokenDefinition target = reference.getTarget();
 					if (target != null) {
 						if (!visitedReferences.contains(target)) {
 							visitedReferences.add(target);

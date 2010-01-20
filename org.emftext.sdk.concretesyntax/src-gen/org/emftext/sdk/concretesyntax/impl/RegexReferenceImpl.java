@@ -10,9 +10,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexReference;
 
 /**
@@ -37,7 +37,7 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * @generated
 	 * @ordered
 	 */
-	protected NormalToken target;
+	protected AbstractTokenDefinition target;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,10 +63,10 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NormalToken getTarget() {
+	public AbstractTokenDefinition getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
-			target = (NormalToken)eResolveProxy(oldTarget);
+			target = (AbstractTokenDefinition)eResolveProxy(oldTarget);
 			if (target != oldTarget) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.REGEX_REFERENCE__TARGET, oldTarget, target));
@@ -80,7 +80,7 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NormalToken basicGetTarget() {
+	public AbstractTokenDefinition basicGetTarget() {
 		return target;
 	}
 
@@ -89,8 +89,8 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(NormalToken newTarget) {
-		NormalToken oldTarget = target;
+	public void setTarget(AbstractTokenDefinition newTarget) {
+		AbstractTokenDefinition oldTarget = target;
 		target = newTarget;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.REGEX_REFERENCE__TARGET, oldTarget, target));
@@ -120,7 +120,7 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.REGEX_REFERENCE__TARGET:
-				setTarget((NormalToken)newValue);
+				setTarget((AbstractTokenDefinition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,7 +135,7 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.REGEX_REFERENCE__TARGET:
-				setTarget((NormalToken)null);
+				setTarget((AbstractTokenDefinition)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -163,11 +163,12 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 */
 	@Override
 	public String getRegex() {
-		CompleteTokenDefinition target = getTarget();
+		AbstractTokenDefinition target = getTarget();
 		if (target == null || target.eIsProxy()) {
 			return "";
 		} else {
-			return target.getRegex();
+			assert target instanceof RegexOwner;
+			return ((RegexOwner) target).getRegex();
 		}
 	}
 } //RegexReferenceImpl

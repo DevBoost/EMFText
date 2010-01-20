@@ -135,7 +135,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference().isInstance(container)) {
-			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.NormalToken> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.NormalToken>(result);
+			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.AbstractTokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.AbstractTokenDefinition>(result);
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				regexReferenceTargetReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.RegexReference) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
