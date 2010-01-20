@@ -19,6 +19,7 @@ import java.util.List;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
@@ -151,8 +152,10 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			//TokenDefinition prioritizeToken = priorityDirective.getToken();
 			//mergeResult.remove(prioritizeToken);
 			mergeResult.add(tokenDirective);
+		} else if (tokenDirective instanceof PartialTokenDefinition) {
+			// ignore partial token definitions
 		} else {
-			throw new RuntimeException("Found unknown TokenDefinition.");
+			throw new RuntimeException("Found unknown TokenDirective (" + tokenDirective.getClass().getName() + ").");
 		}
 	}
 

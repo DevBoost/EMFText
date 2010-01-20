@@ -115,7 +115,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens) {
+	public static String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens) {
 		visitedTokens.add(token);
 
 		StringBuilder result = new StringBuilder();
