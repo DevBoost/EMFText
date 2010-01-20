@@ -103,14 +103,14 @@ public class TokenSorter {
 			throws SorterException {
 		List<TokenDefinition> nonReachables = new ArrayList<TokenDefinition>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
-		Automaton unionPreviosDefinitions = new Automaton();
+		Automaton unionPreviousDefinitions = new Automaton();
 		for (int i = 0; i < compareables.size() - 1; i++) {
-			unionPreviosDefinitions = unionPreviosDefinitions
+			unionPreviousDefinitions = unionPreviousDefinitions
 					.union(compareables.get(i).getAutomaton());
 			ComparableTokenDefinition currentTokenDefinition = compareables.get(i+1);
 
 			if (isSubLanguage(currentTokenDefinition.getAutomaton(),
-					unionPreviosDefinitions)) {
+					unionPreviousDefinitions)) {
 				nonReachables.add(currentTokenDefinition.getDef());
 			}
 
