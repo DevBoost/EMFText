@@ -132,7 +132,9 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 				if (visitedTokens.contains(target)) {
 					continue;
 				}
-				result.append(getRegex(target, visitedTokens));
+				Set<NormalToken> subVisitedTokens = new LinkedHashSet<NormalToken>();
+				subVisitedTokens.addAll(visitedTokens);
+				result.append(getRegex(target, subVisitedTokens));
 			}
 		}
 		return result.toString();
