@@ -17,8 +17,10 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -30,16 +32,22 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.PartialToken;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.RegexComposite;
+import org.emftext.sdk.concretesyntax.RegexOwner;
+import org.emftext.sdk.concretesyntax.RegexPart;
+import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -248,10 +256,56 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.REGEX_OWNER: {
+				RegexOwner regexOwner = (RegexOwner)theEObject;
+				T result = caseRegexOwner(regexOwner);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.REGEX_PART: {
+				RegexPart regexPart = (RegexPart)theEObject;
+				T result = caseRegexPart(regexPart);
+				if (result == null) result = caseRegexOwner(regexPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.REGEX_COMPOSITE: {
+				RegexComposite regexComposite = (RegexComposite)theEObject;
+				T result = caseRegexComposite(regexComposite);
+				if (result == null) result = caseRegexOwner(regexComposite);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.ATOMIC_REGEX: {
+				AtomicRegex atomicRegex = (AtomicRegex)theEObject;
+				T result = caseAtomicRegex(atomicRegex);
+				if (result == null) result = caseRegexPart(atomicRegex);
+				if (result == null) result = caseRegexOwner(atomicRegex);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.REGEX_REFERENCE: {
+				RegexReference regexReference = (RegexReference)theEObject;
+				T result = caseRegexReference(regexReference);
+				if (result == null) result = caseRegexPart(regexReference);
+				if (result == null) result = caseRegexOwner(regexReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.PARTIAL_TOKEN: {
+				PartialToken partialToken = (PartialToken)theEObject;
+				T result = casePartialToken(partialToken);
+				if (result == null) result = caseTokenDirective(partialToken);
+				if (result == null) result = caseRegexComposite(partialToken);
+				if (result == null) result = caseRegexOwner(partialToken);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.TOKEN_DEFINITION: {
 				TokenDefinition tokenDefinition = (TokenDefinition)theEObject;
 				T result = caseTokenDefinition(tokenDefinition);
 				if (result == null) result = caseTokenDirective(tokenDefinition);
+				if (result == null) result = caseRegexOwner(tokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -260,7 +314,9 @@ public class ConcretesyntaxSwitch<T> {
 				T result = caseNormalToken(normalToken);
 				if (result == null) result = caseTokenDefinition(normalToken);
 				if (result == null) result = caseAnnotable(normalToken);
+				if (result == null) result = caseRegexComposite(normalToken);
 				if (result == null) result = caseTokenDirective(normalToken);
+				if (result == null) result = caseRegexOwner(normalToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -269,6 +325,7 @@ public class ConcretesyntaxSwitch<T> {
 				T result = caseQuotedToken(quotedToken);
 				if (result == null) result = caseTokenDefinition(quotedToken);
 				if (result == null) result = caseTokenDirective(quotedToken);
+				if (result == null) result = caseRegexOwner(quotedToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -635,6 +692,96 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseTokenDirective(TokenDirective object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Regex Owner</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Regex Owner</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegexOwner(RegexOwner object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Regex Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Regex Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegexPart(RegexPart object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Regex Composite</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Regex Composite</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegexComposite(RegexComposite object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Atomic Regex</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Atomic Regex</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAtomicRegex(AtomicRegex object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Regex Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Regex Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegexReference(RegexReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Partial Token</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Partial Token</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePartialToken(PartialToken object) {
 		return null;
 	}
 

@@ -19,8 +19,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -30,16 +32,19 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.PartialToken;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -104,6 +109,9 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.STAR: return createSTAR();
 			case ConcretesyntaxPackage.QUESTIONMARK: return createQUESTIONMARK();
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
+			case ConcretesyntaxPackage.ATOMIC_REGEX: return createAtomicRegex();
+			case ConcretesyntaxPackage.REGEX_REFERENCE: return createRegexReference();
+			case ConcretesyntaxPackage.PARTIAL_TOKEN: return createPartialToken();
 			case ConcretesyntaxPackage.NORMAL_TOKEN: return createNormalToken();
 			case ConcretesyntaxPackage.QUOTED_TOKEN: return createQuotedToken();
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE: return createTokenPriorityDirective();
@@ -277,6 +285,36 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public CompoundDefinition createCompoundDefinition() {
 		CompoundDefinitionImpl compoundDefinition = new CompoundDefinitionImpl();
 		return compoundDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AtomicRegex createAtomicRegex() {
+		AtomicRegexImpl atomicRegex = new AtomicRegexImpl();
+		return atomicRegex;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RegexReference createRegexReference() {
+		RegexReferenceImpl regexReference = new RegexReferenceImpl();
+		return regexReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PartialToken createPartialToken() {
+		PartialTokenImpl partialToken = new PartialTokenImpl();
+		return partialToken;
 	}
 
 	/**

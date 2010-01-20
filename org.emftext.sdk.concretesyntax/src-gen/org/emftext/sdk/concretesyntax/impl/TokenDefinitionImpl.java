@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 
@@ -35,10 +36,10 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isHidden <em>Hidden</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isUsed <em>Used</em>}</li>
  * </ul>
@@ -47,6 +48,16 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * @generated
  */
 public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements TokenDefinition {
+	/**
+	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REGEX_EDEFAULT = null;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -98,26 +109,6 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 	protected String attributeName = ATTRIBUTE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRegex()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String REGEX_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getRegex() <em>Regex</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRegex()
-	 * @generated
-	 * @ordered
-	 */
-	protected String regex = REGEX_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -154,6 +145,18 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 	@Override
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.TOKEN_DEFINITION;
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRegex() {
+		// TODO: implement this method to return the 'Regex' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -208,27 +211,6 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 		attributeName = newAttributeName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getRegex() {
-		return regex;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRegex(String newRegex) {
-		String oldRegex = regex;
-		regex = newRegex;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX, oldRegex, regex));
 	}
 
 	/**
@@ -290,14 +272,14 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				return getRegex();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
 				return getName();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return getAttributeReferences();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return getAttributeName();
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
-				return getRegex();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
 				return isHidden();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
@@ -325,9 +307,6 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName((String)newValue);
 				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
-				setRegex((String)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -349,9 +328,6 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
-				setRegex(REGEX_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -364,20 +340,52 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				return REGEX_EDEFAULT == null ? getRegex() != null : !REGEX_EDEFAULT.equals(getRegex());
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return attributeReferences != null && !attributeReferences.isEmpty();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
-				return REGEX_EDEFAULT == null ? regex != null : !REGEX_EDEFAULT.equals(regex);
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
 				return isHidden() != HIDDEN_EDEFAULT;
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
 				return isUsed() != USED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == RegexOwner.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX: return ConcretesyntaxPackage.REGEX_OWNER__REGEX;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == RegexOwner.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.REGEX_OWNER__REGEX: return ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
@@ -394,8 +402,6 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 		result.append(name);
 		result.append(", attributeName: ");
 		result.append(attributeName);
-		result.append(", regex: ");
-		result.append(regex);
 		result.append(')');
 		return result.toString();
 	}

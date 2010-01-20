@@ -14,6 +14,9 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -22,8 +25,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.RegexComposite;
+import org.emftext.sdk.concretesyntax.RegexPart;
+import org.emftext.sdk.concretesyntax.RegexReference;
 
 
 /**
@@ -34,6 +41,7 @@ import org.emftext.sdk.concretesyntax.NormalToken;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl#getRegexParts <em>Regex Parts</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +57,16 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 	 * @ordered
 	 */
 	protected EList<Annotation> annotations;
+
+	/**
+	 * The cached value of the '{@link #getRegexParts() <em>Regex Parts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegexParts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<RegexPart> regexParts;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +102,57 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getRegex() {
+		return getRegex(this, new LinkedHashSet<NormalToken>());
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getRegex(NormalToken token, Set<NormalToken> visitedTokens) {
+		visitedTokens.add(token);
+
+		StringBuilder result = new StringBuilder();
+		for (RegexPart part : token.getRegexParts()) {
+			if (part instanceof AtomicRegex) {
+				result.append(part.getRegex());
+			} else if (part instanceof RegexReference) {
+				RegexReference reference = (RegexReference) part;
+				NormalToken target = reference.getTarget();
+				if (target == null) {
+					continue;
+				}
+				if (target.eIsProxy()) {
+					continue;
+				}
+				if (visitedTokens.contains(target)) {
+					continue;
+				}
+				result.append(getRegex(target, visitedTokens));
+			}
+		}
+		return result.toString();
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<RegexPart> getRegexParts() {
+		if (regexParts == null) {
+			regexParts = new EObjectContainmentEList<RegexPart>(RegexPart.class, this, ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS);
+		}
+		return regexParts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -91,6 +160,8 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 		switch (featureID) {
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+				return ((InternalEList<?>)getRegexParts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -105,6 +176,8 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 		switch (featureID) {
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
 				return getAnnotations();
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+				return getRegexParts();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -122,6 +195,10 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+				getRegexParts().clear();
+				getRegexParts().addAll((Collection<? extends RegexPart>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -137,6 +214,9 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
 				getAnnotations().clear();
 				return;
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+				getRegexParts().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -151,6 +231,8 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 		switch (featureID) {
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+				return regexParts != null && !regexParts.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -165,6 +247,12 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 		if (baseClass == Annotable.class) {
 			switch (derivedFeatureID) {
 				case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
+				default: return -1;
+			}
+		}
+		if (baseClass == RegexComposite.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS: return ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS;
 				default: return -1;
 			}
 		}
@@ -184,7 +272,12 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 				default: return -1;
 			}
 		}
+		if (baseClass == RegexComposite.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS: return ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS;
+				default: return -1;
+			}
+		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
-
 } //NormalTokenImpl

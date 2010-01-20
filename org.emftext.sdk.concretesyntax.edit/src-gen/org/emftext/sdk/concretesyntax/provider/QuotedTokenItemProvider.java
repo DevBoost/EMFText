@@ -69,6 +69,7 @@ public class QuotedTokenItemProvider
 			addPrefixPropertyDescriptor(object);
 			addSuffixPropertyDescriptor(object);
 			addEscapeCharacterPropertyDescriptor(object);
+			addSynthesizedRegexPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -140,6 +141,28 @@ public class QuotedTokenItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Synthesized Regex feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSynthesizedRegexPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_QuotedToken_synthesizedRegex_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_QuotedToken_synthesizedRegex_feature", "_UI_QuotedToken_type"),
+				 ConcretesyntaxPackage.Literals.QUOTED_TOKEN__SYNTHESIZED_REGEX,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns QuotedToken.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,6 +203,7 @@ public class QuotedTokenItemProvider
 			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
 			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

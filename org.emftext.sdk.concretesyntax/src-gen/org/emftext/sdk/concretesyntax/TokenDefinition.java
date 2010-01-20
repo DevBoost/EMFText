@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#isHidden <em>Hidden</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenDefinition#isUsed <em>Used</em>}</li>
  * </ul>
@@ -36,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface TokenDefinition extends TokenDirective {
+public interface TokenDefinition extends TokenDirective, RegexOwner {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -106,32 +105,6 @@ public interface TokenDefinition extends TokenDirective {
 	 * @generated
 	 */
 	void setAttributeName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Regex</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Regex</em>' attribute.
-	 * @see #setRegex(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Regex()
-	 * @model required="true"
-	 * @generated
-	 */
-	String getRegex();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenDefinition#getRegex <em>Regex</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Regex</em>' attribute.
-	 * @see #getRegex()
-	 * @generated
-	 */
-	void setRegex(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Hidden</b></em>' attribute.

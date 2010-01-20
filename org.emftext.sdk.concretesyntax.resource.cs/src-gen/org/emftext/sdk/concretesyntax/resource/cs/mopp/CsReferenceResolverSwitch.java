@@ -24,6 +24,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver placeholderTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver containmentTypesReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenPriorityDirectiveTokenReferenceResolver tokenPriorityDirectiveTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenPriorityDirectiveTokenReferenceResolver();
+	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.RegexReferenceTargetReferenceResolver regexReferenceTargetReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.RegexReferenceTargetReferenceResolver();
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.analysis.GenPackageDependentElementPackageReferenceResolver getGenPackageDependentElementPackageReferenceResolver() {
 		return genPackageDependentElementPackageReferenceResolver;
@@ -57,6 +58,10 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		return tokenPriorityDirectiveTokenReferenceResolver;
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.analysis.RegexReferenceTargetReferenceResolver getRegexReferenceTargetReferenceResolver() {
+		return regexReferenceTargetReferenceResolver;
+	}
+	
 	public void setOptions(java.util.Map<?, ?> options) {
 		genPackageDependentElementPackageReferenceResolver.setOptions(options);
 		concreteSyntaxStartSymbolsReferenceResolver.setOptions(options);
@@ -66,6 +71,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		placeholderTokenReferenceResolver.setOptions(options);
 		containmentTypesReferenceResolver.setOptions(options);
 		tokenPriorityDirectiveTokenReferenceResolver.setOptions(options);
+		regexReferenceTargetReferenceResolver.setOptions(options);
 	}
 	
 	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EObject> result) {
@@ -126,6 +132,13 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				tokenPriorityDirectiveTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.TokenPriorityDirective) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
+			}
+		}
+		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference().isInstance(container)) {
+			CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new CsFuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(reference.getName());
+			if (feature instanceof org.eclipse.emf.ecore.EReference) {
+				regexReferenceTargetReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.RegexReference) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 	}

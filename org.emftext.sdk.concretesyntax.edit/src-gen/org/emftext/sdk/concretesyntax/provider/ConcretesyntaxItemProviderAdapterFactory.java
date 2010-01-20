@@ -357,6 +357,75 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.AtomicRegex} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AtomicRegexItemProvider atomicRegexItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.AtomicRegex}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAtomicRegexAdapter() {
+		if (atomicRegexItemProvider == null) {
+			atomicRegexItemProvider = new AtomicRegexItemProvider(this);
+		}
+
+		return atomicRegexItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.RegexReference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RegexReferenceItemProvider regexReferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.RegexReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRegexReferenceAdapter() {
+		if (regexReferenceItemProvider == null) {
+			regexReferenceItemProvider = new RegexReferenceItemProvider(this);
+		}
+
+		return regexReferenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.PartialToken} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PartialTokenItemProvider partialTokenItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.PartialToken}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPartialTokenAdapter() {
+		if (partialTokenItemProvider == null) {
+			partialTokenItemProvider = new PartialTokenItemProvider(this);
+		}
+
+		return partialTokenItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.NormalToken} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -743,6 +812,9 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (starItemProvider != null) starItemProvider.dispose();
 		if (questionmarkItemProvider != null) questionmarkItemProvider.dispose();
 		if (compoundDefinitionItemProvider != null) compoundDefinitionItemProvider.dispose();
+		if (atomicRegexItemProvider != null) atomicRegexItemProvider.dispose();
+		if (regexReferenceItemProvider != null) regexReferenceItemProvider.dispose();
+		if (partialTokenItemProvider != null) partialTokenItemProvider.dispose();
 		if (normalTokenItemProvider != null) normalTokenItemProvider.dispose();
 		if (quotedTokenItemProvider != null) quotedTokenItemProvider.dispose();
 		if (tokenPriorityDirectiveItemProvider != null) tokenPriorityDirectiveItemProvider.dispose();

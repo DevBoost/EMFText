@@ -14,11 +14,8 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 
@@ -32,6 +29,7 @@ import org.emftext.sdk.concretesyntax.QuotedToken;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getSuffix <em>Suffix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getEscapeCharacter <em>Escape Character</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getSynthesizedRegex <em>Synthesized Regex</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,6 +95,26 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 	 * @ordered
 	 */
 	protected String escapeCharacter = ESCAPE_CHARACTER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSynthesizedRegex() <em>Synthesized Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSynthesizedRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SYNTHESIZED_REGEX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSynthesizedRegex() <em>Synthesized Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSynthesizedRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected String synthesizedRegex = SYNTHESIZED_REGEX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -185,6 +203,27 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSynthesizedRegex() {
+		return synthesizedRegex;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSynthesizedRegex(String newSynthesizedRegex) {
+		String oldSynthesizedRegex = synthesizedRegex;
+		synthesizedRegex = newSynthesizedRegex;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX, oldSynthesizedRegex, synthesizedRegex));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -194,6 +233,8 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return getSuffix();
 			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
 				return getEscapeCharacter();
+			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+				return getSynthesizedRegex();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -214,6 +255,9 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return;
 			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
 				setEscapeCharacter((String)newValue);
+				return;
+			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+				setSynthesizedRegex((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -236,6 +280,9 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
 				setEscapeCharacter(ESCAPE_CHARACTER_EDEFAULT);
 				return;
+			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+				setSynthesizedRegex(SYNTHESIZED_REGEX_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -254,6 +301,8 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
 			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
 				return ESCAPE_CHARACTER_EDEFAULT == null ? escapeCharacter != null : !ESCAPE_CHARACTER_EDEFAULT.equals(escapeCharacter);
+			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+				return SYNTHESIZED_REGEX_EDEFAULT == null ? synthesizedRegex != null : !SYNTHESIZED_REGEX_EDEFAULT.equals(synthesizedRegex);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -274,8 +323,20 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 		result.append(suffix);
 		result.append(", escapeCharacter: ");
 		result.append(escapeCharacter);
+		result.append(", synthesizedRegex: ");
+		result.append(synthesizedRegex);
 		result.append(')');
 		return result.toString();
 	}
 
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public String getRegex() {
+		return getSynthesizedRegex();
+	}
 } //QuotedTokenImpl

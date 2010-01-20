@@ -65,7 +65,8 @@ public enum ECsProblemType {
 	CYCLIC_SYNTAX_IMPORT(CsEProblemType.ERROR), 
 	EMPTY_CS_STRING(CsEProblemType.ERROR), 
 	NON_STANDARD_OPTION(CsEProblemType.WARNING), 
-	LICENCE_HEADER_NOT_FOUND(CsEProblemType.WARNING),
+	LICENCE_HEADER_NOT_FOUND(CsEProblemType.WARNING), 
+	CYCLIC_TOKEN_DEFINITION(CsEProblemType.ERROR), 
 	;
 
 	private CsEProblemType problemType;

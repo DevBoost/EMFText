@@ -154,7 +154,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	private void initializeResourceObject(org.eclipse.ui.IEditorInput editorInput) {
 		org.eclipse.ui.part.FileEditorInput input = (org.eclipse.ui.part.FileEditorInput) editorInput;
-		String path = input.getFile().getFullPath().toString();
+		org.eclipse.core.resources.IFile inputFile = input.getFile();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature.activate(inputFile.getProject());
+		String path = inputFile.getFullPath().toString();
 		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
 		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource loadedResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.getResource(uri, false);

@@ -66,10 +66,10 @@ public class TokenDefinitionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addRegexPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addAttributeReferencesPropertyDescriptor(object);
 			addAttributeNamePropertyDescriptor(object);
-			addRegexPropertyDescriptor(object);
 			addHiddenPropertyDescriptor(object);
 			addUsedPropertyDescriptor(object);
 		}
@@ -153,9 +153,9 @@ public class TokenDefinitionItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TokenDefinition_regex_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenDefinition_regex_feature", "_UI_TokenDefinition_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_DEFINITION__REGEX,
+				 getString("_UI_RegexOwner_regex_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RegexOwner_regex_feature", "_UI_RegexOwner_type"),
+				 ConcretesyntaxPackage.Literals.REGEX_OWNER__REGEX,
 				 true,
 				 false,
 				 false,
@@ -232,9 +232,9 @@ public class TokenDefinitionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TokenDefinition.class)) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

@@ -18,8 +18,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.EPredefinedTokens;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -58,9 +60,12 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 			}
 			
 			// if not create one and add it to the end of the token list
-			TokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
+			NormalToken definition = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			definition.setName(predefinedToken.getTokenName());
-			definition.setRegex(predefinedToken.getExpression());
+			
+			AtomicRegex regex = ConcretesyntaxFactory.eINSTANCE.createAtomicRegex();
+			regex.setAtomicExpression(predefinedToken.getExpression());
+			definition.getRegexParts().add(regex);
 			syntax.getSyntheticTokens().add(definition);
 		}
 	}

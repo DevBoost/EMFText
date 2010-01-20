@@ -85,8 +85,11 @@ RULES {
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= "!" tab[NUMBER] #1;
 	
-	NormalToken            ::= (annotations !0)* "DEFINE" #1 name[] regex['$','$'] (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
+	NormalToken            ::= (annotations !0)* "DEFINE" #1 name[] regexParts ("+" regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
 	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
+	
+	AtomicRegex    ::= atomicExpression['$','$'];
+	RegexReference ::= target[];
 
 	PLUS         ::= "+";
 	STAR         ::= "*";   

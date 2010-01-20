@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -24,6 +24,7 @@ import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.CsStringAnalyser;
 import org.emftext.sdk.syntax_analysis.CyclicImportAnalyser;
+import org.emftext.sdk.syntax_analysis.CyclicTokenDefinitionAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenNameAnalyser;
@@ -64,7 +65,7 @@ import org.emftext.sdk.syntax_extension.TokenStyleMerger;
 public class SDKOptionProvider implements ICsOptionProvider {
 
 	public Map<?, ?> getOptions() {
-		Map<String, Object> options = new HashMap<String, Object>();
+		Map<String, Object> options = new LinkedHashMap<String, Object>();
 
 		LinkedList<ICsResourcePostProcessorProvider> postProcessors = new LinkedList<ICsResourcePostProcessorProvider>();
 		// first: check the generator model and make sure that there
@@ -78,6 +79,8 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new TokenDefinitionMerger());
 		postProcessors.add(new DefaultTokenConnector());
 		postProcessors.add(new TokenStyleMerger());
+		
+		postProcessors.add(new CyclicTokenDefinitionAnalyser());
 		
 		// then analyse it
 		postProcessors.add(new FeatureCardinalityAnalyser());

@@ -141,6 +141,33 @@ public interface ConcretesyntaxFactory extends EFactory {
 	CompoundDefinition createCompoundDefinition();
 
 	/**
+	 * Returns a new object of class '<em>Atomic Regex</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Atomic Regex</em>'.
+	 * @generated
+	 */
+	AtomicRegex createAtomicRegex();
+
+	/**
+	 * Returns a new object of class '<em>Regex Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Regex Reference</em>'.
+	 * @generated
+	 */
+	RegexReference createRegexReference();
+
+	/**
+	 * Returns a new object of class '<em>Partial Token</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Partial Token</em>'.
+	 * @generated
+	 */
+	PartialToken createPartialToken();
+
+	/**
 	 * Returns a new object of class '<em>Normal Token</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

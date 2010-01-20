@@ -420,6 +420,11 @@ public class ConcreteSyntaxItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS,
+				 ConcretesyntaxFactory.eINSTANCE.createPartialToken()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS,
 				 ConcretesyntaxFactory.eINSTANCE.createNormalToken()));
 
 		newChildDescriptors.add

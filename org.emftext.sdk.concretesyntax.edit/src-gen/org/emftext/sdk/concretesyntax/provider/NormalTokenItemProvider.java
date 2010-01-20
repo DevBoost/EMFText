@@ -83,6 +83,7 @@ public class NormalTokenItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.REGEX_COMPOSITE__REGEX_PARTS);
 		}
 		return childrenFeatures;
 	}
@@ -135,6 +136,7 @@ public class NormalTokenItemProvider
 
 		switch (notification.getFeatureID(NormalToken.class)) {
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -156,6 +158,16 @@ public class NormalTokenItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS,
 				 ConcretesyntaxFactory.eINSTANCE.createAnnotation()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.REGEX_COMPOSITE__REGEX_PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createAtomicRegex()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.REGEX_COMPOSITE__REGEX_PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createRegexReference()));
 	}
 
 }

@@ -24,5 +24,5 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface NormalToken extends TokenDefinition, Annotable {
+public interface NormalToken extends TokenDefinition, Annotable, RegexComposite {
 } // NormalToken

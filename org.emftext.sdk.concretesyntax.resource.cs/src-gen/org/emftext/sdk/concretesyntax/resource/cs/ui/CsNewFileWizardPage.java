@@ -84,6 +84,10 @@ public class CsNewFileWizardPage extends org.eclipse.jface.wizard.WizardPage {
 			org.eclipse.jface.viewers.IStructuredSelection ssel = (org.eclipse.jface.viewers.IStructuredSelection) selection;
 			if (ssel.size() > 1)			return;
 			Object obj = ssel.getFirstElement();
+			// test for IAdaptable
+			if ((! (obj instanceof org.eclipse.core.resources.IResource)) && (obj instanceof org.eclipse.core.runtime.IAdaptable)) {
+				obj = (org.eclipse.core.resources.IResource) ((org.eclipse.core.runtime.IAdaptable) obj).getAdapter(org.eclipse.core.resources.IResource.class);
+			}
 			if (obj instanceof org.eclipse.core.resources.IResource) {
 				org.eclipse.core.resources.IContainer container;
 				if (obj instanceof org.eclipse.core.resources.IContainer) {

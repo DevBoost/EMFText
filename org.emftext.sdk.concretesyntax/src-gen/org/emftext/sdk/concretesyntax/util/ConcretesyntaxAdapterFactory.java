@@ -17,8 +17,10 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -30,16 +32,22 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.PartialToken;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.RegexComposite;
+import org.emftext.sdk.concretesyntax.RegexOwner;
+import org.emftext.sdk.concretesyntax.RegexPart;
+import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -178,6 +186,30 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTokenDirective(TokenDirective object) {
 				return createTokenDirectiveAdapter();
+			}
+			@Override
+			public Adapter caseRegexOwner(RegexOwner object) {
+				return createRegexOwnerAdapter();
+			}
+			@Override
+			public Adapter caseRegexPart(RegexPart object) {
+				return createRegexPartAdapter();
+			}
+			@Override
+			public Adapter caseRegexComposite(RegexComposite object) {
+				return createRegexCompositeAdapter();
+			}
+			@Override
+			public Adapter caseAtomicRegex(AtomicRegex object) {
+				return createAtomicRegexAdapter();
+			}
+			@Override
+			public Adapter caseRegexReference(RegexReference object) {
+				return createRegexReferenceAdapter();
+			}
+			@Override
+			public Adapter casePartialToken(PartialToken object) {
+				return createPartialTokenAdapter();
 			}
 			@Override
 			public Adapter caseTokenDefinition(TokenDefinition object) {
@@ -509,6 +541,90 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTokenDirectiveAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.RegexOwner <em>Regex Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.RegexOwner
+	 * @generated
+	 */
+	public Adapter createRegexOwnerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.RegexPart <em>Regex Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.RegexPart
+	 * @generated
+	 */
+	public Adapter createRegexPartAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.RegexComposite <em>Regex Composite</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.RegexComposite
+	 * @generated
+	 */
+	public Adapter createRegexCompositeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.AtomicRegex <em>Atomic Regex</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.AtomicRegex
+	 * @generated
+	 */
+	public Adapter createAtomicRegexAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.RegexReference <em>Regex Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.RegexReference
+	 * @generated
+	 */
+	public Adapter createRegexReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PartialToken <em>Partial Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.PartialToken
+	 * @generated
+	 */
+	public Adapter createPartialTokenAdapter() {
 		return null;
 	}
 
