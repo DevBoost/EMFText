@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * @generated
  */
 public class TokenDefinitionItemProvider
-	extends TokenDirectiveItemProvider
+	extends AbstractTokenDefinitionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -67,35 +67,12 @@ public class TokenDefinitionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addRegexPropertyDescriptor(object);
-			addNamePropertyDescriptor(object);
 			addAttributeReferencesPropertyDescriptor(object);
 			addAttributeNamePropertyDescriptor(object);
 			addHiddenPropertyDescriptor(object);
 			addUsedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TokenDefinition_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenDefinition_name_feature", "_UI_TokenDefinition_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_DEFINITION__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -233,7 +210,6 @@ public class TokenDefinitionItemProvider
 
 		switch (notification.getFeatureID(TokenDefinition.class)) {
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:

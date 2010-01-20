@@ -420,7 +420,7 @@ public class ConcreteSyntaxItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS,
-				 ConcretesyntaxFactory.eINSTANCE.createPartialToken()));
+				 ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter

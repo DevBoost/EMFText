@@ -403,26 +403,26 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.PartialToken} instances.
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.PartialTokenDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PartialTokenItemProvider partialTokenItemProvider;
+	protected PartialTokenDefinitionItemProvider partialTokenDefinitionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.PartialToken}.
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.PartialTokenDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createPartialTokenAdapter() {
-		if (partialTokenItemProvider == null) {
-			partialTokenItemProvider = new PartialTokenItemProvider(this);
+	public Adapter createPartialTokenDefinitionAdapter() {
+		if (partialTokenDefinitionItemProvider == null) {
+			partialTokenDefinitionItemProvider = new PartialTokenDefinitionItemProvider(this);
 		}
 
-		return partialTokenItemProvider;
+		return partialTokenDefinitionItemProvider;
 	}
 
 	/**
@@ -814,7 +814,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (compoundDefinitionItemProvider != null) compoundDefinitionItemProvider.dispose();
 		if (atomicRegexItemProvider != null) atomicRegexItemProvider.dispose();
 		if (regexReferenceItemProvider != null) regexReferenceItemProvider.dispose();
-		if (partialTokenItemProvider != null) partialTokenItemProvider.dispose();
+		if (partialTokenDefinitionItemProvider != null) partialTokenDefinitionItemProvider.dispose();
 		if (normalTokenItemProvider != null) normalTokenItemProvider.dispose();
 		if (quotedTokenItemProvider != null) quotedTokenItemProvider.dispose();
 		if (tokenPriorityDirectiveItemProvider != null) tokenPriorityDirectiveItemProvider.dispose();
