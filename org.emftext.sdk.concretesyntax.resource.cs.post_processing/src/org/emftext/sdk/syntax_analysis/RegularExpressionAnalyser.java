@@ -18,74 +18,91 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime3_2_0.ANTLRInputStream;
 import org.antlr.runtime3_2_0.CommonTokenStream;
 import org.antlr.runtime3_2_0.RecognitionException;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.regex.ANTLRexpLexer;
 import org.emftext.sdk.regex.ANTLRexpParser;
 
 /**
  * An analyser that checks all regular expressions used in a syntax
- * definition.
+ * definition to be well-formed.
  */
 public class RegularExpressionAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		for (Iterator<EObject> i = resource.getAllContents(); i.hasNext();) {
-			EObject next = i.next();
-			if (next instanceof CompleteTokenDefinition) {
-				checkRegexp(resource, (CompleteTokenDefinition) next);
-			}
+		Collection<CompleteTokenDefinition> completeTokens = CsEObjectUtil.getObjectsByType(resource.getAllContents(), ConcretesyntaxPackage.eINSTANCE.getCompleteTokenDefinition());
+		for (CompleteTokenDefinition next : completeTokens) {
+			checkRegexp(resource, (CompleteTokenDefinition) next);
 		}
 	}
 
 	private void checkRegexp(CsResource resource, CompleteTokenDefinition tokenDefinition) {
+		String expression = tokenDefinition.getRegex();
+
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
-		w.print(tokenDefinition.getRegex());
+		w.print(expression);
 		w.flush();
 		w.close();
 
+		// parse the regular expression
 		List<String> errors = new ArrayList<String>();
 		try {
 			ANTLRexpLexer lexer = new ANTLRexpLexer(
 					new ANTLRInputStream(new ByteArrayInputStream(out
 							.toByteArray())));
-			ANTLRexpParser parser = new ANTLRexpParser(
-					new CommonTokenStream(lexer));
+			CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+			ANTLRexpParser parser = new ANTLRexpParser(tokenStream);
 			parser.root();
+			
 			if (!parser.recExceptions.isEmpty()) {
 				for (RecognitionException e : parser.recExceptions) {
 					String message = lexer.getErrorMessage(e, lexer.getTokenNames());
-					if (message == null || message.equals(""))
+					if (message == null || message.equals("")) {
 						message = parser.getErrorMessage(e, parser.getTokenNames());
+					}
 					errors.add("Invalid regular expression: " + message);
 				}
 			}
-
+			// check whether all tokens were consumed
+			if (errors.isEmpty() && tokenStream.index() < tokenStream.size()) {
+				errors.add("End of regular expression expected");
+			}
 		} catch (Exception e) {
 			errors.add(e.getMessage());
 		}
 		
+		// add the found errors (if any) to the resource
 		for (String error : errors) {
-			if (tokenDefinition instanceof CompleteTokenDefinition) {
+			if (tokenDefinition instanceof NormalToken) {
 				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
-			} else {
+			} else if (tokenDefinition instanceof QuotedToken) {
+				// actually this should never happen, because the regular expressions
+				// for quoted token definitions are derived and must be correct by
+				// construction. however, if there is a problem we might as well 
+				// report it so it gets obvious that the problem is caused by a
+				// quoted token
 				List<Placeholder> placeholders = tokenDefinition.getAttributeReferences();
 				for (Placeholder next : placeholders) {
 					addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, next);
 				}
+			} else {
+				throw new RuntimeException("Found unknown type of token definition (" + tokenDefinition.getClass().getName() + ").");
 			}
 		}
 	}
