@@ -27,7 +27,6 @@ import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -80,7 +79,7 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 		}
 		
 		for (String error : errors) {
-			if (tokenDefinition instanceof NewDefinedToken) {
+			if (tokenDefinition instanceof CompleteTokenDefinition) {
 				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
 			} else {
 				List<Placeholder> placeholders = tokenDefinition.getAttributeReferences();
