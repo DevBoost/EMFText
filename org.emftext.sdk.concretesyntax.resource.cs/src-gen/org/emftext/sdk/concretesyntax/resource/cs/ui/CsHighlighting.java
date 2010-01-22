@@ -28,7 +28,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private org.eclipse.swt.graphics.Color proxyColor;
 	private org.eclipse.swt.graphics.Color bracketColor;
 	private org.eclipse.swt.graphics.Color black;
-	private org.eclipse.swt.custom.StyleRange lastStyleRange;
 	private org.eclipse.swt.custom.StyledText textWidget;
 	private org.eclipse.jface.preference.IPreferenceStore preferenceStore;
 	private org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer;
@@ -161,17 +160,13 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
 		
 		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString())) {
-			if (lastStyleRange == null && positions.length > 0) {
+			if (positions.length > 0) {
 				styleRange = getStyleRangeAtPosition(positions[0]);
 				if (styleRange.foreground == null) {
 					styleRange.foreground = black;
 				}
-				lastStyleRange = (org.eclipse.swt.custom.StyleRange) styleRange.clone();
 			}
-			if (lastStyleRange != null) {
-				if (styleRange == null) {
-					styleRange = (org.eclipse.swt.custom.StyleRange) lastStyleRange.clone();
-				}
+			if (styleRange != null) {
 				styleRange.background = proxyColor;
 			}
 		}
@@ -183,7 +178,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 					if (styleRange.foreground == null) {
 						styleRange.foreground = black;
 					}
-					lastStyleRange = (org.eclipse.swt.custom.StyleRange) styleRange.clone();
 					styleRange.background = definitionColor;
 					textWidget.setStyleRange(styleRange);
 				}
@@ -213,13 +207,12 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		if (occurrence.isToRemoveHighlighting()) {
 			removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString());
 			removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString());
-			lastStyleRange = null;
 		}
 	}
 	
 	private void removeHighlightingCategory(org.eclipse.jface.text.IDocument document, String category) {
 		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
-		boolean isOccurrence = (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString()) || category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString())) && lastStyleRange != null;
+		boolean isOccurrence = (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString()) || category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString()));
 		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
 			org.eclipse.swt.custom.StyleRange styleRange;
 			for (org.eclipse.jface.text.Position position : positions) {
@@ -238,8 +231,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			for (org.eclipse.jface.text.Position position : positions) {
 				org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 				if (tmpPosition != null) {
-					lastStyleRange.start = tmpPosition.offset;
-					textWidget.setStyleRange(lastStyleRange);
+					textWidget.setStyleRange(new org.eclipse.swt.custom.StyleRange(tmpPosition.offset, tmpPosition.length, null, null));
+					projectionViewer.invalidateTextPresentation(tmpPosition.offset, tmpPosition.length);
 				}
 			}
 		}
