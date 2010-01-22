@@ -193,7 +193,6 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("private " + COLOR + " proxyColor;");
 		sc.add("private " + COLOR + " bracketColor;");
 		sc.add("private " + COLOR + " black;");
-		sc.add("private " + STYLE_RANGE + " lastStyleRange;");
 		sc.add("private " + STYLED_TEXT + " textWidget;");
 		sc.add("private " + I_PREFERENCE_STORE + " preferenceStore;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
@@ -271,7 +270,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private void removeHighlightingCategory(" + I_DOCUMENT + " document, String category) {");
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
-		sc.add("boolean isOccurrence = (category.equals(" + positionCategoryClassName + ".DEFINTION.toString()) || category.equals(" + positionCategoryClassName + ".PROXY.toString())) && lastStyleRange != null;");
+		sc.add("boolean isOccurrence = (category.equals(" + positionCategoryClassName + ".DEFINTION.toString()) || category.equals(" + positionCategoryClassName + ".PROXY.toString()));");
 		sc.add("if (category.equals(" + positionCategoryClassName + ".BRACKET.toString())) {");
 		sc.add(STYLE_RANGE + " styleRange;");
 		sc.add("for (" + POSITION + " position : positions) {");
@@ -290,8 +289,8 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("for (" + POSITION + " position : positions) {");
 		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
-		sc.add("lastStyleRange.start = tmpPosition.offset;");
-		sc.add("textWidget.setStyleRange(lastStyleRange);");
+		sc.add("textWidget.setStyleRange(new " + STYLE_RANGE + "(tmpPosition.offset, tmpPosition.length, null, null));");
+		sc.add("projectionViewer.invalidateTextPresentation(tmpPosition.offset, tmpPosition.length);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -309,7 +308,6 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("if (occurrence.isToRemoveHighlighting()) {");
 		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".DEFINTION.toString());");
 		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".PROXY.toString());");
-		sc.add("lastStyleRange = null;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -322,17 +320,13 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
 		sc.addLineBreak();
 		sc.add("if (category.equals(" + positionCategoryClassName + ".PROXY.toString())) {");
-		sc.add("if (lastStyleRange == null && positions.length > 0) {");
+		sc.add("if (positions.length > 0) {");
 		sc.add("styleRange = getStyleRangeAtPosition(positions[0]);");
 		sc.add("if (styleRange.foreground == null) {");
 		sc.add("styleRange.foreground = black;");
 		sc.add("}");
-		sc.add("lastStyleRange = (" + STYLE_RANGE + ") styleRange.clone();");
 		sc.add("}");
-		sc.add("if (lastStyleRange != null) {");
-		sc.add("if (styleRange == null) {");
-		sc.add("styleRange = (" + STYLE_RANGE + ") lastStyleRange.clone();");
-		sc.add("}");
+		sc.add("if (styleRange != null) {");
 		sc.add("styleRange.background = proxyColor;");
 		sc.add("}");
 		sc.add("}");
@@ -344,7 +338,6 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("if (styleRange.foreground == null) {");
 		sc.add("styleRange.foreground = black;");
 		sc.add("}");
-		sc.add("lastStyleRange = (" + STYLE_RANGE + ") styleRange.clone();");
 		sc.add("styleRange.background = definitionColor;");
 		sc.add("textWidget.setStyleRange(styleRange);");
 		sc.add("}");
