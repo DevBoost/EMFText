@@ -56,7 +56,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -84,9 +84,9 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	private final IFile file;
 	private ConcretesyntaxFactory concretesyntaxFactory;
 	private ConcreteSyntax cSyntax;
-	private NormalToken comment;
-	private NormalToken floatToken;
-	private NormalToken intToken;
+	private NormalTokenDefinition comment;
+	private NormalTokenDefinition floatToken;
+	private NormalTokenDefinition intToken;
 
 	public HUTNGenerationProcess(IFile file) {
 		this.file = file;
@@ -288,8 +288,8 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		cSyntax.getTokens().add(floatToken);
 	}
 
-	private NormalToken createToken(String name, String expression) {
-		NormalToken newToken = concretesyntaxFactory.createNormalToken();
+	private NormalTokenDefinition createToken(String name, String expression) {
+		NormalTokenDefinition newToken = concretesyntaxFactory.createNormalTokenDefinition();
 		newToken.setName(name);
 		AtomicRegex regex = concretesyntaxFactory.createAtomicRegex();
 		regex.setAtomicExpression(expression);

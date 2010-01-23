@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -60,7 +60,7 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 			}
 			
 			// if not create one and add it to the end of the token list
-			NormalToken definition = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
+			NormalTokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition();
 			definition.setName(predefinedToken.getTokenName());
 			
 			AtomicRegex regex = ConcretesyntaxFactory.eINSTANCE.createAtomicRegex();

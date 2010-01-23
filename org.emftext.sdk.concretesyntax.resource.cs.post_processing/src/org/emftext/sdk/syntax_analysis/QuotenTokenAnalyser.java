@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -35,12 +35,12 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
 		Collection<CompleteTokenDefinition> handledTokens = new LinkedHashSet<CompleteTokenDefinition>(); 
 		for (CompleteTokenDefinition tokenDefinition1 : tokens) {
-			if (tokenDefinition1 instanceof QuotedToken) {
+			if (tokenDefinition1 instanceof QuotedTokenDefinition) {
 				handledTokens.add(tokenDefinition1);
-				QuotedToken quotedToken1 = (QuotedToken) tokenDefinition1;
+				QuotedTokenDefinition quotedToken1 = (QuotedTokenDefinition) tokenDefinition1;
 				for (CompleteTokenDefinition tokenDefinition2 : tokens) {
-					if (tokenDefinition2 instanceof QuotedToken) {
-						QuotedToken quotedToken2 = (QuotedToken) tokenDefinition2;
+					if (tokenDefinition2 instanceof QuotedTokenDefinition) {
+						QuotedTokenDefinition quotedToken2 = (QuotedTokenDefinition) tokenDefinition2;
 						// ignore the first token when searching for a second
 						if (handledTokens.contains(tokenDefinition2)) {
 							continue;
@@ -90,7 +90,7 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private void addProblem(CsResource resource, QuotedToken quotedToken1, QuotedToken quotedToken2, String message) {
+	private void addProblem(CsResource resource, QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
 		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken1.getAttributeReferences().get(0));
 		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken2.getAttributeReferences().get(0));
 	}

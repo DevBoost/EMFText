@@ -20,7 +20,7 @@ import org.emftext.sdk.AntlrTokenDerivator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -71,7 +71,7 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 	private CompleteTokenDefinition createNewToken(ConcreteSyntax syntax,
 			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
 		// a token definition must be created
-		QuotedToken newToken = ConcretesyntaxFactory.eINSTANCE.createQuotedToken();
+		QuotedTokenDefinition newToken = ConcretesyntaxFactory.eINSTANCE.createQuotedTokenDefinition();
 		
 		String name = tokenDerivator.deriveTokenName(placeholder);
 		newToken.setName(name);

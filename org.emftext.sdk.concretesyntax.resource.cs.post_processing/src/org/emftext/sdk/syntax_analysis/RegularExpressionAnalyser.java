@@ -28,9 +28,9 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
@@ -89,9 +89,9 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 		
 		// add the found errors (if any) to the resource
 		for (String error : errors) {
-			if (tokenDefinition instanceof NormalToken) {
+			if (tokenDefinition instanceof NormalTokenDefinition) {
 				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
-			} else if (tokenDefinition instanceof QuotedToken) {
+			} else if (tokenDefinition instanceof QuotedTokenDefinition) {
 				// actually this should never happen, because the regular expressions
 				// for quoted token definitions are derived and must be correct by
 				// construction. however, if there is a problem we might as well 
