@@ -26,7 +26,7 @@ TOKENSTYLES {
 	"NUMBER" COLOR #00D0FF;
 	"HEXNUMBER" COLOR #00D0FF;
 	"DEFINE" COLOR #FF9000, BOLD;
-	"PARTIAL" COLOR #FF9000, BOLD;
+	"FRAGMENT" COLOR #FF9000, BOLD;
 	"COLLECT" COLOR #FF9000, BOLD;
 	"IN" COLOR #FF9000, BOLD;
 	"COLOR" COLOR #FF9000, BOLD;
@@ -88,7 +88,7 @@ RULES {
 	LineBreak    ::= "!" tab[NUMBER] #1;
 	
 	NormalToken            ::= (annotations !0)* "DEFINE" #1 name[] regexParts ("+" regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
-	PartialTokenDefinition ::= "DEFINE" #1 "PARTIAL" #1 name[] regexParts ("+" regexParts)*;
+	PartialTokenDefinition ::= "DEFINE" #1 "FRAGMENT" #1 name[] regexParts ("+" regexParts)*;
 	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
 	
 	AtomicRegex    ::= atomicExpression['$','$'];

@@ -1773,7 +1773,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		//////////////DEFINITION PART BEGINS (WhiteSpaces):
 		out.print(" ");
 		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("PARTIAL");
+		out.print("FRAGMENT");
 		//////////////DEFINITION PART BEGINS (WhiteSpaces):
 		out.print(" ");
 		//////////////DEFINITION PART BEGINS (PlaceholderUsingDefaultToken):
