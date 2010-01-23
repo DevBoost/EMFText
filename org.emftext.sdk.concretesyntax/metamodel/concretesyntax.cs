@@ -87,7 +87,7 @@ RULES {
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= "!" tab[NUMBER] #1;
 	
-	NormalToken            ::= (annotations !0)* "DEFINE" #1 name[] regexParts ("+" regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
+	NormalTokenDefinition  ::= (annotations !0)* "DEFINE" #1 name[] regexParts ("+" regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
 	PartialTokenDefinition ::= "DEFINE" #1 "FRAGMENT" #1 name[] regexParts ("+" regexParts)*;
 	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
 	
