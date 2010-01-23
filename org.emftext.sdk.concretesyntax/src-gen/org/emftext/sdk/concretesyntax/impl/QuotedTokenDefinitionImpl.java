@@ -17,7 +17,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,16 +26,16 @@ import org.emftext.sdk.concretesyntax.QuotedToken;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getPrefix <em>Prefix</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getSuffix <em>Suffix</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getEscapeCharacter <em>Escape Character</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getSynthesizedRegex <em>Synthesized Regex</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl#getPrefix <em>Prefix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl#getEscapeCharacter <em>Escape Character</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl#getSynthesizedRegex <em>Synthesized Regex</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements QuotedToken {
+public class QuotedTokenDefinitionImpl extends CompleteTokenDefinitionImpl implements QuotedTokenDefinition {
 	/**
 	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -121,7 +121,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QuotedTokenImpl() {
+	protected QuotedTokenDefinitionImpl() {
 		super();
 	}
 
@@ -132,7 +132,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.QUOTED_TOKEN;
+		return ConcretesyntaxPackage.Literals.QUOTED_TOKEN_DEFINITION;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 		String oldPrefix = prefix;
 		prefix = newPrefix;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX, oldPrefix, prefix));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__PREFIX, oldPrefix, prefix));
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 		String oldSuffix = suffix;
 		suffix = newSuffix;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX, oldSuffix, suffix));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SUFFIX, oldSuffix, suffix));
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 		String oldEscapeCharacter = escapeCharacter;
 		escapeCharacter = newEscapeCharacter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER, oldEscapeCharacter, escapeCharacter));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER, oldEscapeCharacter, escapeCharacter));
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 		String oldSynthesizedRegex = synthesizedRegex;
 		synthesizedRegex = newSynthesizedRegex;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX, oldSynthesizedRegex, synthesizedRegex));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX, oldSynthesizedRegex, synthesizedRegex));
 	}
 
 	/**
@@ -227,13 +227,13 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__PREFIX:
 				return getPrefix();
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SUFFIX:
 				return getSuffix();
-			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER:
 				return getEscapeCharacter();
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX:
 				return getSynthesizedRegex();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -247,16 +247,16 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__PREFIX:
 				setPrefix((String)newValue);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SUFFIX:
 				setSuffix((String)newValue);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER:
 				setEscapeCharacter((String)newValue);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX:
 				setSynthesizedRegex((String)newValue);
 				return;
 		}
@@ -271,16 +271,16 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__PREFIX:
 				setPrefix(PREFIX_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SUFFIX:
 				setSuffix(SUFFIX_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER:
 				setEscapeCharacter(ESCAPE_CHARACTER_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX:
 				setSynthesizedRegex(SYNTHESIZED_REGEX_EDEFAULT);
 				return;
 		}
@@ -295,13 +295,13 @@ public class QuotedTokenImpl extends CompleteTokenDefinitionImpl implements Quot
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__PREFIX:
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SUFFIX:
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
-			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER:
 				return ESCAPE_CHARACTER_EDEFAULT == null ? escapeCharacter != null : !ESCAPE_CHARACTER_EDEFAULT.equals(escapeCharacter);
-			case ConcretesyntaxPackage.QUOTED_TOKEN__SYNTHESIZED_REGEX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX:
 				return SYNTHESIZED_REGEX_EDEFAULT == null ? synthesizedRegex != null : !SYNTHESIZED_REGEX_EDEFAULT.equals(synthesizedRegex);
 		}
 		return super.eIsSet(featureID);

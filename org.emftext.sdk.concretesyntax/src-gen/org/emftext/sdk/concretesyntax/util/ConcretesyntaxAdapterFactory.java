@@ -37,7 +37,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
@@ -46,7 +46,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
@@ -222,12 +222,12 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createCompleteTokenDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseNormalToken(NormalToken object) {
-				return createNormalTokenAdapter();
+			public Adapter caseNormalTokenDefinition(NormalTokenDefinition object) {
+				return createNormalTokenDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseQuotedToken(QuotedToken object) {
-				return createQuotedTokenAdapter();
+			public Adapter caseQuotedTokenDefinition(QuotedTokenDefinition object) {
+				return createQuotedTokenDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseTokenPriorityDirective(TokenPriorityDirective object) {
@@ -663,30 +663,30 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NormalToken <em>Normal Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NormalTokenDefinition <em>Normal Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.NormalToken
+	 * @see org.emftext.sdk.concretesyntax.NormalTokenDefinition
 	 * @generated
 	 */
-	public Adapter createNormalTokenAdapter() {
+	public Adapter createNormalTokenDefinitionAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QuotedToken <em>Quoted Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition <em>Quoted Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition
 	 * @generated
 	 */
-	public Adapter createQuotedTokenAdapter() {
+	public Adapter createQuotedTokenDefinitionAdapter() {
 		return null;
 	}
 

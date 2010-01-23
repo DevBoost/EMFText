@@ -28,7 +28,7 @@ import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
@@ -42,14 +42,14 @@ import org.emftext.sdk.concretesyntax.RegexReference;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl#getRegexParts <em>Regex Parts</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl#getRegexParts <em>Regex Parts</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements NormalToken {
+public class NormalTokenDefinitionImpl extends CompleteTokenDefinitionImpl implements NormalTokenDefinition {
 	/**
 	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -75,7 +75,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NormalTokenImpl() {
+	protected NormalTokenDefinitionImpl() {
 		super();
 	}
 
@@ -86,7 +86,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.NORMAL_TOKEN;
+		return ConcretesyntaxPackage.Literals.NORMAL_TOKEN_DEFINITION;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 */
 	public EList<Annotation> getAnnotations() {
 		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS);
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS);
 		}
 		return annotations;
 	}
@@ -155,7 +155,7 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	 */
 	public EList<RegexPart> getRegexParts() {
 		if (regexParts == null) {
-			regexParts = new EObjectContainmentEList<RegexPart>(RegexPart.class, this, ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS);
+			regexParts = new EObjectContainmentEList<RegexPart>(RegexPart.class, this, ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS);
 		}
 		return regexParts;
 	}
@@ -168,9 +168,9 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS:
 				return ((InternalEList<?>)getRegexParts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -184,9 +184,9 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS:
 				return getAnnotations();
-			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS:
 				return getRegexParts();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -201,11 +201,11 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS:
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
-			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS:
 				getRegexParts().clear();
 				getRegexParts().addAll((Collection<? extends RegexPart>)newValue);
 				return;
@@ -221,10 +221,10 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS:
 				getAnnotations().clear();
 				return;
-			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS:
 				getRegexParts().clear();
 				return;
 		}
@@ -239,9 +239,9 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
-			case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS:
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS:
 				return regexParts != null && !regexParts.isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -256,13 +256,13 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == Annotable.class) {
 			switch (derivedFeatureID) {
-				case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
+				case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
 				default: return -1;
 			}
 		}
 		if (baseClass == RegexComposite.class) {
 			switch (derivedFeatureID) {
-				case ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS: return ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS;
+				case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS: return ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS;
 				default: return -1;
 			}
 		}
@@ -278,13 +278,13 @@ public class NormalTokenImpl extends CompleteTokenDefinitionImpl implements Norm
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == Annotable.class) {
 			switch (baseFeatureID) {
-				case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS: return ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS;
+				case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS: return ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS;
 				default: return -1;
 			}
 		}
 		if (baseClass == RegexComposite.class) {
 			switch (baseFeatureID) {
-				case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS: return ConcretesyntaxPackage.NORMAL_TOKEN__REGEX_PARTS;
+				case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS: return ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS;
 				default: return -1;
 			}
 		}

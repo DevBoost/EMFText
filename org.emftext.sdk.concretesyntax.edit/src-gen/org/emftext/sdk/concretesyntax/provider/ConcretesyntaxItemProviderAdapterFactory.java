@@ -426,49 +426,49 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.NormalToken} instances.
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.NormalTokenDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NormalTokenItemProvider normalTokenItemProvider;
+	protected NormalTokenDefinitionItemProvider normalTokenDefinitionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.NormalToken}.
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.NormalTokenDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createNormalTokenAdapter() {
-		if (normalTokenItemProvider == null) {
-			normalTokenItemProvider = new NormalTokenItemProvider(this);
+	public Adapter createNormalTokenDefinitionAdapter() {
+		if (normalTokenDefinitionItemProvider == null) {
+			normalTokenDefinitionItemProvider = new NormalTokenDefinitionItemProvider(this);
 		}
 
-		return normalTokenItemProvider;
+		return normalTokenDefinitionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.QuotedToken} instances.
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QuotedTokenItemProvider quotedTokenItemProvider;
+	protected QuotedTokenDefinitionItemProvider quotedTokenDefinitionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.QuotedToken}.
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createQuotedTokenAdapter() {
-		if (quotedTokenItemProvider == null) {
-			quotedTokenItemProvider = new QuotedTokenItemProvider(this);
+	public Adapter createQuotedTokenDefinitionAdapter() {
+		if (quotedTokenDefinitionItemProvider == null) {
+			quotedTokenDefinitionItemProvider = new QuotedTokenDefinitionItemProvider(this);
 		}
 
-		return quotedTokenItemProvider;
+		return quotedTokenDefinitionItemProvider;
 	}
 
 	/**
@@ -815,8 +815,8 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (atomicRegexItemProvider != null) atomicRegexItemProvider.dispose();
 		if (regexReferenceItemProvider != null) regexReferenceItemProvider.dispose();
 		if (partialTokenDefinitionItemProvider != null) partialTokenDefinitionItemProvider.dispose();
-		if (normalTokenItemProvider != null) normalTokenItemProvider.dispose();
-		if (quotedTokenItemProvider != null) quotedTokenItemProvider.dispose();
+		if (normalTokenDefinitionItemProvider != null) normalTokenDefinitionItemProvider.dispose();
+		if (quotedTokenDefinitionItemProvider != null) quotedTokenDefinitionItemProvider.dispose();
 		if (tokenPriorityDirectiveItemProvider != null) tokenPriorityDirectiveItemProvider.dispose();
 		if (containmentItemProvider != null) containmentItemProvider.dispose();
 		if (placeholderUsingSpecifiedTokenItemProvider != null) placeholderUsingSpecifiedTokenItemProvider.dispose();

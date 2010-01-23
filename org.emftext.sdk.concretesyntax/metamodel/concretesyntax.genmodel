@@ -263,12 +263,12 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/hidden"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/used"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//NormalToken"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//QuotedToken">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/prefix"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/suffix"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/escapeCharacter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/synthesizedRegex"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//NormalTokenDefinition"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//QuotedTokenDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/prefix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/suffix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/escapeCharacter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/synthesizedRegex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//TokenPriorityDirective">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//TokenPriorityDirective/token"/>

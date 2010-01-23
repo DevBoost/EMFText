@@ -83,7 +83,7 @@ public class PartialTokenDefinitionImpl extends AbstractTokenDefinitionImpl impl
 	 * @generated NOT
 	 */
 	public String getRegex() {
-		return NormalTokenImpl.getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
+		return NormalTokenDefinitionImpl.getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
 	}
 
 	/**

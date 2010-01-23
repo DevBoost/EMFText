@@ -22,18 +22,18 @@ package org.emftext.sdk.concretesyntax;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getPrefix <em>Prefix</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getSuffix <em>Suffix</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getSynthesizedRegex <em>Synthesized Regex</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getPrefix <em>Prefix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getEscapeCharacter <em>Escape Character</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSynthesizedRegex <em>Synthesized Regex</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken()
+ * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedTokenDefinition()
  * @model
  * @generated
  */
-public interface QuotedToken extends CompleteTokenDefinition {
+public interface QuotedTokenDefinition extends CompleteTokenDefinition {
 	/**
 	 * Returns the value of the '<em><b>Prefix</b></em>' attribute.
 	 * The default value is <code>""</code>.
@@ -45,14 +45,14 @@ public interface QuotedToken extends CompleteTokenDefinition {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Prefix</em>' attribute.
 	 * @see #setPrefix(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken_Prefix()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedTokenDefinition_Prefix()
 	 * @model default=""
 	 * @generated
 	 */
 	String getPrefix();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedToken#getPrefix <em>Prefix</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getPrefix <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Prefix</em>' attribute.
@@ -72,14 +72,14 @@ public interface QuotedToken extends CompleteTokenDefinition {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Suffix</em>' attribute.
 	 * @see #setSuffix(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken_Suffix()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedTokenDefinition_Suffix()
 	 * @model default=""
 	 * @generated
 	 */
 	String getSuffix();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedToken#getSuffix <em>Suffix</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSuffix <em>Suffix</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Suffix</em>' attribute.
@@ -98,14 +98,14 @@ public interface QuotedToken extends CompleteTokenDefinition {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Escape Character</em>' attribute.
 	 * @see #setEscapeCharacter(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken_EscapeCharacter()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedTokenDefinition_EscapeCharacter()
 	 * @model
 	 * @generated
 	 */
 	String getEscapeCharacter();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getEscapeCharacter <em>Escape Character</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Escape Character</em>' attribute.
@@ -124,14 +124,14 @@ public interface QuotedToken extends CompleteTokenDefinition {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Synthesized Regex</em>' attribute.
 	 * @see #setSynthesizedRegex(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken_SynthesizedRegex()
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedTokenDefinition_SynthesizedRegex()
 	 * @model required="true"
 	 * @generated
 	 */
 	String getSynthesizedRegex();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedToken#getSynthesizedRegex <em>Synthesized Regex</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSynthesizedRegex <em>Synthesized Regex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Synthesized Regex</em>' attribute.

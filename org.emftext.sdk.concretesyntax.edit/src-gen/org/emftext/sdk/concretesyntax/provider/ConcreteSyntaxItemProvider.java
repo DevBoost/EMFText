@@ -425,12 +425,12 @@ public class ConcreteSyntaxItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS,
-				 ConcretesyntaxFactory.eINSTANCE.createNormalToken()));
+				 ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS,
-				 ConcretesyntaxFactory.eINSTANCE.createQuotedToken()));
+				 ConcretesyntaxFactory.eINSTANCE.createQuotedTokenDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -440,12 +440,12 @@ public class ConcreteSyntaxItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS,
-				 ConcretesyntaxFactory.eINSTANCE.createNormalToken()));
+				 ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS,
-				 ConcretesyntaxFactory.eINSTANCE.createQuotedToken()));
+				 ConcretesyntaxFactory.eINSTANCE.createQuotedTokenDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter

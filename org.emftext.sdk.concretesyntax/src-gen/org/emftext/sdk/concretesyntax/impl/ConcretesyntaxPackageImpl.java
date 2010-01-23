@@ -43,7 +43,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
@@ -51,7 +51,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
@@ -259,14 +259,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass normalTokenEClass = null;
+	private EClass normalTokenDefinitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass quotedTokenEClass = null;
+	private EClass quotedTokenDefinitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1038,8 +1038,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNormalToken() {
-		return normalTokenEClass;
+	public EClass getNormalTokenDefinition() {
+		return normalTokenDefinitionEClass;
 	}
 
 	/**
@@ -1047,8 +1047,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getQuotedToken() {
-		return quotedTokenEClass;
+	public EClass getQuotedTokenDefinition() {
+		return quotedTokenDefinitionEClass;
 	}
 
 	/**
@@ -1056,8 +1056,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getQuotedToken_Prefix() {
-		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(0);
+	public EAttribute getQuotedTokenDefinition_Prefix() {
+		return (EAttribute)quotedTokenDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1065,8 +1065,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getQuotedToken_Suffix() {
-		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(1);
+	public EAttribute getQuotedTokenDefinition_Suffix() {
+		return (EAttribute)quotedTokenDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1074,8 +1074,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getQuotedToken_EscapeCharacter() {
-		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(2);
+	public EAttribute getQuotedTokenDefinition_EscapeCharacter() {
+		return (EAttribute)quotedTokenDefinitionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1083,8 +1083,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getQuotedToken_SynthesizedRegex() {
-		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(3);
+	public EAttribute getQuotedTokenDefinition_SynthesizedRegex() {
+		return (EAttribute)quotedTokenDefinitionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1487,13 +1487,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(completeTokenDefinitionEClass, COMPLETE_TOKEN_DEFINITION__HIDDEN);
 		createEAttribute(completeTokenDefinitionEClass, COMPLETE_TOKEN_DEFINITION__USED);
 
-		normalTokenEClass = createEClass(NORMAL_TOKEN);
+		normalTokenDefinitionEClass = createEClass(NORMAL_TOKEN_DEFINITION);
 
-		quotedTokenEClass = createEClass(QUOTED_TOKEN);
-		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__PREFIX);
-		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__SUFFIX);
-		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__ESCAPE_CHARACTER);
-		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__SYNTHESIZED_REGEX);
+		quotedTokenDefinitionEClass = createEClass(QUOTED_TOKEN_DEFINITION);
+		createEAttribute(quotedTokenDefinitionEClass, QUOTED_TOKEN_DEFINITION__PREFIX);
+		createEAttribute(quotedTokenDefinitionEClass, QUOTED_TOKEN_DEFINITION__SUFFIX);
+		createEAttribute(quotedTokenDefinitionEClass, QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER);
+		createEAttribute(quotedTokenDefinitionEClass, QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX);
 
 		tokenPriorityDirectiveEClass = createEClass(TOKEN_PRIORITY_DIRECTIVE);
 		createEReference(tokenPriorityDirectiveEClass, TOKEN_PRIORITY_DIRECTIVE__TOKEN);
@@ -1596,10 +1596,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		completeTokenDefinitionEClass.getESuperTypes().add(this.getAbstractTokenDefinition());
 		completeTokenDefinitionEClass.getESuperTypes().add(this.getTokenDirective());
 		completeTokenDefinitionEClass.getESuperTypes().add(this.getRegexOwner());
-		normalTokenEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
-		normalTokenEClass.getESuperTypes().add(this.getAnnotable());
-		normalTokenEClass.getESuperTypes().add(this.getRegexComposite());
-		quotedTokenEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
+		normalTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
+		normalTokenDefinitionEClass.getESuperTypes().add(this.getAnnotable());
+		normalTokenDefinitionEClass.getESuperTypes().add(this.getRegexComposite());
+		quotedTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		tokenPriorityDirectiveEClass.getESuperTypes().add(this.getTokenDirective());
 		containmentEClass.getESuperTypes().add(this.getTerminal());
 		placeholderEClass.getESuperTypes().add(this.getTerminal());
@@ -1700,13 +1700,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getCompleteTokenDefinition_Hidden(), theEcorePackage.getEBoolean(), "hidden", null, 0, 1, CompleteTokenDefinition.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompleteTokenDefinition_Used(), theEcorePackage.getEBoolean(), "used", null, 0, 1, CompleteTokenDefinition.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(normalTokenEClass, NormalToken.class, "NormalToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(normalTokenDefinitionEClass, NormalTokenDefinition.class, "NormalTokenDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(quotedTokenEClass, QuotedToken.class, "QuotedToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getQuotedToken_Prefix(), theEcorePackage.getEString(), "prefix", "", 0, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getQuotedToken_Suffix(), theEcorePackage.getEString(), "suffix", "", 0, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getQuotedToken_EscapeCharacter(), theEcorePackage.getEString(), "escapeCharacter", null, 0, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getQuotedToken_SynthesizedRegex(), theEcorePackage.getEString(), "synthesizedRegex", null, 1, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(quotedTokenDefinitionEClass, QuotedTokenDefinition.class, "QuotedTokenDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getQuotedTokenDefinition_Prefix(), theEcorePackage.getEString(), "prefix", "", 0, 1, QuotedTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQuotedTokenDefinition_Suffix(), theEcorePackage.getEString(), "suffix", "", 0, 1, QuotedTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQuotedTokenDefinition_EscapeCharacter(), theEcorePackage.getEString(), "escapeCharacter", null, 0, 1, QuotedTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQuotedTokenDefinition_SynthesizedRegex(), theEcorePackage.getEString(), "synthesizedRegex", null, 1, 1, QuotedTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tokenPriorityDirectiveEClass, TokenPriorityDirective.class, "TokenPriorityDirective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTokenPriorityDirective_Token(), this.getCompleteTokenDefinition(), null, "token", null, 1, 1, TokenPriorityDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

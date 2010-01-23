@@ -1103,14 +1103,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT = ABSTRACT_TOKEN_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl <em>Normal Token Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.NormalTokenImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalToken()
+	 * @see org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalTokenDefinition()
 	 * @generated
 	 */
-	int NORMAL_TOKEN = 26;
+	int NORMAL_TOKEN_DEFINITION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1119,7 +1119,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
+	int NORMAL_TOKEN_DEFINITION__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1128,7 +1128,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
+	int NORMAL_TOKEN_DEFINITION__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1137,7 +1137,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
+	int NORMAL_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1146,7 +1146,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
+	int NORMAL_TOKEN_DEFINITION__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1155,7 +1155,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
+	int NORMAL_TOKEN_DEFINITION__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1164,7 +1164,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__USED = COMPLETE_TOKEN_DEFINITION__USED;
+	int NORMAL_TOKEN_DEFINITION__USED = COMPLETE_TOKEN_DEFINITION__USED;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1173,7 +1173,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__ANNOTATIONS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int NORMAL_TOKEN_DEFINITION__ANNOTATIONS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Regex Parts</b></em>' containment reference list.
@@ -1182,26 +1182,26 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN__REGEX_PARTS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int NORMAL_TOKEN_DEFINITION__REGEX_PARTS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Normal Token</em>' class.
+	 * The number of structural features of the '<em>Normal Token Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NORMAL_TOKEN_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int NORMAL_TOKEN_DEFINITION_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl <em>Quoted Token</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl <em>Quoted Token Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedToken()
+	 * @see org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedTokenDefinition()
 	 * @generated
 	 */
-	int QUOTED_TOKEN = 27;
+	int QUOTED_TOKEN_DEFINITION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1210,7 +1210,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
+	int QUOTED_TOKEN_DEFINITION__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1219,7 +1219,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
+	int QUOTED_TOKEN_DEFINITION__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -1228,7 +1228,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
+	int QUOTED_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -1237,7 +1237,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
+	int QUOTED_TOKEN_DEFINITION__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -1246,7 +1246,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
+	int QUOTED_TOKEN_DEFINITION__HIDDEN = COMPLETE_TOKEN_DEFINITION__HIDDEN;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -1255,7 +1255,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__USED = COMPLETE_TOKEN_DEFINITION__USED;
+	int QUOTED_TOKEN_DEFINITION__USED = COMPLETE_TOKEN_DEFINITION__USED;
 
 	/**
 	 * The feature id for the '<em><b>Prefix</b></em>' attribute.
@@ -1264,7 +1264,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__PREFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int QUOTED_TOKEN_DEFINITION__PREFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
@@ -1273,7 +1273,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__SUFFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int QUOTED_TOKEN_DEFINITION__SUFFIX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Escape Character</b></em>' attribute.
@@ -1282,7 +1282,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__ESCAPE_CHARACTER = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Synthesized Regex</b></em>' attribute.
@@ -1291,16 +1291,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN__SYNTHESIZED_REGEX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 3;
+	int QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the '<em>Quoted Token</em>' class.
+	 * The number of structural features of the '<em>Quoted Token Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 4;
+	int QUOTED_TOKEN_DEFINITION_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.
@@ -2498,68 +2498,68 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getCompleteTokenDefinition_Used();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.NormalToken <em>Normal Token</em>}'.
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.NormalTokenDefinition <em>Normal Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Normal Token</em>'.
-	 * @see org.emftext.sdk.concretesyntax.NormalToken
+	 * @return the meta object for class '<em>Normal Token Definition</em>'.
+	 * @see org.emftext.sdk.concretesyntax.NormalTokenDefinition
 	 * @generated
 	 */
-	EClass getNormalToken();
+	EClass getNormalTokenDefinition();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.QuotedToken <em>Quoted Token</em>}'.
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition <em>Quoted Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Quoted Token</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken
+	 * @return the meta object for class '<em>Quoted Token Definition</em>'.
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition
 	 * @generated
 	 */
-	EClass getQuotedToken();
+	EClass getQuotedTokenDefinition();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedToken#getPrefix <em>Prefix</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getPrefix <em>Prefix</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Prefix</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken#getPrefix()
-	 * @see #getQuotedToken()
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getPrefix()
+	 * @see #getQuotedTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getQuotedToken_Prefix();
+	EAttribute getQuotedTokenDefinition_Prefix();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedToken#getSuffix <em>Suffix</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSuffix <em>Suffix</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Suffix</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken#getSuffix()
-	 * @see #getQuotedToken()
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSuffix()
+	 * @see #getQuotedTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getQuotedToken_Suffix();
+	EAttribute getQuotedTokenDefinition_Suffix();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getEscapeCharacter <em>Escape Character</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Escape Character</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter()
-	 * @see #getQuotedToken()
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getEscapeCharacter()
+	 * @see #getQuotedTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getQuotedToken_EscapeCharacter();
+	EAttribute getQuotedTokenDefinition_EscapeCharacter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedToken#getSynthesizedRegex <em>Synthesized Regex</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSynthesizedRegex <em>Synthesized Regex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Synthesized Regex</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QuotedToken#getSynthesizedRegex()
-	 * @see #getQuotedToken()
+	 * @see org.emftext.sdk.concretesyntax.QuotedTokenDefinition#getSynthesizedRegex()
+	 * @see #getQuotedTokenDefinition()
 	 * @generated
 	 */
-	EAttribute getQuotedToken_SynthesizedRegex();
+	EAttribute getQuotedTokenDefinition_SynthesizedRegex();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective <em>Token Priority Directive</em>}'.
@@ -3490,24 +3490,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EAttribute COMPLETE_TOKEN_DEFINITION__USED = eINSTANCE.getCompleteTokenDefinition_Used();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl <em>Normal Token Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.NormalTokenImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalToken()
+		 * @see org.emftext.sdk.concretesyntax.impl.NormalTokenDefinitionImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalTokenDefinition()
 		 * @generated
 		 */
-		EClass NORMAL_TOKEN = eINSTANCE.getNormalToken();
+		EClass NORMAL_TOKEN_DEFINITION = eINSTANCE.getNormalTokenDefinition();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl <em>Quoted Token</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl <em>Quoted Token Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedToken()
+		 * @see org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedTokenDefinition()
 		 * @generated
 		 */
-		EClass QUOTED_TOKEN = eINSTANCE.getQuotedToken();
+		EClass QUOTED_TOKEN_DEFINITION = eINSTANCE.getQuotedTokenDefinition();
 
 		/**
 		 * The meta object literal for the '<em><b>Prefix</b></em>' attribute feature.
@@ -3515,7 +3515,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute QUOTED_TOKEN__PREFIX = eINSTANCE.getQuotedToken_Prefix();
+		EAttribute QUOTED_TOKEN_DEFINITION__PREFIX = eINSTANCE.getQuotedTokenDefinition_Prefix();
 
 		/**
 		 * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
@@ -3523,7 +3523,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute QUOTED_TOKEN__SUFFIX = eINSTANCE.getQuotedToken_Suffix();
+		EAttribute QUOTED_TOKEN_DEFINITION__SUFFIX = eINSTANCE.getQuotedTokenDefinition_Suffix();
 
 		/**
 		 * The meta object literal for the '<em><b>Escape Character</b></em>' attribute feature.
@@ -3531,7 +3531,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute QUOTED_TOKEN__ESCAPE_CHARACTER = eINSTANCE.getQuotedToken_EscapeCharacter();
+		EAttribute QUOTED_TOKEN_DEFINITION__ESCAPE_CHARACTER = eINSTANCE.getQuotedTokenDefinition_EscapeCharacter();
 
 		/**
 		 * The meta object literal for the '<em><b>Synthesized Regex</b></em>' attribute feature.
@@ -3539,7 +3539,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute QUOTED_TOKEN__SYNTHESIZED_REGEX = eINSTANCE.getQuotedToken_SynthesizedRegex();
+		EAttribute QUOTED_TOKEN_DEFINITION__SYNTHESIZED_REGEX = eINSTANCE.getQuotedTokenDefinition_SynthesizedRegex();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.

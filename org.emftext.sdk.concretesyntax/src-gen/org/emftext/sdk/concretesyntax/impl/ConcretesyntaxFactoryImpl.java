@@ -35,7 +35,7 @@ import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -44,7 +44,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
@@ -113,8 +113,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.ATOMIC_REGEX: return createAtomicRegex();
 			case ConcretesyntaxPackage.REGEX_REFERENCE: return createRegexReference();
 			case ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION: return createPartialTokenDefinition();
-			case ConcretesyntaxPackage.NORMAL_TOKEN: return createNormalToken();
-			case ConcretesyntaxPackage.QUOTED_TOKEN: return createQuotedToken();
+			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION: return createNormalTokenDefinition();
+			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION: return createQuotedTokenDefinition();
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE: return createTokenPriorityDirective();
 			case ConcretesyntaxPackage.CONTAINMENT: return createContainment();
 			case ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN: return createPlaceholderUsingSpecifiedToken();
@@ -323,9 +323,9 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NormalToken createNormalToken() {
-		NormalTokenImpl normalToken = new NormalTokenImpl();
-		return normalToken;
+	public NormalTokenDefinition createNormalTokenDefinition() {
+		NormalTokenDefinitionImpl normalTokenDefinition = new NormalTokenDefinitionImpl();
+		return normalTokenDefinition;
 	}
 
 	/**
@@ -333,9 +333,9 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public QuotedToken createQuotedToken() {
-		QuotedTokenImpl quotedToken = new QuotedTokenImpl();
-		return quotedToken;
+	public QuotedTokenDefinition createQuotedTokenDefinition() {
+		QuotedTokenDefinitionImpl quotedTokenDefinition = new QuotedTokenDefinitionImpl();
+		return quotedTokenDefinition;
 	}
 
 	/**

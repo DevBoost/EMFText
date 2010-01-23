@@ -124,8 +124,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="used" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//CompleteTokenDefinition #//Annotable #//RegexComposite"/>
-  <eClassifiers xsi:type="ecore:EClass" name="QuotedToken" eSuperTypes="#//CompleteTokenDefinition">
+  <eClassifiers xsi:type="ecore:EClass" name="NormalTokenDefinition" eSuperTypes="#//CompleteTokenDefinition #//Annotable #//RegexComposite"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QuotedTokenDefinition" eSuperTypes="#//CompleteTokenDefinition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"

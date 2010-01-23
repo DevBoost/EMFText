@@ -20,9 +20,9 @@ package org.emftext.sdk.concretesyntax;
  * <!-- end-user-doc -->
  *
  *
- * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getNormalToken()
+ * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getNormalTokenDefinition()
  * @model
  * @generated
  */
-public interface NormalToken extends CompleteTokenDefinition, Annotable, RegexComposite {
+public interface NormalTokenDefinition extends CompleteTokenDefinition, Annotable, RegexComposite {
 } // NormalToken

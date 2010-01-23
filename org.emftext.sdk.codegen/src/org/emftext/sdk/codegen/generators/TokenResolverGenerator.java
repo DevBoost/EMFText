@@ -30,7 +30,7 @@ import org.emftext.sdk.codegen.NameUtil;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.util.StringUtil;
 
@@ -183,24 +183,24 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	
 	private String getPrefix() {
 		String prefix = null;
-		if (definition instanceof QuotedToken) {
-			prefix = ((QuotedToken) definition).getPrefix();
+		if (definition instanceof QuotedTokenDefinition) {
+			prefix = ((QuotedTokenDefinition) definition).getPrefix();
 		}
 		return prefix;
 	}
 
 	private String getSuffix() {
 		String suffix = null;
-		if (definition instanceof QuotedToken) {
-			suffix = ((QuotedToken) definition).getSuffix();
+		if (definition instanceof QuotedTokenDefinition) {
+			suffix = ((QuotedTokenDefinition) definition).getSuffix();
 		}
 		return suffix;
 	}
 
 	private String getEscapeCharacter() {
 		String suffix = null;
-		if (definition instanceof QuotedToken) {
-			suffix = ((QuotedToken) definition).getEscapeCharacter();
+		if (definition instanceof QuotedTokenDefinition) {
+			suffix = ((QuotedTokenDefinition) definition).getEscapeCharacter();
 		}
 		return suffix;
 	}

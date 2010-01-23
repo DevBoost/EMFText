@@ -168,22 +168,22 @@ public interface ConcretesyntaxFactory extends EFactory {
 	PartialTokenDefinition createPartialTokenDefinition();
 
 	/**
-	 * Returns a new object of class '<em>Normal Token</em>'.
+	 * Returns a new object of class '<em>Normal Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Normal Token</em>'.
+	 * @return a new object of class '<em>Normal Token Definition</em>'.
 	 * @generated
 	 */
-	NormalToken createNormalToken();
+	NormalTokenDefinition createNormalTokenDefinition();
 
 	/**
-	 * Returns a new object of class '<em>Quoted Token</em>'.
+	 * Returns a new object of class '<em>Quoted Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Quoted Token</em>'.
+	 * @return a new object of class '<em>Quoted Token Definition</em>'.
 	 * @generated
 	 */
-	QuotedToken createQuotedToken();
+	QuotedTokenDefinition createQuotedTokenDefinition();
 
 	/**
 	 * Returns a new object of class '<em>Token Priority Directive</em>'.
