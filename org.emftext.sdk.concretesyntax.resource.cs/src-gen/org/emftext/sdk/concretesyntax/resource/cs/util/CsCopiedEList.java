@@ -20,10 +20,15 @@ public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 	private org.eclipse.emf.common.util.EList<E> original;
 	private org.eclipse.emf.common.util.EList<E> copy;
 	
+	@SuppressWarnings("unchecked")	
 	public CsCopiedEList(org.eclipse.emf.common.util.EList<E> original) {
 		super();
 		this.original = original;
 		this.copy = new org.eclipse.emf.common.util.BasicEList<E>();
+		Object[] originalContent = this.original.toArray();
+		for (Object next : originalContent) {
+			this.copy.add((E) next);
+		}
 		this.copy.addAll(this.original);
 	}
 	
