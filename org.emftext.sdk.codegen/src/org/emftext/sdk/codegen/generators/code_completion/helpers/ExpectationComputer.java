@@ -280,6 +280,10 @@ public class ExpectationComputer {
 	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, Set<GenClass> contributingNonterminals) {
 		Set<EObject> firstSet = new LinkedHashSet<EObject>();
 		final GenFeature genFeature = terminal.getFeature();
+		if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+			firstSet.add(EPSILON);
+			return firstSet;
+		}
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 		if (ecoreFeature instanceof EAttribute) {

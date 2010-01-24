@@ -69,8 +69,8 @@ public class LeftRecursionDetector {
 	public Rule findLeftProducingRule(GenClass metaclass, Sequence sequence, Rule currentRule) {
 		for (Definition definition : sequence.getParts()) {
 			if (definition instanceof Containment) {
-				Containment c = (Containment) definition;
-				final GenFeature feature = c.getFeature();
+				Containment containment = (Containment) definition;
+				final GenFeature feature = containment.getFeature();
 				if (feature == null) {
 					continue;
 				}
@@ -78,7 +78,7 @@ public class LeftRecursionDetector {
 					continue;
 				}
 				
-				Collection<GenClass> featureTypes = csUtil.getAllowedSubTypes(c);
+				Collection<GenClass> featureTypes = csUtil.getAllowedSubTypes(containment);
 				if (featureTypes.contains(metaclass) || 
 						isSubtypeofOneOf(metaclass, featureTypes)) {
 					return currentRule;
@@ -133,31 +133,37 @@ public class LeftRecursionDetector {
 		GenFeature recursiveFeature = null;
 		for (Sequence sequence : options) {
 			Rule leftProducingRule = findLeftProducingRule(metaclass, sequence, rule);
-			if (leftProducingRule == null) continue; // choice option not lr
-			else if (!rule.equals(leftProducingRule)) return false; // choice option indirect lr 
-			else if (sequence.getParts().get(0) instanceof Containment) { // we found a recursion, now it
-																		  // needs to start with recursive 
-																		  // containment to be direct left recursive
-				Containment c = (Containment) sequence.getParts().get(0);
-				GenClass featureType = c.getFeature().getTypeGenClass();
+			if (leftProducingRule == null) {
+				continue; // choice option not lr
+			} else if (!rule.equals(leftProducingRule)) {
+				return false; // choice option indirect lr 
+			} else if (sequence.getParts().get(0) instanceof Containment) {
+				// we found a recursion, now it
+				// needs to start with recursive 
+				// containment to be direct left recursive
+				Containment containment = (Containment) sequence.getParts().get(0);
+				GenFeature feature = containment.getFeature();
+				GenClass featureType = feature.getTypeGenClass();
 				if (metaclass.equals(featureType) || 
 						genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass)).contains(genClassCache.getQualifiedInterfaceName(featureType))) {
 					isDirectLeftRecursive = true;
 					
 					if (recursiveFeature == null) {
-						recursiveFeature = c.getFeature();
-					} else if (!recursiveFeature.equals(c.getFeature())) return false; // found recursion on another feature, this is not supported
+						recursiveFeature = feature;
+					} else if (!recursiveFeature.equals(feature)) {
+						return false; // found recursion on another feature, this is not supported
+					}
 					continue;
 				} 
-				else return false; // wrong containment type
+				else {
+					return false; // wrong containment type
+				}
 			}
-			else return false; // recursive option which does not start with recursive containment
-				
+			else {
+				return false; // recursive option which does not start with recursive containment
+			}
 		}
 		
 		return isDirectLeftRecursive;
 	}
-
-	
-
 }

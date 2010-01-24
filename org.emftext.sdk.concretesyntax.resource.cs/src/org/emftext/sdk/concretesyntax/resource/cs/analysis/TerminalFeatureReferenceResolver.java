@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis; 
 
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -20,6 +21,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -164,8 +166,14 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		if (metaclass.getEcoreClass() == null) {
 			return;
 		}
-		FeatureResolveResult resultForFeature = new FeatureResolveResultImpl(result); 
-		for (GenFeature feature : metaclass.getAllGenFeatures()) {
+		FeatureResolveResult resultForFeature = new FeatureResolveResultImpl(result);
+		List<GenFeature> availableFeatures = metaclass.getAllGenFeatures();
+		// for placeholders it is allowed to use an anonymous features,
+		// which means that the token is thrown away
+		if (container instanceof Placeholder) {
+			availableFeatures.add(ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE);
+		}
+		for (GenFeature feature : availableFeatures) {
 			filter.accept(feature, resultForFeature);
 		}
 		if (resultForFeature.foundFeatureWithCorrectName() && !result.wasResolved()) {

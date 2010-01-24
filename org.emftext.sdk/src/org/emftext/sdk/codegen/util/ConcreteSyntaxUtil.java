@@ -24,11 +24,14 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.OptionManager;
@@ -62,6 +65,17 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class ConcreteSyntaxUtil {
 
+	/**
+	 * This feature is connected to all placeholders that are anonymous (denoted
+	 * by the name '_').
+	 */
+	public final static GenFeature ANONYMOUS_GEN_FEATURE = GenModelFactory.eINSTANCE.createGenFeature();
+	private final static EAttribute ANONYMOUS_EATTRIBUTE = EcoreFactory.eINSTANCE.createEAttribute();
+	static {
+		ANONYMOUS_EATTRIBUTE.setName("_");
+		ANONYMOUS_GEN_FEATURE.setEcoreFeature(ANONYMOUS_EATTRIBUTE);
+	}
+	
 	private final EClassUtil eClassUtil = new EClassUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GenClassCache genClassCache = new GenClassCache();
@@ -249,7 +263,12 @@ public class ConcreteSyntaxUtil {
 		for (Rule rule : allRules) {
 			Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
-				features.add(placeholder.getFeature());
+				GenFeature feature = placeholder.getFeature();
+				// anonymous features do not need an resolver
+				if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+					continue;
+				}
+				features.add(feature);
 			}
 		}
 		return features;

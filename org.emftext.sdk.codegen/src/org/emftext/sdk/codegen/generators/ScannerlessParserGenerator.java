@@ -1366,30 +1366,32 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("matched &= (match != null);");
 			sc.add("if (matched) {");
 			GenFeature genFeature = terminal.getFeature();
-			final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
-			if (genFeature.getEcoreFeature() instanceof EAttribute) {
-				sc.add("addCommand(new SetAttributeValueCommand(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
-			} else if (genFeature.getEcoreFeature() instanceof EReference) {
-				// find a sub type that can be instantiated as a proxy
-				GenClass instanceType = genFeature.getTypeGenClass();
-		    	GenClass proxyType = null;
-		    	
-		    	if (genClassUtil.isNotConcrete(instanceType)) {
-		    		Collection<GenClass> allSubclasses = genClassFinder.findAllSubclasses(syntax, instanceType);
-		    		for (GenClass subClass : allSubclasses) {
-		    			if (genClassUtil.isConcrete(subClass)) {
-			            	proxyType = subClass;
-			            	break;
-						}
-		    		}
-		    	} else {
-		    		proxyType = instanceType;
-		    	}
-				String proxyResolver = getContext().getReferenceResolverAccessor(genFeature);
-				sc.add("addCommand(new AddProxyCommand<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
-				getContext().addNonContainmentReference(genFeature);
-			} else {
-				throw new RuntimeException("Found unknown feature type for terminal.");
+			if (genFeature != ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+				final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
+				if (genFeature.getEcoreFeature() instanceof EAttribute) {
+					sc.add("addCommand(new SetAttributeValueCommand(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+				} else if (genFeature.getEcoreFeature() instanceof EReference) {
+					// find a sub type that can be instantiated as a proxy
+					GenClass instanceType = genFeature.getTypeGenClass();
+			    	GenClass proxyType = null;
+			    	
+			    	if (genClassUtil.isNotConcrete(instanceType)) {
+			    		Collection<GenClass> allSubclasses = genClassFinder.findAllSubclasses(syntax, instanceType);
+			    		for (GenClass subClass : allSubclasses) {
+			    			if (genClassUtil.isConcrete(subClass)) {
+				            	proxyType = subClass;
+				            	break;
+							}
+			    		}
+			    	} else {
+			    		proxyType = instanceType;
+			    	}
+					String proxyResolver = getContext().getReferenceResolverAccessor(genFeature);
+					sc.add("addCommand(new AddProxyCommand<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+					getContext().addNonContainmentReference(genFeature);
+				} else {
+					throw new RuntimeException("Found unknown feature type for terminal.");
+				}
 			}
 			sc.add("}");
 			sc.add("} else {");

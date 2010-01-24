@@ -142,6 +142,9 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 				if (part instanceof Terminal) {
 					Terminal terminal = (Terminal) part;
 					GenFeature feature = terminal.getFeature();
+					if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+						continue;
+					}
 					MinMax currentMinMax = getTotalCardinality(terminal);
 					MinMax previousMinMax = getMinMax(newFeatureToCountMap, feature);
 					newFeatureToCountMap.put(feature, add(previousMinMax, currentMinMax));

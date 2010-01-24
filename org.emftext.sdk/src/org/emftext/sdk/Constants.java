@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
+
 public interface Constants {
 	
 	public String JAVA_FILE_EXTENSION = ".java";

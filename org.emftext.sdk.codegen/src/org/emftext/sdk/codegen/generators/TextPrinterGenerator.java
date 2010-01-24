@@ -154,30 +154,32 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 							hasMinimalCardinalityOneOrHigher ? seq
 									: null, subChoiceName + "_", 0);
 				} else if (def instanceof Terminal) {
-					if (hasMinimalCardinalityOneOrHigher) {
-						sequenceNecessaryFeatures.add(((Terminal) def)
-								.getFeature().getName());
+					Terminal terminal = (Terminal) def;
+					GenFeature feature = terminal.getFeature();
+					if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+						continue;
 					}
-					sequenceReachableFeatures.add(((Terminal) def).getFeature()
-							.getName());
+					String featureName = feature.getName();
+					if (hasMinimalCardinalityOneOrHigher) {
+						sequenceNecessaryFeatures.add(featureName);
+					}
+					sequenceReachableFeatures.add(featureName);
 				}
 			}
 			if (parent != null) {
 				necessaryMap.get(parent).addAll(sequenceNecessaryFeatures);
 				reachableMap.get(parent).addAll(sequenceReachableFeatures);
 			}
-
 		}
 	}
 
 	private List<Rule> prepare() {
 		List<Rule> rules = concretSyntax.getAllRules();
-		choice2Name = new LinkedHashMap<Choice, String>(rules.size());
-		sequence2NecessaryFeatures = new LinkedHashMap<Sequence, Set<String>>(rules
-				.size());
-		sequence2ReachableFeatures = new LinkedHashMap<Sequence, Set<String>>(rules
-				.size());
-		rule2SubChoice = new LinkedHashMap<Rule, Set<Choice>>(rules.size());
+		int ruleCount = rules.size();
+		choice2Name = new LinkedHashMap<Choice, String>(ruleCount);
+		sequence2NecessaryFeatures = new LinkedHashMap<Sequence, Set<String>>(ruleCount);
+		sequence2ReachableFeatures = new LinkedHashMap<Sequence, Set<String>>(ruleCount);
+		rule2SubChoice = new LinkedHashMap<Rule, Set<Choice>>(ruleCount);
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
@@ -486,156 +488,43 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
-			
-			sc.add("//////////////DEFINITION PART BEGINS ("
-					+ definition.eClass().getName() + "):");
-			String printPrefix = "out.print(";
-			if (definition instanceof LineBreak) {
-				int count = ((LineBreak) definition).getTab();
-				if (count > 0) {
-					String tab = getTabString(count);
-					sc.add("localtab += \"" + tab + "\";");
-				}
-				sc.add("out.println();");
-				sc.add("out.print(localtab);");
-				//localTabDefinition.enable();
+			printDefinition(sc, genClass, neededFeatures, definitionIterator,
+					definition);
+		}
+	}
+
+	private void printDefinition(StringComposite sc, GenClass genClass,
+			Set<String> neededFeatures,
+			ListIterator<Definition> definitionIterator, Definition definition) {
+		sc.add("// DEFINITION PART BEGINS (" + definition.eClass().getName() + ")");
+		String printPrefix = "out.print(";
+		if (definition instanceof LineBreak) {
+			LineBreak lineBreak = (LineBreak) definition;
+			printLineBreak(sc, lineBreak);
+		} else {
+			if (definition instanceof WhiteSpaces) {
+				WhiteSpaces whiteSpace = (WhiteSpaces) definition;
+				printWhiteSpace(sc, printPrefix, whiteSpace);
+			} else if (definition instanceof CsString) {
+				CsString keyword = (CsString) definition;
+				printCsString(sc, definitionIterator, printPrefix, keyword);
 			} else {
-				if (definition instanceof WhiteSpaces) {
-					int count = ((WhiteSpaces) definition).getAmount();
-					if (count > 0) {
-						String spaces = getWhiteSpaceString(count);
-						sc.add(printPrefix + "\"" + spaces
-								+ "\");");
-					}
-				} else if (definition instanceof CsString) {
-					CsString terminal = (CsString) definition;
-					sc.add(printPrefix + "\""
-							+ StringUtil.escapeToJavaString(terminal.getValue())
-							+ "\");");
-
-					// the given tokenSpace (>0) causes an additional
-					// print statement to be printed
-					if (tokenSpace > 0) {
-						Definition lookahead = null;
-						if (definitionIterator.hasNext()){
-							lookahead = definitionIterator.next();
-							definitionIterator.previous();
-						}
-							
-						if (lookahead == null
-								|| !(lookahead instanceof WhiteSpaces)) {
-							String printSuffix = getWhiteSpaceString(tokenSpace);
-							
-							sc.add(printPrefix + "\"" + printSuffix + "\");");
-						}
-							
-					}
-
-				} else {
-					Cardinality cardinality = null;
-					if (definition instanceof CardinalityDefinition) {
-						cardinality = ((CardinalityDefinition) definition).getCardinality();
-					}
-					if (definition instanceof CompoundDefinition) {
-						CompoundDefinition compound = (CompoundDefinition) definition;
-						String printStatement = 
-								choice2Name.get(compound.getDefinitions())
-								+ "(element, localtab, out, printCountingMap);";
-						//localTabDefinition.enable();
-						// enter once
-						if (cardinality == null || cardinality instanceof PLUS) {
-							sc.add(printStatement);
-							// needed features in non optional choice are also
-							// needed features in this sequence
-							// note: this implementation might remove to much in
-							// some cases!
-							for (Sequence seq1 : compound.getDefinitions()
-									.getOptions()) {
-								neededFeatures
-										.removeAll(sequence2NecessaryFeatures
-												.get(seq1));
-							}
-						}
-						// optional cases
-						if (cardinality != null) {
-
-							boolean isMany = !(cardinality instanceof QUESTIONMARK);
-							// runtime: iterate as long as no fixpoint is
-							// reached
-							// make sure that NOT all elements of needed
-							// features are printed in optional compounds!
-							if (isMany) {
-								sc.add("iterate = true;");
-								sc.add("while (iterate) {");
-								//iterateDeclaration.enable();
-							}
-							sc.add("sWriter = new " + STRING_WRITER + "();");
-							sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
-							sc.add("printCountingMap1 = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
-							//compoundDeclaration.enable();
-							
-							sc.add(choice2Name.get(compound
-													.getDefinitions())
-											+ "(element, localtab, out1, printCountingMap1);");
-							sc.add("if (printCountingMap.equals(printCountingMap1)) {");
-							if (isMany) {
-								sc.add("iterate = false;");
-							}
-							sc.add("out1.close();");
-							sc.add("} else {");
-							// check if printed features are needed by
-							// subsequent features
-							// at least one element has to be preserved in that
-							// case!
-							// this could be enhanced by a counter on needed
-							// features
-							Collection<String> reachableFeatures = getReachableFeatures(compound
-									.getDefinitions());
-							if (!neededFeatures.isEmpty()
-									&& !Collections.disjoint(neededFeatures,
-											reachableFeatures)) {
-								sc.add("if(");
-								Iterator<String> it = neededFeatures.iterator();
-								sc.add("printCountingMap1.get(\""
-										+ it.next() + "\")<1");
-								while (it.hasNext()) {
-									String feature = it.next();
-									sc.add("||printCountingMap1.get(\""
-											+ feature + "\")<1");
-								}
-								sc.add(") {");
-								if (isMany) {
-									sc.add("iterate = false;");
-								}
-								sc.add("out1.close();");
-								sc.add("} else {");
-								sc.add("out1.flush();");
-								sc.add("out1.close();");
-								sc.add("out.print(sWriter.toString());");
-								sc.add("printCountingMap.putAll(printCountingMap1);");
-								sc.add("}");
-							} else {
-								sc.add("out1.flush();");
-								sc.add("out1.close();");
-								sc.add("out.print(sWriter.toString());");
-								sc.add("printCountingMap.putAll(printCountingMap1);");
-							}
-							sc.add("}");
-							if (isMany) {
-								sc.add("}");
-							}
-						}
-					}
-					// next steps: references --> proxy uri --> tokenresolver!
-					else if (definition instanceof Terminal) {
-						Terminal terminal = (Terminal) definition;
-						final GenFeature genFeature = terminal.getFeature();
-						final String featureName = genFeature.getName();
+				Cardinality cardinality = getCardinality(definition);
+				
+				if (definition instanceof CompoundDefinition) {
+					CompoundDefinition compound = (CompoundDefinition) definition;
+					printCompound(sc, neededFeatures, cardinality, compound);
+				}
+				// next steps: references --> proxy uri --> tokenresolver!
+				else if (definition instanceof Terminal) {
+					Terminal terminal = (Terminal) definition;
+					final GenFeature genFeature = terminal.getFeature();
+					final String featureName = genFeature.getName();
+					EStructuralFeature feature = genFeature.getEcoreFeature();
+					StringComposite printStatements = new JavaComposite();
+					if (genFeature != ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
 						sc.add("count = printCountingMap.get(\""
 								+ featureName + "\");");
-						EStructuralFeature feature = genFeature
-								.getEcoreFeature();
-						StringComposite printStatements = new JavaComposite();
 
 						if (terminal instanceof Placeholder) {
 							String tokenName = ((Placeholder) terminal).getToken().getName();
@@ -735,23 +624,169 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 								sc.add(printStatements);
 								sc.add("}");
 								sc.add("printCountingMap.put(\""
-										+ featureName + "\",0);");
+										+ featureName + "\", 0);");
 							} else if (cardinality instanceof PLUS) {
-								sc.add(OBJECT + " o =element."
+								sc.add(OBJECT + " o = element."
 										+ getAccessMethod(genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
-										+ featureName + "\",count-1);");
+										+ featureName + "\", count - 1);");
 							}
-							if (cardinality instanceof PLUS)
+							if (cardinality instanceof PLUS) {
 								neededFeatures.remove(featureName);
+							}
 						}
-
-						sc.add("}"); // tab for if(count>0)
+						sc.add("}"); // closing bracket for: if (count > 0)
 					}
 				}
 			}
 		}
+	}
+
+	private Cardinality getCardinality(Definition definition) {
+		Cardinality cardinality = null;
+		if (definition instanceof CardinalityDefinition) {
+			cardinality = ((CardinalityDefinition) definition).getCardinality();
+		}
+		return cardinality;
+	}
+
+	private void printCompound(StringComposite sc, Set<String> neededFeatures,
+			Cardinality cardinality, CompoundDefinition compound) {
+		String printStatement = 
+				choice2Name.get(compound.getDefinitions())
+				+ "(element, localtab, out, printCountingMap);";
+		//localTabDefinition.enable();
+		// enter once
+		if (cardinality == null || cardinality instanceof PLUS) {
+			sc.add(printStatement);
+			// needed features in non optional choice are also
+			// needed features in this sequence
+			// note: this implementation might remove to much in
+			// some cases!
+			for (Sequence seq1 : compound.getDefinitions()
+					.getOptions()) {
+				neededFeatures
+						.removeAll(sequence2NecessaryFeatures
+								.get(seq1));
+			}
+		}
+		// optional cases
+		if (cardinality != null) {
+
+			boolean isMany = !(cardinality instanceof QUESTIONMARK);
+			// runtime: iterate as long as no fixpoint is
+			// reached
+			// make sure that NOT all elements of needed
+			// features are printed in optional compounds!
+			if (isMany) {
+				sc.add("iterate = true;");
+				sc.add("while (iterate) {");
+				//iterateDeclaration.enable();
+			}
+			sc.add("sWriter = new " + STRING_WRITER + "();");
+			sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
+			sc.add("printCountingMap1 = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
+			//compoundDeclaration.enable();
+			
+			sc.add(choice2Name.get(compound
+									.getDefinitions())
+							+ "(element, localtab, out1, printCountingMap1);");
+			sc.add("if (printCountingMap.equals(printCountingMap1)) {");
+			if (isMany) {
+				sc.add("iterate = false;");
+			}
+			sc.add("out1.close();");
+			sc.add("} else {");
+			// check if printed features are needed by
+			// subsequent features
+			// at least one element has to be preserved in that
+			// case!
+			// this could be enhanced by a counter on needed
+			// features
+			Collection<String> reachableFeatures = getReachableFeatures(compound
+					.getDefinitions());
+			if (!neededFeatures.isEmpty()
+					&& !Collections.disjoint(neededFeatures,
+							reachableFeatures)) {
+				sc.add("if(");
+				Iterator<String> it = neededFeatures.iterator();
+				sc.add("printCountingMap1.get(\""
+						+ it.next() + "\")<1");
+				while (it.hasNext()) {
+					String feature = it.next();
+					sc.add("||printCountingMap1.get(\""
+							+ feature + "\")<1");
+				}
+				sc.add(") {");
+				if (isMany) {
+					sc.add("iterate = false;");
+				}
+				sc.add("out1.close();");
+				sc.add("} else {");
+				sc.add("out1.flush();");
+				sc.add("out1.close();");
+				sc.add("out.print(sWriter.toString());");
+				sc.add("printCountingMap.putAll(printCountingMap1);");
+				sc.add("}");
+			} else {
+				sc.add("out1.flush();");
+				sc.add("out1.close();");
+				sc.add("out.print(sWriter.toString());");
+				sc.add("printCountingMap.putAll(printCountingMap1);");
+			}
+			sc.add("}");
+			if (isMany) {
+				sc.add("}");
+			}
+		}
+	}
+
+	private void printCsString(StringComposite sc,
+			ListIterator<Definition> definitionIterator, String printPrefix,
+			CsString keyword) {
+		sc.add(printPrefix + "\""
+				+ StringUtil.escapeToJavaString(keyword.getValue())
+				+ "\");");
+
+		// the given tokenSpace (>0) causes an additional
+		// print statement to be printed
+		if (tokenSpace > 0) {
+			Definition lookahead = null;
+			if (definitionIterator.hasNext()){
+				lookahead = definitionIterator.next();
+				definitionIterator.previous();
+			}
+				
+			if (lookahead == null
+					|| !(lookahead instanceof WhiteSpaces)) {
+				String printSuffix = getWhiteSpaceString(tokenSpace);
+				
+				sc.add(printPrefix + "\"" + printSuffix + "\");");
+			}
+				
+		}
+	}
+
+	private void printWhiteSpace(StringComposite sc, String printPrefix,
+			WhiteSpaces whiteSpace) {
+		int count = whiteSpace.getAmount();
+		if (count > 0) {
+			String spaces = getWhiteSpaceString(count);
+			sc.add(printPrefix + "\"" + spaces
+					+ "\");");
+		}
+	}
+
+	private void printLineBreak(StringComposite sc, LineBreak lineBreak) {
+		int count = lineBreak.getTab();
+		if (count > 0) {
+			String tab = getTabString(count);
+			sc.add("localtab += \"" + tab + "\";");
+		}
+		sc.add("out.println();");
+		sc.add("out.print(localtab);");
+		//localTabDefinition.enable();
 	}
 
 	private void printMatchCall(Sequence seq, StringComposite sc) {

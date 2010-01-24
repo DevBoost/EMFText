@@ -1053,8 +1053,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				EList<Definition> parts = sequence.getParts();
 				for (Definition definition : parts) {
 					if (definition instanceof Containment) {
-						Containment c = (Containment) definition;
-						GenClass featureType = c.getFeature().getTypeGenClass();
+						Containment containment = (Containment) definition;
+						GenFeature feature = containment.getFeature();
+						GenClass featureType = feature.getTypeGenClass();
 						if (recursiveType.equals(featureType)
 								|| genClassNames2superClassNames
 										.get(
@@ -1071,7 +1072,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 												genClassFinder
 														.getQualifiedInterfaceName(featureType))) {
 							indexRecurse = parts.indexOf(definition);
-							recurseName = c.getFeature().getName();
+							recurseName = feature.getName();
 							break;
 						}
 					}
@@ -1291,17 +1292,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addToFollowSetMap(Definition definition, Set<EObject> expectations) {
-		// only terminal are important here
-		if (definition instanceof Placeholder || definition instanceof CsString) {
+		// only terminals are important here
+		if (definition instanceof Placeholder) {
+			GenFeature feature = ((Placeholder) definition).getFeature();
+			if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+				return;
+			}
+			followSetMap.put(getID(definition), expectations);
+		} else if (definition instanceof CsString) {
 			followSetMap.put(getID(definition), expectations);
 		}
 	}
 
 	private void addExpectationsCode(StringComposite sc, Set<EObject> expectations) {
-		// TODO potential performance improvement: instead of creating
-		// new instances for the expected elements we could create all
-		// of them beforehand (e.g., as final static fields) and reuse 
-		// them afterwards
 		for (EObject expectedElement : expectations) {
 			String terminalID = getID(expectedElement);
 			sc.add("addExpectedElement(new "
@@ -1317,6 +1320,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			if (expectedElement instanceof Placeholder) {
 				Placeholder placeholder = (Placeholder) expectedElement;
 				GenFeature genFeature = placeholder.getFeature();
+				// ignore the anonymous features
+				if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+					continue;
+				}
+
 				GenClass genClass = csUtil.findContainingRule(placeholder).getMetaclass();
 				sc.add("private final static " + iExpectedElementClassName + " " + terminalID + " = new "
 						+ expectedStructuralFeatureClassName + 
@@ -1444,104 +1452,107 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add(ident + " = " + tokenName);
 			sc.addLineBreak();
 
-			String targetTypeName = null;
-			String resolvedIdent = "resolved";
-			String preResolved = resolvedIdent + "Object";
-			String resolverIdent = "tokenResolver";
-			resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " "
-					+ resolverIdent
-					+ " = tokenResolverFactory.createTokenResolver(\""
-					+ tokenName + "\");");
-			resolvements.add(resolverIdent + ".setOptions(getOptions());");
-			resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT()
-					+ " result = getFreshTokenResolveResult();");
-			resolvements.add(resolverIdent + ".resolve(" + ident
-					+ ".getText(), element.eClass().getEStructuralFeature("
-					+ generatorUtil.getFeatureConstant(genClass, genFeature)
-					+ "), result);");
-			resolvements.add(OBJECT + " " + preResolved
-					+ " = result.getResolvedToken();");
-			resolvements.add("if (" + preResolved + " == null) {");
-			resolvements.add("addErrorToResource(result.getErrorMessage(), (("
-					+ COMMON_TOKEN + ") " + ident + ").getLine(), (("
-					+ COMMON_TOKEN + ") " + ident
-					+ ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") "
-					+ ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") "
-					+ ident + ").getStopIndex());");
-			resolvements.add("}");
-
-			String expressionToBeSet = null;
-
-			if (eFeature instanceof EReference) {
-				targetTypeName = "String";
-				expressionToBeSet = proxyIdent;
-
-				// a sub type that can be instantiated as a proxy
-				GenClass instanceType = genFeature.getTypeGenClass();
-				GenClass proxyType = null;
-
-				if (genClassUtil.isNotConcrete(instanceType)) {
-					// TODO mseifert: replace this code with a call to class
-					// GenClassFinder
-					// a slightly more elegant version of this code can also be
-					// found in the ScannerlessParserGenerator
-					for (GenClass instanceCand : allGenClasses) {
-						Collection<String> supertypes = genClassNames2superClassNames
-								.get(genClassFinder
-										.getQualifiedInterfaceName(instanceCand));
-						if (genClassUtil.isConcrete(instanceCand)
-								&& supertypes
-										.contains(genClassFinder
-												.getQualifiedInterfaceName(instanceType))) {
-							proxyType = instanceCand;
-							break;
+			// ignore the anonymous features
+			if (genFeature != ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+				String targetTypeName = null;
+				String resolvedIdent = "resolved";
+				String preResolved = resolvedIdent + "Object";
+				String resolverIdent = "tokenResolver";
+				resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " "
+						+ resolverIdent
+						+ " = tokenResolverFactory.createTokenResolver(\""
+						+ tokenName + "\");");
+				resolvements.add(resolverIdent + ".setOptions(getOptions());");
+				resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT()
+						+ " result = getFreshTokenResolveResult();");
+				resolvements.add(resolverIdent + ".resolve(" + ident
+						+ ".getText(), element.eClass().getEStructuralFeature("
+						+ generatorUtil.getFeatureConstant(genClass, genFeature)
+						+ "), result);");
+				resolvements.add(OBJECT + " " + preResolved
+						+ " = result.getResolvedToken();");
+				resolvements.add("if (" + preResolved + " == null) {");
+				resolvements.add("addErrorToResource(result.getErrorMessage(), (("
+						+ COMMON_TOKEN + ") " + ident + ").getLine(), (("
+						+ COMMON_TOKEN + ") " + ident
+						+ ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") "
+						+ ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") "
+						+ ident + ").getStopIndex());");
+				resolvements.add("}");
+	
+				String expressionToBeSet = null;
+				
+				if (eFeature instanceof EReference) {
+					targetTypeName = "String";
+					expressionToBeSet = proxyIdent;
+	
+					// a sub type that can be instantiated as a proxy
+					GenClass instanceType = genFeature.getTypeGenClass();
+					GenClass proxyType = null;
+	
+					if (genClassUtil.isNotConcrete(instanceType)) {
+						// TODO mseifert: replace this code with a call to class
+						// GenClassFinder
+						// a slightly more elegant version of this code can also be
+						// found in the ScannerlessParserGenerator
+						for (GenClass instanceCand : allGenClasses) {
+							Collection<String> supertypes = genClassNames2superClassNames
+									.get(genClassFinder
+											.getQualifiedInterfaceName(instanceCand));
+							if (genClassUtil.isConcrete(instanceCand)
+									&& supertypes
+											.contains(genClassFinder
+													.getQualifiedInterfaceName(instanceType))) {
+								proxyType = instanceCand;
+								break;
+							}
 						}
+					} else {
+						proxyType = instanceType;
 					}
+					resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
+							+ targetTypeName + ") " + preResolved + ";");
+					resolvements.add(genClassFinder
+							.getQualifiedInterfaceName(proxyType)
+							+ " "
+							+ expressionToBeSet
+							+ " = "
+							+ genClassUtil.getCreateObjectCall(proxyType,
+									dummyEObjectClassName) + ";");
+					resolvements.add("collectHiddenTokens(element);");
+					resolvements
+							.add("registerContextDependentProxy(new "
+									+ contextDependentURIFragmentFactoryClassName
+									+ "<"
+									+ genClassFinder
+											.getQualifiedInterfaceName(genFeature
+													.getGenClass())
+									+ ", "
+									+ genClassFinder
+											.getQualifiedInterfaceName(genFeature
+													.getTypeGenClass())
+									+ ">("
+									+ getContext()
+											.getReferenceResolverAccessor(genFeature)
+									+ "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("
+									+ generatorUtil.getFeatureConstant(genClass,
+											genFeature) + "), " + resolvedIdent
+									+ ", " + proxyIdent + ");");
+					// remember that we must resolve proxy objects for this feature
+					getContext().addNonContainmentReference(genFeature);
 				} else {
-					proxyType = instanceType;
+					// the feature is an EAttribute
+					targetTypeName = genFeature.getQualifiedListItemType(null);
+					resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
+							+ getObjectTypeName(targetTypeName) + ")" + preResolved
+							+ ";");
+					expressionToBeSet = "resolved";
 				}
-				resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
-						+ targetTypeName + ") " + preResolved + ";");
-				resolvements.add(genClassFinder
-						.getQualifiedInterfaceName(proxyType)
-						+ " "
-						+ expressionToBeSet
-						+ " = "
-						+ genClassUtil.getCreateObjectCall(proxyType,
-								dummyEObjectClassName) + ";");
-				resolvements.add("collectHiddenTokens(element);");
-				resolvements
-						.add("registerContextDependentProxy(new "
-								+ contextDependentURIFragmentFactoryClassName
-								+ "<"
-								+ genClassFinder
-										.getQualifiedInterfaceName(genFeature
-												.getGenClass())
-								+ ", "
-								+ genClassFinder
-										.getQualifiedInterfaceName(genFeature
-												.getTypeGenClass())
-								+ ">("
-								+ getContext()
-										.getReferenceResolverAccessor(genFeature)
-								+ "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("
-								+ generatorUtil.getFeatureConstant(genClass,
-										genFeature) + "), " + resolvedIdent
-								+ ", " + proxyIdent + ");");
-				// remember that we must resolve proxy objects for this feature
-				getContext().addNonContainmentReference(genFeature);
-			} else {
-				// the feature is an EAttribute
-				targetTypeName = genFeature.getQualifiedListItemType(null);
-				resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
-						+ getObjectTypeName(targetTypeName) + ")" + preResolved
-						+ ";");
-				expressionToBeSet = "resolved";
-			}
 
-			printTerminalAction(placeholder, rule, sc, genClass, genFeature,
-					eFeature, ident, proxyIdent, expressionToBeSet,
-					resolvements, tokenName);
+				printTerminalAction(placeholder, rule, sc, genClass, genFeature,
+						eFeature, ident, proxyIdent, expressionToBeSet,
+						resolvements, tokenName);
+			}
 		}
 
 		sc.add(")");
