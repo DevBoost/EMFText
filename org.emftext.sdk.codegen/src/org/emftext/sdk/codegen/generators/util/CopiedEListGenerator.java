@@ -51,10 +51,15 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 		sc.add("private " + E_LIST + "<E> original;");
 		sc.add("private " + E_LIST + "<E> copy;");
 		sc.addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public " + getResourceClassName() + "(" + E_LIST + "<E> original) {");
 		sc.add("super();");
 		sc.add("this.original = original;");
 		sc.add("this.copy = new " + BASIC_E_LIST + "<E>();");
+		sc.add("Object[] originalContent = this.original.toArray();");
+		sc.add("for (Object next : originalContent) {");
+		sc.add("this.copy.add((E) next);");
+		sc.add("}");
 		sc.add("this.copy.addAll(this.original);");
 		sc.add("}");
 		sc.addLineBreak();
