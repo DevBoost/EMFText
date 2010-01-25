@@ -29,7 +29,6 @@ public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 		for (Object next : originalContent) {
 			this.copy.add((E) next);
 		}
-		this.copy.addAll(this.original);
 	}
 	
 	public void move(int newPosition, E object) {

@@ -60,7 +60,6 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 		sc.add("for (Object next : originalContent) {");
 		sc.add("this.copy.add((E) next);");
 		sc.add("}");
-		sc.add("this.copy.addAll(this.original);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void move(int newPosition, E object) {");
