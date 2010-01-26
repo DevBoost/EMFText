@@ -36,53 +36,61 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		Collection<CompleteTokenDefinition> handledTokens = new LinkedHashSet<CompleteTokenDefinition>(); 
 		for (CompleteTokenDefinition tokenDefinition1 : tokens) {
 			if (tokenDefinition1 instanceof QuotedTokenDefinition) {
-				handledTokens.add(tokenDefinition1);
-				QuotedTokenDefinition quotedToken1 = (QuotedTokenDefinition) tokenDefinition1;
-				for (CompleteTokenDefinition tokenDefinition2 : tokens) {
-					if (tokenDefinition2 instanceof QuotedTokenDefinition) {
-						QuotedTokenDefinition quotedToken2 = (QuotedTokenDefinition) tokenDefinition2;
-						// ignore the first token when searching for a second
-						if (handledTokens.contains(tokenDefinition2)) {
-							continue;
-						}
-						String prefix1 = quotedToken1.getPrefix();
-						if (prefix1 == null) {
-							continue;
-						}
-						String prefix2 = quotedToken2.getPrefix();
-						if (prefix2 == null) {
-							continue;
-						}
-						if (!prefix1.equals(prefix2)) {
-							continue;
-						}
-						String suffix1 = quotedToken1.getSuffix();
-						if (suffix1 == null) {
-							continue;
-						}
-						String suffix2 = quotedToken2.getSuffix();
-						if (suffix2 == null) {
-							continue;
-						}
-						if (!suffix1.equals(suffix2)) {
-							continue;
-						}
-						String escapeCharacter1 = quotedToken1.getEscapeCharacter();
-						String escapeCharacter2 = quotedToken2.getEscapeCharacter();
-						if (escapeCharacter1 == null) {
-							if (escapeCharacter2 == null) {
-								continue;
-							} else {
-								addProblem(resource, quotedToken1, quotedToken2, MESSAGE_1);
-							}
-						} else {
-							if (escapeCharacter2 == null) {
-								addProblem(resource, quotedToken1, quotedToken2, MESSAGE_1);
-							} else {
-								if (!escapeCharacter1.equals(escapeCharacter2)) {
-									addProblem(resource, quotedToken1, quotedToken2, MESSAGE_2);
-								}
-							}
+				checkEscapeCharacterConsistency(resource, tokens,
+						handledTokens, tokenDefinition1);
+			}
+		}
+	}
+
+	private void checkEscapeCharacterConsistency(CsResource resource,
+			List<CompleteTokenDefinition> tokens,
+			Collection<CompleteTokenDefinition> handledTokens,
+			CompleteTokenDefinition tokenDefinition1) {
+		handledTokens.add(tokenDefinition1);
+		QuotedTokenDefinition quotedToken1 = (QuotedTokenDefinition) tokenDefinition1;
+		for (CompleteTokenDefinition tokenDefinition2 : tokens) {
+			if (tokenDefinition2 instanceof QuotedTokenDefinition) {
+				QuotedTokenDefinition quotedToken2 = (QuotedTokenDefinition) tokenDefinition2;
+				// ignore the first token when searching for a second
+				if (handledTokens.contains(tokenDefinition2)) {
+					continue;
+				}
+				String prefix1 = quotedToken1.getPrefix();
+				if (prefix1 == null) {
+					continue;
+				}
+				String prefix2 = quotedToken2.getPrefix();
+				if (prefix2 == null) {
+					continue;
+				}
+				if (!prefix1.equals(prefix2)) {
+					continue;
+				}
+				String suffix1 = quotedToken1.getSuffix();
+				if (suffix1 == null) {
+					continue;
+				}
+				String suffix2 = quotedToken2.getSuffix();
+				if (suffix2 == null) {
+					continue;
+				}
+				if (!suffix1.equals(suffix2)) {
+					continue;
+				}
+				String escapeCharacter1 = quotedToken1.getEscapeCharacter();
+				String escapeCharacter2 = quotedToken2.getEscapeCharacter();
+				if (escapeCharacter1 == null) {
+					if (escapeCharacter2 == null) {
+						continue;
+					} else {
+						addProblem(resource, quotedToken1, quotedToken2, MESSAGE_1);
+					}
+				} else {
+					if (escapeCharacter2 == null) {
+						addProblem(resource, quotedToken1, quotedToken2, MESSAGE_1);
+					} else {
+						if (!escapeCharacter1.equals(escapeCharacter2)) {
+							addProblem(resource, quotedToken1, quotedToken2, MESSAGE_2);
 						}
 					}
 				}
