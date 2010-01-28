@@ -90,6 +90,13 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	protected Class<?> accessInterface;
 	private Class<?>[] accessInterfaces;
 
+	/**
+	 * Creates a new proxy to access 'impl'.
+	 * 
+	 * @param impl
+	 * @param accessInterface
+	 * @param accessInterfaces
+	 */
 	private EMFTextAccessProxy(Object impl, Class<?> accessInterface, Class<?>[] accessInterfaces) {
 		this.impl = impl;
 		this.accessInterface = accessInterface;
