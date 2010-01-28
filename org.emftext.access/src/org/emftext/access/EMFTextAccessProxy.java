@@ -83,6 +83,9 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			IToken.class
 	};
 
+	/**
+	 * The object behind the proxy.
+	 */
 	protected Object impl;
 	protected Class<?> accessInterface;
 	private Class<?>[] accessInterfaces;
