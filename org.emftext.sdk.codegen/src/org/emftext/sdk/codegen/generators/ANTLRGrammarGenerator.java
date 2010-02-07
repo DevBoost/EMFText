@@ -188,6 +188,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 */
 	private int idCounter = 0;
 
+	private int featureCounter = 0;
+	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
+	
 	/**
 	 * A map that contains names of fields representing terminals and their
 	 * follow set. This map is used to create the code that links terminals
@@ -1317,10 +1320,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			StringBuilder traceArguments = new StringBuilder();
 			List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 			for (GenFeature genFeature : containmentTrace) {
-				EStructuralFeature feature = genFeature.getEcoreFeature();
-				sc.add("// rule path: " + feature.getEContainingClass().getName() + "." + feature.getName());
 				traceArguments.append(", ");
-				traceArguments.append(generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature));
+				traceArguments.append(getFeatureConstantFieldName(genFeature));
 			}
 			sc.add("addExpectedElement(new "
 					+ expectedTerminalClassName + 
@@ -1358,24 +1359,24 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 		sc.addLineBreak();
 		
-		int featureCount = 0;
-		Map<GenFeature, String> handledFeatures = new LinkedHashMap<GenFeature, String>();
+		// ask for all features to make sure respective fields are generated
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 				for (GenFeature genFeature : containmentTrace) {
-					if (handledFeatures.keySet().contains(genFeature)) {
-						continue;
-					}
-					String featureConstantName = "FEATURE_" + featureCount;
-					featureCount++;
-					handledFeatures.put(genFeature, featureConstantName);
-					String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
-					sc.add("private final static " + E_STRUCTURAL_FEATURE + " " + featureConstantName + " = " + featureAccessor + ";");
+					getFeatureConstantFieldName(genFeature);
 				}
 			}
 		}
+		
+		// generate fields for all used features
+		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
+			String fieldName = getFeatureConstantFieldName(genFeature);
+			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
+			sc.add("private final static " + E_STRUCTURAL_FEATURE + " " + fieldName + " = " + featureAccessor + ";");
+		}
 		sc.addLineBreak();
+		
 		sc.add("private final static " + E_STRUCTURAL_FEATURE + "[] EMPTY_FEATURE_ARRAY = new " + E_STRUCTURAL_FEATURE + "[0];");
 		sc.addLineBreak();
 		
@@ -1402,7 +1403,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				} else {
 					trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
 					for (GenFeature genFeature : containmentTrace) {
-						trace.append(handledFeatures.get(genFeature) + ", ");
+						trace.append(getFeatureConstantFieldName(genFeature) + ", ");
 						// another 16 bytes for each access to a constant
 						bytesUsedInCurrentMethod += 16;
 					}
@@ -1428,6 +1429,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("wire" + c + "();");
 		}
 		sc.add("}");
+	}
+
+	private String getFeatureConstantFieldName(GenFeature genFeature) {
+		if (!eFeatureToConstantNameMap.keySet().contains(genFeature)) {
+			String featureConstantName = "FEATURE_" + featureCounter;
+			featureCounter++;
+			eFeatureToConstantNameMap.put(genFeature, featureConstantName);
+		}
+		return eFeatureToConstantNameMap.get(genFeature);
 	}
 
 	private String getID(EObject expectedElement) {
