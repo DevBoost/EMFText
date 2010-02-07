@@ -1358,31 +1358,65 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 		sc.addLineBreak();
 		
+		int featureCount = 0;
+		Map<GenFeature, String> handledFeatures = new LinkedHashMap<GenFeature, String>();
+		for (String firstID : followSetMap.keySet()) {
+			for (Expectation expectation : followSetMap.get(firstID)) {
+				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
+				for (GenFeature genFeature : containmentTrace) {
+					if (handledFeatures.keySet().contains(genFeature)) {
+						continue;
+					}
+					String featureConstantName = "FEATURE_" + featureCount;
+					featureCount++;
+					handledFeatures.put(genFeature, featureConstantName);
+					String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
+					sc.add("private final static " + E_STRUCTURAL_FEATURE + " " + featureConstantName + " = " + featureAccessor + ";");
+				}
+			}
+		}
+		sc.addLineBreak();
+		sc.add("private final static " + E_STRUCTURAL_FEATURE + "[] EMPTY_FEATURE_ARRAY = new " + E_STRUCTURAL_FEATURE + "[0];");
+		sc.addLineBreak();
+		
 		// we need to split the code to wire the terminals with their
 		// followers, because the code does exceed the 64KB limit for
 		// methods if the grammar is big
-		final int METHOD_CALLS_PER_METHOD = 100;
+		int bytesUsedInCurrentMethod = 0;
+		boolean methodIsFull = true;
 		int i = 0;
 		int numberOfMethods = 0;
 		// create multiple wireX() methods
 		for (String firstID : followSetMap.keySet()) {
-			if (i % METHOD_CALLS_PER_METHOD == 0) {
-				sc.add("public static void wire" + (i / METHOD_CALLS_PER_METHOD) + "() {");
+			if (methodIsFull) {
+				sc.add("public static void wire" + numberOfMethods + "() {");
 				numberOfMethods++;
+				methodIsFull = false;
 			}
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				EObject follower = expectation.getExpectedElement();
 				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 				StringBuilder trace = new StringBuilder();
-				trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
-				for (GenFeature genFeature : containmentTrace) {
-					String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
-					trace.append(featureAccessor + ", ");
+				if (containmentTrace.isEmpty()) {
+					trace.append(", EMPTY_FEATURE_ARRAY");
+				} else {
+					trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
+					for (GenFeature genFeature : containmentTrace) {
+						trace.append(handledFeatures.get(genFeature) + ", ");
+						// another 16 bytes for each access to a constant
+						bytesUsedInCurrentMethod += 16;
+					}
+					trace.append("}");
 				}
-				trace.append("}");
 				sc.add(firstID + ".addFollower(" + getID(follower) + trace + ");");
+				// the method call takes 19 bytes
+				bytesUsedInCurrentMethod += 19;
 			}
-			if (i % METHOD_CALLS_PER_METHOD == METHOD_CALLS_PER_METHOD - 1 || i == followSetMap.keySet().size() - 1) {
+			if (bytesUsedInCurrentMethod >= 63 * 1024) {
+				methodIsFull = true;
+				bytesUsedInCurrentMethod = 0;
+			}
+			if (methodIsFull || i == followSetMap.keySet().size() - 1) {
 				sc.add("}");
 			}
 			i++;
