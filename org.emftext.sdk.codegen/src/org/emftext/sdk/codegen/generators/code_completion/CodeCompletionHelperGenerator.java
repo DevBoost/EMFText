@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
@@ -58,6 +59,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private String iLocationMapClassName;
 	private String expectedTerminalClassName;
 	private String completionProposalClassName;
+	private String eObjectUtilClassName;
 
 	public CodeCompletionHelperGenerator() {
 		super();
@@ -81,6 +83,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		expectedStructuralFeatureClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
 		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
+		eObjectUtilClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -274,15 +277,38 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		
-		// creating a dummy container is not a solution either, because the container
-		// is not part of the resource and not correctly inserted in the object tree
-		/*
+		sc.add("// if no container can be found, the cursor is probably at the");
+		sc.add("// end of the document. we need to create artificial containers.");
 		sc.add("if (container == null) {");
-		sc.add("// if no container was found we create a dummy container");
-		sc.add(E_CLASS + " featureClass = feature.getEContainingClass();");
-		sc.add("container = featureClass.getEPackage().getEFactoryInstance().create(featureClass);");
+		sc.add(E_CLASS + " containerClass = expectedTerminal.getTerminal().getRuleMetaclass();");
+		sc.add(E_STRUCTURAL_FEATURE + "[] containmentTrace = expectedTerminal.getContainmentTrace();");
+		sc.add(LIST + "<" + E_OBJECT + "> contentList = null;");
+		sc.add("for (" + E_STRUCTURAL_FEATURE + " eStructuralFeature : containmentTrace) {");
+		sc.add(E_CLASS + " neededClass = eStructuralFeature.getEContainingClass();");
+		//sc.add("System.out.println(sc.add("Need sc.add(" + neededClass.getName() + sc.add(".sc.add(" + eStructuralFeature.getName());");
+		sc.add("// fill the content list during the first iteration of the loop");
+		sc.add("if (contentList == null) {");
+		sc.add("contentList = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add(ITERATOR + "<" + E_OBJECT + "> allContents = resource.getAllContents();");
+		sc.add("while (allContents.hasNext()) {");
+		sc.add(E_OBJECT + " next = allContents.next();");
+		sc.add("contentList.add(next);");
 		sc.add("}");
-		*/
+		sc.add("}");
+		sc.add("// find object to attach artificial container to");
+		sc.add("for (int i = contentList.size() - 1; i >= 0; i--) {");
+		sc.add(E_OBJECT + " object = contentList.get(i);");
+		sc.add("if (neededClass.isInstance(object)) {");
+		//sc.add("System.out.println(sc.add("Found sc.add(" + object);");
+		sc.add(E_OBJECT + " newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);");
+		sc.add(eObjectUtilClassName + ".setFeature(object, eStructuralFeature, newContainer, false);");
+		//sc.add("System.out.println(sc.add("Attached sc.add(" + newContainer);");
+		sc.add("container = newContainer;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("if (feature instanceof " + E_REFERENCE + ") {");
 		sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
 		sc.add("if (featureType instanceof " + E_CLASS + ") {");
@@ -345,7 +371,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("end = Math.min(end, cursorOffset);");
 		sc.add("final String prefix = content.substring(end, Math.min(content.length(), cursorOffset));");
-		// TODO remove this debug output
+		// TODO mseifert: remove this debug output
 		sc.add("System.out.println(\"Found prefix '\" + prefix + \"'\");");
 		sc.add("return prefix;");
 		sc.add("}");

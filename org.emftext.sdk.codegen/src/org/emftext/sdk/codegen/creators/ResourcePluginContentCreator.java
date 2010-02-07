@@ -200,6 +200,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.E_OBJECT_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.LIST_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.MAP_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.PAIR));
 	    creators.add(new GenericArtifactCreator(EArtifact.MINIMAL_MODEL_HELPER));
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.STREAM_UTIL));

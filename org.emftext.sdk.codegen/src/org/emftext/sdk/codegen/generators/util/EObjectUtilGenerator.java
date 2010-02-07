@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OPERATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
@@ -56,13 +57,26 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("// @see org.eclipse.emf.ecore.util.EcoreUtil");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addMethods(sc);
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetObjectsByTypeMethod(sc);
+		addFindRootContainerMethod(sc);
+		addInvokeOperationMethod(sc);
+		addSetFeatureMethod(sc);
+	}
+
+	private void addGetObjectsByTypeMethod(StringComposite sc) {
 		sc.add("public static <T> " + COLLECTION + "<T> getObjectsByType(" + ITERATOR + "<?> iterator,");
 		sc.add(E_CLASSIFIER + " type) {");
 		sc.add(COLLECTION + "<T> result = new " + ARRAY_LIST + "<T>();");
 		sc.add("while (iterator.hasNext()) {");
 		sc.add(OBJECT + " object = iterator.next();");
 		sc.add("if (type.isInstance(object)) {");
-		sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("T t = (T) object;");
 		sc.add("result.add(t);");
 		sc.add("}");
@@ -70,6 +84,31 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addSetFeatureMethod(StringComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("public static void setFeature(" + E_OBJECT + " object, " + E_STRUCTURAL_FEATURE + " eFeature, " + OBJECT + " value, boolean clearIfList) {");
+		sc.add("int upperBound = eFeature.getUpperBound();");
+		sc.add("if (upperBound > 1 || upperBound < 0) {");
+		sc.add("Object oldValue = object.eGet(eFeature);");
+		sc.add("if (oldValue instanceof " + LIST + "<?>) {");
+		sc.add(LIST + "<" + OBJECT + "> list = (" + LIST + "<" + OBJECT + ">) oldValue;");
+		sc.add("if (clearIfList) {");
+		sc.add("list.clear();");
+		sc.add("}");
+		sc.add("list.add(value);");
+		sc.add("} else {");
+		sc.add("assert false;");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("object.eSet(eFeature, value);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindRootContainerMethod(StringComposite sc) {
 		sc.add("public static " + E_OBJECT + " findRootContainer(" + E_OBJECT + " object) {");
 		sc.add(E_OBJECT + " container = object.eContainer();");
 		sc.add("if (container != null) {");
@@ -79,6 +118,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addInvokeOperationMethod(StringComposite sc) {
 		sc.add("public static " + OBJECT + " invokeOperation(" + E_OBJECT + " element, " + E_OPERATION + " o) {");
 		sc.add(METHOD + " method;");
 		sc.add("try {");
@@ -100,7 +142,6 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("}");
-		return true;
+		sc.addLineBreak();
 	}
 }

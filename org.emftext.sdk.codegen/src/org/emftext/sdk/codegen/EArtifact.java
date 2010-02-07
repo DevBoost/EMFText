@@ -153,6 +153,7 @@ import org.emftext.sdk.codegen.generators.util.EObjectUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.ListUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.MapUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.MinimalModelHelperGenerator;
+import org.emftext.sdk.codegen.generators.util.PairGenerator;
 import org.emftext.sdk.codegen.generators.util.ResourceUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.StreamUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.StringUtilGenerator;
@@ -300,6 +301,7 @@ public enum EArtifact {
 	E_OBJECT_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "EObjectUtil", new EObjectUtilGenerator(), OptionTypes.OVERRIDE_EOBJECT_UTIL),
 	LIST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ListUtil", new ListUtilGenerator(), OptionTypes.OVERRIDE_LIST_UTIL),
 	MAP_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MapUtil", new MapUtilGenerator(), OptionTypes.OVERRIDE_MAP_UTIL),
+	PAIR(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "Pair", new PairGenerator(), OptionTypes.OVERRIDE_PAIR),
 	MINIMAL_MODEL_HELPER(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MinimalModelHelper", new MinimalModelHelperGenerator(), OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER),
 	RESOURCE_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ResourceUtil", new ResourceUtilGenerator(), OptionTypes.OVERRIDE_RESOURCE_UTIL),
 	STREAM_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StreamUtil", new StreamUtilGenerator(), OptionTypes.OVERRIDE_STREAM_UTIL),

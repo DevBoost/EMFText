@@ -14,6 +14,8 @@
 package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -25,6 +27,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 public class IExpectedElementGenerator extends JavaBaseGenerator {
 
 	private String iExpectedElementClassName;
+	private String pairClassName;
 
 	public IExpectedElementGenerator() {
 		super();
@@ -33,6 +36,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 	private IExpectedElementGenerator(GenerationContext context) {
 		super(context, EArtifact.I_EXPECTED_ELEMENT);
 		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
+		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -50,8 +54,9 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + STRING +" getTokenName();");
-		sc.add("public void addFollower(" + iExpectedElementClassName + " follower);");
-		sc.add("public " + COLLECTION + "<" + iExpectedElementClassName + "> getFollowers();");
+		sc.add("public " + E_CLASS +" getRuleMetaclass();");
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path);");
+		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers();");
 		sc.add("}");
 		return true;
 	}

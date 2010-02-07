@@ -27,7 +27,8 @@ public class CsEObjectUtil {
 		while (iterator.hasNext()) {
 			java.lang.Object object = iterator.next();
 			if (type.isInstance(object)) {
-				@SuppressWarnings("unchecked")				T t = (T) object;
+				@SuppressWarnings("unchecked")				
+				T t = (T) object;
 				result.add(t);
 			}
 		}
@@ -64,4 +65,24 @@ public class CsEObjectUtil {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")	
+	public static void setFeature(org.eclipse.emf.ecore.EObject object, org.eclipse.emf.ecore.EStructuralFeature eFeature, java.lang.Object value, boolean clearIfList) {
+		int upperBound = eFeature.getUpperBound();
+		if (upperBound > 1 || upperBound < 0) {
+			Object oldValue = object.eGet(eFeature);
+			if (oldValue instanceof java.util.List<?>) {
+				java.util.List<java.lang.Object> list = (java.util.List<java.lang.Object>) oldValue;
+				if (clearIfList) {
+					list.clear();
+				}
+				list.add(value);
+			} else {
+				assert false;
+			}
+		} else {
+			object.eSet(eFeature, value);
+		}
+	}
+	
 }

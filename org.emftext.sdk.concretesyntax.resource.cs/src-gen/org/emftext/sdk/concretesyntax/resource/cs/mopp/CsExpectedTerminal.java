@@ -25,12 +25,14 @@ public class CsExpectedTerminal {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal;
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
-	private String prefix;
+	private java.lang.String prefix;
+	private org.eclipse.emf.ecore.EStructuralFeature[] containmentTrace;
 	
-	public CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID) {
+	public CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.eclipse.emf.ecore.EStructuralFeature... containmentTrace) {
 		super();
 		this.terminal = terminal;
 		this.followSetID = followSetID;
+		this.containmentTrace = containmentTrace;
 	}
 	
 	public int getFollowSetID() {
@@ -41,11 +43,11 @@ public class CsExpectedTerminal {
 		return terminal;
 	}
 	
-	public String toString() {
+	public java.lang.String toString() {
 		return terminal == null ? "null" : terminal.toString();
 	}
 	
-	public boolean equals(Object o) {
+	public boolean equals(java.lang.Object o) {
 		return this.terminal.equals(((CsExpectedTerminal) o).terminal);
 	}
 	
@@ -64,12 +66,16 @@ public class CsExpectedTerminal {
 		return startExcludingHiddenTokens;
 	}
 	
-	public String getPrefix() {
+	public java.lang.String getPrefix() {
 		return prefix;
 	}
 	
-	public void setPrefix(String prefix) {
+	public void setPrefix(java.lang.String prefix) {
 		this.prefix = prefix;
+	}
+	
+	public org.eclipse.emf.ecore.EStructuralFeature[] getContainmentTrace() {
+		return containmentTrace;
 	}
 	
 }

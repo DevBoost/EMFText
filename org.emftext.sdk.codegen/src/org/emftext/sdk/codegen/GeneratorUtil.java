@@ -44,6 +44,17 @@ public class GeneratorUtil {
 		return genPackage.getQualifiedPackageInterfaceName() + "." + genClass.getFeatureID(genFeature);
 	}
 
+	public String getFeatureAccessor(GenClass genClass, GenFeature genFeature) {
+		return getClassAccessor(genClass) + "." + createGetFeatureCall(genClass, genFeature);
+	}
+
+	public String getClassAccessor(GenClass genClass) {
+		return genClass.getGenPackage().getReflectionPackageName() + "."
+								+ genClass.getGenPackage().getPackageInterfaceName()
+								+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
+								+ "()";
+	}
+
 	public GenFeature findGenFeature(GenClass genClass, String name) {
 		for (GenFeature genFeature : genClass.getAllGenFeatures()) {
 			if (genFeature.getName().equals(name)) {

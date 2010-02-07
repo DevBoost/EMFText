@@ -156,6 +156,35 @@ public class CsCodeCompletionHelper {
 					break;
 				}
 			}
+			// if no container can be found, the cursor is probably at the
+			// end of the document. we need to create artificial containers.
+			if (container == null) {
+				org.eclipse.emf.ecore.EClass containerClass = expectedTerminal.getTerminal().getRuleMetaclass();
+				org.eclipse.emf.ecore.EStructuralFeature[] containmentTrace = expectedTerminal.getContainmentTrace();
+				java.util.List<org.eclipse.emf.ecore.EObject> contentList = null;
+				for (org.eclipse.emf.ecore.EStructuralFeature eStructuralFeature : containmentTrace) {
+					org.eclipse.emf.ecore.EClass neededClass = eStructuralFeature.getEContainingClass();
+					// fill the content list during the first iteration of the loop
+					if (contentList == null) {
+						contentList = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
+						java.util.Iterator<org.eclipse.emf.ecore.EObject> allContents = resource.getAllContents();
+						while (allContents.hasNext()) {
+							org.eclipse.emf.ecore.EObject next = allContents.next();
+							contentList.add(next);
+						}
+					}
+					// find object to attach artificial container to
+					for (int i = contentList.size() - 1; i >= 0; i--) {
+						org.eclipse.emf.ecore.EObject object = contentList.get(i);
+						if (neededClass.isInstance(object)) {
+							org.eclipse.emf.ecore.EObject newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);
+							org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(object, eStructuralFeature, newContainer, false);
+							container = newContainer;
+						}
+					}
+				}
+			}
+			
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
 				if (featureType instanceof org.eclipse.emf.ecore.EClass) {

@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -52,31 +53,55 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("private " + E_STRUCTURAL_FEATURE + " feature;");
 		sc.add("private String tokenName;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, String tokenName) {");
-		sc.add("super();");
-		sc.add("this.feature = feature;");
-		sc.add("this.tokenName = tokenName;");
+		addConstructor(sc);
+		addMethods(sc);
 		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
-		sc.add("return feature;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public String getTokenName() {");
-		sc.add("return tokenName;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + STRING + " toString() {");
-		sc.add("return \"EFeature \" + feature.getEContainingClass().getName() + \".\" + feature.getName();");
-		sc.add("}");
-		sc.addLineBreak();
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetFeatureMethod(sc);
+		addGetTokenNameMethod(sc);
+		addToStringMethod(sc);
+		addEqualsMethod(sc);
+	}
+
+	private void addEqualsMethod(StringComposite sc) {
 		sc.add("public boolean equals(" + OBJECT + " o) {");
 		sc.add("if (o instanceof " + getResourceClassName() + ") {");
 		sc.add("return this.feature.equals(((" + getResourceClassName() + ") o).feature);");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
+	}
+
+	private void addToStringMethod(StringComposite sc) {
+		sc.add("public " + STRING + " toString() {");
+		sc.add("return \"EFeature \" + feature.getEContainingClass().getName() + \".\" + feature.getName();");
 		sc.add("}");
-		return true;
+		sc.addLineBreak();
+	}
+
+	private void addGetTokenNameMethod(StringComposite sc) {
+		sc.add("public String getTokenName() {");
+		sc.add("return tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetFeatureMethod(StringComposite sc) {
+		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
+		sc.add("return feature;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " ruleMetaclass, " + E_STRUCTURAL_FEATURE + " feature, String tokenName) {");
+		sc.add("super(ruleMetaclass);");
+		sc.add("this.feature = feature;");
+		sc.add("this.tokenName = tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }

@@ -2,7 +2,6 @@ package org.emftext.sdk.codegen.generators.code_completion.helpers;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -41,15 +40,18 @@ import org.emftext.sdk.util.EObjectUtil;
  * elements that can follow a given element in a syntax. It uses
  * the well-known construction of FIRST and FOLLOW sets from
  * context-free grammars.
+ * 
+ * TODO mseifert: move this class to upper package 'code_completion'
  */
 public class ExpectationComputer {
 
 	// a constant used to represent the empty sentence
-	public final static EObject EPSILON = new DynamicEObjectImpl() {
+	public final static EObject EPSILON_OBJECT = new DynamicEObjectImpl() {
 		public String toString() {
 			return "EPSILON";
 		}
 	};
+	public final static Expectation EPSILON = new Expectation(EPSILON_OBJECT);
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -68,17 +70,17 @@ public class ExpectationComputer {
 	 * @param syntaxElement
 	 * @return
 	 */
-	public Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
+	public Set<Expectation> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		return computeFirstSet(syntax,syntaxElement, new LinkedHashSet<GenClass>());
 	}
 	
 	
-	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
+	public Set<Expectation> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
 	}
 	
-	private Set<EObject> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		if (syntaxElement instanceof STAR) {
 			return firstSet;
 		}
@@ -105,8 +107,8 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 		
-	private Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
-		Set<EObject> result = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> result = new LinkedHashSet<Expectation>();
 		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals));
 		if (syntaxElement instanceof STAR) {
 			return result;
@@ -164,7 +166,7 @@ public class ExpectationComputer {
 				if (childrenList.size() > index + 1) {
 					// found an element next right
 					EObject nextInList = (EObject) childrenList.get(index + 1);
-					Set<EObject> firstSetOfNext = computeFirstSet(syntax, nextInList, contributingNonterminals);
+					Set<Expectation> firstSetOfNext = computeFirstSet(syntax, nextInList, contributingNonterminals);
 					result.addAll(firstSetOfNext);
 					if (firstSetOfNext.contains(EPSILON)) {
 						result.addAll(computeFollowSet(syntax, nextInList, usedRules, contributingNonterminals));
@@ -185,7 +187,7 @@ public class ExpectationComputer {
 		return result;
 	}
 
-	private Collection<EObject> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
+	private Collection<Expectation> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
 		if (canBeRepeated(syntaxElement)) {
 			return computeFirstSet(syntax, syntaxElement, contributingNonterminals);
 		} else {
@@ -202,15 +204,15 @@ public class ExpectationComputer {
 		return canBeEmpty;
 	}
 
-	private Set<EObject> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
+	private Set<Expectation> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
 			CompoundDefinition compound,Set<GenClass> contributingNonterminals) {
 		Choice choice = compound.getDefinitions();
-		Set<EObject> firstSet = computeFirstSetForChoice(syntax, rule, choice, contributingNonterminals);
+		Set<Expectation> firstSet = computeFirstSetForChoice(syntax, rule, choice, contributingNonterminals);
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice, Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSetForChoice(ConcreteSyntax syntax, Rule rule, Choice choice, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 
 		List<Sequence> options = choice.getOptions();
 		int i = 0;
@@ -221,10 +223,10 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence,Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence,Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		for (Definition definition : sequence.getParts()) {
-			Set<EObject> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition, contributingNonterminals);
+			Set<Expectation> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition, contributingNonterminals);
 			// when the previous part contains EPSILON and the current does not
 			// we need to remove it
 			if (firstSet.contains(EPSILON) && !firstSetForDefinition.contains(EPSILON)) {
@@ -239,8 +241,8 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 	
-	private Set<EObject> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition, Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		if (definition instanceof CardinalityDefinition) {
 			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition, contributingNonterminals));
 		} else if (definition instanceof CsString) {
@@ -256,8 +258,8 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition,Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition,Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		String cardinality = csUtil.computeCardinalityString(definition);
 		if ("?".equals(cardinality) || "*".equals(cardinality)) {
 			firstSet.add(EPSILON);
@@ -271,14 +273,14 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 	
-	private Set<EObject> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword, Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>(1);
-		firstSet.add(keyword);
+	private Set<Expectation> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>(1);
+		firstSet.add(new Expectation(keyword));
 		return firstSet;
 	}
 
-	private Set<EObject> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, Set<GenClass> contributingNonterminals) {
-		Set<EObject> firstSet = new LinkedHashSet<EObject>();
+	private Set<Expectation> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, Set<GenClass> contributingNonterminals) {
+		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		final GenFeature genFeature = terminal.getFeature();
 		if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
 			firstSet.add(EPSILON);
@@ -287,7 +289,7 @@ public class ExpectationComputer {
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 		if (ecoreFeature instanceof EAttribute) {
-			firstSet.add(terminal);
+			firstSet.add(new Expectation(terminal));
 			return firstSet;
 		}
 		if (!(ecoreFeature instanceof EReference)) {
@@ -303,7 +305,7 @@ public class ExpectationComputer {
 			// we do not add it for containments, because the
 			// rules for the concrete subclasses will fill the 
 			// firstSet
-			firstSet.add(terminal);
+			firstSet.add(new Expectation(terminal));
 			return firstSet;
 		}
 		assert terminal instanceof Containment;
@@ -313,15 +315,24 @@ public class ExpectationComputer {
 		// be set for the terminal
 		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
 		for (GenClass subType : subTypes) {
-			if(contributingNonterminals.contains(subType))
+			if (contributingNonterminals.contains(subType)) {
 				continue;
+			}
 			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
-			for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
-				Rule nextFeatureTypeRule = (Rule) iterator.next();
-				if(contributingNonterminals.contains(nextFeatureTypeRule.getMetaclass()))
+			for (Rule nextFeatureTypeRule : featureTypeRules) {
+				if (contributingNonterminals.contains(nextFeatureTypeRule.getMetaclass())) {
 					continue;
+				}
 				contributingNonterminals.add(nextFeatureTypeRule.getMetaclass());
-				firstSet.addAll(computeFirstSet(syntax, nextFeatureTypeRule, contributingNonterminals));
+				Set<Expectation> firstSetOfSubRule = computeFirstSet(syntax, nextFeatureTypeRule, contributingNonterminals);
+				// for every expectation that results from a contained
+				// rule, we extend the rule trace. this way, we know
+				// the types of the containers that may potentially
+				// be created if they do not exist
+				for (Expectation expectation : firstSetOfSubRule) {
+					expectation.getContainmentTrace().add(containment.getFeature());
+				}
+				firstSet.addAll(firstSetOfSubRule);
 			}
 		}
 		return firstSet;

@@ -325,6 +325,7 @@
     <eLiterals name="ADDITIONAL_DEPENDENCIES" value="157" literal="additionalDependencies"/>
     <eLiterals name="DISABLE_BUILDER" value="158" literal="disableBuilder"/>
     <eLiterals name="ADDITIONAL_EXPORTS" value="159" literal="additionalExports"/>
+    <eLiterals name="OVERRIDE_PAIR" value="160" literal="overridePair"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

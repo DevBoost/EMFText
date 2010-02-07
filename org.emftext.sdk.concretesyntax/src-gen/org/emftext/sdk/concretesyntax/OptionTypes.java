@@ -1403,7 +1403,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_EXPORTS(159, "ADDITIONAL_EXPORTS", "additionalExports");
+	ADDITIONAL_EXPORTS(159, "ADDITIONAL_EXPORTS", "additionalExports"), /**
+	 * The '<em><b>OVERRIDE PAIR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PAIR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PAIR(160, "OVERRIDE_PAIR", "overridePair");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3778,6 +3786,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int ADDITIONAL_EXPORTS_VALUE = 159;
 
 	/**
+	 * The '<em><b>OVERRIDE PAIR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PAIR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PAIR
+	 * @model literal="overridePair"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PAIR_VALUE = 160;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3943,6 +3966,7 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_DEPENDENCIES,
 			DISABLE_BUILDER,
 			ADDITIONAL_EXPORTS,
+			OVERRIDE_PAIR,
 		};
 
 	/**
@@ -4150,6 +4174,7 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_DEPENDENCIES_VALUE: return ADDITIONAL_DEPENDENCIES;
 			case DISABLE_BUILDER_VALUE: return DISABLE_BUILDER;
 			case ADDITIONAL_EXPORTS_VALUE: return ADDITIONAL_EXPORTS;
+			case OVERRIDE_PAIR_VALUE: return OVERRIDE_PAIR;
 		}
 		return null;
 	}

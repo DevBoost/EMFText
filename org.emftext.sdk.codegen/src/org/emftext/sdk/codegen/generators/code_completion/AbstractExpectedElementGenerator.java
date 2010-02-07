@@ -14,6 +14,8 @@
 package org.emftext.sdk.codegen.generators.code_completion;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 
@@ -26,6 +28,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 
 	private String iExpectedElementClassName;
+	private String pairClassName;
 
 	public AbstractExpectedElementGenerator() {
 		super();
@@ -34,6 +37,7 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 	private AbstractExpectedElementGenerator(GenerationContext context) {
 		super(context, EArtifact.ABSTRACT_EXPECTED_ELEMENT);
 		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
+		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -50,25 +54,53 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("// add followers");
 		sc.add("public abstract class " + getResourceClassName() + " implements " + iExpectedElementClassName + " {");
 		sc.addLineBreak();
-		sc.add("private " + SET + "<" + iExpectedElementClassName + "> followers = new " + LINKED_HASH_SET + "<" + iExpectedElementClassName + ">();");
-		sc.addLineBreak();
-		
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("public void addFollower(" + iExpectedElementClassName + " follower) {");
-		sc.add("followers.add(follower);");
-		sc.add("}");
-		sc.addLineBreak();
 
-		sc.add("public " + COLLECTION + "<" + iExpectedElementClassName + "> getFollowers() {");
-		sc.add("return followers;");
-		sc.add("}");
-		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
 
 		sc.add("}");
 		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetRuleMetaclassMethod(sc);
+		addAddFollowerMethod(sc);
+		addGetFollowersMethod(sc);
+	}
+
+	private void addGetFollowersMethod(StringComposite sc) {
+		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers() {");
+		sc.add("return followers;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddFollowerMethod(StringComposite sc) {
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path) {");
+		sc.add("followers.add(new " + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>(follower, path));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetRuleMetaclassMethod(StringComposite sc) {
+		sc.add("public " + E_CLASS + " getRuleMetaclass() {");
+		sc.add("return ruleMetaclass;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " ruleMetaclass) {");
+		sc.add("super();");
+		sc.add("this.ruleMetaclass = ruleMetaclass;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + E_CLASS + " ruleMetaclass;");
+		sc.add("private " + SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> followers = new " + LINKED_HASH_SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>>();");
+		sc.addLineBreak();
 	}
 }

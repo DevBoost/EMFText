@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -91,8 +94,8 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String value) {");
-		sc.add("super();");
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " ruleMetaclass, " + STRING + " value) {");
+		sc.add("super(ruleMetaclass);");
 		sc.add("this.value = value;");
 		sc.add("}");
 		sc.addLineBreak();

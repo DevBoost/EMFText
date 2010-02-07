@@ -11,33 +11,33 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.util;
 
-/**
- * A typed pair of objects.
- *
- * @param <T1> the type of the first (left) object
- * @param <T2> the type of the second (right) object
- */
-public class Pair<T1, T2> {
+package org.emftext.sdk.concretesyntax.resource.cs.util;
+
+// A typed pair of objects.
+//
+// @param <T1> the type of the first (left) object
+// @param <T2> the type of the second (right) object
+//
+public class CsPair<T1, T2> {
 	
-	private T1 left; 
+	private T1 left;
 	private T2 right;
 	
-	public Pair(T1 left, T2 right) {
+	public CsPair(T1 left, T2 right) {
 		this.left = left;
 		this.right = right;
 	}
-
+	
 	public T1 getLeft() {
 		return left;
 	}
-
+	
 	public T2 getRight() {
 		return right;
 	}
-
-	@Override
+	
+	@Override	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -45,26 +45,34 @@ public class Pair<T1, T2> {
 		result = prime * result + ((right == null) ? 0 : right.hashCode());
 		return result;
 	}
-
-	@Override
+	
+	@Override	
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Pair<?,?> other = (Pair<?,?>) obj;
+		}
+		CsPair<?,?> other = (CsPair<?,?>) obj;
 		if (left == null) {
-			if (other.left != null)
+			if (other.left != null) {
 				return false;
-		} else if (!left.equals(other.left))
+			}
+		} else if (!left.equals(other.left)) {
 			return false;
+		}
 		if (right == null) {
-			if (other.right != null)
+			if (other.right != null) {
 				return false;
-		} else if (!right.equals(other.right))
+			}
+		} else if (!right.equals(other.right)) {
 			return false;
+		}
 		return true;
 	}
+	
 }

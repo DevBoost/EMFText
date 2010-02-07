@@ -1,5 +1,7 @@
 package org.emftext.sdk.codegen.generators.code_completion;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -35,40 +37,57 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("// (i.e., the part of the document containing the relevant characters).");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("private int followSetID;");
-		sc.add("private " + iExpectedElementClassName + " terminal;");
-		sc.add("private int startIncludingHiddenTokens;");
-		sc.add("private int startExcludingHiddenTokens;");
-		sc.add("private String prefix;");
-		sc.addLineBreak();
-		
-		sc.add("public " + getResourceClassName() + "(" + iExpectedElementClassName + " terminal, int followSetID) {");
-		sc.add("super();");
-		sc.add("this.terminal = terminal;");
-		sc.add("this.followSetID = followSetID;");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("public int getFollowSetID() {");
-		sc.add("return followSetID;");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("public " + iExpectedElementClassName + " getTerminal() {");
-		sc.add("return terminal;");
-		sc.add("}");
-		sc.addLineBreak();
 
-		sc.add("public String toString() {");
-		sc.add("return terminal == null ? \"null\" : terminal.toString();");
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetFollowSetIDMethod(sc);
+		addGetTerminalMethod(sc);
+		addToStringMethod(sc);
+		addEqualsMethod(sc);
+		addSetPositionMethod(sc);
+		addGetStartIncludingHiddenTokensMethod(sc);
+		addGetStartExcludingHiddenTokensMethod(sc);
+		addGetPrefixMethod(sc);
+		addSetPrefixMethod(sc);
+		addGetContainmentTraceMethod(sc);
+	}
+
+	private void addSetPrefixMethod(StringComposite sc) {
+		sc.add("public void setPrefix(" + STRING + " prefix) {");
+		sc.add("this.prefix = prefix;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public boolean equals(Object o) {");
-		sc.add("return this.terminal.equals(((" + getResourceClassName() + ") o).terminal);");
+	}
+
+	private void addGetPrefixMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getPrefix() {");
+		sc.add("return prefix;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetStartExcludingHiddenTokensMethod(StringComposite sc) {
+		sc.add("public int getStartExcludingHiddenTokens() {");
+		sc.add("return startExcludingHiddenTokens;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetStartIncludingHiddenTokensMethod(StringComposite sc) {
+		sc.add("public int getStartIncludingHiddenTokens() {");
+		sc.add("return startIncludingHiddenTokens;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetPositionMethod(StringComposite sc) {
 		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {");
 		sc.add("assert startExcludingHiddenTokens <= startExcludingHiddenTokens;");
 		sc.add("assert startIncludingHiddenTokens <= startExcludingHiddenTokens;");
@@ -76,28 +95,60 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("this.startExcludingHiddenTokens = startExcludingHiddenTokens;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public int getStartIncludingHiddenTokens() {");
-		sc.add("return startIncludingHiddenTokens;");
+	}
+
+	private void addEqualsMethod(StringComposite sc) {
+		sc.add("public boolean equals(" + OBJECT + " o) {");
+		sc.add("return this.terminal.equals(((" + getResourceClassName() + ") o).terminal);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public int getStartExcludingHiddenTokens() {");
-		sc.add("return startExcludingHiddenTokens;");
+	}
+
+	private void addToStringMethod(StringComposite sc) {
+		sc.add("public " + STRING + " toString() {");
+		sc.add("return terminal == null ? \"null\" : terminal.toString();");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public String getPrefix() {");
-		sc.add("return prefix;");
+	}
+
+	private void addGetTerminalMethod(StringComposite sc) {
+		sc.add("public " + iExpectedElementClassName + " getTerminal() {");
+		sc.add("return terminal;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public void setPrefix(String prefix) {");
-		sc.add("this.prefix = prefix;");
+	}
+
+	private void addGetContainmentTraceMethod(StringComposite sc) {
+		sc.add("public " + E_STRUCTURAL_FEATURE + "[] getContainmentTrace() {");
+		sc.add("return containmentTrace;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetFollowSetIDMethod(StringComposite sc) {
+		sc.add("public int getFollowSetID() {");
+		sc.add("return followSetID;");
 		sc.add("}");
-		return true;
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + iExpectedElementClassName + " terminal, int followSetID, " + E_STRUCTURAL_FEATURE + "... containmentTrace) {");
+		sc.add("super();");
+		sc.add("this.terminal = terminal;");
+		sc.add("this.followSetID = followSetID;");
+		sc.add("this.containmentTrace = containmentTrace;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private int followSetID;");
+		sc.add("private " + iExpectedElementClassName + " terminal;");
+		sc.add("private int startIncludingHiddenTokens;");
+		sc.add("private int startExcludingHiddenTokens;");
+		sc.add("private " + STRING + " prefix;");
+		sc.add("private " + E_STRUCTURAL_FEATURE + "[] containmentTrace;");
+		sc.addLineBreak();
 	}
 }

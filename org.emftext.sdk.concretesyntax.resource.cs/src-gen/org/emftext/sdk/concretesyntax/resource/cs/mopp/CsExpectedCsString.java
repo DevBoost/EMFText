@@ -20,8 +20,8 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 	
 	private String value;
 	
-	public CsExpectedCsString(String value) {
-		super();
+	public CsExpectedCsString(org.eclipse.emf.ecore.EClass ruleMetaclass, java.lang.String value) {
+		super(ruleMetaclass);
 		this.value = value;
 	}
 	
