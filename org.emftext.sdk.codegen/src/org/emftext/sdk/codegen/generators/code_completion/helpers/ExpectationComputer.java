@@ -40,8 +40,6 @@ import org.emftext.sdk.util.EObjectUtil;
  * elements that can follow a given element in a syntax. It uses
  * the well-known construction of FIRST and FOLLOW sets from
  * context-free grammars.
- * 
- * TODO mseifert: move this class to upper package 'code_completion'
  */
 public class ExpectationComputer {
 
