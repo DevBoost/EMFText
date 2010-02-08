@@ -12,9 +12,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class PlaceholderInQuotesSuffixAnalyser extends AbstractPostProcessor {
+public class PlaceholderInQuotesAnalyser extends AbstractPostProcessor {
 
-	public final static String MESSAGE = "The suffix for the placeholder in quotes must not be empty.";
+	public final static String MESSAGE_1 = "The suffix for the placeholder in quotes must not be empty.";
+	public final static String MESSAGE_2 = "The prefix for the placeholder in quotes must not be empty.";
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
@@ -23,16 +24,16 @@ public class PlaceholderInQuotesSuffixAnalyser extends AbstractPostProcessor {
 		List<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
 			Collection<PlaceholderInQuotes> placeholdersInQuotes = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
-			for (PlaceholderInQuotes placeholderInQuotes : placeholdersInQuotes) {
-				checkEmptySuffix(resource, placeholderInQuotes);
+			for (PlaceholderInQuotes placeholder : placeholdersInQuotes) {
+				checkEmpty(resource, placeholder, placeholder.getSuffix(), ECsProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX, MESSAGE_1);
+				checkEmpty(resource, placeholder, placeholder.getPrefix(), ECsProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_PREFIX, MESSAGE_2);
 			}
 		}
 	}
 
-	private void checkEmptySuffix(CsResource resource, PlaceholderInQuotes placeholder) {
-		String suffix = placeholder.getSuffix();
-		if (suffix != null && "".equals(suffix)) {
-			addProblem(resource, ECsProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX, MESSAGE, placeholder);
+	private void checkEmpty(CsResource resource, PlaceholderInQuotes placeholder, String value, ECsProblemType problemType, String message) {
+		if (value != null && "".equals(value)) {
+			addProblem(resource, problemType, message, placeholder);
 		}
 	}
 }

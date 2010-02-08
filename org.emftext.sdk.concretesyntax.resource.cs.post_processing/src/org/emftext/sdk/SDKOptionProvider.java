@@ -38,7 +38,7 @@ import org.emftext.sdk.syntax_analysis.ModifierAnalyser;
 import org.emftext.sdk.syntax_analysis.OppositeReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.OptionalKeywordAnalyser;
 import org.emftext.sdk.syntax_analysis.OptionsAnalyser;
-import org.emftext.sdk.syntax_analysis.PlaceholderInQuotesSuffixAnalyser;
+import org.emftext.sdk.syntax_analysis.PlaceholderInQuotesAnalyser;
 import org.emftext.sdk.syntax_analysis.QuotenTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
@@ -84,7 +84,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new CyclicTokenDefinitionAnalyser());
 		
 		// then analyse it
-		postProcessors.add(new PlaceholderInQuotesSuffixAnalyser());
+		postProcessors.add(new PlaceholderInQuotesAnalyser());
 		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());
 		postProcessors.add(new DuplicateReferenceAnalyser());

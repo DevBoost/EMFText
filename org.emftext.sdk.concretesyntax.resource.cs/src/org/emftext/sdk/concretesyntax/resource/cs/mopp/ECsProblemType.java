@@ -68,6 +68,7 @@ public enum ECsProblemType {
 	LICENCE_HEADER_NOT_FOUND(CsEProblemType.WARNING), 
 	CYCLIC_TOKEN_DEFINITION(CsEProblemType.ERROR), 
 	PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX(CsEProblemType.ERROR), 
+	PLACEHOLDER_IN_QUOTES_WITH_EMPTY_PREFIX(CsEProblemType.ERROR), 
 	;
 
 	private CsEProblemType problemType;
