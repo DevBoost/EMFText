@@ -45,6 +45,9 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
  */
 public class GenerateTextResourceTask extends Task {
 
+	private final static Object taskloaderLock = new Object();
+	private static int threadCount = 0;
+	
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
@@ -57,16 +60,7 @@ public class GenerateTextResourceTask extends Task {
 	public void execute() throws BuildException {
 		checkParameters();
 		
-		// Get the task class loader we used to load this tag.
-		AntClassLoader taskloader = null;
-		ClassLoader loader = this.getClass().getClassLoader();
-		if (loader instanceof AntClassLoader) {
-			taskloader = (AntClassLoader) loader;
-		}
-		// Shove it into the Thread, replacing the thread's ClassLoader:
-		if (taskloader != null) {
-			taskloader.setThreadContextLoader();
-		}
+		AntClassLoader taskloader = setLoader();
 
 		registerResourceFactories();
 		try {
@@ -90,30 +84,45 @@ public class GenerateTextResourceTask extends Task {
 					for (EObject unresolvedProxy : result.getUnresolvedProxies()) {
 						log("Found unresolved proxy \"" + ((InternalEObject) unresolvedProxy).eProxyURI() + "\" in " + unresolvedProxy.eResource());
 					}
-					 // Reset the Thread's original ClassLoader.
-					if (taskloader != null) {
-						taskloader.resetThreadContextLoader();
-					}
+					resetLoader(taskloader);
 					throw new BuildException("Generation failed " + result);
 				} else {
-					 // Reset the Thread's original ClassLoader.
-					if (taskloader != null) {
-						taskloader.resetThreadContextLoader();
-					}
+					resetLoader(taskloader);
 					throw new BuildException("Generation failed " + result);
 				}
 			}
 		} catch (Exception e) {
-			 // Reset the Thread's original ClassLoader.
-			if (taskloader != null) {
-				taskloader.resetThreadContextLoader();
-			}
+			resetLoader(taskloader);
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-		// Reset the Thread's original ClassLoader.
-		if (taskloader != null) {
-			taskloader.resetThreadContextLoader();
+		resetLoader(taskloader);
+	}
+
+	private AntClassLoader setLoader() {
+		// Get the task class loader we used to load this tag.
+		AntClassLoader taskloader = null;
+		ClassLoader loader = this.getClass().getClassLoader();
+		if (loader instanceof AntClassLoader) {
+			taskloader = (AntClassLoader) loader;
+		}
+		// Shove it into the Thread, replacing the thread's ClassLoader:
+		synchronized (taskloaderLock) {
+			if (taskloader != null && threadCount == 0) {
+				taskloader.setThreadContextLoader();
+			}
+			threadCount++;
+		}
+		return taskloader;
+	}
+
+	private void resetLoader(AntClassLoader taskloader) {
+		synchronized (taskloaderLock) {
+			threadCount--;
+			// Reset the Thread's original ClassLoader.
+			if (taskloader != null && threadCount == 0) {
+				taskloader.resetThreadContextLoader();
+			}
 		}
 	}
 	
