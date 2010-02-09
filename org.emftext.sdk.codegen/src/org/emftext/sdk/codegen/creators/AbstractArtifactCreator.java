@@ -17,7 +17,6 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -62,7 +61,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 			boolean doSave = !exists || doOverride;
 		    if (doSave) {
 		    	try {
-					setContents(targetFile, artifact.getContentStream());
+					StreamUtil.setContentIfChanged(targetFile, artifact.getContentStream());
 				} catch (IOException e) {
 					context.getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
 				}
@@ -119,13 +118,6 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 			}
 		}
 		return null;
-	}
-
-	private void setContents(File target, InputStream in) throws IOException {
-		target.getParentFile().mkdirs();
-		FileOutputStream fos = new FileOutputStream(target);
-		StreamUtil.copy(in, fos);
-		fos.close();
 	}
 
 	protected Collection<IArtifact> toList(Artifact artifact) {

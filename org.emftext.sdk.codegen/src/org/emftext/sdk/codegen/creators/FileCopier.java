@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,14 +40,12 @@ public class FileCopier implements IArtifactCreator {
 	}
 
 	public void createArtifacts(GenerationContext context) {
+		// TODO this does not belong here
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		
-		FileOutputStream fos;
 		try {
-			fos = new FileOutputStream(targetFile);
-			StreamUtil.copy(inputStream, fos);
-			fos.close();
+			StreamUtil.setContentIfChanged(targetFile, inputStream);
 		} catch (IOException e) {
 			addError(context, e);
 		} catch (NullPointerException e) {

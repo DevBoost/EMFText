@@ -13,10 +13,15 @@
  ******************************************************************************/
 package org.emftext.sdk.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 public class StreamUtil {
 	
@@ -39,5 +44,47 @@ public class StreamUtil {
 			content.append((char) next);
 		}
 		return content.toString();
+	}
+
+	public static void setContentIfChanged(File target, InputStream in) throws IOException {
+		target.getParentFile().mkdirs();
+		long currentSize = target.length();
+		if (!target.exists()) {
+			currentSize = -1;
+		}
+		
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		StreamUtil.copy(in, buffer);
+		buffer.close();
+		long newSize = buffer.size();
+		byte[] newContent = buffer.toByteArray();
+		
+		if (newSize != currentSize) {
+			writeBuffer(target, newContent);
+		} else {
+			// size is equal, check content
+			byte[] currentContent = getContent(target);
+			boolean contentIsEqual = Arrays.equals(currentContent, newContent);
+			if (contentIsEqual) {
+				// do nothing - the new content is the same as the old one
+			} else {
+				writeBuffer(target, newContent);
+			}
+		}
+	}
+
+	public static byte[] getContent(File target) throws IOException {
+		FileInputStream in = new FileInputStream(target);
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		StreamUtil.copy(in, buffer);
+		in.close();
+		buffer.close();
+		return buffer.toByteArray();
+	}
+
+	public static void writeBuffer(File target, byte[] buffer) throws IOException {
+		FileOutputStream fos = new FileOutputStream(target);
+		fos.write(buffer);
+		fos.close();
 	}
 }
