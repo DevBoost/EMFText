@@ -30,6 +30,19 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 			super.setSelection(selection, reveal);
 			suppressNotifications = false;
 		}
+		else {
+			super.setSelection(selection, reveal);
+		}
+	}
+	
+	protected void handleSelect(org.eclipse.swt.events.SelectionEvent event) {
+		if (event.item == null) {
+			// In the cases of an invalid document, the tree widget in the outline might fire an event
+			// (with item == null) without user interaction. We do not want to react to that event.
+		}
+		else {
+			super.handleSelect(event);
+		}
 	}
 	
 	protected void handleInvalidSelection(org.eclipse.jface.viewers.ISelection selection, org.eclipse.jface.viewers.ISelection newSelection) {

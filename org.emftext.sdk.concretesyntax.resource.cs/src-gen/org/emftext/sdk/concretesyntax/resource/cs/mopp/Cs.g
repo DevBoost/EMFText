@@ -622,357 +622,374 @@ options {
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_97 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), "=");
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_98 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), "QUOTED_34_34_92");
 	
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_0 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_1 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_2 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_3 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_4 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_5 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_6 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_7 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_8 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_9 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_10 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_11 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_12 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS);
+	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_13 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS);
+	
+	private final static org.eclipse.emf.ecore.EStructuralFeature[] EMPTY_FEATURE_ARRAY = new org.eclipse.emf.ecore.EStructuralFeature[0];
+	
 	public static void wire0() {
-		TERMINAL_2.addFollower(TERMINAL_3, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_3.addFollower(TERMINAL_4, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_4.addFollower(TERMINAL_5, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_6, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_7, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_5.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_7, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_6.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_7.addFollower(TERMINAL_13, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_14, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_13.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_14.addFollower(TERMINAL_15, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_14, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_15.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_8.addFollower(TERMINAL_16, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_16.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-		TERMINAL_16.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_18.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_18.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_18.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_18.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_9.addFollower(TERMINAL_19, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_19.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), });
-		TERMINAL_19.addFollower(TERMINAL_21, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_22.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), });
-		TERMINAL_22.addFollower(TERMINAL_21, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_21.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_21.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_21.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_10.addFollower(TERMINAL_23, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_23.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_23.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_23.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_23.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_23.addFollower(TERMINAL_27, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_28.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_28.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_28.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_28.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-		TERMINAL_28.addFollower(TERMINAL_27, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_27.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_27.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_11.addFollower(TERMINAL_29, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_29.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), });
-		TERMINAL_29.addFollower(TERMINAL_31, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_31.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_12.addFollower(TERMINAL_32, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_32.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-		TERMINAL_32.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-		TERMINAL_32.addFollower(TERMINAL_34, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_17.addFollower(TERMINAL_35, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_35.addFollower(TERMINAL_36, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_36.addFollower(TERMINAL_37, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_36.addFollower(TERMINAL_38, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_36.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-		TERMINAL_36.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_37.addFollower(TERMINAL_38, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_37.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-		TERMINAL_37.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_38.addFollower(TERMINAL_39, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_39.addFollower(TERMINAL_40, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_40.addFollower(TERMINAL_41, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_40.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-		TERMINAL_40.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_41.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-		TERMINAL_41.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_20.addFollower(TERMINAL_42, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_42.addFollower(TERMINAL_43, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_43.addFollower(TERMINAL_22, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_33.addFollower(TERMINAL_44, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_44.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_44.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-		TERMINAL_53.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-		TERMINAL_53.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-		TERMINAL_53.addFollower(TERMINAL_34, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_54.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_54.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-		TERMINAL_45.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_45.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_45.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_45.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_46.addFollower(TERMINAL_56, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_56.addFollower(TERMINAL_57, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_57.addFollower(TERMINAL_58, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_58.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_58.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_58.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_58.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_58.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_58.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_58.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_47.addFollower(TERMINAL_62, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_62.addFollower(TERMINAL_63, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_63.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_63.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_63.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_63.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_63.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_63.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_63.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_48.addFollower(TERMINAL_64, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_64.addFollower(TERMINAL_65, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_65.addFollower(TERMINAL_66, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_66.addFollower(TERMINAL_67, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_67.addFollower(TERMINAL_68, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_67.addFollower(TERMINAL_69, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_68.addFollower(TERMINAL_70, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_70.addFollower(TERMINAL_69, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_69.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_69.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_69.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_69.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_69.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_69.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_69.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_49.addFollower(TERMINAL_71, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_49.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_49.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_49.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_49.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_49.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_49.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_49.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_71.addFollower(TERMINAL_72, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_72.addFollower(TERMINAL_73, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_72.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_72.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_72.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_72.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_72.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_72.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_72.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_73.addFollower(TERMINAL_74, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_74.addFollower(TERMINAL_73, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_74.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_74.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_74.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_74.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_74.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_74.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_74.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_50.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_50.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-		TERMINAL_55.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_55.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_55.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-		TERMINAL_55.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_55.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_55.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_55.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_51.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_51.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_51.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_51.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_52.addFollower(TERMINAL_75, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_75.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_75.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_75.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_75.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_24.addFollower(TERMINAL_76, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_76.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_76.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_79.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_79.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_80.addFollower(TERMINAL_81, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_81.addFollower(TERMINAL_82, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_82.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_25.addFollower(TERMINAL_83, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_83.addFollower(TERMINAL_84, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_84.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_84.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_85.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_85.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-		TERMINAL_26.addFollower(TERMINAL_86, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_86.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_77.addFollower(TERMINAL_79, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_77.addFollower(TERMINAL_80, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_77.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_77.addFollower(TERMINAL_85, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_78.addFollower(TERMINAL_79, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_78.addFollower(TERMINAL_80, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_78.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_78.addFollower(TERMINAL_85, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_59.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_59.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_59.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_59.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_60.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_60.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_60.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_60.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_61.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-		TERMINAL_61.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_61.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_61.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_1.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_30.addFollower(TERMINAL_87, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_87.addFollower(TERMINAL_88, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_88.addFollower(TERMINAL_89, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_88.addFollower(TERMINAL_90, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_89.addFollower(TERMINAL_91, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_91.addFollower(TERMINAL_89, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_91.addFollower(TERMINAL_90, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_90.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), });
-		TERMINAL_90.addFollower(TERMINAL_31, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_0.addFollower(TERMINAL_92, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_92.addFollower(TERMINAL_93, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_92.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), });
-		TERMINAL_92.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), });
-		TERMINAL_92.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_92.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_92.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_93.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), });
-		TERMINAL_95.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), });
-		TERMINAL_96.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), });
-		TERMINAL_96.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), });
-		TERMINAL_96.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_96.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_96.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_94.addFollower(TERMINAL_97, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_94.addFollower(TERMINAL_95, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_94.addFollower(TERMINAL_96, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_97.addFollower(TERMINAL_98, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_98.addFollower(TERMINAL_95, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-		TERMINAL_98.addFollower(TERMINAL_96, new org.eclipse.emf.ecore.EStructuralFeature[] {});
+		TERMINAL_2.addFollower(TERMINAL_3, EMPTY_FEATURE_ARRAY);
+		TERMINAL_3.addFollower(TERMINAL_4, EMPTY_FEATURE_ARRAY);
+		TERMINAL_4.addFollower(TERMINAL_5, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_6, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_7, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_5.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_7, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_6.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_7.addFollower(TERMINAL_13, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_14, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_13.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_14.addFollower(TERMINAL_15, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_14, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_15.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_8.addFollower(TERMINAL_16, EMPTY_FEATURE_ARRAY);
+		TERMINAL_16.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+		TERMINAL_16.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+		TERMINAL_18.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+		TERMINAL_18.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_18.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_18.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_9.addFollower(TERMINAL_19, EMPTY_FEATURE_ARRAY);
+		TERMINAL_19.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_3, });
+		TERMINAL_19.addFollower(TERMINAL_21, EMPTY_FEATURE_ARRAY);
+		TERMINAL_22.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_3, });
+		TERMINAL_22.addFollower(TERMINAL_21, EMPTY_FEATURE_ARRAY);
+		TERMINAL_21.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+		TERMINAL_21.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_21.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_10.addFollower(TERMINAL_23, EMPTY_FEATURE_ARRAY);
+		TERMINAL_23.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_4, });
+		TERMINAL_23.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_23.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_23.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_23.addFollower(TERMINAL_27, EMPTY_FEATURE_ARRAY);
+		TERMINAL_28.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_4, });
+		TERMINAL_28.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_28.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_28.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+		TERMINAL_28.addFollower(TERMINAL_27, EMPTY_FEATURE_ARRAY);
+		TERMINAL_27.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+		TERMINAL_27.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_11.addFollower(TERMINAL_29, EMPTY_FEATURE_ARRAY);
+		TERMINAL_29.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_5, });
+		TERMINAL_29.addFollower(TERMINAL_31, EMPTY_FEATURE_ARRAY);
+		TERMINAL_31.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+		TERMINAL_12.addFollower(TERMINAL_32, EMPTY_FEATURE_ARRAY);
+		TERMINAL_32.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_6, });
+		TERMINAL_32.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_6, });
+		TERMINAL_32.addFollower(TERMINAL_34, EMPTY_FEATURE_ARRAY);
+		TERMINAL_17.addFollower(TERMINAL_35, EMPTY_FEATURE_ARRAY);
+		TERMINAL_35.addFollower(TERMINAL_36, EMPTY_FEATURE_ARRAY);
+		TERMINAL_36.addFollower(TERMINAL_37, EMPTY_FEATURE_ARRAY);
+		TERMINAL_36.addFollower(TERMINAL_38, EMPTY_FEATURE_ARRAY);
+		TERMINAL_36.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+		TERMINAL_36.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+		TERMINAL_37.addFollower(TERMINAL_38, EMPTY_FEATURE_ARRAY);
+		TERMINAL_37.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+		TERMINAL_37.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+		TERMINAL_38.addFollower(TERMINAL_39, EMPTY_FEATURE_ARRAY);
+		TERMINAL_39.addFollower(TERMINAL_40, EMPTY_FEATURE_ARRAY);
+		TERMINAL_40.addFollower(TERMINAL_41, EMPTY_FEATURE_ARRAY);
+		TERMINAL_40.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+		TERMINAL_40.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+		TERMINAL_41.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+		TERMINAL_41.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+		TERMINAL_20.addFollower(TERMINAL_42, EMPTY_FEATURE_ARRAY);
+		TERMINAL_42.addFollower(TERMINAL_43, EMPTY_FEATURE_ARRAY);
+		TERMINAL_43.addFollower(TERMINAL_22, EMPTY_FEATURE_ARRAY);
+		TERMINAL_33.addFollower(TERMINAL_44, EMPTY_FEATURE_ARRAY);
+		TERMINAL_44.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_44.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+		TERMINAL_53.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_6, });
+		TERMINAL_53.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_6, });
+		TERMINAL_53.addFollower(TERMINAL_34, EMPTY_FEATURE_ARRAY);
+		TERMINAL_54.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_54.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+		TERMINAL_45.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_45.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_45.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_45.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_46.addFollower(TERMINAL_56, EMPTY_FEATURE_ARRAY);
+		TERMINAL_56.addFollower(TERMINAL_57, EMPTY_FEATURE_ARRAY);
+		TERMINAL_57.addFollower(TERMINAL_58, EMPTY_FEATURE_ARRAY);
+		TERMINAL_58.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_58.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_58.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_58.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_58.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_58.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_58.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_47.addFollower(TERMINAL_62, EMPTY_FEATURE_ARRAY);
+		TERMINAL_62.addFollower(TERMINAL_63, EMPTY_FEATURE_ARRAY);
+		TERMINAL_63.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_63.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_63.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_63.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_63.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_63.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_63.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_48.addFollower(TERMINAL_64, EMPTY_FEATURE_ARRAY);
+		TERMINAL_64.addFollower(TERMINAL_65, EMPTY_FEATURE_ARRAY);
+		TERMINAL_65.addFollower(TERMINAL_66, EMPTY_FEATURE_ARRAY);
+		TERMINAL_66.addFollower(TERMINAL_67, EMPTY_FEATURE_ARRAY);
+		TERMINAL_67.addFollower(TERMINAL_68, EMPTY_FEATURE_ARRAY);
+		TERMINAL_67.addFollower(TERMINAL_69, EMPTY_FEATURE_ARRAY);
+		TERMINAL_68.addFollower(TERMINAL_70, EMPTY_FEATURE_ARRAY);
+		TERMINAL_70.addFollower(TERMINAL_69, EMPTY_FEATURE_ARRAY);
+		TERMINAL_69.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_69.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_69.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_69.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_69.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_69.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_69.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_49.addFollower(TERMINAL_71, EMPTY_FEATURE_ARRAY);
+		TERMINAL_49.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_49.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_49.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_49.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_49.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_49.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_49.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_71.addFollower(TERMINAL_72, EMPTY_FEATURE_ARRAY);
+		TERMINAL_72.addFollower(TERMINAL_73, EMPTY_FEATURE_ARRAY);
+		TERMINAL_72.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_72.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_72.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_72.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_72.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_72.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_72.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_73.addFollower(TERMINAL_74, EMPTY_FEATURE_ARRAY);
+		TERMINAL_74.addFollower(TERMINAL_73, EMPTY_FEATURE_ARRAY);
+		TERMINAL_74.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_74.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_74.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_74.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_74.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_74.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_74.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_50.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_50.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+		TERMINAL_55.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_55.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_55.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+		TERMINAL_55.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_55.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_55.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_55.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_51.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_51.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_51.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_51.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_52.addFollower(TERMINAL_75, EMPTY_FEATURE_ARRAY);
+		TERMINAL_75.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_75.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_75.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_75.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_24.addFollower(TERMINAL_76, EMPTY_FEATURE_ARRAY);
+		TERMINAL_76.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_76.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_79.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_79.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_80.addFollower(TERMINAL_81, EMPTY_FEATURE_ARRAY);
+		TERMINAL_81.addFollower(TERMINAL_82, EMPTY_FEATURE_ARRAY);
+		TERMINAL_82.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+		TERMINAL_25.addFollower(TERMINAL_83, EMPTY_FEATURE_ARRAY);
+		TERMINAL_83.addFollower(TERMINAL_84, EMPTY_FEATURE_ARRAY);
+		TERMINAL_84.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_84.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_85.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_85.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+		TERMINAL_26.addFollower(TERMINAL_86, EMPTY_FEATURE_ARRAY);
+		TERMINAL_86.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+		TERMINAL_77.addFollower(TERMINAL_79, EMPTY_FEATURE_ARRAY);
+		TERMINAL_77.addFollower(TERMINAL_80, EMPTY_FEATURE_ARRAY);
+		TERMINAL_77.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+		TERMINAL_77.addFollower(TERMINAL_85, EMPTY_FEATURE_ARRAY);
+		TERMINAL_78.addFollower(TERMINAL_79, EMPTY_FEATURE_ARRAY);
+		TERMINAL_78.addFollower(TERMINAL_80, EMPTY_FEATURE_ARRAY);
+		TERMINAL_78.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+		TERMINAL_78.addFollower(TERMINAL_85, EMPTY_FEATURE_ARRAY);
+		TERMINAL_59.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_59.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_59.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_59.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_60.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_60.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_60.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_60.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_61.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+		TERMINAL_61.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+		TERMINAL_61.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+		TERMINAL_61.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+		TERMINAL_1.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+		TERMINAL_30.addFollower(TERMINAL_87, EMPTY_FEATURE_ARRAY);
+		TERMINAL_87.addFollower(TERMINAL_88, EMPTY_FEATURE_ARRAY);
+		TERMINAL_88.addFollower(TERMINAL_89, EMPTY_FEATURE_ARRAY);
+		TERMINAL_88.addFollower(TERMINAL_90, EMPTY_FEATURE_ARRAY);
+		TERMINAL_89.addFollower(TERMINAL_91, EMPTY_FEATURE_ARRAY);
+		TERMINAL_91.addFollower(TERMINAL_89, EMPTY_FEATURE_ARRAY);
+		TERMINAL_91.addFollower(TERMINAL_90, EMPTY_FEATURE_ARRAY);
+		TERMINAL_90.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_5, });
+		TERMINAL_90.addFollower(TERMINAL_31, EMPTY_FEATURE_ARRAY);
+		TERMINAL_0.addFollower(TERMINAL_92, EMPTY_FEATURE_ARRAY);
+		TERMINAL_92.addFollower(TERMINAL_93, EMPTY_FEATURE_ARRAY);
+		TERMINAL_92.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, });
+		TERMINAL_92.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_1, });
+		TERMINAL_92.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+		TERMINAL_92.addFollower(TERMINAL_33, EMPTY_FEATURE_ARRAY);
+		TERMINAL_92.addFollower(TERMINAL_24, EMPTY_FEATURE_ARRAY);
+		TERMINAL_93.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_13, });
+		TERMINAL_95.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_13, });
+		TERMINAL_96.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, });
+		TERMINAL_96.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_1, });
+		TERMINAL_96.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+		TERMINAL_96.addFollower(TERMINAL_33, EMPTY_FEATURE_ARRAY);
+		TERMINAL_96.addFollower(TERMINAL_24, EMPTY_FEATURE_ARRAY);
+		TERMINAL_94.addFollower(TERMINAL_97, EMPTY_FEATURE_ARRAY);
+		TERMINAL_94.addFollower(TERMINAL_95, EMPTY_FEATURE_ARRAY);
+		TERMINAL_94.addFollower(TERMINAL_96, EMPTY_FEATURE_ARRAY);
+		TERMINAL_97.addFollower(TERMINAL_98, EMPTY_FEATURE_ARRAY);
+		TERMINAL_98.addFollower(TERMINAL_95, EMPTY_FEATURE_ARRAY);
+		TERMINAL_98.addFollower(TERMINAL_96, EMPTY_FEATURE_ARRAY);
 	}
 	// wire the terminals
 	static {
@@ -984,10 +1001,8 @@ start returns [ org.eclipse.emf.ecore.EObject element = null]
 :
 	{
 		// follow set for start rule(s)
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 0, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-		// rule path: ConcreteSyntax.modifier
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 0, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 0, FEATURE_0));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 0, FEATURE_1));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 0));
 		expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;
 	}
@@ -1022,10 +1037,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			)
 			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 1, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-				// rule path: ConcreteSyntax.modifier
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 1, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 1, FEATURE_0));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 1, FEATURE_1));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 1));
 			}
 			
@@ -1033,10 +1046,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		
 	)*	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 2, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-		// rule path: ConcreteSyntax.modifier
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 2, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 2, FEATURE_0));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 2, FEATURE_1));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 2));
 	}
 	
@@ -1398,8 +1409,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.imports
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 19, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 19, FEATURE_2));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 19));
 			}
 			
@@ -1424,8 +1434,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						// rule path: ConcreteSyntax.imports
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 20, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 20, FEATURE_2));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 20));
 					}
 					
@@ -1433,8 +1442,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				
 			)*			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.imports
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 21, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 21, FEATURE_2));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 21));
 			}
 			
@@ -1486,8 +1494,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 25, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 25, FEATURE_3));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 25));
 			}
 			
@@ -1524,8 +1531,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 					{
 						// expected elements (follow set)
-						// rule path: ConcreteSyntax.options
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 27, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 27, FEATURE_3));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 27));
 					}
 					
@@ -1533,8 +1539,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				
 			)*			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 28, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 28, FEATURE_3));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 28));
 			}
 			
@@ -1584,15 +1589,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 32, FEATURE_0, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 32, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 32, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 32, FEATURE_4));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 32));
 			}
 			
@@ -1629,15 +1629,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 					{
 						// expected elements (follow set)
-						// rule path: Annotable.annotations
-						// rule path: ConcreteSyntax.tokens
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-						// rule path: ConcreteSyntax.tokens
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-						// rule path: ConcreteSyntax.tokens
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-						// rule path: ConcreteSyntax.tokens
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 34, FEATURE_0, FEATURE_4));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 34, FEATURE_4));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 34, FEATURE_4));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 34, FEATURE_4));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 34));
 					}
 					
@@ -1645,15 +1640,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				
 			)*			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-				// rule path: ConcreteSyntax.tokens
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 35, FEATURE_0, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 35, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 35, FEATURE_4));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 35, FEATURE_4));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 35));
 			}
 			
@@ -1701,8 +1691,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.tokenStyles
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 39, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 39, FEATURE_5));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 39));
 			}
 			
@@ -1727,8 +1716,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						// rule path: ConcreteSyntax.tokenStyles
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 40, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 40, FEATURE_5));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 40));
 					}
 					
@@ -1736,8 +1724,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				
 			)*			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.tokenStyles
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 41, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 41, FEATURE_5));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 41));
 			}
 			
@@ -1781,11 +1768,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		// rule path: ConcreteSyntax.rules
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 45, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-		// rule path: ConcreteSyntax.rules
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 45, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 45, FEATURE_0, FEATURE_6));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 45, FEATURE_6));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 45));
 	}
 	
@@ -1811,11 +1795,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			
 		)*		{
 			// expected elements (follow set)
-			// rule path: Annotable.annotations
-			// rule path: ConcreteSyntax.rules
-			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 46, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-			// rule path: ConcreteSyntax.rules
-			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 46, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 46, FEATURE_0, FEATURE_6));
+			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 46, FEATURE_6));
 			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 46));
 		}
 		
@@ -1923,8 +1904,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_37, 51));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 51));
-		// rule path: ConcreteSyntax.imports
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 51, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 51, FEATURE_2));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 51));
 	}
 	
@@ -1961,8 +1941,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			{
 				// expected elements (follow set)
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 52));
-				// rule path: ConcreteSyntax.imports
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 52, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 52, FEATURE_2));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 52));
 			}
 			
@@ -1971,8 +1950,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	)?	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 53));
-		// rule path: ConcreteSyntax.imports
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 53, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 53, FEATURE_2));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 53));
 	}
 	
@@ -2037,8 +2015,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			{
 				// expected elements (follow set)
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_41, 56));
-				// rule path: ConcreteSyntax.imports
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 56, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 56, FEATURE_2));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 56));
 			}
 			
@@ -2074,8 +2051,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 					)
 					{
 						// expected elements (follow set)
-						// rule path: ConcreteSyntax.imports
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 57, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 57, FEATURE_2));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 57));
 					}
 					
@@ -2083,8 +2059,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 				
 			)?			{
 				// expected elements (follow set)
-				// rule path: ConcreteSyntax.imports
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 58, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 58, FEATURE_2));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 58));
 			}
 			
@@ -2092,8 +2067,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: ConcreteSyntax.imports
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 59, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 59, FEATURE_2));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 59));
 	}
 	
@@ -2208,8 +2182,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 			)
 			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 63, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 63, FEATURE_0));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 63));
 			}
 			
@@ -2217,8 +2190,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 		
 	)*	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 64, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 64, FEATURE_0));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 64));
 	}
 	
@@ -2268,38 +2240,14 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: Rule.definition
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 66, FEATURE_7, FEATURE_8, FEATURE_9));
 	}
 	
 	(
@@ -2333,11 +2281,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		// rule path: ConcreteSyntax.rules
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 68, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-		// rule path: ConcreteSyntax.rules
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 68, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 68, FEATURE_0, FEATURE_6));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 68, FEATURE_6));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 68));
 	}
 	
@@ -2368,22 +2313,14 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 		
 	)+	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 69, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 69, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 69));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 69));
@@ -2430,30 +2367,14 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-				// rule path: Sequence.parts
-				// rule path: Choice.options
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 71, FEATURE_7, FEATURE_8));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 71, FEATURE_7, FEATURE_8));
 			}
 			
 			(
@@ -2525,22 +2446,14 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 	)
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 74, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 74, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 74));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 74));
@@ -2647,28 +2560,17 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	}
 	{
 		// expected elements (follow set)
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 78, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 78, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 78, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 78, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 78, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 78));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 78));
@@ -2695,22 +2597,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 79, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 79, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 79));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 79));
@@ -2780,28 +2674,17 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	}
 	{
 		// expected elements (follow set)
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 82, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 82, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 82, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 82, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 82, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 82));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 82));
@@ -2828,22 +2711,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 83, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 83, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 83));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 83));
@@ -3046,28 +2921,17 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 92, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 92, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 92, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 92, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 92, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 92));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 92));
@@ -3094,22 +2958,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 93, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 93, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 93));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 93));
@@ -3156,28 +3012,17 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_71, 94));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 94, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 94, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 94, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 94, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 94, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 94));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 94));
@@ -3232,28 +3077,17 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			{
 				// expected elements (follow set)
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 96));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 96, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 96, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 96, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 96, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 96, FEATURE_7));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 96));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 96));
@@ -3308,28 +3142,17 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					{
 						// expected elements (follow set)
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 98));
-						// rule path: CardinalityDefinition.cardinality
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-						// rule path: CardinalityDefinition.cardinality
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-						// rule path: CardinalityDefinition.cardinality
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-						// rule path: Sequence.parts
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 98, FEATURE_10));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 98, FEATURE_10));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 98, FEATURE_10));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 98, FEATURE_7));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 98, FEATURE_7));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 98));
 						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 98));
@@ -3340,28 +3163,17 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			)*			{
 				// expected elements (follow set)
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 99));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: CardinalityDefinition.cardinality
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-				// rule path: Sequence.parts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 99, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 99, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 99, FEATURE_10));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 99, FEATURE_7));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 99, FEATURE_7));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 99));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 99));
@@ -3371,28 +3183,17 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 100, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 100, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 100, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 100, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 100, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 100));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 100));
@@ -3419,22 +3220,14 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 101, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 101, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 101));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 101));
@@ -3455,38 +3248,14 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-		// rule path: Sequence.parts
-		// rule path: Choice.options
-		// rule path: CompoundDefinition.definitions
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 102, FEATURE_7, FEATURE_8, FEATURE_11));
 	}
 	
 	(
@@ -3520,28 +3289,17 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: CardinalityDefinition.cardinality
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 104, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 104, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 104, FEATURE_10));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 104, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 104, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 104));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 104));
@@ -3568,22 +3326,14 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 105, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 105, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 105));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 105));
@@ -3625,22 +3375,14 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 106, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 106, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 106));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 106));
@@ -3694,22 +3436,14 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 	)
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 108, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 108, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 108));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 108));
@@ -3742,8 +3476,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			)
 			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 109, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 109, FEATURE_0));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 109));
 			}
 			
@@ -3751,8 +3484,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 		
 	)*	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 110, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 110, FEATURE_0));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 110));
 	}
 	
@@ -3798,10 +3530,8 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 	)
 	{
 		// expected elements (follow set)
-		// rule path: RegexComposite.regexParts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 112, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-		// rule path: RegexComposite.regexParts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 112, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 112, FEATURE_12));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 112, FEATURE_12));
 	}
 	
 	(
@@ -3839,10 +3569,8 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			}
 			{
 				// expected elements (follow set)
-				// rule path: RegexComposite.regexParts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 114, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-				// rule path: RegexComposite.regexParts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 114, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 114, FEATURE_12));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 114, FEATURE_12));
 			}
 			
 			(
@@ -4004,10 +3732,8 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 	)
 	{
 		// expected elements (follow set)
-		// rule path: RegexComposite.regexParts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 123, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-		// rule path: RegexComposite.regexParts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 123, FEATURE_12));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123, FEATURE_12));
 	}
 	
 	(
@@ -4044,10 +3770,8 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 			}
 			{
 				// expected elements (follow set)
-				// rule path: RegexComposite.regexParts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 125, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-				// rule path: RegexComposite.regexParts
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 125, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 125, FEATURE_12));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 125, FEATURE_12));
 			}
 			
 			(
@@ -4239,22 +3963,14 @@ parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 132, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 132, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 132));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 132));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 132));
@@ -4275,22 +3991,14 @@ parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 133, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 133, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 133));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 133));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 133));
@@ -4311,22 +4019,14 @@ parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concr
 	}
 	{
 		// expected elements (follow set)
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-		// rule path: Sequence.parts
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 134, FEATURE_7));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 134, FEATURE_7));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 134));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 134));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 134));
@@ -4500,8 +4200,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		// rule path: ConcreteSyntax.tokenStyles
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 142, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 142, FEATURE_5));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 142));
 	}
 	
@@ -4554,10 +4253,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 	{
 		// expected elements (follow set)
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_93, 144));
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-		// rule path: ConcreteSyntax.modifier
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144, FEATURE_0));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144, FEATURE_1));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 144));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 144));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 144));
@@ -4574,8 +4271,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				// rule path: Annotation.parameters
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 145, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 145, FEATURE_13));
 			}
 			
 			(
@@ -4612,8 +4308,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					}
 					{
 						// expected elements (follow set)
-						// rule path: Annotation.parameters
-						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 147, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 147, FEATURE_13));
 					}
 					
 					(
@@ -4656,10 +4351,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				// rule path: Annotable.annotations
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 150, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-				// rule path: ConcreteSyntax.modifier
-				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 150, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 150, FEATURE_0));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 150, FEATURE_1));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 150));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 150));
 				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 150));
@@ -4669,10 +4362,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 		
 	)?	{
 		// expected elements (follow set)
-		// rule path: Annotable.annotations
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 151, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-		// rule path: ConcreteSyntax.modifier
-		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 151, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 151, FEATURE_0));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 151, FEATURE_1));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 151));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 151));
 		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 151));

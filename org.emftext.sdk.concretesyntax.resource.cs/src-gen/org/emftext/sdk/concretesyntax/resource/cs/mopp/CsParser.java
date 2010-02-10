@@ -71,7 +71,7 @@ public class CsParser extends CsANTLRParserBase {
         
 
     public String[] getTokenNames() { return CsParser.tokenNames; }
-    public String getGrammarFileName() { return "C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g"; }
+    public String getGrammarFileName() { return "Cs.g"; }
 
 
     	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
@@ -672,357 +672,374 @@ public class CsParser extends CsANTLRParserBase {
     	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_97 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), "=");
     	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_98 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), "QUOTED_34_34_92");
     	
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_0 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_1 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_2 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_3 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_4 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_5 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_6 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_7 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_8 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_9 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_10 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_11 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_12 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS);
+    	private final static org.eclipse.emf.ecore.EStructuralFeature FEATURE_13 = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS);
+    	
+    	private final static org.eclipse.emf.ecore.EStructuralFeature[] EMPTY_FEATURE_ARRAY = new org.eclipse.emf.ecore.EStructuralFeature[0];
+    	
     	public static void wire0() {
-    		TERMINAL_2.addFollower(TERMINAL_3, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_3.addFollower(TERMINAL_4, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_4.addFollower(TERMINAL_5, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_6, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_7, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_5.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_7, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_6.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_7.addFollower(TERMINAL_13, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_14, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_13.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_14.addFollower(TERMINAL_15, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_14, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_8, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_15.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_8.addFollower(TERMINAL_16, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_16.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-    		TERMINAL_16.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_18.addFollower(TERMINAL_9, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_18.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_18.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_18.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_9.addFollower(TERMINAL_19, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_19.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), });
-    		TERMINAL_19.addFollower(TERMINAL_21, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_22.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), });
-    		TERMINAL_22.addFollower(TERMINAL_21, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_21.addFollower(TERMINAL_10, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_21.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_21.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_10.addFollower(TERMINAL_23, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_23.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_23.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_23.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_23.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_23.addFollower(TERMINAL_27, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_28.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_28.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_28.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_28.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), });
-    		TERMINAL_28.addFollower(TERMINAL_27, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_27.addFollower(TERMINAL_11, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_27.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_11.addFollower(TERMINAL_29, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_29.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), });
-    		TERMINAL_29.addFollower(TERMINAL_31, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_31.addFollower(TERMINAL_12, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_12.addFollower(TERMINAL_32, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_32.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-    		TERMINAL_32.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-    		TERMINAL_32.addFollower(TERMINAL_34, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_17.addFollower(TERMINAL_35, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_35.addFollower(TERMINAL_36, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_36.addFollower(TERMINAL_37, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_36.addFollower(TERMINAL_38, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_36.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-    		TERMINAL_36.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_37.addFollower(TERMINAL_38, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_37.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-    		TERMINAL_37.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_38.addFollower(TERMINAL_39, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_39.addFollower(TERMINAL_40, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_40.addFollower(TERMINAL_41, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_40.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-    		TERMINAL_40.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_41.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), });
-    		TERMINAL_41.addFollower(TERMINAL_18, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_20.addFollower(TERMINAL_42, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_42.addFollower(TERMINAL_43, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_43.addFollower(TERMINAL_22, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_33.addFollower(TERMINAL_44, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_44.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_44.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), });
-    		TERMINAL_53.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-    		TERMINAL_53.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), });
-    		TERMINAL_53.addFollower(TERMINAL_34, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_54.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_54.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), });
-    		TERMINAL_45.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_45.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_45.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_45.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_46.addFollower(TERMINAL_56, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_56.addFollower(TERMINAL_57, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_57.addFollower(TERMINAL_58, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_58.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_58.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_58.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_58.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_58.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_58.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_58.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_47.addFollower(TERMINAL_62, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_62.addFollower(TERMINAL_63, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_63.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_63.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_63.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_63.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_63.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_63.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_63.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_48.addFollower(TERMINAL_64, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_64.addFollower(TERMINAL_65, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_65.addFollower(TERMINAL_66, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_66.addFollower(TERMINAL_67, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_67.addFollower(TERMINAL_68, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_67.addFollower(TERMINAL_69, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_68.addFollower(TERMINAL_70, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_70.addFollower(TERMINAL_69, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_69.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_69.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_69.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_69.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_69.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_69.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_69.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_49.addFollower(TERMINAL_71, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_49.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_49.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_49.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_49.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_49.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_49.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_49.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_71.addFollower(TERMINAL_72, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_72.addFollower(TERMINAL_73, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_72.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_72.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_72.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_72.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_72.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_72.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_72.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_73.addFollower(TERMINAL_74, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_74.addFollower(TERMINAL_73, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_74.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_74.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_74.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_74.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_74.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_74.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_74.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_50.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_50.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), });
-    		TERMINAL_55.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_55.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_55.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), });
-    		TERMINAL_55.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_55.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_55.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_55.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_51.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_51.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_51.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_51.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_52.addFollower(TERMINAL_75, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_75.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_75.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_75.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_75.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_24.addFollower(TERMINAL_76, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_76.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_76.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_79.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_79.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_80.addFollower(TERMINAL_81, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_81.addFollower(TERMINAL_82, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_82.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_25.addFollower(TERMINAL_83, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_83.addFollower(TERMINAL_84, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_84.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_84.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_85.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_85.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS), });
-    		TERMINAL_26.addFollower(TERMINAL_86, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_86.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_77.addFollower(TERMINAL_79, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_77.addFollower(TERMINAL_80, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_77.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_77.addFollower(TERMINAL_85, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_78.addFollower(TERMINAL_79, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_78.addFollower(TERMINAL_80, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_78.addFollower(TERMINAL_28, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_78.addFollower(TERMINAL_85, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_59.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_59.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_59.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_59.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_60.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_60.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_60.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_60.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_61.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), });
-    		TERMINAL_61.addFollower(TERMINAL_54, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_61.addFollower(TERMINAL_53, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_61.addFollower(TERMINAL_55, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_1.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_30.addFollower(TERMINAL_87, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_87.addFollower(TERMINAL_88, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_88.addFollower(TERMINAL_89, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_88.addFollower(TERMINAL_90, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_89.addFollower(TERMINAL_91, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_91.addFollower(TERMINAL_89, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_91.addFollower(TERMINAL_90, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_90.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), });
-    		TERMINAL_90.addFollower(TERMINAL_31, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_0.addFollower(TERMINAL_92, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_92.addFollower(TERMINAL_93, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_92.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), });
-    		TERMINAL_92.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), });
-    		TERMINAL_92.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_92.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_92.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_93.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), });
-    		TERMINAL_95.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), });
-    		TERMINAL_96.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), });
-    		TERMINAL_96.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), });
-    		TERMINAL_96.addFollower(TERMINAL_2, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_96.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_96.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_94.addFollower(TERMINAL_97, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_94.addFollower(TERMINAL_95, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_94.addFollower(TERMINAL_96, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_97.addFollower(TERMINAL_98, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_98.addFollower(TERMINAL_95, new org.eclipse.emf.ecore.EStructuralFeature[] {});
-    		TERMINAL_98.addFollower(TERMINAL_96, new org.eclipse.emf.ecore.EStructuralFeature[] {});
+    		TERMINAL_2.addFollower(TERMINAL_3, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_3.addFollower(TERMINAL_4, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_4.addFollower(TERMINAL_5, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_6, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_7, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_5.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_7, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_6.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_7.addFollower(TERMINAL_13, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_14, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_13.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_14.addFollower(TERMINAL_15, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_14, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_8, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_15.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_8.addFollower(TERMINAL_16, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_16.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+    		TERMINAL_16.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_18.addFollower(TERMINAL_9, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_18.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_18.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_18.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_9.addFollower(TERMINAL_19, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_19.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_3, });
+    		TERMINAL_19.addFollower(TERMINAL_21, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_22.addFollower(TERMINAL_20, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_3, });
+    		TERMINAL_22.addFollower(TERMINAL_21, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_21.addFollower(TERMINAL_10, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_21.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_21.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_10.addFollower(TERMINAL_23, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_23.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_4, });
+    		TERMINAL_23.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_23.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_23.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_23.addFollower(TERMINAL_27, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_28.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_4, });
+    		TERMINAL_28.addFollower(TERMINAL_24, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_28.addFollower(TERMINAL_25, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_28.addFollower(TERMINAL_26, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_4, });
+    		TERMINAL_28.addFollower(TERMINAL_27, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_27.addFollower(TERMINAL_11, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_27.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_11.addFollower(TERMINAL_29, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_29.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_5, });
+    		TERMINAL_29.addFollower(TERMINAL_31, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_31.addFollower(TERMINAL_12, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_12.addFollower(TERMINAL_32, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_32.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_6, });
+    		TERMINAL_32.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_6, });
+    		TERMINAL_32.addFollower(TERMINAL_34, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_17.addFollower(TERMINAL_35, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_35.addFollower(TERMINAL_36, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_36.addFollower(TERMINAL_37, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_36.addFollower(TERMINAL_38, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_36.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+    		TERMINAL_36.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_37.addFollower(TERMINAL_38, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_37.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+    		TERMINAL_37.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_38.addFollower(TERMINAL_39, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_39.addFollower(TERMINAL_40, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_40.addFollower(TERMINAL_41, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_40.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+    		TERMINAL_40.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_41.addFollower(TERMINAL_17, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_2, });
+    		TERMINAL_41.addFollower(TERMINAL_18, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_20.addFollower(TERMINAL_42, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_42.addFollower(TERMINAL_43, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_43.addFollower(TERMINAL_22, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_33.addFollower(TERMINAL_44, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_44.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_44.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_9, });
+    		TERMINAL_53.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, FEATURE_6, });
+    		TERMINAL_53.addFollower(TERMINAL_33, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_6, });
+    		TERMINAL_53.addFollower(TERMINAL_34, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_54.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_54.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, });
+    		TERMINAL_45.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_45.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_45.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_45.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_46.addFollower(TERMINAL_56, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_56.addFollower(TERMINAL_57, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_57.addFollower(TERMINAL_58, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_58.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_58.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_58.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_58.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_58.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_58.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_58.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_47.addFollower(TERMINAL_62, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_62.addFollower(TERMINAL_63, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_63.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_63.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_63.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_63.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_63.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_63.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_63.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_48.addFollower(TERMINAL_64, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_64.addFollower(TERMINAL_65, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_65.addFollower(TERMINAL_66, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_66.addFollower(TERMINAL_67, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_67.addFollower(TERMINAL_68, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_67.addFollower(TERMINAL_69, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_68.addFollower(TERMINAL_70, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_70.addFollower(TERMINAL_69, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_69.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_69.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_69.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_69.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_69.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_69.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_69.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_49.addFollower(TERMINAL_71, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_49.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_49.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_49.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_49.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_49.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_49.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_49.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_71.addFollower(TERMINAL_72, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_72.addFollower(TERMINAL_73, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_72.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_72.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_72.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_72.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_72.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_72.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_72.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_73.addFollower(TERMINAL_74, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_74.addFollower(TERMINAL_73, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_74.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_74.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_74.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_74.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_74.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_74.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_74.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_50.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_50.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, FEATURE_8, FEATURE_11, });
+    		TERMINAL_55.addFollower(TERMINAL_59, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_55.addFollower(TERMINAL_60, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_55.addFollower(TERMINAL_61, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_10, });
+    		TERMINAL_55.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_55.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_55.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_55.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_51.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_51.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_51.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_51.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_52.addFollower(TERMINAL_75, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_75.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_75.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_75.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_75.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_24.addFollower(TERMINAL_76, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_76.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_76.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_79.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_79.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_80.addFollower(TERMINAL_81, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_81.addFollower(TERMINAL_82, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_82.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_25.addFollower(TERMINAL_83, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_83.addFollower(TERMINAL_84, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_84.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_84.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_85.addFollower(TERMINAL_77, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_85.addFollower(TERMINAL_78, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_12, });
+    		TERMINAL_26.addFollower(TERMINAL_86, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_86.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_77.addFollower(TERMINAL_79, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_77.addFollower(TERMINAL_80, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_77.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_77.addFollower(TERMINAL_85, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_78.addFollower(TERMINAL_79, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_78.addFollower(TERMINAL_80, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_78.addFollower(TERMINAL_28, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_78.addFollower(TERMINAL_85, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_59.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_59.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_59.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_59.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_60.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_60.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_60.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_60.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_61.addFollower(TERMINAL_45, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_46, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_47, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_48, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_49, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_50, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_51, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_52, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_7, });
+    		TERMINAL_61.addFollower(TERMINAL_54, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_61.addFollower(TERMINAL_53, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_61.addFollower(TERMINAL_55, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_1.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_30.addFollower(TERMINAL_87, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_87.addFollower(TERMINAL_88, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_88.addFollower(TERMINAL_89, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_88.addFollower(TERMINAL_90, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_89.addFollower(TERMINAL_91, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_91.addFollower(TERMINAL_89, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_91.addFollower(TERMINAL_90, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_90.addFollower(TERMINAL_30, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_5, });
+    		TERMINAL_90.addFollower(TERMINAL_31, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_0.addFollower(TERMINAL_92, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_92.addFollower(TERMINAL_93, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_92.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, });
+    		TERMINAL_92.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_1, });
+    		TERMINAL_92.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_92.addFollower(TERMINAL_33, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_92.addFollower(TERMINAL_24, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_93.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_13, });
+    		TERMINAL_95.addFollower(TERMINAL_94, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_13, });
+    		TERMINAL_96.addFollower(TERMINAL_0, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_0, });
+    		TERMINAL_96.addFollower(TERMINAL_1, new org.eclipse.emf.ecore.EStructuralFeature[] {FEATURE_1, });
+    		TERMINAL_96.addFollower(TERMINAL_2, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_96.addFollower(TERMINAL_33, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_96.addFollower(TERMINAL_24, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_94.addFollower(TERMINAL_97, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_94.addFollower(TERMINAL_95, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_94.addFollower(TERMINAL_96, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_97.addFollower(TERMINAL_98, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_98.addFollower(TERMINAL_95, EMPTY_FEATURE_ARRAY);
+    		TERMINAL_98.addFollower(TERMINAL_96, EMPTY_FEATURE_ARRAY);
     	}
     	// wire the terminals
     	static {
@@ -1032,7 +1049,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:983:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
+    // Cs.g:1000:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
     public final org.eclipse.emf.ecore.EObject start() throws RecognitionException {
         org.eclipse.emf.ecore.EObject element =  null;
         int start_StartIndex = input.index();
@@ -1041,22 +1058,20 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:984:1: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:985:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
+            // Cs.g:1001:1: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
+            // Cs.g:1002:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
             {
             if ( state.backtracking==0 ) {
 
               		// follow set for start rule(s)
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 0, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-              		// rule path: ConcreteSyntax.modifier
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 0, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 0, FEATURE_0));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 0, FEATURE_1));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 0));
               		expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:994:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:995:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
+            // Cs.g:1009:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
+            // Cs.g:1010:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_in_start82);
             c0=parse_org_emftext_sdk_concretesyntax_ConcreteSyntax();
@@ -1087,7 +1102,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_ConcreteSyntax"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1000:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' ;
+    // Cs.g:1015:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' ;
     public final org.emftext.sdk.concretesyntax.ConcreteSyntax parse_org_emftext_sdk_concretesyntax_ConcreteSyntax() throws RecognitionException {
         org.emftext.sdk.concretesyntax.ConcreteSyntax element =  null;
         int parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_StartIndex = input.index();
@@ -1136,10 +1151,10 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1003:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1004:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}'
+            // Cs.g:1018:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' )
+            // Cs.g:1019:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}'
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1004:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:1019:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -1152,13 +1167,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1005:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1020:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1005:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1006:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1020:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1021:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1006:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1007:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:1021:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1022:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax127);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -1188,10 +1203,8 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: Annotable.annotations
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 1, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-            	      				// rule path: ConcreteSyntax.modifier
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 1, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 1, FEATURE_0));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 1, FEATURE_1));
             	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 1));
             	      			
             	    }
@@ -1210,14 +1223,12 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 2, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-              		// rule path: ConcreteSyntax.modifier
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 2, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 2, FEATURE_0));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 2, FEATURE_1));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 2));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1043:2: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )?
+            // Cs.g:1054:2: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -1226,10 +1237,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt2) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1044:3: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
+                    // Cs.g:1055:3: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1044:3: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1045:4: a1_0= parse_org_emftext_sdk_concretesyntax_Abstract
+                    // Cs.g:1055:3: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
+                    // Cs.g:1056:4: a1_0= parse_org_emftext_sdk_concretesyntax_Abstract
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Abstract_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax177);
                     a1_0=parse_org_emftext_sdk_concretesyntax_Abstract();
@@ -1284,8 +1295,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_3, 4));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1079:2: (a3= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1080:3: a3= QUALIFIED_NAME
+            // Cs.g:1090:2: (a3= QUALIFIED_NAME )
+            // Cs.g:1091:3: a3= QUALIFIED_NAME
             {
             a3=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax221); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -1340,8 +1351,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_5, 6));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1124:2: (a5= QUOTED_60_62 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1125:3: a5= QUOTED_60_62
+            // Cs.g:1135:2: (a5= QUOTED_60_62 )
+            // Cs.g:1136:3: a5= QUOTED_60_62
             {
             a5=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax260); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -1390,7 +1401,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 7));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1167:2: ( ( (a6= QUOTED_60_62 ) ) )?
+            // Cs.g:1178:2: ( ( (a6= QUOTED_60_62 ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1399,13 +1410,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1168:3: ( (a6= QUOTED_60_62 ) )
+                    // Cs.g:1179:3: ( (a6= QUOTED_60_62 ) )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1168:3: ( (a6= QUOTED_60_62 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1169:4: (a6= QUOTED_60_62 )
+                    // Cs.g:1179:3: ( (a6= QUOTED_60_62 ) )
+                    // Cs.g:1180:4: (a6= QUOTED_60_62 )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1169:4: (a6= QUOTED_60_62 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1170:5: a6= QUOTED_60_62
+                    // Cs.g:1180:4: (a6= QUOTED_60_62 )
+                    // Cs.g:1181:5: a6= QUOTED_60_62
                     {
                     a6=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax296); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1469,7 +1480,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 9));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1219:2: ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )?
+            // Cs.g:1230:2: ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1478,10 +1489,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt5) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1220:3: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:1231:3: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1220:3: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1221:4: a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:1231:3: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:1232:4: a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
                     {
                     a7=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax351); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1499,11 +1510,11 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_13, 10));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1233:4: ( (a8= QUALIFIED_NAME ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1234:5: (a8= QUALIFIED_NAME )
+                    // Cs.g:1244:4: ( (a8= QUALIFIED_NAME ) )
+                    // Cs.g:1245:5: (a8= QUALIFIED_NAME )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1234:5: (a8= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1235:6: a8= QUALIFIED_NAME
+                    // Cs.g:1245:5: (a8= QUALIFIED_NAME )
+                    // Cs.g:1246:6: a8= QUALIFIED_NAME
                     {
                     a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax384); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1565,7 +1576,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 12));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1287:4: ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:1298:4: ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -1578,10 +1589,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1288:5: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:1299:5: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1288:5: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1289:6: a9= ',' ( (a10= QUALIFIED_NAME ) )
+                    	    // Cs.g:1299:5: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:1300:6: a9= ',' ( (a10= QUALIFIED_NAME ) )
                     	    {
                     	    a9=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax449); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -1599,11 +1610,11 @@ public class CsParser extends CsANTLRParserBase {
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_15, 13));
                     	      					
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1301:6: ( (a10= QUALIFIED_NAME ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1302:7: (a10= QUALIFIED_NAME )
+                    	    // Cs.g:1312:6: ( (a10= QUALIFIED_NAME ) )
+                    	    // Cs.g:1313:7: (a10= QUALIFIED_NAME )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1302:7: (a10= QUALIFIED_NAME )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1303:8: a10= QUALIFIED_NAME
+                    	    // Cs.g:1313:7: (a10= QUALIFIED_NAME )
+                    	    // Cs.g:1314:8: a10= QUALIFIED_NAME
                     	    {
                     	    a10=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax492); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -1707,7 +1718,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 17));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1378:2: ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )?
+            // Cs.g:1389:2: ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1716,10 +1727,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1379:3: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
+                    // Cs.g:1390:3: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1379:3: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1380:4: a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}'
+                    // Cs.g:1390:3: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
+                    // Cs.g:1391:4: a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}'
                     {
                     a11=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax607); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1750,12 +1761,11 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.imports
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 19, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 19, FEATURE_2));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 19));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1406:4: ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
+                    // Cs.g:1416:4: ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1768,13 +1778,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1407:5: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1417:5: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1407:5: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1408:6: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1417:5: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1418:6: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1408:6: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1409:7: a13_0= parse_org_emftext_sdk_concretesyntax_Import
+                    	    // Cs.g:1418:6: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1419:7: a13_0= parse_org_emftext_sdk_concretesyntax_Import
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax668);
                     	    a13_0=parse_org_emftext_sdk_concretesyntax_Import();
@@ -1804,8 +1814,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected elements (follow set)
-                    	      						// rule path: ConcreteSyntax.imports
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 20, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 20, FEATURE_2));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 20));
                     	      					
                     	    }
@@ -1824,8 +1833,7 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.imports
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 21, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 21, FEATURE_2));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 21));
                       			
                     }
@@ -1866,7 +1874,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 23));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1466:2: ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )?
+            // Cs.g:1474:2: ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1875,10 +1883,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt9) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1467:3: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
+                    // Cs.g:1475:3: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1467:3: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1468:4: a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}'
+                    // Cs.g:1475:3: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
+                    // Cs.g:1476:4: a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}'
                     {
                     a15=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax771); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1909,12 +1917,11 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.options
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 25, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 25, FEATURE_3));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 25));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1494:4: ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )*
+                    // Cs.g:1501:4: ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )*
                     loop8:
                     do {
                         int alt8=2;
@@ -1927,13 +1934,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1495:5: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
+                    	    // Cs.g:1502:5: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1495:5: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1496:6: (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';'
+                    	    // Cs.g:1502:5: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
+                    	    // Cs.g:1503:6: (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';'
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1496:6: (a17_0= parse_org_emftext_sdk_concretesyntax_Option )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1497:7: a17_0= parse_org_emftext_sdk_concretesyntax_Option
+                    	    // Cs.g:1503:6: (a17_0= parse_org_emftext_sdk_concretesyntax_Option )
+                    	    // Cs.g:1504:7: a17_0= parse_org_emftext_sdk_concretesyntax_Option
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax832);
                     	    a17_0=parse_org_emftext_sdk_concretesyntax_Option();
@@ -1979,8 +1986,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected elements (follow set)
-                    	      						// rule path: ConcreteSyntax.options
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 27, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 27, FEATURE_3));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 27));
                     	      					
                     	    }
@@ -1999,8 +2005,7 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.options
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 28, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_20, 28, FEATURE_3));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_21, 28));
                       			
                     }
@@ -2039,7 +2044,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 30));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1564:2: ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )?
+            // Cs.g:1569:2: ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2048,10 +2053,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1565:3: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
+                    // Cs.g:1570:3: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1565:3: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1566:4: a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}'
+                    // Cs.g:1570:3: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
+                    // Cs.g:1571:4: a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}'
                     {
                     a20=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax961); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2082,19 +2087,14 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: Annotable.annotations
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 32, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 32, FEATURE_0, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 32, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 32, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 32, FEATURE_4));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 32));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1599:4: ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )*
+                    // Cs.g:1599:4: ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -2107,13 +2107,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1600:5: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
+                    	    // Cs.g:1600:5: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1600:5: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1601:6: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';'
+                    	    // Cs.g:1600:5: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
+                    	    // Cs.g:1601:6: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';'
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1601:6: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1602:7: a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
+                    	    // Cs.g:1601:6: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
+                    	    // Cs.g:1602:7: a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1022);
                     	    a22_0=parse_org_emftext_sdk_concretesyntax_TokenDirective();
@@ -2159,15 +2159,10 @@ public class CsParser extends CsANTLRParserBase {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected elements (follow set)
-                    	      						// rule path: Annotable.annotations
-                    	      						// rule path: ConcreteSyntax.tokens
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                    	      						// rule path: ConcreteSyntax.tokens
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                    	      						// rule path: ConcreteSyntax.tokens
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                    	      						// rule path: ConcreteSyntax.tokens
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 34, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 34, FEATURE_0, FEATURE_4));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 34, FEATURE_4));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 34, FEATURE_4));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 34, FEATURE_4));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 34));
                     	      					
                     	    }
@@ -2186,15 +2181,10 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: Annotable.annotations
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
-                      				// rule path: ConcreteSyntax.tokens
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 35, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 35, FEATURE_0, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 35, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_25, 35, FEATURE_4));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_26, 35, FEATURE_4));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_27, 35));
                       			
                     }
@@ -2231,7 +2221,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_12, 37));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1681:2: ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )?
+            // Cs.g:1671:2: ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2240,10 +2230,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1682:3: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
+                    // Cs.g:1672:3: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1682:3: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1683:4: a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}'
+                    // Cs.g:1672:3: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
+                    // Cs.g:1673:4: a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}'
                     {
                     a25=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1151); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2274,12 +2264,11 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.tokenStyles
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 39, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 39, FEATURE_5));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 39));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1709:4: ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
+                    // Cs.g:1698:4: ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
                     loop12:
                     do {
                         int alt12=2;
@@ -2292,13 +2281,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1710:5: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1699:5: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1710:5: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1711:6: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1699:5: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1700:6: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1711:6: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1712:7: a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
+                    	    // Cs.g:1700:6: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1701:7: a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1212);
                     	    a27_0=parse_org_emftext_sdk_concretesyntax_TokenStyle();
@@ -2328,8 +2317,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected elements (follow set)
-                    	      						// rule path: ConcreteSyntax.tokenStyles
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 40, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 40, FEATURE_5));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 40));
                     	      					
                     	    }
@@ -2348,8 +2336,7 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.tokenStyles
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 41, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 41, FEATURE_5));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 41));
                       			
                     }
@@ -2413,18 +2400,15 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		// rule path: ConcreteSyntax.rules
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 45, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-              		// rule path: ConcreteSyntax.rules
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 45, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 45, FEATURE_0, FEATURE_6));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 45, FEATURE_6));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 45));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1792:2: ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1793:3: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
+            // Cs.g:1776:2: ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* )
+            // Cs.g:1777:3: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1793:3: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
+            // Cs.g:1777:3: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
             loop14:
             do {
                 int alt14=2;
@@ -2437,10 +2421,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt14) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1794:4: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1778:4: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1794:4: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1795:5: a31_0= parse_org_emftext_sdk_concretesyntax_Rule
+            	    // Cs.g:1778:4: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1779:5: a31_0= parse_org_emftext_sdk_concretesyntax_Rule
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1349);
             	    a31_0=parse_org_emftext_sdk_concretesyntax_Rule();
@@ -2479,11 +2463,8 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               			// expected elements (follow set)
-              			// rule path: Annotable.annotations
-              			// rule path: ConcreteSyntax.rules
-              			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 46, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-              			// rule path: ConcreteSyntax.rules
-              			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 46, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+              			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 46, FEATURE_0, FEATURE_6));
+              			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 46, FEATURE_6));
               			addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 46));
               		
             }
@@ -2528,7 +2509,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Import"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1841:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? ;
+    // Cs.g:1822:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? ;
     public final org.emftext.sdk.concretesyntax.Import parse_org_emftext_sdk_concretesyntax_Import() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Import element =  null;
         int parse_org_emftext_sdk_concretesyntax_Import_StartIndex = input.index();
@@ -2545,11 +2526,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1844:1: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1845:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1825:1: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? )
+            // Cs.g:1826:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1845:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1846:3: a0= QUALIFIED_NAME
+            // Cs.g:1826:2: (a0= QUALIFIED_NAME )
+            // Cs.g:1827:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1422); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2604,8 +2585,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_36, 50));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1890:2: (a2= QUOTED_60_62 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1891:3: a2= QUOTED_60_62
+            // Cs.g:1871:2: (a2= QUOTED_60_62 )
+            // Cs.g:1872:3: a2= QUOTED_60_62
             {
             a2=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1461); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2647,12 +2628,11 @@ public class CsParser extends CsANTLRParserBase {
               		// expected elements (follow set)
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_37, 51));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 51));
-              		// rule path: ConcreteSyntax.imports
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 51, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 51, FEATURE_2));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 51));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1931:2: ( ( (a3= QUOTED_60_62 ) ) )?
+            // Cs.g:1911:2: ( ( (a3= QUOTED_60_62 ) ) )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2661,13 +2641,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1932:3: ( (a3= QUOTED_60_62 ) )
+                    // Cs.g:1912:3: ( (a3= QUOTED_60_62 ) )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1932:3: ( (a3= QUOTED_60_62 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1933:4: (a3= QUOTED_60_62 )
+                    // Cs.g:1912:3: ( (a3= QUOTED_60_62 ) )
+                    // Cs.g:1913:4: (a3= QUOTED_60_62 )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1933:4: (a3= QUOTED_60_62 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1934:5: a3= QUOTED_60_62
+                    // Cs.g:1913:4: (a3= QUOTED_60_62 )
+                    // Cs.g:1914:5: a3= QUOTED_60_62
                     {
                     a3=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1497); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2704,8 +2684,7 @@ public class CsParser extends CsANTLRParserBase {
 
                       				// expected elements (follow set)
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 52));
-                      				// rule path: ConcreteSyntax.imports
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 52, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 52, FEATURE_2));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 52));
                       			
                     }
@@ -2722,12 +2701,11 @@ public class CsParser extends CsANTLRParserBase {
 
               		// expected elements (follow set)
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_38, 53));
-              		// rule path: ConcreteSyntax.imports
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 53, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 53, FEATURE_2));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 53));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1979:2: ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1957:2: ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2736,10 +2714,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt17) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1980:3: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1958:3: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1980:3: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:1981:4: a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )?
+                    // Cs.g:1958:3: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1959:4: a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )?
                     {
                     a4=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1552); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2773,8 +2751,8 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_40, 55));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2005:4: (a6= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2006:5: a6= QUALIFIED_NAME
+                    // Cs.g:1983:4: (a6= QUALIFIED_NAME )
+                    // Cs.g:1984:5: a6= QUALIFIED_NAME
                     {
                     a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1598); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2815,12 +2793,11 @@ public class CsParser extends CsANTLRParserBase {
 
                       				// expected elements (follow set)
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_41, 56));
-                      				// rule path: ConcreteSyntax.imports
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 56, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 56, FEATURE_2));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 56));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2045:4: ( ( (a7= QUOTED_60_62 ) ) )?
+                    // Cs.g:2022:4: ( ( (a7= QUOTED_60_62 ) ) )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -2829,13 +2806,13 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     switch (alt16) {
                         case 1 :
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2046:5: ( (a7= QUOTED_60_62 ) )
+                            // Cs.g:2023:5: ( (a7= QUOTED_60_62 ) )
                             {
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2046:5: ( (a7= QUOTED_60_62 ) )
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2047:6: (a7= QUOTED_60_62 )
+                            // Cs.g:2023:5: ( (a7= QUOTED_60_62 ) )
+                            // Cs.g:2024:6: (a7= QUOTED_60_62 )
                             {
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2047:6: (a7= QUOTED_60_62 )
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2048:7: a7= QUOTED_60_62
+                            // Cs.g:2024:6: (a7= QUOTED_60_62 )
+                            // Cs.g:2025:7: a7= QUOTED_60_62
                             {
                             a7=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1652); if (state.failed) return element;
                             if ( state.backtracking==0 ) {
@@ -2871,8 +2848,7 @@ public class CsParser extends CsANTLRParserBase {
                             if ( state.backtracking==0 ) {
 
                               						// expected elements (follow set)
-                              						// rule path: ConcreteSyntax.imports
-                              						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 57, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                              						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 57, FEATURE_2));
                               						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 57));
                               					
                             }
@@ -2888,8 +2864,7 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: ConcreteSyntax.imports
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 58, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 58, FEATURE_2));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 58));
                       			
                     }
@@ -2905,8 +2880,7 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: ConcreteSyntax.imports
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 59, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_17, 59, FEATURE_2));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_18, 59));
               	
             }
@@ -2927,7 +2901,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Option"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2102:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) ;
+    // Cs.g:2076:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) ;
     public final org.emftext.sdk.concretesyntax.Option parse_org_emftext_sdk_concretesyntax_Option() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Option element =  null;
         int parse_org_emftext_sdk_concretesyntax_Option_StartIndex = input.index();
@@ -2939,11 +2913,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2105:1: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2106:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 )
+            // Cs.g:2079:1: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) )
+            // Cs.g:2080:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 )
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2106:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2107:3: a0= QUALIFIED_NAME
+            // Cs.g:2080:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2081:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1752); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2998,8 +2972,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_43, 61));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2151:2: (a2= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2152:3: a2= QUOTED_34_34_92
+            // Cs.g:2125:2: (a2= QUOTED_34_34_92 )
+            // Cs.g:2126:3: a2= QUOTED_34_34_92
             {
             a2=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_Option1791); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3055,7 +3029,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Rule"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2186:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
+    // Cs.g:2160:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
     public final org.emftext.sdk.concretesyntax.Rule parse_org_emftext_sdk_concretesyntax_Rule() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Rule element =  null;
         int parse_org_emftext_sdk_concretesyntax_Rule_StartIndex = input.index();
@@ -3071,10 +3045,10 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2189:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2190:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
+            // Cs.g:2163:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
+            // Cs.g:2164:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2190:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:2164:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop18:
             do {
                 int alt18=2;
@@ -3087,13 +3061,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt18) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2191:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:2165:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2191:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2192:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:2165:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:2166:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2192:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2193:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:2166:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:2167:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1842);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -3123,8 +3097,7 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: Annotable.annotations
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 63, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 63, FEATURE_0));
             	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 63));
             	      			
             	    }
@@ -3143,13 +3116,12 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 64, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 64, FEATURE_0));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 64));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2225:2: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2226:3: a1= QUALIFIED_NAME
+            // Cs.g:2197:2: (a1= QUALIFIED_NAME )
+            // Cs.g:2198:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1887); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3205,42 +3177,18 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: Rule.definition
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 66, FEATURE_7, FEATURE_8, FEATURE_9));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 66, FEATURE_7, FEATURE_8, FEATURE_9));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2305:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2306:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:2253:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:2254:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1926);
             a3_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -3286,11 +3234,8 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		// rule path: ConcreteSyntax.rules
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 68, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
-              		// rule path: ConcreteSyntax.rules
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 68, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 68, FEATURE_0, FEATURE_6));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 68, FEATURE_6));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_34, 68));
               	
             }
@@ -3311,7 +3256,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Sequence"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2346:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ ;
+    // Cs.g:2291:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ ;
     public final org.emftext.sdk.concretesyntax.Sequence parse_org_emftext_sdk_concretesyntax_Sequence() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Sequence element =  null;
         int parse_org_emftext_sdk_concretesyntax_Sequence_StartIndex = input.index();
@@ -3322,10 +3267,10 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2349:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2350:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
+            // Cs.g:2294:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ )
+            // Cs.g:2295:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2350:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
+            // Cs.g:2295:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
             int cnt19=0;
             loop19:
             do {
@@ -3339,10 +3284,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt19) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2351:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2296:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2351:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2352:4: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
+            	    // Cs.g:2296:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2297:4: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence1982);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -3386,22 +3331,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 69, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 69, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 69, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 69));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 69));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 69));
@@ -3424,7 +3361,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Choice"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2394:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
+    // Cs.g:2331:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Choice parse_org_emftext_sdk_concretesyntax_Choice() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Choice element =  null;
         int parse_org_emftext_sdk_concretesyntax_Choice_StartIndex = input.index();
@@ -3438,11 +3375,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2397:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2398:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2334:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
+            // Cs.g:2335:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2398:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2399:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            // Cs.g:2335:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            // Cs.g:2336:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2027);
             a0_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3477,7 +3414,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 70));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2422:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2359:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             loop20:
             do {
                 int alt20=2;
@@ -3490,10 +3427,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt20) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2423:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2360:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2423:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2424:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2360:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2361:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
             	    {
             	    a1=(Token)match(input,31,FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Choice2054); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -3508,34 +3445,18 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
-            	      				// rule path: Sequence.parts
-            	      				// rule path: Choice.options
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 71, FEATURE_7, FEATURE_8));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 71, FEATURE_7, FEATURE_8));
             	      			
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2459:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2460:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            	    // Cs.g:2380:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2381:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2080);
             	    a2_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3607,7 +3528,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CsString"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2494:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= QUOTED_34_34_92 ) ;
+    // Cs.g:2415:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= QUOTED_34_34_92 ) ;
     public final org.emftext.sdk.concretesyntax.CsString parse_org_emftext_sdk_concretesyntax_CsString() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CsString element =  null;
         int parse_org_emftext_sdk_concretesyntax_CsString_StartIndex = input.index();
@@ -3617,11 +3538,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2497:1: ( (a0= QUOTED_34_34_92 ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2498:2: (a0= QUOTED_34_34_92 )
+            // Cs.g:2418:1: ( (a0= QUOTED_34_34_92 ) )
+            // Cs.g:2419:2: (a0= QUOTED_34_34_92 )
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2498:2: (a0= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2499:3: a0= QUOTED_34_34_92
+            // Cs.g:2419:2: (a0= QUOTED_34_34_92 )
+            // Cs.g:2420:3: a0= QUOTED_34_34_92
             {
             a0=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_CsString2140); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3657,22 +3578,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 74, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 74, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 74, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 74));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 74));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 74));
@@ -3695,7 +3608,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2551:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // Cs.g:2464:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_StartIndex = input.index();
@@ -3710,11 +3623,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2554:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2555:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2467:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // Cs.g:2468:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2555:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2556:3: a0= QUALIFIED_NAME
+            // Cs.g:2468:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2469:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2180); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3773,8 +3686,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_57, 76));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2604:2: (a2= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2605:3: a2= QUALIFIED_NAME
+            // Cs.g:2517:2: (a2= QUALIFIED_NAME )
+            // Cs.g:2518:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2219); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3830,34 +3743,23 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 78, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 78, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 78, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 78, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 78, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 78, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 78));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 78));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 78));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2677:2: ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2579:2: ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -3866,10 +3768,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt21) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2678:3: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2580:3: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2678:3: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2679:4: a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // Cs.g:2580:3: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2581:4: a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2263);
                     a4_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -3905,22 +3807,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 79, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 79, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 79, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 79));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 79));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 79));
@@ -3943,7 +3837,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2721:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // Cs.g:2615:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_StartIndex = input.index();
@@ -3957,11 +3851,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2724:1: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2725:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2618:1: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // Cs.g:2619:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2725:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2726:3: a0= QUALIFIED_NAME
+            // Cs.g:2619:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2620:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2308); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4033,34 +3927,23 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 82, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 82, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 82, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 82, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 82, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 82, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 82));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 82));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 82));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2810:2: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2693:2: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -4069,10 +3952,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt22) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2811:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2694:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2811:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2812:4: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // Cs.g:2694:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2695:4: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2366);
                     a3_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -4108,22 +3991,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 83, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 83, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 83, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 83));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 83));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 83));
@@ -4146,7 +4021,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2854:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // Cs.g:2729:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderInQuotes parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderInQuotes element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_StartIndex = input.index();
@@ -4165,11 +4040,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2857:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2858:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2732:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // Cs.g:2733:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2858:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2859:3: a0= QUALIFIED_NAME
+            // Cs.g:2733:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2734:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2411); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4228,8 +4103,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_65, 85));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2907:2: (a2= QUOTED_39_39_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2908:3: a2= QUOTED_39_39_92
+            // Cs.g:2782:2: (a2= QUOTED_39_39_92 )
+            // Cs.g:2783:3: a2= QUOTED_39_39_92
             {
             a2=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2450); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4284,8 +4159,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_67, 87));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2952:2: (a4= QUOTED_39_39_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2953:3: a4= QUOTED_39_39_92
+            // Cs.g:2827:2: (a4= QUOTED_39_39_92 )
+            // Cs.g:2828:3: a4= QUOTED_39_39_92
             {
             a4=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2489); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4325,7 +4200,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_69, 88));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2986:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
+            // Cs.g:2861:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -4334,10 +4209,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt23) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2987:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2862:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2987:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:2988:4: a5= ',' (a6= QUOTED_39_39_92 )
+                    // Cs.g:2862:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2863:4: a5= ',' (a6= QUOTED_39_39_92 )
                     {
                     a5=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2519); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4355,8 +4230,8 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_70, 89));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3000:4: (a6= QUOTED_39_39_92 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3001:5: a6= QUOTED_39_39_92
+                    // Cs.g:2875:4: (a6= QUOTED_39_39_92 )
+                    // Cs.g:2876:5: a6= QUOTED_39_39_92
                     {
                     a6=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2545); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4423,34 +4298,23 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 92, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 92, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 92, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 92, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 92, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 92, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 92));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 92));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 92));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3076:2: ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2940:2: ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -4459,10 +4323,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt24) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3077:3: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2941:3: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3077:3: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3078:4: a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // Cs.g:2941:3: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:2942:4: a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2614);
                     a8_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -4498,22 +4362,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 93, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 93, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 93, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 93));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 93));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 93));
@@ -4536,7 +4392,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Containment"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3120:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // Cs.g:2976:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.Containment parse_org_emftext_sdk_concretesyntax_Containment() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Containment element =  null;
         int parse_org_emftext_sdk_concretesyntax_Containment_StartIndex = input.index();
@@ -4552,11 +4408,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3123:1: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3124:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:2979:1: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // Cs.g:2980:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3124:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3125:3: a0= QUALIFIED_NAME
+            // Cs.g:2980:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2981:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2659); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4597,34 +4453,23 @@ public class CsParser extends CsANTLRParserBase {
 
               		// expected elements (follow set)
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_71, 94));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 94, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 94, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 94, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 94, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 94, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 94, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 94));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 94));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 94));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3186:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
+            // Cs.g:3031:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -4633,10 +4478,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt26) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3187:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3032:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3187:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3188:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3032:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3033:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     {
                     a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Containment2689); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4654,8 +4499,8 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_72, 95));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3200:4: (a2= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3201:5: a2= QUALIFIED_NAME
+                    // Cs.g:3045:4: (a2= QUALIFIED_NAME )
+                    // Cs.g:3046:5: a2= QUALIFIED_NAME
                     {
                     a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2715); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4696,34 +4541,23 @@ public class CsParser extends CsANTLRParserBase {
 
                       				// expected elements (follow set)
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 96));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 96, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 96, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 96, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 96, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 96, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 96, FEATURE_7));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 96));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 96));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 96));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3262:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3096:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     loop25:
                     do {
                         int alt25=2;
@@ -4736,10 +4570,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3263:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3097:5: (a3= ',' (a4= QUALIFIED_NAME ) )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3263:5: (a3= ',' (a4= QUALIFIED_NAME ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3264:6: a3= ',' (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3097:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3098:6: a3= ',' (a4= QUALIFIED_NAME )
                     	    {
                     	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment2761); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -4757,8 +4591,8 @@ public class CsParser extends CsANTLRParserBase {
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_74, 97));
                     	      					
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3276:6: (a4= QUALIFIED_NAME )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3277:7: a4= QUALIFIED_NAME
+                    	    // Cs.g:3110:6: (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3111:7: a4= QUALIFIED_NAME
                     	    {
                     	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2795); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -4799,28 +4633,17 @@ public class CsParser extends CsANTLRParserBase {
 
                     	      						// expected elements (follow set)
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 98));
-                    	      						// rule path: CardinalityDefinition.cardinality
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                    	      						// rule path: CardinalityDefinition.cardinality
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                    	      						// rule path: CardinalityDefinition.cardinality
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                    	      						// rule path: Sequence.parts
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 98, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 98, FEATURE_10));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 98, FEATURE_10));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 98, FEATURE_10));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 98, FEATURE_7));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 98, FEATURE_7));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 98));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 98));
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 98));
@@ -4842,28 +4665,17 @@ public class CsParser extends CsANTLRParserBase {
 
                       				// expected elements (follow set)
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_73, 99));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: CardinalityDefinition.cardinality
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-                      				// rule path: Sequence.parts
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 99, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 99, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 99, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 99, FEATURE_10));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 99, FEATURE_7));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 99, FEATURE_7));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 99));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 99));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 99));
@@ -4881,34 +4693,23 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 100, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 100, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 100, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 100, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 100, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 100, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 100));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 100));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 100));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3401:2: ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:3202:2: ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -4917,10 +4718,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt27) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3402:3: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:3203:3: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3402:3: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3403:4: a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // Cs.g:3203:3: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:3204:4: a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_Containment2885);
                     a5_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -4956,22 +4757,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 101, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 101, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 101, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 101));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 101));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 101));
@@ -4994,7 +4787,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CompoundDefinition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3445:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // Cs.g:3238:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.CompoundDefinition parse_org_emftext_sdk_concretesyntax_CompoundDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CompoundDefinition element =  null;
         int parse_org_emftext_sdk_concretesyntax_CompoundDefinition_StartIndex = input.index();
@@ -5009,8 +4802,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3448:1: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3449:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:3241:1: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // Cs.g:3242:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             a0=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2926); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5025,42 +4818,18 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
-              		// rule path: Sequence.parts
-              		// rule path: Choice.options
-              		// rule path: CompoundDefinition.definitions
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 102, FEATURE_7, FEATURE_8, FEATURE_11));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 102, FEATURE_7, FEATURE_8, FEATURE_11));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3492:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3493:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:3261:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:3262:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2944);
             a1_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -5106,34 +4875,23 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: CardinalityDefinition.cardinality
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinalityDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 104, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_59, 104, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_60, 104, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_61, 104, FEATURE_10));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 104, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 104, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 104));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 104));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 104));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3550:2: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // Cs.g:3308:2: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -5142,10 +4900,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt28) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3551:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:3309:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3551:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3552:4: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // Cs.g:3309:3: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // Cs.g:3310:4: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2985);
                     a3_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -5181,22 +4939,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 105, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 105, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 105, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 105));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 105));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 105));
@@ -5219,7 +4969,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_WhiteSpaces"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3594:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
+    // Cs.g:3344:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.WhiteSpaces parse_org_emftext_sdk_concretesyntax_WhiteSpaces() throws RecognitionException {
         org.emftext.sdk.concretesyntax.WhiteSpaces element =  null;
         int parse_org_emftext_sdk_concretesyntax_WhiteSpaces_StartIndex = input.index();
@@ -5229,11 +4979,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3597:1: ( (a0= HEXNUMBER ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3598:2: (a0= HEXNUMBER )
+            // Cs.g:3347:1: ( (a0= HEXNUMBER ) )
+            // Cs.g:3348:2: (a0= HEXNUMBER )
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3598:2: (a0= HEXNUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3599:3: a0= HEXNUMBER
+            // Cs.g:3348:2: (a0= HEXNUMBER )
+            // Cs.g:3349:3: a0= HEXNUMBER
             {
             a0=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_WhiteSpaces3030); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5269,22 +5019,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 106, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 106, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 106, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 106));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 106));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 106));
@@ -5307,7 +5049,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_LineBreak"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3651:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' (a1= NUMBER ) ;
+    // Cs.g:3393:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' (a1= NUMBER ) ;
     public final org.emftext.sdk.concretesyntax.LineBreak parse_org_emftext_sdk_concretesyntax_LineBreak() throws RecognitionException {
         org.emftext.sdk.concretesyntax.LineBreak element =  null;
         int parse_org_emftext_sdk_concretesyntax_LineBreak_StartIndex = input.index();
@@ -5318,8 +5060,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3654:1: (a0= '!' (a1= NUMBER ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3655:2: a0= '!' (a1= NUMBER )
+            // Cs.g:3396:1: (a0= '!' (a1= NUMBER ) )
+            // Cs.g:3397:2: a0= '!' (a1= NUMBER )
             {
             a0=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_LineBreak3066); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5337,8 +5079,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_75, 107));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3667:2: (a1= NUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3668:3: a1= NUMBER
+            // Cs.g:3409:2: (a1= NUMBER )
+            // Cs.g:3410:3: a1= NUMBER
             {
             a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_parse_org_emftext_sdk_concretesyntax_LineBreak3084); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5374,22 +5116,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 108, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 108, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 108, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 108));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 108));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 108));
@@ -5412,7 +5146,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3720:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
+    // Cs.g:3454:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
     public final org.emftext.sdk.concretesyntax.NormalTokenDefinition parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.NormalTokenDefinition element =  null;
         int parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition_StartIndex = input.index();
@@ -5433,10 +5167,10 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3723:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3724:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:3457:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
+            // Cs.g:3458:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3724:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:3458:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop29:
             do {
                 int alt29=2;
@@ -5449,13 +5183,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt29) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3725:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:3459:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3725:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3726:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:3459:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:3460:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3726:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3727:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:3460:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:3461:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3135);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -5485,8 +5219,7 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: Annotable.annotations
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 109, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 109, FEATURE_0));
             	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 109));
             	      			
             	    }
@@ -5505,8 +5238,7 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 110, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 110, FEATURE_0));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 110));
               	
             }
@@ -5526,8 +5258,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_76, 111));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3771:2: (a2= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3772:3: a2= QUALIFIED_NAME
+            // Cs.g:3503:2: (a2= QUALIFIED_NAME )
+            // Cs.g:3504:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3194); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5563,14 +5295,12 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: RegexComposite.regexParts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 112, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-              		// rule path: RegexComposite.regexParts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 112, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 112, FEATURE_12));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 112, FEATURE_12));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3807:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3808:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:3537:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:3538:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3219);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -5605,7 +5335,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 113));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3831:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:3561:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop30:
             do {
                 int alt30=2;
@@ -5618,10 +5348,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt30) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3832:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:3562:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3832:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3833:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:3562:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:3563:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3246); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -5636,14 +5366,12 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: RegexComposite.regexParts
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 114, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-            	      				// rule path: RegexComposite.regexParts
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 114, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 114, FEATURE_12));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 114, FEATURE_12));
             	      			
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3848:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3849:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:3576:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:3577:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3272);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -5698,7 +5426,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 116));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3881:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:3609:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -5707,10 +5435,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt31) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3882:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:3610:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3882:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3883:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
+                    // Cs.g:3610:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:3611:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
                     {
                     a6=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3322); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -5744,8 +5472,8 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_82, 118));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3907:4: (a8= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3908:5: a8= QUALIFIED_NAME
+                    // Cs.g:3635:4: (a8= QUALIFIED_NAME )
+                    // Cs.g:3636:5: a8= QUALIFIED_NAME
                     {
                     a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3368); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -5816,7 +5544,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3949:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
+    // Cs.g:3677:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
     public final org.emftext.sdk.concretesyntax.PartialTokenDefinition parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PartialTokenDefinition element =  null;
         int parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition_StartIndex = input.index();
@@ -5833,8 +5561,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3952:1: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3953:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:3680:1: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
+            // Cs.g:3681:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
             a0=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3429); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5868,8 +5596,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_84, 122));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3977:2: (a2= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:3978:3: a2= QUALIFIED_NAME
+            // Cs.g:3705:2: (a2= QUALIFIED_NAME )
+            // Cs.g:3706:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3461); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5905,14 +5633,12 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: RegexComposite.regexParts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 123, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-              		// rule path: RegexComposite.regexParts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 123, FEATURE_12));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 123, FEATURE_12));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4013:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4014:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:3739:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:3740:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3486);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -5946,7 +5672,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_28, 124));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4036:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:3762:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop32:
             do {
                 int alt32=2;
@@ -5959,10 +5685,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt32) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4037:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:3763:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4037:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4038:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:3763:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:3764:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3513); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -5977,14 +5703,12 @@ public class CsParser extends CsANTLRParserBase {
             	    if ( state.backtracking==0 ) {
 
             	      				// expected elements (follow set)
-            	      				// rule path: RegexComposite.regexParts
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 125, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
-            	      				// rule path: RegexComposite.regexParts
-            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 125, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexComposite().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS)));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_77, 125, FEATURE_12));
+            	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_78, 125, FEATURE_12));
             	      			
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4053:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4054:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:3777:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:3778:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3539);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -6054,7 +5778,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4086:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
+    // Cs.g:3810:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.TokenPriorityDirective parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenPriorityDirective element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_StartIndex = input.index();
@@ -6065,8 +5789,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4089:1: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4090:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
+            // Cs.g:3813:1: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
+            // Cs.g:3814:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
             {
             a0=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3595); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6084,8 +5808,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_86, 128));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4102:2: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4103:3: a1= QUALIFIED_NAME
+            // Cs.g:3826:2: (a1= QUALIFIED_NAME )
+            // Cs.g:3827:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3613); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6145,7 +5869,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_AtomicRegex"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4141:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
+    // Cs.g:3865:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
     public final org.emftext.sdk.concretesyntax.AtomicRegex parse_org_emftext_sdk_concretesyntax_AtomicRegex() throws RecognitionException {
         org.emftext.sdk.concretesyntax.AtomicRegex element =  null;
         int parse_org_emftext_sdk_concretesyntax_AtomicRegex_StartIndex = input.index();
@@ -6155,11 +5879,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4144:1: ( (a0= QUOTED_36_36 ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4145:2: (a0= QUOTED_36_36 )
+            // Cs.g:3868:1: ( (a0= QUOTED_36_36 ) )
+            // Cs.g:3869:2: (a0= QUOTED_36_36 )
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4145:2: (a0= QUOTED_36_36 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4146:3: a0= QUOTED_36_36
+            // Cs.g:3869:2: (a0= QUOTED_36_36 )
+            // Cs.g:3870:3: a0= QUOTED_36_36
             {
             a0=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_parse_org_emftext_sdk_concretesyntax_AtomicRegex3653); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6218,7 +5942,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexReference"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4183:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
+    // Cs.g:3907:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.RegexReference parse_org_emftext_sdk_concretesyntax_RegexReference() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexReference element =  null;
         int parse_org_emftext_sdk_concretesyntax_RegexReference_StartIndex = input.index();
@@ -6228,11 +5952,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4186:1: ( (a0= QUALIFIED_NAME ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4187:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3910:1: ( (a0= QUALIFIED_NAME ) )
+            // Cs.g:3911:2: (a0= QUALIFIED_NAME )
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4187:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4188:3: a0= QUALIFIED_NAME
+            // Cs.g:3911:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3912:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_RegexReference3693); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6295,7 +6019,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PLUS"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4229:1: parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
+    // Cs.g:3953:1: parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
     public final org.emftext.sdk.concretesyntax.PLUS parse_org_emftext_sdk_concretesyntax_PLUS() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PLUS element =  null;
         int parse_org_emftext_sdk_concretesyntax_PLUS_StartIndex = input.index();
@@ -6305,8 +6029,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4232:1: (a0= '+' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4233:2: a0= '+'
+            // Cs.g:3956:1: (a0= '+' )
+            // Cs.g:3957:2: a0= '+'
             {
             a0=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PLUS3729); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6321,22 +6045,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 132, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 132, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 132, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 132));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 132));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 132));
@@ -6359,7 +6075,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_STAR"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4265:1: parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
+    // Cs.g:3981:1: parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
     public final org.emftext.sdk.concretesyntax.STAR parse_org_emftext_sdk_concretesyntax_STAR() throws RecognitionException {
         org.emftext.sdk.concretesyntax.STAR element =  null;
         int parse_org_emftext_sdk_concretesyntax_STAR_StartIndex = input.index();
@@ -6369,8 +6085,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4268:1: (a0= '*' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4269:2: a0= '*'
+            // Cs.g:3984:1: (a0= '*' )
+            // Cs.g:3985:2: a0= '*'
             {
             a0=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_STAR3758); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6385,22 +6101,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 133, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 133, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 133));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 133));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 133));
@@ -6423,7 +6131,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_QUESTIONMARK"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4301:1: parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
+    // Cs.g:4009:1: parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
     public final org.emftext.sdk.concretesyntax.QUESTIONMARK parse_org_emftext_sdk_concretesyntax_QUESTIONMARK() throws RecognitionException {
         org.emftext.sdk.concretesyntax.QUESTIONMARK element =  null;
         int parse_org_emftext_sdk_concretesyntax_QUESTIONMARK_StartIndex = input.index();
@@ -6433,8 +6141,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4304:1: (a0= '?' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4305:2: a0= '?'
+            // Cs.g:4012:1: (a0= '?' )
+            // Cs.g:4013:2: a0= '?'
             {
             a0=(Token)match(input,44,FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK3787); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6449,22 +6157,14 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
-              		// rule path: Sequence.parts
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 134, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_45, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_46, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_47, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_48, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_49, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_50, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_51, 134, FEATURE_7));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_52, 134, FEATURE_7));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_54, 134));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_53, 134));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_55, 134));
@@ -6487,7 +6187,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Abstract"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4337:1: parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretesyntax.Abstract element = null] : a0= 'ABSTRACT' ;
+    // Cs.g:4037:1: parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretesyntax.Abstract element = null] : a0= 'ABSTRACT' ;
     public final org.emftext.sdk.concretesyntax.Abstract parse_org_emftext_sdk_concretesyntax_Abstract() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Abstract element =  null;
         int parse_org_emftext_sdk_concretesyntax_Abstract_StartIndex = input.index();
@@ -6497,8 +6197,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4340:1: (a0= 'ABSTRACT' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4341:2: a0= 'ABSTRACT'
+            // Cs.g:4040:1: (a0= 'ABSTRACT' )
+            // Cs.g:4041:2: a0= 'ABSTRACT'
             {
             a0=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_Abstract3816); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6533,7 +6233,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenStyle"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4355:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' ;
+    // Cs.g:4055:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' ;
     public final org.emftext.sdk.concretesyntax.TokenStyle parse_org_emftext_sdk_concretesyntax_TokenStyle() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenStyle element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenStyle_StartIndex = input.index();
@@ -6548,11 +6248,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4358:1: ( (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4359:2: (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';'
+            // Cs.g:4058:1: ( (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' )
+            // Cs.g:4059:2: (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';'
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4359:2: (a0= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4360:3: a0= QUOTED_34_34_92
+            // Cs.g:4059:2: (a0= QUOTED_34_34_92 )
+            // Cs.g:4060:3: a0= QUOTED_34_34_92
             {
             a0=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3849); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6607,8 +6307,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_88, 137));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4404:2: (a2= HEXNUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4405:3: a2= HEXNUMBER
+            // Cs.g:4104:2: (a2= HEXNUMBER )
+            // Cs.g:4105:3: a2= HEXNUMBER
             {
             a2=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3888); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6648,7 +6348,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_90, 138));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4438:2: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+            // Cs.g:4138:2: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
             loop33:
             do {
                 int alt33=2;
@@ -6661,10 +6361,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt33) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4439:3: (a3= ',' (a4= QUALIFIED_NAME ) )
+            	    // Cs.g:4139:3: (a3= ',' (a4= QUALIFIED_NAME ) )
             	    {
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4439:3: (a3= ',' (a4= QUALIFIED_NAME ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4440:4: a3= ',' (a4= QUALIFIED_NAME )
+            	    // Cs.g:4139:3: (a3= ',' (a4= QUALIFIED_NAME ) )
+            	    // Cs.g:4140:4: a3= ',' (a4= QUALIFIED_NAME )
             	    {
             	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3918); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -6682,8 +6382,8 @@ public class CsParser extends CsANTLRParserBase {
             	      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_91, 139));
             	      			
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4452:4: (a4= QUALIFIED_NAME )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4453:5: a4= QUALIFIED_NAME
+            	    // Cs.g:4152:4: (a4= QUALIFIED_NAME )
+            	    // Cs.g:4153:5: a4= QUALIFIED_NAME
             	    {
             	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3944); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -6755,8 +6455,7 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: ConcreteSyntax.tokenStyles
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 142, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_30, 142, FEATURE_5));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_31, 142));
               	
             }
@@ -6777,7 +6476,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Annotation"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4510:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
+    // Cs.g:4209:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
     public final org.emftext.sdk.concretesyntax.Annotation parse_org_emftext_sdk_concretesyntax_Annotation() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Annotation element =  null;
         int parse_org_emftext_sdk_concretesyntax_Annotation_StartIndex = input.index();
@@ -6795,8 +6494,8 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4513:1: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4514:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:4212:1: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
+            // Cs.g:4213:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             {
             a0=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_Annotation4019); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6814,8 +6513,8 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_92, 143));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4526:2: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4527:3: a1= QUALIFIED_NAME
+            // Cs.g:4225:2: (a1= QUALIFIED_NAME )
+            // Cs.g:4226:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation4037); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -6852,16 +6551,14 @@ public class CsParser extends CsANTLRParserBase {
 
               		// expected elements (follow set)
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_93, 144));
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-              		// rule path: ConcreteSyntax.modifier
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 144, FEATURE_0));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 144, FEATURE_1));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 144));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 144));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 144));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4566:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:4263:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -6870,10 +6567,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt35) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4567:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:4264:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4567:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4568:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
+                    // Cs.g:4264:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:4265:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
                     {
                     a2=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_Annotation4067); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -6888,12 +6585,11 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: Annotation.parameters
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 145, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 145, FEATURE_13));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4581:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4582:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    // Cs.g:4277:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    // Cs.g:4278:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4093);
                     a3_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -6927,7 +6623,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 146));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4604:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
+                    // Cs.g:4300:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
                     loop34:
                     do {
                         int alt34=2;
@@ -6940,10 +6636,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt34) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4605:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:4301:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
                     	    {
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4605:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4606:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:4301:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:4302:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
                     	    {
                     	    a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Annotation4134); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -6958,12 +6654,11 @@ public class CsParser extends CsANTLRParserBase {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected elements (follow set)
-                    	      						// rule path: Annotation.parameters
-                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 147, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+                    	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_94, 147, FEATURE_13));
                     	      					
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4619:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4620:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    	    // Cs.g:4314:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:4315:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4168);
                     	    a5_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -7029,10 +6724,8 @@ public class CsParser extends CsANTLRParserBase {
                     if ( state.backtracking==0 ) {
 
                       				// expected elements (follow set)
-                      				// rule path: Annotable.annotations
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 150, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-                      				// rule path: ConcreteSyntax.modifier
-                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 150, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 150, FEATURE_0));
+                      				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 150, FEATURE_1));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 150));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 150));
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 150));
@@ -7050,10 +6743,8 @@ public class CsParser extends CsANTLRParserBase {
             if ( state.backtracking==0 ) {
 
               		// expected elements (follow set)
-              		// rule path: Annotable.annotations
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 151, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotable().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS)));
-              		// rule path: ConcreteSyntax.modifier
-              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 151, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_0, 151, FEATURE_0));
+              		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_1, 151, FEATURE_1));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_2, 151));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_33, 151));
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_24, 151));
@@ -7076,7 +6767,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_KeyValuePair"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4683:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? ;
+    // Cs.g:4374:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? ;
     public final org.emftext.sdk.concretesyntax.KeyValuePair parse_org_emftext_sdk_concretesyntax_KeyValuePair() throws RecognitionException {
         org.emftext.sdk.concretesyntax.KeyValuePair element =  null;
         int parse_org_emftext_sdk_concretesyntax_KeyValuePair_StartIndex = input.index();
@@ -7088,11 +6779,11 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4686:1: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4687:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
+            // Cs.g:4377:1: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? )
+            // Cs.g:4378:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
             {
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4687:2: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4688:3: a0= QUALIFIED_NAME
+            // Cs.g:4378:2: (a0= QUALIFIED_NAME )
+            // Cs.g:4379:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4281); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -7133,7 +6824,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_96, 152));
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4722:2: ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
+            // Cs.g:4413:2: ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -7142,10 +6833,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt36) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4723:3: (a1= '=' (a2= QUOTED_34_34_92 ) )
+                    // Cs.g:4414:3: (a1= '=' (a2= QUOTED_34_34_92 ) )
                     {
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4723:3: (a1= '=' (a2= QUOTED_34_34_92 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4724:4: a1= '=' (a2= QUOTED_34_34_92 )
+                    // Cs.g:4414:3: (a1= '=' (a2= QUOTED_34_34_92 ) )
+                    // Cs.g:4415:4: a1= '=' (a2= QUOTED_34_34_92 )
                     {
                     a1=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4311); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -7163,8 +6854,8 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(TERMINAL_98, 153));
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4736:4: (a2= QUOTED_34_34_92 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4737:5: a2= QUOTED_34_34_92
+                    // Cs.g:4427:4: (a2= QUOTED_34_34_92 )
+                    // Cs.g:4428:5: a2= QUOTED_34_34_92
                     {
                     a2=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4337); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -7237,7 +6928,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenDirective"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4780:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition | c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition | c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
+    // Cs.g:4471:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition | c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition | c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
     public final org.emftext.sdk.concretesyntax.TokenDirective parse_org_emftext_sdk_concretesyntax_TokenDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenDirective element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenDirective_StartIndex = input.index();
@@ -7250,7 +6941,7 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4781:1: (c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition | c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition | c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
+            // Cs.g:4472:1: (c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition | c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition | c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
             int alt37=3;
             switch ( input.LA(1) ) {
             case 47:
@@ -7292,7 +6983,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt37) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4782:2: c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
+                    // Cs.g:4473:2: c0= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective4394);
                     c0=parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition();
@@ -7306,7 +6997,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4783:4: c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
+                    // Cs.g:4474:4: c1= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective4404);
                     c1=parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition();
@@ -7320,7 +7011,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4784:4: c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
+                    // Cs.g:4475:4: c2= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_in_parse_org_emftext_sdk_concretesyntax_TokenDirective4414);
                     c2=parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
@@ -7349,7 +7040,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Definition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4788:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );
+    // Cs.g:4479:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );
     public final org.emftext.sdk.concretesyntax.Definition parse_org_emftext_sdk_concretesyntax_Definition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Definition element =  null;
         int parse_org_emftext_sdk_concretesyntax_Definition_StartIndex = input.index();
@@ -7372,12 +7063,12 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4789:1: (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak )
+            // Cs.g:4480:1: (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak )
             int alt38=8;
             alt38 = dfa38.predict(input);
             switch (alt38) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4790:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
+                    // Cs.g:4481:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CsString_in_parse_org_emftext_sdk_concretesyntax_Definition4435);
                     c0=parse_org_emftext_sdk_concretesyntax_CsString();
@@ -7391,7 +7082,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4791:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
+                    // Cs.g:4482:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_in_parse_org_emftext_sdk_concretesyntax_Definition4445);
                     c1=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken();
@@ -7405,7 +7096,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4792:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
+                    // Cs.g:4483:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_in_parse_org_emftext_sdk_concretesyntax_Definition4455);
                     c2=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken();
@@ -7419,7 +7110,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4793:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
+                    // Cs.g:4484:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_in_parse_org_emftext_sdk_concretesyntax_Definition4465);
                     c3=parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes();
@@ -7433,7 +7124,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 5 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4794:4: c4= parse_org_emftext_sdk_concretesyntax_Containment
+                    // Cs.g:4485:4: c4= parse_org_emftext_sdk_concretesyntax_Containment
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Containment_in_parse_org_emftext_sdk_concretesyntax_Definition4475);
                     c4=parse_org_emftext_sdk_concretesyntax_Containment();
@@ -7447,7 +7138,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 6 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4795:4: c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
+                    // Cs.g:4486:4: c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CompoundDefinition_in_parse_org_emftext_sdk_concretesyntax_Definition4485);
                     c5=parse_org_emftext_sdk_concretesyntax_CompoundDefinition();
@@ -7461,7 +7152,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 7 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4796:4: c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
+                    // Cs.g:4487:4: c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_WhiteSpaces_in_parse_org_emftext_sdk_concretesyntax_Definition4495);
                     c6=parse_org_emftext_sdk_concretesyntax_WhiteSpaces();
@@ -7475,7 +7166,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 8 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4797:4: c7= parse_org_emftext_sdk_concretesyntax_LineBreak
+                    // Cs.g:4488:4: c7= parse_org_emftext_sdk_concretesyntax_LineBreak
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_LineBreak_in_parse_org_emftext_sdk_concretesyntax_Definition4505);
                     c7=parse_org_emftext_sdk_concretesyntax_LineBreak();
@@ -7504,7 +7195,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Cardinality"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4801:1: parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK );
+    // Cs.g:4492:1: parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK );
     public final org.emftext.sdk.concretesyntax.Cardinality parse_org_emftext_sdk_concretesyntax_Cardinality() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Cardinality element =  null;
         int parse_org_emftext_sdk_concretesyntax_Cardinality_StartIndex = input.index();
@@ -7517,7 +7208,7 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4802:1: (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK )
+            // Cs.g:4493:1: (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK )
             int alt39=3;
             switch ( input.LA(1) ) {
             case 38:
@@ -7545,7 +7236,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt39) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4803:2: c0= parse_org_emftext_sdk_concretesyntax_PLUS
+                    // Cs.g:4494:2: c0= parse_org_emftext_sdk_concretesyntax_PLUS
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PLUS_in_parse_org_emftext_sdk_concretesyntax_Cardinality4526);
                     c0=parse_org_emftext_sdk_concretesyntax_PLUS();
@@ -7559,7 +7250,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4804:4: c1= parse_org_emftext_sdk_concretesyntax_STAR
+                    // Cs.g:4495:4: c1= parse_org_emftext_sdk_concretesyntax_STAR
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_STAR_in_parse_org_emftext_sdk_concretesyntax_Cardinality4536);
                     c1=parse_org_emftext_sdk_concretesyntax_STAR();
@@ -7573,7 +7264,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4805:4: c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK
+                    // Cs.g:4496:4: c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK_in_parse_org_emftext_sdk_concretesyntax_Cardinality4546);
                     c2=parse_org_emftext_sdk_concretesyntax_QUESTIONMARK();
@@ -7602,7 +7293,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexPart"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4809:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex | c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
+    // Cs.g:4500:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex | c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
     public final org.emftext.sdk.concretesyntax.RegexPart parse_org_emftext_sdk_concretesyntax_RegexPart() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexPart element =  null;
         int parse_org_emftext_sdk_concretesyntax_RegexPart_StartIndex = input.index();
@@ -7613,7 +7304,7 @@ public class CsParser extends CsANTLRParserBase {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 31) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4810:1: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex | c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
+            // Cs.g:4501:1: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex | c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -7632,7 +7323,7 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt40) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4811:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
+                    // Cs.g:4502:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_AtomicRegex_in_parse_org_emftext_sdk_concretesyntax_RegexPart4567);
                     c0=parse_org_emftext_sdk_concretesyntax_AtomicRegex();
@@ -7646,7 +7337,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-CS\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g:4812:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
+                    // Cs.g:4503:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexReference_in_parse_org_emftext_sdk_concretesyntax_RegexPart4577);
                     c1=parse_org_emftext_sdk_concretesyntax_RegexReference();
@@ -7734,7 +7425,7 @@ public class CsParser extends CsANTLRParserBase {
             this.transition = DFA38_transition;
         }
         public String getDescription() {
-            return "4788:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );";
+            return "4479:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );";
         }
     }
  
