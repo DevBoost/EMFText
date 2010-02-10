@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -56,6 +57,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 	private void addMethods(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		addSetSelectionMethod(sc);
+		addHandleSelectMethod(sc);
 		addHandleInvalidSelectionMethod(sc);
 		addRefreshMethod1(sc);
 		addRefreshMethod2(sc);
@@ -107,9 +109,25 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.add("super.setSelection(selection, reveal);");
 		sc.add("suppressNotifications = false;");
 		sc.add("}");
+		sc.add("else {");
+		sc.add("super.setSelection(selection, reveal);");
 		sc.add("}");
-		sc.
-		addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addHandleSelectMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("protected void handleSelect(" + SELECTION_EVENT + " event) {");
+		sc.add("if (event.item == null) {");
+		sc.add("// In the cases of an invalid document, the tree widget in the outline might fire an event");
+		sc.add("// (with item == null) without user interaction. We do not want to react to that event.");		
+		sc.add("}");
+		sc.add("else {");
+		sc.add("super.handleSelect(event);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private void addHandleInvalidSelectionMethod(
