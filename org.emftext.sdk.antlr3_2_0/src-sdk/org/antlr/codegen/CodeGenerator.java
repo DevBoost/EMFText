@@ -28,6 +28,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.antlr.codegen;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.Writer;
@@ -436,8 +437,9 @@ public class CodeGenerator {
 
 		String targetAppropriateFileNameString =
 			target.getTargetStringLiteralFromString(grammar.getFileName());
-		outputFileST.setAttribute("fileName", targetAppropriateFileNameString);
-		headerFileST.setAttribute("fileName", targetAppropriateFileNameString);
+		String simpleFileName = (new File(targetAppropriateFileNameString)).getName();
+		outputFileST.setAttribute("fileName", simpleFileName);
+		headerFileST.setAttribute("fileName", simpleFileName);
 		outputFileST.setAttribute("ANTLRVersion", tool.VERSION);
 		headerFileST.setAttribute("ANTLRVersion", tool.VERSION);
 		outputFileST.setAttribute("generatedTimestamp", Tool.getCurrentTimeStamp());
