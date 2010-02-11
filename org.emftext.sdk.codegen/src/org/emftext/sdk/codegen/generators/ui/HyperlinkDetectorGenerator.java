@@ -69,14 +69,12 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
-		sc.add("String resourceFileExtension = textResource.getURI().fileExtension();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
 		sc.add(E_OBJECT + " resolvedEObject = null;");
 		sc.add("for (" + E_OBJECT + " eObject : elementsAtOffset) {");
 		sc.add("if (eObject.eIsProxy()) {");
 		sc.add("resolvedEObject = " + ECORE_UTIL + ".resolve(eObject, textResource);");
-		// FIXME if the hyperlink should be activate for other resource as well
-		sc.add("if (resolvedEObject == eObject || (resolvedEObject.eResource() != null && !resourceFileExtension.equals(resolvedEObject.eResource().getURI().fileExtension()))) {");
+		sc.add("if (resolvedEObject == eObject) {");
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("int offset = locationMap.getCharStart(eObject);");

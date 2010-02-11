@@ -27,9 +27,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKSPACE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PART_INIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM_UI;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI_CONVERTER;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -84,9 +84,10 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 
 	private void addGetIFileFromResourceMethod(StringComposite sc) {
 		sc.add("private " + I_FILE + " getIFileFromResource() {");
-		sc.add(URI + " resourceURI = linkTarget.eResource().getURI();");
-		sc.add("if (resourceURI.toString().startsWith(\"pathmap\")) {");
-		sc.add("resourceURI = " + URI_CONVERTER + ".URI_MAP.get(resourceURI);");
+		sc.add(RESOURCE + " linkTargetResource = linkTarget.eResource();");
+		sc.add(URI + " resourceURI = linkTargetResource.getURI();");
+		sc.add("if (linkTargetResource.getResourceSet() != null && linkTargetResource.getResourceSet().getURIConverter() != null) {");
+		sc.add("resourceURI = linkTargetResource.getResourceSet().getURIConverter().normalize(resourceURI);");
 		sc.add("}");
 		sc.add("if (resourceURI.isPlatformResource()) {");
 		sc.add("String platformString = resourceURI.toPlatformString(true);");
@@ -115,10 +116,9 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		sc.add(I_WORKBENCH + " workbench = " + PLATFORM_UI + ".getWorkbench();");
 		sc.add(I_WORKBENCH_PAGE + " page = workbench.getActiveWorkbenchWindow().getActivePage();");
 		sc.add("try {");
-		sc.add(I_EDITOR_PART + " activeEditor = page.getActiveEditor();");
 		sc.add(I_EDITOR_DESCRIPTOR + " desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());");
-		sc.add("page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
-		sc.add(I_EDITOR_PART + " editorPart = activeEditor;");
+		sc.add(I_EDITOR_PART + " editorPart = page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
+		//TODO Here we could use the access plugin to call setCaret() on other EMFText editors as well
 		sc.add("if (editorPart instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
 		sc.add("emftEditor.setCaret(linkTarget, text);");
