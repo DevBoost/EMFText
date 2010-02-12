@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -63,7 +62,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreateTokenScannerMethod(StringComposite sc) {
-		sc.add("public " + I_TOKEN_SCANNER + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
+		sc.add("public " + tokenScannerClassName + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
 		sc.add("return new " + tokenScannerClassName + "(colorManager);");
         sc.add("}");
         sc.addLineBreak();
