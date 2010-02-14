@@ -326,6 +326,7 @@
     <eLiterals name="DISABLE_BUILDER" value="158" literal="disableBuilder"/>
     <eLiterals name="ADDITIONAL_EXPORTS" value="159" literal="additionalExports"/>
     <eLiterals name="OVERRIDE_PAIR" value="160" literal="overridePair"/>
+    <eLiterals name="OVERRIDE_ABSTRACT_INTERPRETER" value="161" literal="overrideAbstractInterpreter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

@@ -1229,10 +1229,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private String getRuleName(GenClass genClass) {
-		String interfaceName = genClassFinder
-				.getQualifiedInterfaceName(genClass);
-		String ruleName = interfaceName.replace("_", "_005F");
-		ruleName = ruleName.replace(".", "_");
+		String ruleName = genClassFinder.getEscapedTypeName(genClass);
 		return "parse_" + ruleName;
 	}
 

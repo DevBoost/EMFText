@@ -31,6 +31,7 @@ import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRScannerGenerator;
+import org.emftext.sdk.codegen.generators.AbstractInterpreterGenerator;
 import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
 import org.emftext.sdk.codegen.generators.BracketInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.BuilderAdapterGenerator;
@@ -308,6 +309,7 @@ public enum EArtifact {
 	STRING_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StringUtil", new StringUtilGenerator(), OptionTypes.OVERRIDE_STRING_UTIL),
 	TEXT_RESOURCE_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "TextResourceUtil", new TextResourceUtilGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL),
 	UNICODE_CONVERTER(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "UnicodeConverter", new UnicodeConverterGenerator(), OptionTypes.OVERRIDE_UNICODE_CONVERTER),
+	ABSTRACT_INTERPRETER(RESOURCE_PLUGIN, UTIL_PACKAGE, "Abstract", "Interpreter", new AbstractInterpreterGenerator(), OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER),
 
 	ANTLR_GRAMMAR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),

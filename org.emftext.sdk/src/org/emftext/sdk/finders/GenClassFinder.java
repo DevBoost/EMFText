@@ -191,4 +191,11 @@ public class GenClassFinder {
 	public String getQualifiedInterfaceName(GenClass genClass) {
 		return genClassCache.getQualifiedInterfaceName(genClass);
 	}
+
+	public String getEscapedTypeName(GenClass genClass) {
+		String interfaceName = getQualifiedInterfaceName(genClass);
+		String escapedName = interfaceName.replace("_", "_005F");
+		escapedName = escapedName.replace(".", "_");
+		return escapedName;
+	}
 }
