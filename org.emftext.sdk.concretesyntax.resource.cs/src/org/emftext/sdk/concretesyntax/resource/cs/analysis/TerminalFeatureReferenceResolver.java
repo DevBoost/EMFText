@@ -85,30 +85,20 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		}
 	}
 
-	private class NameStartsWithFilter extends NameFilter {
+	private class AcceptAllFilter extends NameFilter {
 
-		public NameStartsWithFilter(String identifier) {
+		public AcceptAllFilter(String identifier) {
 			super(identifier);
 		}
 
 		public void accept(GenFeature feature, FeatureResolveResult result) {
 			String featureName = feature.getName();
-			boolean featureNameIsCorrect = doNamesMatch(identifier, featureName);
-			if (!featureNameIsCorrect) {
-				return;
-			}
 			result.setFoundFeatureWithCorrectName();
 			result.addMapping(featureName, feature);
 		}
 		
 		@Override
 		protected boolean doNamesMatch(String identifier, String featureName) {
-			if (featureName == null) {
-				return false;
-			}
-			if (!featureName.startsWith(identifier)) {
-				return false;
-			}
 			return true;
 		}
 	}
@@ -146,7 +136,7 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 	}
 
 	private void doResolveFuzzy(String identifier, Terminal container, ICsReferenceResolveResult<GenFeature> result) {
-		doResolveFeature(container, new NameStartsWithFilter(identifier), identifier, result);
+		doResolveFeature(container, new AcceptAllFilter(identifier), identifier, result);
 	}
 
 	private void doResolveStrict(String identifier, Terminal container, ICsReferenceResolveResult<GenFeature> result) {
