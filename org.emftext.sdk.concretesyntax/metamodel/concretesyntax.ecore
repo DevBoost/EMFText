@@ -373,11 +373,16 @@
     <eLiterals name="OP_UNARY" value="5" literal="Unary"/>
     <eLiterals name="OP_PRIMITIVE" value="6" literal="Primitive"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="OperatorType">
+  <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationType">
     <eLiterals name="binary_left_associative"/>
     <eLiterals name="binary_right_associative" value="1"/>
     <eLiterals name="unary" value="2"/>
     <eLiterals name="primitive" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationProperty">
+    <eLiterals name="type"/>
+    <eLiterals name="identifier" value="1"/>
+    <eLiterals name="weight" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyValuePair">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

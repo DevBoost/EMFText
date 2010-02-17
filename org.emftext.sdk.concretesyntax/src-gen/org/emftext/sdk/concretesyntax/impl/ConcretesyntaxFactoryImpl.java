@@ -144,8 +144,10 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return createFontStyleFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.ANNOTATION_TYPE:
 				return createAnnotationTypeFromString(eDataType, initialValue);
-			case ConcretesyntaxPackage.OPERATOR_TYPE:
-				return createOperatorTypeFromString(eDataType, initialValue);
+			case ConcretesyntaxPackage.OPERATOR_ANNOTATION_TYPE:
+				return createOperatorAnnotationTypeFromString(eDataType, initialValue);
+			case ConcretesyntaxPackage.OPERATOR_ANNOTATION_PROPERTY:
+				return createOperatorAnnotationPropertyFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -165,8 +167,10 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return convertFontStyleToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.ANNOTATION_TYPE:
 				return convertAnnotationTypeToString(eDataType, instanceValue);
-			case ConcretesyntaxPackage.OPERATOR_TYPE:
-				return convertOperatorTypeToString(eDataType, instanceValue);
+			case ConcretesyntaxPackage.OPERATOR_ANNOTATION_TYPE:
+				return convertOperatorAnnotationTypeToString(eDataType, instanceValue);
+			case ConcretesyntaxPackage.OPERATOR_ANNOTATION_PROPERTY:
+				return convertOperatorAnnotationPropertyToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -507,8 +511,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OperatorType createOperatorTypeFromString(EDataType eDataType, String initialValue) {
-		OperatorType result = OperatorType.get(initialValue);
+	public OperatorAnnotationType createOperatorAnnotationTypeFromString(EDataType eDataType, String initialValue) {
+		OperatorAnnotationType result = OperatorAnnotationType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -518,7 +522,27 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertOperatorTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertOperatorAnnotationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OperatorAnnotationProperty createOperatorAnnotationPropertyFromString(EDataType eDataType, String initialValue) {
+		OperatorAnnotationProperty result = OperatorAnnotationProperty.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOperatorAnnotationPropertyToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

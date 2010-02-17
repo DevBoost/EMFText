@@ -25,6 +25,7 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.Rule;
 
 
@@ -234,8 +235,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	public int getOperatorWeight() {
 		Annotation operatorAnnotation = this.getOperatorAnnotation();
 		if (operatorAnnotation != null) {
-			// TODO mseifert: use constant here
-			String ruleWeightString = operatorAnnotation.getValue("weight");
+			String ruleWeightString = operatorAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
 			if (ruleWeightString != null) {
 				try {
 					return Integer.parseInt(ruleWeightString);			

@@ -45,7 +45,8 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
-import org.emftext.sdk.concretesyntax.OperatorType;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
@@ -380,7 +381,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum operatorTypeEEnum = null;
+	private EEnum operatorAnnotationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum operatorAnnotationPropertyEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1399,8 +1407,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getOperatorType() {
-		return operatorTypeEEnum;
+	public EEnum getOperatorAnnotationType() {
+		return operatorAnnotationTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getOperatorAnnotationProperty() {
+		return operatorAnnotationPropertyEEnum;
 	}
 
 	/**
@@ -1577,7 +1594,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		annotationTypeEEnum = createEEnum(ANNOTATION_TYPE);
-		operatorTypeEEnum = createEEnum(OPERATOR_TYPE);
+		operatorAnnotationTypeEEnum = createEEnum(OPERATOR_ANNOTATION_TYPE);
+		operatorAnnotationPropertyEEnum = createEEnum(OPERATOR_ANNOTATION_PROPERTY);
 	}
 
 	/**
@@ -1983,11 +2001,16 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_UNARY);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_PRIMITIVE);
 
-		initEEnum(operatorTypeEEnum, OperatorType.class, "OperatorType");
-		addEEnumLiteral(operatorTypeEEnum, OperatorType.BINARY_LEFT_ASSOCIATIVE);
-		addEEnumLiteral(operatorTypeEEnum, OperatorType.BINARY_RIGHT_ASSOCIATIVE);
-		addEEnumLiteral(operatorTypeEEnum, OperatorType.UNARY);
-		addEEnumLiteral(operatorTypeEEnum, OperatorType.PRIMITIVE);
+		initEEnum(operatorAnnotationTypeEEnum, OperatorAnnotationType.class, "OperatorAnnotationType");
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE);
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE);
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.UNARY);
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.PRIMITIVE);
+
+		initEEnum(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.class, "OperatorAnnotationProperty");
+		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.TYPE);
+		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.IDENTIFIER);
+		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.WEIGHT);
 
 		// Create resource
 		createResource(eNS_URI);

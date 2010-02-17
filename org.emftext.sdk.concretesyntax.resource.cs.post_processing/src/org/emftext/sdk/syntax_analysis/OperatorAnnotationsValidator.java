@@ -22,6 +22,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -33,9 +34,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		for(Rule expressionRule:syntax.getOperatorRules()){
 			Annotation annotation = expressionRule.getOperatorAnnotation();
-			// TODO mseifert: use constants here
-			String weight = annotation.getValue("weight");
-			String identifier = annotation.getValue("identifier");
+			String weight = annotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
+			String identifier = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
 			if (weight == null || identifier == null) {
 				resource.addError("Operator annotations require values for weigth and identifier.",annotation);
 			}
@@ -75,14 +75,12 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			for (int i=0; i<subset.size(); i++) {
 				Rule firstRule = subset.get(i);
 				Annotation firstAnnotation = firstRule.getOperatorAnnotation();
-				// TODO mseifert: use constant here
-				String firstWeight = firstAnnotation.getValue("weight");
+				String firstWeight = firstAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
 				firstWeight = firstWeight == null ? "" : firstWeight; 
 				for(int j = i + 1; j < subset.size(); j++) {
 					Rule rule = subset.get(j);
 					Annotation annotation = rule.getOperatorAnnotation();
-					// TODO mseifert: use constant here
-					String weight = annotation.getValue("weight");
+					String weight = annotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
 					if (!firstWeight.equals(weight)) {
 						i = j-1;
 						break;

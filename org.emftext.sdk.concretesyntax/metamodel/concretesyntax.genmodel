@@ -186,11 +186,16 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_UNARY"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_PRIMITIVE"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorType">
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorType/binary_left_associative"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorType/binary_right_associative"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorType/unary"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorType/primitive"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationType">
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/binary_left_associative"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/binary_right_associative"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/unary"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/primitive"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationProperty">
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/type"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/identifier"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/weight"/>
     </genEnums>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//GenPackageDependentElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenPackageDependentElement/package"/>

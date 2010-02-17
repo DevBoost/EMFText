@@ -41,6 +41,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDirective;
@@ -462,9 +463,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				if (!added) {
 					operatorRules.add(rule);
 				}
-				// TODO mseifert: use constant here
-				String identifier = operatorAnnotation.getValue("identifier");
-				this.operatorRuleSubsets.add(identifier);	
+				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+				this.operatorRuleSubsets.add(identifier);
 			}
 		}
 	}
@@ -478,8 +478,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		EList<Rule> subset = new BasicEList<Rule>();
 		for(Rule rule : this.getOperatorRules()) {
 			Annotation annotation = rule.getOperatorAnnotation();
-			// TODO mseifert: use constant here
-			String value = annotation.getValue("identifier");
+			String value = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
 			if (identifier.equals(value)) {
 				subset.add(rule);
 			}

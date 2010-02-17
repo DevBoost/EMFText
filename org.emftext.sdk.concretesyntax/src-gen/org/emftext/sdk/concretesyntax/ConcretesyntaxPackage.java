@@ -1816,15 +1816,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}' enum.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.OperatorType
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorType()
+	 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationType
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_TYPE = 43;
+	int OPERATOR_ANNOTATION_TYPE = 43;
 
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationProperty
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
+	 * @generated
+	 */
+	int OPERATOR_ANNOTATION_PROPERTY = 44;
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.GenPackageDependentElement <em>Gen Package Dependent Element</em>}'.
@@ -2939,14 +2948,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EEnum getAnnotationType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}'.
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Operator Type</em>'.
-	 * @see org.emftext.sdk.concretesyntax.OperatorType
+	 * @return the meta object for enum '<em>Operator Annotation Type</em>'.
+	 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationType
 	 * @generated
 	 */
-	EEnum getOperatorType();
+	EEnum getOperatorAnnotationType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Operator Annotation Property</em>'.
+	 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationProperty
+	 * @generated
+	 */
+	EEnum getOperatorAnnotationProperty();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -3897,14 +3916,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EEnum ANNOTATION_TYPE = eINSTANCE.getAnnotationType();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}' enum.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.OperatorType
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorType()
+		 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationType
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 		 * @generated
 		 */
-		EEnum OPERATOR_TYPE = eINSTANCE.getOperatorType();
+		EEnum OPERATOR_ANNOTATION_TYPE = eINSTANCE.getOperatorAnnotationType();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.OperatorAnnotationProperty
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
+		 * @generated
+		 */
+		EEnum OPERATOR_ANNOTATION_PROPERTY = eINSTANCE.getOperatorAnnotationProperty();
 
 	}
 
