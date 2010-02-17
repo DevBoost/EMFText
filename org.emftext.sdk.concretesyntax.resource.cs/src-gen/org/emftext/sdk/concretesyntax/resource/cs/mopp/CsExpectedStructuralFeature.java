@@ -20,8 +20,8 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 	private org.eclipse.emf.ecore.EStructuralFeature feature;
 	private String tokenName;
 	
-	public CsExpectedStructuralFeature(org.eclipse.emf.ecore.EClass ruleMetaclass, org.eclipse.emf.ecore.EStructuralFeature feature, String tokenName) {
-		super(ruleMetaclass);
+	public CsExpectedStructuralFeature(org.eclipse.emf.ecore.EStructuralFeature feature, String tokenName) {
+		super();
 		this.feature = feature;
 		this.tokenName = tokenName;
 	}
