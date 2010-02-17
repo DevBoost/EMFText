@@ -148,7 +148,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		}
 		//proxies are not cached because also new objects (e.g., Parser, Printer) might be created
 		return Proxy.newProxyInstance(
-				implObject.getClass().getClassLoader(),
+				EMFTextAccessProxy.class.getClassLoader(),
 				new Class[] { accessInterface },
 				new EMFTextAccessProxy(implObject, accessInterface, allAccessInterfaces));
 	}
