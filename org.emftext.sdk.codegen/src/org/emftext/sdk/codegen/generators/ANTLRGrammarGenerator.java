@@ -1828,6 +1828,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			final String ident, final String proxyIdent,
 			String expressionToBeSet, StringComposite resolvements,
 			String tokenName) {
+		// FIXME mseifert: this is not correct!
 		final GenFeature genFeature = terminal.getFeature();
 		final GenClass genClass = genFeature.getGenClass();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
