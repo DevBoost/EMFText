@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax" eSuperTypes="#//GenPackageDependentElement #//Annotable">
-    <eOperations name="getExpressionSubset" upperBound="-1" eType="#//Rule">
+    <eOperations name="getOperatorRuleSubset" upperBound="-1" eType="#//Rule">
       <eParameters name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
@@ -44,9 +44,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allRules" lowerBound="1"
         upperBound="-1" eType="#//Rule" changeable="false" volatile="true" transient="true"
         derived="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressionRules" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operatorRules" upperBound="-1"
         eType="#//Rule" transient="true" derived="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expressionSubsets" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operatorRuleSubsets" upperBound="-1"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         transient="true" defaultValueLiteral="" derived="true"/>
   </eClassifiers>

@@ -69,8 +69,8 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getExpressionRules <em>Expression Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getExpressionSubsets <em>Expression Subsets</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getOperatorRules <em>Operator Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getOperatorRuleSubsets <em>Operator Rule Subsets</em>}</li>
  * </ul>
  * </p>
  *
@@ -218,24 +218,24 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	protected EList<Rule> rules;
 
 	/**
-	 * The cached value of the '{@link #getExpressionRules() <em>Expression Rules</em>}' reference list.
+	 * The cached value of the '{@link #getOperatorRules() <em>Operator Rules</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpressionRules()
+	 * @see #getOperatorRules()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Rule> expressionRules;
+	protected EList<Rule> operatorRules;
 
 	/**
-	 * The cached value of the '{@link #getExpressionSubsets() <em>Expression Subsets</em>}' attribute list.
+	 * The cached value of the '{@link #getOperatorRuleSubsets() <em>Operator Rule Subsets</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpressionSubsets()
+	 * @see #getOperatorRuleSubsets()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> expressionSubsets;
+	protected EList<String> operatorRuleSubsets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -422,11 +422,11 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList<Rule> getExpressionRules() {
-		if (expressionRules == null) {
-			 initialiseAnnotatedExpressionRules();	
+	public EList<Rule> getOperatorRules() {
+		if (operatorRules == null) {
+			initialiseAnnotatedOperatorRules();	
 		}
-		return expressionRules;
+		return operatorRules;
 	}
 
 	/**
@@ -434,38 +434,37 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList<String> getExpressionSubsets() {
-		if (expressionSubsets == null) {
-			 initialiseAnnotatedExpressionRules();
+	public EList<String> getOperatorRuleSubsets() {
+		if (operatorRuleSubsets == null) {
+			initialiseAnnotatedOperatorRules();
 		}
-		return expressionSubsets;
+		return operatorRuleSubsets;
 	}
-	
 	
 	/**
 	 * @generated NOT
 	 */
-	private void initialiseAnnotatedExpressionRules(){
-		expressionRules = new EObjectEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES);
-		expressionSubsets = new EDataTypeUniqueEList<String>(String.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS);
-		for(Rule rule:getAllRules()){
+	private void initialiseAnnotatedOperatorRules(){
+		operatorRules = new EObjectEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES);
+		operatorRuleSubsets = new EDataTypeUniqueEList<String>(String.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS);
+		for (Rule rule : getAllRules()) {
 			Annotation operatorAnnotation = rule.getOperatorAnnotation();
-			if(operatorAnnotation!=null){
+			if (operatorAnnotation != null) {
 				boolean added = false;
-				for(ListIterator<Rule> it = expressionRules.listIterator();it.hasNext();){
+				for (ListIterator<Rule> it = operatorRules.listIterator(); it.hasNext();) {
 					Rule expressionRule = it.next(); 
-					if(expressionRule.getOperatorWeight()>rule.getOperatorWeight()){
-						expressionRules.add(it.previousIndex(),rule);
+					if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {
+						operatorRules.add(it.previousIndex(), rule);
 						added = true;
 						break;
 					}			
 				}
-				if(!added){
-					expressionRules.add(rule);
+				if (!added) {
+					operatorRules.add(rule);
 				}
-				
+				// TODO mseifert: use constant here
 				String identifier = operatorAnnotation.getValue("identifier");
-				this.expressionSubsets.add(identifier);	
+				this.operatorRuleSubsets.add(identifier);	
 			}
 		}
 	}
@@ -475,13 +474,15 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList<Rule> getExpressionSubset(String identifier) {
+	public EList<Rule> getOperatorRuleSubset(String identifier) {
 		EList<Rule> subset = new BasicEList<Rule>();
-		for(Rule rule:this.getExpressionRules()){
+		for(Rule rule : this.getOperatorRules()) {
 			Annotation annotation = rule.getOperatorAnnotation();
+			// TODO mseifert: use constant here
 			String value = annotation.getValue("identifier");
-			if(identifier.equals(value))
+			if (identifier.equals(value)) {
 				subset.add(rule);
+			}
 		}
 		return subset;
 	}
@@ -490,6 +491,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated NOT
 	 */
 	private boolean isOverrideRemoveRule(Rule rule) {
+		// TODO mseifert: use constant here
 		return hasAnnotation(rule, AnnotationType.OVERRIDE, "remove", "true");
 	}
 
@@ -726,10 +728,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getRules();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return getAllRules();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
-				return getExpressionRules();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
-				return getExpressionSubsets();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES:
+				return getOperatorRules();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
+				return getOperatorRuleSubsets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -793,13 +795,13 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getRules().clear();
 				getRules().addAll((Collection<? extends Rule>)newValue);
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
-				getExpressionRules().clear();
-				getExpressionRules().addAll((Collection<? extends Rule>)newValue);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES:
+				getOperatorRules().clear();
+				getOperatorRules().addAll((Collection<? extends Rule>)newValue);
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
-				getExpressionSubsets().clear();
-				getExpressionSubsets().addAll((Collection<? extends String>)newValue);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
+				getOperatorRuleSubsets().clear();
+				getOperatorRuleSubsets().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -852,11 +854,11 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
-				getExpressionRules().clear();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES:
+				getOperatorRules().clear();
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
-				getExpressionSubsets().clear();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
+				getOperatorRuleSubsets().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -902,10 +904,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return rules != null && !rules.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return !getAllRules().isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
-				return expressionRules != null && !expressionRules.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
-				return expressionSubsets != null && !expressionSubsets.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES:
+				return operatorRules != null && !operatorRules.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
+				return operatorRuleSubsets != null && !operatorRuleSubsets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -954,8 +956,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", expressionSubsets: ");
-		result.append(expressionSubsets);
+		result.append(", operatorRuleSubsets: ");
+		result.append(operatorRuleSubsets);
 		result.append(')');
 		return result.toString();
 	}

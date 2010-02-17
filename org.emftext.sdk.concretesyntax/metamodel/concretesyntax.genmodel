@@ -206,10 +206,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenDirectives"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/rules"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allRules"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/expressionRules"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/expressionSubsets"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getExpressionSubset">
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getExpressionSubset/identifier"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/operatorRules"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/operatorRuleSubsets"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">

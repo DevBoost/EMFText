@@ -39,8 +39,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllRules <em>All Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionRules <em>Expression Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionSubsets <em>Expression Subsets</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRules <em>Operator Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRuleSubsets <em>Operator Rule Subsets</em>}</li>
  * </ul>
  * </p>
  *
@@ -190,7 +190,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	EList<Rule> getAllRules();
 
 	/**
-	 * Returns the value of the '<em><b>Expression Rules</b></em>' reference list.
+	 * Returns the value of the '<em><b>Operator Rules</b></em>' reference list.
 	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Rule}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -198,15 +198,15 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expression Rules</em>' reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ExpressionRules()
+	 * @return the value of the '<em>Operator Rules</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_OperatorRules()
 	 * @model resolveProxies="false" transient="true" derived="true"
 	 * @generated
 	 */
-	EList<Rule> getExpressionRules();
+	EList<Rule> getOperatorRules();
 
 	/**
-	 * Returns the value of the '<em><b>Expression Subsets</b></em>' attribute list.
+	 * Returns the value of the '<em><b>Operator Rule Subsets</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -214,12 +214,12 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expression Subsets</em>' attribute list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ExpressionSubsets()
+	 * @return the value of the '<em>Operator Rule Subsets</em>' attribute list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_OperatorRuleSubsets()
 	 * @model default="" transient="true" derived="true"
 	 * @generated
 	 */
-	EList<String> getExpressionSubsets();
+	EList<String> getOperatorRuleSubsets();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -227,7 +227,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @model identifierRequired="true"
 	 * @generated
 	 */
-	EList<Rule> getExpressionSubset(String identifier);
+	EList<Rule> getOperatorRuleSubset(String identifier);
 
 	/**
 	 * Returns the value of the '<em><b>Modifier</b></em>' containment reference.

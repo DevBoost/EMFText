@@ -1134,7 +1134,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			// operator rules must be handled separately
-			if (concreteSyntax.getExpressionRules().contains(rule)) {
+			if (concreteSyntax.getOperatorRules().contains(rule)) {
 				continue;
 			}
 			LeftRecursionDetector lrd = new LeftRecursionDetector(
@@ -1197,9 +1197,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		// handle operator rules
-		if (!concreteSyntax.getExpressionRules().isEmpty()) {
-			for (String expressionIdent : concreteSyntax.getExpressionSubsets()) {
-				EList<Rule> expressionSubset = concreteSyntax.getExpressionSubset(expressionIdent);
+		if (!concreteSyntax.getOperatorRules().isEmpty()) {
+			for (String expressionIdent : concreteSyntax.getOperatorRuleSubsets()) {
+				EList<Rule> expressionSubset = concreteSyntax.getOperatorRuleSubset(expressionIdent);
 				printGrammarExpressionSlice(expressionSubset, sc, eClassesWithSyntax, eClassesReferenced);
 			}
 		}
@@ -1885,10 +1885,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 							+ " element = null]");
 					sc.add(":");
 					//Expression slices are formed over a common abstract superclass
-					if (concreteSyntax.getExpressionSubset(referencedClass.getName()).isEmpty()) {
+					if (concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty()) {
 						printSubClassChoices(sc, subClasses);
 					} else {
-						List<Rule> slice = concreteSyntax.getExpressionSubset(referencedClass.getName());
+						List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
 						sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
 					}
 						

@@ -31,7 +31,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	// TODO mseifert: split this method
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		for(Rule expressionRule:syntax.getExpressionRules()){
+		for(Rule expressionRule:syntax.getOperatorRules()){
 			Annotation annotation = expressionRule.getOperatorAnnotation();
 			// TODO mseifert: use constants here
 			String weight = annotation.getValue("weight");
@@ -70,8 +70,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				}
 			}
 		}
-		for (String subsetIdent : syntax.getExpressionSubsets()) {
-			List<Rule> subset = syntax.getExpressionSubset(subsetIdent);
+		for (String subsetIdent : syntax.getOperatorRuleSubsets()) {
+			List<Rule> subset = syntax.getOperatorRuleSubset(subsetIdent);
 			for (int i=0; i<subset.size(); i++) {
 				Rule firstRule = subset.get(i);
 				Annotation firstAnnotation = firstRule.getOperatorAnnotation();

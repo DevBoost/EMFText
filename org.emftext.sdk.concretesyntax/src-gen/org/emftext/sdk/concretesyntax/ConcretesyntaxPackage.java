@@ -277,22 +277,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
-	 * The feature id for the '<em><b>Expression Rules</b></em>' reference list.
+	 * The feature id for the '<em><b>Operator Rules</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__EXPRESSION_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
+	int CONCRETE_SYNTAX__OPERATOR_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
 
 	/**
-	 * The feature id for the '<em><b>Expression Subsets</b></em>' attribute list.
+	 * The feature id for the '<em><b>Operator Rule Subsets</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__EXPRESSION_SUBSETS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
+	int CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -1946,26 +1946,26 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getConcreteSyntax_AllRules();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionRules <em>Expression Rules</em>}'.
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRules <em>Operator Rules</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Expression Rules</em>'.
-	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionRules()
+	 * @return the meta object for the reference list '<em>Operator Rules</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRules()
 	 * @see #getConcreteSyntax()
 	 * @generated
 	 */
-	EReference getConcreteSyntax_ExpressionRules();
+	EReference getConcreteSyntax_OperatorRules();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionSubsets <em>Expression Subsets</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRuleSubsets <em>Operator Rule Subsets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Expression Subsets</em>'.
-	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionSubsets()
+	 * @return the meta object for the attribute list '<em>Operator Rule Subsets</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getOperatorRuleSubsets()
 	 * @see #getConcreteSyntax()
 	 * @generated
 	 */
-	EAttribute getConcreteSyntax_ExpressionSubsets();
+	EAttribute getConcreteSyntax_OperatorRuleSubsets();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getModifier <em>Modifier</em>}'.
@@ -3050,20 +3050,20 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference CONCRETE_SYNTAX__ALL_RULES = eINSTANCE.getConcreteSyntax_AllRules();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression Rules</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Operator Rules</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONCRETE_SYNTAX__EXPRESSION_RULES = eINSTANCE.getConcreteSyntax_ExpressionRules();
+		EReference CONCRETE_SYNTAX__OPERATOR_RULES = eINSTANCE.getConcreteSyntax_OperatorRules();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression Subsets</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Operator Rule Subsets</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONCRETE_SYNTAX__EXPRESSION_SUBSETS = eINSTANCE.getConcreteSyntax_ExpressionSubsets();
+		EAttribute CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS = eINSTANCE.getConcreteSyntax_OperatorRuleSubsets();
 
 		/**
 		 * The meta object literal for the '<em><b>Modifier</b></em>' containment reference feature.
