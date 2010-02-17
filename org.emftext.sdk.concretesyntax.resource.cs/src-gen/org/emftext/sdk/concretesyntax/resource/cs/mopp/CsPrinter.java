@@ -236,9 +236,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES));
 		printCountingMap.put("allRules", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES));
-		printCountingMap.put("expressionRules", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
+		printCountingMap.put("operatorRules", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS));
-		printCountingMap.put("expressionSubsets", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
+		printCountingMap.put("operatorRuleSubsets", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;

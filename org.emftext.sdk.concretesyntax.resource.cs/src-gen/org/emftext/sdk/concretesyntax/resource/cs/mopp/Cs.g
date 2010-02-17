@@ -2544,7 +2544,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 				collectHiddenTokens(element);
 				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Placeholder, org.emftext.sdk.concretesyntax.CompleteTokenDefinition>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getPlaceholderTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), resolved, proxy);
 				if (proxy != null) {
-					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), proxy);
+					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER__TOKEN), proxy);
 					completedElement(proxy);
 				}
 				collectHiddenTokens(element);
@@ -3474,7 +3474,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 					}
 					if (a0_0 != null) {
 						if (a0_0 != null) {
-							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS, a0_0);
+							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS, a0_0);
 							completedElement(a0_0);
 						}
 						collectHiddenTokens(element);
@@ -3527,7 +3527,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 				}
 				java.lang.String resolved = (java.lang.String)resolvedObject;
 				if (resolved != null) {
-					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__NAME), resolved);
+					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ABSTRACT_TOKEN_DEFINITION__NAME), resolved);
 					completedElement(resolved);
 				}
 				collectHiddenTokens(element);
@@ -3551,7 +3551,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			}
 			if (a3_0 != null) {
 				if (a3_0 != null) {
-					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS, a3_0);
+					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS, a3_0);
 					completedElement(a3_0);
 				}
 				collectHiddenTokens(element);
@@ -3590,7 +3590,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 					}
 					if (a5_0 != null) {
 						if (a5_0 != null) {
-							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS, a5_0);
+							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS, a5_0);
 							completedElement(a5_0);
 						}
 						collectHiddenTokens(element);
@@ -3659,7 +3659,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 						}
 						java.lang.String resolved = (java.lang.String)resolvedObject;
 						if (resolved != null) {
-							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ATTRIBUTE_NAME), resolved);
+							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME), resolved);
 							completedElement(resolved);
 						}
 						collectHiddenTokens(element);
@@ -3729,7 +3729,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 				}
 				java.lang.String resolved = (java.lang.String)resolvedObject;
 				if (resolved != null) {
-					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), resolved);
+					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ABSTRACT_TOKEN_DEFINITION__NAME), resolved);
 					completedElement(resolved);
 				}
 				collectHiddenTokens(element);
@@ -3753,7 +3753,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 			}
 			if (a3_0 != null) {
 				if (a3_0 != null) {
-					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a3_0);
+					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS, a3_0);
 					completedElement(a3_0);
 				}
 				collectHiddenTokens(element);
@@ -3791,7 +3791,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 					}
 					if (a5_0 != null) {
 						if (a5_0 != null) {
-							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a5_0);
+							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS, a5_0);
 							completedElement(a5_0);
 						}
 						collectHiddenTokens(element);
@@ -4477,37 +4477,37 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 
 parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]
 :
-	c0 = parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition{ element = c0; /* this is a subclass choice */ }
-	|	c1 = parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition{ element = c1; /* this is a subclass choice */ }
-	|	c2 = parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective{ element = c2; /* this is a subclass choice */ }
+	c0 = parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition{ element = c0; /* this is a subclass or expression choice */ }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition{ element = c1; /* this is a subclass or expression choice */ }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective{ element = c2; /* this is a subclass or expression choice */ }
 	
 ;
 
 parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null]
 :
-	c0 = parse_org_emftext_sdk_concretesyntax_CsString{ element = c0; /* this is a subclass choice */ }
-	|	c1 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken{ element = c1; /* this is a subclass choice */ }
-	|	c2 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken{ element = c2; /* this is a subclass choice */ }
-	|	c3 = parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes{ element = c3; /* this is a subclass choice */ }
-	|	c4 = parse_org_emftext_sdk_concretesyntax_Containment{ element = c4; /* this is a subclass choice */ }
-	|	c5 = parse_org_emftext_sdk_concretesyntax_CompoundDefinition{ element = c5; /* this is a subclass choice */ }
-	|	c6 = parse_org_emftext_sdk_concretesyntax_WhiteSpaces{ element = c6; /* this is a subclass choice */ }
-	|	c7 = parse_org_emftext_sdk_concretesyntax_LineBreak{ element = c7; /* this is a subclass choice */ }
+	c0 = parse_org_emftext_sdk_concretesyntax_CsString{ element = c0; /* this is a subclass or expression choice */ }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken{ element = c1; /* this is a subclass or expression choice */ }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken{ element = c2; /* this is a subclass or expression choice */ }
+	|	c3 = parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes{ element = c3; /* this is a subclass or expression choice */ }
+	|	c4 = parse_org_emftext_sdk_concretesyntax_Containment{ element = c4; /* this is a subclass or expression choice */ }
+	|	c5 = parse_org_emftext_sdk_concretesyntax_CompoundDefinition{ element = c5; /* this is a subclass or expression choice */ }
+	|	c6 = parse_org_emftext_sdk_concretesyntax_WhiteSpaces{ element = c6; /* this is a subclass or expression choice */ }
+	|	c7 = parse_org_emftext_sdk_concretesyntax_LineBreak{ element = c7; /* this is a subclass or expression choice */ }
 	
 ;
 
 parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null]
 :
-	c0 = parse_org_emftext_sdk_concretesyntax_PLUS{ element = c0; /* this is a subclass choice */ }
-	|	c1 = parse_org_emftext_sdk_concretesyntax_STAR{ element = c1; /* this is a subclass choice */ }
-	|	c2 = parse_org_emftext_sdk_concretesyntax_QUESTIONMARK{ element = c2; /* this is a subclass choice */ }
+	c0 = parse_org_emftext_sdk_concretesyntax_PLUS{ element = c0; /* this is a subclass or expression choice */ }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_STAR{ element = c1; /* this is a subclass or expression choice */ }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_QUESTIONMARK{ element = c2; /* this is a subclass or expression choice */ }
 	
 ;
 
 parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null]
 :
-	c0 = parse_org_emftext_sdk_concretesyntax_AtomicRegex{ element = c0; /* this is a subclass choice */ }
-	|	c1 = parse_org_emftext_sdk_concretesyntax_RegexReference{ element = c1; /* this is a subclass choice */ }
+	c0 = parse_org_emftext_sdk_concretesyntax_AtomicRegex{ element = c0; /* this is a subclass or expression choice */ }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_RegexReference{ element = c1; /* this is a subclass or expression choice */ }
 	
 ;
 
