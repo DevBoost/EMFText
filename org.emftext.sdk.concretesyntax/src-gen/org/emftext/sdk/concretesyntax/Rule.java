@@ -129,6 +129,6 @@ public interface Rule extends Annotable {
 	 * @model kind="operation" required="true"
 	 * @generated
 	 */
-	int getWeight();
+	int getOperatorWeight();
 
 } // Rule

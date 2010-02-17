@@ -1262,12 +1262,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		while (it.hasNext()) {
 			//TODO: Add a check that all equal weight rules are equally structured
 			Rule firstRule = it.next();
-			int weight = firstRule.getWeight();
+			int weight = firstRule.getOperatorWeight();
 			List<Rule> equalWeightOPs = new LinkedList<Rule>();
 			equalWeightOPs.add(firstRule);
 			while (it.hasNext()) {
 				Rule currentRule = it.next();
-				int currentWeight = currentRule.getWeight();
+				int currentWeight = currentRule.getOperatorWeight();
 				if (currentWeight == weight) {
 					equalWeightOPs.add(currentRule);
 				} else {

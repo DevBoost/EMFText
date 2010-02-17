@@ -454,7 +454,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				boolean added = false;
 				for(ListIterator<Rule> it = expressionRules.listIterator();it.hasNext();){
 					Rule expressionRule = it.next(); 
-					if(expressionRule.getWeight()>rule.getWeight()){
+					if(expressionRule.getOperatorWeight()>rule.getOperatorWeight()){
 						expressionRules.add(it.previousIndex(),rule);
 						added = true;
 						break;

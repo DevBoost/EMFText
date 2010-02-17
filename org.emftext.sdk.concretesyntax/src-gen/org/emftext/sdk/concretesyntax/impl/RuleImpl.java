@@ -16,7 +16,6 @@ package org.emftext.sdk.concretesyntax.impl;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -225,19 +224,24 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Returns the weight of this rule if it is an operator rule.
+	 * If the rule is not an operator rule or the specified weight
+	 * in the operator annotation is not a number, Integer.MIN_VALUE 
+	 * is returned.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public int getWeight() {
+	public int getOperatorWeight() {
 		Annotation operatorAnnotation = this.getOperatorAnnotation();
-		if(operatorAnnotation!=null){
+		if (operatorAnnotation != null) {
+			// TODO mseifert: use constant here
 			String ruleWeightString = operatorAnnotation.getValue("weight");
-			if(ruleWeightString!=null){
-				try{
+			if (ruleWeightString != null) {
+				try {
 					return Integer.parseInt(ruleWeightString);			
-				}
-				catch(NumberFormatException e){
-					//shit happens ;-)
+				} catch (NumberFormatException e) {
+					// ignore exception. invalid numbers are signaled by
+					// returning MIN_VALUE
 				}
 			}
 		}

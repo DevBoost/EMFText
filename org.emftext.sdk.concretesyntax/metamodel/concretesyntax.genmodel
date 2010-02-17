@@ -222,7 +222,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/metaclass"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/syntax"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorAnnotation"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getWeight"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorWeight"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Choice">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Choice/options"/>
