@@ -59,7 +59,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//Annotable">
     <eOperations name="getOperatorAnnotation" eType="#//Annotation"/>
     <eOperations name="getWeight" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eOperations name="referencedMetaClasses" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" lowerBound="1"
         eType="#//Choice" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaclass" lowerBound="1"

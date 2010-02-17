@@ -131,12 +131,4 @@ public interface Rule extends Annotable {
 	 */
 	int getWeight();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	EList<GenClass> referencedMetaClasses();
-
 } // Rule

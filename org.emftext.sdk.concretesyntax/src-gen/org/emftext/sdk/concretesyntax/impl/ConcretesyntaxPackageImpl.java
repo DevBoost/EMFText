@@ -1669,8 +1669,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(ruleEClass, theEcorePackage.getEInt(), "getWeight", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(ruleEClass, theGenModelPackage.getGenClass(), "referencedMetaClasses", 0, -1, IS_UNIQUE, IS_ORDERED);
-
 		initEClass(choiceEClass, Choice.class, "Choice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getChoice_Options(), this.getSequence(), null, "options", null, 1, -1, Choice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
