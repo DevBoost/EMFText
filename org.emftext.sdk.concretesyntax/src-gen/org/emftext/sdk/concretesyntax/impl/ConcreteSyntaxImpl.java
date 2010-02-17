@@ -464,7 +464,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 					expressionRules.add(rule);
 				}
 				
-				String identifier = operatorAnnotation.getAnnotationValue("identifier");
+				String identifier = operatorAnnotation.getValue("identifier");
 				this.expressionSubsets.add(identifier);	
 			}
 		}
@@ -479,7 +479,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		EList<Rule> subset = new BasicEList<Rule>();
 		for(Rule rule:this.getExpressionRules()){
 			Annotation annotation = rule.getOperatorAnnotation();
-			String value = annotation.getAnnotationValue("identifier");
+			String value = annotation.getValue("identifier");
 			if(identifier.equals(value))
 				subset.add(rule);
 		}

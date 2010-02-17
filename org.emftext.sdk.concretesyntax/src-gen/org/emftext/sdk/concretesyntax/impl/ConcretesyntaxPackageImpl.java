@@ -1777,7 +1777,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getAnnotation_Type(), this.getAnnotationType(), "type", null, 1, 1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnnotation_Parameters(), this.getKeyValuePair(), null, "parameters", null, 0, -1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		op = addEOperation(annotationEClass, theEcorePackage.getEString(), "getAnnotationValue", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(annotationEClass, theEcorePackage.getEString(), "getValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEString(), "key", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(annotableEClass, Annotable.class, "Annotable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

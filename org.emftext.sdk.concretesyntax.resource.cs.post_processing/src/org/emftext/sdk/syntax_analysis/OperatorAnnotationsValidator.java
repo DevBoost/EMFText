@@ -34,8 +34,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		for(Rule expressionRule:syntax.getExpressionRules()){
 			Annotation annotation = expressionRule.getOperatorAnnotation();
 			// TODO mseifert: use constants here
-			String weight = annotation.getAnnotationValue("weight");
-			String identifier = annotation.getAnnotationValue("identifier");
+			String weight = annotation.getValue("weight");
+			String identifier = annotation.getValue("identifier");
 			if (weight == null || identifier == null) {
 				resource.addError("Operator annotations require values for weigth and identifier.",annotation);
 			}
@@ -76,13 +76,13 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				Rule firstRule = subset.get(i);
 				Annotation firstAnnotation = firstRule.getOperatorAnnotation();
 				// TODO mseifert: use constant here
-				String firstWeight = firstAnnotation.getAnnotationValue("weight");
+				String firstWeight = firstAnnotation.getValue("weight");
 				firstWeight = firstWeight == null ? "" : firstWeight; 
 				for(int j = i + 1; j < subset.size(); j++) {
 					Rule rule = subset.get(j);
 					Annotation annotation = rule.getOperatorAnnotation();
 					// TODO mseifert: use constant here
-					String weight = annotation.getAnnotationValue("weight");
+					String weight = annotation.getValue("weight");
 					if (!firstWeight.equals(weight)) {
 						i = j-1;
 						break;

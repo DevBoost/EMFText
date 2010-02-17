@@ -316,8 +316,8 @@
     <genClasses ecoreClass="concretesyntax.ecore#//Annotation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Annotation/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Annotation/parameters"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//Annotation/getAnnotationValue">
-        <genParameters ecoreParameter="concretesyntax.ecore#//Annotation/getAnnotationValue/key"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Annotation/getValue">
+        <genParameters ecoreParameter="concretesyntax.ecore#//Annotation/getValue/key"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Annotable">

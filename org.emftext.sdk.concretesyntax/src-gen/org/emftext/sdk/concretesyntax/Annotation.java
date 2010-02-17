@@ -85,6 +85,6 @@ public interface Annotation extends EObject {
 	 * @model keyRequired="true"
 	 * @generated
 	 */
-	String getAnnotationValue(String key);
+	String getValue(String key);
 
 } // Annotation

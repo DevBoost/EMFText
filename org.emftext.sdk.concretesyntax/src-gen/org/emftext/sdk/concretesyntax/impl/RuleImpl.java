@@ -231,7 +231,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	public int getWeight() {
 		Annotation operatorAnnotation = this.getOperatorAnnotation();
 		if(operatorAnnotation!=null){
-			String ruleWeightString = operatorAnnotation.getAnnotationValue("weight");
+			String ruleWeightString = operatorAnnotation.getValue("weight");
 			if(ruleWeightString!=null){
 				try{
 					return Integer.parseInt(ruleWeightString);			
