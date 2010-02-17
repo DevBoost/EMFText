@@ -1816,6 +1816,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.OperatorType
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorType()
+	 * @generated
+	 */
+	int OPERATOR_TYPE = 43;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.GenPackageDependentElement <em>Gen Package Dependent Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2928,6 +2939,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EEnum getAnnotationType();
 
 	/**
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Operator Type</em>'.
+	 * @see org.emftext.sdk.concretesyntax.OperatorType
+	 * @generated
+	 */
+	EEnum getOperatorType();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3874,6 +3895,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ANNOTATION_TYPE = eINSTANCE.getAnnotationType();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OperatorType <em>Operator Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.OperatorType
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorType()
+		 * @generated
+		 */
+		EEnum OPERATOR_TYPE = eINSTANCE.getOperatorType();
 
 	}
 

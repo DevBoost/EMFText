@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
@@ -143,6 +144,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return createFontStyleFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.ANNOTATION_TYPE:
 				return createAnnotationTypeFromString(eDataType, initialValue);
+			case ConcretesyntaxPackage.OPERATOR_TYPE:
+				return createOperatorTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -162,6 +165,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return convertFontStyleToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.ANNOTATION_TYPE:
 				return convertAnnotationTypeToString(eDataType, instanceValue);
+			case ConcretesyntaxPackage.OPERATOR_TYPE:
+				return convertOperatorTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -494,6 +499,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * @generated
 	 */
 	public String convertAnnotationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OperatorType createOperatorTypeFromString(EDataType eDataType, String initialValue) {
+		OperatorType result = OperatorType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOperatorTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

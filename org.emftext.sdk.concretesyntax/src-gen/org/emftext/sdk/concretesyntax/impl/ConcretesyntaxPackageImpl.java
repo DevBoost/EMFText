@@ -45,6 +45,7 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
+import org.emftext.sdk.concretesyntax.OperatorType;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
@@ -373,6 +374,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EEnum annotationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum operatorTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1391,6 +1399,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getOperatorType() {
+		return operatorTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConcretesyntaxFactory getConcretesyntaxFactory() {
 		return (ConcretesyntaxFactory)getEFactoryInstance();
 	}
@@ -1560,6 +1577,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		annotationTypeEEnum = createEEnum(ANNOTATION_TYPE);
+		operatorTypeEEnum = createEEnum(OPERATOR_TYPE);
 	}
 
 	/**
@@ -1964,6 +1982,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_RIGHTASSOC);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_UNARY);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_PRIMITIVE);
+
+		initEEnum(operatorTypeEEnum, OperatorType.class, "OperatorType");
+		addEEnumLiteral(operatorTypeEEnum, OperatorType.BINARY_LEFT_ASSOCIATIVE);
+		addEEnumLiteral(operatorTypeEEnum, OperatorType.BINARY_RIGHT_ASSOCIATIVE);
+		addEEnumLiteral(operatorTypeEEnum, OperatorType.UNARY);
+		addEEnumLiteral(operatorTypeEEnum, OperatorType.PRIMITIVE);
 
 		// Create resource
 		createResource(eNS_URI);
