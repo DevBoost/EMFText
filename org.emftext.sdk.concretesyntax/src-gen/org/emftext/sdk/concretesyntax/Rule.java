@@ -14,6 +14,7 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -113,5 +114,29 @@ public interface Rule extends Annotable {
 	 * @generated
 	 */
 	void setSyntax(ConcreteSyntax value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	Annotation getOperatorAnnotation();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	int getWeight();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	EList<GenClass> referencedMetaClasses();
 
 } // Rule

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.sdk.concretesyntax/src-gen"
-    editDirectory="/org.emftext.sdk.concretesyntax.edit/src-gen" editorDirectory="/org.emftext.sdk.concretesyntax.editor/src"
-    modelPluginID="org.emftext.sdk.concretesyntax" modelName="Concretesyntax" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="5.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="TESTCOPYRIGHT"
+    modelDirectory="/org.emftext.sdk.concretesyntax/src-gen" editDirectory="/org.emftext.sdk.concretesyntax.edit/src-gen"
+    editorDirectory="/org.emftext.sdk.concretesyntax.editor/src" modelPluginID="org.emftext.sdk.concretesyntax"
+    modelName="Concretesyntax" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
   <foreignModel>concretesyntax.ecore</foreignModel>
   <genPackages prefix="Concretesyntax" basePackage="org.emftext.sdk" disposableProviderFactory="true"
       ecorePackage="concretesyntax.ecore#/">
@@ -180,6 +181,10 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OVERRIDE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/SUPPRESS_WARNINGS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/FOLDABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_LEFTASSOC"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_RIGHTASSOC"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_UNARY"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_PRIMITIVE"/>
     </genEnums>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//GenPackageDependentElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenPackageDependentElement/package"/>
@@ -201,6 +206,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenDirectives"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/rules"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allRules"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/expressionRules"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/expressionSubsets"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getExpressionSubset">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getExpressionSubset/identifier"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
@@ -211,6 +221,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/definition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/metaclass"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/syntax"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorAnnotation"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getWeight"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/referencedMetaClasses"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Choice">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Choice/options"/>
@@ -304,6 +317,9 @@
     <genClasses ecoreClass="concretesyntax.ecore#//Annotation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Annotation/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Annotation/parameters"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Annotation/getAnnotationValue">
+        <genParameters ecoreParameter="concretesyntax.ecore#//Annotation/getAnnotationValue/key"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Annotable">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Annotable/annotations"/>

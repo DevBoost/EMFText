@@ -9,6 +9,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax" eSuperTypes="#//GenPackageDependentElement #//Annotable">
+    <eOperations name="getExpressionSubset" upperBound="-1" eType="#//Rule">
+      <eParameters name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -41,6 +44,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allRules" lowerBound="1"
         upperBound="-1" eType="#//Rule" changeable="false" volatile="true" transient="true"
         derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressionRules" upperBound="-1"
+        eType="#//Rule" transient="true" derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expressionSubsets" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        transient="true" defaultValueLiteral="" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//GenPackageDependentElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
@@ -49,6 +57,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="csLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//Annotable">
+    <eOperations name="getOperatorAnnotation" eType="#//Annotation"/>
+    <eOperations name="getWeight" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eOperations name="referencedMetaClasses" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" lowerBound="1"
         eType="#//Choice" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaclass" lowerBound="1"
@@ -343,6 +354,9 @@
     <eLiterals name="UNDERLINE" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation">
+    <eOperations name="getAnnotationValue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eParameters name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//AnnotationType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//KeyValuePair" containment="true"/>
@@ -355,6 +369,10 @@
     <eLiterals name="OVERRIDE" literal="Override"/>
     <eLiterals name="SUPPRESS_WARNINGS" value="1" literal="SuppressWarnings"/>
     <eLiterals name="FOLDABLE" value="2" literal="Foldable"/>
+    <eLiterals name="OP_LEFTASSOC" value="3" literal="Leftassoc"/>
+    <eLiterals name="OP_RIGHTASSOC" value="4" literal="Rightassoc"/>
+    <eLiterals name="OP_UNARY" value="5" literal="Unary"/>
+    <eLiterals name="OP_PRIMITIVE" value="6" literal="Primitive"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyValuePair">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

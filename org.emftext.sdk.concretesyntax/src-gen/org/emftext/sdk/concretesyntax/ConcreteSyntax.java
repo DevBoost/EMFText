@@ -39,6 +39,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllRules <em>All Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionRules <em>Expression Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getExpressionSubsets <em>Expression Subsets</em>}</li>
  * </ul>
  * </p>
  *
@@ -186,6 +188,46 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @generated
 	 */
 	EList<Rule> getAllRules();
+
+	/**
+	 * Returns the value of the '<em><b>Expression Rules</b></em>' reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Rule}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Expression Rules</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Expression Rules</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ExpressionRules()
+	 * @model resolveProxies="false" transient="true" derived="true"
+	 * @generated
+	 */
+	EList<Rule> getExpressionRules();
+
+	/**
+	 * Returns the value of the '<em><b>Expression Subsets</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Expression Subsets</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Expression Subsets</em>' attribute list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ExpressionSubsets()
+	 * @model default="" transient="true" derived="true"
+	 * @generated
+	 */
+	EList<String> getExpressionSubsets();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model identifierRequired="true"
+	 * @generated
+	 */
+	EList<Rule> getExpressionSubset(String identifier);
 
 	/**
 	 * Returns the value of the '<em><b>Modifier</b></em>' containment reference.

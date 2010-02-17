@@ -79,4 +79,12 @@ public interface Annotation extends EObject {
 	 */
 	EList<KeyValuePair> getParameters();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model keyRequired="true"
+	 * @generated
+	 */
+	String getAnnotationValue(String key);
+
 } // Annotation

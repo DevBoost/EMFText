@@ -14,6 +14,7 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
+import java.util.ListIterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
@@ -24,8 +25,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -66,6 +69,8 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getExpressionRules <em>Expression Rules</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getExpressionSubsets <em>Expression Subsets</em>}</li>
  * </ul>
  * </p>
  *
@@ -211,6 +216,26 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected EList<Rule> rules;
+
+	/**
+	 * The cached value of the '{@link #getExpressionRules() <em>Expression Rules</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpressionRules()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Rule> expressionRules;
+
+	/**
+	 * The cached value of the '{@link #getExpressionSubsets() <em>Expression Subsets</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpressionSubsets()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> expressionSubsets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -390,6 +415,75 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		}
 		return new EcoreEList.UnmodifiableEList<Rule>(this, eFeature, l.size(),
 				l.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<Rule> getExpressionRules() {
+		if (expressionRules == null) {
+			 initialiseAnnotatedExpressionRules();	
+		}
+		return expressionRules;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<String> getExpressionSubsets() {
+		if (expressionSubsets == null) {
+			 initialiseAnnotatedExpressionRules();
+		}
+		return expressionSubsets;
+	}
+	
+	
+	/**
+	 * @generated NOT
+	 */
+	private void initialiseAnnotatedExpressionRules(){
+		expressionRules = new EObjectEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES);
+		expressionSubsets = new EDataTypeUniqueEList<String>(String.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS);
+		for(Rule rule:getAllRules()){
+			Annotation operatorAnnotation = rule.getOperatorAnnotation();
+			if(operatorAnnotation!=null){
+				boolean added = false;
+				for(ListIterator<Rule> it = expressionRules.listIterator();it.hasNext();){
+					Rule expressionRule = it.next(); 
+					if(expressionRule.getWeight()>rule.getWeight()){
+						expressionRules.add(it.previousIndex(),rule);
+						added = true;
+						break;
+					}			
+				}
+				if(!added){
+					expressionRules.add(rule);
+				}
+				
+				String identifier = operatorAnnotation.getAnnotationValue("identifier");
+				this.expressionSubsets.add(identifier);	
+			}
+		}
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<Rule> getExpressionSubset(String identifier) {
+		EList<Rule> subset = new BasicEList<Rule>();
+		for(Rule rule:this.getExpressionRules()){
+			Annotation annotation = rule.getOperatorAnnotation();
+			String value = annotation.getAnnotationValue("identifier");
+			if(identifier.equals(value))
+				subset.add(rule);
+		}
+		return subset;
 	}
 
 	/**
@@ -632,6 +726,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getRules();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return getAllRules();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
+				return getExpressionRules();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
+				return getExpressionSubsets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -695,6 +793,14 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getRules().clear();
 				getRules().addAll((Collection<? extends Rule>)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
+				getExpressionRules().clear();
+				getExpressionRules().addAll((Collection<? extends Rule>)newValue);
+				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
+				getExpressionSubsets().clear();
+				getExpressionSubsets().addAll((Collection<? extends String>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -746,6 +852,12 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
+				getExpressionRules().clear();
+				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
+				getExpressionSubsets().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -790,6 +902,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return rules != null && !rules.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return !getAllRules().isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_RULES:
+				return expressionRules != null && !expressionRules.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__EXPRESSION_SUBSETS:
+				return expressionSubsets != null && !expressionSubsets.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -838,6 +954,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", expressionSubsets: ");
+		result.append(expressionSubsets);
 		result.append(')');
 		return result.toString();
 	}

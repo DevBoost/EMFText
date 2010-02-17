@@ -1190,7 +1190,7 @@ public class CsParser extends CsANTLRParserBase {
             	      					}
             	      					if (a0_0 != null) {
             	      						if (a0_0 != null) {
-            	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS, a0_0);
+            	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS, a0_0);
             	      							completedElement(a0_0);
             	      						}
             	      						collectHiddenTokens(element);
@@ -1389,7 +1389,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -1450,7 +1450,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						java.lang.String resolved = (java.lang.String)resolvedObject;
                       						if (resolved != null) {
-                      							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), resolved);
+                      							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT), resolved);
                       							completedElement(resolved);
                       						}
                       						collectHiddenTokens(element);
@@ -2623,7 +2623,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -2681,7 +2681,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						java.lang.String resolved = (java.lang.String)resolvedObject;
                       						if (resolved != null) {
-                      							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), resolved);
+                      							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT), resolved);
                       							completedElement(resolved);
                       						}
                       						collectHiddenTokens(element);
@@ -3096,7 +3096,7 @@ public class CsParser extends CsANTLRParserBase {
             	      					}
             	      					if (a0_0 != null) {
             	      						if (a0_0 != null) {
-            	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS, a0_0);
+            	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS, a0_0);
             	      							completedElement(a0_0);
             	      						}
             	      						collectHiddenTokens(element);
@@ -3664,7 +3664,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -3800,7 +3800,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				if (a4_0 != null) {
                       					if (a4_0 != null) {
-                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), a4_0);
+                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), a4_0);
                       						completedElement(a4_0);
                       					}
                       					collectHiddenTokens(element);
@@ -3892,7 +3892,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -3984,7 +3984,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				if (a3_0 != null) {
                       					if (a3_0 != null) {
-                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), a3_0);
+                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), a3_0);
                       						completedElement(a3_0);
                       					}
                       					collectHiddenTokens(element);
@@ -4081,7 +4081,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -4355,7 +4355,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				if (a8_0 != null) {
                       					if (a8_0 != null) {
-                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), a8_0);
+                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), a8_0);
                       						completedElement(a8_0);
                       					}
                       					collectHiddenTokens(element);
@@ -4449,7 +4449,7 @@ public class CsParser extends CsANTLRParserBase {
               				collectHiddenTokens(element);
               				registerContextDependentProxy(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), resolved, proxy);
               				if (proxy != null) {
-              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), proxy);
+              					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE), proxy);
               					completedElement(proxy);
               				}
               				collectHiddenTokens(element);
@@ -4750,7 +4750,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				if (a5_0 != null) {
                       					if (a5_0 != null) {
-                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a5_0);
+                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), a5_0);
                       						completedElement(a5_0);
                       					}
                       					collectHiddenTokens(element);
@@ -4932,7 +4932,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				if (a3_0 != null) {
                       					if (a3_0 != null) {
-                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3_0);
+                      						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY), a3_0);
                       						completedElement(a3_0);
                       					}
                       					collectHiddenTokens(element);
@@ -7003,7 +7003,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass choice */ 
+                       element = c0; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7017,7 +7017,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass choice */ 
+                       element = c1; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7088,7 +7088,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass choice */ 
+                       element = c0; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7102,7 +7102,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass choice */ 
+                       element = c1; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7116,7 +7116,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c2; /* this is a subclass choice */ 
+                       element = c2; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7130,7 +7130,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c3; /* this is a subclass choice */ 
+                       element = c3; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7144,7 +7144,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c4; /* this is a subclass choice */ 
+                       element = c4; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7158,7 +7158,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c5; /* this is a subclass choice */ 
+                       element = c5; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7172,7 +7172,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c6; /* this is a subclass choice */ 
+                       element = c6; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7186,7 +7186,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c7; /* this is a subclass choice */ 
+                       element = c7; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7256,7 +7256,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass choice */ 
+                       element = c0; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7270,7 +7270,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass choice */ 
+                       element = c1; /* this is a subclass or expression choice */ 
                     }
 
                     }
@@ -7284,7 +7284,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c2; /* this is a subclass choice */ 
+                       element = c2; /* this is a subclass or expression choice */ 
                     }
 
                     }

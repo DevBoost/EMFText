@@ -16,10 +16,13 @@ package org.emftext.sdk.concretesyntax.impl;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -201,6 +204,55 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__SYNTAX, newSyntax, newSyntax));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Annotation getOperatorAnnotation() {
+		for (Annotation annotation : getAnnotations()) {
+			if (annotation.getType()==AnnotationType.OP_LEFTASSOC ||
+					annotation.getType()==AnnotationType.OP_RIGHTASSOC ||
+					annotation.getType()==AnnotationType.OP_UNARY ||
+					annotation.getType()==AnnotationType.OP_PRIMITIVE) {
+				return annotation;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public int getWeight() {
+		Annotation operatorAnnotation = this.getOperatorAnnotation();
+		if(operatorAnnotation!=null){
+			String ruleWeightString = operatorAnnotation.getAnnotationValue("weight");
+			if(ruleWeightString!=null){
+				try{
+					return Integer.parseInt(ruleWeightString);			
+				}
+				catch(NumberFormatException e){
+					//shit happens ;-)
+				}
+			}
+		}
+		return Integer.MIN_VALUE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenClass> referencedMetaClasses() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**

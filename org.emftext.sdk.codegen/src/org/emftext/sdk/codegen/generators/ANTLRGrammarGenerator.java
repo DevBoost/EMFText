@@ -55,6 +55,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -83,7 +84,9 @@ import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectationComputer;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -96,7 +99,6 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EObjectUtil;
@@ -561,11 +563,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("} else if (typeObject instanceof " + E_CLASS + ") {");
 		sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
 		for (Rule rule : concreteSyntax.getAllRules()) {
-			String qualifiedClassName = genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
-			String ruleName = getRuleName(rule.getMetaclass());
-			sc.add("if (type.getInstanceClass() == " + qualifiedClassName + ".class) {");
-			sc.add("return " + ruleName + "();");
-			sc.add("}");
+			// operator rules cannot be used as start symbol
+			// TODO mseifert: check whether this is checked by a post processor
+			if (rule.getOperatorAnnotation() == null) {
+				String qualifiedClassName = genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
+				String ruleName = getRuleName(rule.getMetaclass());
+				sc.add("if (type.getInstanceClass() == " + qualifiedClassName + ".class) {");
+				sc.add("return " + ruleName + "();");
+				sc.add("}");
+			}
 		}
 		sc.add("}");
 		sc.add("throw new " + getClassNameHelper().getUNEXPECTED_CONTENT_TYPE_EXCEPTION() + "(typeObject);");
@@ -1127,7 +1133,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 
 		for (Rule rule : concreteSyntax.getAllRules()) {
-
+			// operator rules must be handled separately
+			if (concreteSyntax.getExpressionRules().contains(rule)) {
+				continue;
+			}
 			LeftRecursionDetector lrd = new LeftRecursionDetector(
 					genClassNames2superClassNames, concreteSyntax);
 			Rule recursionRule = lrd.findLeftRecursion(rule);
@@ -1187,14 +1196,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						eClassesReferenced);
 			}
 		}
+		// handle operator rules
+		if (!concreteSyntax.getExpressionRules().isEmpty()) {
+			for (String expressionIdent : concreteSyntax.getExpressionSubsets()) {
+				EList<Rule> expressionSubset = concreteSyntax.getExpressionSubset(expressionIdent);
+				printGrammarExpressionSlice(expressionSubset, sc, eClassesWithSyntax, eClassesReferenced);
+			}
+		}
 	}
 
-	private void printGrammarRule(Rule rule, StringComposite sc,
-			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
-		GenClass genClass = rule.getMetaclass();
-
-		String ruleName = getRuleName(genClass);
+	
+	private void printGrammarRulePrefix(GenClass genClass, String ruleName, StringComposite sc) {
 		String qualifiedClassName = genClassFinder
 				.getQualifiedInterfaceName(genClass);
 
@@ -1209,8 +1221,22 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 		sc.add("@init{");
 		sc.add("}");
-		sc.add(":");
+		sc.add(":");	
+	}
+	
+	private void printGrammarRuleSuffix(StringComposite sc) {
+		sc.add(";");
+		sc.addLineBreak();
+	}
+	
+	private void printGrammarRule(Rule rule, StringComposite sc,
+			EList<GenClass> eClassesWithSyntax,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+		GenClass genClass = rule.getMetaclass();
+		String ruleName = getRuleName(genClass);
 
+		printGrammarRulePrefix(genClass,ruleName,sc);
+		
 		printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced, "0");
 
 		Collection<GenClass> subClasses = csUtil
@@ -1221,11 +1247,188 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			printSubClassChoices(sc, subClasses);
 			sc.addLineBreak();
 		}
-
-		sc.add(";");
-		sc.addLineBreak();
+		
+		printGrammarRuleSuffix(sc);
 
 		eClassesWithSyntax.add(genClass);
+	}
+
+	// TODO mseifert: split this method into smaller ones	
+	private void printGrammarExpressionSlice(List<Rule> slice, StringComposite sc,
+			EList<GenClass> eClassesWithSyntax,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+		ListIterator<Rule> it = slice.listIterator();
+		
+		while (it.hasNext()) {
+			//TODO: Add a check that all equal weight rules are equally structured
+			Rule firstRule = it.next();
+			int weight = firstRule.getWeight();
+			List<Rule> equalWeightOPs = new LinkedList<Rule>();
+			equalWeightOPs.add(firstRule);
+			while (it.hasNext()) {
+				Rule currentRule = it.next();
+				int currentWeight = currentRule.getWeight();
+				if (currentWeight == weight) {
+					equalWeightOPs.add(currentRule);
+				} else {
+					it.previous();
+					break;
+				}
+			}
+			
+			boolean isLast = !it.hasNext();
+			
+			Sequence firstSequence = firstRule.getDefinition().getOptions().get(0);
+			AnnotationType operatorType = firstRule.getOperatorAnnotation().getType();
+			
+			String ruleName = getExpressionSliceRuleName(firstRule);	
+
+			GenClass returnGenClass = firstRule.getMetaclass();
+			for (GenClass metaClass : allGenClasses) {
+				// TODO mseifert: use constant here
+				if (metaClass.getName().equals(firstRule.getOperatorAnnotation().getAnnotationValue("identifier"))) {
+					returnGenClass = metaClass;
+				}
+			}
+		
+			printGrammarRulePrefix(returnGenClass,ruleName,sc);
+			
+			if (!isLast) {
+			
+				//we assume all arguments to be typed by the same class
+				final String nextRuleName = getExpressionSliceRuleName(it.next());
+				it.previous();
+				//we do unary operators first
+				if (operatorType == AnnotationType.OP_UNARY) {
+					 //1st case: unary operator starts with keyword
+					if (firstSequence.getParts().get(0) instanceof CsString) {
+						for (Rule rule : equalWeightOPs) {
+							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+							assert definitions.size() == 2;
+							assert definitions.get(0) instanceof CsString;
+							assert definitions.get(1) instanceof Containment;
+							CsString csString = (CsString) definitions.get(0);
+							Containment containment = (Containment) definitions.get(1);
+							printCsString(csString, rule, sc, 0, eClassesReferenced);									
+							sc.add("arg = " + nextRuleName);
+							printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null");
+							sc.add("|");
+							sc.addLineBreak();
+						}
+						sc.addLineBreak();
+						sc.add("arg = " + nextRuleName + "{ element = arg; }");	
+					}
+					//2nd case: unary operator starts with argument (this means left recursion)
+					else { 	
+						sc.add("arg = "+ nextRuleName);
+						sc.add("(");
+						for (Rule rule : equalWeightOPs) {
+							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+							assert definitions.size() == 2;
+							assert definitions.get(0) instanceof Containment;
+							assert definitions.get(1) instanceof CsString;
+							CsString csString = (CsString) firstSequence.getParts().get(1);
+							Containment containment = (Containment) definitions.get(1);
+							printCsString(csString, rule, sc, 0, eClassesReferenced);	
+							printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null");
+							sc.add("|");
+							sc.addLineBreak();
+						}
+						
+						sc.add("/* epsilon */ { element = arg; } ");
+						sc.addLineBreak();
+						sc.add(")");
+					}
+				}
+				// now we do binary infix operators
+				else {
+					//1st case left associative operators, e.g., -,+,*,/ etc.
+					if (operatorType == AnnotationType.OP_LEFTASSOC) {
+						sc.add("leftArg = " + nextRuleName);
+						sc.add("((");
+						for (Iterator<Rule> ruleIt = equalWeightOPs.iterator(); ruleIt.hasNext();) {
+							Rule rule = ruleIt.next();
+							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+							assert definitions.size() == 3;
+							assert definitions.get(0) instanceof Containment;
+							assert definitions.get(1) instanceof CsString;
+							assert definitions.get(2) instanceof Containment;
+							Containment leftContainment = (Containment) definitions.get(0);
+							CsString csString = (CsString) definitions.get(1);
+							Containment rightContainment = (Containment) definitions.get(2);
+							sc.add("{ element = null; }");
+							printCsString(csString, rule, sc, 0, eClassesReferenced);									
+							sc.add("rightArg = " + nextRuleName);
+							printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
+							printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+							sc.add("{ leftArg = element; /* this may become an argument in the next iteration */ }");
+							if (ruleIt.hasNext()) {
+								sc.add("|");
+								sc.addLineBreak();
+							}
+						}
+				
+						sc.add(")+ | /* epsilon */ { element = leftArg; }");
+						sc.addLineBreak();
+						sc.add(")");
+					}
+					//2nd case right associative operators , e.g., ^
+					else {
+						assert operatorType == AnnotationType.OP_RIGHTASSOC;
+						//final String thisRuleName = getRuleName(rule.getMetaclass());
+						sc.add("leftArg = " + nextRuleName);
+						sc.add("((");
+						for (Iterator<Rule> ruleIt = equalWeightOPs.iterator(); ruleIt.hasNext();) {
+							Rule rule = ruleIt.next();
+							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+							assert definitions.size() == 3;
+							assert definitions.get(0) instanceof Containment;
+							assert definitions.get(1) instanceof CsString;
+							assert definitions.get(2) instanceof Containment;
+							Containment leftContainment = (Containment) definitions.get(0);
+							CsString csString = (CsString) definitions.get(1);
+							Containment rightContainment = (Containment) definitions.get(2);
+							printCsString(csString, rule, sc, 0, eClassesReferenced);	
+							sc.add("rightArg = " + ruleName);
+							printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
+							printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+							if (ruleIt.hasNext()) {
+								sc.add("|");
+								sc.addLineBreak();	
+							}
+						}
+						sc.add(") | /* epsilon */ { element = leftArg; }");
+						sc.addLineBreak();
+						sc.add(")");
+					}
+					
+				}
+				printGrammarRuleSuffix(sc);
+			}
+			else {
+				assert operatorType == AnnotationType.OP_PRIMITIVE;
+				List<GenClass> choiceClasses = new LinkedList<GenClass>();
+				for (Rule rule : equalWeightOPs) {
+					choiceClasses.add(rule.getMetaclass());
+				}
+				printSubClassChoices(sc, choiceClasses);
+				printGrammarRuleSuffix(sc);
+				
+				for (Rule rule : equalWeightOPs) {
+					printGrammarRule(rule, sc, eClassesWithSyntax, eClassesReferenced);	
+				}
+			}
+		}
+	}
+	
+	private String getExpressionSliceRuleName(Rule rule){
+		// TODO mseifert: make sure the names generated by this method do not
+		// overlap with names for normal rules
+		// TODO mseifert: use constants here
+		String ruleName = rule.getOperatorAnnotation().getAnnotationValue("identifier") + "_level_";
+		String weight = rule.getOperatorAnnotation().getAnnotationValue("weight").replace('-','_');
+		ruleName += weight;
+		return "parse_" + ruleName;
 	}
 
 	private String getRuleName(GenClass genClass) {
@@ -1499,8 +1702,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					eClassesReferenced.get(type).add(terminal);
 				}
 
-				printTerminalAction(terminal, rule, sc, genClass, genFeature,
-						eFeature, internalIdent, proxyIdent, internalIdent,
+				printTerminalAction(terminal, rule, sc, internalIdent, proxyIdent, internalIdent,
 						resolvements, null);
 
 				internalCount++;
@@ -1611,8 +1813,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					expressionToBeSet = "resolved";
 				}
 
-				printTerminalAction(placeholder, rule, sc, genClass, genFeature,
-						eFeature, ident, proxyIdent, expressionToBeSet,
+				printTerminalAction(placeholder, rule, sc, ident, proxyIdent, expressionToBeSet,
 						resolvements, tokenName);
 			}
 		}
@@ -1622,11 +1823,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void printTerminalAction(Terminal terminal, Rule rule,
-			StringComposite sc, final GenClass genClass,
-			final GenFeature genFeature, final EStructuralFeature eFeature,
+			StringComposite sc,
 			final String ident, final String proxyIdent,
 			String expressionToBeSet, StringComposite resolvements,
 			String tokenName) {
+		final GenFeature genFeature = terminal.getFeature();
+		final GenClass genClass = genFeature.getGenClass();
+		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
+	
 		sc.add("{");
 		sc.add("if (terminateParsing) {");
 		sc.add("throw new " + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + "();");
@@ -1639,7 +1843,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// TODO mseifert: escape tokeName correctly
 		sc.add(new StringComponent(STRING + " tokenName = \"" + tokenName + "\";", "tokenName"));
 		sc.add("if (" + ident + " != null) {");
-		sc.add(resolvements);
+		if (resolvements != null) {
+			sc.add(resolvements);
+		}
 		sc.add("if (" + expressionToBeSet + " != null) {");
 		final String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
 		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet);
@@ -1678,7 +1884,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 									.getQualifiedInterfaceName(referencedClass)
 							+ " element = null]");
 					sc.add(":");
-					printSubClassChoices(sc, subClasses);
+					//Expression slices are formed over a common abstract superclass
+					if (concreteSyntax.getExpressionSubset(referencedClass.getName()).isEmpty()) {
+						printSubClassChoices(sc, subClasses);
+					} else {
+						List<Rule> slice = concreteSyntax.getExpressionSubset(referencedClass.getName());
+						sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
+					}
+						
 					sc.addLineBreak();
 					sc.add(";");
 					sc.addLineBreak();
@@ -1695,7 +1908,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (Iterator<GenClass> subClassIterator = subClasses.iterator(); subClassIterator.hasNext();) {
 			GenClass subRef = subClassIterator.next();
 			String identifier = "c" + count;
-			sc.add(identifier + " = " + getRuleName(subRef) + "{ element = " + identifier + "; /* this is a subclass choice */ }");
+			sc.add(identifier + " = " + getRuleName(subRef) + "{ element = " + identifier + "; /* this is a subclass or expression choice */ }");
 			if (subClassIterator.hasNext()) {
 				sc.add("|");
 			}

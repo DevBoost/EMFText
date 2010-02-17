@@ -129,6 +129,21 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getAnnotationValue(String key) {
+		for (KeyValuePair parameter : getParameters()) {
+			if (key.equals(parameter.getKey())){
+				String value = parameter.getValue();
+				return value;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
