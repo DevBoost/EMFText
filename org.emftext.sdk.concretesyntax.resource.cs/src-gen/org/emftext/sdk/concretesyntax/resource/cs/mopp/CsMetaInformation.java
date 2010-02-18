@@ -80,7 +80,7 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	}
 	
-	public org.eclipse.jface.text.rules.ITokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
 	}
 	

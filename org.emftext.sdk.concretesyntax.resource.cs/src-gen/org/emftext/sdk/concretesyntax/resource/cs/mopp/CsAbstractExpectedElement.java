@@ -18,17 +18,23 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // add followers
 public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement {
 	
-	private java.util.Set<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> followers = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement>();
+	private org.eclipse.emf.ecore.EClass ruleMetaclass;
+	private java.util.Set<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>> followers = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>>();
 	
-	public CsAbstractExpectedElement() {
+	public CsAbstractExpectedElement(org.eclipse.emf.ecore.EClass ruleMetaclass) {
 		super();
+		this.ruleMetaclass = ruleMetaclass;
 	}
 	
-	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower) {
-		followers.add(follower);
+	public org.eclipse.emf.ecore.EClass getRuleMetaclass() {
+		return ruleMetaclass;
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getFollowers() {
+	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower, org.eclipse.emf.ecore.EStructuralFeature[] path) {
+		followers.add(new org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>(follower, path));
+	}
+	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>> getFollowers() {
 		return followers;
 	}
 	
