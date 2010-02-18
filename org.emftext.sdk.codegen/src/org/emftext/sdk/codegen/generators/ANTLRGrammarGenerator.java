@@ -1825,12 +1825,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void printTerminalAction(Terminal terminal, Rule rule,
 			StringComposite sc,
-			final String ident, final String proxyIdent,
-			String expressionToBeSet, StringComposite resolvements,
+			String ident, 
+			String proxyIdent,
+			String expressionToBeSet, 
+			StringComposite resolvements,
 			String tokenName) {
-		// FIXME mseifert: this is not correct!
+		
 		final GenFeature genFeature = terminal.getFeature();
-		final GenClass genClass = genFeature.getGenClass();
+		final GenClass genClass = rule.getMetaclass();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 	
 		sc.add("{");
