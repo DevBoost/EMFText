@@ -1256,29 +1256,34 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	// TODO mseifert: split this method into smaller ones	
-	private void printGrammarExpressionSlice(List<Rule> slice, StringComposite sc,
+	private void printGrammarExpressionSlice(
+			List<Rule> slice, 
+			StringComposite sc,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
-		ListIterator<Rule> it = slice.listIterator();
+			Map<GenClass, 
+			Collection<Terminal>> eClassesReferenced) {
 		
-		while (it.hasNext()) {
+		ListIterator<Rule> sliceIterator = slice.listIterator();
+		
+		while (sliceIterator.hasNext()) {
 			//TODO: Add a check that all equal weight rules are equally structured
-			Rule firstRule = it.next();
+			Rule firstRule = sliceIterator.next();
 			int weight = firstRule.getOperatorWeight();
-			List<Rule> equalWeightOPs = new LinkedList<Rule>();
-			equalWeightOPs.add(firstRule);
-			while (it.hasNext()) {
-				Rule currentRule = it.next();
+			List<Rule> rulesWithEqualWeight = new LinkedList<Rule>();
+			rulesWithEqualWeight.add(firstRule);
+			// find next next with the same weight
+			while (sliceIterator.hasNext()) {
+				Rule currentRule = sliceIterator.next();
 				int currentWeight = currentRule.getOperatorWeight();
 				if (currentWeight == weight) {
-					equalWeightOPs.add(currentRule);
+					rulesWithEqualWeight.add(currentRule);
 				} else {
-					it.previous();
+					sliceIterator.previous();
 					break;
 				}
 			}
 			
-			boolean isLast = !it.hasNext();
+			boolean isLast = !sliceIterator.hasNext();
 			
 			Sequence firstSequence = firstRule.getDefinition().getOptions().get(0);
 			AnnotationType operatorType = firstRule.getOperatorAnnotation().getType();
@@ -1292,134 +1297,189 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				}
 			}
 		
-			printGrammarRulePrefix(returnGenClass,ruleName,sc);
+			printGrammarRulePrefix(returnGenClass, ruleName, sc);
 			
-			if (!isLast) {
-			
+			boolean wasPrimitiveOperatorRule = false;
+			if (!isLast) { 
 				//we assume all arguments to be typed by the same class
-				final String nextRuleName = getExpressionSliceRuleName(it.next());
-				it.previous();
+				final String nextRuleName = getExpressionSliceRuleName(sliceIterator.next());
+				sliceIterator.previous();
 				//we do unary operators first
 				if (operatorType == AnnotationType.OP_UNARY) {
 					 //1st case: unary operator starts with keyword
+					// TODO mseifert: handle placeholders
 					if (firstSequence.getParts().get(0) instanceof CsString) {
-						for (Rule rule : equalWeightOPs) {
-							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-							assert definitions.size() == 2;
-							assert definitions.get(0) instanceof CsString;
-							assert definitions.get(1) instanceof Containment;
-							CsString csString = (CsString) definitions.get(0);
-							Containment containment = (Containment) definitions.get(1);
-							printCsString(csString, rule, sc, 0, eClassesReferenced);									
-							sc.add("arg = " + nextRuleName);
-							printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null");
-							sc.add("|");
-							sc.addLineBreak();
-						}
-						sc.addLineBreak();
-						sc.add("arg = " + nextRuleName + "{ element = arg; }");	
+						printUnaryRightRecursiveRule(sc, eClassesReferenced,
+								firstRule, rulesWithEqualWeight, nextRuleName);	
 					}
 					//2nd case: unary operator starts with argument (this means left recursion)
-					else { 	
-						sc.add("arg = "+ nextRuleName);
-						sc.add("(");
-						for (Rule rule : equalWeightOPs) {
-							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-							assert definitions.size() == 2;
-							assert definitions.get(0) instanceof Containment;
-							assert definitions.get(1) instanceof CsString;
-							CsString csString = (CsString) firstSequence.getParts().get(1);
-							Containment containment = (Containment) definitions.get(1);
-							printCsString(csString, rule, sc, 0, eClassesReferenced);	
-							printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null");
-							sc.add("|");
-							sc.addLineBreak();
-						}
-						
-						sc.add("/* epsilon */ { element = arg; } ");
-						sc.addLineBreak();
-						sc.add(")");
+					else {
+						printUnaryLeftRecursiveRule(sc, eClassesReferenced,
+								rulesWithEqualWeight, firstSequence, nextRuleName);
 					}
 				}
 				// now we do binary infix operators
-				else {
+				else if (operatorType == AnnotationType.OP_LEFTASSOC) {
 					//1st case left associative operators, e.g., -,+,*,/ etc.
-					if (operatorType == AnnotationType.OP_LEFTASSOC) {
-						sc.add("leftArg = " + nextRuleName);
-						sc.add("((");
-						for (Iterator<Rule> ruleIt = equalWeightOPs.iterator(); ruleIt.hasNext();) {
-							Rule rule = ruleIt.next();
-							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-							assert definitions.size() == 3;
-							assert definitions.get(0) instanceof Containment;
-							assert definitions.get(1) instanceof CsString;
-							assert definitions.get(2) instanceof Containment;
-							Containment leftContainment = (Containment) definitions.get(0);
-							CsString csString = (CsString) definitions.get(1);
-							Containment rightContainment = (Containment) definitions.get(2);
-							sc.add("{ element = null; }");
-							printCsString(csString, rule, sc, 0, eClassesReferenced);									
-							sc.add("rightArg = " + nextRuleName);
-							printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
-							printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
-							sc.add("{ leftArg = element; /* this may become an argument in the next iteration */ }");
-							if (ruleIt.hasNext()) {
-								sc.add("|");
-								sc.addLineBreak();
-							}
-						}
-				
-						sc.add(")+ | /* epsilon */ { element = leftArg; }");
-						sc.addLineBreak();
-						sc.add(")");
-					}
+					printBinaryLeftAssociativeRule(sc, eClassesReferenced,
+							rulesWithEqualWeight, nextRuleName);
+				} else if (operatorType == AnnotationType.OP_RIGHTASSOC) {
 					//2nd case right associative operators , e.g., ^
-					else {
-						assert operatorType == AnnotationType.OP_RIGHTASSOC;
-						//final String thisRuleName = getRuleName(rule.getMetaclass());
-						sc.add("leftArg = " + nextRuleName);
-						sc.add("((");
-						for (Iterator<Rule> ruleIt = equalWeightOPs.iterator(); ruleIt.hasNext();) {
-							Rule rule = ruleIt.next();
-							List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-							assert definitions.size() == 3;
-							assert definitions.get(0) instanceof Containment;
-							assert definitions.get(1) instanceof CsString;
-							assert definitions.get(2) instanceof Containment;
-							Containment leftContainment = (Containment) definitions.get(0);
-							CsString csString = (CsString) definitions.get(1);
-							Containment rightContainment = (Containment) definitions.get(2);
-							printCsString(csString, rule, sc, 0, eClassesReferenced);	
-							sc.add("rightArg = " + ruleName);
-							printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
-							printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
-							if (ruleIt.hasNext()) {
-								sc.add("|");
-								sc.addLineBreak();	
-							}
-						}
-						sc.add(") | /* epsilon */ { element = leftArg; }");
-						sc.addLineBreak();
-						sc.add(")");
-					}
-					
+					printBinaryRightAssociativeRule(sc, eClassesReferenced,
+							rulesWithEqualWeight, ruleName, nextRuleName);
 				}
-				printGrammarRuleSuffix(sc);
 			}
-			else {
-				assert operatorType == AnnotationType.OP_PRIMITIVE;
-				List<GenClass> choiceClasses = new LinkedList<GenClass>();
-				for (Rule rule : equalWeightOPs) {
-					choiceClasses.add(rule.getMetaclass());
-				}
-				printSubClassChoices(sc, choiceClasses);
+			if (operatorType == AnnotationType.OP_PRIMITIVE) {
+				printPrimitiveOperatorRule(sc, eClassesWithSyntax,
+						eClassesReferenced, rulesWithEqualWeight);
+				wasPrimitiveOperatorRule = true;
+			}
+			
+			// primitive operator rules add the suffix on their own,
+			// because they need to add more rules
+			if (!isLast && !wasPrimitiveOperatorRule) {
 				printGrammarRuleSuffix(sc);
-				
-				for (Rule rule : equalWeightOPs) {
-					printGrammarRule(rule, sc, eClassesWithSyntax, eClassesReferenced);	
-				}
 			}
 		}
+	}
+
+	private void printPrimitiveOperatorRule(StringComposite sc,
+			EList<GenClass> eClassesWithSyntax,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			List<Rule> rulesWithEqualWeight) {
+		List<GenClass> choiceClasses = new LinkedList<GenClass>();
+		for (Rule rule : rulesWithEqualWeight) {
+			choiceClasses.add(rule.getMetaclass());
+		}
+		printSubClassChoices(sc, choiceClasses);
+		printGrammarRuleSuffix(sc);
+		
+		for (Rule rule : rulesWithEqualWeight) {
+			printGrammarRule(rule, sc, eClassesWithSyntax, eClassesReferenced);	
+		}
+	}
+
+	private void printUnaryRightRecursiveRule(StringComposite sc,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Rule firstRule, List<Rule> equalWeightOPs, final String nextRuleName) {
+		for (Rule rule : equalWeightOPs) {
+			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+			assert definitions.size() == 2;
+			// TODO mseifert: handle placeholders as first argument
+			assert definitions.get(0) instanceof CsString;
+			assert definitions.get(1) instanceof Containment;
+			CsString csString = (CsString) definitions.get(0);
+			Containment containment = (Containment) definitions.get(1);
+			printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			sc.add("arg = " + nextRuleName);
+			printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null");
+			sc.add("|");
+			sc.addLineBreak();
+		}
+		sc.addLineBreak();
+		sc.add("arg = " + nextRuleName + "{ element = arg; }");
+	}
+
+	private void printUnaryLeftRecursiveRule(StringComposite sc,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			List<Rule> equalWeightOPs, Sequence firstSequence,
+			final String nextRuleName) {
+		sc.add("arg = "+ nextRuleName);
+		sc.add("(");
+		for (Rule rule : equalWeightOPs) {
+			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+			assert definitions.size() == 2;
+			assert definitions.get(0) instanceof Containment;
+			// TODO mseifert: handle placeholders as second argument
+			assert definitions.get(1) instanceof CsString;
+			CsString csString = (CsString) firstSequence.getParts().get(1);
+			Containment containment = (Containment) definitions.get(1);
+			printCsString(csString, rule, sc, 0, eClassesReferenced);	
+			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null");
+			sc.add("|");
+			sc.addLineBreak();
+		}
+		
+		sc.add("/* epsilon */ { element = arg; } ");
+		sc.addLineBreak();
+		sc.add(")");
+	}
+
+	private void printBinaryLeftAssociativeRule(StringComposite sc,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			List<Rule> equalWeightOPs, final String nextRuleName) {
+		sc.add("leftArg = " + nextRuleName);
+		sc.add("((");
+		Iterator<Rule> ruleIterator = equalWeightOPs.iterator();
+		while (ruleIterator.hasNext()) {
+			Rule rule = ruleIterator.next();
+			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+			assert definitions.size() == 3;
+			
+			Definition left = definitions.get(0);
+			Definition operator = definitions.get(1);
+			Definition right = definitions.get(2);
+			
+			assert left instanceof Containment;
+			assert operator instanceof CsString || operator instanceof Placeholder;
+			assert right instanceof Containment;
+			
+			Containment leftContainment = (Containment) left;
+			Containment rightContainment = (Containment) right;
+			sc.add("{ element = null; }");
+			if (operator instanceof CsString) {
+				CsString csString = (CsString) operator;
+				printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			} else {
+				assert operator instanceof Placeholder;
+				Placeholder placeholder = (Placeholder) operator;
+				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+			}
+			sc.add("rightArg = " + nextRuleName);
+			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
+			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+			sc.add("{ leftArg = element; /* this may become an argument in the next iteration */ }");
+			if (ruleIterator.hasNext()) {
+				sc.add("|");
+				sc.addLineBreak();
+			}
+		}
+
+		sc.add(")+ | /* epsilon */ { element = leftArg; }");
+		sc.addLineBreak();
+		sc.add(")");
+	}
+
+	private void printBinaryRightAssociativeRule(StringComposite sc,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			List<Rule> equalWeightOPs, String ruleName,
+			final String nextRuleName) {
+		sc.add("leftArg = " + nextRuleName);
+		sc.add("((");
+		Iterator<Rule> ruleIterator = equalWeightOPs.iterator();
+		while (ruleIterator.hasNext()) {
+			Rule rule = ruleIterator.next();
+			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
+			assert definitions.size() == 3;
+			assert definitions.get(0) instanceof Containment;
+			// TODO mseifert: handle placeholders as second argument
+			assert definitions.get(1) instanceof CsString;
+			assert definitions.get(2) instanceof Containment;
+			Containment leftContainment = (Containment) definitions.get(0);
+			CsString csString = (CsString) definitions.get(1);
+			Containment rightContainment = (Containment) definitions.get(2);
+			printCsString(csString, rule, sc, 0, eClassesReferenced);	
+			sc.add("rightArg = " + ruleName);
+			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
+			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+			if (ruleIterator.hasNext()) {
+				sc.add("|");
+				sc.addLineBreak();	
+			}
+		}
+		sc.add(") | /* epsilon */ { element = leftArg; }");
+		sc.addLineBreak();
+		sc.add(")");
 	}
 	
 	private String getExpressionSliceRuleName(Rule rule){
