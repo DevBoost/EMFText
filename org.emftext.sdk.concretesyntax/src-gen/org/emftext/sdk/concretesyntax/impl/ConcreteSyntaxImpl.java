@@ -476,7 +476,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 */
 	public EList<Rule> getOperatorRuleSubset(String identifier) {
 		EList<Rule> subset = new BasicEList<Rule>();
-		for(Rule rule : this.getOperatorRules()) {
+		if (identifier == null) {
+			return subset;
+		}
+		for (Rule rule : getOperatorRules()) {
 			Annotation annotation = rule.getOperatorAnnotation();
 			String value = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
 			if (identifier.equals(value)) {
