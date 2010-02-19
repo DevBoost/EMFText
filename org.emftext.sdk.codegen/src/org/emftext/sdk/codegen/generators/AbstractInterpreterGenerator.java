@@ -3,7 +3,11 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STACK;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -21,6 +25,18 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	private ConcreteSyntax concreteSyntax;
 	private Set<GenClass> allGenClasses;
+	
+	private class InheritanceComparator implements Comparator<GenClass>{
+
+		public int compare(GenClass g1, GenClass g2) {
+			List<GenClass> superClasses = g1.getAllBaseGenClasses();
+			if (superClasses.contains(g2)) {
+				return -1;
+			}
+			return 0;
+		}
+		
+	}
 
 	public AbstractInterpreterGenerator() {
 		super();
@@ -55,11 +71,24 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 
 	private void addDoSwitchMethod(StringComposite sc) {
 		sc.add("public boolean doSwitch(" + E_OBJECT + " object, ContextType context) {");
+		sc.add("boolean didInterprete = false;");
+		// sort genClasses by inheritance
+		List<GenClass> sortedClasses = new ArrayList<GenClass>();
+		sortedClasses.addAll(sortedClasses);
+		Collections.sort(sortedClasses, new InheritanceComparator());
+		
+		// add if statement for each class
 		for (GenClass genClass : allGenClasses) {
-			// TODO mseifert: sort genClasses by inheritance and add if statement
-			// for each class
+			String methodName = getMethodName(genClass);
+			String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
+			sc.add("if (object instanceof " + typeName + ") {");
+			sc.add("didInterprete = " + methodName + "((" + typeName + ") object, context);");
+			sc.add("}");
+			sc.add("if (didInterprete) {");
+			sc.add("return true;");
+			sc.add("}");
 		}
-		sc.add("return false;");
+		sc.add("return didInterprete;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -82,13 +111,19 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
-		String escapedTypeName = genClassFinder.getEscapedTypeName(genClass);
 		String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
+		String methodName = getMethodName(genClass);
 		
-		sc.add("public boolean interprete_" + escapedTypeName + "(" + typeName + " object, ContextType context) {");
+		sc.add("public boolean " + methodName + "(" + typeName + " object, ContextType context) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private String getMethodName(GenClass genClass) {
+		String escapedTypeName = genClassFinder.getEscapedTypeName(genClass);
+		String methodName = "interprete_" + escapedTypeName;
+		return methodName;
 	}
 
 	private Set<GenClass> collectAllGenClasses(Set<GenPackage> usedGenPackages) {
