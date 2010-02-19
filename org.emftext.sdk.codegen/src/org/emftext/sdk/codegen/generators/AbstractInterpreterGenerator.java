@@ -32,8 +32,9 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 			List<GenClass> superClasses = g1.getAllBaseGenClasses();
 			if (superClasses.contains(g2)) {
 				return -1;
+			} else {
+				return 1;
 			}
-			return 0;
 		}
 		
 	}
@@ -74,11 +75,11 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		sc.add("boolean didInterprete = false;");
 		// sort genClasses by inheritance
 		List<GenClass> sortedClasses = new ArrayList<GenClass>();
-		sortedClasses.addAll(sortedClasses);
+		sortedClasses.addAll(allGenClasses);
 		Collections.sort(sortedClasses, new InheritanceComparator());
 		
 		// add if statement for each class
-		for (GenClass genClass : allGenClasses) {
+		for (GenClass genClass : sortedClasses) {
 			String methodName = getMethodName(genClass);
 			String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
 			sc.add("if (object instanceof " + typeName + ") {");
