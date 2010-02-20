@@ -13,8 +13,13 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
@@ -38,6 +43,19 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+		if(syntax.getOperatorRules()!=null&&!syntax.getOperatorRules().isEmpty()){
+			checkRulesWithOperatorAnnotation(resource,syntax);
+			checkOperatorTypes(resource, syntax);
+			checkContainmentsAndStartSymbols(resource,syntax);
+		}
+	}
+	
+	/**
+	 * Checks if all grammar rules with operator annotations are conform to 
+	 * the syntactic operator constraints.
+	 */
+	private void checkRulesWithOperatorAnnotation(CsResource resource, ConcreteSyntax syntax){
+		
 		for(Rule operatorRule : syntax.getOperatorRules()) {
 			Annotation annotation = operatorRule.getOperatorAnnotation();
 			String weight = annotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
@@ -58,12 +76,10 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 						checkUnaryOperatorRule(resource, annotation, definitions);
 					}
 				} else {
-					// TODO skarol: explain when this can happen
-					resource.addError("Non primitive operator annotations require exactly one choice.", annotation);
+					resource.addError("Non primitive operator annotations require exactly one Choice in rule.", operatorRule);
 				}
 			}
 		}
-		checkOperatorTypes(resource, syntax);
 	}
 
 	/**
@@ -94,7 +110,56 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			}
 		}
 	}
-
+	
+	/**
+	 * Checks all containments to not to refer to Operator metaclasses directly since only references
+	 * to the common expression metaclass (currently specified by the identifier parameter) are allowed.
+	 * 
+	 * @param resource
+	 * @param syntax
+	 */
+	private void checkContainmentsAndStartSymbols(CsResource resource, ConcreteSyntax syntax){
+		Set<GenClass> operatorGenClasses = new HashSet<GenClass>(syntax.getOperatorRules().size()); 
+		for(Rule operatorRule:syntax.getOperatorRules()){
+			operatorGenClasses.add(operatorRule.getMetaclass());
+		}
+		
+		for(GenClass startSymbol:syntax.getAllStartSymbols()){
+			if(operatorGenClasses.contains(startSymbol))
+				resource.addError("Operator metaclasses cannot be used as startsymbol directly, use common expression metaclass instead.",startSymbol);
+		}
+		
+		for(Rule rule:syntax.getAllRules()){	
+			Iterator<EObject> it = rule.eAllContents();
+			while (it.hasNext()) {
+				EObject eo = it.next();
+				if (eo instanceof Containment) {
+					Containment containment = (Containment) eo;
+					if (containment.getTypes() != null
+							&& containment.getTypes().isEmpty()) {
+						if (operatorGenClasses.contains(containment.getFeature()
+								.getTypeGenClass())){
+							resource
+							.addError(
+									"Operator metaclasses cannot be used directly. Use the expressions common metaclass instead.",
+									containment);
+						}
+					} else {
+						for (GenClass genClass : containment.getTypes()) {
+							if (operatorGenClasses.contains(genClass)) {
+								resource
+								.addError(
+										"Operator metaclasses cannot be used directly. Use the expressions common metaclass instead.",
+										containment);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	
 	/**
 	 * Checks whether the parameter 'weight' is an integer.
 	 * 
