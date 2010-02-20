@@ -35,6 +35,8 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.EClassUtil;
 
 /**
  * The OperatorAnnotationsValidator inspects all rules that are annotated with
@@ -75,6 +77,18 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				return;
 			}
 			checkWeightParameter(resource, annotation, weight);
+			
+			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
+			if(expressionMetaClass==null){
+				resource.addError("Expression idenfitier must map to a common metaclass.",annotation);
+			}
+			else{
+				EClassUtil eUtil = new EClassUtil();
+				if(!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
+					resource.addError("Operator rule must be associated with a subclass of "+identifier,operatorRule);
+				}		
+			}
+			
 			if (annotation.getType() != AnnotationType.OP_PRIMITIVE) {
 				List<Sequence> options = operatorRule.getDefinition()
 						.getOptions();
@@ -83,10 +97,10 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 					if (annotation.getType() == AnnotationType.OP_LEFTASSOC
 							|| annotation.getType() == AnnotationType.OP_RIGHTASSOC) {
 						checkBinaryOperatorRule(resource, annotation,
-								definitions);
+								definitions,expressionMetaClass);
 					} else {
 						checkUnaryOperatorRule(resource, annotation,
-								definitions);
+								definitions,expressionMetaClass);
 					}
 				} else {
 					resource
@@ -229,6 +243,24 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			resource.addError("Weight parameter must be Integer.", annotation);
 		}
 	}
+	
+	/**
+	 * Looking up GenClass for identifier
+	 * 
+	 * @param syntax
+	 * @param identifier
+	 */
+	private GenClass mapIdentifierToGenClass(ConcreteSyntax syntax, String identifier){
+		//This is stupid because a resolver should do it
+		GenClassFinder finder = new GenClassFinder();
+		Set<GenClass> genClasses = finder.findAllGenClasses(syntax,false,true);
+		for(GenClass genClass:genClasses){
+			if(genClass.getName().equals(identifier)){
+				return genClass;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Checks the right side of a binary operator rule for correctness.
@@ -238,15 +270,20 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param definitions
 	 */
 	private void checkBinaryOperatorRule(CsResource resource,
-			Annotation annotation, List<Definition> definitions) {
+			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
 		if (definitions.size() != 3
 				|| !(definitions.get(0) instanceof Containment)
 				|| !isKeywordOrTerminal(definitions.get(1))
 				|| !(definitions.get(2) instanceof Containment)) {
 			resource
 					.addError(
-							"Binary operators require exactly three arguments (containment terminal containment).",
+							"Rules for binary operators require exactly three arguments (containment terminal containment).",
 							annotation);
+			return;
+		}
+		if(commonMetaClass!=null){
+			checkContainment(resource,commonMetaClass,(Containment)definitions.get(0));
+			checkContainment(resource,commonMetaClass,(Containment)definitions.get(2));
 		}
 	}
 
@@ -258,7 +295,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param definitions
 	 */
 	private void checkUnaryOperatorRule(CsResource resource,
-			Annotation annotation, List<Definition> definitions) {
+			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
 		assert annotation.getType() == AnnotationType.OP_UNARY;
 		if (definitions.size() != 2
 				|| !(isKeywordOrTerminal(definitions.get(0)) && definitions
@@ -267,11 +304,42 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 						.get(1)))) {
 			resource
 					.addError(
-							"Unary operators require exactly two arguments (terminal containment, or containment terminal).",
+							"Rules for unary operators require exactly two arguments (terminal containment, or containment terminal).",
 							annotation);
+			return;
+		}
+		if(commonMetaClass!=null){
+			if(definitions.get(0) instanceof Containment){
+				checkContainment(resource,commonMetaClass,(Containment)definitions.get(0));
+			}
+			else{
+				checkContainment(resource,commonMetaClass,(Containment)definitions.get(1));
+			}
 		}
 	}
-
+	
+	/**
+	 * Checks if the containment does not have explicit metaclass choices since these are ignored and
+	 * checks if the containments GenFeature typeGenClass is equal to the common expression meta class
+	 * or if it is a super type.
+	 * 
+	 * @param resource
+	 * @param commonMetaClass
+	 * @param containment
+	 */
+	private void checkContainment(CsResource resource,GenClass commonMetaClass, Containment containment){
+		if(containment.getTypes()!=null&&!containment.getTypes().isEmpty()){
+			resource.addError("No explicit subtype choices allowed in operator rules.",containment);
+		}
+		GenClass containmentClass = containment.getFeature().getTypeGenClass();
+		if(!containmentClass.equals(commonMetaClass)){
+			EClassUtil eUtil = new EClassUtil();
+			if(!eUtil.isSubClass(commonMetaClass.getEcoreClass(),containmentClass.getEcoreClass())){
+				resource.addError("Argument types must be equal or a super type of the common metaclass.",containment);
+			}
+		}
+	}
+	
 	private boolean isKeywordOrTerminal(Definition definition) {
 		return definition instanceof CsString
 				|| definition instanceof Placeholder;
