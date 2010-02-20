@@ -1972,7 +1972,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (Iterator<GenClass> subClassIterator = subClasses.iterator(); subClassIterator.hasNext();) {
 			GenClass subRef = subClassIterator.next();
 			String identifier = "c" + count;
-			sc.add(identifier + " = " + getRuleName(subRef) + "{ element = " + identifier + "; /* this is a subclass or expression choice */ }");
+			sc.add(identifier + " = " + getRuleName(subRef) + "{ element = " + identifier + "; /* this is a subclass or primitive expression choice */ }");
 			if (subClassIterator.hasNext()) {
 				sc.add("|");
 			}
