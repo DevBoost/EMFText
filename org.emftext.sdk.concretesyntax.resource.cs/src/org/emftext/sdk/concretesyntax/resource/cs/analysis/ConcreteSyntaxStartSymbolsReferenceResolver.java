@@ -60,7 +60,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 			
 			private boolean isCommonOperatorMetaClass(String operatorSliceName){
 				List<Rule> operatorSlice = container.getOperatorRuleSubset(operatorSliceName);
-				if(operatorSlice != null && !operatorSlice.isEmpty()){
+				if(!operatorSlice.isEmpty()){
 					return true;
 				}
 				return false;

@@ -79,6 +79,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			checkWeightParameter(resource, annotation, weight);
 			
 			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
+			//TODO: sven: we should also check for genclass prefixes or use full qualified names
 			if(expressionMetaClass==null||(!expressionMetaClass.isAbstract()&&!expressionMetaClass.isInterface())){
 				resource.addError("Expression idenfitier must map to a common abstract metaclass or interface.",annotation);
 			}

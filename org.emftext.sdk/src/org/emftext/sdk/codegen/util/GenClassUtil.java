@@ -70,7 +70,7 @@ public class GenClassUtil {
 	    }
 	}
 	
-	//TODO Original method from MetaclassReferenceResolver Check if this is equal to isSuperClass() above, if yes remove this method if 
+	//TODO sven: Original method from MetaclassReferenceResolver. Check if this is equal to isSuperClass() above, if yes remove this method if 
 	//not document the difference.
 	@Deprecated
 	public boolean hasSupertype(GenClass genClass,

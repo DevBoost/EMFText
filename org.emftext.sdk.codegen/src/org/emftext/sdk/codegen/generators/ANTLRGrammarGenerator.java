@@ -962,19 +962,31 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
-		int i = 0;
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
 			// there may also be rules for subclasses of the start symbol class
 			// thus, we create an alternative for each rule
-			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
-			for (Rule startRule : startRules) {
+			
+			List<String> ruleNames = new LinkedList<String>();		
+			//first check if this startsymbol is a common expression metaclass, if so
+			//only add a reference to it but not to its supclasses
+			//TODO: sven: we should also check for genclass prefixes or use full qualified names
+			if(!syntax.getOperatorRuleSubset(startSymbol.getName()).isEmpty()){
+				ruleNames.add(getRuleName(startSymbol));
+			}
+			else{
+				Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
+				for(Rule startRule:startRules){
+					ruleNames.add(getRuleName(startRule.getMetaclass()));
+				}
+			}
+			for (String ruleName : ruleNames) {
 				if (count > 0) {
 					sc.add("|  ");
 				}
-				i++;
-				sc.add("c" + count + " = " + getRuleName(startRule.getMetaclass()) + "{ element = c" + count + "; }");
+				sc.add("c" + count + " = " + ruleName  + "{ element = c" + count + "; }");
 				count++;
 			}
+
 		}
 		sc.add(")");
 		if (forceEOFToken) {
@@ -1489,7 +1501,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		String ruleName = operatorAnnotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString()) + "_level_";
 		String weight = operatorAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString()).replace('-','_');
 		ruleName += weight;
-		return "parse_" + ruleName;
+		return "parseop_" + ruleName;
 	}
 
 	private String getRuleName(GenClass genClass) {
