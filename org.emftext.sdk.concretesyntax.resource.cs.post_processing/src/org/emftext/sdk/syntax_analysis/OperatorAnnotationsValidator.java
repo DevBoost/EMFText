@@ -14,18 +14,21 @@
 package org.emftext.sdk.syntax_analysis;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
@@ -34,7 +37,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EClassUtil;
 
@@ -50,11 +53,15 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		if (syntax.getOperatorRules() != null
-				&& !syntax.getOperatorRules().isEmpty()) {
+		EList<Rule> operatorRules = syntax.getOperatorRules();
+		if (operatorRules != null && !operatorRules.isEmpty()) {
 			checkRulesWithOperatorAnnotation(resource, syntax);
 			checkOperatorTypes(resource, syntax);
-			checkContainmentsAndStartSymbols(resource, syntax);
+
+			Set<GenClass> operatorGenClasses = getOperatorClasses(syntax);
+			checkStartSymbols(resource, syntax, operatorGenClasses);
+			checkContainmentsInOperatorRules(resource, syntax, operatorGenClasses);
+			checkContainmentsInNormalRules(resource, syntax, operatorGenClasses);
 		}
 	}
 
@@ -152,22 +159,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		}
 	}
 
-	/**
-	 * Checks all containments to not to refer to Operator metaclasses directly
-	 * since only references to the common expression metaclass (currently
-	 * specified by the identifier parameter) are allowed.
-	 * 
-	 * @param resource
-	 * @param syntax
-	 */
-	private void checkContainmentsAndStartSymbols(CsResource resource,
-			ConcreteSyntax syntax) {
-		Set<GenClass> operatorGenClasses = new HashSet<GenClass>(syntax
-				.getOperatorRules().size());
-		for (Rule operatorRule : syntax.getOperatorRules()) {
-			operatorGenClasses.add(operatorRule.getMetaclass());
-		}
-
+	private void checkStartSymbols(CsResource resource, ConcreteSyntax syntax,
+			Set<GenClass> operatorGenClasses) {
 		for (GenClass startSymbol : syntax.getAllStartSymbols()) {
 			if (operatorGenClasses.contains(startSymbol))
 				resource
@@ -175,7 +168,46 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 								"Operator metaclasses cannot be used as startsymbol directly, use common expression metaclass instead.",
 								startSymbol);
 		}
+	}
 
+	private Set<GenClass> getOperatorClasses(ConcreteSyntax syntax) {
+		Set<GenClass> operatorClasses = new LinkedHashSet<GenClass>(syntax.getOperatorRules().size());
+		for (Rule operatorRule : syntax.getOperatorRules()) {
+			operatorClasses.add(operatorRule.getMetaclass());
+		}
+		return operatorClasses;
+	}
+
+	/**
+	 * Checks that all containments do not have subclass restrictions.
+	 * 
+	 * @param resource
+	 * @param syntax
+	 */
+	private void checkContainmentsInOperatorRules(CsResource resource,
+			ConcreteSyntax syntax, Set<GenClass> operatorGenClasses) {
+		List<Rule> operatorRules = syntax.getOperatorRules();
+		for (Rule operatorRule : operatorRules) {
+			Collection<Containment> containments = CsEObjectUtil.getObjectsByType(operatorRule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
+			for (Containment containment : containments) {
+				List<GenClass> allowedTypes = containment.getTypes();
+				if (allowedTypes.size() > 0) {
+					resource.addError("Subclass restrictions are not allowed in operator rules.", containment);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Checks that all containments do not to refer to operator classes directly.
+	 * Only references to the common expression superclass (currently specified 
+	 * by the parameter 'identifier') are allowed.
+	 * 
+	 * @param resource
+	 * @param syntax
+	 */
+	private void checkContainmentsInNormalRules(CsResource resource,
+			ConcreteSyntax syntax, Set<GenClass> operatorGenClasses) {
 		Collection<Rule> nonOperatorRules = new LinkedList<Rule>(syntax
 				.getAllRules());
 		nonOperatorRules.removeAll(syntax.getOperatorRules());
@@ -228,7 +260,6 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				}
 			}
 		}
-
 	}
 
 	/**
