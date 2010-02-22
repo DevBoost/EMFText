@@ -1322,9 +1322,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		// TODO I'm not quite sure whether this is the expected behavior.
 		// Do we add all subclasses as alternative even if the type of the
 		// reference is not abstract?
-		Collection<GenClass> alternatives = csUtil.getSubClassesWithSyntax(featureType, syntax);
+		Collection<GenClass> alternatives = csUtil.getSubClassesWithSyntax(featureType, syntax, false);
 		if (genClassUtil.isConcrete(featureType) && 
-				csUtil.hasSyntax(featureType, syntax)) {
+				csUtil.hasSyntax(featureType, syntax,false)) {
 			alternatives.add(featureType);
 		}
 		for (GenClass genClass : alternatives) {

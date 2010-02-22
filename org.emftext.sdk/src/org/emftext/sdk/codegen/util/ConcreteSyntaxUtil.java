@@ -137,11 +137,11 @@ public class ConcreteSyntaxUtil {
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */
 	public Collection<GenClass> getSubClassesWithSyntax(GenClass genClass,
-			ConcreteSyntax syntax) {
+			ConcreteSyntax syntax, boolean excludeOperatorRules) {
 		Collection<GenClass> subClasses = new LinkedList<GenClass>();
 
 		EClass ecoreClass = genClass.getEcoreClass();
-		for (GenClass subClassCand : getClassesWithSyntax(syntax)) {
+		for (GenClass subClassCand : getClassesWithSyntax(syntax,excludeOperatorRules)) {
 			if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
 				subClasses.add(subClassCand);
 			}
@@ -150,19 +150,21 @@ public class ConcreteSyntaxUtil {
 	}
 
 	public boolean hasSyntax(GenClass genClass,
-			ConcreteSyntax syntax) {
+			ConcreteSyntax syntax, boolean excludeOperatorRules) {
 
-		return genClassUtil.contains(getClassesWithSyntax(syntax), genClass);
+		return genClassUtil.contains(getClassesWithSyntax(syntax,excludeOperatorRules), genClass);
 	}
 
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */
-	public Collection<GenClass> getClassesWithSyntax(ConcreteSyntax syntax) {
+	public Collection<GenClass> getClassesWithSyntax(ConcreteSyntax syntax, boolean excludeOperatorRules) {
 		Collection<Rule> rules = syntax.getAllRules();
 		Collection<GenClass> foundGenClasses = new LinkedList<GenClass>();
 
 		for (Rule rule : rules) {
+			if(excludeOperatorRules && rule.getOperatorAnnotation()!=null)
+				continue;
 			GenClass subClassCand = rule.getMetaclass();
 			foundGenClasses.add(subClassCand);
 		}

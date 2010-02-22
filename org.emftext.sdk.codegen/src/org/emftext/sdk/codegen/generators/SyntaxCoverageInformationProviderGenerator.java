@@ -56,7 +56,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		
-		Collection<GenClass> classesWithSyntax = csUtil.getClassesWithSyntax(syntax);
+		Collection<GenClass> classesWithSyntax = csUtil.getClassesWithSyntax(syntax,false);
 		sc.add("public " + E_CLASS + "[] getClassesWithSyntax() {");
 		sc.add("return new " + E_CLASS + "[] {");
 		for (GenClass classWithSyntax : classesWithSyntax) {

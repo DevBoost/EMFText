@@ -198,7 +198,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 							// operator annotations
 							ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 							Collection<GenClass> subClasses = csUtil
-									.getSubClassesWithSyntax(genClass, syntax);
+									.getSubClassesWithSyntax(genClass, syntax, false);
 							for (GenClass subClass : subClasses) {
 								if (operatorGenClasses.contains(subClass)) {
 									resource

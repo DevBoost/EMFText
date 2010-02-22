@@ -150,7 +150,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				Containment containment = (Containment) terminal;
 				
 				if (isAbstractGenFeatureType) {
-					Collection<GenClass> subClassesWithSyntax = csUtil.getSubClassesWithSyntax(genFeatureType, syntax);
+					Collection<GenClass> subClassesWithSyntax = csUtil.getSubClassesWithSyntax(genFeatureType, syntax, false);
             		if (subClassesWithSyntax.isEmpty()) {
             			cReferencesToAbstractClassesWithConcreteSubtypes.add(containment);
             		}
