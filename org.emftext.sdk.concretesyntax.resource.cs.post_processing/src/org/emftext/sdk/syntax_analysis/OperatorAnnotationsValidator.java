@@ -46,6 +46,8 @@ import org.emftext.sdk.util.EClassUtil;
  */
 public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
+	private static final String OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY = "Operator classes cannot be used directly. Use the abstract expression superclass instead.";
+
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		if (syntax.getOperatorRules() != null
@@ -203,14 +205,14 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 								if (operatorGenClasses.contains(subClass)) {
 									resource
 											.addError(
-													"Implicit choice derived by EMFText refers to annotated operator rules. Please declare explicit allowed subclasses explicitely.",
+													"Implicit choice derived by EMFText refers to annotated operator rules. Please declare explicit allowed subclasses explicitly.",
 													containment);
 								}
 							}
 						} else if (operatorGenClasses.contains(genClass)) {
 							resource
 									.addError(
-											"Operator metaclasses cannot be used directly. Common expression metaclass in Ecore model or explicit subtype required.",
+											OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY,
 											containment);
 						}
 					} else {
@@ -218,7 +220,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 							if (operatorGenClasses.contains(genClass)) {
 								resource
 										.addError(
-												"Operator metaclasses cannot be used directly. Use the expressions common metaclass instead.",
+												OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY,
 												containment);
 							}
 						}
@@ -330,7 +332,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 */
 	private void checkContainment(CsResource resource,GenClass commonMetaClass, Containment containment){
 		if(containment.getTypes()!=null&&!containment.getTypes().isEmpty()){
-			resource.addError("No explicit subtype choices allowed in operator rules.",containment);
+			resource.addError("Subclass restrictions are not allowed in operator rules.",containment);
 		}
 		GenClass containmentClass = containment.getFeature().getTypeGenClass();
 		if(!containmentClass.equals(commonMetaClass)){
