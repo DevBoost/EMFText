@@ -21,6 +21,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver.CustomMatchCondition;
 
 public class RuleMetaclassReferenceResolver implements ICsReferenceResolver<Rule, GenClass> {
 	
@@ -29,7 +30,21 @@ public class RuleMetaclassReferenceResolver implements ICsReferenceResolver<Rule
 	public void resolve(final String identifier, Rule container,
 			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, null, false);
+		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result,new CustomMatchCondition(){
+
+			public boolean matches(GenClass genClass) {
+				if(!getGenClassUtil().isNotConcrete(genClass)){
+					return true;
+				}
+				else{
+					String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+".";
+					setMessage(message);
+				}
+				return false;
+			}
+			
+			
+		});
 	}
 
 	public String deResolve(GenClass element, Rule container, EReference reference){

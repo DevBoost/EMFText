@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -34,13 +33,33 @@ import org.emftext.sdk.finders.GenClassFinder;
  */
 public class MetaclassReferenceResolver {
 
-	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	
 	private interface MetaClassFilter {
 		public String accept(String importPrefix, GenClass genClass);
 		public boolean isFuzzy();
 	}
+	
+	public static abstract class CustomMatchCondition {
+		
+		private final GenClassUtil genClassUtil = new GenClassUtil();
+		private String message = null;
+		
+		public abstract boolean matches(GenClass genClass);
+			
+		public GenClassUtil getGenClassUtil(){
+			return genClassUtil;
+		}
+		
+		public void setMessage(String message){
+			this.message = message;
+		}
+		
+		public String getMessage() {
+			return message;
+		}
 
+	}
+	
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	public String deResolve(EObject element, EObject container, EReference reference){
@@ -81,16 +100,16 @@ public class MetaclassReferenceResolver {
 	}
 
 	public void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result, CustomMatchCondition matchCondition) {
 		
 		if (resolveFuzzy) {
-			doResolveFuzzy(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
+			doResolveFuzzy(getConcreteSyntax(container), identifier, result, matchCondition);
 		} else {
-			doResolveStrict(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
+			doResolveStrict(getConcreteSyntax(container), identifier, result, matchCondition);
 		}
 	}
 
-	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, ICsReferenceResolveResult<GenClass> result, CustomMatchCondition matchCondition) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
 			public String accept(String importPrefix, GenClass genClass) {
@@ -110,10 +129,10 @@ public class MetaclassReferenceResolver {
 			public boolean isFuzzy(){
 				return true;
 			}
-		}, identifier, result, requiredSuperType, canBeAbstract);
+		}, identifier, result, matchCondition);
 	}
 
-	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, ICsReferenceResolveResult<GenClass> result, CustomMatchCondition matchCondition) {
 		// first collect all generator classes
 		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true, true);
 		// then check which are accepted by the filter
@@ -122,20 +141,14 @@ public class MetaclassReferenceResolver {
 			GenClass genClass = prefixedGenClass.getRight();
 			String identifier = filter.accept(prefix, genClass);
 			if (identifier != null) {
-				if (!canBeAbstract && genClassUtil.isNotConcrete(genClass)) {
-					if (filter.isFuzzy()) {
-						continue;
-					} else {
-						result.setErrorMessage("EClass \"" + ident + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+".");
-					}
-				}	
+				if(matchCondition.matches(genClass)){
+					result.addMapping(identifier, genClass);
+				}
+				else if(filter.isFuzzy()){
+					continue;
+				}
 				else{
-					if (hasRequiredSupertype(genClass, requiredSuperType)) {
-						result.addMapping(identifier, genClass);
-					}
-					else {
-						result.setErrorMessage("EClass \"" + ident + "\" does exist, but is not a subtype of \"" + requiredSuperType.getName() + "\".");
-					}
+					result.setErrorMessage(matchCondition.getMessage());
 				}
 				if (!filter.isFuzzy()) {
 					break;
@@ -148,40 +161,9 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
-	private boolean hasRequiredSupertype(GenClass genClass,
-			GenClass requiredSuperType) {
-		if (requiredSuperType == null) {
-			return true;
-		}
-		if (genClass.equals(requiredSuperType)) {
-			return true;
-		}
-		for (EClass superTypeCand : genClass.getEcoreClass().getEAllSuperTypes()) {
-			if (namesAndPackageURIsAreEqual(requiredSuperType.getEcoreClass(), superTypeCand)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private boolean namesAndPackageURIsAreEqual(EClass classA,
-			EClass classB) {
-		return namesAreEqual(classA, classB) && 
-			packageURIsAreEqual(classA, classB);
-	}
-
-	private boolean packageURIsAreEqual(EClass classA,
-			EClass classB) {
-		return classA.getEPackage().getNsURI().equals(
-				classB.getEPackage().getNsURI());
-	}
-
-	private boolean namesAreEqual(EClass classA, EClass classB) {
-		return classA.getName().equals(classB.getName());
-	}
 
 	private void doResolveStrict(ConcreteSyntax container,
-			final String identifier, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+			final String identifier, ICsReferenceResolveResult<GenClass> result, CustomMatchCondition customMatchCondition) {
 		
 		doResolveMetaclass(container, new MetaClassFilter() {
 
@@ -196,6 +178,6 @@ public class MetaclassReferenceResolver {
 			public boolean isFuzzy(){
 				return false;
 			}
-		}, identifier, result, requiredSuperType, canBeAbstract);
+		}, identifier, result, customMatchCondition);
 	}
 }

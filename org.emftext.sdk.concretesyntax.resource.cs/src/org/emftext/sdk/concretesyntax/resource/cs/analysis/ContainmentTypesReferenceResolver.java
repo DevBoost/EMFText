@@ -22,18 +22,30 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver.CustomMatchCondition;
 
 public class ContainmentTypesReferenceResolver implements ICsReferenceResolver<Containment, GenClass> {
 	
 	private MetaclassReferenceResolver resolver = new MetaclassReferenceResolver();
 	
 	public void resolve(String identifier, Containment container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
-		GenClass superType = null;
 		final GenFeature feature = container.getFeature();
-		if (feature != null && feature.getEcoreFeature() != null) {
-			superType = feature.getTypeGenClass();
-		}
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, superType, true);
+		final GenClass superType = (feature != null && feature.getEcoreFeature() != null)?feature.getTypeGenClass():null;
+		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, new CustomMatchCondition(){
+
+			@Override
+			public boolean matches(GenClass genClass) {
+				if(superType==null||getGenClassUtil().hasSupertype(genClass,superType)){
+					return true;
+				}
+				else{
+					String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is not a subtype of \"" + superType.getName() + "\".";					
+					setMessage(message);
+				}
+				return false;
+			}
+			
+		});
 	}
 
 	public String deResolve(GenClass element, Containment container, EReference reference) {
