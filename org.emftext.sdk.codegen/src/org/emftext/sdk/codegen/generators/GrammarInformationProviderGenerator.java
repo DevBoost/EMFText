@@ -17,6 +17,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -78,6 +79,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		addLineBreakClass(sc);
 		addWhiteSpacesClass(sc);
 		addContainmentClass(sc);
+		addCompoundClass(sc);
 		addRuleClass(sc);
 	}
 
@@ -221,6 +223,22 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addCompoundClass(StringComposite sc) {
+		sc.add("public static class Compound extends SyntaxElement {");
+		sc.addLineBreak();
+		sc.add("private final Choice choice;"); 
+		sc.addLineBreak();
+		sc.add("public Compound(Choice choice) {");
+		sc.add("this.choice = choice;");
+		sc.add("}"); 
+		sc.addLineBreak();
+		sc.add("public Choice getDefinition() {"); 
+		sc.add("return choice;"); 
+		sc.add("}"); 
+		sc.add("}"); 
+		sc.addLineBreak();
+	}
+
 	private void addConstants(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule) {
 		addConstant(sc, objectToFieldNameMap, rule, rule.getDefinition());
 		addConstant(sc, objectToFieldNameMap, rule, rule);
@@ -270,6 +288,13 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			String featureAccessor = generatorUtil.getFeatureAccessor(rule.getMetaclass(), feature);
 			String fieldName = getFieldName(objectToFieldNameMap, next);
 			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ");");
+		} else if (next instanceof CompoundDefinition) {
+			CompoundDefinition compound = (CompoundDefinition) next;
+			Choice choice = compound.getDefinitions();
+			addConstant(sc, objectToFieldNameMap, rule, choice);
+			String choiceFieldName = getFieldName(objectToFieldNameMap, choice);
+			String fieldName = getFieldName(objectToFieldNameMap, next);
+			sc.add("public final static Compound " + fieldName + " = new Compound(" + choiceFieldName + ");");
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
 			String definitionFieldName = getFieldName(objectToFieldNameMap, nextAsRule.getDefinition());
