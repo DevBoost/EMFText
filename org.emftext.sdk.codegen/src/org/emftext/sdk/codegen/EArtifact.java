@@ -46,6 +46,7 @@ import org.emftext.sdk.codegen.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.generators.ElementMappingGenerator;
 import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
+import org.emftext.sdk.codegen.generators.GrammarInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
@@ -200,6 +201,7 @@ public enum EArtifact {
 	TEXT_TOKEN(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),
 	TERMINATE_PARSING_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
 	UNEXPECTED_CONTENT_TYPE_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
+	GRAMMAR_INFORMATION_PROVIDER_INTERPRETER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
 
 	TOKEN_STYLE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenStyleInformationProvider", new TokenStyleInformationProviderGenerator(), OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER),
 	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),

@@ -112,6 +112,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.PLUGIN_ACTIVATOR));
 	    creators.add(new GenericArtifactCreator(EArtifact.TERMINATE_PARSING_EXCEPTION));
 	    creators.add(new GenericArtifactCreator(EArtifact.UNEXPECTED_CONTENT_TYPE_EXCEPTION));
+	    creators.add(new GenericArtifactCreator(EArtifact.GRAMMAR_INFORMATION_PROVIDER_INTERPRETER));
 	    
 	    // add UI generators
 	    creators.add(new GenericArtifactCreator(EArtifact.ANTLR_TOKEN_HELPER));

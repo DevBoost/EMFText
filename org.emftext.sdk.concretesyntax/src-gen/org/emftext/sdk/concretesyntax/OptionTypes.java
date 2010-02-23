@@ -1419,7 +1419,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ABSTRACT_INTERPRETER(161, "OVERRIDE_ABSTRACT_INTERPRETER", "overrideAbstractInterpreter");
+	OVERRIDE_ABSTRACT_INTERPRETER(161, "OVERRIDE_ABSTRACT_INTERPRETER", "overrideAbstractInterpreter"), /**
+	 * The '<em><b>OVERRIDE GRAMMAR INFORMATION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER(162, "OVERRIDE_GRAMMAR_INFORMATION_PROVIDER", "overrideGrammarInformationProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3824,6 +3832,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_ABSTRACT_INTERPRETER_VALUE = 161;
 
 	/**
+	 * The '<em><b>OVERRIDE GRAMMAR INFORMATION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE GRAMMAR INFORMATION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_GRAMMAR_INFORMATION_PROVIDER
+	 * @model literal="overrideGrammarInformationProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE = 162;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3991,6 +4014,7 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_EXPORTS,
 			OVERRIDE_PAIR,
 			OVERRIDE_ABSTRACT_INTERPRETER,
+			OVERRIDE_GRAMMAR_INFORMATION_PROVIDER,
 		};
 
 	/**
@@ -4200,6 +4224,7 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_EXPORTS_VALUE: return ADDITIONAL_EXPORTS;
 			case OVERRIDE_PAIR_VALUE: return OVERRIDE_PAIR;
 			case OVERRIDE_ABSTRACT_INTERPRETER_VALUE: return OVERRIDE_ABSTRACT_INTERPRETER;
+			case OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE: return OVERRIDE_GRAMMAR_INFORMATION_PROVIDER;
 		}
 		return null;
 	}
