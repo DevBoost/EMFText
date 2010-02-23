@@ -7003,7 +7003,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass or expression choice */ 
+                       element = c0; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7017,7 +7017,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass or expression choice */ 
+                       element = c1; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7031,7 +7031,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c2; /* this is a subclass or expression choice */ 
+                       element = c2; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7088,7 +7088,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass or expression choice */ 
+                       element = c0; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7102,7 +7102,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass or expression choice */ 
+                       element = c1; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7116,7 +7116,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c2; /* this is a subclass or expression choice */ 
+                       element = c2; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7130,7 +7130,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c3; /* this is a subclass or expression choice */ 
+                       element = c3; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7144,7 +7144,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c4; /* this is a subclass or expression choice */ 
+                       element = c4; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7158,7 +7158,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c5; /* this is a subclass or expression choice */ 
+                       element = c5; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7172,7 +7172,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c6; /* this is a subclass or expression choice */ 
+                       element = c6; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7186,7 +7186,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c7; /* this is a subclass or expression choice */ 
+                       element = c7; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7256,7 +7256,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass or expression choice */ 
+                       element = c0; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7270,7 +7270,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass or expression choice */ 
+                       element = c1; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7284,7 +7284,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c2; /* this is a subclass or expression choice */ 
+                       element = c2; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7343,7 +7343,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c0; /* this is a subclass or expression choice */ 
+                       element = c0; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
@@ -7357,7 +7357,7 @@ public class CsParser extends CsANTLRParserBase {
                     state._fsp--;
                     if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       element = c1; /* this is a subclass or expression choice */ 
+                       element = c1; /* this is a subclass or primitive expression choice */ 
                     }
 
                     }
