@@ -58,7 +58,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + "<ContextType> {");
+		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> {");
 		sc.addLineBreak();
 		addFields(sc);
 		addInterpreteMethod(sc);
@@ -71,8 +71,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addDoSwitchMethod(StringComposite sc) {
-		sc.add("public boolean doSwitch(" + E_OBJECT + " object, ContextType context) {");
-		sc.add("boolean didInterprete = false;");
+		sc.add("public ResultType interprete(" + E_OBJECT + " object, ContextType context) {");
+		sc.add("ResultType result = null;");
 		// sort genClasses by inheritance
 		List<GenClass> sortedClasses = new ArrayList<GenClass>();
 		sortedClasses.addAll(allGenClasses);
@@ -83,13 +83,13 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 			String methodName = getMethodName(genClass);
 			String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
 			sc.add("if (object instanceof " + typeName + ") {");
-			sc.add("didInterprete = " + methodName + "((" + typeName + ") object, context);");
+			sc.add("result = " + methodName + "((" + typeName + ") object, context);");
 			sc.add("}");
-			sc.add("if (didInterprete) {");
-			sc.add("return true;");
+			sc.add("if (result != null) {");
+			sc.add("return result;");
 			sc.add("}");
 		}
-		sc.add("return didInterprete;");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -115,8 +115,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
 		String methodName = getMethodName(genClass);
 		
-		sc.add("public boolean " + methodName + "(" + typeName + " object, ContextType context) {");
-		sc.add("return false;");
+		sc.add("public ResultType " + methodName + "(" + typeName + " object, ContextType context) {");
+		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -143,12 +143,13 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInterpreteMethod(StringComposite sc) {
-		sc.add("public boolean interprete(ContextType context) {");
+		sc.add("public ResultType interprete(ContextType context) {");
+		sc.add("ResultType result = null;");
 		sc.add("while (!interpretationStack.empty()) {");
 		sc.add(E_OBJECT + " next = interpretationStack.pop();");
-		sc.add("doSwitch(next, context);");
+		sc.add("result = interprete(next, context);");
 		sc.add("}");
-		sc.add("return false;");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
