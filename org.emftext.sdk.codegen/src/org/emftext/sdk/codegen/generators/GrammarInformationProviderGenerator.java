@@ -243,7 +243,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		} else if (next instanceof LineBreak) {
 			int amount = ((LineBreak) next).getTab();
 			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(\"" + amount + ");");
+			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(" + amount + ");");
 		} else if (next instanceof Sequence) {
 			Sequence sequence = (Sequence) next;
 			List<String> elements = new ArrayList<String>();
