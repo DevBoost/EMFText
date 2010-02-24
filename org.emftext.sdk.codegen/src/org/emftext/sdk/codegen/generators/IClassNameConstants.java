@@ -121,6 +121,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
@@ -398,6 +399,7 @@ public class IClassNameConstants {
 	public static String E_PACKAGE = EPackage.class.getName();
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
+	public static String ECORE_FACTORY = EcoreFactory.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_DOCUMENT_PROVIDER = FileDocumentProvider.class.getName();

@@ -1,13 +1,15 @@
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.EArtifact;
@@ -15,6 +17,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -34,6 +37,8 @@ import org.emftext.sdk.util.StringUtil;
  * in the CS specification.
  */
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
+
+	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
 
@@ -58,16 +63,29 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addStaticConstants(sc);
 		addInnerClasses(sc);
+		addConstantsForSyntaxElements(sc);
 		
+		sc.add("}");
+		
+		return true;
+	}
+
+	private void addConstantsForSyntaxElements(StringComposite sc) {
 		Map<EObject, String> objectToFieldNameMap = new LinkedHashMap<EObject, String>();
 		List<Rule> allRules = concreteSyntax.getAllRules();
 		for (Rule rule : allRules) {
 			addConstants(sc, objectToFieldNameMap, rule);
 		}
+	}
+
+	private void addStaticConstants(StringComposite sc) {
+		sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + ANONYMOUS_FEATURE + " = " + ECORE_FACTORY + ".eINSTANCE.createEAttribute();");
+		sc.add("static {");
+		sc.add("ANONYMOUS_FEATURE.setName(\"_\");");
 		sc.add("}");
-		
-		return true;
+		sc.addLineBreak();
 	}
 
 	private void addInnerClasses(StringComposite sc) {
@@ -251,7 +269,8 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			sc.add("public final static Keyword " + fieldName + " = new Keyword(\"" + StringUtil.escapeToJavaString(value) + "\");");
 		} else if (next instanceof Placeholder) {
 			GenFeature feature = ((Placeholder) next).getFeature();
-			String featureAccessor = generatorUtil.getFeatureAccessor(rule.getMetaclass(), feature);
+			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
+			String featureAccessor = getFeatureAccessor;
 			String fieldName = getFieldName(objectToFieldNameMap, next);
 			sc.add("public final static Placeholder " + fieldName + " = new Placeholder(" + featureAccessor + ");");
 		} else if (next instanceof WhiteSpaces) {
@@ -285,7 +304,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		} else if (next instanceof Containment) {
 			Containment containment = (Containment) next;
 			GenFeature feature = containment.getFeature();
-			String featureAccessor = generatorUtil.getFeatureAccessor(rule.getMetaclass(), feature);
+			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
 			String fieldName = getFieldName(objectToFieldNameMap, next);
 			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ");");
 		} else if (next instanceof CompoundDefinition) {
@@ -303,6 +322,14 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", "+ definitionFieldName + ");");
 		} else {
 			assert next instanceof Annotation;
+		}
+	}
+
+	private String getFeatureAccessor(GenClass genClass, GenFeature genFeature) {
+		if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+			return ANONYMOUS_FEATURE;
+		} else {
+			return generatorUtil.getFeatureAccessor(genClass, genFeature);
 		}
 	}
 
