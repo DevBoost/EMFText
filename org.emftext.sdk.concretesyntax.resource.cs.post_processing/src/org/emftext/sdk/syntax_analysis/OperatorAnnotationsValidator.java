@@ -26,13 +26,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -74,14 +74,13 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 		for (Rule operatorRule : syntax.getOperatorRules()) {
 			Annotation annotation = operatorRule.getOperatorAnnotation();
-			String weight = annotation
-					.getValue(OperatorAnnotationProperty.WEIGHT.toString());
-			String identifier = annotation
-					.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
-			if (weight == null || identifier == null) {
+			String weight = annotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
+			String identifier = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+			String typeString = annotation.getValue(OperatorAnnotationProperty.TYPE.toString());
+			if (weight == null || identifier == null || typeString == null) {
 				resource
 						.addError(
-								"Operator annotations require values for weigth and identifier.",
+								"Operator annotations require values for weigth, type and identifier.",
 								annotation);
 				return;
 			}
@@ -99,13 +98,14 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				}		
 			}
 			
-			if (annotation.getType() != AnnotationType.OP_PRIMITIVE) {
+			OperatorAnnotationType type = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
+			if (type != OperatorAnnotationType.PRIMITIVE) {
 				List<Sequence> options = operatorRule.getDefinition()
 						.getOptions();
 				if (options.size() == 1) {
 					List<Definition> definitions = options.get(0).getParts();
-					if (annotation.getType() == AnnotationType.OP_LEFTASSOC
-							|| annotation.getType() == AnnotationType.OP_RIGHTASSOC) {
+					if (type == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE || 
+						type == OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE) {
 						checkBinaryOperatorRule(resource, annotation,
 								definitions,expressionMetaClass);
 					} else {
@@ -330,7 +330,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 */
 	private void checkUnaryOperatorRule(CsResource resource,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
-		assert annotation.getType() == AnnotationType.OP_UNARY;
+		assert ConcreteSyntaxUtil.isOperatorType(annotation, OperatorAnnotationType.UNARY);
 		if (definitions.size() != 2
 				|| !(isKeywordOrTerminal(definitions.get(0)) && definitions
 						.get(1) instanceof Containment)
@@ -351,7 +351,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks if the containment does not have explicit metaclass choices since these are ignored and
 	 * checks if the containments GenFeature typeGenClass is equal to the common expression meta class

@@ -182,10 +182,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OVERRIDE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/SUPPRESS_WARNINGS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/FOLDABLE"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_LEFTASSOC"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_RIGHTASSOC"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_UNARY"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OP_PRIMITIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OPERATOR"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationType">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/binary_left_associative"/>

@@ -369,10 +369,7 @@
     <eLiterals name="OVERRIDE" literal="Override"/>
     <eLiterals name="SUPPRESS_WARNINGS" value="1" literal="SuppressWarnings"/>
     <eLiterals name="FOLDABLE" value="2" literal="Foldable"/>
-    <eLiterals name="OP_LEFTASSOC" value="3" literal="Leftassoc"/>
-    <eLiterals name="OP_RIGHTASSOC" value="4" literal="Rightassoc"/>
-    <eLiterals name="OP_UNARY" value="5" literal="Unary"/>
-    <eLiterals name="OP_PRIMITIVE" value="6" literal="Primitive"/>
+    <eLiterals name="OPERATOR" value="3" literal="operator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationType">
     <eLiterals name="binary_left_associative"/>

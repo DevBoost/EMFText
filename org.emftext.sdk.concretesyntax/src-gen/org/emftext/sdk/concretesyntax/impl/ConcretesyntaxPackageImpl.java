@@ -1997,10 +1997,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OVERRIDE);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.SUPPRESS_WARNINGS);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.FOLDABLE);
-		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_LEFTASSOC);
-		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_RIGHTASSOC);
-		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_UNARY);
-		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OP_PRIMITIVE);
+		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OPERATOR);
 
 		initEEnum(operatorAnnotationTypeEEnum, OperatorAnnotationType.class, "OperatorAnnotationType");
 		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE);

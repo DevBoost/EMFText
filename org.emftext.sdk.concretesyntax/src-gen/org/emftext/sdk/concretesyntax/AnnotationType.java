@@ -56,38 +56,14 @@ public enum AnnotationType implements Enumerator {
 	 * @ordered
 	 */
 	FOLDABLE(2, "FOLDABLE", "Foldable"), /**
-	 * The '<em><b>OP LEFTASSOC</b></em>' literal object.
+	 * The '<em><b>OPERATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OP_LEFTASSOC_VALUE
+	 * @see #OPERATOR_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OP_LEFTASSOC(3, "OP_LEFTASSOC", "Leftassoc"), /**
-	 * The '<em><b>OP RIGHTASSOC</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OP_RIGHTASSOC_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	OP_RIGHTASSOC(4, "OP_RIGHTASSOC", "Rightassoc"), /**
-	 * The '<em><b>OP UNARY</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OP_UNARY_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	OP_UNARY(5, "OP_UNARY", "Unary"), /**
-	 * The '<em><b>OP PRIMITIVE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OP_PRIMITIVE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	OP_PRIMITIVE(6, "OP_PRIMITIVE", "Primitive");
+	OPERATOR(3, "OPERATOR", "operator");
 
 	/**
 	 * The '<em><b>OVERRIDE</b></em>' literal value.
@@ -135,64 +111,19 @@ public enum AnnotationType implements Enumerator {
 	public static final int FOLDABLE_VALUE = 2;
 
 	/**
-	 * The '<em><b>OP LEFTASSOC</b></em>' literal value.
+	 * The '<em><b>OPERATOR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>OP LEFTASSOC</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>OPERATOR</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OP_LEFTASSOC
-	 * @model literal="Leftassoc"
+	 * @see #OPERATOR
+	 * @model literal="operator"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OP_LEFTASSOC_VALUE = 3;
-
-	/**
-	 * The '<em><b>OP RIGHTASSOC</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OP RIGHTASSOC</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #OP_RIGHTASSOC
-	 * @model literal="Rightassoc"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int OP_RIGHTASSOC_VALUE = 4;
-
-	/**
-	 * The '<em><b>OP UNARY</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OP UNARY</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #OP_UNARY
-	 * @model literal="Unary"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int OP_UNARY_VALUE = 5;
-
-	/**
-	 * The '<em><b>OP PRIMITIVE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OP PRIMITIVE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #OP_PRIMITIVE
-	 * @model literal="Primitive"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int OP_PRIMITIVE_VALUE = 6;
+	public static final int OPERATOR_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Annotation Type</b></em>' enumerators.
@@ -205,10 +136,7 @@ public enum AnnotationType implements Enumerator {
 			OVERRIDE,
 			SUPPRESS_WARNINGS,
 			FOLDABLE,
-			OP_LEFTASSOC,
-			OP_RIGHTASSOC,
-			OP_UNARY,
-			OP_PRIMITIVE,
+			OPERATOR,
 		};
 
 	/**
@@ -262,10 +190,7 @@ public enum AnnotationType implements Enumerator {
 			case OVERRIDE_VALUE: return OVERRIDE;
 			case SUPPRESS_WARNINGS_VALUE: return SUPPRESS_WARNINGS;
 			case FOLDABLE_VALUE: return FOLDABLE;
-			case OP_LEFTASSOC_VALUE: return OP_LEFTASSOC;
-			case OP_RIGHTASSOC_VALUE: return OP_RIGHTASSOC;
-			case OP_UNARY_VALUE: return OP_UNARY;
-			case OP_PRIMITIVE_VALUE: return OP_PRIMITIVE;
+			case OPERATOR_VALUE: return OPERATOR;
 		}
 		return null;
 	}

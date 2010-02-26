@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -45,6 +46,8 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
@@ -506,5 +509,13 @@ public class ConcreteSyntaxUtil {
 	public List<Containment> findContainments(ConcreteSyntax syntax) {
 		Collection<Containment> containments = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
 		return new ArrayList<Containment>(containments);
+	}
+
+	public static boolean isOperatorType(Annotation annotation, OperatorAnnotationType operatorType) {
+		return getOperatorAnnotationType(annotation).getLiteral() == operatorType.getLiteral();
+	}
+
+	public static OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
+		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
 	}
 }

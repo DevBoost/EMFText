@@ -213,10 +213,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 */
 	public Annotation getOperatorAnnotation() {
 		for (Annotation annotation : getAnnotations()) {
-			if (annotation.getType()==AnnotationType.OP_LEFTASSOC ||
-					annotation.getType()==AnnotationType.OP_RIGHTASSOC ||
-					annotation.getType()==AnnotationType.OP_UNARY ||
-					annotation.getType()==AnnotationType.OP_PRIMITIVE) {
+			if (annotation.getType() == AnnotationType.OPERATOR) {
 				return annotation;
 			}
 		}

@@ -85,7 +85,6 @@ import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectationCom
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -96,6 +95,7 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -1298,9 +1298,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			boolean isLast = !sliceIterator.hasNext();
 			
 			Sequence firstSequence = firstRule.getDefinition().getOptions().get(0);
-			AnnotationType operatorType = firstRule.getOperatorAnnotation().getType();
+			OperatorAnnotationType operatorType = ConcreteSyntaxUtil.getOperatorAnnotationType(firstRule.getOperatorAnnotation());
 			
-			String ruleName = getExpressionSliceRuleName(firstRule);	
+			String ruleName = getExpressionSliceRuleName(firstRule);
 
 			GenClass returnGenClass = firstRule.getMetaclass();
 			for (GenClass metaClass : allGenClasses) {
@@ -1317,7 +1317,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				final String nextRuleName = getExpressionSliceRuleName(sliceIterator.next());
 				sliceIterator.previous();
 				//we do unary operators first
-				if (operatorType == AnnotationType.OP_UNARY) {
+				if (operatorType == OperatorAnnotationType.UNARY) {
 					 //1st case: unary operator starts with keyword
 					// TODO mseifert: handle placeholders
 					if (firstSequence.getParts().get(0) instanceof CsString) {
@@ -1331,17 +1331,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					}
 				}
 				// now we do binary infix operators
-				else if (operatorType == AnnotationType.OP_LEFTASSOC) {
+				else if (operatorType == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE) {
 					//1st case left associative operators, e.g., -,+,*,/ etc.
 					printBinaryLeftAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, nextRuleName);
-				} else if (operatorType == AnnotationType.OP_RIGHTASSOC) {
+				} else if (operatorType == OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE) {
 					//2nd case right associative operators , e.g., ^
 					printBinaryRightAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, ruleName, nextRuleName);
 				}
 			}
-			if (operatorType == AnnotationType.OP_PRIMITIVE) {
+			if (operatorType == OperatorAnnotationType.PRIMITIVE) {
 				printPrimitiveOperatorRule(sc, eClassesWithSyntax,
 						eClassesReferenced, rulesWithEqualWeight);
 				wasPrimitiveOperatorRule = true;
