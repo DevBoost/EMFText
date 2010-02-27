@@ -743,7 +743,7 @@ public class ErrorManager {
 		getErrorState().errors++;
 		Message msg = new LeftRecursionCyclesMessage(cycles);
 		getErrorState().errorMsgIDs.add(msg.msgID);
-		getErrorListener().warning(msg);
+		getErrorListener().error(msg);
 	}
 
 	public static void grammarError(int msgID,
