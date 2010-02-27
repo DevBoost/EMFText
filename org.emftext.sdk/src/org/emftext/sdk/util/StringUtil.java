@@ -324,13 +324,20 @@ public class StringUtil {
 		while (index >= 0) {
 			String tail = result.substring(index);
 			if (!tail.matches(ESC_REGEXP)) {
-				// not Unicode - do escape backslash
+				// tail is not Unicode (uXXXX) or \b,\n,\r,\t,\f
+				// thus, do escape backslash
 				String head = "";
 				if (index > 0) {
 					head = result.substring(0, index - 1);
 				}
-				result = head + "\\" + tail;
+				if (tail.startsWith("\\\\")) {
+					result = head + tail;
+					index++;
+				} else {
+					result = head + "\\" + tail;
+				}
 			}
+			// continue searching for backslash characters
 			index = result.indexOf("\\", index + 2);
 		}
 		result = result.replace("'", "\\'");
