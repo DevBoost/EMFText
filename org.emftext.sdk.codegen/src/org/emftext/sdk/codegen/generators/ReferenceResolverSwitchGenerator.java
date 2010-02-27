@@ -95,11 +95,11 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
-			String referenceTypeName = genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
 			sc.add("if (" + accessorName + ".isInstance(container)) {");
 			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
-			sc.add(E_STRUCTURAL_FEATURE + " feature = container.eClass().getEStructuralFeature(reference.getName());");
-			sc.add("if (feature != null && feature instanceof " + E_REFERENCE + " && feature.getEType().getInstanceClass().isAssignableFrom(" + referenceTypeName + ".class)) {");
+			sc.add(STRING + " referenceName = reference.getName();");
+			sc.add(E_STRUCTURAL_FEATURE + " feature = container.eClass().getEStructuralFeature(referenceName);");
+			sc.add("if (feature != null && feature instanceof " + E_REFERENCE + " && referenceName != null && referenceName.equals(\"" + StringUtil.escapeToJavaString(proxyReference.getName()) + "\")) {");
 			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + E_REFERENCE + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
