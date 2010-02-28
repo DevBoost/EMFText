@@ -60,24 +60,7 @@ package org.emftext.sdk.codegen.regex;
  }
  
  private String transformIntoRegExpQuotes(String st) {
- 		String test = st;
-		String subString = test.substring(1, test.length()-1);
-		
-			
-		String resultString = subString;
-       	resultString = resultString.replace("\\\\","\\");	
-    	resultString = resultString.replace("\\'","'");
-    	resultString = resultString.replace("\\","\\\\");
-    	resultString = resultString.replace("-", "\\-");
-    	resultString = resultString.replace("_", "\\_");
-    	resultString = resultString.replace(" ", "( )");
-           		
-		resultString = resultString.replace("\"", "\\\"");
-   		if (!resultString.contains("\"")) {
-			resultString = "\"" + resultString + "\"";
- 		}
-	
-		return resultString;
+ 	org.emftext.sdk.regex.AutomatonRexpUtil.escapeToAutomatonSyntax(st);
  }
  
  private String removeTicks(String st) {
