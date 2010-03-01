@@ -1,0 +1,92 @@
+\documentclass[smallheadings,headsepline,pointlessnumbers,11pt,a4paper]{scrbook}
+
+\usepackage[american]{babel} 
+\usepackage[colorlinks,linkcolor=black,citecolor=black,urlcolor=black,plainpages=false,pdfpagelabels]{hyperref} 
+\usepackage[nottoc,notlof]{tocbibind} %bib in toc
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+% For tables
+\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%some stuff to get the luximono font working as TT font
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage[scaled]{luximono}
+
+\typearea{12}
+\clubpenalty = 10000
+\widowpenalty = 10000 
+
+\setlength{\parskip}{2pt}
+\evensidemargin 0in
+\oddsidemargin 0in
+\bibdata{}
+
+% Redefinition of \cleardoublepage. Even pages are left completely blank.
+\let\origdoublepage\cleardoublepage
+\renewcommand{\cleardoublepage}{%
+  \clearpage{\pagestyle{empty}\origdoublepage}}
+  
+\title{EMFText Guide}
+
+\begin{document}
+
+% === TITLE
+\begin{titlepage}
+
+\hbox{}
+\vspace{4cm}
+
+\begin{center}
+
+\includegraphics[width=0.9\textwidth]{../latex/figures/EMFTextLogo.png}
+
+
+\vspace{3cm}
+{
+\fontsize{60}{60}
+\textsc{User Guide}
+}
+\end{center}
+
+\vspace{7cm}
+\begin{flushright}
+\large
+\today
+\end{flushright}
+
+\end{titlepage}
+% ====
+
+% === ToC
+\cleardoublepage
+
+\tableofcontents
+
+\renewcommand{\listfigurename}{List of Figures}
+\listoffigures
+\cleardoublepage
+
+\renewcommand{\lstlistlistingname}{List of Listings\vspace{3mm}}
+\lstlistoflistings
+\cleardoublepage
+
+\mainmatter
+% ===
+
+\chapter{Introduction}
+
+\chapter{Chap2}
+
+%APPENDIX
+\begin{appendix}
+
+\end{appendix}
+
+\bibliography{biblio} % specify the database files
+\bibliographystyle{alpha}
+
+\end{document} 

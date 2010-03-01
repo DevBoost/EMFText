@@ -1,0 +1,3 @@
+path=/sw/bin
+htlatex=/sw/bin/htlatex
+pdflatex=/sw/bin/pdflatex

@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Mon Mar 01 14:13:21 CET 2010
+builderNum=2
+outputDir=pdf/
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=temp
+mainTexFile=EMFTextGuide.tex
+outputFile=EMFTextGuide.pdf
+langSpell=
+markDer=true
+srcDir=latex/
