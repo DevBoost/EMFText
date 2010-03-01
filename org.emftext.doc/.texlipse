@@ -1,5 +1,5 @@
 #TeXlipse project settings
-#Mon Mar 01 14:13:21 CET 2010
+#Mon Mar 01 16:03:36 CET 2010
 builderNum=2
 outputDir=pdf/
 makeIndSty=
@@ -9,5 +9,5 @@ tempDir=temp
 mainTexFile=EMFTextGuide.tex
 outputFile=EMFTextGuide.pdf
 langSpell=
-markDer=true
+markDer=false
 srcDir=latex/
