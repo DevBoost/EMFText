@@ -60,6 +60,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private String expectedTerminalClassName;
 	private String completionProposalClassName;
 	private String eObjectUtilClassName;
+	private String attributeValueProviderClassName;
 
 	public CodeCompletionHelperGenerator() {
 		super();
@@ -84,6 +85,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
 		eObjectUtilClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_UTIL);
+		attributeValueProviderClassName = getContext().getQualifiedClassName(EArtifact.ATTRIBUTE_VALUE_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -102,9 +104,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
 		return true;
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + attributeValueProviderClassName + " attributeValueProvider = new " + attributeValueProviderClassName + "();");
 	}
 
 	private void addMethods(StringComposite sc) {
@@ -119,7 +126,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addDeriveProposalsMethod4(sc);
 		addHandleNCReferenceMethod(sc);
 		addHandleAttributeMethod(sc);
-		addGetDefaultValueMethod(sc);
 		addDeriveProposalMethod1(sc);
 		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
@@ -196,22 +202,12 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetDefaultValueMethod(StringComposite sc) {
-		sc.add("private " + OBJECT + " getDefaultValue(" + E_ATTRIBUTE + " attribute) {");
-		sc.add("String typeName = attribute.getEType().getName();");
-		sc.add("if (\"EString\".equals(typeName)) {");
-		sc.add("return \"some\" + " + stringUtilClassName + ".capitalize(attribute.getName());");
-		sc.add("}");
-		// TODO mseifert: add more default values for other types
-		sc.add("System.out.println(\"CodeCompletionHelper.getDefaultValue() unknown type \" + typeName);");
-		sc.add("return attribute.getDefaultValue();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addHandleAttributeMethod(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleAttribute(" + iMetaInformationClassName + " metaInformation, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT + " container, " + E_ATTRIBUTE + " attribute, " + STRING + " prefix) {");
-		sc.add(OBJECT + " defaultValue = getDefaultValue(attribute);");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(OBJECT + "[] defaultValues = attributeValueProvider.getDefaultValues(attribute);");
+		sc.add("if (defaultValues != null) {");
+		sc.add("for (Object defaultValue : defaultValues) {");
 		sc.add("if (defaultValue != null) {");
 		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
 		sc.add("String tokenName = expectedFeature.getTokenName();");
@@ -219,15 +215,15 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("if (tokenResolver != null) {");
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (matches(defaultValueAsString, prefix)) {");
 		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, !\"\".equals(prefix), true));");
 		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
 		sc.add("return resultSet;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -1427,7 +1427,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER(162, "OVERRIDE_GRAMMAR_INFORMATION_PROVIDER", "overrideGrammarInformationProvider");
+	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER(162, "OVERRIDE_GRAMMAR_INFORMATION_PROVIDER", "overrideGrammarInformationProvider"), /**
+	 * The '<em><b>OVERRIDE ATTRIBUTE VALUE PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ATTRIBUTE_VALUE_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER(163, "OVERRIDE_ATTRIBUTE_VALUE_PROVIDER", "overrideAttributeValueProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3847,6 +3855,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE = 162;
 
 	/**
+	 * The '<em><b>OVERRIDE ATTRIBUTE VALUE PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ATTRIBUTE VALUE PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ATTRIBUTE_VALUE_PROVIDER
+	 * @model literal="overrideAttributeValueProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ATTRIBUTE_VALUE_PROVIDER_VALUE = 163;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4015,6 +4038,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PAIR,
 			OVERRIDE_ABSTRACT_INTERPRETER,
 			OVERRIDE_GRAMMAR_INFORMATION_PROVIDER,
+			OVERRIDE_ATTRIBUTE_VALUE_PROVIDER,
 		};
 
 	/**
@@ -4225,6 +4249,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PAIR_VALUE: return OVERRIDE_PAIR;
 			case OVERRIDE_ABSTRACT_INTERPRETER_VALUE: return OVERRIDE_ABSTRACT_INTERPRETER;
 			case OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE: return OVERRIDE_GRAMMAR_INFORMATION_PROVIDER;
+			case OVERRIDE_ATTRIBUTE_VALUE_PROVIDER_VALUE: return OVERRIDE_ATTRIBUTE_VALUE_PROVIDER;
 		}
 		return null;
 	}

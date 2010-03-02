@@ -338,6 +338,7 @@
     <eLiterals name="OVERRIDE_PAIR" value="160" literal="overridePair"/>
     <eLiterals name="OVERRIDE_ABSTRACT_INTERPRETER" value="161" literal="overrideAbstractInterpreter"/>
     <eLiterals name="OVERRIDE_GRAMMAR_INFORMATION_PROVIDER" value="162" literal="overrideGrammarInformationProvider"/>
+    <eLiterals name="OVERRIDE_ATTRIBUTE_VALUE_PROVIDER" value="163" literal="overrideAttributeValueProvider"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

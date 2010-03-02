@@ -171,6 +171,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PAIR"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_ABSTRACT_INTERPRETER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_GRAMMAR_INFORMATION_PROVIDER"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_ATTRIBUTE_VALUE_PROVIDER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>

@@ -73,6 +73,7 @@ import org.emftext.sdk.codegen.generators.TokenStyleInformationProviderGenerator
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.generators.UnexpectedContentTypeExceptionGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElementGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.AttributeValueProviderGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.CompletionProposalGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
@@ -296,6 +297,7 @@ public enum EArtifact {
 	ABSTRACT_EXPECTED_ELEMENT(RESOURCE_PLUGIN, CC_PACKAGE, "", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT),
 	EXPECTED_TERMINAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL),
 	COMPLETION_PROPOSAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "CompletionProposal", new CompletionProposalGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROPOSAL), 
+	ATTRIBUTE_VALUE_PROVIDER(RESOURCE_PLUGIN, CC_PACKAGE, "", "AttributeValueProvider", new AttributeValueProviderGenerator(), OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER),
 	
 	CAST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
 	COPIED_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),
