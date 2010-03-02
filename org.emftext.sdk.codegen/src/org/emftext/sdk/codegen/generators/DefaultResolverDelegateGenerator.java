@@ -107,11 +107,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("private " + STRING + " matches(" + STRING + " identifier, " + OBJECT + " attributeValue, boolean matchFuzzy) {");
 		sc.add("if (attributeValue != null && attributeValue instanceof " + STRING + ") {");
 		sc.add(STRING + " name = (" + STRING + ") attributeValue;");
-		sc.add("if (name.startsWith(identifier) && matchFuzzy) {");
+		sc.add("if (name.equals(identifier) || matchFuzzy) {");
 		sc.add("return name;");
-		sc.add("}");
-		sc.add("if (name.equals(identifier)) {");
-		sc.add("return identifier;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");
