@@ -240,9 +240,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
 		sc.add("final String identifier = mapping.getIdentifier();");
-		sc.add("// the proposal can be added without checking the prefix because this is");
-		sc.add("// performed by the reference resolvers");
+		sc.add("// check the prefix. return only matching references");
+		sc.add("if (matches(identifier, prefix)) {");
 		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true));");
+		sc.add("}");
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -449,7 +450,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// first we derive all possible proposals from the set of elements that are expected at the cursor position");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset);");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);");
 		sc.add("// second, the set of left proposals (i.e., the ones before the cursor) is");
 		sc.add("// checked for emptiness. if the set is empty, the right proposals (i.e., ");
 		sc.add("// the ones after the cursor are removed, because it does not make sense to");
