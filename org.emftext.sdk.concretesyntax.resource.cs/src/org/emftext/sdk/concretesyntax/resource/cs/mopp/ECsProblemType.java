@@ -70,6 +70,7 @@ public enum ECsProblemType {
 	CYCLIC_TOKEN_DEFINITION(CsEProblemType.ERROR), 
 	PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX(CsEProblemType.ERROR), 
 	PLACEHOLDER_IN_QUOTES_WITH_EMPTY_PREFIX(CsEProblemType.ERROR), 
+	SYNTAX_NAME_CONTAINS_DOTS(CsEProblemType.ERROR),
 	;
 
 	private CsEProblemType problemType;
