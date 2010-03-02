@@ -277,10 +277,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// if no container can be found, the cursor is probably at the");
 		sc.add("// end of the document. we need to create artificial containers.");
 		sc.add("if (container == null) {");
+		sc.add("boolean attachedArtificialContainer = false;");
 		sc.add(E_CLASS + " containerClass = expectedTerminal.getTerminal().getRuleMetaclass();");
 		sc.add(E_STRUCTURAL_FEATURE + "[] containmentTrace = expectedTerminal.getContainmentTrace();");
 		sc.add(LIST + "<" + E_OBJECT + "> contentList = null;");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " eStructuralFeature : containmentTrace) {");
+		sc.add("if (attachedArtificialContainer) {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add(E_CLASS + " neededClass = eStructuralFeature.getEContainingClass();");
 		//sc.add("System.out.println(sc.add("Need sc.add(" + neededClass.getName() + sc.add(".sc.add(" + eStructuralFeature.getName());");
 		sc.add("// fill the content list during the first iteration of the loop");
@@ -301,6 +305,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(eObjectUtilClassName + ".setFeature(object, eStructuralFeature, newContainer, false);");
 		//sc.add("System.out.println(sc.add("Attached sc.add(" + newContainer);");
 		sc.add("container = newContainer;");
+		sc.add("attachedArtificialContainer = true;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
