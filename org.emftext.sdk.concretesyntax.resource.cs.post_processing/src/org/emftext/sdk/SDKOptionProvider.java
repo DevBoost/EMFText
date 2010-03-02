@@ -44,6 +44,7 @@ import org.emftext.sdk.syntax_analysis.QuotenTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.syntax_analysis.StartSymbolAnalyser;
+import org.emftext.sdk.syntax_analysis.SyntaxNameWithDotAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenConflictsAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenNameAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenStyleAnalyser;
@@ -112,6 +113,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new CsStringAnalyser());
 		postProcessors.add(new LicenceHeaderAnalyser());
 		postProcessors.add(new OperatorAnnotationsValidator());
+		postProcessors.add(new SyntaxNameWithDotAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
