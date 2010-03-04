@@ -65,6 +65,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 		addSetParentMethod(sc);
 		addGetChildrenMethod(sc);
 		addGetMetaClassMethod(sc);
+		addGetCardinalityMethod(sc);
 	}
 
 	private void addSetParentMethod(StringComposite sc) {
@@ -88,6 +89,13 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 	private void addGetMetaClassMethod(StringComposite sc) {
 		sc.add("public " + E_CLASS + " getMetaclass() {");
 		sc.add("return parent.getMetaclass();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetCardinalityMethod(StringComposite sc) {
+		sc.add("public " + cardinalityEnumName + " getCardinality() {");
+		sc.add("return cardinality;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
