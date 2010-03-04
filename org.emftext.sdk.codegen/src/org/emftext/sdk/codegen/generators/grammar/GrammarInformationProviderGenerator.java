@@ -44,8 +44,6 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 
-	private static final String FIELDNAME_PREFIX = "ELEMENT_";
-
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -323,7 +321,9 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	public static String getFieldName(EObject object) {
-		return csUtil.getFieldName(FIELDNAME_PREFIX, object);
+		ConcreteSyntax syntax = csUtil.findContainingRule(object).getSyntax();
+		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
+		return csUtil.getFieldName(escapedSyntaxName + "_", object);
 	}
 	
 	public IGenerator newInstance(GenerationContext context) {
