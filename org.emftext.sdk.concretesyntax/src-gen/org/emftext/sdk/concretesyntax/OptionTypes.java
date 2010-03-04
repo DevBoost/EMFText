@@ -1435,7 +1435,47 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER(163, "OVERRIDE_ATTRIBUTE_VALUE_PROVIDER", "overrideAttributeValueProvider");
+	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER(163, "OVERRIDE_ATTRIBUTE_VALUE_PROVIDER", "overrideAttributeValueProvider"), /**
+	 * The '<em><b>OVERRIDE FOLLOW SET PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_FOLLOW_SET_PROVIDER(164, "OVERRIDE_FOLLOW_SET_PROVIDER", "overrideFollowSetProvider"), /**
+	 * The '<em><b>OVERRIDE SYNTAX ELEMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_ELEMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_ELEMENT(165, "OVERRIDE_SYNTAX_ELEMENT", "overrideSyntaxElement"), /**
+	 * The '<em><b>OVERRIDE KEYWORD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_KEYWORD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_KEYWORD(166, "OVERRIDE_KEYWORD", "overrideKeyword"), /**
+	 * The '<em><b>OVERRIDE PLACEHOLDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLACEHOLDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PLACEHOLDER(167, "OVERRIDE_PLACEHOLDER", "overridePlaceholder"), /**
+	 * The '<em><b>OVERRIDE CARDINALITY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CARDINALITY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CARDINALITY(168, "OVERRIDE_CARDINALITY", "overrideCardinality");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3870,6 +3910,81 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_ATTRIBUTE_VALUE_PROVIDER_VALUE = 163;
 
 	/**
+	 * The '<em><b>OVERRIDE FOLLOW SET PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE FOLLOW SET PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_PROVIDER
+	 * @model literal="overrideFollowSetProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_FOLLOW_SET_PROVIDER_VALUE = 164;
+
+	/**
+	 * The '<em><b>OVERRIDE SYNTAX ELEMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SYNTAX ELEMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_ELEMENT
+	 * @model literal="overrideSyntaxElement"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_ELEMENT_VALUE = 165;
+
+	/**
+	 * The '<em><b>OVERRIDE KEYWORD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE KEYWORD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_KEYWORD
+	 * @model literal="overrideKeyword"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_KEYWORD_VALUE = 166;
+
+	/**
+	 * The '<em><b>OVERRIDE PLACEHOLDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PLACEHOLDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLACEHOLDER
+	 * @model literal="overridePlaceholder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PLACEHOLDER_VALUE = 167;
+
+	/**
+	 * The '<em><b>OVERRIDE CARDINALITY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CARDINALITY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CARDINALITY
+	 * @model literal="overrideCardinality"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CARDINALITY_VALUE = 168;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4039,6 +4154,11 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ABSTRACT_INTERPRETER,
 			OVERRIDE_GRAMMAR_INFORMATION_PROVIDER,
 			OVERRIDE_ATTRIBUTE_VALUE_PROVIDER,
+			OVERRIDE_FOLLOW_SET_PROVIDER,
+			OVERRIDE_SYNTAX_ELEMENT,
+			OVERRIDE_KEYWORD,
+			OVERRIDE_PLACEHOLDER,
+			OVERRIDE_CARDINALITY,
 		};
 
 	/**
@@ -4250,6 +4370,11 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ABSTRACT_INTERPRETER_VALUE: return OVERRIDE_ABSTRACT_INTERPRETER;
 			case OVERRIDE_GRAMMAR_INFORMATION_PROVIDER_VALUE: return OVERRIDE_GRAMMAR_INFORMATION_PROVIDER;
 			case OVERRIDE_ATTRIBUTE_VALUE_PROVIDER_VALUE: return OVERRIDE_ATTRIBUTE_VALUE_PROVIDER;
+			case OVERRIDE_FOLLOW_SET_PROVIDER_VALUE: return OVERRIDE_FOLLOW_SET_PROVIDER;
+			case OVERRIDE_SYNTAX_ELEMENT_VALUE: return OVERRIDE_SYNTAX_ELEMENT;
+			case OVERRIDE_KEYWORD_VALUE: return OVERRIDE_KEYWORD;
+			case OVERRIDE_PLACEHOLDER_VALUE: return OVERRIDE_PLACEHOLDER;
+			case OVERRIDE_CARDINALITY_VALUE: return OVERRIDE_CARDINALITY;
 		}
 		return null;
 	}

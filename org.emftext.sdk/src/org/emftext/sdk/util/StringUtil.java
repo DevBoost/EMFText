@@ -178,11 +178,28 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String explode(Collection<String> parts, String glue) {
+		return explode(parts, glue, new ToStringConverter<String>() {
+
+			public String toString(String sourceObject) {
+				return sourceObject;
+			}
+		});
+	}
+	
+	/**
+	 * Converts the given parts to strings using the converter and puts 
+	 * 'glue' between them.
+	 * 
+	 * @param parts
+	 * @param glue
+	 * @return
+	 */
+	public static <T> String explode(Collection<T> parts, String glue, ToStringConverter<T> converter) {
 		StringBuilder sb = new StringBuilder();
-		Iterator<String> it = parts.iterator();
+		Iterator<T> it = parts.iterator();
 		while (it.hasNext()) {
-			String next = it.next();
-			sb.append(next);
+			T next = it.next();
+			sb.append(converter.toString(next));
 			if (it.hasNext()) {
 				sb.append(glue);
 			}

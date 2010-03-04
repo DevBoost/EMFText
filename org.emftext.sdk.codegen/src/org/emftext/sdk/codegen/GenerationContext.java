@@ -15,20 +15,28 @@ package org.emftext.sdk.codegen;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -65,6 +73,28 @@ public abstract class GenerationContext {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String licenceText;
+	
+	/**
+	 * A counter that is used to indicate the next free id in 'idMap'.
+	 */
+	private int idCounter = 0;
+	
+	/**
+	 * A map that contains the terminal elements of the syntax specification
+	 * (keywords and placeholders) to the name of the field that represents
+	 * them.
+	 */
+	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
+	
+	/**
+	 * A map that contains names of fields representing terminals and their
+	 * follow set. This map is used to create the code that links terminals
+	 * and the potential next elements (i.e., their follow set).
+	 */
+	private Map<String, Set<Expectation>> followSetMap = new LinkedHashMap<String, Set<Expectation>>();
+
+	private int featureCounter = 0;
+	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
@@ -317,5 +347,47 @@ public abstract class GenerationContext {
 	public String getNatureID() {
 		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
 		return pluginID + ".nature";
+	}
+
+	public String getID(EObject expectedElement) {
+		if (!idMap.containsKey(expectedElement)) {
+			idMap.put(expectedElement, "TERMINAL_" + idCounter);
+			idCounter++;
+		}
+		return idMap.get(expectedElement);
+	}
+
+	public void addToFollowSetMap(Definition definition, Set<Expectation> expectations) {
+		// only terminals are important here
+		if (definition instanceof Placeholder) {
+			GenFeature feature = ((Placeholder) definition).getFeature();
+			if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+				return;
+			}
+			followSetMap.put(getID(definition), expectations);
+		} else if (definition instanceof CsString) {
+			followSetMap.put(getID(definition), expectations);
+		}
+	}
+
+	public Map<EObject, String> getIdMap() {
+		return idMap;
+	}
+
+	public Map<String, Set<Expectation>> getFollowSetMap() {
+		return followSetMap;
+	}
+
+	public String getFeatureConstantFieldName(GenFeature genFeature) {
+		if (!eFeatureToConstantNameMap.keySet().contains(genFeature)) {
+			String featureConstantName = "FEATURE_" + featureCounter;
+			featureCounter++;
+			eFeatureToConstantNameMap.put(genFeature, featureConstantName);
+		}
+		return eFeatureToConstantNameMap.get(genFeature);
+	}
+
+	public Map<GenFeature, String> getFeatureToConstantNameMap() {
+		return eFeatureToConstantNameMap;
 	}
 }

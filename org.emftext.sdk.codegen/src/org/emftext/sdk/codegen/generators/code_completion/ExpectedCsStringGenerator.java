@@ -13,9 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
-
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -25,6 +22,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 
 	private String abstractExpectedElementClassName;
+	private String keywordClassName;
 
 	public ExpectedCsStringGenerator() {
 		super();
@@ -33,6 +31,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 	private ExpectedCsStringGenerator(GenerationContext context) {
 		super(context, EArtifact.EXPECTED_CS_STRING);
 		abstractExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.ABSTRACT_EXPECTED_ELEMENT);
+		keywordClassName = getContext().getQualifiedClassName(EArtifact.KEYWORD);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -55,6 +54,19 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
+	private void addFields(StringComposite sc) {
+		sc.add("private " + keywordClassName + " keyword;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + keywordClassName + " keyword) {");
+		sc.add("super(keyword.getMetaclass());");
+		sc.add("this.keyword = keyword;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addMethods(StringComposite sc) {
 		addGetValueMethod(sc);
 		addGetTokenNameMethod(sc);
@@ -65,7 +77,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 	private void addEqualsMethod(StringComposite sc) {
 		sc.add("public boolean equals(Object o) {");
 		sc.add("if (o instanceof " + getResourceClassName() + ") {");
-		sc.add("return this.value.equals(((" + getResourceClassName() + ") o).value);");
+		sc.add("return getValue().equals(((" + getResourceClassName() + ") o).getValue());");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
@@ -74,35 +86,22 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 
 	private void addToStringMethod(StringComposite sc) {
 		sc.add("public String toString() {");
-		sc.add("return \"CsString \\\"\" + value + \"\\\"\";");
+		sc.add("return \"CsString \\\"\" + getValue() + \"\\\"\";");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetValueMethod(StringComposite sc) {
 		sc.add("public String getValue() {");
-		sc.add("return value;");
+		sc.add("return keyword.getValue();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetTokenNameMethod(StringComposite sc) {
 		sc.add("public String getTokenName() {");
-		sc.add("return \"'\" + value + \"'\";");
+		sc.add("return \"'\" + getValue() + \"'\";");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " ruleMetaclass, " + STRING + " value) {");
-		sc.add("super(ruleMetaclass);");
-		sc.add("this.value = value;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(StringComposite sc) {
-		sc.add("private String value;");
 		sc.addLineBreak();
 	}
 }

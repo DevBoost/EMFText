@@ -19,6 +19,7 @@ import static org.emftext.sdk.Constants.ANTLR_RUNTIME_MISC_PACKAGE;
 import static org.emftext.sdk.Constants.ANTLR_RUNTIME_PACKAGE;
 import static org.emftext.sdk.Constants.ANTLR_RUNTIME_TREE_PACKAGE;
 import static org.emftext.sdk.Constants.CC_PACKAGE;
+import static org.emftext.sdk.Constants.GRAMMAR_PACKAGE;
 import static org.emftext.sdk.Constants.MOPP_PACKAGE;
 import static org.emftext.sdk.Constants.ROOT_PACKAGE;
 import static org.emftext.sdk.Constants.UI_PACKAGE;
@@ -46,7 +47,6 @@ import org.emftext.sdk.codegen.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.generators.ElementMappingGenerator;
 import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
-import org.emftext.sdk.codegen.generators.GrammarInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
@@ -79,6 +79,12 @@ import org.emftext.sdk.codegen.generators.code_completion.CompletionProposalGene
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedTerminalGenerator;
+import org.emftext.sdk.codegen.generators.grammar.CardinalityGenerator;
+import org.emftext.sdk.codegen.generators.grammar.FollowSetProviderGenerator;
+import org.emftext.sdk.codegen.generators.grammar.GrammarInformationProviderGenerator;
+import org.emftext.sdk.codegen.generators.grammar.KeywordGenerator;
+import org.emftext.sdk.codegen.generators.grammar.PlaceholderGenerator;
+import org.emftext.sdk.codegen.generators.grammar.SyntaxElementGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBuilderGenerator;
@@ -202,8 +208,6 @@ public enum EArtifact {
 	TEXT_TOKEN(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),
 	TERMINATE_PARSING_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
 	UNEXPECTED_CONTENT_TYPE_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
-	GRAMMAR_INFORMATION_PROVIDER_INTERPRETER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
-
 	TOKEN_STYLE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenStyleInformationProvider", new TokenStyleInformationProviderGenerator(), OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER),
 	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),
 	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
@@ -298,6 +302,14 @@ public enum EArtifact {
 	EXPECTED_TERMINAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL),
 	COMPLETION_PROPOSAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "CompletionProposal", new CompletionProposalGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROPOSAL), 
 	ATTRIBUTE_VALUE_PROVIDER(RESOURCE_PLUGIN, CC_PACKAGE, "", "AttributeValueProvider", new AttributeValueProviderGenerator(), OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER),
+
+	// the grammar package
+	CARDINALITY(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Cardinality", new CardinalityGenerator(), OptionTypes.OVERRIDE_CARDINALITY),
+	SYNTAX_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "SyntaxElement", new SyntaxElementGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT),
+	KEYWORD(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Keyword", new KeywordGenerator(), OptionTypes.OVERRIDE_KEYWORD),
+	PLACEHOLDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Placeholder", new PlaceholderGenerator(), OptionTypes.OVERRIDE_PLACEHOLDER),
+	GRAMMAR_INFORMATION_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
+	FOLLOW_SET_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FollowSetProvider", new FollowSetProviderGenerator(), OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER),
 	
 	CAST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
 	COPIED_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),

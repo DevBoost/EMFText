@@ -147,8 +147,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String dummyEObjectClassName;
 	private String tokenResolveResultClassName;
 	private String contextDependentURIFragmentFactoryClassName;
-	private String expectedCsStringClassName;
-	private String expectedStructuralFeatureClassName;
 	private String iTextResourceClassName;
 	private String iCommandClassName;
 	private String iParseResultClassName;
@@ -156,6 +154,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String iExpectedElementClassName;
 	private String parseResultClassName;
 	private String pairClassName;
+	private String followSetProviderClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -180,28 +179,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
-	/**
-	 * A map that contains the terminal elements of the syntax specification
-	 * (keywords and placeholders) to the name of the field that represents
-	 * them.
-	 */
-	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
-	
-	/**
-	 * A counter that is used to indicate the next free id in 'idMap'.
-	 */
-	private int idCounter = 0;
-
-	private int featureCounter = 0;
-	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
-	
-	/**
-	 * A map that contains names of fields representing terminals and their
-	 * follow set. This map is used to create the code that links terminals
-	 * and the potential next elements (i.e., their follow set).
-	 */
-	private Map<String, Set<Expectation>> followSetMap = new LinkedHashMap<String, Set<Expectation>>();
-
 	public ANTLRGrammarGenerator() {
 		super();
 	}
@@ -214,8 +191,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
 		tokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
 		contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		expectedCsStringClassName = context.getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
-		expectedStructuralFeatureClassName = context.getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
 		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 		iCommandClassName = context.getQualifiedClassName(EArtifact.I_COMMAND);
 		iParseResultClassName = context.getQualifiedClassName(EArtifact.I_PARSE_RESULT);
@@ -223,6 +198,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		iExpectedElementClassName = context.getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 		parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
+		followSetProviderClassName = getContext().getQualifiedClassName(EArtifact.FOLLOW_SET_PROVIDER);
 	}
 
 	private void initOptions() {
@@ -299,7 +275,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("@members{");
 		addFields(sc);
 		addMethods(lexerName, parserName, sc);
-		addTerminalConstants(sc);
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -1531,7 +1506,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<Expectation> expectations = computer.computeFollowSet(syntax, definition);
-			addToFollowSetMap(definition, expectations);
+			context.addToFollowSetMap(definition, expectations);
 			String cardinality = csUtil.computeCardinalityString(definition);
 			if (!"".equals(cardinality)) {
 				sc.add("(");
@@ -1569,30 +1544,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return count;
 	}
 
-	private void addToFollowSetMap(Definition definition, Set<Expectation> expectations) {
-		// only terminals are important here
-		if (definition instanceof Placeholder) {
-			GenFeature feature = ((Placeholder) definition).getFeature();
-			if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-				return;
-			}
-			followSetMap.put(getID(definition), expectations);
-		} else if (definition instanceof CsString) {
-			followSetMap.put(getID(definition), expectations);
-		}
-	}
-
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
-			String terminalID = getID(expectedElement);
+			String terminalID = followSetProviderClassName + "." + context.getID(expectedElement);
 			// here the containment trace is used
 			// TODO mseifert: figure out whether this is really needed
 			StringBuilder traceArguments = new StringBuilder();
 			List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 			for (GenFeature genFeature : containmentTrace) {
 				traceArguments.append(", ");
-				traceArguments.append(getFeatureConstantFieldName(genFeature));
+				traceArguments.append(followSetProviderClassName + "." + context.getFeatureConstantFieldName(genFeature));
 			}
 			sc.add("addExpectedElement(new "
 					+ expectedTerminalClassName + 
@@ -1601,124 +1563,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		followSetID++;
 	}
 	
-	// TODO mseifert: put this constants into a separate class
-	private void addTerminalConstants(StringComposite sc) {
-		for (EObject expectedElement : idMap.keySet()) {
-			String terminalID = idMap.get(expectedElement);
-			
-			GenClass genClass = csUtil.findContainingRule(expectedElement).getMetaclass();
-			String eClassConstantAccessor = generatorUtil.getClassAccessor(genClass);
-			if (expectedElement instanceof Placeholder) {
-				Placeholder placeholder = (Placeholder) expectedElement;
-				GenFeature genFeature = placeholder.getFeature();
-				// ignore the anonymous features
-				if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-					continue;
-				}
-
-				String featureConstantAccessor = generatorUtil.getFeatureAccessor(genClass, genFeature);
-				sc.add("private final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedStructuralFeatureClassName + "("
-						+ eClassConstantAccessor + ", " + featureConstantAccessor + ", \"" + placeholder.getToken().getName() + "\");");
-			} else if (expectedElement instanceof CsString) {
-				CsString expectedKeyword = (CsString) expectedElement;
-				String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(expectedKeyword.getValue());
-				sc.add("private final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedCsStringClassName 
-						+ "(" + eClassConstantAccessor + ", \"" + escapedCsString + "\");");
-			} else {
-				throw new RuntimeException("Unknown expected element type: " + expectedElement);
-			}
-		}
-		sc.addLineBreak();
-		
-		// ask for all features to make sure respective fields are generated
-		for (String firstID : followSetMap.keySet()) {
-			for (Expectation expectation : followSetMap.get(firstID)) {
-				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
-				for (GenFeature genFeature : containmentTrace) {
-					getFeatureConstantFieldName(genFeature);
-				}
-			}
-		}
-		
-		// generate fields for all used features
-		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
-			String fieldName = getFeatureConstantFieldName(genFeature);
-			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
-			sc.add("private final static " + E_STRUCTURAL_FEATURE + " " + fieldName + " = " + featureAccessor + ";");
-		}
-		sc.addLineBreak();
-		
-		sc.add("private final static " + E_STRUCTURAL_FEATURE + "[] EMPTY_FEATURE_ARRAY = new " + E_STRUCTURAL_FEATURE + "[0];");
-		sc.addLineBreak();
-		
-		// we need to split the code to wire the terminals with their
-		// followers, because the code does exceed the 64KB limit for
-		// methods if the grammar is big
-		int bytesUsedInCurrentMethod = 0;
-		boolean methodIsFull = true;
-		int i = 0;
-		int numberOfMethods = 0;
-		// create multiple wireX() methods
-		for (String firstID : followSetMap.keySet()) {
-			if (methodIsFull) {
-				sc.add("public static void wire" + numberOfMethods + "() {");
-				numberOfMethods++;
-				methodIsFull = false;
-			}
-			for (Expectation expectation : followSetMap.get(firstID)) {
-				EObject follower = expectation.getExpectedElement();
-				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
-				StringBuilder trace = new StringBuilder();
-				if (containmentTrace.isEmpty()) {
-					trace.append(", EMPTY_FEATURE_ARRAY");
-				} else {
-					trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
-					for (GenFeature genFeature : containmentTrace) {
-						trace.append(getFeatureConstantFieldName(genFeature) + ", ");
-						// another 16 bytes for each access to a constant
-						bytesUsedInCurrentMethod += 16;
-					}
-					trace.append("}");
-				}
-				sc.add(firstID + ".addFollower(" + getID(follower) + trace + ");");
-				// the method call takes 19 bytes
-				bytesUsedInCurrentMethod += 19;
-			}
-			if (bytesUsedInCurrentMethod >= 63 * 1024) {
-				methodIsFull = true;
-				bytesUsedInCurrentMethod = 0;
-			}
-			if (methodIsFull || i == followSetMap.keySet().size() - 1) {
-				sc.add("}");
-			}
-			i++;
-		}
-		// call all wireX() methods from the static constructor
-		sc.add("// wire the terminals");
-		sc.add("static {");
-		for (int c = 0; c < numberOfMethods; c++) {
-			sc.add("wire" + c + "();");
-		}
-		sc.add("}");
-	}
-
-	private String getFeatureConstantFieldName(GenFeature genFeature) {
-		if (!eFeatureToConstantNameMap.keySet().contains(genFeature)) {
-			String featureConstantName = "FEATURE_" + featureCounter;
-			featureCounter++;
-			eFeatureToConstantNameMap.put(genFeature, featureConstantName);
-		}
-		return eFeatureToConstantNameMap.get(genFeature);
-	}
-
-	private String getID(EObject expectedElement) {
-		if (!idMap.containsKey(expectedElement)) {
-			idMap.put(expectedElement, "TERMINAL_" + idCounter);
-			idCounter++;
-		}
-		return idMap.get(expectedElement);
-	}
-
 	private int printCsString(CsString csString, Rule rule, StringComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 		String identifier = "a" + count;

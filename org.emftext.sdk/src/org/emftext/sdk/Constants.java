@@ -24,6 +24,7 @@ public interface Constants {
 
 	public String ROOT_PACKAGE = "";
 	public String CC_PACKAGE = "mopp";
+	public String GRAMMAR_PACKAGE = "grammar";
 	public String UI_PACKAGE = "ui";
 	public String UTIL_PACKAGE = "util";
 	public String MOPP_PACKAGE = "mopp";

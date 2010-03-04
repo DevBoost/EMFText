@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.grammar;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
@@ -17,8 +17,11 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -26,8 +29,11 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.StringUtil;
@@ -38,27 +44,36 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 
+	private static final String FIELDNAME_PREFIX = "ELEMENT_";
+
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private ConcreteSyntax concreteSyntax;
 
-	private int count;
+	private String syntaxElementClassName;
+	private String keywordClassName;
+	private String placeholderClassName;
+	private String cardinalityClassName;
+
+	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public GrammarInformationProviderGenerator() {
 		super();
 	}
 
 	private GrammarInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.GRAMMAR_INFORMATION_PROVIDER_INTERPRETER);
+		super(context, EArtifact.GRAMMAR_INFORMATION_PROVIDER);
 		concreteSyntax = context.getConcreteSyntax();
+		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
+		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
+		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
+		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	@Override
 	public boolean generateJavaContents(StringComposite sc) {
-		count = 0;
-		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -89,9 +104,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInnerClasses(StringComposite sc) {
-		addSyntaxElementClass(sc);
-		addKeywordClass(sc);
-		addPlaceholderClass(sc);
 		addSequenceClass(sc);
 		addChoiceClass(sc);
 		addLineBreakClass(sc);
@@ -101,34 +113,13 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		addRuleClass(sc);
 	}
 
-	private void addSyntaxElementClass(StringComposite sc) {
-		sc.add("public abstract static class SyntaxElement {");
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addKeywordClass(StringComposite sc) {
-		sc.add("public static class Keyword extends SyntaxElement {");
-		sc.addLineBreak();
-		sc.add("private final String value;"); 
-		sc.addLineBreak();
-		sc.add("public Keyword(String value) {"); 
-		sc.add("this.value = value;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public String getValue() {"); 
-		sc.add("return value;"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
 	private void addLineBreakClass(StringComposite sc) {
-		sc.add("public static class LineBreak extends SyntaxElement {");
+		sc.add("public static class LineBreak extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final int tabs;"); 
 		sc.addLineBreak();
-		sc.add("public LineBreak(int tabs) {"); 
+		sc.add("public LineBreak(" + cardinalityClassName + " cardinality, int tabs) {"); 
+		sc.add("super(cardinality, null);"); 
 		sc.add("this.tabs = tabs;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
@@ -140,11 +131,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addWhiteSpacesClass(StringComposite sc) {
-		sc.add("public static class WhiteSpaces extends SyntaxElement {");
+		sc.add("public static class WhiteSpaces extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final int amount;"); 
 		sc.addLineBreak();
-		sc.add("public WhiteSpaces(int amount) {"); 
+		sc.add("public WhiteSpaces(int amount, " + cardinalityClassName + " cardinality) {"); 
+		sc.add("super(cardinality, null);"); 
 		sc.add("this.amount = amount;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
@@ -155,28 +147,13 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPlaceholderClass(StringComposite sc) {
-		sc.add("public static class Placeholder extends SyntaxElement {");
-		sc.addLineBreak();
-		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
-		sc.addLineBreak();
-		sc.add("public Placeholder(" + E_STRUCTURAL_FEATURE + " feature) {"); 
-		sc.add("this.feature = feature;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
-		sc.add("return feature;");
-		sc.add("}"); 
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addContainmentClass(StringComposite sc) {
-		sc.add("public static class Containment extends SyntaxElement {");
+		sc.add("public static class Containment extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
 		sc.addLineBreak();
-		sc.add("public Containment(" + E_STRUCTURAL_FEATURE + " feature) {"); 
+		sc.add("public Containment(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality) {"); 
+		sc.add("super(cardinality, null);"); 
 		sc.add("this.feature = feature;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
@@ -188,46 +165,41 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addChoiceClass(StringComposite sc) {
-		sc.add("public static class Choice extends SyntaxElement {");
+		sc.add("public static class Choice extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final SyntaxElement[] choices;"); 
-		sc.addLineBreak();
-		sc.add("public Choice(SyntaxElement... choices) {"); 
-		sc.add("this.choices = choices;"); 
+		sc.add("public Choice(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... choices) {"); 
+		sc.add("super(cardinality, choices);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("public SyntaxElement[] getChoices() {"); 
-		sc.add("return choices;"); 
+		sc.add("public " + syntaxElementClassName + "[] getChoices() {"); 
+		sc.add("return getChildren();"); 
 		sc.add("}"); 
 		sc.add("}"); 
 		sc.addLineBreak();
 	}
 
 	private void addSequenceClass(StringComposite sc) {
-		sc.add("public static class Sequence extends SyntaxElement {");
+		sc.add("public static class Sequence extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final SyntaxElement[] elements;"); 
-		sc.addLineBreak();
-		sc.add("public Sequence(SyntaxElement... elements) {");
-		sc.add("this.elements = elements;"); 
+		sc.add("public Sequence(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... elements) {");
+		sc.add("super(cardinality, elements);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("public SyntaxElement[] getElements() {"); 
-		sc.add("return elements;"); 
-		sc.add("}"); 
-		sc.add("}"); 
+		sc.add("public " + syntaxElementClassName + "[] getElements() {"); 
+		sc.add("return getChildren();"); 
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRuleClass(StringComposite sc) {
-		sc.add("public static class Rule extends SyntaxElement {");
+		sc.add("public static class Rule extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final " + E_CLASS + " metaclass;"); 
-		sc.add("private final Choice choice;"); 
 		sc.addLineBreak();
-		sc.add("public Rule(" + E_CLASS + " metaclass, Choice choice) {");
+		sc.add("public Rule(" + E_CLASS + " metaclass, Choice choice, " + cardinalityClassName + " cardinality) {");
+		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
 		sc.add("this.metaclass = metaclass;");
-		sc.add("this.choice = choice;");
 		sc.add("}"); 
 		sc.addLineBreak();
 		sc.add("public " + E_CLASS + " getMetaclass() {"); 
@@ -235,23 +207,21 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.add("}"); 
 		sc.addLineBreak();
 		sc.add("public Choice getDefinition() {"); 
-		sc.add("return choice;"); 
+		sc.add("return (Choice) getChildren()[0];"); 
 		sc.add("}"); 
 		sc.add("}"); 
 		sc.addLineBreak();
 	}
 
 	private void addCompoundClass(StringComposite sc) {
-		sc.add("public static class Compound extends SyntaxElement {");
+		sc.add("public static class Compound extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final Choice choice;"); 
-		sc.addLineBreak();
-		sc.add("public Compound(Choice choice) {");
-		sc.add("this.choice = choice;");
+		sc.add("public Compound(Choice choice, " + cardinalityClassName + " cardinality) {");
+		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
 		sc.add("}"); 
 		sc.addLineBreak();
 		sc.add("public Choice getDefinition() {"); 
-		sc.add("return choice;"); 
+		sc.add("return (Choice) getChildren()[0];"); 
 		sc.add("}"); 
 		sc.add("}"); 
 		sc.addLineBreak();
@@ -265,64 +235,83 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	private void addConstant(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule, EObject next) {
 		if (next instanceof CsString) {
 			String value = ((CsString) next).getValue();
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Keyword " + fieldName + " = new Keyword(\"" + StringUtil.escapeToJavaString(value) + "\");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static " + keywordClassName + " " + fieldName + " = new " + keywordClassName + "(\"" + StringUtil.escapeToJavaString(value) + "\", " + getCardinality(next) + ");");
 		} else if (next instanceof Placeholder) {
-			GenFeature feature = ((Placeholder) next).getFeature();
+			Placeholder placeholder = (Placeholder) next;
+			GenFeature feature = placeholder.getFeature();
 			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
 			String featureAccessor = getFeatureAccessor;
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Placeholder " + fieldName + " = new Placeholder(" + featureAccessor + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static " + placeholderClassName + " " + fieldName + " = new " + placeholderClassName + "(" + featureAccessor + ", \"" + StringUtil.escapeToJavaString(placeholder.getToken().getName()) + "\", " + getCardinality(next) + ");");
 		} else if (next instanceof WhiteSpaces) {
 			int amount = ((WhiteSpaces) next).getAmount();
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static WhiteSpaces " + fieldName + " = new WhiteSpaces(" + amount + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static WhiteSpaces " + fieldName + " = new WhiteSpaces(" + amount + ", " + getCardinality(next) + ");");
 		} else if (next instanceof LineBreak) {
 			int amount = ((LineBreak) next).getTab();
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(" + amount + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(" + getCardinality(next) + ", " + amount + ");");
 		} else if (next instanceof Sequence) {
 			Sequence sequence = (Sequence) next;
 			List<String> elements = new ArrayList<String>();
 			List<Definition> parts = sequence.getParts();
 			for (Definition part : parts) {
 				addConstant(sc, objectToFieldNameMap, rule, part);
-				elements.add(getFieldName(objectToFieldNameMap, part));
+				elements.add(getFieldName(part));
 			}
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Sequence " + fieldName + " = new Sequence(" + StringUtil.explode(elements, ", ") + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static Sequence " + fieldName + " = new Sequence(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Choice) {
 			Choice choice = (Choice) next;
 			List<String> elements = new ArrayList<String>();
 			List<Sequence> parts = choice.getOptions();
 			for (Sequence part : parts) {
 				addConstant(sc, objectToFieldNameMap, rule, part);
-				elements.add(getFieldName(objectToFieldNameMap, part));
+				elements.add(getFieldName(part));
 			}
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Choice " + fieldName + " = new Choice(" + StringUtil.explode(elements, ", ") + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static Choice " + fieldName + " = new Choice(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Containment) {
 			Containment containment = (Containment) next;
 			GenFeature feature = containment.getFeature();
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ");");
+			String fieldName = getFieldName(next);
+			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ", " + getCardinality(next) + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
 			Choice choice = compound.getDefinitions();
 			addConstant(sc, objectToFieldNameMap, rule, choice);
-			String choiceFieldName = getFieldName(objectToFieldNameMap, choice);
-			String fieldName = getFieldName(objectToFieldNameMap, next);
-			sc.add("public final static Compound " + fieldName + " = new Compound(" + choiceFieldName + ");");
+			String choiceFieldName = getFieldName(choice);
+			String fieldName = getFieldName(next);
+			sc.add("public final static Compound " + fieldName + " = new Compound(" + choiceFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
-			String definitionFieldName = getFieldName(objectToFieldNameMap, nextAsRule.getDefinition());
+			String definitionFieldName = getFieldName(nextAsRule.getDefinition());
 			String metaClassAccessor = generatorUtil.getClassAccessor(nextAsRule.getMetaclass());
-			String fieldName = getFieldName(objectToFieldNameMap, nextAsRule);
-			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", "+ definitionFieldName + ");");
+			String fieldName = getFieldName(nextAsRule);
+			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
 		} else {
 			assert next instanceof Annotation;
 		}
+	}
+
+	private String getCardinality(EObject next) {
+		String literal = "ONE";
+		if (next instanceof CardinalityDefinition) {
+			CardinalityDefinition cd = (CardinalityDefinition) next;
+			Cardinality cardinality = cd.getCardinality();
+			if (cardinality != null) {
+				if (cardinality instanceof STAR) {
+					literal = "STAR";
+				} else if (cardinality instanceof PLUS) {
+					literal = "PLUS";
+				} else if (cardinality instanceof QUESTIONMARK) {
+					literal = "QUESTIONMARK";
+				}
+			}
+		}
+		return cardinalityClassName + "." + literal;
 	}
 
 	private String getFeatureAccessor(GenClass genClass, GenFeature genFeature) {
@@ -333,15 +322,10 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private String getFieldName(Map<EObject, String> objectToFieldNameMap,
-			EObject object) {
-		if (!objectToFieldNameMap.containsKey(object)) {
-			objectToFieldNameMap.put(object, "ELEMENT_" + count);
-			count++;
-		}
-		return objectToFieldNameMap.get(object);
+	public static String getFieldName(EObject object) {
+		return csUtil.getFieldName(FIELDNAME_PREFIX, object);
 	}
-
+	
 	public IGenerator newInstance(GenerationContext context) {
 		return new GrammarInformationProviderGenerator(context);
 	}

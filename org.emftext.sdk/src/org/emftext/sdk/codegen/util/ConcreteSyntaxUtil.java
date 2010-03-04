@@ -61,6 +61,7 @@ import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EClassUtil;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
+import org.emftext.sdk.util.ToStringConverter;
 
 /**
  * A utility class that provides methods used by the code generators
@@ -517,5 +518,15 @@ public class ConcreteSyntaxUtil {
 
 	public static OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
+	}
+
+	public String getFieldName(String prefix, EObject object) {
+		List<Integer> path = EObjectUtil.getPath(object);
+		return prefix + StringUtil.explode(path, "_", new ToStringConverter<Integer>() {
+
+			public String toString(Integer sourceObject) {
+				return sourceObject.toString();
+			}
+		});
 	}
 }
