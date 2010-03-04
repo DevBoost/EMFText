@@ -1,0 +1,17 @@
+epackage concretesyntax;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass RegexComposite {
+	
+	getRegex() {
+		StringBuilder result = new StringBuilder();
+		for (RegexPart part : getRegexParts()) {
+			result.append(part.getRegex());
+		}
+		return result.toString();
+	}
+}

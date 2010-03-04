@@ -1,0 +1,19 @@
+epackage concretesyntax;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass RegexReference {
+	
+	getRegex() {
+		AbstractTokenDefinition target = getTarget();
+		if (target == null || target.eIsProxy()) {
+			return "";
+		} else {
+			assert target instanceof RegexOwner;
+			return ((RegexOwner) target).getRegex();
+		}
+	}
+}

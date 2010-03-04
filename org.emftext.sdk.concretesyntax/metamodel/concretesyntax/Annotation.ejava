@@ -1,0 +1,14 @@
+epackage concretesyntax;
+
+eclass AtomicRegex {
+	
+	getValue() {
+		for (KeyValuePair parameter : getParameters()) {
+			if (key.equals(parameter.getKey())){
+				String value = parameter.getValue();
+				return value;
+			}
+		}
+		return null;
+	}
+}

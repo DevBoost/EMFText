@@ -1,0 +1,8 @@
+epackage concretesyntax;
+
+eclass Annotation {
+	
+	getRegex() {
+		return getAtomicExpression();
+	}
+}

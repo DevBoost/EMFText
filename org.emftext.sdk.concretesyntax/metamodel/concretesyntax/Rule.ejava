@@ -1,0 +1,40 @@
+epackage concretesyntax;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass Rule {
+	
+	getOperatorAnnotation() {
+		for (Annotation annotation : getAnnotations()) {
+			if (annotation.getType() == AnnotationType.OPERATOR) {
+				return annotation;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the weight of this rule if it is an operator rule.
+	 * If the rule is not an operator rule or the specified weight
+	 * in the operator annotation is not a number, Integer.MIN_VALUE 
+	 * is returned.
+	 */
+	getOperatorWeight() {
+		Annotation operatorAnnotation = this.getOperatorAnnotation();
+		if (operatorAnnotation != null) {
+			String ruleWeightString = operatorAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
+			if (ruleWeightString != null) {
+				try {
+					return Integer.parseInt(ruleWeightString);			
+				} catch (NumberFormatException e) {
+					// ignore exception. invalid numbers are signaled by
+					// returning MIN_VALUE
+				}
+			}
+		}
+		return Integer.MIN_VALUE;
+	}
+}

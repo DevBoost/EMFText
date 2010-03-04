@@ -1,0 +1,46 @@
+epackage concretesyntax;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass PlaceholderInQuotes {
+	
+	getNormalizedPrefix() {
+		String prefix = getPrefix();
+		if (prefix == null) return prefix;
+		if (prefix.length() == 0) return null;
+		return prefix;
+	}
+
+	getNormalizedSuffix() {
+		String suffix = getSuffix();
+		if (suffix == null) return suffix;
+		if (suffix.length() == 0) return null;
+		return suffix;
+	}
+
+	getNormalizedEscapeCharacter() {
+		String escapeCharacter = getEscapeCharacter();
+		if (escapeCharacter == null) return escapeCharacter;
+		if (escapeCharacter.length() == 0) return null;
+		return escapeCharacter;
+	}
+
+	toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer();
+		GenFeature feature = getFeature();
+		if (feature != null && feature.getEcoreFeature() != null) {
+			result.append(feature.getName());
+		}
+		result.append("['");
+		result.append(prefix);
+		result.append("', '");
+		result.append(suffix);
+		result.append("']");
+		return result.toString();
+	}
+}

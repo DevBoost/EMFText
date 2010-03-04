@@ -1,0 +1,16 @@
+epackage concretesyntax;
+
+eclass CompleteTokenDefinition {
+	
+	isHidden() {
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return !isReferenced || isCollectInToken;
+	}
+
+	isUsed() {
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return isReferenced || isCollectInToken;
+	}
+}

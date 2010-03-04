@@ -1,0 +1,157 @@
+epackage concretesyntax;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
+import concretesyntax.Annotation;
+import concretesyntax.Import;
+
+eclass ConcreteSyntax {
+	
+	getActiveStartSymbols() {
+		EList<GenClass> symbols = new BasicEList<GenClass>();
+		symbols.addAll(getStartSymbols());
+		if (symbols.size() > 0) {
+			return symbols;
+		}
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				symbols.addAll(importedSyntax.getActiveStartSymbols());
+			}
+		}
+		return symbols;
+	}
+
+	getAllStartSymbols() {
+		EList<GenClass> symbols = new BasicEList<GenClass>();
+		symbols.addAll(getStartSymbols());
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				symbols.addAll(importedSyntax.getAllStartSymbols());
+			}
+		}
+		return symbols;
+	}
+
+	getAllRules() {
+		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
+		EList<Rule> l = new BasicEList<Rule>(getRules().size());
+		for (Rule rule : getRules()) {
+			// don't add rules that are @override rules with remove=true
+			if (!isOverrideRemoveRule(rule)) {
+				l.add(rule);
+			}
+		}
+		for (Import aImport : getImports()) {
+			ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+			if (importedCS != null) {
+				outer: for (Rule importedRule : importedCS.getAllRules()) {
+					for (Rule rule : getRules()) {
+						// don't add rules that have @override rules for same
+						// meta-class
+						if (isOverrideRule(rule, importedRule.getMetaclass())) {
+							continue outer;
+						}
+					}
+					l.add(importedRule);
+				}
+			}
+		}
+		return new EcoreEList.UnmodifiableEList<Rule>(this, eFeature, l.size(),
+				l.toArray());
+	}
+
+	getOperatorRules() {
+		if (operatorRules == null) {
+			initialiseAnnotatedOperatorRules();	
+		}
+		return operatorRules;
+	}
+
+	getOperatorRuleSubsets() {
+		if (operatorRuleSubsets == null) {
+			initialiseAnnotatedOperatorRules();
+		}
+		return operatorRuleSubsets;
+	}
+
+	initialiseAnnotatedOperatorRules() {
+		operatorRules = new EObjectEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES);
+		operatorRuleSubsets = new EDataTypeUniqueEList<String>(String.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS);
+		for (Rule rule : getAllRules()) {
+			Annotation operatorAnnotation = rule.getOperatorAnnotation();
+			if (operatorAnnotation != null) {
+				boolean added = false;
+				for (ListIterator<Rule> it = operatorRules.listIterator(); it.hasNext();) {
+					Rule expressionRule = it.next(); 
+					if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {
+						operatorRules.add(it.previousIndex(), rule);
+						added = true;
+						break;
+					}			
+				}
+				if (!added) {
+					operatorRules.add(rule);
+				}
+				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+				this.operatorRuleSubsets.add(identifier);
+			}
+		}
+	}
+	
+	getOperatorRuleSubset() {
+		EList<Rule> subset = new BasicEList<Rule>();
+		if (identifier == null) {
+			return subset;
+		}
+		for (Rule rule : getOperatorRules()) {
+			Annotation annotation = rule.getOperatorAnnotation();
+			String value = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+			if (identifier.equals(value)) {
+				subset.add(rule);
+			}
+		}
+		return subset;
+	}
+
+	isOverrideRemoveRule() {
+		// TODO mseifert: use constant here
+		return hasAnnotation(rule, AnnotationType.OVERRIDE, "remove", "true");
+	}
+
+	isOverrideRule() {
+		// TODO figure out why 'metaClass == null' is needed
+		if (metaClass == null || rule.getMetaclass() == metaClass) {
+			if (hasAnnotation(rule, AnnotationType.OVERRIDE, null, null)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	hasAnnotation() {
+		for (Annotation annotation : rule.getAnnotations()) {
+			if (annotation.getType() == type) {
+				if (key != null) {
+					for (KeyValuePair parameter : annotation.getParameters()) {
+						if (key.equals(parameter.getKey())
+								&& parameter.getValue().equals(value)) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+}
