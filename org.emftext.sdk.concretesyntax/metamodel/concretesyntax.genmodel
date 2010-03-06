@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="TESTCOPYRIGHT"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2006-2010 &#xD;&#xA;Software Technology Group, Dresden University of Technology&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0 &#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;Software Technology Group - TU Dresden, Germany &#xD;&#xA;      - initial API and implementation&#xD;&#xA;"
     modelDirectory="/org.emftext.sdk.concretesyntax/src-gen" editDirectory="/org.emftext.sdk.concretesyntax.edit/src-gen"
     editorDirectory="/org.emftext.sdk.concretesyntax.editor/src" modelPluginID="org.emftext.sdk.concretesyntax"
     modelName="Concretesyntax" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
@@ -209,9 +209,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/modifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/startSymbols"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/activeStartSymbols"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/activeTokens"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allStartSymbols"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/imports"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/options"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokens"/>
@@ -220,11 +218,30 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenStyles"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenDirectives"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/rules"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allRules"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/operatorRules"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/operatorRuleSubsets"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_operatorRules"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRuleSubsets"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRulesInitialized"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/rule"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/type"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/key"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getActiveStartSymbols"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllStartSymbols"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllRules"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRules"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/initialiseAnnotatedOperatorRules"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubsets"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isOverrideRemoveRule">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRemoveRule/rule"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/rule"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/metaClass"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
@@ -269,35 +286,49 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CompoundDefinition/definitions"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//TokenDirective"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//RegexComposer">
+      <genOperations ecoreOperation="concretesyntax.ecore#//RegexComposer/getComposedRegex">
+        <genParameters ecoreParameter="concretesyntax.ecore#//RegexComposer/getComposedRegex/token"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//RegexComposer/getComposedRegex/visitedTokens"/>
+      </genOperations>
+    </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//RegexOwner">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//RegexOwner/regex"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//RegexPart"/>
     <genClasses ecoreClass="concretesyntax.ecore#//RegexComposite">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//RegexComposite/regexParts"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//RegexComposite/getRegex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//AtomicRegex">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//AtomicRegex/atomicExpression"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//AtomicRegex/getRegex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//RegexReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//RegexReference/target"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//RegexReference/getRegex"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//AbstractTokenDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//AbstractTokenDefinition/name"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//PartialTokenDefinition"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//PartialTokenDefinition">
+      <genOperations ecoreOperation="concretesyntax.ecore#//PartialTokenDefinition/getRegex"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//CompleteTokenDefinition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CompleteTokenDefinition/attributeReferences"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/attributeName"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/hidden"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/used"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isHidden"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isUsed"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//NormalTokenDefinition"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//NormalTokenDefinition">
+      <genOperations ecoreOperation="concretesyntax.ecore#//NormalTokenDefinition/getRegex"/>
+    </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//QuotedTokenDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/prefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/suffix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/escapeCharacter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/synthesizedRegex"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//QuotedTokenDefinition/getRegex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//TokenPriorityDirective">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//TokenPriorityDirective/token"/>
@@ -317,6 +348,7 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedPrefix"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedSuffix"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedEscapeCharacter"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/toString"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Option">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/type"/>

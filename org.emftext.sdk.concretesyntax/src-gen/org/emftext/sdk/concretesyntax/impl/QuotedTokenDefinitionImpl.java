@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,20 +8,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Quoted Token</b></em>'.
+ * An implementation of the model object '<em><b>Quoted Token Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -224,6 +230,16 @@ public class QuotedTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getRegex() {
+		return getSynthesizedRegex ( ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -329,14 +345,4 @@ public class QuotedTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 		return result.toString();
 	}
 
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public String getRegex() {
-		return getSynthesizedRegex();
-	}
-} //QuotedTokenImpl
+} //QuotedTokenDefinitionImpl

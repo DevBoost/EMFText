@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,19 +8,24 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-
 
 /**
  * <!-- begin-user-doc -->

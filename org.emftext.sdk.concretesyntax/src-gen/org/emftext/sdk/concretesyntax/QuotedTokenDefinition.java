@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,15 +8,18 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Quoted Token</b></em>'.
+ * A representation of the model object '<em><b>Quoted Token Definition</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
@@ -140,4 +143,16 @@ public interface QuotedTokenDefinition extends CompleteTokenDefinition {
 	 */
 	void setSynthesizedRegex(String value);
 
-} // QuotedToken
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return getSynthesizedRegex ( ) ; \r\n'"
+	 * @generated
+	 */
+	String getRegex();
+
+} // QuotedTokenDefinition

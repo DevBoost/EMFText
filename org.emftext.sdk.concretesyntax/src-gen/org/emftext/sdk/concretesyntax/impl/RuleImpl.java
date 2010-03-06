@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,26 +8,31 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.Rule;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -209,40 +214,38 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public Annotation getOperatorAnnotation() {
-		for (Annotation annotation : getAnnotations()) {
-			if (annotation.getType() == AnnotationType.OPERATOR) {
-				return annotation;
-			}
-		}
-		return null;
+		for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { 
+			if ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { 
+				return annotation ; 
+			} 
+		} 
+		return null ; 
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Returns the weight of this rule if it is an operator rule.
-	 * If the rule is not an operator rule or the specified weight
-	 * in the operator annotation is not a number, Integer.MIN_VALUE 
-	 * is returned.
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public int getOperatorWeight() {
-		Annotation operatorAnnotation = this.getOperatorAnnotation();
-		if (operatorAnnotation != null) {
-			String ruleWeightString = operatorAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
-			if (ruleWeightString != null) {
-				try {
-					return Integer.parseInt(ruleWeightString);			
-				} catch (NumberFormatException e) {
-					// ignore exception. invalid numbers are signaled by
-					// returning MIN_VALUE
-				}
-			}
-		}
-		return Integer.MIN_VALUE;
+		org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; 
+		if ( operatorAnnotation != null ) { 
+			java.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; 
+			if ( ruleWeightString != null ) { 
+				try { 
+					return java.lang.Integer .parseInt ( ruleWeightString ) ; 
+				} // ignore exception. invalid numbers are signaled by
+		// returning MIN_VALUE
+		catch ( java.lang.NumberFormatException e ) { 
+				} 
+			} 
+		} 
+		return java.lang.Integer .MIN_VALUE ; 
+		
 	}
 
 	/**

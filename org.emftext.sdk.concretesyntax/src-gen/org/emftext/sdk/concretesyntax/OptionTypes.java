@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 import java.util.Arrays;
@@ -21,8 +24,8 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * An enumeration of all options that are available to parameterize
- * the code generation process.
+ * A representation of the literals of the enumeration '<em><b>Option Types</b></em>',
+ * and utility methods for working with them.
  * <!-- end-user-doc -->
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getOptionTypes()
  * @model
@@ -32,9 +35,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, EMFText generate a UI action that 
-	 * can be used to test parsing and printing of files containing 
-	 * textual syntax. The default value of this option is <code>false</code>.
 	 * <!-- end-user-doc -->
 	 * @see #GENERATE_TEST_ACTION_VALUE
 	 * @generated
@@ -45,9 +45,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>GENERATE CODE FROM GENERATOR MODEL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, EMFText automatically generates the
-	 * model code using the generator model referenced in the CS specification.
-	 * The default value of this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #GENERATE_CODE_FROM_GENERATOR_MODEL_VALUE
 	 * @generated
@@ -58,8 +55,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE PLUGIN XML</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the plugin.xml file will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PLUGIN_XML_VALUE
 	 * @generated
@@ -70,8 +65,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE MANIFEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the manifest of the generated plug-in will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_MANIFEST_VALUE
 	 * @generated
@@ -87,11 +80,11 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PARSER(5, "OVERRIDE_PARSER", "overrideParser"), /**
+	OVERRIDE_PARSER(5, "OVERRIDE_PARSER", "overrideParser"),
+
+	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the token resolver classes will be overridden during code
-	 * generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVERS_VALUE
 	 * @generated
@@ -102,8 +95,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE REFERENCE RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the reference resolver classes will be overridden during code
-	 * generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVERS_VALUE
 	 * @generated
@@ -114,8 +105,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE REFERENCE RESOLVER SWITCH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the reference resolver switch will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVER_SWITCH_VALUE
 	 * @generated
@@ -126,8 +115,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVER FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the token resolver factory class will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVER_FACTORY_VALUE
 	 * @generated
@@ -138,8 +125,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE PRINTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the printer will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PRINTER_VALUE
 	 * @generated
@@ -150,8 +135,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>ANTLR BACKTRACKING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the Antlr-backtracking is activated for
-	 * parser generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #ANTLR_BACKTRACKING_VALUE
 	 * @generated
@@ -162,8 +145,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>ANTLR MEMOIZE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the Antlr-memoize is activated for
-	 * parser generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #ANTLR_MEMOIZE_VALUE
 	 * @generated
@@ -174,9 +155,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>AUTOFIX SIMPLE LEFTRECURSION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, EMFText will try to resolve rules that
-	 * contain simple left recursion. The default value for this option
-	 * is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #AUTOFIX_SIMPLE_LEFTRECURSION_VALUE
 	 * @generated
@@ -187,9 +165,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>FORCE EOF</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, EMFText will generate a parser that expects
-	 * an EOF signal at the end of the input stream. The default value for this option
-	 * is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #FORCE_EOF_VALUE
 	 * @generated
@@ -200,10 +175,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>DEFAULT TOKEN NAME</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * This option can be used to specify the name of the token that is used for
-	 * non-containment references. A declaration like <code>featureX[]</code> in
-	 * a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the
-	 * value of this option is <code>TOKEN_Y</code>.
 	 * <!-- end-user-doc -->
 	 * @see #DEFAULT_TOKEN_NAME_VALUE
 	 * @generated
@@ -214,9 +185,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>USE PREDEFINED TOKENS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, EMFText does not automatically provide 
-	 * predefined tokens (TEXT, WS, ...). The default value of this option is
-	 * <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #USE_PREDEFINED_TOKENS_VALUE
 	 * @generated
@@ -227,9 +195,6 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>TOKENSPACE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * The (numerical) value of this option defined how many whitespace should 
-	 * be printed between tokens if no whitespace information is given in CS
-	 * rules. The default value for this option is 0.
 	 * <!-- end-user-doc -->
 	 * @see #TOKENSPACE_VALUE
 	 * @generated
@@ -240,126 +205,114 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>RELOAD GENERATOR MODEL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, EMFText reloads the generator model
-	 * before loading it. This is particular useful, when the meta model
-	 * (i.e., the Ecore file) is changing a lot during language development.
-	 * The default value of this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #RELOAD_GENERATOR_MODEL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel"), 
-	
+	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel"),
+
 	/**
 	 * The '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the .classpath file will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_CLASSPATH_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DOT_CLASSPATH(20, "OVERRIDE_DOT_CLASSPATH", "overrideClasspath"), 
-	
+	OVERRIDE_DOT_CLASSPATH(20, "OVERRIDE_DOT_CLASSPATH", "overrideClasspath"),
+
 	/**
 	 * The '<em><b>OVERRIDE DOT PROJECT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the .project file will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_PROJECT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DOT_PROJECT(21, "OVERRIDE_DOT_PROJECT", "overrideProjectFile"), 
-	
+	OVERRIDE_DOT_PROJECT(21, "OVERRIDE_DOT_PROJECT", "overrideProjectFile"),
+
 	/**
 	 * The '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the text resource class will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TEXT_RESOURCE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_RESOURCE(22, "OVERRIDE_TEXT_RESOURCE", "overrideTextResource"), 
-	
+	OVERRIDE_TEXT_RESOURCE(22, "OVERRIDE_TEXT_RESOURCE", "overrideTextResource"),
+
 	/**
 	 * The '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the resource factory class will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_RESOURCE_FACTORY_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_FACTORY(23, "OVERRIDE_RESOURCE_FACTORY", "overrideResourceFactory"), 
-	
+	OVERRIDE_RESOURCE_FACTORY(23, "OVERRIDE_RESOURCE_FACTORY", "overrideResourceFactory"),
+
 	/**
 	 * The '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the new file wizard class will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_NEW_FILE_WIZARD_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_WIZARD(24, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard"), /**
+	OVERRIDE_NEW_FILE_WIZARD(24, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard"),
+
+	/**
 	 * The '<em><b>PARSER GENERATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * The name of the parser generator to use. The default value for this
-	 * option is ANTLR.
 	 * <!-- end-user-doc -->
 	 * @see #PARSER_GENERATOR_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	PARSER_GENERATOR(25, "PARSER_GENERATOR", "parserGenerator"), /**
+	PARSER_GENERATOR(25, "PARSER_GENERATOR", "parserGenerator"),
+
+	/**
 	 * The '<em><b>SOURCE FOLDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * The name of the folder EMFText shall store the generated classes in.
-	 * The default value for this option is 'src'.
 	 * <!-- end-user-doc -->
 	 * @see #SOURCE_FOLDER_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	SOURCE_FOLDER(26, "SOURCE_FOLDER", "srcFolder"), /**
+	SOURCE_FOLDER(26, "SOURCE_FOLDER", "srcFolder"),
+
+	/**
 	 * The '<em><b>BASE PACKAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * The name of the base package EMFText shall store the generated 
-	 * classes in.
 	 * <!-- end-user-doc -->
 	 * @see #BASE_PACKAGE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	BASE_PACKAGE(27, "BASE_PACKAGE", "basePackage"), /**
+	BASE_PACKAGE(27, "BASE_PACKAGE", "basePackage"),
+
+	/**
 	 * The '<em><b>RESOURCE PLUGIN ID</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * The ID of the generated resource plug-in. The resource 
-	 * plug-in is stored in a folder that is equal to this ID.
 	 * <!-- end-user-doc -->
 	 * @see #RESOURCE_PLUGIN_ID_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID"), /**
+	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID"),
+
+	/**
 	 * The '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the build.properties file will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_BUILD_PROPERTIES_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties"), /**
+	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties"),
+
+	/**
 	 * The '<em><b>OVERRIDE META INFORMATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -367,17 +320,19 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_META_INFORMATION(30, "OVERRIDE_META_INFORMATION", "overrideMetaInformation"), /**
+	OVERRIDE_META_INFORMATION(30, "OVERRIDE_META_INFORMATION", "overrideMetaInformation"),
+
+	/**
 	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the default resolver class will be overridden 
-	 * during code generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEFAULT_RESOLVER_DELEGATE(31, "OVERRIDE_DEFAULT_RESOLVER_DELEGATE", "overrideDefaultResolverDelegate"), /**
+	OVERRIDE_DEFAULT_RESOLVER_DELEGATE(31, "OVERRIDE_DEFAULT_RESOLVER_DELEGATE", "overrideDefaultResolverDelegate"),
+
+	/**
 	 * The '<em><b>OVERRIDE PROBLEM CLASS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -385,7 +340,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PROBLEM_CLASS(32, "OVERRIDE_PROBLEM_CLASS", "overrideProblemClass"), /**
+	OVERRIDE_PROBLEM_CLASS(32, "OVERRIDE_PROBLEM_CLASS", "overrideProblemClass"),
+
+	/**
 	 * The '<em><b>OVERRIDE SCANNER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -393,7 +350,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SCANNER(33, "OVERRIDE_SCANNER", "overrideScanner"), /**
+	OVERRIDE_SCANNER(33, "OVERRIDE_SCANNER", "overrideScanner"),
+
+	/**
 	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -401,7 +360,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT(34, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideContextDependentURIFragment"), /**
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT(34, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideContextDependentURIFragment"),
+
+	/**
 	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -409,7 +370,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(35, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideContextDependentURIFragmentFactory"), /**
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(35, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideContextDependentURIFragmentFactory"),
+
+	/**
 	 * The '<em><b>OVERRIDE DELEGATING RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -417,7 +380,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DELEGATING_RESOLVE_RESULT(36, "OVERRIDE_DELEGATING_RESOLVE_RESULT", "overrideDelegatingResolveResult"), /**
+	OVERRIDE_DELEGATING_RESOLVE_RESULT(36, "OVERRIDE_DELEGATING_RESOLVE_RESULT", "overrideDelegatingResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE DUMMY EOBJECT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -425,7 +390,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DUMMY_EOBJECT(37, "OVERRIDE_DUMMY_E_OBJECT", "overrideDummyEObject"), /**
+	OVERRIDE_DUMMY_EOBJECT(37, "OVERRIDE_DUMMY_E_OBJECT", "overrideDummyEObject"),
+
+	/**
 	 * The '<em><b>OVERRIDE ELEMENT MAPPING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -433,7 +400,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ELEMENT_MAPPING(38, "OVERRIDE_ELEMENT_MAPPING", "overrideElementMapping"), /**
+	OVERRIDE_ELEMENT_MAPPING(38, "OVERRIDE_ELEMENT_MAPPING", "overrideElementMapping"),
+
+	/**
 	 * The '<em><b>OVERRIDE FUZZY RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -441,7 +410,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_FUZZY_RESOLVE_RESULT(39, "OVERRIDE_FUZZY_RESOLVE_RESULT", "overrideFuzzyResolveResult"), /**
+	OVERRIDE_FUZZY_RESOLVE_RESULT(39, "OVERRIDE_FUZZY_RESOLVE_RESULT", "overrideFuzzyResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE DEFAULT TOKEN RESOLVER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -449,7 +420,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEFAULT_TOKEN_RESOLVER(40, "OVERRIDE_DEFAULT_TOKEN_RESOLVER", "overrideDefaultTokenResolver"), /**
+	OVERRIDE_DEFAULT_TOKEN_RESOLVER(40, "OVERRIDE_DEFAULT_TOKEN_RESOLVER", "overrideDefaultTokenResolver"),
+
+	/**
 	 * The '<em><b>OVERRIDE LOCATION MAP</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -457,7 +430,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LOCATION_MAP(41, "OVERRIDE_LOCATION_MAP", "overrideLocationMap"), /**
+	OVERRIDE_LOCATION_MAP(41, "OVERRIDE_LOCATION_MAP", "overrideLocationMap"),
+
+	/**
 	 * The '<em><b>OVERRIDE REFERENCE RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -465,7 +440,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_REFERENCE_RESOLVE_RESULT(42, "OVERRIDE_REFERENCE_RESOLVE_RESULT", "overrideReferenceResolveResult"), /**
+	OVERRIDE_REFERENCE_RESOLVE_RESULT(42, "OVERRIDE_REFERENCE_RESOLVE_RESULT", "overrideReferenceResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -473,7 +450,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TOKEN_RESOLVE_RESULT(43, "OVERRIDE_TOKEN_RESOLVE_RESULT", "overrideTokenResolveResult"), /**
+	OVERRIDE_TOKEN_RESOLVE_RESULT(43, "OVERRIDE_TOKEN_RESOLVE_RESULT", "overrideTokenResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE URI MAPPING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -481,7 +460,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_URI_MAPPING(45, "OVERRIDE_URI_MAPPING", "overrideURIMapping"), /**
+	OVERRIDE_URI_MAPPING(45, "OVERRIDE_URI_MAPPING", "overrideURIMapping"),
+
+	/**
 	 * The '<em><b>OVERRIDE HOVER TEXT PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -489,7 +470,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_HOVER_TEXT_PROVIDER(46, "OVERRIDE_HOVER_TEXT_PROVIDER", "overrideHoverTextProvider"), /**
+	OVERRIDE_HOVER_TEXT_PROVIDER(46, "OVERRIDE_HOVER_TEXT_PROVIDER", "overrideHoverTextProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE PARSE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -497,7 +480,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PARSE_RESULT(47, "OVERRIDE_PARSE_RESULT", "overrideParseResult"), /**
+	OVERRIDE_PARSE_RESULT(47, "OVERRIDE_PARSE_RESULT", "overrideParseResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE ANTLR TOKEN HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -505,7 +490,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ANTLR_TOKEN_HELPER(48, "OVERRIDE_ANTLR_TOKEN_HELPER", "overrideAntlrTokenHelper"), /**
+	OVERRIDE_ANTLR_TOKEN_HELPER(48, "OVERRIDE_ANTLR_TOKEN_HELPER", "overrideAntlrTokenHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE BRACKET SET</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -513,7 +500,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BRACKET_SET(49, "OVERRIDE_BRACKET_SET", "overrideBracketSet"), /**
+	OVERRIDE_BRACKET_SET(49, "OVERRIDE_BRACKET_SET", "overrideBracketSet"),
+
+	/**
 	 * The '<em><b>OVERRIDE BROWSER INFORMATION CONTROL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -521,7 +510,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BROWSER_INFORMATION_CONTROL(50, "OVERRIDE_BROWSER_INFORMATION_CONTROL", "overrideBrowserInformationControl"), /**
+	OVERRIDE_BROWSER_INFORMATION_CONTROL(50, "OVERRIDE_BROWSER_INFORMATION_CONTROL", "overrideBrowserInformationControl"),
+
+	/**
 	 * The '<em><b>OVERRIDE CODE FOLDING MANAGER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -529,7 +520,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CODE_FOLDING_MANAGER(51, "OVERRIDE_CODE_FOLDING_MANAGER", "overrideCodeFoldingManager"), /**
+	OVERRIDE_CODE_FOLDING_MANAGER(51, "OVERRIDE_CODE_FOLDING_MANAGER", "overrideCodeFoldingManager"),
+
+	/**
 	 * The '<em><b>OVERRIDE COLOR MANAGER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -537,7 +530,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COLOR_MANAGER(52, "OVERRIDE_COLOR_MANAGER", "overrideColorManager"), /**
+	OVERRIDE_COLOR_MANAGER(52, "OVERRIDE_COLOR_MANAGER", "overrideColorManager"),
+
+	/**
 	 * The '<em><b>OVERRIDE COMPLETION PROCESSOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -545,7 +540,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COMPLETION_PROCESSOR(53, "OVERRIDE_COMPLETION_PROCESSOR", "overrideCompletionProcessor"), /**
+	OVERRIDE_COMPLETION_PROCESSOR(53, "OVERRIDE_COMPLETION_PROCESSOR", "overrideCompletionProcessor"),
+
+	/**
 	 * The '<em><b>OVERRIDE PARSING STRATEGY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -553,7 +550,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PARSING_STRATEGY(54, "OVERRIDE_PARSING_STRATEGY", "overrideParsingStrategy"), /**
+	OVERRIDE_PARSING_STRATEGY(54, "OVERRIDE_PARSING_STRATEGY", "overrideParsingStrategy"),
+
+	/**
 	 * The '<em><b>OVERRIDE DOC BROWSER INFORMATION CONTROL INPUT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -561,7 +560,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT(55, "OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT", "overrideDocBrowserInformationControlInput"), /**
+	OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT(55, "OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT", "overrideDocBrowserInformationControlInput"),
+
+	/**
 	 * The '<em><b>OVERRIDE EDITOR CONFIGURATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -569,7 +570,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EDITOR_CONFIGURATION(55, "OVERRIDE_EDITOR_CONFIGURATION", "overrideEditorConfiguration"), /**
+	OVERRIDE_EDITOR_CONFIGURATION(55, "OVERRIDE_EDITOR_CONFIGURATION", "overrideEditorConfiguration"),
+
+	/**
 	 * The '<em><b>OVERRIDE EDITOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -577,7 +580,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EDITOR(56, "OVERRIDE_EDITOR", "overrideEditor"), /**
+	OVERRIDE_EDITOR(56, "OVERRIDE_EDITOR", "overrideEditor"),
+
+	/**
 	 * The '<em><b>OVERRIDE EOBJECT SELECTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -585,7 +590,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EOBJECT_SELECTION(57, "OVERRIDE_E_OBJECT_SELECTION", "overrideEObjectSelection"), /**
+	OVERRIDE_EOBJECT_SELECTION(57, "OVERRIDE_E_OBJECT_SELECTION", "overrideEObjectSelection"),
+
+	/**
 	 * The '<em><b>OVERRIDE HIGHLIGHTING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -593,7 +600,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_HIGHLIGHTING(58, "OVERRIDE_HIGHLIGHTING", "overrideHighlighting"), /**
+	OVERRIDE_HIGHLIGHTING(58, "OVERRIDE_HIGHLIGHTING", "overrideHighlighting"),
+
+	/**
 	 * The '<em><b>OVERRIDE HTML PRINTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -601,7 +610,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_HTML_PRINTER(59, "OVERRIDE_HTML_PRINTER", "overrideHTMLPrinter"), /**
+	OVERRIDE_HTML_PRINTER(59, "OVERRIDE_HTML_PRINTER", "overrideHTMLPrinter"),
+
+	/**
 	 * The '<em><b>OVERRIDE HYPERLINK</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -609,7 +620,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_HYPERLINK(60, "OVERRIDE_HYPERLINK", "overrideHyperlink"), /**
+	OVERRIDE_HYPERLINK(60, "OVERRIDE_HYPERLINK", "overrideHyperlink"),
+
+	/**
 	 * The '<em><b>OVERRIDE HYPERLINK DETECTOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -617,7 +630,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_HYPERLINK_DETECTOR(61, "OVERRIDE_HYPERLINK_DETECTOR", "overrideHyperlinkDetector"), /**
+	OVERRIDE_HYPERLINK_DETECTOR(61, "OVERRIDE_HYPERLINK_DETECTOR", "overrideHyperlinkDetector"),
+
+	/**
 	 * The '<em><b>OVERRIDE MARKER HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -625,7 +640,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_MARKER_HELPER(62, "OVERRIDE_MARKER_HELPER", "overrideMarkerHelper"), /**
+	OVERRIDE_MARKER_HELPER(62, "OVERRIDE_MARKER_HELPER", "overrideMarkerHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE OCCURENCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -633,7 +650,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OCCURENCE(63, "OVERRIDE_OCCURENCE", "overrideOccurrence"), /**
+	OVERRIDE_OCCURENCE(63, "OVERRIDE_OCCURENCE", "overrideOccurrence"),
+
+	/**
 	 * The '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -641,7 +660,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OUTLINE_PAGE(64, "OVERRIDE_OUTLINE_PAGE", "overrideOutlinePage"), /**
+	OVERRIDE_OUTLINE_PAGE(64, "OVERRIDE_OUTLINE_PAGE", "overrideOutlinePage"),
+
+	/**
 	 * The '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -649,7 +670,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER(65, "OVERRIDE_OUTLINE_PAGE_TREE_VIEWER", "overrideOutlinePageTreeViewer"), /**
+	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER(65, "OVERRIDE_OUTLINE_PAGE_TREE_VIEWER", "overrideOutlinePageTreeViewer"),
+
+	/**
 	 * The '<em><b>OVERRIDE PLUGIN ACTIVATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -657,7 +680,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PLUGIN_ACTIVATOR(66, "OVERRIDE_PLUGIN_ACTIVATOR", "overridePluginActivator"), /**
+	OVERRIDE_PLUGIN_ACTIVATOR(66, "OVERRIDE_PLUGIN_ACTIVATOR", "overridePluginActivator"),
+
+	/**
 	 * The '<em><b>OVERRIDE POSITION CATEGORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -665,7 +690,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_POSITION_CATEGORY(67, "OVERRIDE_POSITION_CATEGORY", "overridePositionCategory"), /**
+	OVERRIDE_POSITION_CATEGORY(67, "OVERRIDE_POSITION_CATEGORY", "overridePositionCategory"),
+
+	/**
 	 * The '<em><b>OVERRIDE POSITION HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -673,7 +700,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_POSITION_HELPER(68, "OVERRIDE_POSITION_HELPER", "overridePositionHelper"), /**
+	OVERRIDE_POSITION_HELPER(68, "OVERRIDE_POSITION_HELPER", "overridePositionHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE PROPERTY SHEET PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -681,7 +710,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PROPERTY_SHEET_PAGE(69, "OVERRIDE_PROPERTY_SHEET_PAGE", "overridePropertySheetPage"), /**
+	OVERRIDE_PROPERTY_SHEET_PAGE(69, "OVERRIDE_PROPERTY_SHEET_PAGE", "overridePropertySheetPage"),
+
+	/**
 	 * The '<em><b>OVERRIDE TEXT HOVER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -689,7 +720,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_HOVER(70, "OVERRIDE_TEXT_HOVER", "overrideTextHover"), /**
+	OVERRIDE_TEXT_HOVER(70, "OVERRIDE_TEXT_HOVER", "overrideTextHover"),
+
+	/**
 	 * The '<em><b>OVERRIDE TOKEN SCANNER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -697,7 +730,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TOKEN_SCANNER(71, "OVERRIDE_TOKEN_SCANNER", "overrideTokenScanner"), /**
+	OVERRIDE_TOKEN_SCANNER(71, "OVERRIDE_TOKEN_SCANNER", "overrideTokenScanner"),
+
+	/**
 	 * The '<em><b>OVERRIDE BRACKET PREFERENCE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -705,7 +740,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BRACKET_PREFERENCE_PAGE(72, "OVERRIDE_BRACKET_PREFERENCE_PAGE", "overrideBracketPreferencePage"), /**
+	OVERRIDE_BRACKET_PREFERENCE_PAGE(72, "OVERRIDE_BRACKET_PREFERENCE_PAGE", "overrideBracketPreferencePage"),
+
+	/**
 	 * The '<em><b>OVERRIDE PREFERENCE CONSTANTS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -713,7 +750,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants"), /**
+	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants"),
+
+	/**
 	 * The '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -721,7 +760,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overrideOccurencePreferencePage"), /**
+	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overrideOccurencePreferencePage"),
+
+	/**
 	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -729,7 +770,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PIXEL_CONVERTER(75, "OVERRIDE_PIXEL_CONVERTER", "overridePixelConverter"), /**
+	OVERRIDE_PIXEL_CONVERTER(75, "OVERRIDE_PIXEL_CONVERTER", "overridePixelConverter"),
+
+	/**
 	 * The '<em><b>OVERRIDE PREFERENCE INITIALIZER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -737,7 +780,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PREFERENCE_INITIALIZER(76, "OVERRIDE_PREFERENCE_INITIALIZER", "overridePreferenceInitializer"), /**
+	OVERRIDE_PREFERENCE_INITIALIZER(76, "OVERRIDE_PREFERENCE_INITIALIZER", "overridePreferenceInitializer"),
+
+	/**
 	 * The '<em><b>OVERRIDE SYNTAX COLORING HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -745,7 +790,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_COLORING_HELPER(77, "OVERRIDE_SYNTAX_COLORING_HELPER", "overrideSyntaxColoringHelper"), /**
+	OVERRIDE_SYNTAX_COLORING_HELPER(77, "OVERRIDE_SYNTAX_COLORING_HELPER", "overrideSyntaxColoringHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE SYNTAX COLORING PREFERENCE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -753,7 +800,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE(78, "OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE", "overrideSyntaxColoringPreferencePage"), /**
+	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE(78, "OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE", "overrideSyntaxColoringPreferencePage"),
+
+	/**
 	 * The '<em><b>OVERRIDE IINPUT STREAM PROCESSOR PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -761,7 +810,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER(79, "OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER", "overrideIInputStreamProcessorProvider"), /**
+	OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER(79, "OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER", "overrideIInputStreamProcessorProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE INPUT STREAM PROCESSOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -769,7 +820,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_INPUT_STREAM_PROCESSOR(80, "OVERRIDE_INPUT_STREAM_PROCESSOR", "overrideInputStreamProcessor"), /**
+	OVERRIDE_INPUT_STREAM_PROCESSOR(80, "OVERRIDE_INPUT_STREAM_PROCESSOR", "overrideInputStreamProcessor"),
+
+	/**
 	 * The '<em><b>OVERRIDE IOPTION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -777,7 +830,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IOPTION_PROVIDER(81, "OVERRIDE_I_OPTION_PROVIDER", "overrideIOptionProvider"), /**
+	OVERRIDE_IOPTION_PROVIDER(81, "OVERRIDE_I_OPTION_PROVIDER", "overrideIOptionProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE IOPTIONS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -785,7 +840,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IOPTIONS(82, "OVERRIDE_I_OPTIONS", "overrideIOptions"), /**
+	OVERRIDE_IOPTIONS(82, "OVERRIDE_I_OPTIONS", "overrideIOptions"),
+
+	/**
 	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -793,7 +850,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IRESOURCE_POST_PROCESSOR(83, "OVERRIDE_I_RESOURCE_POST_PROCESSOR", "overrideIResourcePostProcessor"), /**
+	OVERRIDE_IRESOURCE_POST_PROCESSOR(83, "OVERRIDE_I_RESOURCE_POST_PROCESSOR", "overrideIResourcePostProcessor"),
+
+	/**
 	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -801,7 +860,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER(84, "OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER", "overrideIResourcePostProcessorProvider"), /**
+	OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER(84, "OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER", "overrideIResourcePostProcessorProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE IBRACKET PAIR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -809,7 +870,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IBRACKET_PAIR(85, "OVERRIDE_I_BRACKET_PAIR", "overrideIBracketPair"), /**
+	OVERRIDE_IBRACKET_PAIR(85, "OVERRIDE_I_BRACKET_PAIR", "overrideIBracketPair"),
+
+	/**
 	 * The '<em><b>OVERRIDE ICOMMAND</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -817,7 +880,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ICOMMAND(86, "OVERRIDE_I_COMMAND", "overrideICommand"), /**
+	OVERRIDE_ICOMMAND(86, "OVERRIDE_I_COMMAND", "overrideICommand"),
+
+	/**
 	 * The '<em><b>OVERRIDE ICONFIGURABLE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -825,7 +890,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ICONFIGURABLE(87, "OVERRIDE_I_CONFIGURABLE", "overrideIConfigurable"), /**
+	OVERRIDE_ICONFIGURABLE(87, "OVERRIDE_I_CONFIGURABLE", "overrideIConfigurable"),
+
+	/**
 	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -833,7 +900,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT(88, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideIContextDependentURIFragment"), /**
+	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT(88, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideIContextDependentURIFragment"),
+
+	/**
 	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -841,7 +910,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(89, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideIContextDependentURIFragmentFactory"), /**
+	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(89, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideIContextDependentURIFragmentFactory"),
+
+	/**
 	 * The '<em><b>OVERRIDE IELEMENT MAPPING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -849,7 +920,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IELEMENT_MAPPING(90, "OVERRIDE_I_ELEMENT_MAPPING", "overrideIElementMapping"), /**
+	OVERRIDE_IELEMENT_MAPPING(90, "OVERRIDE_I_ELEMENT_MAPPING", "overrideIElementMapping"),
+
+	/**
 	 * The '<em><b>OVERRIDE IEXPECTED ELEMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -857,7 +930,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IEXPECTED_ELEMENT(91, "OVERRIDE_I_EXPECTED_ELEMENT", "overrideIExpectedElement"), /**
+	OVERRIDE_IEXPECTED_ELEMENT(91, "OVERRIDE_I_EXPECTED_ELEMENT", "overrideIExpectedElement"),
+
+	/**
 	 * The '<em><b>OVERRIDE IHOVER TEXT PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -865,7 +940,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IHOVER_TEXT_PROVIDER(92, "OVERRIDE_I_HOVER_TEXT_PROVIDER", "overrideIHoverTextProvider"), /**
+	OVERRIDE_IHOVER_TEXT_PROVIDER(92, "OVERRIDE_I_HOVER_TEXT_PROVIDER", "overrideIHoverTextProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE ILOCATION MAP</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -873,7 +950,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ILOCATION_MAP(93, "OVERRIDE_I_LOCATION_MAP", "overrideILocationMap"), /**
+	OVERRIDE_ILOCATION_MAP(93, "OVERRIDE_I_LOCATION_MAP", "overrideILocationMap"),
+
+	/**
 	 * The '<em><b>OVERRIDE IPARSE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -881,7 +960,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IPARSE_RESULT(94, "OVERRIDE_I_PARSE_RESULT", "overrideIParseResult"), /**
+	OVERRIDE_IPARSE_RESULT(94, "OVERRIDE_I_PARSE_RESULT", "overrideIParseResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE IPROBLEM</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -889,7 +970,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IPROBLEM(95, "OVERRIDE_I_PROBLEM", "overrideIProblem"), /**
+	OVERRIDE_IPROBLEM(95, "OVERRIDE_I_PROBLEM", "overrideIProblem"),
+
+	/**
 	 * The '<em><b>OVERRIDE IREFERENCE MAPPING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -897,7 +980,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IREFERENCE_MAPPING(96, "OVERRIDE_I_REFERENCE_MAPPING", "overrideIReferenceMapping"), /**
+	OVERRIDE_IREFERENCE_MAPPING(96, "OVERRIDE_I_REFERENCE_MAPPING", "overrideIReferenceMapping"),
+
+	/**
 	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -905,7 +990,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IREFERENCE_RESOLVER(97, "OVERRIDE_I_REFERENCE_RESOLVER", "overrideIReferenceResolver"), /**
+	OVERRIDE_IREFERENCE_RESOLVER(97, "OVERRIDE_I_REFERENCE_RESOLVER", "overrideIReferenceResolver"),
+
+	/**
 	 * The '<em><b>OVERRIDE IREFERENCE RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -913,7 +1000,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IREFERENCE_RESOLVE_RESULT(98, "OVERRIDE_I_REFERENCE_RESOLVE_RESULT", "overrideIReferenceResolveResult"), /**
+	OVERRIDE_IREFERENCE_RESOLVE_RESULT(98, "OVERRIDE_I_REFERENCE_RESOLVE_RESULT", "overrideIReferenceResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER SWITCH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -921,7 +1010,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IREFERENCE_RESOLVER_SWITCH(99, "OVERRIDE_I_REFERENCE_RESOLVER_SWITCH", "overrideIReferenceResolverSwitch"), /**
+	OVERRIDE_IREFERENCE_RESOLVER_SWITCH(99, "OVERRIDE_I_REFERENCE_RESOLVER_SWITCH", "overrideIReferenceResolverSwitch"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT DIAGNOSTIC</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -929,7 +1020,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_DIAGNOSTIC(100, "OVERRIDE_I_TEXT_DIAGNOSTIC", "overrideITextDiagnostic"), /**
+	OVERRIDE_ITEXT_DIAGNOSTIC(100, "OVERRIDE_I_TEXT_DIAGNOSTIC", "overrideITextDiagnostic"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT PARSER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -937,7 +1030,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_PARSER(101, "OVERRIDE_I_TEXT_PARSER", "overrideITextParser"), /**
+	OVERRIDE_ITEXT_PARSER(101, "OVERRIDE_I_TEXT_PARSER", "overrideITextParser"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT PRINTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -945,7 +1040,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_PRINTER(102, "OVERRIDE_I_TEXT_PRINTER", "overrideITextPrinter"), /**
+	OVERRIDE_ITEXT_PRINTER(102, "OVERRIDE_I_TEXT_PRINTER", "overrideITextPrinter"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT RESOURCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -953,7 +1050,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_RESOURCE(103, "OVERRIDE_I_TEXT_RESOURCE", "overrideITextResource"), /**
+	OVERRIDE_ITEXT_RESOURCE(103, "OVERRIDE_I_TEXT_RESOURCE", "overrideITextResource"),
+
+	/**
 	 * The '<em><b>OVERRIDE IMETA INFORMATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -961,7 +1060,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IMETA_INFORMATION(104, "OVERRIDE_I_META_INFORMATION", "overrideIMetaInformation"), /**
+	OVERRIDE_IMETA_INFORMATION(104, "OVERRIDE_I_META_INFORMATION", "overrideIMetaInformation"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -969,7 +1070,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART(105, "OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART", "overrideITextResourcePluginPart"), /**
+	OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART(105, "OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART", "overrideITextResourcePluginPart"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT SCANNER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -977,7 +1080,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_SCANNER(106, "OVERRIDE_I_TEXT_SCANNER", "overrideITextScanner"), /**
+	OVERRIDE_ITEXT_SCANNER(106, "OVERRIDE_I_TEXT_SCANNER", "overrideITextScanner"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITEXT TOKEN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -985,7 +1090,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_TOKEN(107, "OVERRIDE_I_TEXT_TOKEN", "overrideITextToken"), /**
+	OVERRIDE_ITEXT_TOKEN(107, "OVERRIDE_I_TEXT_TOKEN", "overrideITextToken"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITOKEN RESOLVER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -993,7 +1100,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITOKEN_RESOLVER(108, "OVERRIDE_I_TOKEN_RESOLVER", "overrideITokenResolver"), /**
+	OVERRIDE_ITOKEN_RESOLVER(108, "OVERRIDE_I_TOKEN_RESOLVER", "overrideITokenResolver"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITOKEN RESOLVE RESULT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1001,7 +1110,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITOKEN_RESOLVE_RESULT(109, "OVERRIDE_I_TOKEN_RESOLVE_RESULT", "overrideITokenResolveResult"), /**
+	OVERRIDE_ITOKEN_RESOLVE_RESULT(109, "OVERRIDE_I_TOKEN_RESOLVE_RESULT", "overrideITokenResolveResult"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITOKEN RESOLVER FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1009,7 +1120,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITOKEN_RESOLVER_FACTORY(110, "OVERRIDE_I_TOKEN_RESOLVER_FACTORY", "overrideITokenResolverFactory"), /**
+	OVERRIDE_ITOKEN_RESOLVER_FACTORY(110, "OVERRIDE_I_TOKEN_RESOLVER_FACTORY", "overrideITokenResolverFactory"),
+
+	/**
 	 * The '<em><b>OVERRIDE ITOKEN STYLE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1017,7 +1130,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITOKEN_STYLE(111, "OVERRIDE_I_TOKEN_STYLE", "overrideITokenStyle"), /**
+	OVERRIDE_ITOKEN_STYLE(111, "OVERRIDE_I_TOKEN_STYLE", "overrideITokenStyle"),
+
+	/**
 	 * The '<em><b>OVERRIDE IURI MAPPING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1025,7 +1140,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IURI_MAPPING(112, "OVERRIDE_IURI_MAPPING", "overrideIURIMapping"), /**
+	OVERRIDE_IURI_MAPPING(112, "OVERRIDE_IURI_MAPPING", "overrideIURIMapping"),
+
+	/**
 	 * The '<em><b>OVERRIDE EPROBLEM TYPE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1033,7 +1150,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EPROBLEM_TYPE(113, "OVERRIDE_E_PROBLEM_TYPE", "overrideEProblemType"), /**
+	OVERRIDE_EPROBLEM_TYPE(113, "OVERRIDE_E_PROBLEM_TYPE", "overrideEProblemType"),
+
+	/**
 	 * The '<em><b>OVERRIDE CODE COMPLETION HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1041,7 +1160,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CODE_COMPLETION_HELPER(114, "OVERRIDE_CODE_COMPLETION_HELPER", "overrideCodeCompletionHelper"), /**
+	OVERRIDE_CODE_COMPLETION_HELPER(114, "OVERRIDE_CODE_COMPLETION_HELPER", "overrideCodeCompletionHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE EXPECTED CS STRING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1049,7 +1170,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTED_CS_STRING(115, "OVERRIDE_EXPECTED_CS_STRING", "overrideExpectedCsString"), /**
+	OVERRIDE_EXPECTED_CS_STRING(115, "OVERRIDE_EXPECTED_CS_STRING", "overrideExpectedCsString"),
+
+	/**
 	 * The '<em><b>OVERRIDE EXPECTED STRUCTURAL FEATURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1057,7 +1180,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTED_STRUCTURAL_FEATURE(116, "OVERRIDE_EXPECTED_STRUCTURAL_FEATURE", "overrideExpectedStructuralFeature"), /**
+	OVERRIDE_EXPECTED_STRUCTURAL_FEATURE(116, "OVERRIDE_EXPECTED_STRUCTURAL_FEATURE", "overrideExpectedStructuralFeature"),
+
+	/**
 	 * The '<em><b>OVERRIDE CAST UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1065,7 +1190,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CAST_UTIL(117, "OVERRIDE_CAST_UTIL", "overrideCastUtil"), /**
+	OVERRIDE_CAST_UTIL(117, "OVERRIDE_CAST_UTIL", "overrideCastUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE COPIED ELIST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1073,7 +1200,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COPIED_ELIST(118, "OVERRIDE_COPIED_E_LIST", "overrideCopiedEList"), /**
+	OVERRIDE_COPIED_ELIST(118, "OVERRIDE_COPIED_E_LIST", "overrideCopiedEList"),
+
+	/**
 	 * The '<em><b>OVERRIDE COPIED EOBJECT INTERNAL ELIST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1081,7 +1210,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST(119, "OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST", "overrideCopiedEObjectInternalEList"), /**
+	OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST(119, "OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST", "overrideCopiedEObjectInternalEList"),
+
+	/**
 	 * The '<em><b>OVERRIDE ECLASS UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1089,7 +1220,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ECLASS_UTIL(120, "OVERRIDE_E_CLASS_UTIL", "overrideEClassUtil"), /**
+	OVERRIDE_ECLASS_UTIL(120, "OVERRIDE_E_CLASS_UTIL", "overrideEClassUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE EOBJECT UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1097,7 +1230,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EOBJECT_UTIL(121, "OVERRIDE_E_OBJECT_UTIL", "overrideEObjectUtil"), /**
+	OVERRIDE_EOBJECT_UTIL(121, "OVERRIDE_E_OBJECT_UTIL", "overrideEObjectUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE LIST UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1105,7 +1240,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LIST_UTIL(122, "OVERRIDE_LIST_UTIL", "overrideListUtil"), /**
+	OVERRIDE_LIST_UTIL(122, "OVERRIDE_LIST_UTIL", "overrideListUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE MAP UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1113,7 +1250,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_MAP_UTIL(123, "OVERRIDE_MAP_UTIL", "overrideMapUtil"), /**
+	OVERRIDE_MAP_UTIL(123, "OVERRIDE_MAP_UTIL", "overrideMapUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE MINIMAL MODEL HELPER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1121,7 +1260,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_MINIMAL_MODEL_HELPER(124, "OVERRIDE_MINIMAL_MODEL_HELPER", "overrideMinimalModelHelper"), /**
+	OVERRIDE_MINIMAL_MODEL_HELPER(124, "OVERRIDE_MINIMAL_MODEL_HELPER", "overrideMinimalModelHelper"),
+
+	/**
 	 * The '<em><b>OVERRIDE RESOURCE UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1129,7 +1270,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_UTIL(125, "OVERRIDE_RESOURCE_UTIL", "overrideResourceUtil"), /**
+	OVERRIDE_RESOURCE_UTIL(125, "OVERRIDE_RESOURCE_UTIL", "overrideResourceUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE STREAM UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1137,7 +1280,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_STREAM_UTIL(126, "OVERRIDE_STREAM_UTIL", "overrideStreamUtil"), /**
+	OVERRIDE_STREAM_UTIL(126, "OVERRIDE_STREAM_UTIL", "overrideStreamUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE STRING UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1145,7 +1290,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_STRING_UTIL(127, "OVERRIDE_STRING_UTIL", "overrideStringUtil"), /**
+	OVERRIDE_STRING_UTIL(127, "OVERRIDE_STRING_UTIL", "overrideStringUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE TEXT RESOURCE UTIL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1153,7 +1300,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_RESOURCE_UTIL(128, "OVERRIDE_TEXT_RESOURCE_UTIL", "overrideTextResourceUtil"), /**
+	OVERRIDE_TEXT_RESOURCE_UTIL(128, "OVERRIDE_TEXT_RESOURCE_UTIL", "overrideTextResourceUtil"),
+
+	/**
 	 * The '<em><b>OVERRIDE UNICODE CONVERTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1161,7 +1310,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UNICODE_CONVERTER(129, "OVERRIDE_UNICODE_CONVERTER", "overrideUnicodeConverter"), /**
+	OVERRIDE_UNICODE_CONVERTER(129, "OVERRIDE_UNICODE_CONVERTER", "overrideUnicodeConverter"),
+
+	/**
 	 * The '<em><b>OVERRIDE ABSTRACT EXPECTED ELEMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1169,7 +1320,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ABSTRACT_EXPECTED_ELEMENT(130, "OVERRIDE_ABSTRACT_EXPECTED_ELEMENT", "overrideAbstractExpectedElement"), /**
+	OVERRIDE_ABSTRACT_EXPECTED_ELEMENT(130, "OVERRIDE_ABSTRACT_EXPECTED_ELEMENT", "overrideAbstractExpectedElement"),
+
+	/**
 	 * The '<em><b>OVERRIDE NEW FILE WIZARD PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1177,7 +1330,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_WIZARD_PAGE(131, "OVERRIDE_NEW_FILE_WIZARD_PAGE", "overrideNewFileWizardPage"), /**
+	OVERRIDE_NEW_FILE_WIZARD_PAGE(131, "OVERRIDE_NEW_FILE_WIZARD_PAGE", "overrideNewFileWizardPage"),
+
+	/**
 	 * The '<em><b>OVERRIDE IBACKGROUND PARSING LISTENER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1185,7 +1340,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IBACKGROUND_PARSING_LISTENER(132, "OVERRIDE_I_BACKGROUND_PARSING_LISTENER", "overrideIBackgroundParsingListener"), /**
+	OVERRIDE_IBACKGROUND_PARSING_LISTENER(132, "OVERRIDE_I_BACKGROUND_PARSING_LISTENER", "overrideIBackgroundParsingListener"),
+
+	/**
 	 * The '<em><b>OVERRIDE TERMINATE PARSING EXCEPTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1193,7 +1350,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TERMINATE_PARSING_EXCEPTION(133, "OVERRIDE_TERMINATE_PARSING_EXCEPTION", "overrideTerminateParsingException"), /**
+	OVERRIDE_TERMINATE_PARSING_EXCEPTION(133, "OVERRIDE_TERMINATE_PARSING_EXCEPTION", "overrideTerminateParsingException"),
+
+	/**
 	 * The '<em><b>OVERRIDE UNEXPECTED CONTENT TYPE EXCEPTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1201,7 +1360,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION(134, "OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION", "overrideUnexpectedContentTypeException"), /**
+	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION(134, "OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION", "overrideUnexpectedContentTypeException"),
+
+	/**
 	 * The '<em><b>OVERRIDE TEXT TOKEN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1209,7 +1370,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_TOKEN(135, "OVERRIDE_TEXT_TOKEN", "overrideTextToken"), /**
+	OVERRIDE_TEXT_TOKEN(135, "OVERRIDE_TEXT_TOKEN", "overrideTextToken"),
+
+	/**
 	 * The '<em><b>SOURCE GEN FOLDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1217,7 +1380,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SOURCE_GEN_FOLDER(136, "SOURCE_GEN_FOLDER", "srcGenFolder"), /**
+	SOURCE_GEN_FOLDER(136, "SOURCE_GEN_FOLDER", "srcGenFolder"),
+
+	/**
 	 * The '<em><b>OVERRIDE DEFAULT LOAD OPTIONS EXTENSION POINT SCHEMA</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1225,7 +1390,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA(137, "OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA", "overrideDefaultLoadOptionsExtensionPointSchema"), /**
+	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA(137, "OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA", "overrideDefaultLoadOptionsExtensionPointSchema"),
+
+	/**
 	 * The '<em><b>OVERRIDE ADDITIONAL EXTENSION PARSER EXTENSION POINT SCHEMA</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1233,7 +1400,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA(138, "OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA", "overrideAdditionalExtensionParserExtensionPointSchema"), /**
+	OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA(138, "OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA", "overrideAdditionalExtensionParserExtensionPointSchema"),
+
+	/**
 	 * The '<em><b>OVERRIDE RESOURCE FACTORY DELEGATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1241,7 +1410,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_FACTORY_DELEGATOR(139, "OVERRIDE_RESOURCE_FACTORY_DELEGATOR", "overrideResourceFactoryDelegator"), /**
+	OVERRIDE_RESOURCE_FACTORY_DELEGATOR(139, "OVERRIDE_RESOURCE_FACTORY_DELEGATOR", "overrideResourceFactoryDelegator"),
+
+	/**
 	 * The '<em><b>BASE RESOURCE PLUGIN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1249,7 +1420,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BASE_RESOURCE_PLUGIN(140, "BASE_RESOURCE_PLUGIN", "baseResourcePlugin"), /**
+	BASE_RESOURCE_PLUGIN(140, "BASE_RESOURCE_PLUGIN", "baseResourcePlugin"),
+
+	/**
 	 * The '<em><b>OVERRIDE PREFERENCE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1257,7 +1430,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PREFERENCE_PAGE(141, "OVERRIDE_PREFERENCE_PAGE", "overridePreferencePage"), /**
+	OVERRIDE_PREFERENCE_PAGE(141, "OVERRIDE_PREFERENCE_PAGE", "overridePreferencePage"),
+
+	/**
 	 * The '<em><b>ANTLR PLUGIN ID</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1265,7 +1440,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ANTLR_PLUGIN_ID(142, "ANTLR_PLUGIN_ID", "antlrPluginID"), /**
+	ANTLR_PLUGIN_ID(142, "ANTLR_PLUGIN_ID", "antlrPluginID"),
+
+	/**
 	 * The '<em><b>OVERRIDE ANTLR PLUGIN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1273,7 +1450,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ANTLR_PLUGIN(143, "OVERRIDE_ANTLR_PLUGIN", "overrideAntlrPlugin"), /**
+	OVERRIDE_ANTLR_PLUGIN(143, "OVERRIDE_ANTLR_PLUGIN", "overrideAntlrPlugin"),
+
+	/**
 	 * The '<em><b>OVERRIDE TOKEN STYLE INFORMATION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1281,7 +1460,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER(144, "OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER", "overrideTokenStyleInformationProvider"), /**
+	OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER(144, "OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER", "overrideTokenStyleInformationProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE FOLDING INFORMATION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1289,7 +1470,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_FOLDING_INFORMATION_PROVIDER(145, "OVERRIDE_FOLDING_INFORMATION_PROVIDER", "overrideFoldingInformationProvider"), /**
+	OVERRIDE_FOLDING_INFORMATION_PROVIDER(145, "OVERRIDE_FOLDING_INFORMATION_PROVIDER", "overrideFoldingInformationProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE BRACKET INFORMATION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1297,7 +1480,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BRACKET_INFORMATION_PROVIDER(146, "OVERRIDE_BRACKET_INFORMATION_PROVIDER", "overrideBracketInformationProvider"), /**
+	OVERRIDE_BRACKET_INFORMATION_PROVIDER(146, "OVERRIDE_BRACKET_INFORMATION_PROVIDER", "overrideBracketInformationProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE SYNTAX COVERAGE INFORMATION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1305,7 +1490,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER(147, "OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER", "overrideSyntaxCoverageInformationProvider"), /**
+	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER(147, "OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER", "overrideSyntaxCoverageInformationProvider"),
+
+	/**
 	 * The '<em><b>SAVE CHANGED RESOURCES ONLY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1313,7 +1500,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SAVE_CHANGED_RESOURCES_ONLY(148, "SAVE_CHANGED_RESOURCES_ONLY", "saveChangedResourcesOnly"), /**
+	SAVE_CHANGED_RESOURCES_ONLY(148, "SAVE_CHANGED_RESOURCES_ONLY", "saveChangedResourcesOnly"),
+
+	/**
 	 * The '<em><b>OVERRIDE NEW FILE CONTENT PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1321,17 +1510,19 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_CONTENT_PROVIDER(149, "OVERRIDE_NEW_FILE_CONTENT_PROVIDER", "overrideNewFileContentProvider"), /**
+	OVERRIDE_NEW_FILE_CONTENT_PROVIDER(149, "OVERRIDE_NEW_FILE_CONTENT_PROVIDER", "overrideNewFileContentProvider"),
+
+	/**
 	 * The '<em><b>LICENCE HEADER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * This option can be used to refer to the location of a file containing
-	 * a licence header that is prepended every generated Java file
 	 * <!-- end-user-doc -->
 	 * @see #LICENCE_HEADER_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LICENCE_HEADER(150, "LICENCE_HEADER", "licenceHeader"), /**
+	LICENCE_HEADER(150, "LICENCE_HEADER", "licenceHeader"),
+
+	/**
 	 * The '<em><b>OVERRIDE EXPECTED TERMINAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1339,7 +1530,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTED_TERMINAL(151, "OVERRIDE_EXPECTED_TERMINAL", "overrideExpectedTerminal"), /**
+	OVERRIDE_EXPECTED_TERMINAL(151, "OVERRIDE_EXPECTED_TERMINAL", "overrideExpectedTerminal"),
+
+	/**
 	 * The '<em><b>OVERRIDE COMPLETION PROPOSAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1347,7 +1540,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_COMPLETION_PROPOSAL(152, "OVERRIDE_COMPLETION_PROPOSAL", "overrideCompletionProposal"), /**
+	OVERRIDE_COMPLETION_PROPOSAL(152, "OVERRIDE_COMPLETION_PROPOSAL", "overrideCompletionProposal"),
+
+	/**
 	 * The '<em><b>OVERRIDE BUILDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1355,7 +1550,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BUILDER(153, "OVERRIDE_BUILDER", "overrideBuilder"), /**
+	OVERRIDE_BUILDER(153, "OVERRIDE_BUILDER", "overrideBuilder"),
+
+	/**
 	 * The '<em><b>OVERRIDE BUILDER ADAPTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1363,7 +1560,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BUILDER_ADAPTER(154, "OVERRIDE_BUILDER_ADAPTER", "overrideBuilderAdapter"), /**
+	OVERRIDE_BUILDER_ADAPTER(154, "OVERRIDE_BUILDER_ADAPTER", "overrideBuilderAdapter"),
+
+	/**
 	 * The '<em><b>OVERRIDE IBUILDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1371,7 +1570,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IBUILDER(155, "OVERRIDE_I_BUILDER", "overrideIBuilder"), /**
+	OVERRIDE_IBUILDER(155, "OVERRIDE_I_BUILDER", "overrideIBuilder"),
+
+	/**
 	 * The '<em><b>OVERRIDE NATURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1379,7 +1580,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NATURE(156, "OVERRIDE_NATURE", "overrideNature"), /**
+	OVERRIDE_NATURE(156, "OVERRIDE_NATURE", "overrideNature"),
+
+	/**
 	 * The '<em><b>ADDITIONAL DEPENDENCIES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1387,7 +1590,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_DEPENDENCIES(157, "ADDITIONAL_DEPENDENCIES", "additionalDependencies"), /**
+	ADDITIONAL_DEPENDENCIES(157, "ADDITIONAL_DEPENDENCIES", "additionalDependencies"),
+
+	/**
 	 * The '<em><b>DISABLE BUILDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1395,7 +1600,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_BUILDER(158, "DISABLE_BUILDER", "disableBuilder"), /**
+	DISABLE_BUILDER(158, "DISABLE_BUILDER", "disableBuilder"),
+
+	/**
 	 * The '<em><b>ADDITIONAL EXPORTS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1403,7 +1610,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_EXPORTS(159, "ADDITIONAL_EXPORTS", "additionalExports"), /**
+	ADDITIONAL_EXPORTS(159, "ADDITIONAL_EXPORTS", "additionalExports"),
+
+	/**
 	 * The '<em><b>OVERRIDE PAIR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1411,7 +1620,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PAIR(160, "OVERRIDE_PAIR", "overridePair"), /**
+	OVERRIDE_PAIR(160, "OVERRIDE_PAIR", "overridePair"),
+
+	/**
 	 * The '<em><b>OVERRIDE ABSTRACT INTERPRETER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1419,7 +1630,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ABSTRACT_INTERPRETER(161, "OVERRIDE_ABSTRACT_INTERPRETER", "overrideAbstractInterpreter"), /**
+	OVERRIDE_ABSTRACT_INTERPRETER(161, "OVERRIDE_ABSTRACT_INTERPRETER", "overrideAbstractInterpreter"),
+
+	/**
 	 * The '<em><b>OVERRIDE GRAMMAR INFORMATION PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1427,7 +1640,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER(162, "OVERRIDE_GRAMMAR_INFORMATION_PROVIDER", "overrideGrammarInformationProvider"), /**
+	OVERRIDE_GRAMMAR_INFORMATION_PROVIDER(162, "OVERRIDE_GRAMMAR_INFORMATION_PROVIDER", "overrideGrammarInformationProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE ATTRIBUTE VALUE PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1435,7 +1650,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER(163, "OVERRIDE_ATTRIBUTE_VALUE_PROVIDER", "overrideAttributeValueProvider"), /**
+	OVERRIDE_ATTRIBUTE_VALUE_PROVIDER(163, "OVERRIDE_ATTRIBUTE_VALUE_PROVIDER", "overrideAttributeValueProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE FOLLOW SET PROVIDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1443,7 +1660,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_FOLLOW_SET_PROVIDER(164, "OVERRIDE_FOLLOW_SET_PROVIDER", "overrideFollowSetProvider"), /**
+	OVERRIDE_FOLLOW_SET_PROVIDER(164, "OVERRIDE_FOLLOW_SET_PROVIDER", "overrideFollowSetProvider"),
+
+	/**
 	 * The '<em><b>OVERRIDE SYNTAX ELEMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1451,7 +1670,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_ELEMENT(165, "OVERRIDE_SYNTAX_ELEMENT", "overrideSyntaxElement"), /**
+	OVERRIDE_SYNTAX_ELEMENT(165, "OVERRIDE_SYNTAX_ELEMENT", "overrideSyntaxElement"),
+
+	/**
 	 * The '<em><b>OVERRIDE KEYWORD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1459,7 +1680,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_KEYWORD(166, "OVERRIDE_KEYWORD", "overrideKeyword"), /**
+	OVERRIDE_KEYWORD(166, "OVERRIDE_KEYWORD", "overrideKeyword"),
+
+	/**
 	 * The '<em><b>OVERRIDE PLACEHOLDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1467,7 +1690,9 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PLACEHOLDER(167, "OVERRIDE_PLACEHOLDER", "overridePlaceholder"), /**
+	OVERRIDE_PLACEHOLDER(167, "OVERRIDE_PLACEHOLDER", "overridePlaceholder"),
+
+	/**
 	 * The '<em><b>OVERRIDE CARDINALITY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3671,10 +3896,8 @@ public enum OptionTypes implements Enumerator {
 	 * The '<em><b>SAVE CHANGED RESOURCES ONLY</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If this option is set to true, the generated Resource will remember the text representation of a model
-	 * after loading. Before saving, it performs a string comparison of the loaded and the changed version.
-	 * Only if both versions differ, the text will actually be saved. This options defaults to <i>false</i>,
-	 * because the memorizing and comparison requires additional memory and time.
+	 * If the meaning of '<em><b>SAVE CHANGED RESOURCES ONLY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SAVE_CHANGED_RESOURCES_ONLY

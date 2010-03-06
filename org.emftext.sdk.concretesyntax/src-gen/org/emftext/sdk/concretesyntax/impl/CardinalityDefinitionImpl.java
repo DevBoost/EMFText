@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,16 +8,22 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -35,56 +41,51 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  *
  * @generated
  */
-public abstract class CardinalityDefinitionImpl extends DefinitionImpl implements CardinalityDefinition
-{
-  /**
+public abstract class CardinalityDefinitionImpl extends DefinitionImpl implements CardinalityDefinition {
+	/**
 	 * The cached value of the '{@link #getCardinality() <em>Cardinality</em>}' containment reference.
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getCardinality()
 	 * @generated
 	 * @ordered
 	 */
-  protected Cardinality cardinality;
+	protected Cardinality cardinality;
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected CardinalityDefinitionImpl()
-  {
+	protected CardinalityDefinitionImpl() {
 		super();
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  protected EClass eStaticClass()
-  {
+	@Override
+	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.CARDINALITY_DEFINITION;
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Cardinality getCardinality()
-  {
+	public Cardinality getCardinality() {
 		return cardinality;
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain basicSetCardinality(Cardinality newCardinality, NotificationChain msgs)
-  {
+	public NotificationChain basicSetCardinality(Cardinality newCardinality, NotificationChain msgs) {
 		Cardinality oldCardinality = cardinality;
 		cardinality = newCardinality;
 		if (eNotificationRequired()) {
@@ -94,13 +95,12 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 		return msgs;
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setCardinality(Cardinality newCardinality)
-  {
+	public void setCardinality(Cardinality newCardinality) {
 		if (newCardinality != cardinality) {
 			NotificationChain msgs = null;
 			if (cardinality != null)
@@ -114,14 +114,13 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, newCardinality, newCardinality));
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
 				return basicSetCardinality(null, msgs);
@@ -129,14 +128,13 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
 				return getCardinality();
@@ -144,14 +142,13 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 		return super.eGet(featureID, resolve, coreType);
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  public void eSet(int featureID, Object newValue)
-  {
+	@Override
+	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
 				setCardinality((Cardinality)newValue);
@@ -160,14 +157,13 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 		super.eSet(featureID, newValue);
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  public void eUnset(int featureID)
-  {
+	@Override
+	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
 				setCardinality((Cardinality)null);
@@ -176,14 +172,13 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 		super.eUnset(featureID);
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  public boolean eIsSet(int featureID)
-  {
+	@Override
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
 				return cardinality != null;

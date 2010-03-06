@@ -1,6 +1,16 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006-2010 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
  *
  * $Id$
  */
@@ -9,12 +19,17 @@ package org.emftext.sdk.concretesyntax.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexPart;
@@ -43,6 +58,7 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	 * @ordered
 	 */
 	protected static final String REGEX_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getRegexParts() <em>Regex Parts</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -70,6 +86,20 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.REGEX_COMPOSITE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRegex() {
+		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
+		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
+			result .append ( part .getRegex ( ) ) ; 
+		} 
+		return result .toString ( ) ; 
+		
 	}
 
 	/**
@@ -162,16 +192,4 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getRegex() {
-		StringBuilder result = new StringBuilder();
-		for (RegexPart part : getRegexParts()) {
-			result.append(part.getRegex());
-		}
-		return result.toString();
-	}
 } //RegexCompositeImpl

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -117,7 +120,11 @@ public interface Rule extends Annotable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { \r\n\tif ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { \r\n\t\treturn annotation ; \r\n\t} \r\n} \r\nreturn null ; \r\n'"
 	 * @generated
 	 */
 	Annotation getOperatorAnnotation();
@@ -125,7 +132,16 @@ public interface Rule extends Annotable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Returns the weight of this rule if it is an operator rule.
+	 *  If the rule is not an operator rule or the specified weight
+	 *  in the operator annotation is not a number, Integer.MIN_VALUE 
+	 *  is returned.
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; \r\nif ( operatorAnnotation != null ) { \r\n\tjava.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; \r\n\tif ( ruleWeightString != null ) { \r\n\t\ttry { \r\n\t\t\treturn java.lang.Integer .parseInt ( ruleWeightString ) ; \r\n\t\t} // ignore exception. invalid numbers are signaled by\n// returning MIN_VALUE\ncatch ( java.lang.NumberFormatException e ) { \r\n\t\t} \r\n\t} \r\n} \r\nreturn java.lang.Integer .MIN_VALUE ; \r\n'"
 	 * @generated
 	 */
 	int getOperatorWeight();

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,36 +8,36 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
+
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
-import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
-import org.emftext.sdk.concretesyntax.RegexReference;
-
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Normal Token</b></em>'.
+ * An implementation of the model object '<em><b>Normal Token Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -104,53 +104,6 @@ public class NormalTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getRegex() {
-		return getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public static String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens) {
-		visitedTokens.add(token);
-
-		StringBuilder result = new StringBuilder();
-		if (token instanceof RegexComposite) {
-			RegexComposite composite = (RegexComposite) token;
-			for (RegexPart part : composite.getRegexParts()) {
-				if (part instanceof AtomicRegex) {
-					result.append(part.getRegex());
-				} else if (part instanceof RegexReference) {
-					RegexReference reference = (RegexReference) part;
-					AbstractTokenDefinition target = reference.getTarget();
-					if (target == null) {
-						continue;
-					}
-					if (target.eIsProxy()) {
-						continue;
-					}
-					if (visitedTokens.contains(target)) {
-						continue;
-					}
-					Set<AbstractTokenDefinition> subVisitedTokens = new LinkedHashSet<AbstractTokenDefinition>();
-					subVisitedTokens.addAll(visitedTokens);
-					result.append(getRegex(target, subVisitedTokens));
-				}
-			}
-		} else if (token instanceof RegexOwner) {
-			RegexOwner owner = (RegexOwner) token;
-			result.append(owner.getRegex());
-		}
-		return result.toString();
-	}
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<RegexPart> getRegexParts() {
@@ -158,6 +111,17 @@ public class NormalTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 			regexParts = new EObjectContainmentEList<RegexPart>(RegexPart.class, this, ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS);
 		}
 		return regexParts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRegex() {
+		org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); 
+		return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; 
+		
 	}
 
 	/**
@@ -290,4 +254,5 @@ public class NormalTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
-} //NormalTokenImpl
+
+} //NormalTokenDefinitionImpl

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 
@@ -116,7 +119,11 @@ public interface PlaceholderInQuotes extends Placeholder {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String prefix = getPrefix ( ) ; \r\nif ( prefix == null ) return prefix ; \r\nif ( prefix .length ( ) == 0 ) return null ; \r\nreturn prefix ; \r\n'"
 	 * @generated
 	 */
 	String getNormalizedPrefix();
@@ -124,7 +131,11 @@ public interface PlaceholderInQuotes extends Placeholder {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String suffix = getSuffix ( ) ; \r\nif ( suffix == null ) return suffix ; \r\nif ( suffix .length ( ) == 0 ) return null ; \r\nreturn suffix ; \r\n'"
 	 * @generated
 	 */
 	String getNormalizedSuffix();
@@ -132,9 +143,24 @@ public interface PlaceholderInQuotes extends Placeholder {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String escapeCharacter = getEscapeCharacter ( ) ; \r\nif ( escapeCharacter == null ) return escapeCharacter ; \r\nif ( escapeCharacter .length ( ) == 0 ) return null ; \r\nreturn escapeCharacter ; \r\n'"
 	 * @generated
 	 */
 	String getNormalizedEscapeCharacter();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( eIsProxy ( ) ) return super .toString ( ) ; \r\njava.lang.StringBuffer result = new java.lang.StringBuffer ( ) ; \r\norg.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature ( ) ; \r\nif ( feature != null && feature .getEcoreFeature ( ) != null ) { \r\n\tresult .append ( feature .getName ( ) ) ; \r\n} \r\nresult .append ( \"[\\\'\" ) ; \r\nresult .append ( getPrefix ( ) ) ; \r\nresult .append ( \"\\\', \\\'\" ) ; \r\nresult .append ( getSuffix ( ) ) ; \r\nresult .append ( \"\\\']\" ) ; \r\nreturn result .toString ( ) ; \r\n'"
+	 * @generated
+	 */
+	String toString();
 
 } // PlaceholderInQuotes

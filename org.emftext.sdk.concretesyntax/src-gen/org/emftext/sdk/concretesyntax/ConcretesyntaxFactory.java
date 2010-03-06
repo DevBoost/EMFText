@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.ecore.EFactory;
@@ -139,6 +142,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	 * @generated
 	 */
 	CompoundDefinition createCompoundDefinition();
+
+	/**
+	 * Returns a new object of class '<em>Regex Composer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Regex Composer</em>'.
+	 * @generated
+	 */
+	RegexComposer createRegexComposer();
 
 	/**
 	 * Returns a new object of class '<em>Atomic Regex</em>'.

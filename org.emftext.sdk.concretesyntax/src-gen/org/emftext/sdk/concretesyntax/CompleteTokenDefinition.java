@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,16 +8,19 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Token Definition</b></em>'.
+ * A representation of the model object '<em><b>Complete Token Definition</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
@@ -25,8 +28,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isHidden <em>Hidden</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#isUsed <em>Used</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,33 +81,27 @@ public interface CompleteTokenDefinition extends AbstractTokenDefinition, TokenD
 	void setAttributeName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Hidden</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Hidden</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Hidden</em>' attribute.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_Hidden()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; \r\nboolean isCollectInToken = getAttributeName ( ) != null ; \r\nreturn ! isReferenced || isCollectInToken ; \r\n'"
 	 * @generated
 	 */
 	boolean isHidden();
 
 	/**
-	 * Returns the value of the '<em><b>Used</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Used</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Used</em>' attribute.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_Used()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; \r\nboolean isCollectInToken = getAttributeName ( ) != null ; \r\nreturn isReferenced || isCollectInToken ; \r\n'"
 	 * @generated
 	 */
 	boolean isUsed();
 
-} // TokenDefinition
+} // CompleteTokenDefinition

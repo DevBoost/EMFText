@@ -1,6 +1,6 @@
 epackage concretesyntax;
 
-eclass Annotation {
+eclass AtomicRegex {
 	
 	getRegex() {
 		return getAtomicExpression();

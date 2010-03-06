@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,15 +8,20 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 
@@ -181,37 +186,61 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public String getNormalizedPrefix() {
-		String prefix = getPrefix();
-		if (prefix == null) return prefix;
-		if (prefix.length() == 0) return null;
-		return prefix;
+		java.lang.String prefix = getPrefix ( ) ; 
+		if ( prefix == null ) return prefix ; 
+		if ( prefix .length ( ) == 0 ) return null ; 
+		return prefix ; 
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public String getNormalizedSuffix() {
-		String suffix = getSuffix();
-		if (suffix == null) return suffix;
-		if (suffix.length() == 0) return null;
-		return suffix;
+		java.lang.String suffix = getSuffix ( ) ; 
+		if ( suffix == null ) return suffix ; 
+		if ( suffix .length ( ) == 0 ) return null ; 
+		return suffix ; 
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public String getNormalizedEscapeCharacter() {
-		String escapeCharacter = getEscapeCharacter();
-		if (escapeCharacter == null) return escapeCharacter;
-		if (escapeCharacter.length() == 0) return null;
-		return escapeCharacter;
+		java.lang.String escapeCharacter = getEscapeCharacter ( ) ; 
+		if ( escapeCharacter == null ) return escapeCharacter ; 
+		if ( escapeCharacter .length ( ) == 0 ) return null ; 
+		return escapeCharacter ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if ( eIsProxy ( ) ) return super .toString ( ) ; 
+		java.lang.StringBuffer result = new java.lang.StringBuffer ( ) ; 
+		org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature ( ) ; 
+		if ( feature != null && feature .getEcoreFeature ( ) != null ) { 
+			result .append ( feature .getName ( ) ) ; 
+		} 
+		result .append ( "[\'" ) ; 
+		result .append ( getPrefix ( ) ) ; 
+		result .append ( "\', \'" ) ; 
+		result .append ( getSuffix ( ) ) ; 
+		result .append ( "\']" ) ; 
+		return result .toString ( ) ; 
+		
 	}
 
 	/**
@@ -290,28 +319,6 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 				return ESCAPE_CHARACTER_EDEFAULT == null ? escapeCharacter != null : !ESCAPE_CHARACTER_EDEFAULT.equals(escapeCharacter);
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer();
-		GenFeature feature = getFeature();
-		if (feature != null && feature.getEcoreFeature() != null) {
-			result.append(feature.getName());
-		}
-		result.append("['");
-		result.append(prefix);
-		result.append("', '");
-		result.append(suffix);
-		result.append("']");
-		return result.toString();
 	}
 
 } //PlaceholderInQuotesImpl

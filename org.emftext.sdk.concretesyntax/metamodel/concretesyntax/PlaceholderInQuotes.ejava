@@ -4,6 +4,7 @@ epackage concretesyntax;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  
 eclass PlaceholderInQuotes {
 	
@@ -37,9 +38,9 @@ eclass PlaceholderInQuotes {
 			result.append(feature.getName());
 		}
 		result.append("['");
-		result.append(prefix);
+		result.append(getPrefix());
 		result.append("', '");
-		result.append(suffix);
+		result.append(getSuffix());
 		result.append("']");
 		return result.toString();
 	}

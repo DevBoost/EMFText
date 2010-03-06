@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,31 +8,38 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Token Definition</b></em>'.
+ * An implementation of the model object '<em><b>Complete Token Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -40,8 +47,6 @@ import org.emftext.sdk.concretesyntax.TokenDirective;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#isHidden <em>Hidden</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.CompleteTokenDefinitionImpl#isUsed <em>Used</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,26 +94,6 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 	protected String attributeName = ATTRIBUTE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isHidden()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean HIDDEN_EDEFAULT = false;
-
-	/**
-	 * The default value of the '{@link #isUsed() <em>Used</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isUsed()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean USED_EDEFAULT = false;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -126,7 +111,6 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION;
 	}
-
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,23 +159,25 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public boolean isHidden() {
-		boolean isReferenced = !getAttributeReferences().isEmpty();
-		boolean isCollectInToken = getAttributeName() != null;
-		return !isReferenced || isCollectInToken;
+		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
+		boolean isCollectInToken = getAttributeName ( ) != null ; 
+		return ! isReferenced || isCollectInToken ; 
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public boolean isUsed() {
-		boolean isReferenced = !getAttributeReferences().isEmpty();
-		boolean isCollectInToken = getAttributeName() != null;
-		return isReferenced || isCollectInToken;
+		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
+		boolean isCollectInToken = getAttributeName ( ) != null ; 
+		return isReferenced || isCollectInToken ; 
+		
 	}
 
 	/**
@@ -237,10 +223,6 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 				return getAttributeReferences();
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return getAttributeName();
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__HIDDEN:
-				return isHidden();
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__USED:
-				return isUsed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -297,10 +279,6 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 				return attributeReferences != null && !attributeReferences.isEmpty();
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__HIDDEN:
-				return isHidden() != HIDDEN_EDEFAULT;
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__USED:
-				return isUsed() != USED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -363,4 +341,4 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 		return result.toString();
 	}
 
-} //TokenDefinitionImpl
+} //CompleteTokenDefinitionImpl

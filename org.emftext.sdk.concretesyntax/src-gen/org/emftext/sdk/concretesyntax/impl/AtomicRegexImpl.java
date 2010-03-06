@@ -1,14 +1,27 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006-2010 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
  *
  * $Id$
  */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
@@ -91,6 +104,16 @@ public class AtomicRegexImpl extends RegexPartImpl implements AtomicRegex {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getRegex() {
+		return getAtomicExpression ( ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -160,13 +183,4 @@ public class AtomicRegexImpl extends RegexPartImpl implements AtomicRegex {
 		return result.toString();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public String getRegex() {
-		return getAtomicExpression();
-	}
 } //AtomicRegexImpl

@@ -1,7 +1,10 @@
 epackage concretesyntax;
 
-eclass AtomicRegex {
+eclass Annotation {
 	
+	/**
+	 * Returns the annotation value for the given key.
+	 */
 	getValue() {
 		for (KeyValuePair parameter : getParameters()) {
 			if (key.equals(parameter.getKey())){

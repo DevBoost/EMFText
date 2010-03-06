@@ -4,44 +4,11 @@ epackage concretesyntax;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
- 
+
 eclass NormalTokenDefinition {
 	
 	getRegex() {
-		return getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
-	}
-
-	// public static String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens)
-	getRegex() {
-		visitedTokens.add(token);
-
-		StringBuilder result = new StringBuilder();
-		if (token instanceof RegexComposite) {
-			RegexComposite composite = (RegexComposite) token;
-			for (RegexPart part : composite.getRegexParts()) {
-				if (part instanceof AtomicRegex) {
-					result.append(part.getRegex());
-				} else if (part instanceof RegexReference) {
-					RegexReference reference = (RegexReference) part;
-					AbstractTokenDefinition target = reference.getTarget();
-					if (target == null) {
-						continue;
-					}
-					if (target.eIsProxy()) {
-						continue;
-					}
-					if (visitedTokens.contains(target)) {
-						continue;
-					}
-					Set<AbstractTokenDefinition> subVisitedTokens = new LinkedHashSet<AbstractTokenDefinition>();
-					subVisitedTokens.addAll(visitedTokens);
-					result.append(getRegex(target, subVisitedTokens));
-				}
-			}
-		} else if (token instanceof RegexOwner) {
-			RegexOwner owner = (RegexOwner) token;
-			result.append(owner.getRegex());
-		}
-		return result.toString();
+		RegexComposer composer = #RegexComposer;
+		return composer.getComposedRegex(this, new BasicEList<AbstractTokenDefinition>());
 	}
 }

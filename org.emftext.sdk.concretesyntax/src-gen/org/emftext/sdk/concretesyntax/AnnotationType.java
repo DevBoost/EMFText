@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 import java.util.Arrays;
@@ -47,7 +50,9 @@ public enum AnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SUPPRESS_WARNINGS(1, "SUPPRESS_WARNINGS", "SuppressWarnings"), /**
+	SUPPRESS_WARNINGS(1, "SUPPRESS_WARNINGS", "SuppressWarnings"),
+
+	/**
 	 * The '<em><b>FOLDABLE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -55,7 +60,9 @@ public enum AnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FOLDABLE(2, "FOLDABLE", "Foldable"), /**
+	FOLDABLE(2, "FOLDABLE", "Foldable"),
+
+	/**
 	 * The '<em><b>OPERATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

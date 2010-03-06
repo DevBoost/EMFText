@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,52 +8,24 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftext.sdk.concretesyntax.Abstract;
-import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AnnotationType;
-import org.emftext.sdk.concretesyntax.AtomicRegex;
-import org.emftext.sdk.concretesyntax.Choice;
-import org.emftext.sdk.concretesyntax.CompoundDefinition;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.Containment;
-import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.FontStyle;
-import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.KeyValuePair;
-import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
-import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
-import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
-import org.emftext.sdk.concretesyntax.Option;
-import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
-import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
-import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
-import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
-import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.RegexReference;
-import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
-import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
-import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import org.emftext.sdk.concretesyntax.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -111,6 +83,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.STAR: return createSTAR();
 			case ConcretesyntaxPackage.QUESTIONMARK: return createQUESTIONMARK();
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
+			case ConcretesyntaxPackage.REGEX_COMPOSER: return createRegexComposer();
 			case ConcretesyntaxPackage.ATOMIC_REGEX: return createAtomicRegex();
 			case ConcretesyntaxPackage.REGEX_REFERENCE: return createRegexReference();
 			case ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION: return createPartialTokenDefinition();
@@ -295,6 +268,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public CompoundDefinition createCompoundDefinition() {
 		CompoundDefinitionImpl compoundDefinition = new CompoundDefinitionImpl();
 		return compoundDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RegexComposer createRegexComposer() {
+		RegexComposerImpl regexComposer = new RegexComposerImpl();
+		return regexComposer;
 	}
 
 	/**

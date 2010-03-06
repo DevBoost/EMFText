@@ -4,10 +4,11 @@ epackage concretesyntax;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
- 
+
 eclass PartialTokenDefinition {
 	
 	getRegex() {
-		return NormalTokenDefinitionImpl.getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
+		RegexComposer composer = #RegexComposer;
+		return composer.getComposedRegex(this, new BasicEList<AbstractTokenDefinition>());
 	}
 }

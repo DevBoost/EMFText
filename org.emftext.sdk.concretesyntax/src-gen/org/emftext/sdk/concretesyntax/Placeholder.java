@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,9 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax;
 
 
@@ -31,7 +34,6 @@ package org.emftext.sdk.concretesyntax;
  * @generated
  */
 public interface Placeholder extends Terminal {
-
 	/**
 	 * Returns the value of the '<em><b>Token</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}'.
@@ -59,4 +61,5 @@ public interface Placeholder extends Terminal {
 	 * @generated
 	 */
 	void setToken(CompleteTokenDefinition value);
+
 } // Placeholder

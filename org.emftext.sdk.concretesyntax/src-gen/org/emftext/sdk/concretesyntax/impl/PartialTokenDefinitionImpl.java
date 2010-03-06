@@ -1,21 +1,33 @@
 /**
- * <copyright>
- * </copyright>
+ * Copyright (c) 2006-2010 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
  *
  * $Id$
  */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
@@ -80,10 +92,15 @@ public class PartialTokenDefinitionImpl extends AbstractTokenDefinitionImpl impl
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public String getRegex() {
-		return NormalTokenDefinitionImpl.getRegex(this, new LinkedHashSet<AbstractTokenDefinition>());
+		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
+		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
+			result .append ( part .getRegex ( ) ) ; 
+		} 
+		return result .toString ( ) ; 
+		
 	}
 
 	/**

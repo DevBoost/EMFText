@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
@@ -8,20 +8,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
+ * Software Technology Group - TU Dresden, Germany 
+ *       - initial API and implementation
+ * 
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -40,13 +46,14 @@ public class ContainmentImpl extends TerminalImpl implements Containment {
 	/**
 	 * The cached value of the '{@link #getTypes() <em>Types</em>}' reference list.
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @see #getTypes()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<GenClass> types;
-  /**
+	protected EList<GenClass> types;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -67,18 +74,17 @@ public class ContainmentImpl extends TerminalImpl implements Containment {
 
 	/**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<GenClass> getTypes()
-  {
+	public EList<GenClass> getTypes() {
 		if (types == null) {
 			types = new EObjectResolvingEList<GenClass>(GenClass.class, this, ConcretesyntaxPackage.CONTAINMENT__TYPES);
 		}
 		return types;
 	}
 
-  /**
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -98,7 +104,7 @@ public class ContainmentImpl extends TerminalImpl implements Containment {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-  @Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONTAINMENT__TYPES:
