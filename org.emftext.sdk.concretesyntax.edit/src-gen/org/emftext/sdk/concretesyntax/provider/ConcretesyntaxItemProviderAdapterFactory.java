@@ -357,6 +357,29 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.RegexComposer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RegexComposerItemProvider regexComposerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.RegexComposer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRegexComposerAdapter() {
+		if (regexComposerItemProvider == null) {
+			regexComposerItemProvider = new RegexComposerItemProvider(this);
+		}
+
+		return regexComposerItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.AtomicRegex} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -812,6 +835,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (starItemProvider != null) starItemProvider.dispose();
 		if (questionmarkItemProvider != null) questionmarkItemProvider.dispose();
 		if (compoundDefinitionItemProvider != null) compoundDefinitionItemProvider.dispose();
+		if (regexComposerItemProvider != null) regexComposerItemProvider.dispose();
 		if (atomicRegexItemProvider != null) atomicRegexItemProvider.dispose();
 		if (regexReferenceItemProvider != null) regexReferenceItemProvider.dispose();
 		if (partialTokenDefinitionItemProvider != null) partialTokenDefinitionItemProvider.dispose();

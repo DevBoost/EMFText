@@ -72,15 +72,13 @@ public class ConcreteSyntaxItemProvider
 
 			addNamePropertyDescriptor(object);
 			addStartSymbolsPropertyDescriptor(object);
-			addActiveStartSymbolsPropertyDescriptor(object);
 			addActiveTokensPropertyDescriptor(object);
-			addAllStartSymbolsPropertyDescriptor(object);
 			addOptionsPropertyDescriptor(object);
 			addAllTokenStylesPropertyDescriptor(object);
 			addAllTokenDirectivesPropertyDescriptor(object);
-			addAllRulesPropertyDescriptor(object);
-			addOperatorRulesPropertyDescriptor(object);
-			addOperatorRuleSubsetsPropertyDescriptor(object);
+			add_operatorRulesPropertyDescriptor(object);
+			add_operatorRuleSubsetsPropertyDescriptor(object);
+			add_operatorRulesInitializedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -130,28 +128,6 @@ public class ConcreteSyntaxItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Active Start Symbols feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addActiveStartSymbolsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_activeStartSymbols_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_activeStartSymbols_feature", "_UI_ConcreteSyntax_type"),
-				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS,
-				 false,
-				 false,
-				 false,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Active Tokens feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,28 +144,6 @@ public class ConcreteSyntaxItemProvider
 				 true,
 				 false,
 				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the All Start Symbols feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAllStartSymbolsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_allStartSymbols_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_allStartSymbols_feature", "_UI_ConcreteSyntax_type"),
-				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_START_SYMBOLS,
-				 false,
-				 false,
-				 false,
 				 null,
 				 null,
 				 null));
@@ -262,40 +216,18 @@ public class ConcreteSyntaxItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the All Rules feature.
+	 * This adds a property descriptor for the operator Rules feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAllRulesPropertyDescriptor(Object object) {
+	protected void add_operatorRulesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_allRules_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_allRules_feature", "_UI_ConcreteSyntax_type"),
-				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES,
-				 false,
-				 false,
-				 false,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Operator Rules feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOperatorRulesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_operatorRules_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_operatorRules_feature", "_UI_ConcreteSyntax_type"),
+				 getString("_UI_ConcreteSyntax__operatorRules_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax__operatorRules_feature", "_UI_ConcreteSyntax_type"),
 				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPERATOR_RULES,
 				 true,
 				 false,
@@ -306,23 +238,45 @@ public class ConcreteSyntaxItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Operator Rule Subsets feature.
+	 * This adds a property descriptor for the operator Rule Subsets feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addOperatorRuleSubsetsPropertyDescriptor(Object object) {
+	protected void add_operatorRuleSubsetsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_operatorRuleSubsets_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_operatorRuleSubsets_feature", "_UI_ConcreteSyntax_type"),
+				 getString("_UI_ConcreteSyntax__operatorRuleSubsets_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax__operatorRuleSubsets_feature", "_UI_ConcreteSyntax_type"),
 				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the operator Rules Initialized feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void add_operatorRulesInitializedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ConcreteSyntax__operatorRulesInitialized_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax__operatorRulesInitialized_feature", "_UI_ConcreteSyntax_type"),
+				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -417,6 +371,7 @@ public class ConcreteSyntaxItemProvider
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:

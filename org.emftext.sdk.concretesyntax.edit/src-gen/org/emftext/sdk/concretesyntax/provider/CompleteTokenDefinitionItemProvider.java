@@ -64,8 +64,6 @@ public class CompleteTokenDefinitionItemProvider
 			addRegexPropertyDescriptor(object);
 			addAttributeReferencesPropertyDescriptor(object);
 			addAttributeNamePropertyDescriptor(object);
-			addHiddenPropertyDescriptor(object);
-			addUsedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -137,50 +135,6 @@ public class CompleteTokenDefinitionItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Hidden feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addHiddenPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CompleteTokenDefinition_hidden_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CompleteTokenDefinition_hidden_feature", "_UI_CompleteTokenDefinition_type"),
-				 ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION__HIDDEN,
-				 false,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Used feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUsedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CompleteTokenDefinition_used_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CompleteTokenDefinition_used_feature", "_UI_CompleteTokenDefinition_type"),
-				 ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION__USED,
-				 false,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -208,8 +162,6 @@ public class CompleteTokenDefinitionItemProvider
 		switch (notification.getFeatureID(CompleteTokenDefinition.class)) {
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX:
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__HIDDEN:
-			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__USED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
