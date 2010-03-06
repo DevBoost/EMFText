@@ -161,6 +161,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof org.emftext.sdk.concretesyntax.RegexComposer) {
+			result = interprete_org_emftext_sdk_concretesyntax_RegexComposer((org.emftext.sdk.concretesyntax.RegexComposer) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.TokenDirective) {
 			result = interprete_org_emftext_sdk_concretesyntax_TokenDirective((org.emftext.sdk.concretesyntax.TokenDirective) object, context);
 		}
@@ -341,6 +347,10 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenDirective(org.emftext.sdk.concretesyntax.TokenDirective object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposer(org.emftext.sdk.concretesyntax.RegexComposer object, ContextType context) {
 		return null;
 	}
 	

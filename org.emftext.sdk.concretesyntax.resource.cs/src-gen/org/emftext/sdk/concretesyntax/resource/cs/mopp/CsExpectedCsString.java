@@ -18,28 +18,28 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // a static string) is expected.
 public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAbstractExpectedElement {
 	
-	private String value;
+	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword;
 	
-	public CsExpectedCsString(org.eclipse.emf.ecore.EClass ruleMetaclass, java.lang.String value) {
-		super(ruleMetaclass);
-		this.value = value;
+	public CsExpectedCsString(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword) {
+		super(keyword.getMetaclass());
+		this.keyword = keyword;
 	}
 	
 	public String getValue() {
-		return value;
+		return keyword.getValue();
 	}
 	
 	public String getTokenName() {
-		return "'" + value + "'";
+		return "'" + getValue() + "'";
 	}
 	
 	public String toString() {
-		return "CsString \"" + value + "\"";
+		return "CsString \"" + getValue() + "\"";
 	}
 	
 	public boolean equals(Object o) {
 		if (o instanceof CsExpectedCsString) {
-			return this.value.equals(((CsExpectedCsString) o).value);
+			return getValue().equals(((CsExpectedCsString) o).getValue());
 		}
 		return false;
 	}

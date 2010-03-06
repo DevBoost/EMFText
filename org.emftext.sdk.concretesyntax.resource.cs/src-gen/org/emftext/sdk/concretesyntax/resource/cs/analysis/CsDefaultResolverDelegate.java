@@ -135,11 +135,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	private java.lang.String matches(java.lang.String identifier, java.lang.Object attributeValue, boolean matchFuzzy) {
 		if (attributeValue != null && attributeValue instanceof java.lang.String) {
 			java.lang.String name = (java.lang.String) attributeValue;
-			if (name.startsWith(identifier) && matchFuzzy) {
+			if (name.equals(identifier) || matchFuzzy) {
 				return name;
-			}
-			if (name.equals(identifier)) {
-				return identifier;
 			}
 		}
 		return null;

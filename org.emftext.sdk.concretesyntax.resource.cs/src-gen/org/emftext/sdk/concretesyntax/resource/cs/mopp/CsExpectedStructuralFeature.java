@@ -17,30 +17,29 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 // A representation for a range in a document where a structural feature (e.g.,
 // a reference) is expected.
 public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAbstractExpectedElement {
-	private org.eclipse.emf.ecore.EStructuralFeature feature;
-	private String tokenName;
 	
-	public CsExpectedStructuralFeature(org.eclipse.emf.ecore.EClass ruleMetaclass, org.eclipse.emf.ecore.EStructuralFeature feature, String tokenName) {
-		super(ruleMetaclass);
-		this.feature = feature;
-		this.tokenName = tokenName;
+	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder;
+	
+	public CsExpectedStructuralFeature(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder) {
+		super(placeholder.getMetaclass());
+		this.placeholder = placeholder;
 	}
 	
 	public org.eclipse.emf.ecore.EStructuralFeature getFeature() {
-		return feature;
+		return placeholder.getFeature();
 	}
 	
 	public String getTokenName() {
-		return tokenName;
+		return placeholder.getTokenName();
 	}
 	
 	public java.lang.String toString() {
-		return "EFeature " + feature.getEContainingClass().getName() + "." + feature.getName();
+		return "EFeature " + getFeature().getEContainingClass().getName() + "." + getFeature().getName();
 	}
 	
 	public boolean equals(java.lang.Object o) {
 		if (o instanceof CsExpectedStructuralFeature) {
-			return this.feature.equals(((CsExpectedStructuralFeature) o).feature);
+			return getFeature().equals(((CsExpectedStructuralFeature) o).getFeature());
 		}
 		return false;
 	}
