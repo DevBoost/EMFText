@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OPERATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
@@ -23,8 +24,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -66,6 +70,34 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		addMatchesMethod2(sc);
 		addGetNameMethod(sc);
 		addTypeCheckMethod(sc);
+		addLoadResourceMethod(sc);
+		addIsUriMethod(sc);
+	}
+
+	private void addLoadResourceMethod(StringComposite sc) {
+		sc.add("private " + E_OBJECT + " loadResource(" + RESOURCE_SET + " resourceSet, " + STRING + " uriString) {");
+		sc.add(URI + " uri = " + URI + ".createURI(uriString);");
+		sc.add(RESOURCE + " resource = resourceSet.getResource(uri, true);");
+		sc.add(E_LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
+		sc.add("if (contents.size() > 0) {");
+		sc.add("return contents.get(0);");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addIsUriMethod(StringComposite sc) {
+		sc.add("private boolean isURI(" + STRING + " identifier) {");
+		sc.add("if (identifier == null) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("if (identifier.startsWith(\"platform:/\") || identifier.startsWith(\"file:/\")) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetNameMethod(StringComposite sc) {
@@ -197,7 +229,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCheckElementMethod(StringComposite sc) {
-		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
+		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, boolean checkStringWise, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
 		sc.add("if (element.eIsProxy()) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -207,7 +239,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("final " + STRING + " match = matches(element, identifier, resolveFuzzy);");
+		sc.add(STRING + " match;");
+		sc.add("// do not compare string-wise if identifier is a URI");
+		sc.add("if (checkStringWise) {");
+		sc.add("match = matches(element, identifier, resolveFuzzy);");
+		sc.add("} else {");
+		sc.add("match = identifier;");
+		sc.add("}");
 		sc.add("if (match == null) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -233,17 +271,24 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(container);");
 		sc.add("// first check whether the root element matches");
-		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, result);");
+		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("// then check the contents");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> iterator = root.eAllContents(); iterator.hasNext(); ) {");
 		sc.add(E_OBJECT + " element = iterator.next();");
-		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, result);");
+		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add("}");
+		sc.add("if (isURI(identifier)) {");
+		sc.add(E_OBJECT + " element = loadResource(container.eResource().getResourceSet(), identifier);");
+		sc.add("if (element == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("checkElement(element, type, identifier, resolveFuzzy, false, result);");
 		sc.add("}");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
 		sc.add("// catch exception here to prevent EMF proxy resolution from swallowing it");
