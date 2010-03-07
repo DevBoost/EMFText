@@ -58,6 +58,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addBuildMethod1(StringComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
 		sc.add("return build(kind, args, monitor, builder, getProject());");
 		sc.add("}");
@@ -65,7 +66,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addBuildMethod2(StringComposite sc) {
-		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor, final " + iBuilderClassName + " builder, " + I_PROJECT + " project) throws " + CORE_EXCEPTION + " {");
+		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + "<?,?> args, final " + I_PROGRESS_MONITOR + " monitor, final " + iBuilderClassName + " builder, " + I_PROJECT + " project) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_RESOURCE_DELTA + " delta = getDelta(project);");
 		sc.add("if (delta == null) {");
 		sc.add("return null;");
