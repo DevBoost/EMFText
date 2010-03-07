@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
@@ -52,17 +53,19 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		} else {
 			genSourceFolder = genSourceOptionValue;
 		}
-		
+		Set<String> sourceFolders = new LinkedHashSet<String>();
+		sourceFolders.add(sourceFolder + "/");
+		// only the resource plug-in has a 'src-gen' folder
+		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+			sourceFolders.add(genSourceFolder + "/");
+		}
+
 		StringBuilder sc = new StringBuilder();
 		
 		Collection<String> binIncludes = getBinIncludes();
 		sc.append("bin.includes = " + StringUtil.explode(binIncludes, ",\\\n"));
 		sc.append("\n");
-		sc.append("source.. = " + sourceFolder + "/");
-		// only the resource plug-in has a 'src-gen' folder
-		if (plugin == EPlugins.RESOURCE_PLUGIN) {
-			sc.append("," + genSourceFolder + "/");
-		}
+		sc.append("source.. = " + StringUtil.explode(sourceFolders, ","));
 		sc.append("\n");
 
 		out.write(sc.toString());
