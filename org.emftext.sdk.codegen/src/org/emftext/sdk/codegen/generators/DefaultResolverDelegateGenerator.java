@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
@@ -92,10 +93,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("if (identifier == null) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (identifier.startsWith(\"platform:/\") || identifier.startsWith(\"file:/\")) {");
-		sc.add("return true;");
-		sc.add("}");
+		sc.add("try {");
+		sc.add(URI + ".createURI(identifier);");
+		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
+		sc.add("// the identifier string is not a valid URI");
 		sc.add("return false;");
+		sc.add("}");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
