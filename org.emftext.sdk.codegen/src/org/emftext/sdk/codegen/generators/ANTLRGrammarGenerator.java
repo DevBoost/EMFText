@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_INPUT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BIT_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN;
@@ -24,17 +25,21 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_HANDLER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.METHOD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_SET_EXCEPTION;
@@ -42,9 +47,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROXY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.THROWABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
 import java.io.PrintWriter;
@@ -326,6 +333,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addSetOptionsMethod(sc);
 		addTerminateMethod(sc);
 		addCompletedElementMethod(sc);
+		addCreateDynamicProxyMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -670,6 +678,50 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addCreateDynamicProxyMethod(StringComposite sc) {
+		sc.add("// creates a dynamic Java proxy that mimics the interface");
+		sc.add("// of the given class.");
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("public <T> T createDynamicProxy(" + CLASS + "<T> clazz) {");
+		sc.add(OBJECT + " proxy = " + PROXY + ".newProxyInstance(this.getClass().getClassLoader(), new " + CLASS + "<?>[]{clazz, " + E_OBJECT + ".class, " + INTERNAL_E_OBJECT + ".class}, new " + INVOCATION_HANDLER + "() {");
+		sc.addLineBreak();
+		sc.add("private " + E_OBJECT + " dummyObject = new " + E_OBJECT_IMPL + "() {};");
+		sc.addLineBreak();
+		sc.add("public " + OBJECT + " invoke(" + OBJECT + " object, " + METHOD + " method, " + OBJECT + "[] args) throws " + THROWABLE + " {");
+		sc.add("// search in dummyObject for the requested method");
+		sc.add(METHOD + "[] methodsInDummy = dummyObject.getClass().getMethods();");
+		sc.add("for (" + METHOD + " methodInDummy : methodsInDummy) {");
+		sc.add("boolean matches = true;");
+		sc.add("if (methodInDummy.getName().equals(method.getName())) {");
+		sc.add(CLASS + "<?>[] parameterTypes = method.getParameterTypes();");
+		sc.add(CLASS + "<?>[] parameterTypesInDummy = methodInDummy.getParameterTypes();");
+		sc.add("if (parameterTypes.length == parameterTypesInDummy.length) {");
+		sc.add("for (int p = 0; p < parameterTypes.length; p++) {");
+		sc.add(CLASS + "<?> parameterType = parameterTypes[p];");
+		sc.add(CLASS + "<?> parameterTypeInDummy = parameterTypesInDummy[p];");
+		sc.add("if (!parameterType.equals(parameterTypeInDummy)) {");
+		sc.add("matches = false;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("matches = false;");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("matches = false;");
+		sc.add("}");
+		sc.add("if (matches) {");
+		sc.add("return methodInDummy.invoke(dummyObject, args);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("");
+		sc.add("});");
+		sc.add("return (T) proxy;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1669,6 +1721,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					GenClass instanceType = genFeature.getTypeGenClass();
 					GenClass proxyType = null;
 	
+					String typeInterfaceName = genClassFinder
+							.getQualifiedInterfaceName(instanceType);
 					if (genClassUtil.isNotConcrete(instanceType)) {
 						// TODO mseifert: replace this code with a call to class
 						// GenClassFinder
@@ -1680,8 +1734,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 											.getQualifiedInterfaceName(instanceCand));
 							if (genClassUtil.isConcrete(instanceCand)
 									&& supertypes
-											.contains(genClassFinder
-													.getQualifiedInterfaceName(instanceType))) {
+											.contains(typeInterfaceName)) {
 								proxyType = instanceCand;
 								break;
 							}
@@ -1691,13 +1744,23 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					}
 					resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
 							+ targetTypeName + ") " + preResolved + ";");
-					resolvements.add(genClassFinder
-							.getQualifiedInterfaceName(proxyType)
+					
+					String declaration = typeInterfaceName
 							+ " "
 							+ expressionToBeSet
-							+ " = "
-							+ genClassUtil.getCreateObjectCall(proxyType,
-									dummyEObjectClassName) + ";");
+							+ " = ";
+
+					if (proxyType != null) {
+						resolvements.add(declaration + genClassUtil.getCreateObjectCall(proxyType,
+										dummyEObjectClassName) + ";");
+					} else {
+						// the type of the reference is abstract and no
+						// suitable (i.e., no concrete) sub class was found.
+						// therefore a dynamic object must be created and is
+						// used as proxy
+						resolvements.add(declaration + "createDynamicProxy(" + typeInterfaceName + ".class);");
+					}
+					
 					resolvements.add("collectHiddenTokens(element);");
 					resolvements
 							.add("registerContextDependentProxy(new "

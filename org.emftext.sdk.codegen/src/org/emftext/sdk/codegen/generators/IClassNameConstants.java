@@ -30,7 +30,9 @@ import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -352,6 +354,7 @@ public class IClassNameConstants {
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
 	public static String CELL_EDITOR = CellEditor.class.getName();
+	public static String CLASS = Class.class.getName();
 	public static String COLLECTION = Collection.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COLOR = Color.class.getName();
@@ -425,6 +428,7 @@ public class IClassNameConstants {
 	public static String INTERNAL_E_LIST = InternalEList.class.getName();
 	public static String INTERNAL_E_OBJECT = InternalEObject.class.getName();
 	public static String INT_STREAM = IntStream.class.getName();
+	public static String INVOCATION_HANDLER = InvocationHandler.class.getName();
 	public static String INVOCATION_TARGET_EXCEPTION = InvocationTargetException.class.getName();
 	public static String IO_EXCEPTION = IOException.class.getName();
 	public static String ITERATOR = Iterator.class.getName();
@@ -574,6 +578,7 @@ public class IClassNameConstants {
 	public static String PROPERTY_DESCRIPTOR = PropertyDescriptor.class.getName();
 	public static String PROPERTY_SHEET_PAGE = PropertySheetPage.class.getName();
 	public static String PROPERTY_SOURCE = PropertySource.class.getName();
+	public static String PROXY = Proxy.class.getName();
 	public static String PUSHBACK_READER = PushbackReader.class.getName();
 	public static String READER = Reader.class.getName();
 	public static String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
@@ -625,6 +630,7 @@ public class IClassNameConstants {
 	public static String TEXT_SELECTION = TextSelection.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
+	public static String THROWABLE = Throwable.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();
 	public static String TOKEN = Token.class.getName();

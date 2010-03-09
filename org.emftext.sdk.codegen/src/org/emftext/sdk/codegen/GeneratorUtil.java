@@ -114,7 +114,7 @@ public class GeneratorUtil {
 	public void addAddObjectToListMethod(StringComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
+        sc.add("public boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
         sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         sc.add("}");
         sc.addLineBreak();
