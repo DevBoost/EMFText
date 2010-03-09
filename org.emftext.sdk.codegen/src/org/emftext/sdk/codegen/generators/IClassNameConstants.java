@@ -114,6 +114,7 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
@@ -389,6 +390,7 @@ public class IClassNameConstants {
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
 	public static String E_CLASSIFIER = EClassifier.class.getName();
+	public static String E_DATA_TYPE = EDataType.class.getName();
 	public static String E_ENUM = EEnum.class.getName();
 	public static String E_ENUM_LITERAL = EEnumLiteral.class.getName();
 	public static String E_LIST = EList.class.getName();
