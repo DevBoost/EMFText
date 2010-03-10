@@ -53,6 +53,7 @@ import org.emftext.sdk.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_annotations.SuppressWarnings;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
+import org.emftext.sdk.syntax_extension.DefaultTokenStyleAdder;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.TokenDefinitionMerger;
@@ -82,6 +83,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new TokenDefinitionMerger());
 		postProcessors.add(new DefaultTokenConnector());
 		postProcessors.add(new TokenStyleMerger());
+		postProcessors.add(new DefaultTokenStyleAdder());
 		
 		postProcessors.add(new CyclicTokenDefinitionAnalyser());
 		
