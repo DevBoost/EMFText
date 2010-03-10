@@ -14,6 +14,7 @@
 package org.emftext.sdk.syntax_extension;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
@@ -30,9 +31,28 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
+/**
+ * The TokenStyleMerger reads all token styles from imported syntaxes and
+ * merges them with the styles defined in the current syntax. If a token
+ * styles exists both in an imported and in the current syntax the one from
+ * the current syntax overrides the imported one.
+ * 
+ * In addition the TokenStyleMerger adds default styles from comments, keywords
+ * and quoted tokens. Comments are recognized heuristically by their regular
+ * expression and keywords are by their value.
+ * 
+ * TODO split this class into TokenStyleMerger and DefaultTokenStyleAdder
+ */
 public class TokenStyleMerger extends AbstractPostProcessor {
 
-	// TODO maybe this can be formulated in a more generic way
+	/**
+	 * All CsStrings that match this regular expression will be recognized
+	 * as keywords and a default token style (purple and bold face font) 
+	 * will be assigned.
+	 */
+	public static final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
+	public static final Pattern KEYWORD_PATTERN = Pattern.compile(KEYWORD_REGEX);
+	// TODO maybe this can be formulated in a more generic way?
 	private static final String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
 	private static final String ML_COMMENT = "'/*'.*'*/'";
 	
@@ -98,7 +118,7 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<CsString> csStrings = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 			for (CsString csString : csStrings) {
-				if (csString.getValue().matches("([a-z]|[A-Z]|[:]|[-])+")) {
+				if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
 					TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 					newStyle.setRgb("800055");
 					newStyle.setTokenName(csString.getValue());
