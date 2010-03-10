@@ -16,6 +16,11 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
+/**
+ * The DefaultTokenStyleAdder adds default styles from comments, keywords
+ * and quoted tokens. Comments are recognized heuristically by their regular
+ * expression and keywords are by their value.
+ */
 public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 
 	/**

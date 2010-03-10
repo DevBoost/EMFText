@@ -24,10 +24,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
  * merges them with the styles defined in the current syntax. If a token
  * styles exists both in an imported and in the current syntax the one from
  * the current syntax overrides the imported one.
- * 
- * In addition the TokenStyleMerger adds default styles from comments, keywords
- * and quoted tokens. Comments are recognized heuristically by their regular
- * expression and keywords are by their value.
  */
 public class TokenStyleMerger extends TokenStylePostProcessor {
 
