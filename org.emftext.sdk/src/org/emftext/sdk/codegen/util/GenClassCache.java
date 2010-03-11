@@ -13,14 +13,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 
 public class GenClassCache {
 
-	private Map<GenClass, String> qualifiedInterfaceNameCache = new HashMap<GenClass, String>();
+	private Map<GenClass, String> qualifiedInterfaceNameCache = new LinkedHashMap<GenClass, String>();
 
 	public String getQualifiedInterfaceName(GenClass genClass) {
 		if (!qualifiedInterfaceNameCache.containsKey(genClass)) {
