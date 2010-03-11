@@ -18,6 +18,12 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 
+/**
+ * The GenClassCache holds a hash map that maps GenClasses and their
+ * qualified interfaces name. This cache is used to get rid of performance
+ * problems that were caused by the somewhat slow computation of the
+ * interface names in EMF. 
+ */
 public class GenClassCache {
 
 	private Map<GenClass, String> qualifiedInterfaceNameCache = new LinkedHashMap<GenClass, String>();
