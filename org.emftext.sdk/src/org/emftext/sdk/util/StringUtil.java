@@ -16,6 +16,8 @@ package org.emftext.sdk.util;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.emftext.sdk.codegen.util.Pair;
+
 /**
  * A utility class that provides some common methods to work
  * with Strings.
@@ -336,6 +338,11 @@ public class StringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRKeyword(String value) {
+		return escapeToANTLRKeywordComplex(value).getLeft();
+	}
+		
+	public static Pair<String, Boolean> escapeToANTLRKeywordComplex(String value) {
+		boolean foundInvalidEscapeSequence = false;
 		String result = value;
 		int index = result.indexOf("\\");
 		while (index >= 0) {
@@ -348,17 +355,31 @@ public class StringUtil {
 					head = result.substring(0, index - 1);
 				}
 				if (tail.startsWith("\\\\")) {
+					// if the tail starts with two backslashes we do
+					// not escape, because two backslashes represent
+					// one backslash
 					result = head + tail;
 					index++;
+				} else if (tail.startsWith("\\")) {
+					// if one slash is found here, we got an invalid 
+					// escape sequence, because the valid ones are
+					// detected by matching the ESC_REGEXP expression
+					foundInvalidEscapeSequence |= true;
+					// we do construct the escaped string even though
+					// the input was invalid, but indicate the error
+					// using the foundInvalidEscapeSequence flag
+					result = head + "\\" + tail;
 				} else {
 					result = head + "\\" + tail;
 				}
+			} else {
+				// found valid escape sequence
 			}
 			// continue searching for backslash characters
 			index = result.indexOf("\\", index + 2);
 		}
 		result = result.replace("'", "\\'");
-		return result;
+		return new Pair<String, Boolean>(result, foundInvalidEscapeSequence);
 	}
 	
 	public static boolean isUnicodeSequence(String text) {
