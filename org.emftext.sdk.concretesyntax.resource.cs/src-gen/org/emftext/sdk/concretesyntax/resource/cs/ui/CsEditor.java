@@ -115,6 +115,11 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
+	public void initializeEditor() {
+		super.initializeEditor();
+		setEditorContextMenuId("org.emftext.sdk.concretesyntax.resource.cs.EditorContext");
+	}
+	
 	@SuppressWarnings("unchecked")	
 	public java.lang.Object getAdapter(Class required) {
 		if (org.eclipse.ui.views.contentoutline.IContentOutlinePage.class.equals(required)) {
