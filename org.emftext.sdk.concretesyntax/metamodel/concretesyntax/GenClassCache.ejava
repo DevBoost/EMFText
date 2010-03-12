@@ -2,6 +2,11 @@ epackage concretesyntax;
 
 import genmodel.GenClass;
 
+/**
+ * The GenClassCache maps GenClasses and their qualified interfaces name. 
+ * This cache is used to get rid of performance problems that were caused 
+ * by the somewhat slow computation of the interface names in EMF.
+ */
 eclass GenClassCache {
 	
 	getQualifiedInterfaceName() {
