@@ -46,6 +46,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
@@ -58,7 +59,6 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.finders.GenClassFinder;
-import org.emftext.sdk.util.EClassUtil;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
 import org.emftext.sdk.util.ToStringConverter;
@@ -80,7 +80,6 @@ public class ConcreteSyntaxUtil {
 		ANONYMOUS_GEN_FEATURE.setEcoreFeature(ANONYMOUS_EATTRIBUTE);
 	}
 	
-	private final EClassUtil eClassUtil = new EClassUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
@@ -104,6 +103,7 @@ public class ConcreteSyntaxUtil {
 		Collection<GenClass> subClasses = new LinkedList<GenClass>();
 
 		EClass ecoreClass = genClass.getEcoreClass();
+		EClassUtil eClassUtil = syntax.getEClassUtil();
 		for (GenClass subClassCand : getClassesWithSyntax(syntax,excludeOperatorRules)) {
 			if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
 				subClasses.add(subClassCand);
@@ -140,6 +140,7 @@ public class ConcreteSyntaxUtil {
 	public boolean hasSubClassesWithCS(GenClass genClass,
 			Collection<Rule> source) {
 		for (Rule rule : source) {
+			EClassUtil eClassUtil = rule.getSyntax().getEClassUtil();
 			GenClass subClassCand = rule.getMetaclass();
 			for (EClass superClass : subClassCand.getEcoreClass()
 					.getEAllSuperTypes()) {

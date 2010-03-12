@@ -31,6 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.Placeholder;
@@ -39,7 +40,6 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.finders.GenClassFinder;
-import org.emftext.sdk.util.EClassUtil;
 
 /**
  * The OperatorAnnotationsValidator inspects all rules that are annotated with
@@ -92,7 +92,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				resource.addError("Expression idenfitier must map to a common abstract metaclass or interface.",annotation);
 			}
 			else{
-				EClassUtil eUtil = new EClassUtil();
+				EClassUtil eUtil = syntax.getEClassUtil();
 				if(!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
 					resource.addError("Operator rule must be associated with a subclass of "+identifier,operatorRule);
 				}		
@@ -106,10 +106,10 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 					List<Definition> definitions = options.get(0).getParts();
 					if (type == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE || 
 						type == OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE) {
-						checkBinaryOperatorRule(resource, annotation,
+						checkBinaryOperatorRule(resource, syntax, annotation,
 								definitions,expressionMetaClass);
 					} else {
-						checkUnaryOperatorRule(resource, annotation,
+						checkUnaryOperatorRule(resource, syntax, annotation,
 								definitions,expressionMetaClass);
 					}
 				} else {
@@ -303,7 +303,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param annotation
 	 * @param definitions
 	 */
-	private void checkBinaryOperatorRule(CsResource resource,
+	private void checkBinaryOperatorRule(CsResource resource, ConcreteSyntax syntax,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
 		if (definitions.size() != 3
 				|| !(definitions.get(0) instanceof Containment)
@@ -316,8 +316,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			return;
 		}
 		if(commonMetaClass!=null){
-			checkContainment(resource,commonMetaClass,(Containment)definitions.get(0));
-			checkContainment(resource,commonMetaClass,(Containment)definitions.get(2));
+			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(0));
+			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(2));
 		}
 	}
 
@@ -328,7 +328,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param annotation
 	 * @param definitions
 	 */
-	private void checkUnaryOperatorRule(CsResource resource,
+	private void checkUnaryOperatorRule(CsResource resource, ConcreteSyntax syntax,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
 		assert ConcreteSyntaxUtil.isOperatorType(annotation, OperatorAnnotationType.UNARY);
 		if (definitions.size() != 2
@@ -344,10 +344,10 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		}
 		if(commonMetaClass!=null){
 			if(definitions.get(0) instanceof Containment){
-				checkContainment(resource,commonMetaClass,(Containment)definitions.get(0));
+				checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(0));
 			}
 			else{
-				checkContainment(resource,commonMetaClass,(Containment)definitions.get(1));
+				checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(1));
 			}
 		}
 	}
@@ -361,13 +361,14 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param commonMetaClass
 	 * @param containment
 	 */
-	private void checkContainment(CsResource resource,GenClass commonMetaClass, Containment containment){
-		if(containment.getTypes()!=null&&!containment.getTypes().isEmpty()){
+	private void checkContainment(CsResource resource, ConcreteSyntax syntax, GenClass commonMetaClass, Containment containment){
+		if (containment.getTypes() != null && !containment.getTypes().isEmpty()) {
 			resource.addError("Subclass restrictions are not allowed in operator rules.",containment);
 		}
 		GenClass containmentClass = containment.getFeature().getTypeGenClass();
-		if(!containmentClass.equals(commonMetaClass)){
-			EClassUtil eUtil = new EClassUtil();
+		if (!containmentClass.equals(commonMetaClass)){
+			EClassUtil eUtil = syntax.getEClassUtil();
+
 			if(!eUtil.isSubClass(commonMetaClass.getEcoreClass(),containmentClass.getEcoreClass())){
 				resource.addError("Argument types must be equal or a super type of the common metaclass.",containment);
 			}
