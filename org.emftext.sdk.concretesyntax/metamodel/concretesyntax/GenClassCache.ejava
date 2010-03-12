@@ -1,0 +1,14 @@
+epackage concretesyntax;
+
+import genmodel.GenClass;
+
+eclass GenClassCache {
+	
+	getQualifiedInterfaceName() {
+		if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {
+			String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();
+			get_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);
+		}
+		return get_qualifiedInterfaceNameCache().get(genClass);
+	}
+}

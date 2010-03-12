@@ -1,16 +1,24 @@
 epackage concretesyntax;
 
+import genmodel.GenClass;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
 eclass ConcreteSyntax {
+
+	getGenClassCache() {
+		if (get_genClassCache() == null) {
+			set_genClassCache(#GenClassCache);
+		}
+		return get_genClassCache();
+	}
 	
 	hasAnnotation() {
 		for (Annotation annotation : rule.getAnnotations()) {

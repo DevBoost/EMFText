@@ -221,6 +221,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_operatorRules"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRuleSubsets"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRulesInitialized"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_genClassCache"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
@@ -243,6 +244,7 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/rule"/>
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/metaClass"/>
       </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getGenClassCache"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
@@ -373,6 +375,16 @@
     <genClasses ecoreClass="concretesyntax.ecore#//KeyValuePair">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//KeyValuePair/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//KeyValuePair/value"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//GenClassCache">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenClassCache/_qualifiedInterfaceNameCache"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/getQualifiedInterfaceName">
+        <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/getQualifiedInterfaceName/genClass"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//GenClassCacheEntry">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenClassCacheEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//GenClassCacheEntry/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
