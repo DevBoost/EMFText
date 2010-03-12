@@ -39,6 +39,7 @@ import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -54,10 +55,8 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EClassUtil;
 import org.emftext.sdk.util.EObjectUtil;
@@ -97,26 +96,6 @@ public class ConcreteSyntaxUtil {
 		return syntax;
 	}
 
-	public boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
-		if (definition instanceof CardinalityDefinition) {
-			CardinalityDefinition cd = (CardinalityDefinition) definition;
-			return (cd.getCardinality() == null || cd.getCardinality() instanceof PLUS);
-		} else {
-			return true;
-		}
-	}
-
-	public boolean hasNoOptionalPart(Definition definition) {
-		if (definition instanceof CardinalityDefinition) {
-			CardinalityDefinition cd = (CardinalityDefinition) definition;
-			return !
-				(cd.getCardinality() instanceof QUESTIONMARK ||
-				 cd.getCardinality() instanceof STAR);
-		} else {
-			return false;
-		}
-	}
-	
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */

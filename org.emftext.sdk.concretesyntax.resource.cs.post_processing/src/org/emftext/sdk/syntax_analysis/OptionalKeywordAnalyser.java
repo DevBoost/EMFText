@@ -17,7 +17,6 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -38,8 +37,6 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 	private static final String OPTIONAL_KEYWORD_WARNING = 
 		"The keyword might be used stand alone and will not be reprinted in such case: ";
 	
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		for(Iterator<EObject> i = syntax.eAllContents(); i.hasNext(); ) {
@@ -57,7 +54,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 							if (definition instanceof CsString) {
 								containsKeyword = true;
 							}
-							else if (csUtil.hasNoOptionalPart(definition)) {
+							else if (definition.hasNoOptionalPart()) {
 								restOptional = false;
 							}
 						}

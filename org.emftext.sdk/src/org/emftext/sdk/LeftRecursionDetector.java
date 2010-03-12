@@ -112,7 +112,7 @@ public class LeftRecursionDetector {
 					return leftProducingRule;
 				}
 			} 
-			if (csUtil.hasMinimalCardinalityOneOrHigher(definition)) {
+			if (definition.hasMinimalCardinalityOneOrHigher()) {
 				break;
 			}
 		}

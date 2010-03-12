@@ -144,7 +144,7 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 			necessaryMap.put(seq, sequenceNecessaryFeatures);
 			reachableMap.put(seq, sequenceReachableFeatures);
 			for (Definition def : seq.getParts()) {
-				final boolean hasMinimalCardinalityOneOrHigher = csUtil.hasMinimalCardinalityOneOrHigher(def);
+				final boolean hasMinimalCardinalityOneOrHigher = def.hasMinimalCardinalityOneOrHigher();
 				if (def instanceof CompoundDefinition) {
 					String subChoiceName = namePrefix + choiceIndex++;
 					Choice currentChoice = ((CompoundDefinition) def)
