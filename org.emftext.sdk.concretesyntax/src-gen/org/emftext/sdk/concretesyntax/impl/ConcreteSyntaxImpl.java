@@ -38,6 +38,7 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Option;
@@ -69,6 +70,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_operatorRuleSubsets <em>operator Rule Subsets</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#is_operatorRulesInitialized <em>operator Rules Initialized</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_genClassCache <em>gen Class Cache</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_eClassUtil <em>eClass Util</em>}</li>
  * </ul>
  * </p>
  *
@@ -264,6 +266,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected GenClassCache _genClassCache;
+
+	/**
+	 * The cached value of the '{@link #get_eClassUtil() <em>eClass Util</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #get_eClassUtil()
+	 * @generated
+	 * @ordered
+	 */
+	protected EClassUtil _eClassUtil;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -573,6 +585,49 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClassUtil get_eClassUtil() {
+		return _eClassUtil;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSet_eClassUtil(EClassUtil new_eClassUtil, NotificationChain msgs) {
+		EClassUtil old_eClassUtil = _eClassUtil;
+		_eClassUtil = new_eClassUtil;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL, old_eClassUtil, new_eClassUtil);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void set_eClassUtil(EClassUtil new_eClassUtil) {
+		if (new_eClassUtil != _eClassUtil) {
+			NotificationChain msgs = null;
+			if (_eClassUtil != null)
+				msgs = ((InternalEObject)_eClassUtil).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL, null, msgs);
+			if (new_eClassUtil != null)
+				msgs = ((InternalEObject)new_eClassUtil).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL, null, msgs);
+			msgs = basicSet_eClassUtil(new_eClassUtil, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL, new_eClassUtil, new_eClassUtil));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Rule> getOperatorRuleSubset(String identifier) {
 		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( ) ; 
 		if ( identifier == null ) { 
@@ -810,6 +865,19 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClassUtil getEClassUtil() {
+		if ( get_eClassUtil ( ) == null ) { 
+			set_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; 
+		} 
+		return get_eClassUtil ( ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -846,6 +914,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 				return basicSet_genClassCache(null, msgs);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
+				return basicSet_eClassUtil(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -892,6 +962,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return is_operatorRulesInitialized();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 				return get_genClassCache();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
+				return get_eClassUtil();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -969,6 +1041,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 				set_genClassCache((GenClassCache)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
+				set_eClassUtil((EClassUtil)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1032,6 +1107,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 				set_genClassCache((GenClassCache)null);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
+				set_eClassUtil((EClassUtil)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1078,6 +1156,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return _operatorRulesInitialized != _OPERATOR_RULES_INITIALIZED_EDEFAULT;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 				return _genClassCache != null;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
+				return _eClassUtil != null;
 		}
 		return super.eIsSet(featureID);
 	}

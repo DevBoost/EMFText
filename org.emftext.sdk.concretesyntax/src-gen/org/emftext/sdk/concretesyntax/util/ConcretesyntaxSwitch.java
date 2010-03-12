@@ -456,6 +456,12 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.ECLASS_UTIL: {
+				EClassUtil eClassUtil = (EClassUtil)theEObject;
+				T result = caseEClassUtil(eClassUtil);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1102,6 +1108,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseGenClassCacheEntry(Map.Entry<GenClass, String> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EClass Util</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EClass Util</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEClassUtil(EClassUtil object) {
 		return null;
 	}
 

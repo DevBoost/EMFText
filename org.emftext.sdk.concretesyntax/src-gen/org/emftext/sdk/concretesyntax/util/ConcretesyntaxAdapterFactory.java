@@ -297,6 +297,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createGenClassCacheEntryAdapter();
 			}
 			@Override
+			public Adapter caseEClassUtil(EClassUtil object) {
+				return createEClassUtilAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -915,6 +919,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenClassCacheEntryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.EClassUtil <em>EClass Util</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.EClassUtil
+	 * @generated
+	 */
+	public Adapter createEClassUtilAdapter() {
 		return null;
 	}
 

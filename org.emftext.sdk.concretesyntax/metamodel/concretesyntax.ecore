@@ -96,6 +96,12 @@
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
+    <eOperations name="getEClassUtil" eType="#//EClassUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="if ( get_eClassUtil ( ) == null ) { &#xD;&#xA;&#x9;set_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; &#xD;&#xA;} &#xD;&#xA;return get_eClassUtil ( ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -128,6 +134,8 @@
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="_genClassCache" lowerBound="1"
         eType="#//GenClassCache" transient="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="_eClassUtil" eType="#//EClassUtil"
+        transient="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//GenPackageDependentElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
@@ -601,5 +609,61 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenClassCacheEntry" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EClassUtil">
+    <eOperations name="isSubClass" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate .getEAllSuperTypes ( ) ) { &#xD;&#xA;&#x9;// There seem to be multiple instances of meta classes when accessed&#xA;// through the generator model. Therefore, we compare by name.&#xA;if ( namesAndPackageURIsAreEqual ( superClassCandidate , superClass ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="subClassCandidate" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="getSubClasses" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.ecore.EClass > result = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.ecore.EClass > ( ) ; &#xD;&#xA;for ( org.eclipse.emf.ecore.EClass next : availableClasses ) { &#xD;&#xA;&#x9;if ( isSubClass ( next , superClass ) &amp;&amp; isConcrete ( next ) ) { &#xD;&#xA;&#x9;&#x9;result .add ( next ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return result ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Returns all subclasses of 'superClass' that are contained&#xD;&#xA; in 'availableClasses'.&#xD;&#xA; &#xD;&#xA; @param superClass the superclass&#xD;&#xA; @param availableClasses the set of classes to search in&#xD;&#xA; @return a list of all subclasses of 'superClass'&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eParameters name="availableClasses" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="namesAndPackageURIsAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return namesAreEqual ( classA , classB ) &amp;&amp; packageURIsAreEqual ( classA , classB ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eParameters name="classB" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="packageURIsAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="java.lang.String nsURI_A = classA .getEPackage ( ) .getNsURI ( ) ; &#xD;&#xA;java.lang.String nsURI_B = classB .getEPackage ( ) .getNsURI ( ) ; &#xD;&#xA;return ( nsURI_A == null &amp;&amp; nsURI_B == null ) || nsURI_A .equals ( nsURI_B ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eParameters name="classB" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="namesAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return classA .getName ( ) .equals ( classB .getName ( ) ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eParameters name="classB" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="isConcrete" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return ! eClass .isAbstract ( ) &amp;&amp; ! eClass .isInterface ( ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+    <eOperations name="isNotConcrete" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return ! isConcrete ( eClass ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
   </eClassifiers>
 </ecore:EPackage>

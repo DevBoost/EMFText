@@ -222,6 +222,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRuleSubsets"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRulesInitialized"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_genClassCache"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_eClassUtil"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
@@ -249,6 +250,7 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isImportedRule">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isImportedRule/rule"/>
       </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getEClassUtil"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
@@ -394,6 +396,34 @@
     <genClasses ecoreClass="concretesyntax.ecore#//GenClassCacheEntry">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenClassCacheEntry/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//GenClassCacheEntry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//EClassUtil">
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isSubClass">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isSubClass/subClassCandidate"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isSubClass/superClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/getSubClasses">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/getSubClasses/superClass"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/getSubClasses/availableClasses"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/namesAndPackageURIsAreEqual">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/namesAndPackageURIsAreEqual/classA"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/namesAndPackageURIsAreEqual/classB"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/packageURIsAreEqual">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/packageURIsAreEqual/classA"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/packageURIsAreEqual/classB"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/namesAreEqual">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/namesAreEqual/classA"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/namesAreEqual/classB"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isConcrete">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isConcrete/eClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isNotConcrete">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isNotConcrete/eClass"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

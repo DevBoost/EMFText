@@ -43,6 +43,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_operatorRuleSubsets <em>operator Rule Subsets</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#is_operatorRulesInitialized <em>operator Rules Initialized</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_genClassCache <em>gen Class Cache</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_eClassUtil <em>eClass Util</em>}</li>
  * </ul>
  * </p>
  *
@@ -350,6 +351,32 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	void set_genClassCache(GenClassCache value);
 
 	/**
+	 * Returns the value of the '<em><b>eClass Util</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>eClass Util</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>eClass Util</em>' containment reference.
+	 * @see #set_eClassUtil(EClassUtil)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax__eClassUtil()
+	 * @model containment="true" transient="true"
+	 * @generated
+	 */
+	EClassUtil get_eClassUtil();
+
+	/**
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_eClassUtil <em>eClass Util</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>eClass Util</em>' containment reference.
+	 * @see #get_eClassUtil()
+	 * @generated
+	 */
+	void set_eClassUtil(EClassUtil value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -507,5 +534,17 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @generated
 	 */
 	boolean isImportedRule(Rule rule);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( get_eClassUtil ( ) == null ) { \r\n\tset_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; \r\n} \r\nreturn get_eClassUtil ( ) ; \r\n'"
+	 * @generated
+	 */
+	EClassUtil getEClassUtil();
 
 } // ConcreteSyntax

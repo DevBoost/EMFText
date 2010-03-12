@@ -44,6 +44,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -387,6 +388,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass eClassUtilEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum optionTypesEEnum = null;
 
 	/**
@@ -659,6 +667,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EReference getConcreteSyntax__genClassCache() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax__eClassUtil() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -1431,6 +1448,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEClassUtil() {
+		return eClassUtilEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOptionTypes() {
 		return optionTypesEEnum;
 	}
@@ -1520,6 +1546,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS);
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__GEN_CLASS_CACHE);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ECLASS_UTIL);
 
 		importEClass = createEClass(IMPORT);
 		createEAttribute(importEClass, IMPORT__PREFIX);
@@ -1647,6 +1674,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(genClassCacheEntryEClass, GEN_CLASS_CACHE_ENTRY__KEY);
 		createEAttribute(genClassCacheEntryEClass, GEN_CLASS_CACHE_ENTRY__VALUE);
 
+		eClassUtilEClass = createEClass(ECLASS_UTIL);
+
 		// Create enums
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
@@ -1743,6 +1772,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getConcreteSyntax__operatorRuleSubsets(), theEcorePackage.getEString(), "_operatorRuleSubsets", "", 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConcreteSyntax__operatorRulesInitialized(), theEcorePackage.getEBoolean(), "_operatorRulesInitialized", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax__genClassCache(), this.getGenClassCache(), null, "_genClassCache", null, 1, 1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax__eClassUtil(), this.getEClassUtil(), null, "_eClassUtil", null, 0, 1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(concreteSyntaxEClass, this.getRule(), "getOperatorRuleSubset", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "identifier", 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -1778,6 +1808,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "isImportedRule", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(concreteSyntaxEClass, this.getEClassUtil(), "getEClassUtil", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_Prefix(), ecorePackage.getEString(), "prefix", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1950,6 +1982,34 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(genClassCacheEntryEClass, Map.Entry.class, "GenClassCacheEntry", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenClassCacheEntry_Key(), theGenModelPackage.getGenClass(), null, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenClassCacheEntry_Value(), theEcorePackage.getEString(), "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eClassUtilEClass, EClassUtil.class, "EClassUtil", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isSubClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "subClassCandidate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "superClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEClass(), "getSubClasses", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "superClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "availableClasses", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "namesAndPackageURIsAreEqual", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classA", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classB", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "packageURIsAreEqual", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classA", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classB", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "namesAreEqual", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classA", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "classB", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isConcrete", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isNotConcrete", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(optionTypesEEnum, OptionTypes.class, "OptionTypes");

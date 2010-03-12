@@ -40,6 +40,13 @@ eclass ConcreteSyntax {
 		return get_genClassCache();
 	}
 	
+	getEClassUtil() {
+		if (get_eClassUtil() == null) {
+			set_eClassUtil(#EClassUtil);
+		}
+		return get_eClassUtil();
+	}
+	
 	hasAnnotation() {
 		for (Annotation annotation : rule.getAnnotations()) {
 			if (annotation.getType() == type) {

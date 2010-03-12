@@ -137,6 +137,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.KEY_VALUE_PAIR: return createKeyValuePair();
 			case ConcretesyntaxPackage.GEN_CLASS_CACHE: return createGenClassCache();
 			case ConcretesyntaxPackage.GEN_CLASS_CACHE_ENTRY: return (EObject)createGenClassCacheEntry();
+			case ConcretesyntaxPackage.ECLASS_UTIL: return createEClassUtil();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -486,6 +487,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public Map.Entry<GenClass, String> createGenClassCacheEntry() {
 		GenClassCacheEntryImpl genClassCacheEntry = new GenClassCacheEntryImpl();
 		return genClassCacheEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClassUtil createEClassUtil() {
+		EClassUtilImpl eClassUtil = new EClassUtilImpl();
+		return eClassUtil;
 	}
 
 	/**

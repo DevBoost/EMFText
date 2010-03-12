@@ -289,13 +289,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__GEN_CLASS_CACHE = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
 
 	/**
+	 * The feature id for the '<em><b>eClass Util</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ECLASS_UTIL = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
+
+	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 18;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -1806,6 +1815,25 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int GEN_CLASS_CACHE_ENTRY_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.EClassUtilImpl <em>EClass Util</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.EClassUtilImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
+	 * @generated
+	 */
+	int ECLASS_UTIL = 43;
+
+	/**
+	 * The number of structural features of the '<em>EClass Util</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ECLASS_UTIL_FEATURE_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1813,7 +1841,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 43;
+	int OPTION_TYPES = 44;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -1823,7 +1851,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 44;
+	int FONT_STYLE = 45;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -1833,7 +1861,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 45;
+	int ANNOTATION_TYPE = 46;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -1843,7 +1871,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 46;
+	int OPERATOR_ANNOTATION_TYPE = 47;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -1853,7 +1881,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 47;
+	int OPERATOR_ANNOTATION_PROPERTY = 48;
 
 
 	/**
@@ -2073,6 +2101,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConcreteSyntax__genClassCache();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_eClassUtil <em>eClass Util</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>eClass Util</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#get_eClassUtil()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax__eClassUtil();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Import <em>Import</em>}'.
@@ -2971,6 +3010,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getGenClassCacheEntry_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.EClassUtil <em>EClass Util</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>EClass Util</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EClassUtil
+	 * @generated
+	 */
+	EClass getEClassUtil();
+
+	/**
 	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3205,6 +3254,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__GEN_CLASS_CACHE = eINSTANCE.getConcreteSyntax__genClassCache();
+
+		/**
+		 * The meta object literal for the '<em><b>eClass Util</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ECLASS_UTIL = eINSTANCE.getConcreteSyntax__eClassUtil();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -3967,6 +4024,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GEN_CLASS_CACHE_ENTRY__VALUE = eINSTANCE.getGenClassCacheEntry_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.EClassUtilImpl <em>EClass Util</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.EClassUtilImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
+		 * @generated
+		 */
+		EClass ECLASS_UTIL = eINSTANCE.getEClassUtil();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.

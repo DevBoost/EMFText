@@ -297,6 +297,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	GenClassCache createGenClassCache();
 
 	/**
+	 * Returns a new object of class '<em>EClass Util</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>EClass Util</em>'.
+	 * @generated
+	 */
+	EClassUtil createEClassUtil();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
