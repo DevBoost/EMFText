@@ -268,9 +268,14 @@
     <genClasses ecoreClass="concretesyntax.ecore#//Sequence">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Sequence/parts"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="concretesyntax.ecore#//Definition"/>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//Definition">
+      <genOperations ecoreOperation="concretesyntax.ecore#//Definition/hasMinimalCardinalityOneOrHigher"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Definition/hasNoOptionalPart"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//CardinalityDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CardinalityDefinition/cardinality"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CardinalityDefinition/hasMinimalCardinalityOneOrHigher"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CardinalityDefinition/hasNoOptionalPart"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//Terminal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Terminal/feature"/>

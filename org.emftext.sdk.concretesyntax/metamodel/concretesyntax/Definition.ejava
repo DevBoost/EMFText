@@ -1,0 +1,12 @@
+epackage concretesyntax;
+
+eclass Definition {
+	
+	hasMinimalCardinalityOneOrHigher() {
+		return true;
+	}
+
+	hasNoOptionalPart() {
+		return false;
+	}
+}

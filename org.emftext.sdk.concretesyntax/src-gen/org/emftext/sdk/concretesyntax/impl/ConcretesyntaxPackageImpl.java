@@ -1801,8 +1801,16 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEClass(definitionEClass, Definition.class, "Definition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		addEOperation(definitionEClass, theEcorePackage.getEBoolean(), "hasMinimalCardinalityOneOrHigher", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(definitionEClass, theEcorePackage.getEBoolean(), "hasNoOptionalPart", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(cardinalityDefinitionEClass, CardinalityDefinition.class, "CardinalityDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCardinalityDefinition_Cardinality(), this.getCardinality(), null, "cardinality", null, 0, 1, CardinalityDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(cardinalityDefinitionEClass, theEcorePackage.getEBoolean(), "hasMinimalCardinalityOneOrHigher", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(cardinalityDefinitionEClass, theEcorePackage.getEBoolean(), "hasNoOptionalPart", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(terminalEClass, Terminal.class, "Terminal", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTerminal_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, Terminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1,0 +1,14 @@
+epackage concretesyntax;
+
+eclass CardinalityDefinition {
+	
+	hasMinimalCardinalityOneOrHigher() {
+		return getCardinality() == null || getCardinality() instanceof PLUS;
+	}
+
+	hasNoOptionalPart() {
+		return !
+			(getCardinality() instanceof QUESTIONMARK ||
+			 getCardinality() instanceof STAR);
+	}
+}

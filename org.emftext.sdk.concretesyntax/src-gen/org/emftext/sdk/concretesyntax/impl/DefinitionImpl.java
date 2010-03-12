@@ -50,4 +50,24 @@ public abstract class DefinitionImpl extends EObjectImpl implements Definition {
 		return ConcretesyntaxPackage.Literals.DEFINITION;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean hasMinimalCardinalityOneOrHigher() {
+		return true ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean hasNoOptionalPart() {
+		return false ; 
+		
+	}
+
 } //DefinitionImpl

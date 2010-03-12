@@ -29,4 +29,26 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Definition extends EObject {
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return true ; \r\n'"
+	 * @generated
+	 */
+	boolean hasMinimalCardinalityOneOrHigher();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return false ; \r\n'"
+	 * @generated
+	 */
+	boolean hasNoOptionalPart();
 } // Definition
