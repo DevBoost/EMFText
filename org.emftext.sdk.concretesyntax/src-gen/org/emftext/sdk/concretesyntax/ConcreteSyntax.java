@@ -477,4 +477,35 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 */
 	GenClassCache getGenClassCache();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( getModifier ( ) != null ) { \r\n\treturn true ; \r\n} \r\nreturn false ; \r\n'"
+	 * @generated
+	 */
+	boolean isAbstract();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Returns true if the given rule was defined in the given syntax.
+	 *  If the rule is defined in an imported syntax, this method returns
+	 *  false.
+	 *  
+	 *  @param syntax the syntax that refers to the rule
+	 *  @param rule the rule to check
+	 *  @return true if the rule is contained, false if it is imported
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return rule .getSyntax ( ) != this ; \r\n'"
+	 * @generated
+	 */
+	boolean isImportedRule(Rule rule);
+
 } // ConcreteSyntax

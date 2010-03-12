@@ -245,6 +245,10 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/metaClass"/>
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getGenClassCache"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isAbstract"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isImportedRule">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isImportedRule/rule"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
