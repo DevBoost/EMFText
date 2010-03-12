@@ -16,60 +16,48 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
-import java.util.Collection;
-
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.RegexComposite;
-import org.emftext.sdk.concretesyntax.RegexPart;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Regex Composite</b></em>'.
+ * An implementation of the model object '<em><b>Gen Class Cache</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.RegexCompositeImpl#getRegex <em>Regex</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.RegexCompositeImpl#getRegexParts <em>Regex Parts</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.GenClassCacheImpl#get_qualifiedInterfaceNameCache <em>qualified Interface Name Cache</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class RegexCompositeImpl extends EObjectImpl implements RegexComposite {
+public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	/**
-	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * The cached value of the '{@link #get_qualifiedInterfaceNameCache() <em>qualified Interface Name Cache</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRegex()
+	 * @see #get_qualifiedInterfaceNameCache()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String REGEX_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getRegexParts() <em>Regex Parts</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRegexParts()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<RegexPart> regexParts;
+	protected EMap<GenClass, String> _qualifiedInterfaceNameCache;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RegexCompositeImpl() {
+	protected GenClassCacheImpl() {
 		super();
 	}
 
@@ -80,7 +68,7 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.REGEX_COMPOSITE;
+		return ConcretesyntaxPackage.Literals.GEN_CLASS_CACHE;
 	}
 
 	/**
@@ -88,25 +76,26 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getRegex() {
-		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
-			result .append ( part .getRegex ( ) ) ; 
-		} 
-		return result .toString ( ) ; 
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<RegexPart> getRegexParts() {
-		if (regexParts == null) {
-			regexParts = new EObjectContainmentEList<RegexPart>(RegexPart.class, this, ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS);
+	@SuppressWarnings("unchecked")
+	public EMap<GenClass, String> get_qualifiedInterfaceNameCache() {
+		if (_qualifiedInterfaceNameCache == null) {
+			_qualifiedInterfaceNameCache = new EcoreEMap<GenClass,String>(ConcretesyntaxPackage.Literals.GEN_CLASS_CACHE_ENTRY, GenClassCacheEntryImpl.class, this, ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE);
 		}
-		return regexParts;
+		return _qualifiedInterfaceNameCache;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getQualifiedInterfaceName(GenClass genClass) {
+		if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { 
+			java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; 
+			get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; 
+		} 
+		return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; 
+		
 	}
 
 	/**
@@ -117,8 +106,8 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS:
-				return ((InternalEList<?>)getRegexParts()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE:
+				return ((InternalEList<?>)get_qualifiedInterfaceNameCache()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -131,10 +120,9 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX:
-				return getRegex();
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS:
-				return getRegexParts();
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE:
+				if (coreType) return get_qualifiedInterfaceNameCache();
+				else return get_qualifiedInterfaceNameCache().map();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -148,9 +136,8 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS:
-				getRegexParts().clear();
-				getRegexParts().addAll((Collection<? extends RegexPart>)newValue);
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE:
+				((EStructuralFeature.Setting)get_qualifiedInterfaceNameCache()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -164,8 +151,8 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS:
-				getRegexParts().clear();
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE:
+				get_qualifiedInterfaceNameCache().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -179,12 +166,10 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX:
-				return REGEX_EDEFAULT == null ? getRegex() != null : !REGEX_EDEFAULT.equals(getRegex());
-			case ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS:
-				return regexParts != null && !regexParts.isEmpty();
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE:
+				return _qualifiedInterfaceNameCache != null && !_qualifiedInterfaceNameCache.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //RegexCompositeImpl
+} //GenClassCacheImpl

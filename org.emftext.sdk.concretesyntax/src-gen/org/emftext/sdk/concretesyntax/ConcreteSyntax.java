@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -43,6 +42,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_operatorRules <em>operator Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_operatorRuleSubsets <em>operator Rule Subsets</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#is_operatorRulesInitialized <em>operator Rules Initialized</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_genClassCache <em>gen Class Cache</em>}</li>
  * </ul>
  * </p>
  *
@@ -324,6 +324,32 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	void set_operatorRulesInitialized(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>gen Class Cache</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>gen Class Cache</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>gen Class Cache</em>' containment reference.
+	 * @see #set_genClassCache(GenClassCache)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax__genClassCache()
+	 * @model containment="true" required="true" transient="true"
+	 * @generated
+	 */
+	GenClassCache get_genClassCache();
+
+	/**
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_genClassCache <em>gen Class Cache</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>gen Class Cache</em>' containment reference.
+	 * @see #get_genClassCache()
+	 * @generated
+	 */
+	void set_genClassCache(GenClassCache value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -438,5 +464,17 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @generated
 	 */
 	boolean isOverrideRule(Rule rule, GenClass metaClass);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( get_genClassCache ( ) == null ) { \r\n\tset_genClassCache ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache()) ; \r\n} \r\nreturn get_genClassCache ( ) ; \r\n'"
+	 * @generated
+	 */
+	GenClassCache getGenClassCache();
 
 } // ConcreteSyntax

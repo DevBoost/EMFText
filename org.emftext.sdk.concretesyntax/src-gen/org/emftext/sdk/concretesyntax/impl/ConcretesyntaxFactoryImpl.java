@@ -16,16 +16,51 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
+import java.util.Map;
+
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.emftext.sdk.concretesyntax.*;
+import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
+import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.FontStyle;
+import org.emftext.sdk.concretesyntax.GenClassCache;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
+import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
+import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
+import org.emftext.sdk.concretesyntax.RegexComposer;
+import org.emftext.sdk.concretesyntax.RegexReference;
+import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenStyle;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * <!-- begin-user-doc -->
@@ -99,6 +134,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
 			case ConcretesyntaxPackage.ANNOTATION: return createAnnotation();
 			case ConcretesyntaxPackage.KEY_VALUE_PAIR: return createKeyValuePair();
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE: return createGenClassCache();
+			case ConcretesyntaxPackage.GEN_CLASS_CACHE_ENTRY: return (EObject)createGenClassCacheEntry();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -428,6 +465,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public KeyValuePair createKeyValuePair() {
 		KeyValuePairImpl keyValuePair = new KeyValuePairImpl();
 		return keyValuePair;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenClassCache createGenClassCache() {
+		GenClassCacheImpl genClassCache = new GenClassCacheImpl();
+		return genClassCache;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<GenClass, String> createGenClassCacheEntry() {
+		GenClassCacheEntryImpl genClassCacheEntry = new GenClassCacheEntryImpl();
+		return genClassCacheEntry;
 	}
 
 	/**

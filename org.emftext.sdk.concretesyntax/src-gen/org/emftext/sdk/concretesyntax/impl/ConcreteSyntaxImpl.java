@@ -19,24 +19,18 @@ package org.emftext.sdk.concretesyntax.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -44,6 +38,7 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -73,6 +68,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_operatorRules <em>operator Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_operatorRuleSubsets <em>operator Rule Subsets</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#is_operatorRulesInitialized <em>operator Rules Initialized</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_genClassCache <em>gen Class Cache</em>}</li>
  * </ul>
  * </p>
  *
@@ -258,6 +254,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected boolean _operatorRulesInitialized = _OPERATOR_RULES_INITIALIZED_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #get_genClassCache() <em>gen Class Cache</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #get_genClassCache()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenClassCache _genClassCache;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -524,6 +530,49 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenClassCache get_genClassCache() {
+		return _genClassCache;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSet_genClassCache(GenClassCache new_genClassCache, NotificationChain msgs) {
+		GenClassCache old_genClassCache = _genClassCache;
+		_genClassCache = new_genClassCache;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE, old_genClassCache, new_genClassCache);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void set_genClassCache(GenClassCache new_genClassCache) {
+		if (new_genClassCache != _genClassCache) {
+			NotificationChain msgs = null;
+			if (_genClassCache != null)
+				msgs = ((InternalEObject)_genClassCache).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE, null, msgs);
+			if (new_genClassCache != null)
+				msgs = ((InternalEObject)new_genClassCache).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE, null, msgs);
+			msgs = basicSet_genClassCache(new_genClassCache, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE, new_genClassCache, new_genClassCache));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Rule> getOperatorRuleSubset(String identifier) {
 		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( ) ; 
 		if ( identifier == null ) { 
@@ -725,6 +774,19 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenClassCache getGenClassCache() {
+		if ( get_genClassCache ( ) == null ) { 
+			set_genClassCache ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache()) ; 
+		} 
+		return get_genClassCache ( ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -759,6 +821,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return ((InternalEList<?>)getTokenStyles()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+				return basicSet_genClassCache(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -803,6 +867,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return get_operatorRuleSubsets();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
 				return is_operatorRulesInitialized();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+				return get_genClassCache();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -877,6 +943,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
 				set_operatorRulesInitialized((Boolean)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+				set_genClassCache((GenClassCache)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -937,6 +1006,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
 				set_operatorRulesInitialized(_OPERATOR_RULES_INITIALIZED_EDEFAULT);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+				set_genClassCache((GenClassCache)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -981,6 +1053,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return _operatorRuleSubsets != null && !_operatorRuleSubsets.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
 				return _operatorRulesInitialized != _OPERATOR_RULES_INITIALIZED_EDEFAULT;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+				return _genClassCache != null;
 		}
 		return super.eIsSet(featureID);
 	}

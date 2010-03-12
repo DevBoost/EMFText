@@ -288,6 +288,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	KeyValuePair createKeyValuePair();
 
 	/**
+	 * Returns a new object of class '<em>Gen Class Cache</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Class Cache</em>'.
+	 * @generated
+	 */
+	GenClassCache createGenClassCache();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

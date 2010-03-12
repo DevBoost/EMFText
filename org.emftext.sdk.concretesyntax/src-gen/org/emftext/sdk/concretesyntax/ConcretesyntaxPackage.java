@@ -280,13 +280,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
+	 * The feature id for the '<em><b>gen Class Cache</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__GEN_CLASS_CACHE = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
+
+	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -1732,6 +1741,71 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int KEY_VALUE_PAIR_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.GenClassCacheImpl <em>Gen Class Cache</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.GenClassCacheImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
+	 * @generated
+	 */
+	int GEN_CLASS_CACHE = 41;
+
+	/**
+	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Class Cache</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CLASS_CACHE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.GenClassCacheEntryImpl <em>Gen Class Cache Entry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.GenClassCacheEntryImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
+	 * @generated
+	 */
+	int GEN_CLASS_CACHE_ENTRY = 42;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CLASS_CACHE_ENTRY__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CLASS_CACHE_ENTRY__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Class Cache Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CLASS_CACHE_ENTRY_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1739,7 +1813,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 41;
+	int OPTION_TYPES = 43;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -1749,7 +1823,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 42;
+	int FONT_STYLE = 44;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -1759,7 +1833,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 43;
+	int ANNOTATION_TYPE = 45;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -1769,7 +1843,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 44;
+	int OPERATOR_ANNOTATION_TYPE = 46;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -1779,7 +1853,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 45;
+	int OPERATOR_ANNOTATION_PROPERTY = 47;
 
 
 	/**
@@ -1988,6 +2062,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getConcreteSyntax__operatorRulesInitialized();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#get_genClassCache <em>gen Class Cache</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>gen Class Cache</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#get_genClassCache()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax__genClassCache();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Import <em>Import</em>}'.
@@ -2831,6 +2916,61 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getKeyValuePair_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.GenClassCache <em>Gen Class Cache</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Class Cache</em>'.
+	 * @see org.emftext.sdk.concretesyntax.GenClassCache
+	 * @generated
+	 */
+	EClass getGenClassCache();
+
+	/**
+	 * Returns the meta object for the map '{@link org.emftext.sdk.concretesyntax.GenClassCache#get_qualifiedInterfaceNameCache <em>qualified Interface Name Cache</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>qualified Interface Name Cache</em>'.
+	 * @see org.emftext.sdk.concretesyntax.GenClassCache#get_qualifiedInterfaceNameCache()
+	 * @see #getGenClassCache()
+	 * @generated
+	 */
+	EReference getGenClassCache__qualifiedInterfaceNameCache();
+
+	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Gen Class Cache Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Class Cache Entry</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyType="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 *        valueDataType="org.eclipse.emf.ecore.EString"
+	 * @generated
+	 */
+	EClass getGenClassCacheEntry();
+
+	/**
+	 * Returns the meta object for the reference '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getGenClassCacheEntry()
+	 * @generated
+	 */
+	EReference getGenClassCacheEntry_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getGenClassCacheEntry()
+	 * @generated
+	 */
+	EAttribute getGenClassCacheEntry_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3057,6 +3197,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED = eINSTANCE.getConcreteSyntax__operatorRulesInitialized();
+
+		/**
+		 * The meta object literal for the '<em><b>gen Class Cache</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__GEN_CLASS_CACHE = eINSTANCE.getConcreteSyntax__genClassCache();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -3775,6 +3923,50 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute KEY_VALUE_PAIR__VALUE = eINSTANCE.getKeyValuePair_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.GenClassCacheImpl <em>Gen Class Cache</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.GenClassCacheImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
+		 * @generated
+		 */
+		EClass GEN_CLASS_CACHE = eINSTANCE.getGenClassCache();
+
+		/**
+		 * The meta object literal for the '<em><b>qualified Interface Name Cache</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE = eINSTANCE.getGenClassCache__qualifiedInterfaceNameCache();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.GenClassCacheEntryImpl <em>Gen Class Cache Entry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.GenClassCacheEntryImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
+		 * @generated
+		 */
+		EClass GEN_CLASS_CACHE_ENTRY = eINSTANCE.getGenClassCacheEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GEN_CLASS_CACHE_ENTRY__KEY = eINSTANCE.getGenClassCacheEntry_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GEN_CLASS_CACHE_ENTRY__VALUE = eINSTANCE.getGenClassCacheEntry_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
