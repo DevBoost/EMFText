@@ -29,7 +29,6 @@ import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -69,8 +68,6 @@ public abstract class PluginsCreator {
 	protected static final int TICKS_GENERATE_ANTLR_PLUGIN = 20;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 	
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-	
 	public abstract void createProject(GenerationContext context, SubMonitor progress, EPlugins plugin) throws Exception;
 
 	public Result run(
@@ -90,7 +87,7 @@ public abstract class PluginsCreator {
 		}
 
 		// perform some initial checks
-		if (csUtil.isAbstract(concreteSyntax)) {
+		if (concreteSyntax.isAbstract()) {
 			return Result.ERROR_ABSTRACT_SYNTAX;
 		}
 		GenPackage genPackage = concreteSyntax.getPackage();

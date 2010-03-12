@@ -42,8 +42,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  */
 public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	
-	private ConcreteSyntaxUtil concreteSyntaxUtil = new ConcreteSyntaxUtil();
-
 	/**
 	 * A helper class to hold information about the cardinality
 	 * of a feature.
@@ -88,7 +86,7 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getAllRules()) {
-			if (concreteSyntaxUtil.isImportedRule(syntax, rule)) {
+			if (syntax.isImportedRule(rule)) {
 				continue;
 			}
 			analyse(resource, rule);

@@ -85,13 +85,6 @@ public class ConcreteSyntaxUtil {
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	public boolean isAbstract(ConcreteSyntax concreteSyntax) {
-		if (concreteSyntax.getModifier() != null) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean isImportedToken(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		return !syntax.equals(getContainingSyntax(syntax, tokenDefinition));
 	}
@@ -102,19 +95,6 @@ public class ConcreteSyntaxUtil {
 			return (ConcreteSyntax) container;
 		}
 		return syntax;
-	}
-
-	/**
-	 * Returns true if the given rule was defined in the given syntax.
-	 * If the rule is defined in an imported syntax, this method returns
-	 * false.
-	 * 
-	 * @param syntax the syntax that refers to the rule
-	 * @param rule the rule to check
-	 * @return true if the rule is contained, false if it is imported
-	 */
-	public boolean isImportedRule(ConcreteSyntax syntax, Rule rule) {
-		return rule.getSyntax() != syntax;
 	}
 
 	public boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
