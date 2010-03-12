@@ -31,6 +31,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -45,6 +46,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 	private String defaultResolverDelegateName;
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private GenClassCache genClassCache;
 
 	public ReferenceResolverGenerator() {
 		super();
@@ -52,6 +54,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 
 	private ReferenceResolverGenerator(GenerationContext context) {
 		this.context = context;
+		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 		this.classNameHelper = new ClassNameHelper(context);
 		this.defaultResolverDelegateName = context
 				.getQualifiedDefaultResolverDelegateName();
@@ -71,10 +74,10 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 				+ " implements "
 				+ getClassNameHelper().getI_REFERENCE_RESOLVER()
 				+ "<"
-				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass())
 				+ ", "
-				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getTypeGenClass()) + "> {");
 		sc.addLineBreak();
 
@@ -110,10 +113,10 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 			// for references in rules in the current syntax we
 			// delegate the reference resolving to default resolver delegate
 			String typeParameters = "<"
-					+ genClassFinder.getQualifiedInterfaceName(proxyReference
+					+ genClassCache.getQualifiedInterfaceName(proxyReference
 							.getGenClass())
 					+ ", "
-					+ genClassFinder.getQualifiedInterfaceName(proxyReference
+					+ genClassCache.getQualifiedInterfaceName(proxyReference
 							.getTypeGenClass()) + ">";
 			sc.add("private " + defaultResolverDelegateName + typeParameters
 					+ " delegate = new " + defaultResolverDelegateName
@@ -126,10 +129,10 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		sc.add("public "
 				+ STRING
 				+ " deResolve("
-				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getTypeGenClass())
 				+ " element, "
-				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
 				+ EReference.class.getName() + " reference) {");
 		sc.add("return delegate.deResolve(element, container, reference);");
@@ -138,12 +141,12 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private void addResolveMethod(StringComposite sc) {
-		String typeClassName = genClassFinder
+		String typeClassName = genClassCache
 				.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
 		sc.add("public void resolve("
 				+ STRING
 				+ " identifier, "
-				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
 				+ EReference.class.getName()
 				+ " reference, int position, boolean resolveFuzzy, final "

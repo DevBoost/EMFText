@@ -26,10 +26,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
-import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 
 /**
@@ -43,19 +43,19 @@ public class GenClassFinder {
 	public static final String DOT = ".";
 	
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
-	private final GenClassCache genClassCache = new GenClassCache();
 
 	/**
 	 * Returns all generator classes in the given syntax.
 	 * 
 	 * @param syntax the syntax to search in
 	 * @param includingImports indicates whether included package shall be included in the search
+	 * @param genClassCache 
 	 * 
 	 * @return a found classes
 	 */
 	public Set<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
 		List<Pair<String, GenClass>> foundClassesAndPrefixes = findAllGenClassesAndPrefixes(syntax, includingImports, includeUsedGeneratorModels);
-		return convertToGenClassList(foundClassesAndPrefixes);
+		return convertToGenClassList(foundClassesAndPrefixes, syntax.getGenClassCache());
 	}
 
 	/**
@@ -101,26 +101,17 @@ public class GenClassFinder {
 	}
 
 	private Set<GenClass> convertToGenClassList(
-			final List<Pair<String, GenClass>> foundClassesAndPrefixes) {
+			final List<Pair<String, GenClass>> foundClassesAndPrefixes, GenClassCache genClassCache) {
 		Set<GenClass> foundClasses = new LinkedHashSet<GenClass>();
 		for (Pair<String, GenClass> prefixAndGenClass : foundClassesAndPrefixes) {
 			final GenClass right = prefixAndGenClass.getRight();
-			if (!contains(foundClasses, right)) {
+			if (!genClassUtil.contains(foundClasses, right, genClassCache)) {
 				foundClasses.add(right);
 			}
 		}
 		return foundClasses;
 	}
 	
-	public boolean contains(Collection<GenClass> genClasses, GenClass genClass) {
-		for (GenClass next : genClasses) {
-			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	private List<Pair<String, GenClass>> findGenClassesAndPrefixesInImports(String prefix, ConcreteSyntax syntax) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		for (Import nextImport : syntax.getImports()) {
@@ -149,7 +140,7 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 
-	public Map<String, Collection<String>> findAllSuperclasses(Collection<GenClass> allGenClasses) {
+	public Map<String, Collection<String>> findAllSuperclasses(Collection<GenClass> allGenClasses, GenClassCache genClassCache) {
 		Map<String, Collection<String>> genClassName2superNames = new HashMap<String, Collection<String>>();
 	    
 	    for (GenClass genClass : allGenClasses) {
@@ -162,11 +153,11 @@ public class GenClassFinder {
 	    return genClassName2superNames;
 	}
 
-	public Collection<GenClass> findAllSubclasses(ConcreteSyntax syntax, GenClass superClass) {
+	public Collection<GenClass> findAllSubclasses(ConcreteSyntax syntax, GenClass superClass, GenClassCache genClassCache) {
 		Collection<GenClass> foundSubclasses = new ArrayList<GenClass>();
 	    
 	    for (GenClass genClass : findAllGenClasses(syntax, true, true)) {
-			if (genClassUtil .isSuperClass(superClass, genClass)) {
+			if (genClassUtil.isSuperClass(superClass, genClass, genClassCache)) {
 				foundSubclasses.add(genClass);
 			}
 		}
@@ -175,7 +166,8 @@ public class GenClassFinder {
 
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax cs, GenClass genClass) {
 		if (cs == null) return null;
-		if (contains(findAllGenClasses(cs, false, false), genClass)) {
+		GenClassCache genClassCache = cs.getGenClassCache();
+		if (genClassUtil.contains(findAllGenClasses(cs, false, false), genClass, genClassCache)) {
 			return cs;
 		}
 		EList<Import> imports = cs.getImports();
@@ -188,12 +180,8 @@ public class GenClassFinder {
 		return null;
 	}
 
-	public String getQualifiedInterfaceName(GenClass genClass) {
-		return genClassCache.getQualifiedInterfaceName(genClass);
-	}
-
-	public String getEscapedTypeName(GenClass genClass) {
-		String interfaceName = getQualifiedInterfaceName(genClass);
+	public String getEscapedTypeName(GenClass genClass, GenClassCache genClassCache) {
+		String interfaceName = genClassCache.getQualifiedInterfaceName(genClass);
 		String escapedName = interfaceName.replace("_", "_005F");
 		escapedName = escapedName.replace(".", "_");
 		return escapedName;

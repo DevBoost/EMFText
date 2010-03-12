@@ -20,12 +20,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 
@@ -37,7 +37,6 @@ import org.emftext.sdk.concretesyntax.Sequence;
 public class LeftRecursionDetector {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-	private final GenClassCache genClassCache = new GenClassCache();
 	
 	private final Map<String, Collection<String>> genClassNames2superNames;
 	private final ConcreteSyntax grammar;
@@ -54,7 +53,9 @@ public class LeftRecursionDetector {
 	}
     
     private Rule findLeftProducingRule(GenClass metaclass, Rule rule) {
-    	if (rule == null) return null;
+    	if (rule == null) {
+    		return null;
+    	}
     	return findLeftProducingRule(metaclass, rule.getDefinition(), rule); 
 	}
 
@@ -67,6 +68,7 @@ public class LeftRecursionDetector {
 	}
 
 	public Rule findLeftProducingRule(GenClass metaclass, Sequence sequence, Rule currentRule) {
+		GenClassCache genClassCache = currentRule.getSyntax().getGenClassCache();
 		for (Definition definition : sequence.getParts()) {
 			if (definition instanceof Containment) {
 				Containment containment = (Containment) definition;
@@ -80,7 +82,7 @@ public class LeftRecursionDetector {
 				
 				Collection<GenClass> featureTypes = csUtil.getAllowedSubTypes(containment);
 				if (featureTypes.contains(metaclass) || 
-						isSubtypeofOneOf(metaclass, featureTypes)) {
+						isSubtypeofOneOf(metaclass, featureTypes, genClassCache)) {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
@@ -117,7 +119,7 @@ public class LeftRecursionDetector {
 		return null;
 	}
 
-	private boolean isSubtypeofOneOf(GenClass metaclass, Collection<GenClass> featureTypes) {
+	private boolean isSubtypeofOneOf(GenClass metaclass, Collection<GenClass> featureTypes, GenClassCache genClassCache) {
 		Collection<String> superNames = genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass));
 		for (GenClass featureType : featureTypes) {
 			if (superNames.contains(genClassCache.getQualifiedInterfaceName(featureType))) return true;
@@ -127,6 +129,7 @@ public class LeftRecursionDetector {
 	}
 
 	public boolean isDirectLeftRecursive(Rule rule) {
+		GenClassCache genClassCache = rule.getSyntax().getGenClassCache();
 		boolean isDirectLeftRecursive = false;
 		GenClass metaclass = rule.getMetaclass();
 		EList<Sequence> options = rule.getDefinition().getOptions();

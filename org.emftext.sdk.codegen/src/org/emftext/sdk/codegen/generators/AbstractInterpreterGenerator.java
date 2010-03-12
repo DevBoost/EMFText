@@ -17,6 +17,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.finders.GenClassFinder;
 
@@ -25,6 +26,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	private ConcreteSyntax concreteSyntax;
 	private Set<GenClass> allGenClasses;
+	private GenClassCache genClassCache;
 	
 	private class InheritanceComparator implements Comparator<GenClass>{
 
@@ -46,6 +48,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	private AbstractInterpreterGenerator(GenerationContext context) {
 		super(context, EArtifact.ABSTRACT_INTERPRETER);
 		concreteSyntax = context.getConcreteSyntax();
+		genClassCache = concreteSyntax.getGenClassCache();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -81,7 +84,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		// add if statement for each class
 		for (GenClass genClass : sortedClasses) {
 			String methodName = getMethodName(genClass);
-			String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
+			String typeName = genClassCache.getQualifiedInterfaceName(genClass);
 			sc.add("if (object instanceof " + typeName + ") {");
 			sc.add("result = " + methodName + "((" + typeName + ") object, context);");
 			sc.add("}");
@@ -112,7 +115,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
-		String typeName = genClassFinder.getQualifiedInterfaceName(genClass);
+		String typeName = genClassCache.getQualifiedInterfaceName(genClass);
 		String methodName = getMethodName(genClass);
 		
 		sc.add("public ResultType " + methodName + "(" + typeName + " object, ContextType context) {");
@@ -122,7 +125,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private String getMethodName(GenClass genClass) {
-		String escapedTypeName = genClassFinder.getEscapedTypeName(genClass);
+		String escapedTypeName = genClassFinder.getEscapedTypeName(genClass, genClassCache);
 		String methodName = "interprete_" + escapedTypeName;
 		return methodName;
 	}

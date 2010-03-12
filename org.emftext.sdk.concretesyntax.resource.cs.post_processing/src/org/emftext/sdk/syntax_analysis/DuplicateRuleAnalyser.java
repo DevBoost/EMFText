@@ -19,8 +19,8 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -31,10 +31,9 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  */
 public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 
-	private final GenClassCache genClassCache = new GenClassCache();
-
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+		GenClassCache genClassCache = syntax.getGenClassCache();
 
 		final EList<Rule> allRules = syntax.getAllRules();
 		for (int i = 0; i < allRules.size(); i++) {

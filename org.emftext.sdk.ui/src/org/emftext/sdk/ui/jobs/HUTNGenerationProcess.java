@@ -45,7 +45,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -55,6 +54,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.FontStyle;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
@@ -79,7 +79,6 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	private static final String KEYWORD_VIOLETT = "7F0055";
 
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
-	private final GenClassCache genClassCache = new GenClassCache();
 	
 	private final IFile file;
 	private ConcretesyntaxFactory concretesyntaxFactory;
@@ -121,6 +120,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				cSyntax = concretesyntaxFactory.createConcreteSyntax();	
 				csResource.getContents().add(cSyntax);
 			}
+			GenClassCache genClassCache = cSyntax.getGenClassCache();
 			
 			Map<String, Rule>  genClass2RuleCache = new HashMap<String, Rule>(); 
 			for (Rule rule : cSyntax.getRules()) {
@@ -132,7 +132,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			
 			cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
 			cSyntax.setName(cSyntax.getPackage().getNSName());
-			generateRules(genClass2RuleCache, cSyntax.getPackage(), "");
+			generateRules(genClass2RuleCache, cSyntax.getPackage(), "", genClassCache);
 			
 			for(int i = 1; i<allGenPackagesWithClassifiers.size(); i++) {
 				GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
@@ -143,7 +143,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				String prefix = currentPkg.getQualifiedPackageName();
 				imp.setPrefix(prefix);
 				
-				generateRules(genClass2RuleCache, currentPkg, prefix);
+				generateRules(genClass2RuleCache, currentPkg, prefix, genClassCache);
 				
 				
 			}
@@ -183,7 +183,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		}
 	}
 
-	private void generateRules(Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix) {
+	private void generateRules(Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
 		EList<GenClass> genClasses = pkg.getGenClasses();
 		Set<EClassifier> containedClasses = new HashSet<EClassifier>();
 		for (GenClass genClass : genClasses) {

@@ -45,6 +45,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
@@ -82,7 +83,6 @@ public class ConcreteSyntaxUtil {
 	
 	private final EClassUtil eClassUtil = new EClassUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
-	private final GenClassCache genClassCache = new GenClassCache();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	public boolean isAbstract(ConcreteSyntax concreteSyntax) {
@@ -156,7 +156,7 @@ public class ConcreteSyntaxUtil {
 	public boolean hasSyntax(GenClass genClass,
 			ConcreteSyntax syntax, boolean excludeOperatorRules) {
 
-		return genClassUtil.contains(getClassesWithSyntax(syntax,excludeOperatorRules), genClass);
+		return genClassUtil.contains(getClassesWithSyntax(syntax,excludeOperatorRules), genClass, syntax.getGenClassCache());
 	}
 
 	/**
@@ -205,13 +205,14 @@ public class ConcreteSyntaxUtil {
 	 * @return a set of rules that reference 'genClass' or a sub type
 	 */
 	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
+		GenClassCache genClassCache = concreteSyntax.getGenClassCache();
 		Collection<Rule> foundRules = new ArrayList<Rule>();
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			GenClass metaclass = rule.getMetaclass();
 			if (genClassCache.getQualifiedInterfaceName(metaclass).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
 				foundRules.add(rule);
 			}
-			if (genClassUtil.contains(metaclass.getAllBaseGenClasses(), genClass)) {
+			if (genClassUtil.contains(metaclass.getAllBaseGenClasses(), genClass, concreteSyntax.getGenClassCache())) {
 				foundRules.add(rule);
 			}
 		}
@@ -331,12 +332,13 @@ public class ConcreteSyntaxUtil {
 	// feature may be contained in imported rules and thus belong to a different
 	// CS specification
 	public ConcreteSyntax getConcreteSyntax(ConcreteSyntax syntax, GenFeature genFeature) {
+		GenClassCache genClassCache = syntax.getGenClassCache();
 		for (Import nextImport : syntax.getImports()) {
 			ConcreteSyntax nextSyntax = nextImport.getConcreteSyntax();
 			if (nextSyntax == null) {
 				continue;
 			}
-			if (genClassFinder.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass())) {
+			if (genClassUtil.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass(), genClassCache)) {
 				ConcreteSyntax cs = genClassFinder.getContainingSyntax(nextSyntax, genFeature.getGenClass());
 				return cs;
 			}

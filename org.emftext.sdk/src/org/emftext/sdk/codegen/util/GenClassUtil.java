@@ -20,16 +20,15 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 
 /**
  * A utility class to work with EMF GenClasses.
  */
 public class GenClassUtil {
 
-	private final GenClassCache genClassCache = new GenClassCache();
-
 	public boolean contains(Collection<GenClass> genClasses,
-			GenClass genClass) {
+			GenClass genClass, GenClassCache genClassCache) {
 		for (GenClass next : genClasses) {
 			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
 				return true;
@@ -46,7 +45,7 @@ public class GenClassUtil {
 		return !isConcrete(genClass);
 	}
 
-	public boolean isSuperClass(GenClass superClass, GenClass subClass) {
+	public boolean isSuperClass(GenClass superClass, GenClass subClass, GenClassCache genClassCache) {
 		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
 		for (GenClass nextSuperclass : superClasses) {
 			if (genClassCache.getQualifiedInterfaceName(nextSuperclass).equals(genClassCache.getQualifiedInterfaceName(superClass))) {

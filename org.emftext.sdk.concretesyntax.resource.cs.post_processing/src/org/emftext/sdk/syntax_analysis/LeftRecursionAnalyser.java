@@ -43,7 +43,7 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		
 		GenClassFinder genClassFinder = new GenClassFinder();
 		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, true, true);
-		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
+		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses, syntax.getGenClassCache());
 		LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, syntax);
 		
 		EList<Rule> allRules = syntax.getAllRules();

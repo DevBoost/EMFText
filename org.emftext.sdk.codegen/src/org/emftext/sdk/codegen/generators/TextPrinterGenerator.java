@@ -64,6 +64,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -74,7 +75,6 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
-import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -87,7 +87,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 	private final static String localtabName = "localtab";
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
@@ -106,6 +105,8 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
+	private GenClassCache genClassCache;
+
 	public TextPrinterGenerator() {
 		super();
 	}
@@ -114,6 +115,7 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.PRINTER);
 
 		this.concretSyntax = context.getConcreteSyntax();
+		this.genClassCache = concretSyntax.getGenClassCache();
 		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		this.referenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
@@ -380,7 +382,7 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		if (hasMapType(rule.getMetaclass()) ) {
 			return rule.getMetaclass().getQualifiedClassName();
 		}
-		return genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
+		return genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
 	}
 
 	private String getMethodName(Rule rule) {
@@ -537,7 +539,7 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
 										+ getContext().getReferenceResolverAccessor(genFeature)
-										+ ".deResolve((" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
+										+ ".deResolve((" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("
 										+ featureConstant

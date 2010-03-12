@@ -68,6 +68,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -107,6 +108,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 
 	private Set<String> parseMethods = new LinkedHashSet<String>();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private GenClassCache genClassCache;
 	
 	public ScannerlessParserGenerator() {
 		super();
@@ -114,6 +116,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 
 	private ScannerlessParserGenerator(GenerationContext context) {
 		super(context, EArtifact.SCANNERLESS_PARSER);
+		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		this.dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
 		this.tokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
@@ -1376,7 +1379,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			    	GenClass proxyType = null;
 			    	
 			    	if (genClassUtil.isNotConcrete(instanceType)) {
-			    		Collection<GenClass> allSubclasses = genClassFinder.findAllSubclasses(syntax, instanceType);
+			    		Collection<GenClass> allSubclasses = genClassFinder.findAllSubclasses(syntax, instanceType, genClassCache);
 			    		for (GenClass subClass : allSubclasses) {
 			    			if (genClassUtil.isConcrete(subClass)) {
 				            	proxyType = subClass;
@@ -1387,7 +1390,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			    		proxyType = instanceType;
 			    	}
 					String proxyResolver = getContext().getReferenceResolverAccessor(genFeature);
-					sc.add("addCommand(new AddProxyCommand<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+					sc.add("addCommand(new AddProxyCommand<" + genClassCache.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassCache.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
 					getContext().addNonContainmentReference(genFeature);
 				} else {
 					throw new RuntimeException("Found unknown feature type for terminal.");

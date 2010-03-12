@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -38,6 +39,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+		GenClassCache genClassCache = syntax.getGenClassCache();
 		GenClassFinder genClassFinder = new GenClassFinder();
 		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false, false);
 		EList<Rule> allRules = syntax.getAllRules();
@@ -52,7 +54,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			if (eClassUtil.isNotConcrete(ecoreClass)) {
 				continue;
 			}
-			String qualifiedName = genClassFinder.getQualifiedInterfaceName(genClass);
+			String qualifiedName = genClassCache.getQualifiedInterfaceName(genClass);
 			if (namesOfCompletedGenClasses.contains(qualifiedName)) {
 				continue;
 			}
@@ -60,7 +62,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			boolean foundRuleForClass = false;
 			for (Rule rule : allRules) {
 				GenClass ruleClass = rule.getMetaclass();
-				if (ruleClass != null && !ruleClass.eIsProxy() && genClassFinder.getQualifiedInterfaceName(ruleClass).equals(qualifiedName)) {
+				if (ruleClass != null && !ruleClass.eIsProxy() && genClassCache.getQualifiedInterfaceName(ruleClass).equals(qualifiedName)) {
 					foundRuleForClass = true;
 					break;
 				}

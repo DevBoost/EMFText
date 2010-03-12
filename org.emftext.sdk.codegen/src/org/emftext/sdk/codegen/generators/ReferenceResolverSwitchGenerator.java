@@ -14,7 +14,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -30,7 +30,7 @@ import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -42,8 +42,8 @@ import org.emftext.sdk.util.StringUtil;
 public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private final GenClassFinder genClassFinder = new GenClassFinder();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private GenClassCache genClassCache;
 
 	public ReferenceResolverSwitchGenerator() {
 		super();
@@ -51,6 +51,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 
 	private ReferenceResolverSwitchGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
+		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}
 	
 	@Override
@@ -96,11 +97,11 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName + ".isInstance(container)) {");
-			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
+			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
 			sc.add(STRING + " referenceName = reference.getName();");
 			sc.add(E_STRUCTURAL_FEATURE + " feature = container.eClass().getEStructuralFeature(referenceName);");
 			sc.add("if (feature != null && feature instanceof " + E_REFERENCE + " && referenceName != null && referenceName.equals(\"" + StringUtil.escapeToJavaString(proxyReference.getName()) + "\")) {");
-			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + E_REFERENCE + ") feature, position, true, frr);");
+			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassCache.getQualifiedInterfaceName(genClass) + ") container, (" + E_REFERENCE + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
 		}

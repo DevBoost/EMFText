@@ -100,6 +100,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
@@ -172,6 +173,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private Set<String> keywords;
 
 	private GenClassFinder genClassFinder = new GenClassFinder();
+	private GenClassCache genClassCache;
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -193,6 +195,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private ANTLRGrammarGenerator(GenerationContext context) {
 		super(context, EArtifact.ANTLR_GRAMMAR);
 		concreteSyntax = context.getConcreteSyntax();
+		genClassCache = concreteSyntax.getGenClassCache();
 		// initialize class names
 		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
@@ -215,7 +218,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void initCaches() {
 		allGenClasses = genClassFinder.findAllGenClasses(concreteSyntax, true, true);
-		genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
+		genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses, genClassCache);
 		
 		keywords = new LinkedHashSet<String>();
 		
@@ -551,7 +554,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			// operator rules cannot be used as start symbol
 			// TODO mseifert: check whether this is checked by a post processor
 			if (rule.getOperatorAnnotation() == null) {
-				String qualifiedClassName = genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
+				String qualifiedClassName = genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
 				String ruleName = getRuleName(rule.getMetaclass());
 				sc.add("if (type.getInstanceClass() == " + qualifiedClassName + ".class) {");
 				sc.add("return " + ruleName + "();");
@@ -1038,7 +1041,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 			sc.add(ruleName);
 			sc.add(" returns ["
-					+ genClassFinder.getQualifiedInterfaceName(recursiveType)
+					+ genClassCache.getQualifiedInterfaceName(recursiveType)
 					+ " element = null]");
 			sc.add("@init{");
 			sc.add("element = "
@@ -1113,17 +1116,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						if (recursiveType.equals(featureType)
 								|| genClassNames2superClassNames
 										.get(
-												genClassFinder
+												genClassCache
 														.getQualifiedInterfaceName(featureType))
 										.contains(
-												genClassFinder
+												genClassCache
 														.getQualifiedInterfaceName(recursiveType))
 								|| genClassNames2superClassNames
 										.get(
-												genClassFinder
+												genClassCache
 														.getQualifiedInterfaceName(recursiveType))
 										.contains(
-												genClassFinder
+												genClassCache
 														.getQualifiedInterfaceName(featureType))) {
 							indexRecurse = parts.indexOf(definition);
 							recurseName = feature.getName();
@@ -1248,7 +1251,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	
 	private void printGrammarRulePrefix(GenClass genClass, String ruleName, StringComposite sc) {
-		String qualifiedClassName = genClassFinder
+		String qualifiedClassName = genClassCache
 				.getQualifiedInterfaceName(genClass);
 
 		sc.add(ruleName);
@@ -1530,7 +1533,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private String getRuleName(GenClass genClass) {
-		String ruleName = genClassFinder.getEscapedTypeName(genClass);
+		String ruleName = genClassFinder.getEscapedTypeName(genClass, genClassCache);
 		return "parse_" + ruleName;
 	}
 
@@ -1721,7 +1724,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					GenClass instanceType = genFeature.getTypeGenClass();
 					GenClass proxyType = null;
 	
-					String typeInterfaceName = genClassFinder
+					String typeInterfaceName = genClassCache
 							.getQualifiedInterfaceName(instanceType);
 					if (genClassUtil.isNotConcrete(instanceType)) {
 						// TODO mseifert: replace this code with a call to class
@@ -1730,7 +1733,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						// found in the ScannerlessParserGenerator
 						for (GenClass instanceCand : allGenClasses) {
 							Collection<String> supertypes = genClassNames2superClassNames
-									.get(genClassFinder
+									.get(genClassCache
 											.getQualifiedInterfaceName(instanceCand));
 							if (genClassUtil.isConcrete(instanceCand)
 									&& supertypes
@@ -1766,11 +1769,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 							.add("registerContextDependentProxy(new "
 									+ contextDependentURIFragmentFactoryClassName
 									+ "<"
-									+ genClassFinder
+									+ genClassCache
 											.getQualifiedInterfaceName(genFeature
 													.getGenClass())
 									+ ", "
-									+ genClassFinder
+									+ genClassCache
 											.getQualifiedInterfaceName(genFeature
 													.getTypeGenClass())
 									+ ">("
@@ -1864,7 +1867,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if (!subClasses.isEmpty()||isCommonExpressionMetaClass) {
 					sc.add(getRuleName(referencedClass));
 					sc.add(" returns ["
-							+ genClassFinder
+							+ genClassCache
 									.getQualifiedInterfaceName(referencedClass)
 							+ " element = null]");
 					sc.add(":");
