@@ -68,6 +68,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_EDITOR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -128,6 +129,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		addMarkerUpdateListenerClass(sc);
 		addDocumentListenerClass(sc);
 		addModelResourceChangeListenerClass(sc);
+		addInitializeEditorMethod(sc);
 		addGetAdapterMethod(sc);
 		addCreatePartControlMethod(sc);
 		addInitializeResourceObjectMethod(sc);
@@ -149,6 +151,14 @@ public class EditorGenerator extends JavaBaseGenerator {
 		addAddBackgroundParsingListenerMethod(sc);
 		addNotifyBackgroundParsingFinishedMethod(sc);
 		addRefreshMarkersMethod(sc);
+	}
+
+	private void addInitializeEditorMethod(StringComposite sc) {
+		sc.add("public void initializeEditor() {");
+		sc.add("super.initializeEditor();");
+		sc.add("setEditorContextMenuId(\"" + context.getPluginName(EPlugins.RESOURCE_PLUGIN) + ".EditorContext\");");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addNotifyBackgroundParsingFinishedMethod(StringComposite sc) {
