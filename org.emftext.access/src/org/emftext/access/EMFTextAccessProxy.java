@@ -119,6 +119,35 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	}
 
 	/**
+	 * Checks whether the given object can be wrapped by the accessInterface.
+	 * An object can be wrapped if it provides all methods defined in the
+	 * interface.
+	 * 
+	 * @param object
+	 * @param accessInterface
+	 * @return
+	 */
+	public static boolean isAccessibleWith(Object object, Class<?> accessInterface) {
+		Method[] methods = accessInterface.getMethods();
+		Class<?> objectClass = object.getClass();
+		for (Method method : methods) {
+			Method foundMethod;
+			try {
+				foundMethod = objectClass.getMethod(method.getName(), method.getParameterTypes());
+			} catch (SecurityException e) {
+				return false;
+			} catch (NoSuchMethodException e) {
+				return false;
+			}
+			if (!method.getReturnType().equals(foundMethod.getReturnType())) {
+				return false;
+			}
+		}
+		// all methods declared in 'accessInterface' were found
+		return true;
+	}
+	
+	/**
 	 * Returns an instance of the given access interface that can be
 	 * used to call the methods of 'impl'. In addition to the default
 	 * set of interfaces that are declared to be used to access the 
