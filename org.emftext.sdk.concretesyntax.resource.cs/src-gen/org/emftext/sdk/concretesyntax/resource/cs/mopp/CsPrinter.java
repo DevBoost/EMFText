@@ -197,7 +197,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(18);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(20);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE));
 		printCountingMap.put("package", temp == null ? 0 : 1);
@@ -235,6 +235,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("_operatorRuleSubsets", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED));
 		printCountingMap.put("_operatorRulesInitialized", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE));
+		printCountingMap.put("_genClassCache", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL));
+		printCountingMap.put("_eClassUtil", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;

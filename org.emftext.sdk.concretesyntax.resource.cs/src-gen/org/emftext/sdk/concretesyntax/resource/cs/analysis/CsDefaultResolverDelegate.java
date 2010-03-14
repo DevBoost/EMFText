@@ -24,17 +24,24 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 			org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
 			// first check whether the root element matches
-			boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, result);
+			boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
 			if (!continueSearch) {
 				return;
 			}
 			// then check the contents
 			for (java.util.Iterator<org.eclipse.emf.ecore.EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
 				org.eclipse.emf.ecore.EObject element = iterator.next();
-				continueSearch = checkElement(element, type, identifier, resolveFuzzy, result);
+				continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);
 				if (!continueSearch) {
 					return;
 				}
+			}
+			if (isURI(identifier)) {
+				org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), identifier);
+				if (element == null) {
+					return;
+				}
+				checkElement(element, type, identifier, resolveFuzzy, false, result);
 			}
 		} catch (java.lang.RuntimeException rte) {
 			// catch exception here to prevent EMF proxy resolution from swallowing it
@@ -42,7 +49,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		}
 	}
 	
-	private boolean checkElement(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass type, java.lang.String identifier, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	private boolean checkElement(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass type, java.lang.String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		if (element.eIsProxy()) {
 			return true;
 		}
@@ -52,7 +59,13 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			return true;
 		}
 		
-		final java.lang.String match = matches(element, identifier, resolveFuzzy);
+		java.lang.String match;
+		// do not compare string-wise if identifier is a URI
+		if (checkStringWise) {
+			match = matches(element, identifier, resolveFuzzy);
+		} else {
+			match = identifier;
+		}
 		if (match == null) {
 			return true;
 		}
@@ -176,4 +189,27 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {
 		return expectedTypeClass.isInstance(element);
 	}
+	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, java.lang.String uriString) {
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriString);
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
+		org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
+		if (contents.size() > 0) {
+			return contents.get(0);
+		}
+		return null;
+	}
+	
+	private boolean isURI(java.lang.String identifier) {
+		if (identifier == null) {
+			return false;
+		}
+		try {
+			org.eclipse.emf.common.util.URI.createURI(identifier);
+		} catch (java.lang.IllegalArgumentException iae) {
+			// the identifier string is not a valid URI
+			return false;
+		}
+		return true;
+	}
+	
 }

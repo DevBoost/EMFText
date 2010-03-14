@@ -118,9 +118,6 @@ public class CsTokenStyleInformationProvider {
 		if ("QUOTED_39_39_92".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
-		if (":".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x55}, true, false, false, false);
-		}
 		if ("WITH".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x55}, true, false, false, false);
 		}

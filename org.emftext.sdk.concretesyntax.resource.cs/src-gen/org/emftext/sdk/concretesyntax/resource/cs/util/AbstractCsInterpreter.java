@@ -29,6 +29,24 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	
 	public ResultType interprete(org.eclipse.emf.ecore.EObject object, ContextType context) {
 		ResultType result = null;
+		if (object instanceof org.emftext.sdk.concretesyntax.EClassUtil) {
+			result = interprete_org_emftext_sdk_concretesyntax_EClassUtil((org.emftext.sdk.concretesyntax.EClassUtil) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof java.util.Map.Entry) {
+			result = interprete_java_util_Map_Entry((java.util.Map.Entry) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof org.emftext.sdk.concretesyntax.GenClassCache) {
+			result = interprete_org_emftext_sdk_concretesyntax_GenClassCache((org.emftext.sdk.concretesyntax.GenClassCache) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
 			result = interprete_org_emftext_sdk_concretesyntax_KeyValuePair((org.emftext.sdk.concretesyntax.KeyValuePair) object, context);
 		}
@@ -439,6 +457,18 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_KeyValuePair(org.emftext.sdk.concretesyntax.KeyValuePair object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_GenClassCache(org.emftext.sdk.concretesyntax.GenClassCache object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_java_util_Map_Entry(java.util.Map.Entry object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EClassUtil(org.emftext.sdk.concretesyntax.EClassUtil object, ContextType context) {
 		return null;
 	}
 	
