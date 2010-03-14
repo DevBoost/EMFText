@@ -119,32 +119,78 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	}
 
 	/**
-	 * Checks whether the given object can be wrapped by the accessInterface.
-	 * An object can be wrapped if it provides all methods defined in the
+	 * Checks whether the given class can be wrapped by the accessInterface.
+	 * A class can be wrapped if it provides all methods defined in the
 	 * interface.
 	 * 
-	 * @param object
-	 * @param accessInterface
+	 * TODO allow specification of additional access interfaces
+	 * 
+	 * @param targetClass the class to be wrapped
+	 * @param accessInterface the wrapper interface
 	 * @return
 	 */
-	public static boolean isAccessibleWith(Object object, Class<?> accessInterface) {
-		Method[] methods = accessInterface.getMethods();
-		Class<?> objectClass = object.getClass();
-		for (Method method : methods) {
-			Method foundMethod;
-			try {
-				foundMethod = objectClass.getMethod(method.getName(), method.getParameterTypes());
-			} catch (SecurityException e) {
-				return false;
-			} catch (NoSuchMethodException e) {
-				return false;
+	public static boolean isAccessibleWith(Class<?> targetClass, Class<?> accessInterface) {
+		return internalIsAccessibleWith(targetClass, accessInterface, DEFAULT_ACCESS_INTERFACES);
+	}
+	
+	private static boolean internalIsAccessibleWith(Class<?> targetClass, Class<?> accessInterface, Class<?>[] allAccessInterfaces) {
+		// accessing 'ordinary' classes is possible if the access
+		// interface is equal to the target class
+		if (!isAccessInterface(targetClass, allAccessInterfaces)) {
+			// TODO should this be isSubClassOf()?
+			if (targetClass.equals(accessInterface)) {
+				return true;
 			}
-			if (!method.getReturnType().equals(foundMethod.getReturnType())) {
-				return false;
+		}
+
+		Method[] wrapperMethods = accessInterface.getMethods();
+		Method[] targetMethods = targetClass.getMethods();
+
+		boolean foundAllMethods = true;
+		for (Method wrapperMethod : wrapperMethods) {
+			boolean foundMethod = false;
+			for (Method targetMethod : targetMethods) {
+				// compare names
+				if (!wrapperMethod.getName().equals(targetMethod.getName())) {
+					continue;
+				}
+				// compare parameter types
+				Class<?>[] wrapperParameterTypes = wrapperMethod.getParameterTypes();
+				Class<?>[] targetParameterTypes = targetMethod.getParameterTypes();
+				// compare number of parameters
+				if (wrapperParameterTypes.length != targetParameterTypes.length) {
+					continue;
+				}
+				
+				boolean parameterTypesMatch = true;
+				for (int t = 0; t < wrapperParameterTypes.length; t++) {
+					Class<?> wrapperParameterType = wrapperParameterTypes[t];
+					Class<?> targetParameterType = targetParameterTypes[t];
+					// check whether actual parameter type is accessible using
+					// the wrapper parameter type
+					// TODO avoid recursive loops
+					if (!internalIsAccessibleWith(targetParameterType, wrapperParameterType, allAccessInterfaces)) {
+						parameterTypesMatch = false;
+						break;
+					}
+				}
+				if (!parameterTypesMatch) {
+					continue;
+				}
+				// compare return type
+				if (!internalIsAccessibleWith(targetMethod.getReturnType(), wrapperMethod.getReturnType(), allAccessInterfaces)) {
+					break;
+				}
+				foundMethod = true;
+				break;
+			}
+			if (!foundMethod) {
+				foundAllMethods = false;
+				break;
 			}
 		}
 		// all methods declared in 'accessInterface' were found
-		return true;
+		return foundAllMethods;
 	}
 	
 	/**
@@ -183,6 +229,10 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	}
 
 	private boolean isAccessInterface(Class<?> type) {
+		return isAccessInterface(type, accessInterfaces);
+	}
+
+	private static boolean isAccessInterface(Class<?> type, Class<?>[] accessInterfaces) {
 		for(int i = 0; i < accessInterfaces.length; i++) {
 			if (accessInterfaces[i] == type) {
 				return true;
