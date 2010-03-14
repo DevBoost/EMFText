@@ -104,7 +104,15 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 		sc.add("// @param id");
 		sc.add("// @param proxyElement");
 		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");
+		sc.addLineBreak();
 		
+		sc.add("// Attaches a warning with the given message to object 'cause'.");
+		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause);");
+		sc.addLineBreak();
+		
+		sc.add("// Attaches an error with the given message to object 'cause'.");
+		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause);");
+
 		sc.add("}");
 		return true;
 	}
