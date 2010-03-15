@@ -543,6 +543,7 @@
     <eLiterals name="OVERRIDE_KEYWORD" value="166" literal="overrideKeyword"/>
     <eLiterals name="OVERRIDE_PLACEHOLDER" value="167" literal="overridePlaceholder"/>
     <eLiterals name="OVERRIDE_CARDINALITY" value="168" literal="overrideCardinality"/>
+    <eLiterals name="OVERRIDE_PRINTER2" value="169" literal="overridePrinter2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

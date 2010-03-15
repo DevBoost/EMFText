@@ -180,6 +180,7 @@ public class GenClassFinder {
 		return null;
 	}
 
+	// TODO mseifert: move this method to GenClassCache.ejava
 	public String getEscapedTypeName(GenClass genClass, GenClassCache genClassCache) {
 		String interfaceName = genClassCache.getQualifiedInterfaceName(genClass);
 		String escapedName = interfaceName.replace("_", "_005F");

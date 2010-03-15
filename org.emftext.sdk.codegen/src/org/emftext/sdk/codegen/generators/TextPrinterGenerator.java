@@ -55,6 +55,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.mopp.AbstractPrinterGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -82,7 +83,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TextPrinterGenerator extends JavaBaseGenerator {
+public class TextPrinterGenerator extends AbstractPrinterGenerator {
 
 	private final static String localtabName = "localtab";
 
@@ -90,7 +91,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
-	private String referenceResolverSwitchClassName;
 	
 	private int tokenSpace;
 	/** maps all choices to a method name */
@@ -117,7 +117,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		this.concretSyntax = context.getConcreteSyntax();
 		this.genClassCache = concretSyntax.getGenClassCache();
 		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		this.referenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
 
 	private void extractChoices(List<Rule> rules,
@@ -238,27 +237,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetOptionsMethod(StringComposite sc) {
-		sc.add("public " + MAP + "<?,?> getOptions() {");
-		sc.add("return options;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
-		sc.add("this.options = options;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("protected " + referenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add("return (" + referenceResolverSwitchClassName + ") new " + getClassNameHelper().getMETA_INFORMATION() + "().getReferenceResolverSwitch();");
-        sc.add("}");
 		sc.addLineBreak();
 	}
 
@@ -842,22 +820,6 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 
 	private static boolean hasMapType(GenClass genClass) {
 		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
-	}
-
-	private String getTabString(int count) {
-		return getRepeatingString(count, '\t');
-	}
-
-	private String getWhiteSpaceString(int count) {
-		return getRepeatingString(count, ' ');
-	}
-	
-	private String getRepeatingString(int count, char character) {
-		StringBuffer spaces = new StringBuffer();
-		for (int i = 0; i < count; i++) {
-			spaces.append(character);
-		}
-		return spaces.toString();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

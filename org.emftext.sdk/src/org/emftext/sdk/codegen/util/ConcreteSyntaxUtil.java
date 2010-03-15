@@ -491,4 +491,11 @@ public class ConcreteSyntaxUtil {
 			}
 		});
 	}
+
+	// TODO mseifert: move this method to ConcreteSyntax.ejava
+	public String getFieldName(EObject object) {
+		ConcreteSyntax syntax = findContainingRule(object).getSyntax();
+		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
+		return getFieldName(escapedSyntaxName + "_", object);
+	}
 }

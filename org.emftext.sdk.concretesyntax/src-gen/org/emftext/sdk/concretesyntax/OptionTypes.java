@@ -1700,7 +1700,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CARDINALITY(168, "OVERRIDE_CARDINALITY", "overrideCardinality");
+	OVERRIDE_CARDINALITY(168, "OVERRIDE_CARDINALITY", "overrideCardinality"), /**
+	 * The '<em><b>OVERRIDE PRINTER2</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PRINTER2_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PRINTER2(169, "OVERRIDE_PRINTER2", "overridePrinter2");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4208,6 +4216,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_CARDINALITY_VALUE = 168;
 
 	/**
+	 * The '<em><b>OVERRIDE PRINTER2</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PRINTER2</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PRINTER2
+	 * @model literal="overridePrinter2"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PRINTER2_VALUE = 169;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4382,6 +4405,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_KEYWORD,
 			OVERRIDE_PLACEHOLDER,
 			OVERRIDE_CARDINALITY,
+			OVERRIDE_PRINTER2,
 		};
 
 	/**
@@ -4598,6 +4622,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_KEYWORD_VALUE: return OVERRIDE_KEYWORD;
 			case OVERRIDE_PLACEHOLDER_VALUE: return OVERRIDE_PLACEHOLDER;
 			case OVERRIDE_CARDINALITY_VALUE: return OVERRIDE_CARDINALITY;
+			case OVERRIDE_PRINTER2_VALUE: return OVERRIDE_PRINTER2;
 		}
 		return null;
 	}

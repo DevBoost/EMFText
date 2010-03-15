@@ -233,22 +233,22 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	private void addConstant(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule, EObject next) {
 		if (next instanceof CsString) {
 			String value = ((CsString) next).getValue();
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static " + keywordClassName + " " + fieldName + " = new " + keywordClassName + "(\"" + StringUtil.escapeToJavaString(value) + "\", " + getCardinality(next) + ");");
 		} else if (next instanceof Placeholder) {
 			Placeholder placeholder = (Placeholder) next;
 			GenFeature feature = placeholder.getFeature();
 			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
 			String featureAccessor = getFeatureAccessor;
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static " + placeholderClassName + " " + fieldName + " = new " + placeholderClassName + "(" + featureAccessor + ", \"" + StringUtil.escapeToJavaString(placeholder.getToken().getName()) + "\", " + getCardinality(next) + ");");
 		} else if (next instanceof WhiteSpaces) {
 			int amount = ((WhiteSpaces) next).getAmount();
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static WhiteSpaces " + fieldName + " = new WhiteSpaces(" + amount + ", " + getCardinality(next) + ");");
 		} else if (next instanceof LineBreak) {
 			int amount = ((LineBreak) next).getTab();
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(" + getCardinality(next) + ", " + amount + ");");
 		} else if (next instanceof Sequence) {
 			Sequence sequence = (Sequence) next;
@@ -256,9 +256,9 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			List<Definition> parts = sequence.getParts();
 			for (Definition part : parts) {
 				addConstant(sc, objectToFieldNameMap, rule, part);
-				elements.add(getFieldName(part));
+				elements.add(csUtil.getFieldName(part));
 			}
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static Sequence " + fieldName + " = new Sequence(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Choice) {
 			Choice choice = (Choice) next;
@@ -266,28 +266,28 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			List<Sequence> parts = choice.getOptions();
 			for (Sequence part : parts) {
 				addConstant(sc, objectToFieldNameMap, rule, part);
-				elements.add(getFieldName(part));
+				elements.add(csUtil.getFieldName(part));
 			}
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static Choice " + fieldName + " = new Choice(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Containment) {
 			Containment containment = (Containment) next;
 			GenFeature feature = containment.getFeature();
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
-			String fieldName = getFieldName(next);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ", " + getCardinality(next) + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
 			Choice choice = compound.getDefinitions();
 			addConstant(sc, objectToFieldNameMap, rule, choice);
-			String choiceFieldName = getFieldName(choice);
-			String fieldName = getFieldName(next);
+			String choiceFieldName = csUtil.getFieldName(choice);
+			String fieldName = csUtil.getFieldName(next);
 			sc.add("public final static Compound " + fieldName + " = new Compound(" + choiceFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
-			String definitionFieldName = getFieldName(nextAsRule.getDefinition());
+			String definitionFieldName = csUtil.getFieldName(nextAsRule.getDefinition());
 			String metaClassAccessor = generatorUtil.getClassAccessor(nextAsRule.getMetaclass());
-			String fieldName = getFieldName(nextAsRule);
+			String fieldName = csUtil.getFieldName(nextAsRule);
 			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
 		} else {
 			assert next instanceof Annotation;
@@ -320,12 +320,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	public static String getFieldName(EObject object) {
-		ConcreteSyntax syntax = csUtil.findContainingRule(object).getSyntax();
-		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
-		return csUtil.getFieldName(escapedSyntaxName + "_", object);
-	}
-	
 	public IGenerator newInstance(GenerationContext context) {
 		return new GrammarInformationProviderGenerator(context);
 	}

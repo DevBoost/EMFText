@@ -21,6 +21,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator {
 
+	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private String expectedCsStringClassName;
@@ -73,11 +74,11 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 				}
 
 				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedStructuralFeatureClassName + 
-						"(" + grammarInformationProviderClassName + "." + GrammarInformationProviderGenerator.getFieldName(placeholder) + ");");
+						"(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(placeholder) + ");");
 			} else if (expectedElement instanceof CsString) {
 				CsString expectedKeyword = (CsString) expectedElement;
 				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedCsStringClassName +  
-						"(" + grammarInformationProviderClassName + "." + GrammarInformationProviderGenerator.getFieldName(expectedKeyword) + ");");
+						"(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(expectedKeyword) + ");");
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
