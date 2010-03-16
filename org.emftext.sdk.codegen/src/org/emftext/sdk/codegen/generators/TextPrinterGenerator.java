@@ -306,7 +306,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		
 		final GenClass genClass = rule.getMetaclass();
-		List<GenFeature> featureList = genClass.getAllGenFeatures();
 
 		sc.add("public void " + getMethodName(rule) + "("
 				+ getMetaClassName(rule)
@@ -314,25 +313,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 
 		sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
 
-		String printCountingMapName = "printCountingMap";
-		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
-				+ featureList.size() + ");", printCountingMapName));
-		
-		if (featureList.size() > 0) {
-			sc.add(OBJECT + " temp;");
-		}
-		for (GenFeature genFeature : featureList) {
-			EStructuralFeature feature = genFeature.getEcoreFeature();
-			sc.add("temp = element." + getAccessMethod(genClass, genFeature)
-					+ ";");
-
-			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
-			String featureSize = isMultiple ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
-					: "1";
-			sc.add("printCountingMap.put(\"" + feature.getName()
-					+ "\", temp == null ? 0 : " + featureSize + ");");
-			//mapDefinition.enable();
-		}
+		printCountingMapIntialization(sc, genClass);
 		addPrintCollectedTokensCode(sc, rule);
 		
 		printChoice(rule.getDefinition(), sc, genClass);
@@ -806,20 +787,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("return neg > 0 ? -neg : pos;");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	protected String getAccessMethod(GenClass genClass, GenFeature genFeature) {
-		if (hasMapType(genClass)) {
-			return "get" + StringUtil.capitalize(genFeature.getName()) + "()";
-		}
-		else {
-			String method = "eGet(element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "))";
-			return method;
-		}
-	}
-
-	private static boolean hasMapType(GenClass genClass) {
-		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -417,6 +417,7 @@ public class IClassNameConstants {
 	public static String GC = GC.class.getName();
 	public static String GRID_DATA = GridData.class.getName();
 	public static String GRID_LAYOUT = GridLayout.class.getName();
+	// TODO mseifert: remove this two and replace usage with LINKED_HASH_MAP and LINKED_HASH_SET
 	public static String HASH_MAP = HashMap.class.getName();
 	public static String HASH_SET = HashSet.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
