@@ -128,6 +128,7 @@ import org.emftext.sdk.codegen.generators.interfaces.ITokenStyleGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IURIMappingGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.InputStreamProcessorGenerator;
 import org.emftext.sdk.codegen.generators.mopp.Printer2Generator;
+import org.emftext.sdk.codegen.generators.mopp.SyntaxElementDecoratorGenerator;
 import org.emftext.sdk.codegen.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
@@ -203,6 +204,7 @@ public enum EArtifact {
 	PROBLEM(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Problem", new ProblemClassGenerator(), OptionTypes.OVERRIDE_PROBLEM_CLASS),
 	PRINTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", new TextPrinterGenerator(), OptionTypes.OVERRIDE_PRINTER),
 	PRINTER2(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer2", new Printer2Generator(), OptionTypes.OVERRIDE_PRINTER2),
+	SYNTAX_ELEMENT_DECORATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxElementDecorator", new SyntaxElementDecoratorGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR), 
 	RESOURCE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
 	RESOURCE_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
 	RESOURCE_FACTORY_DELEGATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),

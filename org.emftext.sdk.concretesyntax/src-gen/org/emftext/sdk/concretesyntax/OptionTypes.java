@@ -1756,7 +1756,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_WHITE_SPACE(175, "OVERRIDE_WHITE_SPACE", "overrideWhiteSpace");
+	OVERRIDE_WHITE_SPACE(175, "OVERRIDE_WHITE_SPACE", "overrideWhiteSpace"), /**
+	 * The '<em><b>OVERRIDE SYNTAX ELEMENT DECORATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_ELEMENT_DECORATOR(176, "OVERRIDE_SYNTAX_ELEMENT_DECORATOR", "overrideSyntaxElementDecorator");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4369,6 +4377,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_WHITE_SPACE_VALUE = 175;
 
 	/**
+	 * The '<em><b>OVERRIDE SYNTAX ELEMENT DECORATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SYNTAX ELEMENT DECORATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_ELEMENT_DECORATOR
+	 * @model literal="overrideSyntaxElementDecorator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE = 176;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4550,6 +4573,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LINE_BREAK,
 			OVERRIDE_SEQUENCE,
 			OVERRIDE_WHITE_SPACE,
+			OVERRIDE_SYNTAX_ELEMENT_DECORATOR,
 		};
 
 	/**
@@ -4773,6 +4797,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LINE_BREAK_VALUE: return OVERRIDE_LINE_BREAK;
 			case OVERRIDE_SEQUENCE_VALUE: return OVERRIDE_SEQUENCE;
 			case OVERRIDE_WHITE_SPACE_VALUE: return OVERRIDE_WHITE_SPACE;
+			case OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE: return OVERRIDE_SYNTAX_ELEMENT_DECORATOR;
 		}
 		return null;
 	}

@@ -184,6 +184,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_LINE_BREAK"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_SEQUENCE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_WHITE_SPACE"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_SYNTAX_ELEMENT_DECORATOR"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>
