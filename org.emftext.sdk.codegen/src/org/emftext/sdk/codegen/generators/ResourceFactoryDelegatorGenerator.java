@@ -14,9 +14,9 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
@@ -97,7 +97,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 	private void addInitMethod(StringComposite sc) {
 		sc.add("protected void init() {");
      	sc.add("if (factories == null) {");
-    	sc.add("factories = new " + HASH_MAP + "<String, " + RESOURCE + ".Factory>();");
+    	sc.add("factories = new " + LINKED_HASH_MAP + "<String, " + RESOURCE + ".Factory>();");
     	sc.add("}");
      	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");

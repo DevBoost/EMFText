@@ -14,9 +14,9 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PUSHBACK_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.READER;
@@ -100,7 +100,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("fCharAfterWhiteSpace= -1;");
 		sc.add("fWasWhiteSpace= true;");
 		sc.addLineBreak();
-		sc.add("fgTags= new " + HASH_SET + "<String>();");
+		sc.add("fgTags= new " + LINKED_HASH_SET + "<String>();");
 		sc.add("fgTags.add(\"b\"); ");
 		sc.add("fgTags.add(\"br\"); ");
 		sc.add("fgTags.add(\"br/\"); ");
@@ -120,7 +120,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("fgTags.add(\"pre\"); ");
 		sc.add("fgTags.add(\"head\"); ");
 		sc.addLineBreak();
-		sc.add("fgEntityLookup= new " + HASH_MAP + "<String, String>(7);");
+		sc.add("fgEntityLookup= new " + LINKED_HASH_MAP + "<String, String>(7);");
 		sc.add("fgEntityLookup.put(\"lt\", \"<\");");
 		sc.add("fgEntityLookup.put(\"gt\", \">\");");
 		sc.add("fgEntityLookup.put(\"nbsp\", \" \");");

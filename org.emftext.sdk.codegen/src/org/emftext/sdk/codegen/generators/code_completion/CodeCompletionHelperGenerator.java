@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ENUM_LITE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -170,7 +169,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private void addDeriveProposalMethod1(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposal(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (matches(proposal, prefix)) {");
 		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), false));");
 		sc.add("}");
@@ -189,7 +188,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private void addDeriveProposalsMethod4(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + expectedTerminalClassName + " expectedElement, " + E_ENUM + " enumType, String content, int cursorOffset) {");
 		sc.add(COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
 		sc.add("String proposal = literal.getLiteral();");
 		sc.add("String prefix = expectedElement.getPrefix();");
@@ -204,7 +203,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private void addHandleAttributeMethod(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleAttribute(" + iMetaInformationClassName + " metaInformation, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT + " container, " + E_ATTRIBUTE + " attribute, " + STRING + " prefix) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add(OBJECT + "[] defaultValues = attributeValueProvider.getDefaultValues(attribute);");
 		sc.add("if (defaultValues != null) {");
 		sc.add("for (Object defaultValue : defaultValues) {");
@@ -237,7 +236,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);");
 		sc.add(COLLECTION + "<" + iReferenceMappingClassName + "<" + E_OBJECT + ">> mappings = result.getMappings();");
 		sc.add("if (mappings != null) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
 		sc.add("final String identifier = mapping.getIdentifier();");
 		sc.add("// check the prefix. return only matching references");
@@ -347,7 +346,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private void addDeriveProposalsMethod1(StringComposite sc) {
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + HASH_SET + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
 		sc.add("resultSet.addAll(deriveProposals(expectedElement, content, resource, cursorOffset));");
 		sc.add("}");

@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
@@ -540,7 +539,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("private static final String LENGTH = \"LENGTH\";");
 		sc.add("private static final String MODEL = \"MODEL\";");
 		sc.add("protected " + LIST + "<" + PROJECTION_ANNOTATION + "> oldAnnotations = new " + ARRAY_LIST + "<" + PROJECTION_ANNOTATION + ">();");
-		sc.add("protected " + MAP + "<" + PROJECTION_ANNOTATION + ", " + POSITION + "> additions = new " + HASH_MAP + "<" + PROJECTION_ANNOTATION + ", " + POSITION + ">();");
+		sc.add("protected " + MAP + "<" + PROJECTION_ANNOTATION + ", " + POSITION + "> additions = new " + LINKED_HASH_MAP + "<" + PROJECTION_ANNOTATION + ", " + POSITION + ">();");
 		sc.add("protected " + PROJECTION_ANNOTATION_MODEL + " projectionAnnotationModel;");
 		sc.add("protected " + PROJECTION_VIEWER + " sourceViewer;");
 		sc.add("protected " + editorClassName + " editor;");

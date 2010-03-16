@@ -23,7 +23,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EDITOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITOR_PART;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
@@ -34,6 +33,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
@@ -672,7 +672,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
-		sc.add("private static final " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
+		sc.add("private static final " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
 		sc.add("private static final " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
 		sc.addLineBreak();
 	}

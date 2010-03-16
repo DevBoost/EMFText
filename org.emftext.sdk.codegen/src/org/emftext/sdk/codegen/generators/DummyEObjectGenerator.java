@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
@@ -128,7 +128,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " type, String recurseFeatureName) {");
 		sc.add("this.recurseFeatureName = recurseFeatureName;");
 		sc.add("this.type = type;");
-		sc.add("keyValueMap = new " + HASH_MAP + "<" + E_STRUCTURAL_FEATURE + ", " + OBJECT + ">();");
+		sc.add("keyValueMap = new " + LINKED_HASH_MAP + "<" + E_STRUCTURAL_FEATURE + ", " + OBJECT + ">();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

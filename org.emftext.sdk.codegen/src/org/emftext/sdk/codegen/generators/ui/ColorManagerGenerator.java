@@ -15,8 +15,8 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RGB;
 
@@ -87,7 +87,7 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("protected " + MAP + "<" + RGB + ", " + COLOR + "> fColorTable = new " + HASH_MAP + "<" + RGB + ", " + COLOR + ">(10);");
+		sc.add("protected " + MAP + "<" + RGB + ", " + COLOR + "> fColorTable = new " + LINKED_HASH_MAP + "<" + RGB + ", " + COLOR + ">(10);");
 		sc.addLineBreak();
 	}
 

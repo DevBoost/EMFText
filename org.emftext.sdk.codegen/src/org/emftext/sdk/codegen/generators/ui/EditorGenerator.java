@@ -32,7 +32,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE_DOCUMENT_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_OUTLINE_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT_LISTENER;
@@ -53,6 +52,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PRESENTATION_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_VERTICAL_RULER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROJECTION_SUPPORT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROJECTION_VIEWER;
@@ -243,7 +243,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("// CommandStackListeners can listen for changes. Not sure whether this");
 		sc.add("// is needed.");
 		sc.addLineBreak();
-		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory,commandStack, new " + HASH_MAP + "<" + RESOURCE + ", Boolean>());");
+		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory,commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
 		sc.add("}");
 		sc.addLineBreak();
 	}

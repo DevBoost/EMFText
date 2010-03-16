@@ -25,13 +25,13 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -604,7 +604,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("private "+ getClassNameHelper().getI_LOCATION_MAP() + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + getClassNameHelper().getI_TEXT_PARSER() + " parser;");
-    	sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">>();");
+    	sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + LINKED_HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">>();");
         if(saveChangedResourcesOnly) {
         	sc.add("private String textPrintAfterLoading = null;");
         }

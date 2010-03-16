@@ -1,7 +1,7 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -69,7 +69,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		sc.add("// the map is initialized with the number of elements stored in each structural");
 		sc.add("// feature. for lists this is the list size. for non-multiple features it is either");
 		sc.add("// 1 (if the feature is set) or 0 (if the feature is null).");
-		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
+		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
 				+ featureList.size() + ");", printCountingMapName));
 		
 		if (featureList.size() > 0) {

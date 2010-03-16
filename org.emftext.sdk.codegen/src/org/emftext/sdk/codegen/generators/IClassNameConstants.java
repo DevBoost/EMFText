@@ -40,8 +40,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -417,9 +415,6 @@ public class IClassNameConstants {
 	public static String GC = GC.class.getName();
 	public static String GRID_DATA = GridData.class.getName();
 	public static String GRID_LAYOUT = GridLayout.class.getName();
-	// TODO mseifert: remove this two and replace usage with LINKED_HASH_MAP and LINKED_HASH_SET
-	public static String HASH_MAP = HashMap.class.getName();
-	public static String HASH_SET = HashSet.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();

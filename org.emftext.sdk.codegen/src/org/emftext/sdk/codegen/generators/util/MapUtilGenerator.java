@@ -14,8 +14,8 @@
 package org.emftext.sdk.codegen.generators.util;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -72,7 +72,7 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public static " + MAP + "<Object, Object> copySafelyToObjectToObjectMap(" + MAP + "<?, ?> map) {");
-		sc.add(MAP + "<Object, Object> castedCopy = new " + HASH_MAP + "<Object, Object>();");
+		sc.add(MAP + "<Object, Object> castedCopy = new " + LINKED_HASH_MAP + "<Object, Object>();");
 		sc.addLineBreak();
 		sc.add("if(map == null) {");
 		sc.add("return castedCopy;");

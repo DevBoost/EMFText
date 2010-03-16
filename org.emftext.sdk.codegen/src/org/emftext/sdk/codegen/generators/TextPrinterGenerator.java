@@ -18,9 +18,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OU
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -445,7 +445,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		String out1Name = "out1";
 		sc.add(new StringComponent(PRINTER_WRITER + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
-		sc.add(new StringComponent(HASH_MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
+		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
@@ -647,7 +647,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 			}
 			sc.add("sWriter = new " + STRING_WRITER + "();");
 			sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
-			sc.add("printCountingMap1 = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
+			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
 			//compoundDeclaration.enable();
 			
 			sc.add(choice2Name.get(compound

@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
@@ -22,8 +22,8 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.NameUtil;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * Generates a TokenResolverFactory which will contain a mapping from 
@@ -139,8 +139,8 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("tokenName2TokenResolver = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
-		sc.add("featureName2CollectInTokenResolver = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
+		sc.add("tokenName2TokenResolver = new " + LINKED_HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
+		sc.add("featureName2CollectInTokenResolver = new " + LINKED_HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + ">();");
 		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
 		for (CompleteTokenDefinition definition : concreteSyntax.getActiveTokens()) {
 			if (!definition.isUsed()) {
