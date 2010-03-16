@@ -1708,7 +1708,55 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PRINTER2(169, "OVERRIDE_PRINTER2", "overridePrinter2");
+	OVERRIDE_PRINTER2(169, "OVERRIDE_PRINTER2", "overridePrinter2"), /**
+	 * The '<em><b>OVERRIDE CHOICE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CHOICE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CHOICE(170, "OVERRIDE_CHOICE", "overrideChoice"), /**
+	 * The '<em><b>OVERRIDE COMPOUND</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPOUND_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COMPOUND(171, "OVERRIDE_COMPOUND", "overrideCompound"), /**
+	 * The '<em><b>OVERRIDE CONTAINMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CONTAINMENT(172, "OVERRIDE_CONTAINMENT", "overrideContainment"), /**
+	 * The '<em><b>OVERRIDE LINE BREAK</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINE_BREAK_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LINE_BREAK(173, "OVERRIDE_LINE_BREAK", "overrideLineBreak"), /**
+	 * The '<em><b>OVERRIDE SEQUENCE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SEQUENCE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SEQUENCE(174, "OVERRIDE_SEQUENCE", "overrideSequence"), /**
+	 * The '<em><b>OVERRIDE WHITE SPACE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_WHITE_SPACE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_WHITE_SPACE(175, "OVERRIDE_WHITE_SPACE", "overrideWhiteSpace");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4231,6 +4279,96 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_PRINTER2_VALUE = 169;
 
 	/**
+	 * The '<em><b>OVERRIDE CHOICE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CHOICE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CHOICE
+	 * @model literal="overrideChoice"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CHOICE_VALUE = 170;
+
+	/**
+	 * The '<em><b>OVERRIDE COMPOUND</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COMPOUND</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPOUND
+	 * @model literal="overrideCompound"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COMPOUND_VALUE = 171;
+
+	/**
+	 * The '<em><b>OVERRIDE CONTAINMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CONTAINMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINMENT
+	 * @model literal="overrideContainment"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CONTAINMENT_VALUE = 172;
+
+	/**
+	 * The '<em><b>OVERRIDE LINE BREAK</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LINE BREAK</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINE_BREAK
+	 * @model literal="overrideLineBreak"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LINE_BREAK_VALUE = 173;
+
+	/**
+	 * The '<em><b>OVERRIDE SEQUENCE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SEQUENCE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SEQUENCE
+	 * @model literal="overrideSequence"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SEQUENCE_VALUE = 174;
+
+	/**
+	 * The '<em><b>OVERRIDE WHITE SPACE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE WHITE SPACE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_WHITE_SPACE
+	 * @model literal="overrideWhiteSpace"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_WHITE_SPACE_VALUE = 175;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4406,6 +4544,12 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PLACEHOLDER,
 			OVERRIDE_CARDINALITY,
 			OVERRIDE_PRINTER2,
+			OVERRIDE_CHOICE,
+			OVERRIDE_COMPOUND,
+			OVERRIDE_CONTAINMENT,
+			OVERRIDE_LINE_BREAK,
+			OVERRIDE_SEQUENCE,
+			OVERRIDE_WHITE_SPACE,
 		};
 
 	/**
@@ -4623,6 +4767,12 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PLACEHOLDER_VALUE: return OVERRIDE_PLACEHOLDER;
 			case OVERRIDE_CARDINALITY_VALUE: return OVERRIDE_CARDINALITY;
 			case OVERRIDE_PRINTER2_VALUE: return OVERRIDE_PRINTER2;
+			case OVERRIDE_CHOICE_VALUE: return OVERRIDE_CHOICE;
+			case OVERRIDE_COMPOUND_VALUE: return OVERRIDE_COMPOUND;
+			case OVERRIDE_CONTAINMENT_VALUE: return OVERRIDE_CONTAINMENT;
+			case OVERRIDE_LINE_BREAK_VALUE: return OVERRIDE_LINE_BREAK;
+			case OVERRIDE_SEQUENCE_VALUE: return OVERRIDE_SEQUENCE;
+			case OVERRIDE_WHITE_SPACE_VALUE: return OVERRIDE_WHITE_SPACE;
 		}
 		return null;
 	}

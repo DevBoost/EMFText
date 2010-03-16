@@ -80,11 +80,17 @@ import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenera
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedTerminalGenerator;
 import org.emftext.sdk.codegen.generators.grammar.CardinalityGenerator;
+import org.emftext.sdk.codegen.generators.grammar.ChoiceGenerator;
+import org.emftext.sdk.codegen.generators.grammar.CompoundGenerator;
+import org.emftext.sdk.codegen.generators.grammar.ContainmentGenerator;
 import org.emftext.sdk.codegen.generators.grammar.FollowSetProviderGenerator;
 import org.emftext.sdk.codegen.generators.grammar.GrammarInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.grammar.KeywordGenerator;
+import org.emftext.sdk.codegen.generators.grammar.LineBreakGenerator;
 import org.emftext.sdk.codegen.generators.grammar.PlaceholderGenerator;
+import org.emftext.sdk.codegen.generators.grammar.SequenceGenerator;
 import org.emftext.sdk.codegen.generators.grammar.SyntaxElementGenerator;
+import org.emftext.sdk.codegen.generators.grammar.WhiteSpaceGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBuilderGenerator;
@@ -310,6 +316,13 @@ public enum EArtifact {
 	SYNTAX_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "SyntaxElement", new SyntaxElementGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT),
 	KEYWORD(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Keyword", new KeywordGenerator(), OptionTypes.OVERRIDE_KEYWORD),
 	PLACEHOLDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Placeholder", new PlaceholderGenerator(), OptionTypes.OVERRIDE_PLACEHOLDER),
+	CHOICE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Choice", new ChoiceGenerator(), OptionTypes.OVERRIDE_CHOICE),
+	COMPOUND(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Compound", new CompoundGenerator(), OptionTypes.OVERRIDE_COMPOUND),
+	CONTAINMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Containment", new ContainmentGenerator(), OptionTypes.OVERRIDE_CONTAINMENT),
+	LINE_BREAK(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "LineBreak", new LineBreakGenerator(), OptionTypes.OVERRIDE_LINE_BREAK),
+	SEQUENCE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Sequence", new SequenceGenerator(), OptionTypes.OVERRIDE_SEQUENCE),
+	WHITE_SPACE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "WhiteSpace", new WhiteSpaceGenerator(), OptionTypes.OVERRIDE_WHITE_SPACE),
+
 	GRAMMAR_INFORMATION_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
 	FOLLOW_SET_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FollowSetProvider", new FollowSetProviderGenerator(), OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER),
 	

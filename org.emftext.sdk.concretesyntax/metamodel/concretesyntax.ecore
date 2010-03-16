@@ -544,6 +544,12 @@
     <eLiterals name="OVERRIDE_PLACEHOLDER" value="167" literal="overridePlaceholder"/>
     <eLiterals name="OVERRIDE_CARDINALITY" value="168" literal="overrideCardinality"/>
     <eLiterals name="OVERRIDE_PRINTER2" value="169" literal="overridePrinter2"/>
+    <eLiterals name="OVERRIDE_CHOICE" value="170" literal="overrideChoice"/>
+    <eLiterals name="OVERRIDE_COMPOUND" value="171" literal="overrideCompound"/>
+    <eLiterals name="OVERRIDE_CONTAINMENT" value="172" literal="overrideContainment"/>
+    <eLiterals name="OVERRIDE_LINE_BREAK" value="173" literal="overrideLineBreak"/>
+    <eLiterals name="OVERRIDE_SEQUENCE" value="174" literal="overrideSequence"/>
+    <eLiterals name="OVERRIDE_WHITE_SPACE" value="175" literal="overrideWhiteSpace"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

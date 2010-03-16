@@ -54,6 +54,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	private String keywordClassName;
 	private String placeholderClassName;
 	private String cardinalityClassName;
+	private String compoundClassName;
+	private String choiceClassName;
+	private String sequenceClassName;
+	private String containmentClassName;
+	private String lineBreakClassName;
+	private String whiteSpaceClassName;
 
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -68,6 +74,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
 		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
 		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
+		compoundClassName = context.getQualifiedClassName(EArtifact.COMPOUND);
+		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
+		sequenceClassName = context.getQualifiedClassName(EArtifact.SEQUENCE);
+		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
+		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
+		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
 	}
 
 	@Override
@@ -102,92 +114,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addInnerClasses(StringComposite sc) {
-		addSequenceClass(sc);
-		addChoiceClass(sc);
-		addLineBreakClass(sc);
-		addWhiteSpacesClass(sc);
-		addContainmentClass(sc);
-		addCompoundClass(sc);
 		addRuleClass(sc);
-	}
-
-	private void addLineBreakClass(StringComposite sc) {
-		sc.add("public static class LineBreak extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("private final int tabs;"); 
-		sc.addLineBreak();
-		sc.add("public LineBreak(" + cardinalityClassName + " cardinality, int tabs) {"); 
-		sc.add("super(cardinality, null);"); 
-		sc.add("this.tabs = tabs;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public int getTabs() {"); 
-		sc.add("return tabs;"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addWhiteSpacesClass(StringComposite sc) {
-		sc.add("public static class WhiteSpaces extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("private final int amount;"); 
-		sc.addLineBreak();
-		sc.add("public WhiteSpaces(int amount, " + cardinalityClassName + " cardinality) {"); 
-		sc.add("super(cardinality, null);"); 
-		sc.add("this.amount = amount;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public int getAmount() {"); 
-		sc.add("return amount;"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addContainmentClass(StringComposite sc) {
-		sc.add("public static class Containment extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
-		sc.addLineBreak();
-		sc.add("public Containment(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality) {"); 
-		sc.add("super(cardinality, null);"); 
-		sc.add("this.feature = feature;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {"); 
-		sc.add("return feature;"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addChoiceClass(StringComposite sc) {
-		sc.add("public static class Choice extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("public Choice(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... choices) {"); 
-		sc.add("super(cardinality, choices);"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + syntaxElementClassName + "[] getChoices() {"); 
-		sc.add("return getChildren();"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addSequenceClass(StringComposite sc) {
-		sc.add("public static class Sequence extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("public Sequence(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... elements) {");
-		sc.add("super(cardinality, elements);"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + syntaxElementClassName + "[] getElements() {"); 
-		sc.add("return getChildren();"); 
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
 	}
 
 	private void addRuleClass(StringComposite sc) {
@@ -195,7 +122,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("private final " + E_CLASS + " metaclass;"); 
 		sc.addLineBreak();
-		sc.add("public Rule(" + E_CLASS + " metaclass, Choice choice, " + cardinalityClassName + " cardinality) {");
+		sc.add("public Rule(" + E_CLASS + " metaclass, " + choiceClassName + " choice, " + cardinalityClassName + " cardinality) {");
 		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
 		sc.add("this.metaclass = metaclass;");
 		sc.add("}"); 
@@ -204,22 +131,8 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		sc.add("return metaclass;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("public Choice getDefinition() {"); 
-		sc.add("return (Choice) getChildren()[0];"); 
-		sc.add("}"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addCompoundClass(StringComposite sc) {
-		sc.add("public static class Compound extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("public Compound(Choice choice, " + cardinalityClassName + " cardinality) {");
-		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public Choice getDefinition() {"); 
-		sc.add("return (Choice) getChildren()[0];"); 
+		sc.add("public " + choiceClassName + " getDefinition() {"); 
+		sc.add("return (" + choiceClassName + ") getChildren()[0];"); 
 		sc.add("}"); 
 		sc.add("}"); 
 		sc.addLineBreak();
@@ -245,11 +158,11 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		} else if (next instanceof WhiteSpaces) {
 			int amount = ((WhiteSpaces) next).getAmount();
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static WhiteSpaces " + fieldName + " = new WhiteSpaces(" + amount + ", " + getCardinality(next) + ");");
+			sc.add("public final static " + whiteSpaceClassName + " " + fieldName + " = new " + whiteSpaceClassName + "(" + amount + ", " + getCardinality(next) + ");");
 		} else if (next instanceof LineBreak) {
 			int amount = ((LineBreak) next).getTab();
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static LineBreak " + fieldName + " = new LineBreak(" + getCardinality(next) + ", " + amount + ");");
+			sc.add("public final static " + lineBreakClassName + " " + fieldName + " = new " + lineBreakClassName + "(" + getCardinality(next) + ", " + amount + ");");
 		} else if (next instanceof Sequence) {
 			Sequence sequence = (Sequence) next;
 			List<String> elements = new ArrayList<String>();
@@ -259,7 +172,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 				elements.add(csUtil.getFieldName(part));
 			}
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static Sequence " + fieldName + " = new Sequence(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
+			sc.add("public final static " + sequenceClassName + " " + fieldName + " = new " + sequenceClassName + "(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Choice) {
 			Choice choice = (Choice) next;
 			List<String> elements = new ArrayList<String>();
@@ -269,20 +182,20 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 				elements.add(csUtil.getFieldName(part));
 			}
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static Choice " + fieldName + " = new Choice(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
+			sc.add("public final static " + choiceClassName + " " + fieldName + " = new " + choiceClassName + "(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Containment) {
 			Containment containment = (Containment) next;
 			GenFeature feature = containment.getFeature();
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), feature);
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static Containment " + fieldName + " = new Containment(" + featureAccessor + ", " + getCardinality(next) + ");");
+			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
 			Choice choice = compound.getDefinitions();
 			addConstant(sc, objectToFieldNameMap, rule, choice);
 			String choiceFieldName = csUtil.getFieldName(choice);
 			String fieldName = csUtil.getFieldName(next);
-			sc.add("public final static Compound " + fieldName + " = new Compound(" + choiceFieldName + ", " + getCardinality(next) + ");");
+			sc.add("public final static " + compoundClassName + " " + fieldName + " = new " + compoundClassName + "(" + choiceFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
 			String definitionFieldName = csUtil.getFieldName(nextAsRule.getDefinition());
