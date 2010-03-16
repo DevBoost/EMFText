@@ -95,7 +95,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 			}
 		}
 		sc.addLineBreak();
-		sc.add("addWarningToResource(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
+		sc.add("addWarningToResource(\"The printer can not handle \" + element.eClass().getName() + \" elements\", element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
