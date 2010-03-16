@@ -18,7 +18,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OU
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -35,11 +34,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -102,8 +99,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	 */
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
-
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private GenClassCache genClassCache;
 
@@ -200,7 +195,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_PRINTER() + " {");
 		sc.addLineBreak();
 		
-		addMembers(sc);
+		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc, rules);
 
@@ -233,43 +228,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
-		sc.add("return resource;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
-		sc.add("if (element == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
-		sc.add("}");
-		sc.add("if (out == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
-		sc.add("}");
-		sc.addLineBreak();
-		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
-		while (!ruleQueue.isEmpty()) {
-			Rule rule = ruleQueue.remove();
-			// check whether all subclass calls have been printed
-			if (csUtil.hasSubClassesWithCS(rule.getMetaclass(),
-					ruleQueue)) {
-				ruleQueue.add(rule);
-			} else {
-				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
-				sc.add(getMethodName(rule) + "((" + getMetaClassName(rule)
-						+ ") element, globaltab, out);");
-				sc.add("return;");
-				sc.add("}");
-			}
-		}
-		sc.addLineBreak();
-		sc.add("addWarningToResource(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + super.getResourceClassName()
 				+ "(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
@@ -280,7 +238,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMembers(StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.add("protected " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
@@ -288,18 +246,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.addLineBreak();
-	}
-
-	private void addAddWarningToResourceMethod(StringComposite sc) {
-		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
-		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the printer is used stand alone");
-		sc.add("return;");
-		sc.add("}");
-    	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), cause);");
-		sc.add("}");
 		sc.addLineBreak();
 	}
 
@@ -335,23 +281,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 			printChoice(choice, sc, rule.getMetaclass());
 			sc.add("}");
 		}
-	}
-
-	private String getMetaClassName(Rule rule) {
-		if (hasMapType(rule.getMetaclass()) ) {
-			return rule.getMetaclass().getQualifiedClassName();
-		}
-		return genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
-	}
-
-	private String getMethodName(Rule rule) {
-		String className = getMetaClassName(rule);
-		
-		// first escape underscore with their unicode value
-		className = className.replace("_", "_005f");
-		// then replace package separator with underscore
-		className = className.replace(".", "_");
-		return "print_" +  className;
 	}
 
 	private void addPrintCollectedTokensCode(StringComposite sc, Rule rule) {
@@ -787,6 +716,39 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("return neg > 0 ? -neg : pos;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	/**
+	 * Prints the code needed to initialize the printCountingMap.
+	 * 
+	 * @param sc
+	 * @param genClass
+	 */
+	protected void printCountingMapIntialization(StringComposite sc, GenClass genClass) {
+		List<GenFeature> featureList = genClass.getAllGenFeatures();
+		String printCountingMapName = "printCountingMap";
+		sc.add("// the " + printCountingMapName + " contains a mapping from feature names to");
+		sc.add("// the number of remaining elements that still need to be printed.");
+		sc.add("// the map is initialized with the number of elements stored in each structural");
+		sc.add("// feature. for lists this is the list size. for non-multiple features it is either");
+		sc.add("// 1 (if the feature is set) or 0 (if the feature is null).");
+		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
+				+ featureList.size() + ");", printCountingMapName));
+		
+		if (featureList.size() > 0) {
+			sc.add(OBJECT + " temp;");
+		}
+		for (GenFeature genFeature : featureList) {
+			EStructuralFeature feature = genFeature.getEcoreFeature();
+			sc.add("temp = element." + getAccessMethod(genClass, genFeature)
+					+ ";");
+
+			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
+			String featureSize = isMultiple ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
+					: "1";
+			sc.add("printCountingMap.put(\"" + feature.getName()
+					+ "\", temp == null ? 0 : " + featureSize + ");");
+		}
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

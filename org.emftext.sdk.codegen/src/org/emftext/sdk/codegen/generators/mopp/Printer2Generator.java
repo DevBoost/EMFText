@@ -5,6 +5,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -51,11 +52,21 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	
 	private ConcreteSyntax syntax;
 	private String tokenResolverFactoryClassName;
-	private String iConfigurableClassName;
 	private String syntaxElementDecoratorClassName;
 	private String syntaxElementClassName;
 	private String grammarInformationProviderClassName;
 	private GenClassCache genClassCache;
+	private String keywordClassName;
+	private String placeholderClassName;
+	private String cardinalityClassName;
+	private String compoundClassName;
+	private String choiceClassName;
+	private String sequenceClassName;
+	private String containmentClassName;
+	private String lineBreakClassName;
+	private String whiteSpaceClassName;
+	private String iTextPrinterClassName;
+	private String iTextResourceClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -66,10 +77,20 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		syntax = context.getConcreteSyntax();
 		genClassCache = syntax.getGenClassCache();
 		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		iConfigurableClassName = context.getQualifiedClassName(EArtifact.I_CONFIGURABLE);
+		iTextPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
+		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 		syntaxElementDecoratorClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT_DECORATOR);
 		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
 		grammarInformationProviderClassName = context.getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
+		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
+		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
+		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
+		compoundClassName = context.getQualifiedClassName(EArtifact.COMPOUND);
+		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
+		sequenceClassName = context.getQualifiedClassName(EArtifact.SEQUENCE);
+		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
+		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
+		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -81,7 +102,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + iConfigurableClassName + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -91,15 +112,20 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(StringComposite sc) { 
+		addPrintMethod(sc);
+		addDoPrintMethod(sc, syntax.getAllRules());
 		addPrintRuleMethods(sc);
 		addGetDecoratorTreeMethod(sc);
 		addDecorateTreeMethod(sc);
 		addPrintTreeMethod(sc);
+		addPrintKeywordMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
 		addGetOptionsMethod(sc);
 		addSetOptionsMethod(sc);
+		addGetResourceMethod(sc);
 		addGetReferenceResolverSwitchMethod(sc);
+		addAddWarningToResourceMethod(sc);
 	}
 
 	private void addGetDecoratorTreeMethod(StringComposite sc) {
@@ -120,14 +146,17 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + OUTPUT_STREAM + " outputStream) {");
+		sc.add("public " + getResourceClassName() + "(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
 		sc.add("super();");
 		sc.add("this.writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("this.resource = resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {
+		sc.add("// Holds the resource that is associated with this printer. may be null if the printer is used stand alone.");
+		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private " + PRINTER_WRITER + " writer;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
@@ -235,7 +264,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
-		sc.add("public void " + getRuleMethodName(metaclass) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject) {");
+		// TODO globaltab and out are not used
+		sc.add("public void " + getRuleMethodName(metaclass) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject, " + STRING + " globalTab, " + PRINTER_WRITER + " out) {");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
 		sc.add("printTree(decoratorTree, eObject);");
@@ -244,12 +274,34 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addDecorateTreeMethod(StringComposite sc) {
-		sc.add("public void decorateTree(" + syntaxElementDecoratorClassName + " decoratorTree, " + E_OBJECT + " eObject) {");
+		sc.add("public void decorateTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
 		sc.add(MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap = initializePrintCountingMap(eObject);");
+		sc.add(syntaxElementClassName + " syntaxElement = decorator.getDecoratedElement();");
+		sc.add("if (syntaxElement instanceof " + keywordClassName + ") {");
+		sc.add("decorator.addPrintElement(syntaxElement);");
+		sc.add("}");
+		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
+		sc.add("decorateTree(childDecorator, eObject);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
+	private void addPrintTreeMethod(StringComposite sc) {
+		sc.add("public void printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
+		sc.add(LIST + "<" + syntaxElementClassName+ "> printElements = decorator.getPrintElements();");
+		sc.add("for (" + syntaxElementClassName + " printElement : printElements) {");
+		sc.add("if (printElement instanceof " + keywordClassName + ") {");
+		sc.add("printKeyword((" + keywordClassName + ") printElement);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
+		sc.add("printTree(childDecorator, eObject);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addInitializePrintCountingMapMethod(StringComposite sc) {
 		sc.add("public " + MAP + "<" + STRING + ", " + INTEGER + "> initializePrintCountingMap(" + E_OBJECT + " eObject) {");
 		sc.add("// the printCountingMap contains a mapping from feature names to");
@@ -276,8 +328,17 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPrintTreeMethod(StringComposite sc) {
-		sc.add("public void printTree(" + syntaxElementDecoratorClassName + " decoratorTree, " + E_OBJECT + " eObject) {");
+	private void addPrintKeywordMethod(StringComposite sc) {
+		sc.add("public void printKeyword(" + keywordClassName + " keyword) {");
+		sc.add("writer.write(keyword.getValue());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintMethod(StringComposite sc) {
+		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
+		sc.add("doPrint(element, writer, \"\");");
+		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

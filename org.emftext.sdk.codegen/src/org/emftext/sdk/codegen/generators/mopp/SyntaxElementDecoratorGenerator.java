@@ -1,5 +1,7 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -37,6 +39,10 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
+		addAddPrintElementMethod(sc);
+		addGetDecoratedElementMethod(sc);
+		addGetChildDecoratatorsMethod(sc);
+		addGetPrintElementsMethod(sc);
 		sc.add("}");
 		return true;
 	}
@@ -44,6 +50,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private " + syntaxElementClassName + " decoratedElement;");
 		sc.add("private " + getResourceClassName() + "[] childDecorators;");
+		sc.add("private " + LIST + "<" + syntaxElementClassName+ "> printElements = new " + ARRAY_LIST + "<" + syntaxElementClassName+ ">();");
 		sc.addLineBreak();
 	}
 
@@ -52,6 +59,35 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		sc.add("super();"); 
 		sc.add("this.decoratedElement = decoratedElement;"); 
 		sc.add("this.childDecorators = childDecorators;"); 
+		sc.add("}"); 
+		sc.addLineBreak();
+	}
+
+
+	private void addGetDecoratedElementMethod(StringComposite sc) {
+		sc.add("public " + syntaxElementClassName + " getDecoratedElement() {");
+		sc.add("return decoratedElement;"); 
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetChildDecoratatorsMethod(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "[] getChildDecorators() {");
+		sc.add("return childDecorators;"); 
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetPrintElementsMethod(StringComposite sc) {
+		sc.add("public " + LIST + "<" + syntaxElementClassName+ "> getPrintElements() {");
+		sc.add("return printElements;"); 
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddPrintElementMethod(StringComposite sc) {
+		sc.add("public void addPrintElement(" + syntaxElementClassName + " syntaxElement) {");
+		sc.add("printElements.add(syntaxElement);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
 	}
