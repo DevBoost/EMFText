@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
@@ -67,6 +68,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String whiteSpaceClassName;
 	private String iTextPrinterClassName;
 	private String iTextResourceClassName;
+	private String iTokenResolverClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -78,6 +80,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		genClassCache = syntax.getGenClassCache();
 		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		iTextPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
+		iTokenResolverClassName = context.getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER);
 		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 		syntaxElementDecoratorClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT_DECORATOR);
 		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
@@ -120,6 +123,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addDecorateTreeMethod(sc);
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
+		addPrintFeatureMethod(sc);
+		addPrintAttributeMethod(sc);
+		addPrintReferenceMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
 		addGetOptionsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -167,7 +173,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		List<Rule> allRules = syntax.getAllRules();
 		for (Rule rule : allRules) {
 			addPrintRuleMethod(sc, rule);
-			addPrintSyntaxElementMethod(sc, rule.getDefinition());
+			//addPrintSyntaxElementMethod(sc, rule.getDefinition());
 		}
 	}
 
@@ -279,6 +285,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(syntaxElementClassName + " syntaxElement = decorator.getDecoratedElement();");
 		sc.add("if (syntaxElement instanceof " + keywordClassName + ") {");
 		sc.add("decorator.addPrintElement(syntaxElement);");
+		sc.add("} else if (syntaxElement instanceof " + placeholderClassName + ") {");
+		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") syntaxElement;");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
+		sc.add("int countLeft = printCountingMap.get(feature.getName());");
+		sc.add("if (countLeft > 0) {");
+		sc.add("decorator.addPrintElement(syntaxElement);");
+		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("decorateTree(childDecorator, eObject);");
@@ -293,6 +307,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("for (" + syntaxElementClassName + " printElement : printElements) {");
 		sc.add("if (printElement instanceof " + keywordClassName + ") {");
 		sc.add("printKeyword((" + keywordClassName + ") printElement);");
+		sc.add("} else if (printElement instanceof " + placeholderClassName + ") {");
+		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
+		// TODO use correct index from printCountingMap
+		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), 0);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
@@ -331,6 +350,39 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + keywordClassName + " keyword) {");
 		sc.add("writer.write(keyword.getValue());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintFeatureMethod(StringComposite sc) {
+		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, int count) {");
+		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+		sc.add("printAttribute(eObject, (" + E_ATTRIBUTE + ") feature, tokenName, count);");
+		sc.add("} else {");
+		sc.add("printReference(eObject, (" + E_REFERENCE + ") feature, tokenName, count);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintAttributeMethod(StringComposite sc) {
+		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, String tokenName, int count) {");
+		sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("resolver.setOptions(getOptions());");
+		sc.add("Object o = eObject.eGet(attribute);");
+		sc.add("if (o instanceof " + LIST + "<?>) {");
+		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
+		sc.add("int index = list.size() - count;");
+		sc.add("o = list.get(index);");
+		sc.add("}");
+		sc.add("String deResolvedValue = resolver.deResolve((" + OBJECT + ") o, attribute, eObject);");
+		sc.add("writer.write(deResolvedValue);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintReferenceMethod(StringComposite sc) {
+		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " attribute, String tokenName, int count) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
