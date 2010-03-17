@@ -119,6 +119,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintRuleMethods(sc);
 		addGetDecoratorTreeMethod(sc);
 		addDecorateTreeMethod(sc);
+		addDecorateTreeBasicMethod(sc);
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
@@ -280,36 +281,59 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addDecorateTreeMethod(StringComposite sc) {
 		sc.add("public void decorateTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
 		sc.add(MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap = initializePrintCountingMap(eObject);");
+		sc.add("decorateTreeBasic(decorator, eObject, printCountingMap);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addDecorateTreeBasicMethod(StringComposite sc) {
+		sc.add("// tries to decorate the decorator with an attribute value, or reference holds by eObject");
+		sc.add("// returns true if an attribute value or reference was found");
+		sc.add("public boolean decorateTreeBasic(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject, " + MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap) {");
+		sc.add("boolean foundFeatureToPrint;");
 		sc.add(syntaxElementClassName + " syntaxElement = decorator.getDecoratedElement();");
+		sc.add(cardinalityClassName + " cardinality = syntaxElement.getCardinality();");
+		sc.add("while (true) {");
+		sc.add("foundFeatureToPrint = false;");
 		sc.add("if (syntaxElement instanceof " + keywordClassName + ") {");
-		sc.add("decorator.addPrintElement(syntaxElement);");
+		sc.add("// for keywords the concrete index does not matter, but we must add one to indicate that");
+		sc.add("// the needs to be printed here");
+		sc.add("decorator.addIndexToPrint(0);");
 		sc.add("} else if (syntaxElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") syntaxElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
 		sc.add("int countLeft = printCountingMap.get(feature.getName());");
 		sc.add("if (countLeft > 0) {");
-		sc.add("decorator.addPrintElement(syntaxElement);");
+		sc.add("decorator.addIndexToPrint(countLeft);");
 		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
+		sc.add("foundFeatureToPrint = true;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
-		sc.add("decorateTree(childDecorator, eObject);");
+		sc.add("foundFeatureToPrint |= decorateTreeBasic(childDecorator, eObject, printCountingMap);");
 		sc.add("}");
+		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".QUESTIONMARK) {");
+		sc.add("break;");
+		sc.add("} else if (!foundFeatureToPrint) {");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return foundFeatureToPrint;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addPrintTreeMethod(StringComposite sc) {
 		sc.add("public void printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
-		sc.add(LIST + "<" + syntaxElementClassName+ "> printElements = decorator.getPrintElements();");
-		sc.add("for (" + syntaxElementClassName + " printElement : printElements) {");
+		sc.add(LIST + "<" + INTEGER+ "> indicesToPrint = decorator.getIndicesToPrint();");
+		sc.add(syntaxElementClassName + " printElement = decorator.getDecoratedElement();");
+		sc.add("for (" + INTEGER + " indexToPrint : indicesToPrint) {");
 		sc.add("if (printElement instanceof " + keywordClassName + ") {");
 		sc.add("printKeyword((" + keywordClassName + ") printElement);");
 		sc.add("} else if (printElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
-		// TODO use correct index from printCountingMap
-		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), 0);");
+		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");

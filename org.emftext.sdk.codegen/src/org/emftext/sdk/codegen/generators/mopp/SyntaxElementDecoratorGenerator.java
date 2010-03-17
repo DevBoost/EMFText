@@ -39,7 +39,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
-		addAddPrintElementMethod(sc);
+		addAddIndexToPrintMethod(sc);
 		addGetDecoratedElementMethod(sc);
 		addGetChildDecoratatorsMethod(sc);
 		addGetPrintElementsMethod(sc);
@@ -48,9 +48,14 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
+		sc.add("// the syntax element to be decorated");
 		sc.add("private " + syntaxElementClassName + " decoratedElement;");
+		sc.addLineBreak();
+		sc.add("// an array of child decorators (one decorator per child of the decorated syntax element");
 		sc.add("private " + getResourceClassName() + "[] childDecorators;");
-		sc.add("private " + LIST + "<" + syntaxElementClassName+ "> printElements = new " + ARRAY_LIST + "<" + syntaxElementClassName+ ">();");
+		sc.addLineBreak();
+		sc.add("// a list of the indices that must be printed");
+		sc.add("private " + LIST + "<" + INTEGER+ "> indicesToPrint = new " + ARRAY_LIST + "<" + INTEGER+ ">();");
 		sc.addLineBreak();
 	}
 
@@ -79,15 +84,15 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetPrintElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + syntaxElementClassName+ "> getPrintElements() {");
-		sc.add("return printElements;"); 
+		sc.add("public " + LIST + "<" + INTEGER + "> getIndicesToPrint() {");
+		sc.add("return indicesToPrint;"); 
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddPrintElementMethod(StringComposite sc) {
-		sc.add("public void addPrintElement(" + syntaxElementClassName + " syntaxElement) {");
-		sc.add("printElements.add(syntaxElement);"); 
+	private void addAddIndexToPrintMethod(StringComposite sc) {
+		sc.add("public void addIndexToPrint(" + INTEGER + " index) {");
+		sc.add("indicesToPrint.add(index);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
 	}
