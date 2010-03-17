@@ -320,7 +320,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("foundFeatureToPrint |= keepDecorating;");
 		sc.add("// we only print keywords if a feature was printed or the syntax element in mandatory");
-		sc.add("if (cardinality == " + cardinalityClassName + ".ONE) {");
+		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".PLUS) {");
 		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
 		sc.add("} else if (keepDecorating && cardinality == " + cardinalityClassName + ".STAR) {");
 		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
