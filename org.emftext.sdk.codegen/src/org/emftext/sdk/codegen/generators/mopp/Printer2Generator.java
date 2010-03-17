@@ -127,6 +127,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
 		addPrintAttributeMethod(sc);
+		addGetValueMethod(sc);
 		addPrintReferenceMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
 		addGetOptionsMethod(sc);
@@ -417,15 +418,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeMethod(StringComposite sc) {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, String tokenName, int count) {");
-		
-		sc.add("// get value of attribute");
-		sc.add("Object o = eObject.eGet(attribute);");
-		sc.add("if (o instanceof " + LIST + "<?>) {");
-		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
-		sc.add("int index = list.size() - count;");
-		sc.add("o = list.get(index);");
-		sc.add("}");
-		
+		sc.add(OBJECT + " o = getValue(eObject, attribute, count);");
+
 		sc.add("// deresolve token");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
@@ -438,14 +432,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintReferenceMethod(StringComposite sc) {
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, String tokenName, int count) {");
-		// TODO introduce method here
-		sc.add("// get value of attribute");
-		sc.add("Object o = eObject.eGet(reference);");
-		sc.add("if (o instanceof " + LIST + "<?>) {");
-		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
-		sc.add("int index = list.size() - count;");
-		sc.add("o = list.get(index);");
-		sc.add("}");
+		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
 
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
@@ -456,6 +443,20 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.add("// write result");
 		sc.add("writer.write(deresolvedToken);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetValueMethod(StringComposite sc) {
+		sc.add("private Object getValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int count) {");
+		sc.add("// get value of reference");
+		sc.add(OBJECT + " o = eObject.eGet(feature);");
+		sc.add("if (o instanceof " + LIST + "<?>) {");
+		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
+		sc.add("int index = list.size() - count;");
+		sc.add("o = list.get(index);");
+		sc.add("}");
+		sc.add("return o;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
