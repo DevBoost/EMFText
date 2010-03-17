@@ -1,8 +1,8 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
@@ -38,7 +38,6 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
-import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -49,7 +48,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private GenClassFinder genClassFinder = new GenClassFinder();
 	
 	private ConcreteSyntax syntax;
 	private String tokenResolverFactoryClassName;
@@ -271,7 +269,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
 		// TODO globaltab and out are not used
-		sc.add("public void " + getRuleMethodName(metaclass) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject, " + STRING + " globalTab, " + PRINTER_WRITER + " out) {");
+		sc.add("public void " + getMethodName(rule) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject, " + STRING + " globalTab, " + PRINTER_WRITER + " out) {");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
 		sc.add("printTree(decoratorTree, eObject);");
@@ -393,11 +391,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	private String getRuleMethodName(GenClass genClass) {
-		String ruleName = genClassFinder.getEscapedTypeName(genClass, syntax.getGenClassCache());
-		return "print_" + ruleName;
 	}
 
 	// TODO mseifert: move this to SyntaxElement.ejava

@@ -20,12 +20,14 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.StringUtil;
 
 public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenClassCache genClassCache;
 	
@@ -49,13 +51,8 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	protected String getMethodName(Rule rule) {
-		String className = getMetaClassName(rule);
-		
-		// first escape underscore with their unicode value
-		className = className.replace("_", "_005f");
-		// then replace package separator with underscore
-		className = className.replace(".", "_");
-		return "print_" +  className;
+		String ruleName = genClassFinder.getEscapedTypeName(rule.getMetaclass(), rule.getSyntax().getGenClassCache());
+		return "print_" + ruleName;
 	}
 
 	protected void addAddWarningToResourceMethod(StringComposite sc) {
