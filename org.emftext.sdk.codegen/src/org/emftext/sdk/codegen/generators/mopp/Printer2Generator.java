@@ -68,6 +68,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String iTextPrinterClassName;
 	private String iTextResourceClassName;
 	private String iTokenResolverClassName;
+	private String iReferenceResolverClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -93,6 +94,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
 		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
 		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
+		iReferenceResolverClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -415,22 +417,45 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeMethod(StringComposite sc) {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, String tokenName, int count) {");
-		sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(tokenName);");
-		sc.add("resolver.setOptions(getOptions());");
+		
+		sc.add("// get value of attribute");
 		sc.add("Object o = eObject.eGet(attribute);");
 		sc.add("if (o instanceof " + LIST + "<?>) {");
 		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
 		sc.add("int index = list.size() - count;");
 		sc.add("o = list.get(index);");
 		sc.add("}");
-		sc.add("String deResolvedValue = resolver.deResolve((" + OBJECT + ") o, attribute, eObject);");
+		
+		sc.add("// deresolve token");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add("String deResolvedValue = tokenResolver.deResolve((" + OBJECT + ") o, attribute, eObject);");
+		sc.add("// write result");
 		sc.add("writer.write(deResolvedValue);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintReferenceMethod(StringComposite sc) {
-		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " attribute, String tokenName, int count) {");
+		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, String tokenName, int count) {");
+		// TODO introduce method here
+		sc.add("// get value of attribute");
+		sc.add("Object o = eObject.eGet(reference);");
+		sc.add("if (o instanceof " + LIST + "<?>) {");
+		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
+		sc.add("int index = list.size() - count;");
+		sc.add("o = list.get(index);");
+		sc.add("}");
+
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
+		sc.add("referenceResolver.setOptions(getOptions());");
+		
+		sc.add(STRING + " deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") o, eObject, reference);");
+		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
+		sc.add("// write result");
+		sc.add("writer.write(deresolvedToken);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
