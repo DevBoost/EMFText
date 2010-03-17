@@ -42,7 +42,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		addAddIndexToPrintMethod(sc);
 		addGetDecoratedElementMethod(sc);
 		addGetChildDecoratatorsMethod(sc);
-		addGetPrintElementsMethod(sc);
+		addGetNextIndexToPrintMethod(sc);
 		sc.add("}");
 		return true;
 	}
@@ -83,9 +83,12 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetPrintElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + INTEGER + "> getIndicesToPrint() {");
-		sc.add("return indicesToPrint;"); 
+	private void addGetNextIndexToPrintMethod(StringComposite sc) {
+		sc.add("public " + INTEGER + " getNextIndexToPrint() {");
+		sc.add("if (indicesToPrint.size() == 0) {");
+		sc.add("return null;"); 
+		sc.add("}");
+		sc.add("return indicesToPrint.remove(0);"); 
 		sc.add("}");
 		sc.addLineBreak();
 	}
