@@ -125,6 +125,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
+		addPrintContainedObjectMethod(sc);
 		addPrintAttributeMethod(sc);
 		addGetValueMethod(sc);
 		addPrintReferenceMethod(sc);
@@ -309,13 +310,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("subKeywordsToPrint.add(decorator);");
 		sc.add("} else if (syntaxElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") syntaxElement;");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
-		sc.add("int countLeft = printCountingMap.get(feature.getName());");
-		sc.add("if (countLeft > 0) {");
-		sc.add("decorator.addIndexToPrint(countLeft);");
-		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
-		sc.add("keepDecorating = true;");
-		sc.add("}");
+		addCodeToDecorateWithFeature(sc, "placeholder");
+		sc.add("} else if (syntaxElement instanceof " + containmentClassName + ") {");
+		sc.add(containmentClassName + " containment = (" + containmentClassName + ") syntaxElement;");
+		addCodeToDecorateWithFeature(sc, "containment");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);");
@@ -337,6 +335,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 	}
+
+	private void addCodeToDecorateWithFeature(StringComposite sc, String syntaxElementVarName) {
+		sc.add(E_STRUCTURAL_FEATURE + " feature = " + syntaxElementVarName + ".getFeature();");
+		sc.add("int countLeft = printCountingMap.get(feature.getName());");
+		sc.add("if (countLeft > 0) {");
+		sc.add("decorator.addIndexToPrint(countLeft);");
+		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
+		sc.add("keepDecorating = true;");
+		sc.add("}");
+	}
 	
 	private void addPrintTreeMethod(StringComposite sc) {
 		sc.add("public boolean printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
@@ -354,6 +362,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
 		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint);");
+		sc.add("foundSomethingToPrint = true;");
+		sc.add("} else if (printElement instanceof " + containmentClassName + ") {");
+		sc.add(containmentClassName + " containment = (" + containmentClassName + ") printElement;");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = containment.getFeature();");
+		sc.add("printContainedObject(eObject, feature, indexToPrint);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
 		sc.add("}");
@@ -442,6 +455,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.add("// write result");
 		sc.add("writer.write(deresolvedToken);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintContainedObjectMethod(StringComposite sc) {
+		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " reference, int count) {");
+		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
+		// TODO fix last argument for 'globalTab'
+		sc.add("doPrint((" + E_OBJECT + ") o, writer, \"\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
