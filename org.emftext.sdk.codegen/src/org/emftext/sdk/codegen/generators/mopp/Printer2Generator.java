@@ -204,6 +204,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean startedPrintingElement = false;");
+		sc.add("private " + LIST + "<" + whiteSpaceClassName + "> foundWhiteSpaces = new " + ARRAY_LIST + "<" + whiteSpaceClassName + ">();");
 		sc.addLineBreak();
 	}
 
@@ -391,19 +392,22 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(INTEGER + " indexToPrint = decorator.getNextIndexToPrint();");
 		sc.add("if (indexToPrint != null) {");
 		sc.add("if (printElement instanceof " + keywordClassName + ") {");
-		sc.add("printKeyword((" + keywordClassName + ") printElement);");
+		sc.add("printKeyword((" + keywordClassName + ") printElement, foundWhiteSpaces);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("} else if (printElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
-		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint);");
+		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint, foundWhiteSpaces);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("} else if (printElement instanceof " + containmentClassName + ") {");
 		sc.add(containmentClassName + " containment = (" + containmentClassName + ") printElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = containment.getFeature();");
-		sc.add("printContainedObject(eObject, feature, indexToPrint);");
+		sc.add("printContainedObject(eObject, feature, indexToPrint, foundWhiteSpaces);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
+		sc.add("}");
+		sc.add("if (printElement instanceof " + whiteSpaceClassName + ") {");
+		sc.add("foundWhiteSpaces.add((" + whiteSpaceClassName + ") printElement);");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject);");
@@ -446,16 +450,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintKeywordMethod(StringComposite sc) {
-		sc.add("public void printKeyword(" + keywordClassName + " keyword) {");
-		sc.add("printWhitespace();");
+		sc.add("public void printKeyword(" + keywordClassName + " keyword, " + LIST + "<" + whiteSpaceClassName + "> foundWhiteSpaces) {");
+		sc.add("printWhitespace(foundWhiteSpaces);");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintFeatureMethod(StringComposite sc) {
-		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, int count) {");
-		sc.add("printWhitespace();");
+		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, int count, " + LIST + "<" + whiteSpaceClassName + "> foundWhiteSpaces) {");
+		sc.add("printWhitespace(foundWhiteSpaces);");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("printAttribute(eObject, (" + E_ATTRIBUTE + ") feature, tokenName, count);");
 		sc.add("} else {");
@@ -497,8 +501,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintContainedObjectMethod(StringComposite sc) {
-		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " reference, int count) {");
-		sc.add("printWhitespace();");
+		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " reference, int count, " + LIST + "<" + whiteSpaceClassName + "> foundWhiteSpaces) {");
+		sc.add("printWhitespace(foundWhiteSpaces);");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
 		sc.add("doPrint((" + E_OBJECT + ") o);");
 		sc.add("}");
@@ -506,16 +510,26 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintWhitespaceMethod(StringComposite sc) {
-		sc.add("public void printWhitespace() {");
+		sc.add("public void printWhitespace(" + LIST + "<" + whiteSpaceClassName + "> foundWhiteSpaces) {");
 		// TODO (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
 		// (b) if whitespace of linebreak elements were found, print those
+		sc.add("if (foundWhiteSpaces.size() > 0) {");
+		sc.add("for (" + whiteSpaceClassName + " foundWhiteSpace : foundWhiteSpaces) {");
+		sc.add("int amount = foundWhiteSpace.getAmount();");
+		sc.add("for (int i = 0; i < amount; i++) {");
+		sc.add("writer.write(\" \");");
+		sc.add("}");
+		sc.add("}");
+		sc.add("foundWhiteSpaces.clear();");
+		sc.add("} else {");
 		// (c) if not, print default token space
 		sc.add("if (startedPrintingElement) {");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
 		String tokenSpace = getWhiteSpaceString(getTokenSpace());
 		sc.add("writer.write(\"" + tokenSpace + "\");");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -537,6 +551,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintMethod(StringComposite sc) {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
+		sc.add("foundWhiteSpaces.clear();");
 		sc.add("doPrint(element);");
 		sc.add("writer.flush();");
 		sc.add("}");
