@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OU
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -34,9 +35,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -48,7 +51,6 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -64,7 +66,6 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -85,11 +86,11 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	private final static String localtabName = "localtab";
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
 	
-	private int tokenSpace;
 	/** maps all choices to a method name */
 	private Map<Choice, String> choice2Name;
 	/** maps all rules to choices nested somewhere, but not to the root choice! */
@@ -179,10 +180,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
-        tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(concretSyntax, OptionTypes.TOKENSPACE, true, this);
-		if (tokenSpace < 0) {
-			tokenSpace = 1;
-		}
 		return rules;
 	}
 
@@ -224,6 +221,36 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
 		sc.add("out.close();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	protected void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
+		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
+		sc.add("if (element == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
+		sc.add("}");
+		sc.add("if (out == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
+		sc.add("}");
+		sc.addLineBreak();
+		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
+		while (!ruleQueue.isEmpty()) {
+			Rule rule = ruleQueue.remove();
+			// check whether all subclass calls have been printed
+			if (csUtil.hasSubClassesWithCS(rule.getMetaclass(),
+					ruleQueue)) {
+				ruleQueue.add(rule);
+			} else {
+				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
+				sc.add(getMethodName(rule) + "((" + getMetaClassName(rule)
+						+ ") element, globaltab, out);");
+				sc.add("return;");
+				sc.add("}");
+			}
+		}
+		sc.addLineBreak();
+		sc.add("addWarningToResource(\"The printer can not handle \" + element.eClass().getName() + \" elements\", element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -446,7 +473,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 
 							// the given tokenSpace (>0) causes an additional
 							// print statement to be printed
-							if (tokenSpace > 0) {
+							if (getTokenSpace() > 0) {
 								Definition lookahead = null;
 								if (definitionIterator.hasNext()){
 									lookahead = definitionIterator.next();
@@ -455,7 +482,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 									
 								if (lookahead == null
 										|| !(lookahead instanceof WhiteSpaces)) {
-									String printSuffix = getWhiteSpaceString(tokenSpace);
+									String printSuffix = getWhiteSpaceString(getTokenSpace());
 									printStatements.add("out.print(\"" + printSuffix + "\");");
 								}
 							}
@@ -641,7 +668,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 
 		// the given tokenSpace (>0) causes an additional
 		// print statement to be printed
-		if (tokenSpace > 0) {
+		if (getTokenSpace() > 0) {
 			Definition lookahead = null;
 			if (definitionIterator.hasNext()){
 				lookahead = definitionIterator.next();
@@ -650,7 +677,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 				
 			if (lookahead == null
 					|| !(lookahead instanceof WhiteSpaces)) {
-				String printSuffix = getWhiteSpaceString(tokenSpace);
+				String printSuffix = getWhiteSpaceString(getTokenSpace());
 				
 				sc.add(printPrefix + "\"" + printSuffix + "\");");
 			}

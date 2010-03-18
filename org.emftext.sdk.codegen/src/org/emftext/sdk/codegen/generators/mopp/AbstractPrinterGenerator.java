@@ -1,24 +1,19 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRINTER_WRITER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.StringUtil;
@@ -26,12 +21,12 @@ import org.emftext.sdk.util.StringUtil;
 public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenClassCache genClassCache;
 	
 	private String referenceResolverSwitchClassName;
+	private int tokenSpace;
 
 	public AbstractPrinterGenerator() {
 		super();
@@ -41,6 +36,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
 		this.referenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		initializeTokenSpace();
 	}
 
 	protected String getMetaClassName(Rule rule) {
@@ -63,36 +59,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
     	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), cause);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	protected void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
-		sc.add("if (element == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
-		sc.add("}");
-		sc.add("if (out == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
-		sc.add("}");
-		sc.addLineBreak();
-		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
-		while (!ruleQueue.isEmpty()) {
-			Rule rule = ruleQueue.remove();
-			// check whether all subclass calls have been printed
-			if (csUtil.hasSubClassesWithCS(rule.getMetaclass(),
-					ruleQueue)) {
-				ruleQueue.add(rule);
-			} else {
-				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
-				sc.add(getMethodName(rule) + "((" + getMetaClassName(rule)
-						+ ") element, globaltab, out);");
-				sc.add("return;");
-				sc.add("}");
-			}
-		}
-		sc.addLineBreak();
-		sc.add("addWarningToResource(\"The printer can not handle \" + element.eClass().getName() + \" elements\", element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -155,5 +121,16 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 			spaces.append(character);
 		}
 		return spaces.toString();
+	}
+
+	protected int getTokenSpace() {
+		return tokenSpace;
+	}
+		
+	private void initializeTokenSpace() {
+		tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(getContext().getConcreteSyntax(), OptionTypes.TOKENSPACE, true, this);
+		if (tokenSpace < 0) {
+			tokenSpace = 1;
+		}
 	}
 }

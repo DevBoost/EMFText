@@ -16,7 +16,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STRE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRINTER_WRITER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -125,8 +127,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
-		addPrintContainedObjectMethod(sc);
 		addPrintAttributeMethod(sc);
+		addPrintContainedObjectMethod(sc);
+		addPrintWhitespaceMethod(sc);
 		addGetValueMethod(sc);
 		addPrintReferenceMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
@@ -135,6 +138,37 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetResourceMethod(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
+	}
+
+	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
+		sc.add("protected void doPrint(" + E_OBJECT + " element) {");
+		sc.add("if (element == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
+		sc.add("}");
+		sc.add("if (writer == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("startedPrintingElement = true;");
+		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
+		while (!ruleQueue.isEmpty()) {
+			Rule rule = ruleQueue.remove();
+			// check whether all subclass calls have been printed
+			if (csUtil.hasSubClassesWithCS(rule.getMetaclass(),
+					ruleQueue)) {
+				ruleQueue.add(rule);
+			} else {
+				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
+				sc.add(getMethodName(rule) + "((" + getMetaClassName(rule)
+						+ ") element);");
+				sc.add("return;");
+				sc.add("}");
+			}
+		}
+		sc.addLineBreak();
+		sc.add("addWarningToResource(\"The printer can not handle \" + element.eClass().getName() + \" elements\", element);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetDecoratorTreeMethod(StringComposite sc) {
@@ -169,6 +203,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + PRINTER_WRITER + " writer;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
+		sc.add("private boolean startedPrintingElement = false;");
 		sc.addLineBreak();
 	}
 
@@ -274,7 +309,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
 		// TODO globaltab and out are not used
-		sc.add("public void " + getMethodName(rule) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject, " + STRING + " globalTab, " + PRINTER_WRITER + " out) {");
+		sc.add("public void " + getMethodName(rule) + "(" + genClassCache.getQualifiedInterfaceName(metaclass) + " eObject) {");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
 		sc.add("printTree(decoratorTree, eObject);");
@@ -412,6 +447,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + keywordClassName + " keyword) {");
+		sc.add("printWhitespace();");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -419,6 +455,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintFeatureMethod(StringComposite sc) {
 		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, int count) {");
+		sc.add("printWhitespace();");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("printAttribute(eObject, (" + E_ATTRIBUTE + ") feature, tokenName, count);");
 		sc.add("} else {");
@@ -461,9 +498,25 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintContainedObjectMethod(StringComposite sc) {
 		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " reference, int count) {");
+		sc.add("printWhitespace();");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
-		// TODO fix last argument for 'globalTab'
-		sc.add("doPrint((" + E_OBJECT + ") o, writer, \"\");");
+		sc.add("doPrint((" + E_OBJECT + ") o);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintWhitespaceMethod(StringComposite sc) {
+		sc.add("public void printWhitespace() {");
+		// TODO (a) if the element to print is at the correct printing spot (the
+		// one it was parsed at, print whitespace collected while parsing
+		// (b) if whitespace of linebreak elements were found, print those
+		// (c) if not, print default token space
+		sc.add("if (startedPrintingElement) {");
+		sc.add("startedPrintingElement = false;");
+		sc.add("} else {");
+		String tokenSpace = getWhiteSpaceString(getTokenSpace());
+		sc.add("writer.write(\"" + tokenSpace + "\");");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -484,7 +537,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintMethod(StringComposite sc) {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
-		sc.add("doPrint(element, writer, \"\");");
+		sc.add("doPrint(element);");
 		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
