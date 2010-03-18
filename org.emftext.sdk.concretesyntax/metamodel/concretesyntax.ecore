@@ -551,6 +551,7 @@
     <eLiterals name="OVERRIDE_SEQUENCE" value="174" literal="overrideSequence"/>
     <eLiterals name="OVERRIDE_WHITE_SPACE" value="175" literal="overrideWhiteSpace"/>
     <eLiterals name="OVERRIDE_SYNTAX_ELEMENT_DECORATOR" value="176" literal="overrideSyntaxElementDecorator"/>
+    <eLiterals name="OVERRIDE_IREFERENCE_CACHE" value="177" literal="overrideIReferenceCache"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

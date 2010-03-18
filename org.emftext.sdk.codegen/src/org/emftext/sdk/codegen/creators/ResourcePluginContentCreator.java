@@ -182,6 +182,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_LOCATION_MAP));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_PARSE_RESULT));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_PROBLEM));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_CACHE));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_MAPPING));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_RESOLVER));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_RESOLVE_RESULT));

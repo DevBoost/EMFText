@@ -101,7 +101,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		return new Printer2Generator(context);
 	}
 
-
 	@Override
 	public boolean generateJavaContents(StringComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");

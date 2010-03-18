@@ -108,6 +108,7 @@ import org.emftext.sdk.codegen.generators.interfaces.IOptionProviderGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IParseResultGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IProblemGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IReferenceCacheGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IReferenceMappingGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IReferenceResolverGenerator;
@@ -286,6 +287,7 @@ public enum EArtifact {
 	I_LOCATION_MAP(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "LocationMap", new ILocationMapGenerator(), OptionTypes.OVERRIDE_ILOCATION_MAP),
 	I_PARSE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ParseResult", new IParseResultGenerator(), OptionTypes.OVERRIDE_IPARSE_RESULT),
 	I_PROBLEM(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Problem", new IProblemGenerator(), OptionTypes.OVERRIDE_IPROBLEM),
+	I_REFERENCE_CACHE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceCache", new IReferenceCacheGenerator(), OptionTypes.OVERRIDE_IREFERENCE_CACHE),
 	I_REFERENCE_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceMapping", new IReferenceMappingGenerator(), OptionTypes.OVERRIDE_IREFERENCE_MAPPING),
 	I_REFERENCE_RESOLVER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolver", new IReferenceResolverGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER),
 	I_REFERENCE_RESOLVE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolveResult", new IReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT),

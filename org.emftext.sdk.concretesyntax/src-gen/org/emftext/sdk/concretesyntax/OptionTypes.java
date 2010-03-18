@@ -1764,7 +1764,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_ELEMENT_DECORATOR(176, "OVERRIDE_SYNTAX_ELEMENT_DECORATOR", "overrideSyntaxElementDecorator");
+	OVERRIDE_SYNTAX_ELEMENT_DECORATOR(176, "OVERRIDE_SYNTAX_ELEMENT_DECORATOR", "overrideSyntaxElementDecorator"), /**
+	 * The '<em><b>OVERRIDE IREFERENCE CACHE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_CACHE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IREFERENCE_CACHE(177, "OVERRIDE_IREFERENCE_CACHE", "overrideIReferenceCache");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4392,6 +4400,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE = 176;
 
 	/**
+	 * The '<em><b>OVERRIDE IREFERENCE CACHE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IREFERENCE CACHE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_CACHE
+	 * @model literal="overrideIReferenceCache"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IREFERENCE_CACHE_VALUE = 177;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4574,6 +4597,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_SEQUENCE,
 			OVERRIDE_WHITE_SPACE,
 			OVERRIDE_SYNTAX_ELEMENT_DECORATOR,
+			OVERRIDE_IREFERENCE_CACHE,
 		};
 
 	/**
@@ -4798,6 +4822,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_SEQUENCE_VALUE: return OVERRIDE_SEQUENCE;
 			case OVERRIDE_WHITE_SPACE_VALUE: return OVERRIDE_WHITE_SPACE;
 			case OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE: return OVERRIDE_SYNTAX_ELEMENT_DECORATOR;
+			case OVERRIDE_IREFERENCE_CACHE_VALUE: return OVERRIDE_IREFERENCE_CACHE;
 		}
 		return null;
 	}

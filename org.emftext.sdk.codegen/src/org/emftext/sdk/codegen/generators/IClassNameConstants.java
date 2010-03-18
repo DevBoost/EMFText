@@ -104,8 +104,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicEMap;
@@ -328,6 +330,7 @@ public class IClassNameConstants {
 	public static String ADAPTER_FACTORY_CONTENT_PROVIDER = AdapterFactoryContentProvider.class.getName();
 	public static String ADAPTER_FACTORY_EDITING_DOMAIN = AdapterFactoryEditingDomain.class.getName();
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER = AdapterFactoryLabelProvider.class.getName();
+	public static String ADAPTER = Adapter.class.getName();
 	public static String ADAPTER_IMPL = AdapterImpl.class.getName();
 	public static String ANNOTATION = Annotation.class.getName();
 	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
@@ -542,6 +545,7 @@ public class IClassNameConstants {
 	public static String MODIFY_LISTENER = ModifyListener.class.getName();
 	public static String MOUSE_EVENT = MouseEvent.class.getName();
 	public static String MOUSE_LISTENER = MouseListener.class.getName();
+	public static String NOTIFIER = Notifier.class.getName();
 	public static String NOTIFICATION = Notification.class.getName();
 	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
 	public static String NO_SUCH_ALGORITHM_EXCEPTION = NoSuchAlgorithmException.class.getName();

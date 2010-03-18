@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
@@ -20,14 +21,18 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OPERATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFIER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
@@ -38,12 +43,15 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
+	private String iReferenceCacheClassName;
+
 	public DefaultResolverDelegateGenerator() {
 		super();
 	}
 
 	private DefaultResolverDelegateGenerator(GenerationContext context) {
 		super(context, EArtifact.DEFAULT_RESOLVER_DELEGATE);
+		iReferenceCacheClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_CACHE);
 	}
 
 	@Override
@@ -53,12 +61,46 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
         
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
-
+		sc.addLineBreak();
+		addInnerClassReferenceCache(sc);
 		addFields(sc);
 		addMethods(sc);
 		
 		sc.add("}");
 		return true;
+	}
+
+	private void addInnerClassReferenceCache(StringComposite sc) {
+		sc.add("private static class ReferenceCache implements " + iReferenceCacheClassName + ", " + ADAPTER + " {");
+		sc.addLineBreak();
+		sc.add("private " + MAP + "<" + STRING + ", " + OBJECT + "> cache = new " + LINKED_HASH_MAP + "<" + STRING + ", " + OBJECT + ">();");
+		sc.add("private " + NOTIFIER + " target;");
+		sc.addLineBreak();
+		sc.add("public " + NOTIFIER + " getTarget() {");
+		sc.add("return target;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public boolean isAdapterForType(" + OBJECT + " arg0) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void notifyChanged(" + NOTIFICATION + " arg0) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void setTarget(" + NOTIFIER + " arg0) {");
+		sc.add("target = arg0;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + OBJECT + " get(" + STRING + " identifier) {");
+		sc.add("return cache.get(identifier);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void put(" + STRING + " identifier, " + OBJECT + " newObject) {");
+		sc.add("cache.put(identifier, newObject);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(StringComposite sc) {
@@ -70,9 +112,26 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		addMatchesMethod1(sc);
 		addMatchesMethod2(sc);
 		addGetNameMethod(sc);
-		addTypeCheckMethod(sc);
+		addHasCorrectTypeMethod(sc);
 		addLoadResourceMethod(sc);
 		addIsUriMethod(sc);
+		addGetCacheMethod(sc);
+	}
+
+	private void addGetCacheMethod(StringComposite sc) {
+		sc.add("private " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
+		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(object);");
+		sc.add(LIST + "<" + ADAPTER + "> eAdapters = root.eAdapters();");
+		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
+		sc.add("if (adapter instanceof ReferenceCache) {");
+		sc.add("ReferenceCache cache = (ReferenceCache) adapter;");
+		sc.add("return cache;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("ReferenceCache cache = new ReferenceCache();");
+		sc.add("root.eAdapters().add(cache);");
+		sc.add("return cache;");
+		sc.add("}");
 	}
 
 	private void addLoadResourceMethod(StringComposite sc) {
@@ -302,10 +361,11 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addTypeCheckMethod(StringComposite sc) {
+	private void addHasCorrectTypeMethod(StringComposite sc) {
 		sc.add("private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {");
 		sc.add("return expectedTypeClass.isInstance(element);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private void addFields(StringComposite sc) {
