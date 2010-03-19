@@ -47,7 +47,6 @@ import org.emftext.sdk.codegen.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.generators.ElementMappingGenerator;
 import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
-import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.NatureGenerator;
@@ -138,12 +137,14 @@ import org.emftext.sdk.codegen.generators.ui.BrowserInformationControlGenerator;
 import org.emftext.sdk.codegen.generators.ui.CodeFoldingManagerGenerator;
 import org.emftext.sdk.codegen.generators.ui.ColorManagerGenerator;
 import org.emftext.sdk.codegen.generators.ui.CompletionProcessorGenerator;
+import org.emftext.sdk.codegen.generators.ui.DefaultHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.ui.DocBrowserInformationControlInputGenerator;
 import org.emftext.sdk.codegen.generators.ui.EObjectSelectionGenerator;
 import org.emftext.sdk.codegen.generators.ui.EditorConfigurationGenerator;
 import org.emftext.sdk.codegen.generators.ui.EditorGenerator;
 import org.emftext.sdk.codegen.generators.ui.HTMLPrinterGenerator;
 import org.emftext.sdk.codegen.generators.ui.HighlightingGenerator;
+import org.emftext.sdk.codegen.generators.ui.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.generators.ui.MarkerHelperGenerator;
@@ -211,8 +212,11 @@ public enum EArtifact {
 	RESOURCE_FACTORY_DELEGATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),
 	TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
-	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION), 
+	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION),
+	// TODO the hover text provider should actually to the UI package, but moving it requires
+	// to remove the old generated class from existing DSL plug-ins
 	HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
+	DEFAULT_HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, UI_PACKAGE, "", "DefaultHoverTextProvider", new DefaultHoverTextProviderGenerator(), OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER),
 	NEW_FILE_CONTENT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "NewFileContentProvider", new NewFileContentProviderGenerator(), OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER),
 	PARSE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),

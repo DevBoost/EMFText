@@ -155,6 +155,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_HOVER));
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_SCANNER));
 	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_TOKEN));
+	    creators.add(new GenericArtifactCreator(EArtifact.DEFAULT_HOVER_TEXT_PROVIDER));
 	    
 	    creators.add(new GenericArtifactCreator(EArtifact.PREFERENCE_PAGE));
 	    creators.add(new GenericArtifactCreator(EArtifact.BRACKET_PREFERENCE_PAGE));

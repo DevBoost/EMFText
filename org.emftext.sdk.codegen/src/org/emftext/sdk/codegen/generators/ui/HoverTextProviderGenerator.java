@@ -11,28 +11,29 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class HoverTextProviderGenerator extends JavaBaseGenerator {
 	
+	private String defaultHoverTextProviderClassName;
+
 	public HoverTextProviderGenerator() {
 		super();
 	}
 
 	private HoverTextProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.HOVER_TEXT_PROVIDER);
+		defaultHoverTextProviderClassName = context.getQualifiedClassName(EArtifact.DEFAULT_HOVER_TEXT_PROVIDER);
 	}
 
 	@Override
@@ -42,28 +43,25 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " {");
 		sc.addLineBreak();
-		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
-		sc.add("if (object == null) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add(E_CLASS + " eClass = object.eClass();");
-		sc.add("String label = \"<strong>\" + eClass.getName() + \"</strong>\";");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : eClass.getEAllAttributes()) {");
-		sc.add(OBJECT + " value = null;");
-		sc.add("try {");
-		sc.add("value = object.eGet(attribute);");
-		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add("// Exception in eGet, do nothing");
-		sc.add("}");
-		sc.add("if (value != null && value.toString() != null && !value.toString().equals(\"[]\")) {");
-		sc.add("label += \"<br />\" + attribute.getName() + \": \" + object.eGet(attribute).toString();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return label;");
-		sc.add("}");
+		addFields(sc);
+		addGetHoverTestMethod(sc);
 		sc.add("}");
 		
 		return true;
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + defaultHoverTextProviderClassName + " defaultProvider = new " + defaultHoverTextProviderClassName + "();");
+		sc.addLineBreak();
+	}
+
+	private void addGetHoverTestMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
+		sc.add("// set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain");
+		sc.add("// custom hover texts");
+		sc.add("return defaultProvider.getHoverText(object);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

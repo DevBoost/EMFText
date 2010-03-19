@@ -1772,7 +1772,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IREFERENCE_CACHE(177, "OVERRIDE_IREFERENCE_CACHE", "overrideIReferenceCache");
+	OVERRIDE_IREFERENCE_CACHE(177, "OVERRIDE_IREFERENCE_CACHE", "overrideIReferenceCache"), /**
+	 * The '<em><b>OVERRIDE DEFAULT HOVER TEXT PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER(178, "OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER", "overrideDefaultHoverTextProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4415,6 +4423,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_IREFERENCE_CACHE_VALUE = 177;
 
 	/**
+	 * The '<em><b>OVERRIDE DEFAULT HOVER TEXT PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEFAULT HOVER TEXT PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER
+	 * @model literal="overrideDefaultHoverTextProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER_VALUE = 178;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4598,6 +4621,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_WHITE_SPACE,
 			OVERRIDE_SYNTAX_ELEMENT_DECORATOR,
 			OVERRIDE_IREFERENCE_CACHE,
+			OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER,
 		};
 
 	/**
@@ -4823,6 +4847,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_WHITE_SPACE_VALUE: return OVERRIDE_WHITE_SPACE;
 			case OVERRIDE_SYNTAX_ELEMENT_DECORATOR_VALUE: return OVERRIDE_SYNTAX_ELEMENT_DECORATOR;
 			case OVERRIDE_IREFERENCE_CACHE_VALUE: return OVERRIDE_IREFERENCE_CACHE;
+			case OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER_VALUE: return OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER;
 		}
 		return null;
 	}
