@@ -8,8 +8,8 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class WhiteSpaceGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
 	private String cardinalityClassName;
+	private String formattingElementName;
 
 	public WhiteSpaceGenerator() {
 		super();
@@ -17,8 +17,8 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator {
 
 	private WhiteSpaceGenerator(GenerationContext context) {
 		super(context, EArtifact.WHITE_SPACE);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
 		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
+		formattingElementName = context.getQualifiedClassName(EArtifact.FORMATTING_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -30,12 +30,12 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + formattingElementName + " {");
 		sc.addLineBreak();
 		sc.add("private final int amount;"); 
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "(int amount, " + cardinalityClassName + " cardinality) {"); 
-		sc.add("super(cardinality, null);"); 
+		sc.add("super(cardinality);"); 
 		sc.add("this.amount = amount;"); 
 		sc.add("}"); 
 		sc.addLineBreak();

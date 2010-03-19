@@ -126,6 +126,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.SEQUENCE));
 	    creators.add(new GenericArtifactCreator(EArtifact.LINE_BREAK));
 	    creators.add(new GenericArtifactCreator(EArtifact.WHITE_SPACE));
+	    creators.add(new GenericArtifactCreator(EArtifact.FORMATTING_ELEMENT));
 	    creators.add(new GenericArtifactCreator(EArtifact.GRAMMAR_INFORMATION_PROVIDER));
 	    creators.add(new GenericArtifactCreator(EArtifact.FOLLOW_SET_PROVIDER));
 	    

@@ -266,7 +266,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.add("protected " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");

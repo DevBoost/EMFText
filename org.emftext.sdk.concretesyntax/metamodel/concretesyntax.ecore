@@ -553,6 +553,7 @@
     <eLiterals name="OVERRIDE_SYNTAX_ELEMENT_DECORATOR" value="176" literal="overrideSyntaxElementDecorator"/>
     <eLiterals name="OVERRIDE_IREFERENCE_CACHE" value="177" literal="overrideIReferenceCache"/>
     <eLiterals name="OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER" value="178" literal="overrideDefaultHoverTextProvider"/>
+    <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

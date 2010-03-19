@@ -83,6 +83,7 @@ import org.emftext.sdk.codegen.generators.grammar.ChoiceGenerator;
 import org.emftext.sdk.codegen.generators.grammar.CompoundGenerator;
 import org.emftext.sdk.codegen.generators.grammar.ContainmentGenerator;
 import org.emftext.sdk.codegen.generators.grammar.FollowSetProviderGenerator;
+import org.emftext.sdk.codegen.generators.grammar.FormattingElementGenerator;
 import org.emftext.sdk.codegen.generators.grammar.GrammarInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.grammar.KeywordGenerator;
 import org.emftext.sdk.codegen.generators.grammar.LineBreakGenerator;
@@ -330,6 +331,7 @@ public enum EArtifact {
 	LINE_BREAK(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "LineBreak", new LineBreakGenerator(), OptionTypes.OVERRIDE_LINE_BREAK),
 	SEQUENCE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Sequence", new SequenceGenerator(), OptionTypes.OVERRIDE_SEQUENCE),
 	WHITE_SPACE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "WhiteSpace", new WhiteSpaceGenerator(), OptionTypes.OVERRIDE_WHITE_SPACE),
+	FORMATTING_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FormattingElement", new FormattingElementGenerator(), OptionTypes.OVERRIDE_FORMATTING_ELEMENT),
 
 	GRAMMAR_INFORMATION_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
 	FOLLOW_SET_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FollowSetProvider", new FollowSetProviderGenerator(), OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER),
