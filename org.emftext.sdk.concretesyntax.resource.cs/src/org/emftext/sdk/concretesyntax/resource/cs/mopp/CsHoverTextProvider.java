@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil;
 
 public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider {
@@ -32,6 +34,16 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 	public java.lang.String getHoverText(EObject object) {
 		if (object == null) {
 			return null;
+		}
+		if (object instanceof LineBreak) {
+			LineBreak linebreak = (LineBreak) object;
+			int tabs = linebreak.getTab();
+			return "<strong>" + object.eClass().getName() + "</strong>" + "<br/><br/>" + "Inserts a line break and " + tabs + " tab character(s) when printing this model element.";
+		}
+		if (object instanceof WhiteSpaces) {
+			WhiteSpaces whitespace = (WhiteSpaces) object;
+			int spaces = whitespace.getAmount();
+			return "<strong>" + object.eClass().getName() + "</strong>" + "<br/><br/>" + "Inserts " + spaces + " whitespace character(s) when printing this model element.";
 		}
 		String htmlForObject = getHTML(object);
 		if (object instanceof GenClass) {
