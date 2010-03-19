@@ -21,7 +21,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference.PreferencePage implements org.eclipse.ui.IWorkbenchPreferencePage {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper tokenHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper();
-	private static final java.util.Map<String, java.util.List<HighlightingColorListItem>> content = new java.util.HashMap<String, java.util.List<HighlightingColorListItem>>();
+	private static final java.util.Map<String, java.util.List<HighlightingColorListItem>> content = new java.util.LinkedHashMap<String, java.util.List<HighlightingColorListItem>>();
 	private static final java.util.Collection<IChangedPreference> changedPreferences = new java.util.ArrayList<IChangedPreference>();
 	
 	private interface IChangedPreference {

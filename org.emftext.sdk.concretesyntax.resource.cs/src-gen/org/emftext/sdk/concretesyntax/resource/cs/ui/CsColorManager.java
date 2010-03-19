@@ -17,7 +17,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 // A class for RGB-based color objects.
 public class CsColorManager {
 	
-	protected java.util.Map<org.eclipse.swt.graphics.RGB, org.eclipse.swt.graphics.Color> fColorTable = new java.util.HashMap<org.eclipse.swt.graphics.RGB, org.eclipse.swt.graphics.Color>(10);
+	protected java.util.Map<org.eclipse.swt.graphics.RGB, org.eclipse.swt.graphics.Color> fColorTable = new java.util.LinkedHashMap<org.eclipse.swt.graphics.RGB, org.eclipse.swt.graphics.Color>(10);
 	
 	// Disposes all colors in the cache.
 	public void dispose() {

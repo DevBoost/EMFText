@@ -85,7 +85,7 @@ public class CsCodeFoldingManager {
 	private static final String LENGTH = "LENGTH";
 	private static final String MODEL = "MODEL";
 	protected java.util.List<org.eclipse.jface.text.source.projection.ProjectionAnnotation> oldAnnotations = new java.util.ArrayList<org.eclipse.jface.text.source.projection.ProjectionAnnotation>();
-	protected java.util.Map<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position> additions = new java.util.HashMap<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position>();
+	protected java.util.Map<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position> additions = new java.util.LinkedHashMap<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position>();
 	protected org.eclipse.jface.text.source.projection.ProjectionAnnotationModel projectionAnnotationModel;
 	protected org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer;
 	protected org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;

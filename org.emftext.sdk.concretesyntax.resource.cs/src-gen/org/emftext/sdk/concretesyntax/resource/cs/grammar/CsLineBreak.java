@@ -14,18 +14,16 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-// A class to represent a keyword in the grammar.
-public class CsKeyword extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
+public class CsLineBreak extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	private final String value;
+	private final int tabs;
 	
-	public CsKeyword(String value, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
+	public CsLineBreak(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int tabs) {
 		super(cardinality, null);
-		this.value = value;
+		this.tabs = tabs;
 	}
 	
-	public String getValue() {
-		return value;
+	public int getTabs() {
+		return tabs;
 	}
-	
 }

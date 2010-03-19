@@ -15,6 +15,37 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
+	
+	private static class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
+		
+		private java.util.Map<java.lang.String, java.lang.Object> cache = new java.util.LinkedHashMap<java.lang.String, java.lang.Object>();
+		private org.eclipse.emf.common.notify.Notifier target;
+		
+		public org.eclipse.emf.common.notify.Notifier getTarget() {
+			return target;
+		}
+		
+		public boolean isAdapterForType(java.lang.Object arg0) {
+			return false;
+		}
+		
+		public void notifyChanged(org.eclipse.emf.common.notify.Notification arg0) {
+		}
+		
+		public void setTarget(org.eclipse.emf.common.notify.Notifier arg0) {
+			target = arg0;
+		}
+		
+		public java.lang.Object get(java.lang.String identifier) {
+			return cache.get(identifier);
+		}
+		
+		public void put(java.lang.String identifier, java.lang.Object newObject) {
+			cache.put(identifier, newObject);
+		}
+		
+	}
+	
 	public final static java.lang.String NAME_FEATURE = "name";
 	
 	// This standard implementation searches the tree for objects of the 
@@ -189,6 +220,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {
 		return expectedTypeClass.isInstance(element);
 	}
+	
 	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, java.lang.String uriString) {
 		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriString);
 		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
@@ -212,4 +244,17 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {
+		org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(object);
+		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = root.eAdapters();
+		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {
+			if (adapter instanceof ReferenceCache) {
+				ReferenceCache cache = (ReferenceCache) adapter;
+				return cache;
+			}
+		}
+		ReferenceCache cache = new ReferenceCache();
+		root.eAdapters().add(cache);
+		return cache;
+	}
 }

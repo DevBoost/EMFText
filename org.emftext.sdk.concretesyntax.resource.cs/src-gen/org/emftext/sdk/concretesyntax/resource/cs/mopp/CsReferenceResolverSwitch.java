@@ -151,4 +151,36 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 			}
 		}
 	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver getResolver(org.eclipse.emf.ecore.EStructuralFeature reference) {
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getGenPackageDependentElement_Package()) {
+			return genPackageDependentElementPackageReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax_StartSymbols()) {
+			return concreteSyntaxStartSymbolsReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport_ConcreteSyntax()) {
+			return importConcreteSyntaxReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule_Metaclass()) {
+			return ruleMetaclassReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTerminal_Feature()) {
+			return terminalFeatureReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholder_Token()) {
+			return placeholderTokenReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment_Types()) {
+			return containmentTypesReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective_Token()) {
+			return tokenPriorityDirectiveTokenReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference_Target()) {
+			return regexReferenceTargetReferenceResolver;
+		}
+		return null;
+	}
+	
 }

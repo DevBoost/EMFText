@@ -40,7 +40,7 @@ public class CsMapUtil {
 	}
 	
 	public static java.util.Map<Object, Object> copySafelyToObjectToObjectMap(java.util.Map<?, ?> map) {
-		java.util.Map<Object, Object> castedCopy = new java.util.HashMap<Object, Object>();
+		java.util.Map<Object, Object> castedCopy = new java.util.LinkedHashMap<Object, Object>();
 		
 		if(map == null) {
 			return castedCopy;

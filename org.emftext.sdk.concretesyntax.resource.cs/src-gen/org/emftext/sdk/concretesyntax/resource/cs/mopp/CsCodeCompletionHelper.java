@@ -130,7 +130,7 @@ public class CsCodeCompletionHelper {
 	}
 	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement : expectedElements) {
 			resultSet.addAll(deriveProposals(expectedElement, content, resource, cursorOffset));
 		}
@@ -225,7 +225,7 @@ public class CsCodeCompletionHelper {
 	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset) {
 		java.util.Collection<org.eclipse.emf.ecore.EEnumLiteral> enumLiterals = enumType.getELiterals();
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
 			String prefix = expectedElement.getPrefix();
@@ -244,7 +244,7 @@ public class CsCodeCompletionHelper {
 		resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject>> mappings = result.getMappings();
 		if (mappings != null) {
-			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
 				final String identifier = mapping.getIdentifier();
 				// check the prefix. return only matching references
@@ -258,7 +258,7 @@ public class CsCodeCompletionHelper {
 	}
 	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleAttribute(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EAttribute attribute, java.lang.String prefix) {
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		java.lang.Object[] defaultValues = attributeValueProvider.getDefaultValues(attribute);
 		if (defaultValues != null) {
 			for (Object defaultValue : defaultValues) {
@@ -282,7 +282,7 @@ public class CsCodeCompletionHelper {
 	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.HashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		if (matches(proposal, prefix)) {
 			result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, prefix, !"".equals(prefix), false));
 		}

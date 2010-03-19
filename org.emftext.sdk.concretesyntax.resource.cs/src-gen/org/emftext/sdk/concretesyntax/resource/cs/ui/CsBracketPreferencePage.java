@@ -41,7 +41,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	private org.eclipse.swt.widgets.List bracketsList;
 	private org.eclipse.swt.widgets.Button addBracketButton;
 	private org.eclipse.swt.widgets.Button removeBracketButton;
-	private java.util.Map<String, String> bracketSetTemp = new java.util.HashMap<String, String>();
+	private java.util.Map<String, String> bracketSetTemp = new java.util.LinkedHashMap<String, String>();
 	private String language = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketsTmp;

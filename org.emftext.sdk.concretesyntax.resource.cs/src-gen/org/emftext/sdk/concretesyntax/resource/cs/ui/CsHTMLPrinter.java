@@ -68,9 +68,9 @@ public class CsHTMLPrinter {
 			fCharAfterWhiteSpace= -1;
 			fWasWhiteSpace= true;
 			
-			fgTags= new java.util.HashSet<String>();
+			fgTags= new java.util.LinkedHashSet<String>();
 			fgTags.add("b"); 			fgTags.add("br"); 			fgTags.add("br/"); 			fgTags.add("br /"); 			fgTags.add("div"); 			fgTags.add("h1"); 			fgTags.add("h2"); 			fgTags.add("h3"); 			fgTags.add("h4"); 			fgTags.add("h5"); 			fgTags.add("p"); 			fgTags.add("dl"); 			fgTags.add("dt"); 			fgTags.add("dd"); 			fgTags.add("li"); 			fgTags.add("ul"); 			fgTags.add("pre"); 			fgTags.add("head"); 			
-			fgEntityLookup= new java.util.HashMap<String, String>(7);
+			fgEntityLookup= new java.util.LinkedHashMap<String, String>(7);
 			fgEntityLookup.put("lt", "<");
 			fgEntityLookup.put("gt", ">");
 			fgEntityLookup.put("nbsp", " ");

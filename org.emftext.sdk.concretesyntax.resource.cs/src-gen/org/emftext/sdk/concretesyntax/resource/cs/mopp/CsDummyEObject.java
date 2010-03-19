@@ -31,7 +31,7 @@ public class CsDummyEObject extends org.eclipse.emf.ecore.impl.EObjectImpl  {
 	public CsDummyEObject(org.eclipse.emf.ecore.EClass type, String recurseFeatureName) {
 		this.recurseFeatureName = recurseFeatureName;
 		this.type = type;
-		keyValueMap = new java.util.HashMap<org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object>();
+		keyValueMap = new java.util.LinkedHashMap<org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object>();
 	}
 	
 	public org.eclipse.emf.ecore.EObject applyTo(org.eclipse.emf.ecore.EObject currentTarget) {

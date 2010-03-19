@@ -42,7 +42,7 @@ public class CsResourceFactoryDelegator implements org.eclipse.emf.ecore.resourc
 	
 	protected void init() {
 		if (factories == null) {
-			factories = new java.util.HashMap<String, org.eclipse.emf.ecore.resource.Resource.Factory>();
+			factories = new java.util.LinkedHashMap<String, org.eclipse.emf.ecore.resource.Resource.Factory>();
 		}
 		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();

@@ -125,7 +125,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
-	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.HashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
+	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
 	
 	public CsResource() {
 		super();

@@ -14,18 +14,16 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-// A class to represent a keyword in the grammar.
-public class CsKeyword extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
+public class CsContainment extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	private final String value;
+	private final org.eclipse.emf.ecore.EStructuralFeature feature;
 	
-	public CsKeyword(String value, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
+	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
 		super(cardinality, null);
-		this.value = value;
+		this.feature = feature;
 	}
 	
-	public String getValue() {
-		return value;
+	public org.eclipse.emf.ecore.EStructuralFeature getFeature() {
+		return feature;
 	}
-	
 }

@@ -159,7 +159,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			return;
 		}
 		
-		addWarningToResource("The cs printer can not handle " + element.eClass().getName() + " elements", element);
+		addWarningToResource("The printer can not handle " + element.eClass().getName() + " elements", element);
 	}
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch getReferenceResolverSwitch() {
@@ -197,7 +197,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(20);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(20);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE));
 		printCountingMap.put("package", temp == null ? 0 : 1);
@@ -244,13 +249,13 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		iterate = true;
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -265,7 +270,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_1(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -311,7 +316,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -327,7 +332,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -340,7 +345,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -353,7 +358,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_5(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -366,7 +371,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_6(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -379,7 +384,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -466,7 +471,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("START");
 		// DEFINITION PART BEGINS (WhiteSpaces)
@@ -478,7 +483,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_1(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -545,7 +550,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -561,7 +566,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -608,7 +613,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -624,7 +629,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_5_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -673,7 +678,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -689,7 +694,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_6_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -738,7 +743,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -754,7 +759,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -822,7 +827,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Import(org.emftext.sdk.concretesyntax.Import element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(5);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(5);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE));
 		printCountingMap.put("package", temp == null ? 0 : 1);
@@ -838,7 +848,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("prefix");
 		if (count > 0) {
@@ -866,7 +876,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_Import_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -879,7 +889,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_Import_1(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -911,7 +921,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
@@ -936,7 +946,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_Import_1_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -965,7 +975,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Option(org.emftext.sdk.concretesyntax.Option element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE));
 		printCountingMap.put("type", temp == null ? 0 : 1);
@@ -1001,7 +1016,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Rule(org.emftext.sdk.concretesyntax.Rule element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(4);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(4);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS));
 		printCountingMap.put("annotations", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
@@ -1016,13 +1036,13 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		iterate = true;
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_Rule_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1091,7 +1111,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Sequence(org.emftext.sdk.concretesyntax.Sequence element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS));
 		printCountingMap.put("parts", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
@@ -1116,7 +1141,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Choice(org.emftext.sdk.concretesyntax.Choice element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS));
 		printCountingMap.put("options", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
@@ -1125,7 +1155,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("options");
 		if (count > 0) {
@@ -1147,7 +1177,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_Choice_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1186,7 +1216,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_CsString(org.emftext.sdk.concretesyntax.CsString element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE));
 		printCountingMap.put("value", temp == null ? 0 : 1);
@@ -1211,7 +1246,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken(org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
@@ -1260,7 +1300,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken(org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
@@ -1298,7 +1343,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderInQuotes(org.emftext.sdk.concretesyntax.PlaceholderInQuotes element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(6);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(6);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
@@ -1316,7 +1366,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("feature");
 		if (count > 0) {
@@ -1357,7 +1407,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -1400,7 +1450,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Containment(org.emftext.sdk.concretesyntax.Containment element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
@@ -1412,7 +1467,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("feature");
 		if (count > 0) {
@@ -1427,7 +1482,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_Containment_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -1455,7 +1510,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print(":");
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
@@ -1481,7 +1536,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_Containment_0_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1520,7 +1575,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_CompoundDefinition(org.emftext.sdk.concretesyntax.CompoundDefinition element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
@@ -1553,7 +1613,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_WhiteSpaces(org.emftext.sdk.concretesyntax.WhiteSpaces element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT));
 		printCountingMap.put("amount", temp == null ? 0 : 1);
@@ -1575,7 +1640,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_LineBreak(org.emftext.sdk.concretesyntax.LineBreak element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB));
 		printCountingMap.put("tab", temp == null ? 0 : 1);
@@ -1600,7 +1670,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_NormalTokenDefinition(org.emftext.sdk.concretesyntax.NormalTokenDefinition element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(6);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(6);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__NAME));
 		printCountingMap.put("name", temp == null ? 0 : 1);
@@ -1619,13 +1694,13 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		iterate = true;
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_NormalTokenDefinition_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1673,7 +1748,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_NormalTokenDefinition_1(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1688,7 +1763,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_NormalTokenDefinition_2(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -1771,7 +1846,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME));
 		printCountingMap.put("name", temp == null ? 0 : 1);
@@ -1784,7 +1864,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("DEFINE");
 		// DEFINITION PART BEGINS (WhiteSpaces)
@@ -1825,7 +1905,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_PartialTokenDefinition_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -1862,7 +1942,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_TokenPriorityDirective(org.emftext.sdk.concretesyntax.TokenPriorityDirective element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(1);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN));
 		printCountingMap.put("token", temp == null ? 0 : 1);
@@ -1886,7 +1971,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_AtomicRegex(org.emftext.sdk.concretesyntax.AtomicRegex element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__REGEX));
 		printCountingMap.put("regex", temp == null ? 0 : 1);
@@ -1908,7 +1998,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_RegexReference(org.emftext.sdk.concretesyntax.RegexReference element, java.lang.String outertab, java.io.PrintWriter out) {
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__REGEX));
 		printCountingMap.put("regex", temp == null ? 0 : 1);
@@ -1930,24 +2025,44 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PLUS(org.emftext.sdk.concretesyntax.PLUS element, java.lang.String outertab, java.io.PrintWriter out) {
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
 		// print collected hidden tokens
 		// DEFINITION PART BEGINS (CsString)
 		out.print("+");
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_STAR(org.emftext.sdk.concretesyntax.STAR element, java.lang.String outertab, java.io.PrintWriter out) {
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
 		// print collected hidden tokens
 		// DEFINITION PART BEGINS (CsString)
 		out.print("*");
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_QUESTIONMARK(org.emftext.sdk.concretesyntax.QUESTIONMARK element, java.lang.String outertab, java.io.PrintWriter out) {
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
 		// print collected hidden tokens
 		// DEFINITION PART BEGINS (CsString)
 		out.print("?");
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Abstract(org.emftext.sdk.concretesyntax.Abstract element, java.lang.String outertab, java.io.PrintWriter out) {
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
 		// print collected hidden tokens
 		// DEFINITION PART BEGINS (CsString)
 		out.print("ABSTRACT");
@@ -1955,7 +2070,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_TokenStyle(org.emftext.sdk.concretesyntax.TokenStyle element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME));
 		printCountingMap.put("tokenName", temp == null ? 0 : 1);
@@ -1968,7 +2088,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderInQuotes)
 		count = printCountingMap.get("tokenName");
 		if (count > 0) {
@@ -2002,7 +2122,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_TokenStyle_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -2045,7 +2165,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_Annotation(org.emftext.sdk.concretesyntax.Annotation element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE));
 		printCountingMap.put("type", temp == null ? 0 : 1);
@@ -2055,7 +2180,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("@");
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
@@ -2072,7 +2197,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_Annotation_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
@@ -2089,7 +2214,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("(");
 		// DEFINITION PART BEGINS (Containment)
@@ -2113,7 +2238,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 			print_org_emftext_sdk_concretesyntax_Annotation_0_0(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
@@ -2153,7 +2278,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	public void print_org_emftext_sdk_concretesyntax_KeyValuePair(org.emftext.sdk.concretesyntax.KeyValuePair element, java.lang.String outertab, java.io.PrintWriter out) {
 		java.lang.String localtab = outertab;
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
+		// the printCountingMap contains a mapping from feature names to
+		// the number of remaining elements that still need to be printed.
+		// the map is initialized with the number of elements stored in each structural
+		// feature. for lists this is the list size. for non-multiple features it is either
+		// 1 (if the feature is set) or 0 (if the feature is null).
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY));
 		printCountingMap.put("key", temp == null ? 0 : 1);
@@ -2163,7 +2293,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		int count;
 		java.io.StringWriter sWriter = null;
 		java.io.PrintWriter out1 = null;
-		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = null;
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("key");
 		if (count > 0) {
@@ -2178,7 +2308,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
 		print_org_emftext_sdk_concretesyntax_KeyValuePair_0(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();

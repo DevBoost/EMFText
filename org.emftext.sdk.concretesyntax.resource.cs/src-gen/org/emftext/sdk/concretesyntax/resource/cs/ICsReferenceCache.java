@@ -12,20 +12,9 @@
  *      - initial API and implementation
  ******************************************************************************/
 
-package org.emftext.sdk.concretesyntax.resource.cs.grammar;
+package org.emftext.sdk.concretesyntax.resource.cs;
 
-// A class to represent a keyword in the grammar.
-public class CsKeyword extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
-	
-	private final String value;
-	
-	public CsKeyword(String value, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
-		super(cardinality, null);
-		this.value = value;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-	
+public interface ICsReferenceCache {
+	public java.lang.Object get(java.lang.String identifier);
+	public void put(java.lang.String identifier, java.lang.Object target);
 }

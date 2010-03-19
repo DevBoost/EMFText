@@ -21,8 +21,8 @@ public class CsTokenResolverFactory implements org.emftext.sdk.concretesyntax.re
 	private static org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver defaultResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultTokenResolver();
 	
 	public CsTokenResolverFactory() {
-		tokenName2TokenResolver = new java.util.HashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
-		featureName2CollectInTokenResolver = new java.util.HashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
+		tokenName2TokenResolver = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
+		featureName2CollectInTokenResolver = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
 		registerTokenResolver("QUALIFIED_NAME", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUALIFIED_NAMETokenResolver());
 		registerTokenResolver("NUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsNUMBERTokenResolver());
 		registerTokenResolver("HEXNUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsHEXNUMBERTokenResolver());
