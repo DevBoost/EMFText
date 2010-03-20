@@ -357,6 +357,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);");
+		sc.add("if (syntaxElement instanceof " + choiceClassName + ") {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("foundFeatureToPrint |= keepDecorating;");
 		sc.add("// we only print keywords if a feature was printed or the syntax element in mandatory");
