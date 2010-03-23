@@ -69,7 +69,7 @@ public class NewFileContentProviderGenerator extends BaseGenerator {
 
 	private void addGetPrinterMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.PRINTER) + "(outputStream, new " + getContext().getQualifiedClassName(EArtifact.RESOURCE) + "());");
+		sc.add("return getMetaInformation().createPrinter(outputStream, new " + getContext().getQualifiedClassName(EArtifact.RESOURCE) + "());");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -62,7 +62,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
 	private String resolverSwitchClassName;
-	private String printerClassName;
+	private String iPrinterClassName;
 	private String csSyntaxName;
 	private String problemClassName;
 	private String locationMapClassName;
@@ -80,7 +80,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
 		resolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
-		printerClassName = context.getQualifiedClassName(EArtifact.PRINTER);
+		iPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
 		problemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
 		locationMapClassName = context.getQualifiedClassName(EArtifact.LOCATION_MAP);
 		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
@@ -630,7 +630,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        sc.add(printerClassName + " printer = new " + printerClassName + "(outputStream, this);");
+        sc.add(iPrinterClassName + " printer = getMetaInformation().createPrinter(outputStream, this);");
         sc.add(getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add("for(" + E_OBJECT + " root : getContents()) {");

@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -27,6 +28,8 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 
 	private String iTextScannerClassName;
 	private String iTextParserClassName;
+	private String iTextPrinterClassName;
+	private String iTextResourceClassName;
 	private String iReferenceResolverSwitchClassName;
 	private String iTokenResolverFactoryClassName;
 	private String iTokenStyleClassName;
@@ -46,6 +49,8 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		iTokenStyleClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_STYLE);
 		iBracketPairClassName = getContext().getQualifiedClassName(EArtifact.I_BRACKET_PAIR);
 		iHoverTextProviderClassName = getContext().getQualifiedClassName(EArtifact.I_HOVER_TEXT_PROVIDER);
+		iTextPrinterClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
+		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -92,6 +97,14 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		sc.add("// @param encoding");
 		sc.add("// @return");
 		sc.add("public " + iTextParserClassName  + " createParser(" + INPUT_STREAM + " inputStream, String encoding);");
+		sc.addLineBreak();
+		
+		sc.add("// Returns a new instance of the printer.");
+		sc.add("//");
+		sc.add("// @param outputStream the stream to print to");
+		sc.add("// @param resource");
+		sc.add("// @return");
+		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " ouputStream, " + iTextResourceClassName + " resource);");
 		sc.addLineBreak();
 		
 		sc.add("// Returns all meta classes for which syntax was defined. This");
