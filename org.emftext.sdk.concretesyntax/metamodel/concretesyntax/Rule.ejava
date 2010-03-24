@@ -7,6 +7,24 @@ import org.eclipse.emf.common.util.BasicEList;
  
 eclass Rule {
 	
+	getDefinition() {
+		EList<SyntaxElement> children = getChildren();
+		// there should be at most one child
+		assert children == null || children.size() == 1;
+		
+		if (children.size() > 0) {
+			SyntaxElement firstChild = children.get(0);
+			if (firstChild instanceof Choice) {
+				return (Choice) firstChild;
+			} else {
+				// there should be no element other than Choice
+				assert false;
+				return null;
+			}
+		}
+		return null;
+	}
+		
 	getOperatorAnnotation() {
 		for (Annotation annotation : getAnnotations()) {
 			if (annotation.getType() == AnnotationType.OPERATOR) {

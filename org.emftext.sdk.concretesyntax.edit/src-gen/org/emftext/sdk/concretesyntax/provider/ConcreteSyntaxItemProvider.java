@@ -301,6 +301,8 @@ public class ConcreteSyntaxItemProvider
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__GEN_CLASS_CACHE);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ECLASS_UTIL);
 		}
 		return childrenFeatures;
 	}
@@ -382,6 +384,8 @@ public class ConcreteSyntaxItemProvider
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -463,6 +467,16 @@ public class ConcreteSyntaxItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES,
 				 ConcretesyntaxFactory.eINSTANCE.createRule()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__GEN_CLASS_CACHE,
+				 ConcretesyntaxFactory.eINSTANCE.createGenClassCache()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ECLASS_UTIL,
+				 ConcretesyntaxFactory.eINSTANCE.createEClassUtil()));
 	}
 
 	/**

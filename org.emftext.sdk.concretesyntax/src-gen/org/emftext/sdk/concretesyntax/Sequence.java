@@ -17,37 +17,26 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Sequence</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.Sequence#getParts <em>Parts</em>}</li>
- * </ul>
- * </p>
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getSequence()
  * @model
  * @generated
  */
-public interface Sequence extends EObject {
+public interface Sequence extends SyntaxElement {
 	/**
-	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Definition}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parts</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parts</em>' containment reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getSequence_Parts()
-	 * @model containment="true" required="true"
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Definition > parts = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Definition > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { \r\n\tif ( child instanceof org.emftext.sdk.concretesyntax.Definition ) { \r\n\t\tparts .add ( ( org.emftext.sdk.concretesyntax.Definition ) child ) ; \r\n\t} else { \r\n\t\t// there should be no elements other than Definition elements in the\n// list of children\nassert false ; \r\n\t} \r\n} \r\nreturn parts ; \r\n'"
 	 * @generated
 	 */
 	EList<Definition> getParts();

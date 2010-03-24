@@ -725,6 +725,75 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.GenClassCache} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenClassCacheItemProvider genClassCacheItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.GenClassCache}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenClassCacheAdapter() {
+		if (genClassCacheItemProvider == null) {
+			genClassCacheItemProvider = new GenClassCacheItemProvider(this);
+		}
+
+		return genClassCacheItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link java.util.Map.Entry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenClassCacheEntryItemProvider genClassCacheEntryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link java.util.Map.Entry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenClassCacheEntryAdapter() {
+		if (genClassCacheEntryItemProvider == null) {
+			genClassCacheEntryItemProvider = new GenClassCacheEntryItemProvider(this);
+		}
+
+		return genClassCacheEntryItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.EClassUtil} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EClassUtilItemProvider eClassUtilItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.EClassUtil}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEClassUtilAdapter() {
+		if (eClassUtilItemProvider == null) {
+			eClassUtilItemProvider = new EClassUtilItemProvider(this);
+		}
+
+		return eClassUtilItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -851,6 +920,9 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (tokenStyleItemProvider != null) tokenStyleItemProvider.dispose();
 		if (annotationItemProvider != null) annotationItemProvider.dispose();
 		if (keyValuePairItemProvider != null) keyValuePairItemProvider.dispose();
+		if (genClassCacheItemProvider != null) genClassCacheItemProvider.dispose();
+		if (genClassCacheEntryItemProvider != null) genClassCacheEntryItemProvider.dispose();
+		if (eClassUtilItemProvider != null) eClassUtilItemProvider.dispose();
 	}
 
 }

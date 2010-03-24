@@ -107,7 +107,7 @@ public class RuleItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.RULE__DEFINITION);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN);
 		}
 		return childrenFeatures;
 	}
@@ -169,7 +169,7 @@ public class RuleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Rule.class)) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
+			case ConcretesyntaxPackage.RULE__CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -189,8 +189,58 @@ public class RuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ConcretesyntaxPackage.Literals.RULE__DEFINITION,
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createRule()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
 				 ConcretesyntaxFactory.eINSTANCE.createChoice()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createSequence()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createCsString()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createLineBreak()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createContainment()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes()));
 	}
 
 }

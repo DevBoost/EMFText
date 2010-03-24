@@ -69,6 +69,7 @@ import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
@@ -109,6 +110,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass ruleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass syntaxElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -728,7 +736,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRule_Definition() {
+	public EReference getRule_Metaclass() {
 		return (EReference)ruleEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -737,7 +745,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRule_Metaclass() {
+	public EReference getRule_Syntax() {
 		return (EReference)ruleEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -746,8 +754,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRule_Syntax() {
-		return (EReference)ruleEClass.getEStructuralFeatures().get(2);
+	public EClass getSyntaxElement() {
+		return syntaxElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxElement_Children() {
+		return (EReference)syntaxElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -764,26 +781,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getChoice_Options() {
-		return (EReference)choiceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getSequence() {
 		return sequenceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSequence_Parts() {
-		return (EReference)sequenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1553,16 +1552,16 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(importEClass, IMPORT__CONCRETE_SYNTAX);
 		createEAttribute(importEClass, IMPORT__CS_LOCATION_HINT);
 
+		syntaxElementEClass = createEClass(SYNTAX_ELEMENT);
+		createEReference(syntaxElementEClass, SYNTAX_ELEMENT__CHILDREN);
+
 		ruleEClass = createEClass(RULE);
-		createEReference(ruleEClass, RULE__DEFINITION);
 		createEReference(ruleEClass, RULE__METACLASS);
 		createEReference(ruleEClass, RULE__SYNTAX);
 
 		choiceEClass = createEClass(CHOICE);
-		createEReference(choiceEClass, CHOICE__OPTIONS);
 
 		sequenceEClass = createEClass(SEQUENCE);
-		createEReference(sequenceEClass, SEQUENCE__PARTS);
 
 		definitionEClass = createEClass(DEFINITION);
 
@@ -1720,6 +1719,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		concreteSyntaxEClass.getESuperTypes().add(this.getAnnotable());
 		importEClass.getESuperTypes().add(this.getGenPackageDependentElement());
 		ruleEClass.getESuperTypes().add(this.getAnnotable());
+		ruleEClass.getESuperTypes().add(this.getSyntaxElement());
+		choiceEClass.getESuperTypes().add(this.getSyntaxElement());
+		sequenceEClass.getESuperTypes().add(this.getSyntaxElement());
+		definitionEClass.getESuperTypes().add(this.getSyntaxElement());
 		cardinalityDefinitionEClass.getESuperTypes().add(this.getDefinition());
 		terminalEClass.getESuperTypes().add(this.getCardinalityDefinition());
 		csStringEClass.getESuperTypes().add(this.getDefinition());
@@ -1816,8 +1819,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getImport_ConcreteSyntax(), this.getConcreteSyntax(), null, "concreteSyntax", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getImport_CsLocationHint(), theEcorePackage.getEString(), "csLocationHint", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(syntaxElementEClass, SyntaxElement.class, "SyntaxElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSyntaxElement_Children(), this.getSyntaxElement(), null, "children", null, 0, -1, SyntaxElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(ruleEClass, Rule.class, "Rule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRule_Definition(), this.getChoice(), null, "definition", null, 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRule_Metaclass(), theGenModelPackage.getGenClass(), null, "metaclass", null, 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRule_Syntax(), this.getConcreteSyntax(), this.getConcreteSyntax_Rules(), "syntax", null, 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1825,11 +1830,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(ruleEClass, theEcorePackage.getEInt(), "getOperatorWeight", 1, 1, IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(ruleEClass, this.getChoice(), "getDefinition", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(choiceEClass, Choice.class, "Choice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getChoice_Options(), this.getSequence(), null, "options", null, 1, -1, Choice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(choiceEClass, this.getSequence(), "getOptions", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(sequenceEClass, Sequence.class, "Sequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSequence_Parts(), this.getDefinition(), null, "parts", null, 1, -1, Sequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(sequenceEClass, this.getDefinition(), "getParts", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(definitionEClass, Definition.class, "Definition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

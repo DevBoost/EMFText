@@ -268,18 +268,21 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Import/concreteSyntax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/csLocationHint"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//SyntaxElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//SyntaxElement/children"/>
+    </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Rule">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/definition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/metaclass"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/syntax"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorAnnotation"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorWeight"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getDefinition"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Choice">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Choice/options"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Choice/getOptions"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Sequence">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Sequence/parts"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Sequence/getParts"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//Definition">
       <genOperations ecoreOperation="concretesyntax.ecore#//Definition/hasMinimalCardinalityOneOrHigher"/>

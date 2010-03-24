@@ -1,0 +1,21 @@
+epackage concretesyntax;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+eclass Sequence {
+
+	getParts() {
+		EList<Definition> parts = new BasicEList<Definition>();
+		for (SyntaxElement child : getChildren()) {
+			if (child instanceof Definition) {
+				parts.add((Definition) child);
+			} else {
+				// there should be no elements other than Definition elements in the
+				// list of children
+				assert false;
+			}
+		}
+		return parts;
+	}	
+}

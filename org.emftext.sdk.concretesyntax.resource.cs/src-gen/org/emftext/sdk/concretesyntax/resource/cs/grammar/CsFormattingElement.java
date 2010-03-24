@@ -14,16 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-public class CsLineBreak extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement {
+public abstract class CsFormattingElement extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	private final int tabs;
-	
-	public CsLineBreak(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int tabs) {
-		super(cardinality);
-		this.tabs = tabs;
+	public CsFormattingElement(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
+		super(cardinality, null);
 	}
 	
-	public int getTabs() {
-		return tabs;
-	}
 }

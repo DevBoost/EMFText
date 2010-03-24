@@ -14,12 +14,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-public class CsWhiteSpace extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
+public class CsWhiteSpace extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement {
 	
 	private final int amount;
 	
 	public CsWhiteSpace(int amount, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
-		super(cardinality, null);
+		super(cardinality);
 		this.amount = amount;
 	}
 	

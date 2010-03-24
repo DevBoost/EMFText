@@ -143,7 +143,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="concreteSyntax" eType="#//ConcreteSyntax"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="csLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//Annotable">
+  <eClassifiers xsi:type="ecore:EClass" name="SyntaxElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//SyntaxElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//Annotable #//SyntaxElement">
     <eOperations name="getOperatorAnnotation" eType="#//Annotation">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { &#xD;&#xA;&#x9;&#x9;return annotation ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
@@ -156,22 +160,34 @@
         <details key="documentation" value="&#xD;&#xA; Returns the weight of this rule if it is an operator rule.&#xD;&#xA; If the rule is not an operator rule or the specified weight&#xD;&#xA; in the operator annotation is not a number, Integer.MIN_VALUE &#xD;&#xA; is returned.&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" lowerBound="1"
-        eType="#//Choice" containment="true"/>
+    <eOperations name="getDefinition" lowerBound="1" eType="#//Choice">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaclass" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntax" lowerBound="1"
         eType="#//ConcreteSyntax" eOpposite="#//ConcreteSyntax/rules"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Choice">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="options" lowerBound="1"
-        upperBound="-1" eType="#//Sequence" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Choice" eSuperTypes="#//SyntaxElement">
+    <eOperations name="getOptions" upperBound="-1" eType="#//Sequence">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Sequence > options = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Sequence > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { &#xD;&#xA;&#x9;if ( child instanceof org.emftext.sdk.concretesyntax.Sequence ) { &#xD;&#xA;&#x9;&#x9;options .add ( ( org.emftext.sdk.concretesyntax.Sequence ) child ) ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no elements other than Sequence elements in the&#xA;// list of children&#xA;assert false ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return options ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Sequence">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parts" lowerBound="1" upperBound="-1"
-        eType="#//Definition" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Sequence" eSuperTypes="#//SyntaxElement">
+    <eOperations name="getParts" upperBound="-1" eType="#//Definition">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Definition > parts = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Definition > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { &#xD;&#xA;&#x9;if ( child instanceof org.emftext.sdk.concretesyntax.Definition ) { &#xD;&#xA;&#x9;&#x9;parts .add ( ( org.emftext.sdk.concretesyntax.Definition ) child ) ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no elements other than Definition elements in the&#xA;// list of children&#xA;assert false ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return parts ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true" eSuperTypes="#//SyntaxElement">
     <eOperations name="hasMinimalCardinalityOneOrHigher" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return true ; &#xD;&#xA;"/>

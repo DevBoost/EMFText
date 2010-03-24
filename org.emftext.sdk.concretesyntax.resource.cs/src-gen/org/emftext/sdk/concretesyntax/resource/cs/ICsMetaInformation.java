@@ -45,6 +45,13 @@ public interface ICsMetaInformation {
 	// @return
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createParser(java.io.InputStream inputStream, String encoding);
 	
+	// Returns a new instance of the printer.
+	//
+	// @param outputStream the stream to print to
+	// @param resource
+	// @return
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream ouputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource);
+	
 	// Returns all meta classes for which syntax was defined. This
 	// information is used both by the NewFileWizard and the code
 	// completion.

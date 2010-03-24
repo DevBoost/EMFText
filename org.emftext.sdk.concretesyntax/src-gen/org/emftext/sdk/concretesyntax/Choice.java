@@ -17,37 +17,26 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Choice</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.Choice#getOptions <em>Options</em>}</li>
- * </ul>
- * </p>
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getChoice()
  * @model
  * @generated
  */
-public interface Choice extends EObject {
+public interface Choice extends SyntaxElement {
 	/**
-	 * Returns the value of the '<em><b>Options</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Sequence}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Options</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Options</em>' containment reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getChoice_Options()
-	 * @model containment="true" required="true"
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Sequence > options = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Sequence > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { \r\n\tif ( child instanceof org.emftext.sdk.concretesyntax.Sequence ) { \r\n\t\toptions .add ( ( org.emftext.sdk.concretesyntax.Sequence ) child ) ; \r\n\t} else { \r\n\t\t// there should be no elements other than Sequence elements in the\n// list of children\nassert false ; \r\n\t} \r\n} \r\nreturn options ; \r\n'"
 	 * @generated
 	 */
 	EList<Sequence> getOptions();

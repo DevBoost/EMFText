@@ -195,7 +195,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter printer = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, this);
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getMetaInformation().createPrinter(outputStream, this);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
 		for(org.eclipse.emf.ecore.EObject root : getContents()) {

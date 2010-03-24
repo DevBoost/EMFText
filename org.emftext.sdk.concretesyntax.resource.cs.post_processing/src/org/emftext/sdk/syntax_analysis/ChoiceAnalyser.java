@@ -40,7 +40,7 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 			EObject next = iterator.next();
 			if (next instanceof Choice) {
 				Choice choice = (Choice) next;
-				if (choice.getOptions().size() > 1) {
+				if (choice.getChildren().size() > 1) {
 					addProblem(
 							resource,
 							ECsProblemType.EXPLICIT_SYNTAX_CHOICE,

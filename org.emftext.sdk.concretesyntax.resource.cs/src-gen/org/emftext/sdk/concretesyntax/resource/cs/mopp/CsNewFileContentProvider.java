@@ -32,7 +32,7 @@ public class CsNewFileContentProvider {
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
+		return getMetaInformation().createPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
 	}
 	
 }

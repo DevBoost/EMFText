@@ -26,7 +26,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.Rule#getDefinition <em>Definition</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.Rule#getMetaclass <em>Metaclass</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.Rule#getSyntax <em>Syntax</em>}</li>
  * </ul>
@@ -36,32 +35,22 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * @model
  * @generated
  */
-public interface Rule extends Annotable {
+public interface Rule extends Annotable, SyntaxElement {
 	/**
-	 * Returns the value of the '<em><b>Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Definition</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Definition</em>' containment reference.
-	 * @see #setDefinition(Choice)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getRule_Definition()
-	 * @model containment="true" required="true"
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; \r\n// there should be at most one child\nassert children == null || children .size ( ) == 1 ; \r\nif ( children .size ( ) > 0 ) { \r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; \r\n\tif ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { \r\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; \r\n\t} else { \r\n\t\t// there should be no element other than Choice\nassert false ; \r\n\t\treturn null ; \r\n\t} \r\n} \r\nreturn null ; \r\n'"
 	 * @generated
 	 */
 	Choice getDefinition();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Rule#getDefinition <em>Definition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Definition</em>' containment reference.
-	 * @see #getDefinition()
-	 * @generated
-	 */
-	void setDefinition(Choice value);
 
 	/**
 	 * Returns the value of the '<em><b>Metaclass</b></em>' reference.

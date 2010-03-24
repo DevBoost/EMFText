@@ -16,18 +16,24 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +42,7 @@ import org.emftext.sdk.concretesyntax.Rule;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.RuleImpl#getDefinition <em>Definition</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.RuleImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.RuleImpl#getMetaclass <em>Metaclass</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.RuleImpl#getSyntax <em>Syntax</em>}</li>
  * </ul>
@@ -46,14 +52,14 @@ import org.emftext.sdk.concretesyntax.Rule;
  */
 public class RuleImpl extends AnnotableImpl implements Rule {
 	/**
-	 * The cached value of the '{@link #getDefinition() <em>Definition</em>}' containment reference.
+	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDefinition()
+	 * @see #getChildren()
 	 * @generated
 	 * @ordered
 	 */
-	protected Choice definition;
+	protected EList<SyntaxElement> children;
 
 	/**
 	 * The cached value of the '{@link #getMetaclass() <em>Metaclass</em>}' reference.
@@ -89,42 +95,34 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<SyntaxElement> getChildren() {
+		if (children == null) {
+			children = new EObjectContainmentEList<SyntaxElement>(SyntaxElement.class, this, ConcretesyntaxPackage.RULE__CHILDREN);
+		}
+		return children;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Choice getDefinition() {
-		return definition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDefinition(Choice newDefinition, NotificationChain msgs) {
-		Choice oldDefinition = definition;
-		definition = newDefinition;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, oldDefinition, newDefinition);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDefinition(Choice newDefinition) {
-		if (newDefinition != definition) {
-			NotificationChain msgs = null;
-			if (definition != null)
-				msgs = ((InternalEObject)definition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
-			if (newDefinition != null)
-				msgs = ((InternalEObject)newDefinition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
-			msgs = basicSetDefinition(newDefinition, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, newDefinition, newDefinition));
+		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; 
+		// there should be at most one child
+		assert children == null || children .size ( ) == 1 ; 
+		if ( children .size ( ) > 0 ) { 
+			org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; 
+			if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { 
+				return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; 
+			} else { 
+				// there should be no element other than Choice
+		assert false ; 
+				return null ; 
+			} 
+		} 
+		return null ; 
+		
 	}
 
 	/**
@@ -267,8 +265,8 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
-				return basicSetDefinition(null, msgs);
+			case ConcretesyntaxPackage.RULE__CHILDREN:
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.RULE__SYNTAX:
 				return basicSetSyntax(null, msgs);
 		}
@@ -297,8 +295,8 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
-				return getDefinition();
+			case ConcretesyntaxPackage.RULE__CHILDREN:
+				return getChildren();
 			case ConcretesyntaxPackage.RULE__METACLASS:
 				if (resolve) return getMetaclass();
 				return basicGetMetaclass();
@@ -313,11 +311,13 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
-				setDefinition((Choice)newValue);
+			case ConcretesyntaxPackage.RULE__CHILDREN:
+				getChildren().clear();
+				getChildren().addAll((Collection<? extends SyntaxElement>)newValue);
 				return;
 			case ConcretesyntaxPackage.RULE__METACLASS:
 				setMetaclass((GenClass)newValue);
@@ -337,8 +337,8 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
-				setDefinition((Choice)null);
+			case ConcretesyntaxPackage.RULE__CHILDREN:
+				getChildren().clear();
 				return;
 			case ConcretesyntaxPackage.RULE__METACLASS:
 				setMetaclass((GenClass)null);
@@ -358,14 +358,46 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
-				return definition != null;
+			case ConcretesyntaxPackage.RULE__CHILDREN:
+				return children != null && !children.isEmpty();
 			case ConcretesyntaxPackage.RULE__METACLASS:
 				return metaclass != null;
 			case ConcretesyntaxPackage.RULE__SYNTAX:
 				return getSyntax() != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == SyntaxElement.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.RULE__CHILDREN: return ConcretesyntaxPackage.SYNTAX_ELEMENT__CHILDREN;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == SyntaxElement.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.SYNTAX_ELEMENT__CHILDREN: return ConcretesyntaxPackage.RULE__CHILDREN;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //RuleImpl

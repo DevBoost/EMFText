@@ -22,7 +22,6 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
@@ -38,6 +37,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
@@ -61,6 +61,7 @@ import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
@@ -162,28 +163,38 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.SYNTAX_ELEMENT: {
+				SyntaxElement syntaxElement = (SyntaxElement)theEObject;
+				T result = caseSyntaxElement(syntaxElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.RULE: {
 				Rule rule = (Rule)theEObject;
 				T result = caseRule(rule);
 				if (result == null) result = caseAnnotable(rule);
+				if (result == null) result = caseSyntaxElement(rule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.CHOICE: {
 				Choice choice = (Choice)theEObject;
 				T result = caseChoice(choice);
+				if (result == null) result = caseSyntaxElement(choice);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.SEQUENCE: {
 				Sequence sequence = (Sequence)theEObject;
 				T result = caseSequence(sequence);
+				if (result == null) result = caseSyntaxElement(sequence);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.DEFINITION: {
 				Definition definition = (Definition)theEObject;
 				T result = caseDefinition(definition);
+				if (result == null) result = caseSyntaxElement(definition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -191,6 +202,7 @@ public class ConcretesyntaxSwitch<T> {
 				CardinalityDefinition cardinalityDefinition = (CardinalityDefinition)theEObject;
 				T result = caseCardinalityDefinition(cardinalityDefinition);
 				if (result == null) result = caseDefinition(cardinalityDefinition);
+				if (result == null) result = caseSyntaxElement(cardinalityDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -199,6 +211,7 @@ public class ConcretesyntaxSwitch<T> {
 				T result = caseTerminal(terminal);
 				if (result == null) result = caseCardinalityDefinition(terminal);
 				if (result == null) result = caseDefinition(terminal);
+				if (result == null) result = caseSyntaxElement(terminal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -206,6 +219,7 @@ public class ConcretesyntaxSwitch<T> {
 				CsString csString = (CsString)theEObject;
 				T result = caseCsString(csString);
 				if (result == null) result = caseDefinition(csString);
+				if (result == null) result = caseSyntaxElement(csString);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -213,6 +227,7 @@ public class ConcretesyntaxSwitch<T> {
 				WhiteSpaces whiteSpaces = (WhiteSpaces)theEObject;
 				T result = caseWhiteSpaces(whiteSpaces);
 				if (result == null) result = caseDefinition(whiteSpaces);
+				if (result == null) result = caseSyntaxElement(whiteSpaces);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -220,6 +235,7 @@ public class ConcretesyntaxSwitch<T> {
 				LineBreak lineBreak = (LineBreak)theEObject;
 				T result = caseLineBreak(lineBreak);
 				if (result == null) result = caseDefinition(lineBreak);
+				if (result == null) result = caseSyntaxElement(lineBreak);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -255,6 +271,7 @@ public class ConcretesyntaxSwitch<T> {
 				T result = caseCompoundDefinition(compoundDefinition);
 				if (result == null) result = caseCardinalityDefinition(compoundDefinition);
 				if (result == null) result = caseDefinition(compoundDefinition);
+				if (result == null) result = caseSyntaxElement(compoundDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -366,6 +383,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(containment);
 				if (result == null) result = caseCardinalityDefinition(containment);
 				if (result == null) result = caseDefinition(containment);
+				if (result == null) result = caseSyntaxElement(containment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -375,6 +393,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(placeholder);
 				if (result == null) result = caseCardinalityDefinition(placeholder);
 				if (result == null) result = caseDefinition(placeholder);
+				if (result == null) result = caseSyntaxElement(placeholder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -385,6 +404,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(placeholderUsingSpecifiedToken);
 				if (result == null) result = caseCardinalityDefinition(placeholderUsingSpecifiedToken);
 				if (result == null) result = caseDefinition(placeholderUsingSpecifiedToken);
+				if (result == null) result = caseSyntaxElement(placeholderUsingSpecifiedToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -395,6 +415,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(placeholderUsingDefaultToken);
 				if (result == null) result = caseCardinalityDefinition(placeholderUsingDefaultToken);
 				if (result == null) result = caseDefinition(placeholderUsingDefaultToken);
+				if (result == null) result = caseSyntaxElement(placeholderUsingDefaultToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -405,6 +426,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(placeholderInQuotes);
 				if (result == null) result = caseCardinalityDefinition(placeholderInQuotes);
 				if (result == null) result = caseDefinition(placeholderInQuotes);
+				if (result == null) result = caseSyntaxElement(placeholderInQuotes);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -523,6 +545,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseRule(Rule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Syntax Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Syntax Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSyntaxElement(SyntaxElement object) {
 		return null;
 	}
 

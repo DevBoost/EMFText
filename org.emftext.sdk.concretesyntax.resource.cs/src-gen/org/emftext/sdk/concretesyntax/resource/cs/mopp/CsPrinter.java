@@ -16,7 +16,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
 	
-	protected final static java.lang.String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	protected java.io.OutputStream outputStream;
 	/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */
@@ -1025,8 +1024,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS));
 		printCountingMap.put("annotations", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION));
-		printCountingMap.put("definition", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS));
 		printCountingMap.put("metaclass", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__SYNTAX));
@@ -1071,13 +1070,20 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CsString)
 		out.print("::=");
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("definition");
+		count = printCountingMap.get("children");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__CHILDREN));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("definition", count - 1);
+			printCountingMap.put("children", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(";");
@@ -1118,14 +1124,14 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// 1 (if the feature is set) or 0 (if the feature is null).
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS));
-		printCountingMap.put("parts", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		// print collected hidden tokens
 		int count;
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("parts");
+		count = printCountingMap.get("children");
 		if (count > 0) {
-			java.util.List<?> list = (java.util.List<?>)element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS));
+			java.util.List<?> list = (java.util.List<?>)element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN));
 			int index  = list.size() - count;
 			if (index < 0) {
 				index = 0;
@@ -1135,7 +1141,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 				java.lang.Object o = it.next();
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("parts", 0);
+			printCountingMap.put("children", 0);
 		}
 	}
 	
@@ -1148,8 +1154,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// 1 (if the feature is set) or 0 (if the feature is null).
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
 		java.lang.Object temp;
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS));
-		printCountingMap.put("options", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
@@ -1157,9 +1163,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		java.io.PrintWriter out1 = null;
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("options");
+		count = printCountingMap.get("children");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN));
 			java.util.List<?> list = (java.util.List<?>) o;
 			int index = list.size() - count;
 			if (index >= 0) {
@@ -1170,7 +1176,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("options", count - 1);
+			printCountingMap.put("children", count - 1);
 		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		iterate = true;
@@ -1198,9 +1204,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (CsString)
 		out.print("|");
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("options");
+		count = printCountingMap.get("children");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN));
 			java.util.List<?> list = (java.util.List<?>) o;
 			int index = list.size() - count;
 			if (index >= 0) {
@@ -1211,7 +1217,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("options", count - 1);
+			printCountingMap.put("children", count - 1);
 		}
 	}
 	
@@ -1221,8 +1227,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE));
 		printCountingMap.put("value", temp == null ? 0 : 1);
 		// print collected hidden tokens
@@ -1251,8 +1259,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(4);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE));
@@ -1305,8 +1315,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(4);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE));
@@ -1348,8 +1360,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(6);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(7);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE));
@@ -1455,8 +1469,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(4);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE));
@@ -1580,8 +1596,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS));
@@ -1618,8 +1636,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT));
 		printCountingMap.put("amount", temp == null ? 0 : 1);
 		// print collected hidden tokens
@@ -1645,8 +1665,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(1);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB));
 		printCountingMap.put("tab", temp == null ? 0 : 1);
 		// print collected hidden tokens

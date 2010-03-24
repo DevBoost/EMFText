@@ -16,7 +16,6 @@
  */
 package org.emftext.sdk.concretesyntax;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface Definition extends EObject {
+public interface Definition extends SyntaxElement {
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -68,11 +68,11 @@ RULES {
 	Option 	       ::= type[] "=" value['"','"','\\'];
  
 	@Foldable
-	Rule           ::= (!0 annotations)* !0 metaclass[] "::=" definition ";" !0;
+	Rule           ::= (!0 annotations)* !0 metaclass[] "::=" children : Choice ";" !0;
  
-	Sequence       ::= parts+;
+	Sequence       ::= children : Definition +;
  
-	Choice         ::= options ("|" options)* #1;	
+	Choice         ::= children : Sequence ("|" children : Sequence)* #1;	
 
 	CsString       ::= #1 value['"','"','\\'] #1 ;
 	

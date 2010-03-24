@@ -16,13 +16,14 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
 	
+	public final static java.lang.String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
 	// Holds the resource that is associated with this printer. may be null if the printer is used stand alone.
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	private java.io.PrintWriter writer;
 	private java.util.Map<?, ?> options;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean startedPrintingElement = false;
-	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace> foundWhiteSpaces = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace>();
+	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>();
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -31,7 +32,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
-		foundWhiteSpaces.clear();
+		foundFormattingElements.clear();
 		doPrint(element);
 		writer.flush();
 	}
@@ -365,12 +366,15 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			}
 			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
 				keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);
+				if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) {
+					break;
+				}
 			}
 			foundFeatureToPrint |= keepDecorating;
 			// we only print keywords if a feature was printed or the syntax element in mandatory
 			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.PLUS) {
 				keywordsToPrint.addAll(subKeywordsToPrint);
-			} else if (keepDecorating && cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.STAR) {
+			} else if (keepDecorating && (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.STAR || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK)) {
 				keywordsToPrint.addAll(subKeywordsToPrint);
 			}
 			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK) {
@@ -391,22 +395,25 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			java.lang.Integer indexToPrint = decorator.getNextIndexToPrint();
 			if (indexToPrint != null) {
 				if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) {
-					printKeyword((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) printElement, foundWhiteSpaces);
+					printKeyword((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) printElement, foundFormattingElements);
 					foundSomethingToPrint = true;
 				} else if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) {
 					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) printElement;
 					org.eclipse.emf.ecore.EStructuralFeature feature = placeholder.getFeature();
-					printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint, foundWhiteSpaces);
+					printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint, foundFormattingElements);
 					foundSomethingToPrint = true;
 				} else if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {
 					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) printElement;
 					org.eclipse.emf.ecore.EStructuralFeature feature = containment.getFeature();
-					printContainedObject(eObject, feature, indexToPrint, foundWhiteSpaces);
+					printContainedObject(eObject, feature, indexToPrint, foundFormattingElements);
 					foundSomethingToPrint = true;
 				}
 			}
 			if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
-				foundWhiteSpaces.add((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) printElement);
+				foundFormattingElements.add((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) printElement);
+			}
+			if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) {
+				foundFormattingElements.add((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) printElement);
 			}
 			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
 				foundSomethingToPrint |= printTree(childDecorator, eObject);
@@ -420,13 +427,13 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		return foundSomethingToPrint;
 	}
 	
-	public void printKeyword(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace> foundWhiteSpaces) {
-		printWhitespace(foundWhiteSpaces);
+	public void printKeyword(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
+		printFormattingElements(foundFormattingElements);
 		writer.write(keyword.getValue());
 	}
 	
-	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, java.lang.String tokenName, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace> foundWhiteSpaces) {
-		printWhitespace(foundWhiteSpaces);
+	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, java.lang.String tokenName, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
+		printFormattingElements(foundFormattingElements);
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
 			printAttribute(eObject, (org.eclipse.emf.ecore.EAttribute) feature, tokenName, count);
 		} else {
@@ -444,21 +451,30 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		writer.write(deResolvedValue);
 	}
 	
-	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature reference, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace> foundWhiteSpaces) {
-		printWhitespace(foundWhiteSpaces);
+	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature reference, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
+		printFormattingElements(foundFormattingElements);
 		java.lang.Object o = getValue(eObject, reference, count);
 		doPrint((org.eclipse.emf.ecore.EObject) o);
 	}
 	
-	public void printWhitespace(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace> foundWhiteSpaces) {
-		if (foundWhiteSpaces.size() > 0) {
-			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace foundWhiteSpace : foundWhiteSpaces) {
-				int amount = foundWhiteSpace.getAmount();
-				for (int i = 0; i < amount; i++) {
-					writer.write(" ");
+	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
+		if (foundFormattingElements.size() > 0) {
+			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement foundFormattingElement : foundFormattingElements) {
+				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
+					int amount = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) foundFormattingElement).getAmount();
+					for (int i = 0; i < amount; i++) {
+						writer.write(" ");
+					}
+				}
+				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) {
+					int tabs = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) foundFormattingElement).getTabs();
+					writer.write(NEW_LINE);
+					for (int i = 0; i < tabs; i++) {
+						writer.write("\t");
+					}
 				}
 			}
-			foundWhiteSpaces.clear();
+			foundFormattingElements.clear();
 		} else {
 			if (startedPrintingElement) {
 				startedPrintingElement = false;

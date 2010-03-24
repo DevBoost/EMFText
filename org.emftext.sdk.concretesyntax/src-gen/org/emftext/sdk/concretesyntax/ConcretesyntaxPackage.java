@@ -378,7 +378,45 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 39;
+	int ANNOTABLE = 40;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.RuleImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRule()
+	 * @generated
+	 */
+	int RULE = 4;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl <em>Syntax Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSyntaxElement()
+	 * @generated
+	 */
+	int SYNTAX_ELEMENT = 3;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_ELEMENT__CHILDREN = 0;
+
+	/**
+	 * The number of structural features of the '<em>Syntax Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -399,16 +437,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int ANNOTABLE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.RuleImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRule()
-	 * @generated
-	 */
-	int RULE = 3;
-
-	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -418,13 +446,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int RULE__ANNOTATIONS = ANNOTABLE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Definition</b></em>' containment reference.
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE__DEFINITION = ANNOTABLE_FEATURE_COUNT + 0;
+	int RULE__CHILDREN = ANNOTABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Metaclass</b></em>' reference.
@@ -461,16 +489,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getChoice()
 	 * @generated
 	 */
-	int CHOICE = 4;
+	int CHOICE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Options</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHOICE__OPTIONS = 0;
+	int CHOICE__CHILDREN = SYNTAX_ELEMENT__CHILDREN;
 
 	/**
 	 * The number of structural features of the '<em>Choice</em>' class.
@@ -479,7 +507,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CHOICE_FEATURE_COUNT = 1;
+	int CHOICE_FEATURE_COUNT = SYNTAX_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.SequenceImpl <em>Sequence</em>}' class.
@@ -489,16 +517,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSequence()
 	 * @generated
 	 */
-	int SEQUENCE = 5;
+	int SEQUENCE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE__PARTS = 0;
+	int SEQUENCE__CHILDREN = SYNTAX_ELEMENT__CHILDREN;
 
 	/**
 	 * The number of structural features of the '<em>Sequence</em>' class.
@@ -507,7 +535,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE_FEATURE_COUNT = 1;
+	int SEQUENCE_FEATURE_COUNT = SYNTAX_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.DefinitionImpl <em>Definition</em>}' class.
@@ -517,7 +545,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getDefinition()
 	 * @generated
 	 */
-	int DEFINITION = 6;
+	int DEFINITION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFINITION__CHILDREN = SYNTAX_ELEMENT__CHILDREN;
 
 	/**
 	 * The number of structural features of the '<em>Definition</em>' class.
@@ -526,7 +563,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEFINITION_FEATURE_COUNT = 0;
+	int DEFINITION_FEATURE_COUNT = SYNTAX_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CardinalityDefinitionImpl <em>Cardinality Definition</em>}' class.
@@ -536,7 +573,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinalityDefinition()
 	 * @generated
 	 */
-	int CARDINALITY_DEFINITION = 7;
+	int CARDINALITY_DEFINITION = 8;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARDINALITY_DEFINITION__CHILDREN = DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -564,7 +610,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTerminal()
 	 * @generated
 	 */
-	int TERMINAL = 8;
+	int TERMINAL = 9;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINAL__CHILDREN = CARDINALITY_DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -601,7 +656,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCsString()
 	 * @generated
 	 */
-	int CS_STRING = 9;
+	int CS_STRING = 10;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CS_STRING__CHILDREN = DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -629,7 +693,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getWhiteSpaces()
 	 * @generated
 	 */
-	int WHITE_SPACES = 10;
+	int WHITE_SPACES = 11;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHITE_SPACES__CHILDREN = DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Amount</b></em>' attribute.
@@ -657,7 +730,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getLineBreak()
 	 * @generated
 	 */
-	int LINE_BREAK = 11;
+	int LINE_BREAK = 12;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_BREAK__CHILDREN = DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Tab</b></em>' attribute.
@@ -685,7 +767,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
 	 * @generated
 	 */
-	int CARDINALITY = 12;
+	int CARDINALITY = 13;
 
 	/**
 	 * The number of structural features of the '<em>Cardinality</em>' class.
@@ -704,7 +786,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPLUS()
 	 * @generated
 	 */
-	int PLUS = 13;
+	int PLUS = 14;
 
 	/**
 	 * The number of structural features of the '<em>PLUS</em>' class.
@@ -723,7 +805,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSTAR()
 	 * @generated
 	 */
-	int STAR = 14;
+	int STAR = 15;
 
 	/**
 	 * The number of structural features of the '<em>STAR</em>' class.
@@ -742,7 +824,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQUESTIONMARK()
 	 * @generated
 	 */
-	int QUESTIONMARK = 15;
+	int QUESTIONMARK = 16;
 
 	/**
 	 * The number of structural features of the '<em>QUESTIONMARK</em>' class.
@@ -761,7 +843,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompoundDefinition()
 	 * @generated
 	 */
-	int COMPOUND_DEFINITION = 16;
+	int COMPOUND_DEFINITION = 17;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOUND_DEFINITION__CHILDREN = CARDINALITY_DEFINITION__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -798,7 +889,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
 	 * @generated
 	 */
-	int TOKEN_DIRECTIVE = 17;
+	int TOKEN_DIRECTIVE = 18;
 
 	/**
 	 * The number of structural features of the '<em>Token Directive</em>' class.
@@ -817,7 +908,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexComposer()
 	 * @generated
 	 */
-	int REGEX_COMPOSER = 18;
+	int REGEX_COMPOSER = 19;
 
 	/**
 	 * The number of structural features of the '<em>Regex Composer</em>' class.
@@ -836,7 +927,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexOwner()
 	 * @generated
 	 */
-	int REGEX_OWNER = 19;
+	int REGEX_OWNER = 20;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -864,7 +955,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexPart()
 	 * @generated
 	 */
-	int REGEX_PART = 20;
+	int REGEX_PART = 21;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -892,7 +983,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexComposite()
 	 * @generated
 	 */
-	int REGEX_COMPOSITE = 21;
+	int REGEX_COMPOSITE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -929,7 +1020,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAtomicRegex()
 	 * @generated
 	 */
-	int ATOMIC_REGEX = 22;
+	int ATOMIC_REGEX = 23;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -966,7 +1057,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexReference()
 	 * @generated
 	 */
-	int REGEX_REFERENCE = 23;
+	int REGEX_REFERENCE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1003,7 +1094,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstractTokenDefinition()
 	 * @generated
 	 */
-	int ABSTRACT_TOKEN_DEFINITION = 24;
+	int ABSTRACT_TOKEN_DEFINITION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1031,7 +1122,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialTokenDefinition()
 	 * @generated
 	 */
-	int PARTIAL_TOKEN_DEFINITION = 25;
+	int PARTIAL_TOKEN_DEFINITION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1077,7 +1168,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompleteTokenDefinition()
 	 * @generated
 	 */
-	int COMPLETE_TOKEN_DEFINITION = 26;
+	int COMPLETE_TOKEN_DEFINITION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1132,7 +1223,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalTokenDefinition()
 	 * @generated
 	 */
-	int NORMAL_TOKEN_DEFINITION = 27;
+	int NORMAL_TOKEN_DEFINITION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1205,7 +1296,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedTokenDefinition()
 	 * @generated
 	 */
-	int QUOTED_TOKEN_DEFINITION = 28;
+	int QUOTED_TOKEN_DEFINITION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1296,7 +1387,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenPriorityDirective()
 	 * @generated
 	 */
-	int TOKEN_PRIORITY_DIRECTIVE = 29;
+	int TOKEN_PRIORITY_DIRECTIVE = 30;
 
 	/**
 	 * The feature id for the '<em><b>Token</b></em>' reference.
@@ -1324,7 +1415,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getContainment()
 	 * @generated
 	 */
-	int CONTAINMENT = 30;
+	int CONTAINMENT = 31;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1370,7 +1470,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholder()
 	 * @generated
 	 */
-	int PLACEHOLDER = 31;
+	int PLACEHOLDER = 32;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1416,7 +1525,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingSpecifiedToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 32;
+	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 33;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER_USING_SPECIFIED_TOKEN__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1462,7 +1580,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingDefaultToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_DEFAULT_TOKEN = 33;
+	int PLACEHOLDER_USING_DEFAULT_TOKEN = 34;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER_USING_DEFAULT_TOKEN__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1508,7 +1635,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderInQuotes()
 	 * @generated
 	 */
-	int PLACEHOLDER_IN_QUOTES = 34;
+	int PLACEHOLDER_IN_QUOTES = 35;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER_IN_QUOTES__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1581,7 +1717,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 35;
+	int OPTION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1618,7 +1754,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 36;
+	int ABSTRACT = 37;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1637,7 +1773,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 37;
+	int TOKEN_STYLE = 38;
 
 	/**
 	 * The feature id for the '<em><b>Token Name</b></em>' attribute.
@@ -1683,7 +1819,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 38;
+	int ANNOTATION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1720,7 +1856,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 40;
+	int KEY_VALUE_PAIR = 41;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -1757,7 +1893,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE = 41;
+	int GEN_CLASS_CACHE = 42;
 
 	/**
 	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
@@ -1785,7 +1921,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE_ENTRY = 42;
+	int GEN_CLASS_CACHE_ENTRY = 43;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' reference.
@@ -1822,7 +1958,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
 	 * @generated
 	 */
-	int ECLASS_UTIL = 43;
+	int ECLASS_UTIL = 44;
 
 	/**
 	 * The number of structural features of the '<em>EClass Util</em>' class.
@@ -1841,7 +1977,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 44;
+	int OPTION_TYPES = 45;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -1851,7 +1987,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 45;
+	int FONT_STYLE = 46;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -1861,7 +1997,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 46;
+	int ANNOTATION_TYPE = 47;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -1871,7 +2007,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 47;
+	int OPERATOR_ANNOTATION_TYPE = 48;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -1881,7 +2017,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 48;
+	int OPERATOR_ANNOTATION_PROPERTY = 49;
 
 
 	/**
@@ -2167,17 +2303,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getRule();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.Rule#getDefinition <em>Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Definition</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Rule#getDefinition()
-	 * @see #getRule()
-	 * @generated
-	 */
-	EReference getRule_Definition();
-
-	/**
 	 * Returns the meta object for the reference '{@link org.emftext.sdk.concretesyntax.Rule#getMetaclass <em>Metaclass</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2200,6 +2325,27 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getRule_Syntax();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.SyntaxElement <em>Syntax Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Syntax Element</em>'.
+	 * @see org.emftext.sdk.concretesyntax.SyntaxElement
+	 * @generated
+	 */
+	EClass getSyntaxElement();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.SyntaxElement#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Children</em>'.
+	 * @see org.emftext.sdk.concretesyntax.SyntaxElement#getChildren()
+	 * @see #getSyntaxElement()
+	 * @generated
+	 */
+	EReference getSyntaxElement_Children();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Choice <em>Choice</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2210,17 +2356,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getChoice();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.Choice#getOptions <em>Options</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Options</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Choice#getOptions()
-	 * @see #getChoice()
-	 * @generated
-	 */
-	EReference getChoice_Options();
-
-	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Sequence <em>Sequence</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2229,17 +2364,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSequence();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.Sequence#getParts <em>Parts</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parts</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Sequence#getParts()
-	 * @see #getSequence()
-	 * @generated
-	 */
-	EReference getSequence_Parts();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Definition <em>Definition</em>}'.
@@ -3308,14 +3432,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass RULE = eINSTANCE.getRule();
 
 		/**
-		 * The meta object literal for the '<em><b>Definition</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RULE__DEFINITION = eINSTANCE.getRule_Definition();
-
-		/**
 		 * The meta object literal for the '<em><b>Metaclass</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3332,6 +3448,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference RULE__SYNTAX = eINSTANCE.getRule_Syntax();
 
 		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl <em>Syntax Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSyntaxElement()
+		 * @generated
+		 */
+		EClass SYNTAX_ELEMENT = eINSTANCE.getSyntaxElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_ELEMENT__CHILDREN = eINSTANCE.getSyntaxElement_Children();
+
+		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ChoiceImpl <em>Choice</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3342,14 +3476,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass CHOICE = eINSTANCE.getChoice();
 
 		/**
-		 * The meta object literal for the '<em><b>Options</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CHOICE__OPTIONS = eINSTANCE.getChoice_Options();
-
-		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.SequenceImpl <em>Sequence</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3358,14 +3484,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SEQUENCE = eINSTANCE.getSequence();
-
-		/**
-		 * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SEQUENCE__PARTS = eINSTANCE.getSequence_Parts();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.DefinitionImpl <em>Definition</em>}' class.
