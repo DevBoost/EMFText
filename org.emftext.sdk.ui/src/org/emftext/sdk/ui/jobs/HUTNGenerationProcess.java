@@ -223,7 +223,8 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		cSyntax.getRules().add(newRule);
 		
 		Choice newChoice = concretesyntaxFactory.createChoice();
-		newRule.setDefinition(newChoice);
+		newRule.getChildren().clear();
+		newRule.getChildren().add(newChoice);
 		Sequence ruleSequence = concretesyntaxFactory.createSequence();
 		newChoice.getOptions().add(ruleSequence);
 		

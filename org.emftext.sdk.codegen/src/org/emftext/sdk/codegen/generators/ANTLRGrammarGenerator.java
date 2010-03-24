@@ -1081,7 +1081,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 			reducedChoice.getOptions().addAll(recursionFreeSequences);
 
-			ruleCopy.setDefinition(choice);
+			ruleCopy.getChildren().clear();
+			ruleCopy.getChildren().add(choice);
 
 			printChoice(ruleCopy.getDefinition(), ruleCopy, sc, 0,
 					classesReferenced, "0");
