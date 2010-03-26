@@ -20,6 +20,12 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	private java.lang.String prefix;
 	private boolean startsWithPrefix;
 	private boolean structuralFeature;
+	private org.eclipse.swt.graphics.Image image;
+	
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, boolean structuralFeature, org.eclipse.swt.graphics.Image image) {
+		this(insertString, prefix, startsWithPrefix, structuralFeature);
+		this.image = image;
+	}
 	
 	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, boolean structuralFeature) {
 		super();
@@ -39,6 +45,10 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	
 	public boolean getStartsWithPrefix() {
 		return startsWithPrefix;
+	}
+	
+	public org.eclipse.swt.graphics.Image getImage() {
+		return image;
 	}
 	
 	public boolean isStructuralFeature() {

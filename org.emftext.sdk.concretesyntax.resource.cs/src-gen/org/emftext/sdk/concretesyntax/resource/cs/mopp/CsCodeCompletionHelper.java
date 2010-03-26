@@ -247,9 +247,16 @@ public class CsCodeCompletionHelper {
 			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
 				final String identifier = mapping.getIdentifier();
+				org.eclipse.swt.graphics.Image image = null;
+				if (mapping instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) {
+					java.lang.Object target =((org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) mapping).getTargetElement();
+					if (target instanceof org.eclipse.emf.ecore.EObject) {
+						image = getImage((org.eclipse.emf.ecore.EObject) target);
+					}
+				}
 				// check the prefix. return only matching references
 				if (matches(identifier, prefix)) {
-					resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, prefix, true, true));
+					resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, prefix, true, true, image));
 				}
 			}
 			return resultSet;
@@ -334,4 +341,12 @@ public class CsCodeCompletionHelper {
 		return (proposal.startsWith(prefix) || org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);
 	}
 	
+	public org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.EObject element) {
+		org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory = new org.eclipse.emf.edit.provider.ComposedAdapterFactory(org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
+		org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider labelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(adapterFactory);
+		return labelProvider.getImage(element);
+	}
 }
