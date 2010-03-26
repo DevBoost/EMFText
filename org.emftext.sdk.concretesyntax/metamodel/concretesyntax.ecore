@@ -144,6 +144,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="csLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SyntaxElement" abstract="true">
+    <eOperations name="getContainingRule" eType="#//Rule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.emftext.sdk.concretesyntax.Rule rule = null ; &#xD;&#xA;org.eclipse.emf.ecore.EObject o = this ; &#xD;&#xA;do { &#xD;&#xA;&#x9;if ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { &#xD;&#xA;&#x9;&#x9;rule = ( org.emftext.sdk.concretesyntax.Rule ) o ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;o = o .eContainer ( ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} while ( rule == null &amp;&amp; o != null ) ; &#xD;&#xA;return rule ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
         eType="#//SyntaxElement" containment="true"/>
   </eClassifiers>
@@ -626,6 +632,13 @@
     <eOperations name="getQualifiedInterfaceName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { &#xD;&#xA;&#x9;java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; &#xD;&#xA;&#x9;get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; &#xD;&#xA;} &#xD;&#xA;return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    </eOperations>
+    <eOperations name="getEscapedTypeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; &#xD;&#xA;java.lang.String escapedName = interfaceName .replace ( &quot;_&quot; , &quot;_005f&quot; ) ; &#xD;&#xA;escapedName = escapedName .replace ( &quot;.&quot; , &quot;_&quot; ) ; &#xD;&#xA;return escapedName ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>

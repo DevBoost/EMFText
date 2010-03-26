@@ -65,4 +65,15 @@ public interface GenClassCache extends EObject {
 	 */
 	String getQualifiedInterfaceName(GenClass genClass);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; \r\njava.lang.String escapedName = interfaceName .replace ( \"_\" , \"_005f\" ) ; \r\nescapedName = escapedName .replace ( \".\" , \"_\" ) ; \r\nreturn escapedName ; \r\n'"
+	 * @generated
+	 */
+	String getEscapedTypeName(GenClass genClass);
+
 } // GenClassCache

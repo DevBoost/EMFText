@@ -16,4 +16,11 @@ eclass GenClassCache {
 		}
 		return get_qualifiedInterfaceNameCache().get(genClass);
 	}
+
+	getEscapedTypeName() {
+		String interfaceName = getQualifiedInterfaceName(genClass);
+		String escapedName = interfaceName.replace("_", "_005f");
+		escapedName = escapedName.replace(".", "_");
+		return escapedName;
+	}
 }

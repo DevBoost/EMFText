@@ -130,6 +130,25 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Rule getContainingRule() {
+		org.emftext.sdk.concretesyntax.Rule rule = null ; 
+		org.eclipse.emf.ecore.EObject o = this ; 
+		do { 
+			if ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { 
+				rule = ( org.emftext.sdk.concretesyntax.Rule ) o ; 
+			} else { 
+				o = o .eContainer ( ) ; 
+			} 
+		} while ( rule == null && o != null ) ; 
+		return rule ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenClass getMetaclass() {
 		if (metaclass != null && metaclass.eIsProxy()) {
 			InternalEObject oldMetaclass = (InternalEObject)metaclass;

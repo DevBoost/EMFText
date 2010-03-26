@@ -103,6 +103,19 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEscapedTypeName(GenClass genClass) {
+		java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; 
+		java.lang.String escapedName = interfaceName .replace ( "_" , "_005f" ) ; 
+		escapedName = escapedName .replace ( "." , "_" ) ; 
+		return escapedName ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {

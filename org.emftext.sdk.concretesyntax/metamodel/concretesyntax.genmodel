@@ -270,6 +270,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//SyntaxElement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//SyntaxElement/children"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//SyntaxElement/getContainingRule"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Rule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Rule/metaclass"/>
@@ -405,6 +406,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenClassCache/_qualifiedInterfaceNameCache"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/getQualifiedInterfaceName">
         <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/getQualifiedInterfaceName/genClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/getEscapedTypeName">
+        <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/getEscapedTypeName/genClass"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//GenClassCacheEntry">
