@@ -15,13 +15,11 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.StringUtil;
 
 public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenClassCache genClassCache;
 	
@@ -47,7 +45,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	protected String getMethodName(Rule rule) {
-		String ruleName = genClassFinder.getEscapedTypeName(rule.getMetaclass(), rule.getSyntax().getGenClassCache());
+		String ruleName = rule.getSyntax().getGenClassCache().getEscapedTypeName(rule.getMetaclass());
 		return "print_" + ruleName;
 	}
 

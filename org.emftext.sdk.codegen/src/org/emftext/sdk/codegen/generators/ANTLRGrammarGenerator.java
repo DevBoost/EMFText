@@ -1534,7 +1534,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private String getRuleName(GenClass genClass) {
-		String ruleName = genClassFinder.getEscapedTypeName(genClass, genClassCache);
+		String ruleName = genClassCache.getEscapedTypeName(genClass);
 		return "parse_" + ruleName;
 	}
 

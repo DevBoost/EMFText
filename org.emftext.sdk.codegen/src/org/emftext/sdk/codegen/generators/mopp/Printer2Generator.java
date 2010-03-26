@@ -58,7 +58,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String syntaxElementDecoratorClassName;
 	private String syntaxElementClassName;
 	private String grammarInformationProviderClassName;
-	private GenClassCache genClassCache;
 	private String keywordClassName;
 	private String placeholderClassName;
 	private String cardinalityClassName;
@@ -81,7 +80,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private Printer2Generator(GenerationContext context) {
 		super(context, EArtifact.PRINTER2);
 		syntax = context.getConcreteSyntax();
-		genClassCache = syntax.getGenClassCache();
 		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		iTextPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
 		iTokenResolverClassName = context.getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER);
@@ -272,7 +270,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		} else if (syntaxElement instanceof Placeholder) {
 			Placeholder placeholder = (Placeholder) syntaxElement;
 			GenClassCache genClassCache = syntax.getGenClassCache();
-			Rule rule = getContainingRule(placeholder);
+			Rule rule = placeholder.getContainingRule();
 			GenClass genClass = rule.getMetaclass();
 			GenFeature genFeature = placeholder.getFeature();
 			EStructuralFeature feature = genFeature.getEcoreFeature();
@@ -574,20 +572,5 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	// TODO mseifert: move this to SyntaxElement.ejava
-	private Rule getContainingRule(EObject container) {
-		Rule rule = null;
-		EObject o = container;
-		do {
-			if (o instanceof Rule) {
-				rule = (Rule) o;
-			}
-			else {
-				o = o.eContainer();
-			}
-		} while (rule == null && o != null);
-		return rule;
 	}
 }

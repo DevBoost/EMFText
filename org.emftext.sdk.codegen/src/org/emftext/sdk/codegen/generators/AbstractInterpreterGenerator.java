@@ -19,11 +19,9 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.finders.GenClassFinder;
 
 public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 
-	private GenClassFinder genClassFinder = new GenClassFinder();
 	private ConcreteSyntax concreteSyntax;
 	private Set<GenClass> allGenClasses;
 	private GenClassCache genClassCache;
@@ -125,7 +123,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private String getMethodName(GenClass genClass) {
-		String escapedTypeName = genClassFinder.getEscapedTypeName(genClass, genClassCache);
+		String escapedTypeName = genClassCache.getEscapedTypeName(genClass);
 		String methodName = "interprete_" + escapedTypeName;
 		return methodName;
 	}
