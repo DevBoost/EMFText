@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSED_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
@@ -20,6 +22,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.util.Map;
@@ -189,5 +193,13 @@ public class GeneratorUtil {
 		sc.add(body);
 		sc.add("}");
 	    sc.addLineBreak();
+	}
+
+
+	public void addCreateAdapterFactoryCode(StringComposite sc) {
+		sc.add(COMPOSED_ADAPTER_FACTORY + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(" + COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
+		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
 	}
 }

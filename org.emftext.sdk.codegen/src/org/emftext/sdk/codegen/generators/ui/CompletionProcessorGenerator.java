@@ -15,12 +15,14 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTEXT_INFORMATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_ASSIST_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -58,13 +60,12 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + editorClassName + " editor;");
 		sc.addLineBreak();
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addComputeCompletionProposalsMethod(sc);
 		addComputeContextInformationMethod(sc);
 		addGetCompletionProposalAutoActivationCharactersMethod(sc);
@@ -73,47 +74,41 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		addGetErrorMessageMethod(sc);
 	}
 
-	private void addGetErrorMessageMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetErrorMessageMethod(StringComposite sc) {
 		sc.add("public String getErrorMessage() {");
 		sc.add("return null;");
 		sc.add("}");
 	}
 
-	private void addGetContextInformationValidatorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetContextInformationValidatorMethod(StringComposite sc) {
 		sc.add("public " + I_CONTEXT_INFORMATION_VALIDATOR + " getContextInformationValidator() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetContextInformationAutoActivationCharactersMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetContextInformationAutoActivationCharactersMethod(StringComposite sc) {
 		sc.add("public char[] getContextInformationAutoActivationCharacters() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetCompletionProposalAutoActivationCharactersMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetCompletionProposalAutoActivationCharactersMethod(StringComposite sc) {
 		sc.add("public char[] getCompletionProposalAutoActivationCharacters() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addComputeContextInformationMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addComputeContextInformationMethod(StringComposite sc) {
 		sc.add("public " + I_CONTEXT_INFORMATION + "[] computeContextInformation(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addComputeCompletionProposalsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addComputeCompletionProposalsMethod(StringComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.addLineBreak();
 		sc.add(RESOURCE + " resource = editor.getResource();");
@@ -125,21 +120,20 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.length];");
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");
-		sc.add("String proposalString = proposal.getInsertString();");
-		sc.add("String prefix = proposal.getPrefix();");
-		sc.add(I_CONTEXT_INFORMATION + " info = new " + CONTEXT_INFORMATION + "(proposalString, proposalString);");
+		sc.add(STRING + " proposalString = proposal.getInsertString();");
+		sc.add(STRING + " prefix = proposal.getPrefix();");
+		sc.add(IMAGE + " image = proposal.getImage();");
+		sc.add(I_CONTEXT_INFORMATION + " info;");
+		sc.add("info = new " + CONTEXT_INFORMATION + "(image, proposalString, proposalString);");
 		sc.add("int begin = offset - prefix.length();");
-		//sc.add("String contentBefore = content.substring(0, offset);");
-		//sc.add("String insertString = " + getClassNameHelper().getSTRING_UTIL() + ".getMissingTail(contentBefore, proposal);");
-		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, prefix.length(), proposalString.length(), null, proposalString, info, proposalString);");
+		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, prefix.length(), proposalString.length(), image, proposalString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
 		sc.add("this.editor = editor;");
 		sc.add("}");

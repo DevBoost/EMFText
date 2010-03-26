@@ -142,6 +142,7 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
@@ -257,6 +258,8 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -510,6 +513,7 @@ public class IClassNameConstants {
 	public static String I_WORKBENCH_PREFERENCE_PAGE = IWorkbenchPreferencePage.class.getName();
 	public static String I_WORKSPACE = IWorkspace.class.getName();
 	public static String I_WORKSPACE_ROOT = IWorkspaceRoot.class.getName();
+	public static String IMAGE = org.eclipse.swt.graphics.Image.class.getName();
 	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
 	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
 	public static String J_FACE_RESOURCES = JFaceResources.class.getName();
@@ -649,4 +653,8 @@ public class IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
+	
+	public static String IMAGE_LOADER = ImageLoader.class.getName();
+	public static String IMAGE_DATA = ImageData.class.getName();
+	public static String I_ITEM_LABEL_PROVIDER = IItemLabelProvider.class.getName();
 }

@@ -15,10 +15,8 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_OUTLINE_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PAGE_SITE;
@@ -27,9 +25,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LISTENER_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PAGE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_SELECTION;
@@ -38,11 +34,14 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class OutlinePageGenerator extends JavaBaseGenerator {
+
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private String editorClassName;
 	private String outlinePageTreeViewerClassName;
@@ -73,8 +72,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addCreateControlMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
 		addGetControlMethod(sc);
@@ -87,8 +85,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		addSetSelectionMethod(sc);
 	}
 
-	private void addSetSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetSelectionMethod(StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
 		sc.add("if (treeViewer != null) {");
 		sc.add("treeViewer.setSelection(selection);");
@@ -97,8 +94,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetFocusMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetFocusMethod(StringComposite sc) {
 		sc.add("// Sets focus to a part in the page.");
 		sc.add("public void setFocus() {");
 		sc.add("treeViewer.getControl().setFocus();");
@@ -106,8 +102,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSelectionChangedMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSelectionChangedMethod(StringComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add("if (getTreeViewer() != null) {");
 		sc.add("getTreeViewer().setSelection(event.getSelection(), true);");
@@ -116,8 +111,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveSelectionChangedListenerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveSelectionChangedListenerMethod(StringComposite sc) {
 		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("if (getTreeViewer() == null) {");
 		sc.add("selectionChangedListeners.remove(listener);");
@@ -128,16 +122,14 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addInitMethod(StringComposite sc) {
 		sc.add("public void init(" + I_PAGE_SITE + " pageSite) {");
 		sc.add("super.init(pageSite);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetTreeViewer(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTreeViewer(StringComposite sc) {
 		sc.add("// Returns this page's tree viewer.");
 		sc.add("//");
 		sc.add("// @return this page's tree viewer, or <code>null</code> if");
@@ -148,8 +140,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetSelectionMethod(StringComposite sc) {
 		sc.add("public " + I_SELECTION + " getSelection() {");
 		sc.add("if (treeViewer == null) {");
 		sc.add("return " + STRUCTURED_SELECTION + ".EMPTY;");
@@ -159,8 +150,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetControlMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetControlMethod(StringComposite sc) {
 		sc.add("public " + CONTROL + " getControl() {");
 		sc.add("if (treeViewer == null) {");
 		sc.add("return null;");
@@ -170,8 +160,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddSelectionChangedListenerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddSelectionChangedListenerMethod(StringComposite sc) {
 		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("if (getTreeViewer() == null) {");
 		sc.add("selectionChangedListeners.add(listener);");
@@ -182,8 +171,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreateControlMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addCreateControlMethod(StringComposite sc) {
 		sc.add("public void createControl(" + COMPOSITE + " parent) {");
 		sc.add("treeViewer = new " + outlinePageTreeViewerClassName + "(parent, " + SWT + ".MULTI | " + SWT + ".H_SCROLL | " + SWT + ".V_SCROLL);");
 		sc.add("Object[] listeners = selectionChangedListeners.getListeners();");
@@ -192,11 +180,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.add("treeViewer.addSelectionChangedListener(l);");
 		sc.add("}");
 		sc.add("selectionChangedListeners.clear();");
-		sc.add(COMPOSED_ADAPTER_FACTORY + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(");
-		sc.add(COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
-		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+		generatorUtil.addCreateAdapterFactoryCode(sc);
 		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory);");
 		sc.add("treeViewer.setAutoExpandLevel(3);");
 		sc.add("treeViewer.setContentProvider(contentProvider);");
@@ -212,8 +196,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " textEditor) {");
 		sc.add("super();");
 		sc.add("this.editor = textEditor;");
@@ -221,7 +204,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + TREE_VIEWER + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");

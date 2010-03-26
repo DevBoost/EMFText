@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators.code_completion;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -31,7 +32,8 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.add("// A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
 		addFields(sc);
-		addConstructor(sc);
+		addConstructor1(sc);
+		addConstructor2(sc);
 		addMethods(sc);
 		sc.add("}");
 		return true;
@@ -41,6 +43,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		addGetInsertStringMethod(sc);
 		addGetPrefixMethod(sc);
 		addGetStartsWithPrefixMethod(sc);
+		addImageMethod(sc);
 		addIsStructuralFeaturemethod(sc);
 		addEqualsMethod(sc);
 		addHashCodeMethod(sc);
@@ -103,7 +106,22 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
+	private void addImageMethod(StringComposite sc) {
+		sc.add("public " + IMAGE + " getImage() {");
+		sc.add("return image;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor1(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, boolean structuralFeature, " + IMAGE + " image) {");
+		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature);");
+		sc.add("this.image = image;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addConstructor2(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, boolean structuralFeature) {");
 		sc.add("super();");
 		sc.add("this.insertString = insertString;");
@@ -119,6 +137,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.add("private " + STRING + " prefix;");
 		sc.add("private boolean startsWithPrefix;");
 		sc.add("private boolean structuralFeature;");
+		sc.add("private " + IMAGE + " image;");
 		sc.addLineBreak();
 	}
 }

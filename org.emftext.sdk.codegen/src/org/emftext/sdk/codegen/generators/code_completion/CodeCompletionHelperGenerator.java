@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ENUM_LITE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -33,14 +34,18 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
+
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private String iExpectedElementClassName;
 	private String iMetaInformationClassName;
@@ -60,6 +65,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	private String completionProposalClassName;
 	private String eObjectUtilClassName;
 	private String attributeValueProviderClassName;
+	private String elementMappingClassName;
 
 	public CodeCompletionHelperGenerator() {
 		super();
@@ -85,6 +91,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
 		eObjectUtilClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_UTIL);
 		attributeValueProviderClassName = getContext().getQualifiedClassName(EArtifact.ATTRIBUTE_VALUE_PROVIDER);
+		elementMappingClassName = getContext().getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -130,6 +137,15 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
 		addMatchesMethod(sc);
+		addGetImageMethod(sc);
+	}
+
+	private void addGetImageMethod(StringComposite sc) {
+		sc.add("public " + IMAGE + " getImage(" + E_OBJECT + " element) {");
+		generatorUtil.addCreateAdapterFactoryCode(sc);
+		sc.add(ADAPTER_FACTORY_LABEL_PROVIDER + " labelProvider = new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory);");
+		sc.add("return labelProvider.getImage(element);");
+		sc.add("}");
 	}
 
 	private void addGetEndMethod(StringComposite sc) {
@@ -239,9 +255,16 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
 		sc.add("final String identifier = mapping.getIdentifier();");
+		sc.add(IMAGE + " image = null;");
+		sc.add("if (mapping instanceof " + elementMappingClassName + "<?>) {");
+		sc.add(OBJECT + " target =((" + elementMappingClassName + "<?>) mapping).getTargetElement();");
+		sc.add("if (target instanceof " + E_OBJECT + ") {");
+		sc.add("image = getImage((" + E_OBJECT + ") target);");
+		sc.add("}");
+		sc.add("}");
 		sc.add("// check the prefix. return only matching references");
 		sc.add("if (matches(identifier, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true, image));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return resultSet;");
