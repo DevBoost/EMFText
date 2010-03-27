@@ -1804,7 +1804,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LAYOUT_INFORMATION_ADAPTER(181, "OVERRIDE_LAYOUT_INFORMATION_ADAPTER", "overrideLayoutInformationAdapter");
+	OVERRIDE_LAYOUT_INFORMATION_ADAPTER(181, "OVERRIDE_LAYOUT_INFORMATION_ADAPTER", "overrideLayoutInformationAdapter"), /**
+	 * The '<em><b>OVERRIDE LAYOUT INFORMATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAYOUT_INFORMATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAYOUT_INFORMATION(182, "OVERRIDE_LAYOUT_INFORMATION", "overrideLayoutInformation");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4507,6 +4515,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE = 181;
 
 	/**
+	 * The '<em><b>OVERRIDE LAYOUT INFORMATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAYOUT INFORMATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAYOUT_INFORMATION
+	 * @model literal="overrideLayoutInformation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAYOUT_INFORMATION_VALUE = 182;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4694,6 +4717,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_FORMATTING_ELEMENT,
 			OVERRIDE_TERMINAL,
 			OVERRIDE_LAYOUT_INFORMATION_ADAPTER,
+			OVERRIDE_LAYOUT_INFORMATION,
 		};
 
 	/**
@@ -4923,6 +4947,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_FORMATTING_ELEMENT_VALUE: return OVERRIDE_FORMATTING_ELEMENT;
 			case OVERRIDE_TERMINAL_VALUE: return OVERRIDE_TERMINAL;
 			case OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE: return OVERRIDE_LAYOUT_INFORMATION_ADAPTER;
+			case OVERRIDE_LAYOUT_INFORMATION_VALUE: return OVERRIDE_LAYOUT_INFORMATION;
 		}
 		return null;
 	}

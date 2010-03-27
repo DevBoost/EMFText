@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
@@ -201,5 +202,19 @@ public class GeneratorUtil {
 		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
 		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
 		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+	}
+
+	public void addGetLayoutAdapterMethod(StringComposite sc, String layoutInformationAdapterClassName) {
+		sc.add("protected " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT + " element) {");
+		sc.add("for (" + ADAPTER + " adapter : element.eAdapters()) {");
+		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName + ") {");
+		sc.add("return (" + layoutInformationAdapterClassName + ") adapter;");
+		sc.add("}");
+		sc.add("}");
+		sc.add(layoutInformationAdapterClassName + " newAdapter = new " + layoutInformationAdapterClassName + "();");
+		sc.add("element.eAdapters().add(newAdapter);");
+		sc.add("return newAdapter;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }

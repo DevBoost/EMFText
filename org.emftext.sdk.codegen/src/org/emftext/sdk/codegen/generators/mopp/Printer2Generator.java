@@ -71,6 +71,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String iTokenResolverClassName;
 	private String iReferenceResolverClassName;
 	private String terminalClassName;
+	private String layoutInformationAdapterClassName;
+	private String layoutInformationClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -96,6 +98,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
 		iReferenceResolverClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER);
 		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
+		layoutInformationClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
+		layoutInformationAdapterClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -137,6 +141,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetResourceMethod(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
+		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
+		addGetHiddenTokenTextMethod(sc);
+	}
+
+	private void addGetHiddenTokenTextMethod(StringComposite sc) {
+		sc.add("private " + STRING + " getHiddenTokenText(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object) {");
+		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
+		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
+		sc.add("if (object == null) {");
+		sc.add("return layoutInformation.getHiddenTokenText();");
+		sc.add("} else if (object == layoutInformation.getObject()) {");
+		sc.add("return layoutInformation.getHiddenTokenText();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
@@ -309,9 +331,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		sc.add("public void " + getMethodName(rule) + "(" + getMetaClassName(rule) + " eObject) {");
+		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
+		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = layoutInformationAdapter.getLayoutInformations();");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
-		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
+		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">(), layoutInformations);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -387,7 +411,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintTreeMethod(StringComposite sc) {
-		sc.add("public boolean printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements) {");
+		sc.add("public boolean printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(syntaxElementClassName + " printElement = decorator.getDecoratedElement();");
 		sc.add(cardinalityClassName + " cardinality = printElement.getCardinality();");
 		sc.add(LIST + "<" + formattingElementClassName + "> cloned = new " + ARRAY_LIST + "<" + formattingElementClassName + ">();");
@@ -399,17 +423,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(INTEGER + " indexToPrint = decorator.getNextIndexToPrint();");
 		sc.add("if (indexToPrint != null) {");
 		sc.add("if (printElement instanceof " + keywordClassName + ") {");
-		sc.add("printKeyword((" + keywordClassName + ") printElement, foundFormattingElements);");
+		sc.add("printKeyword((" + keywordClassName + ") printElement, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("} else if (printElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
-		sc.add("printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint, foundFormattingElements);");
+		sc.add("printFeature(eObject, placeholder, indexToPrint, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("} else if (printElement instanceof " + containmentClassName + ") {");
 		sc.add(containmentClassName + " containment = (" + containmentClassName + ") printElement;");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = containment.getFeature();");
-		sc.add("printContainedObject(eObject, feature, indexToPrint, foundFormattingElements);");
+		sc.add("printContainedObject(eObject, containment, indexToPrint, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
 		sc.add("}");
@@ -423,7 +445,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("foundFormattingElements.add((" + lineBreakClassName + ") printElement);");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
-		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements);");
+		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements, layoutInformations);");
 		sc.add("}");
 		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".QUESTIONMARK) {");
 		sc.add("break;");
@@ -468,31 +490,32 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintKeywordMethod(StringComposite sc) {
-		sc.add("public void printKeyword(" + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements) {");
-		sc.add("printFormattingElements(foundFormattingElements);");
+		sc.add("public void printKeyword(" + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, keyword, null));");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintFeatureMethod(StringComposite sc) {
-		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements) {");
-		sc.add("printFormattingElements(foundFormattingElements);");
+		sc.add("public void printFeature(" + E_OBJECT + " eObject, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = placeholder.getFeature();");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.add("printAttribute(eObject, (" + E_ATTRIBUTE + ") feature, tokenName, count);");
+		sc.add("printAttribute(eObject, (" + E_ATTRIBUTE + ") feature, placeholder, count, foundFormattingElements, layoutInformations);");
 		sc.add("} else {");
-		sc.add("printReference(eObject, (" + E_REFERENCE + ") feature, tokenName, count);");
+		sc.add("printReference(eObject, (" + E_REFERENCE + ") feature, placeholder, count, foundFormattingElements, layoutInformations);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintAttributeMethod(StringComposite sc) {
-		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, String tokenName, int count) {");
+		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " o = getValue(eObject, attribute, count);");
 
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o));");
 		sc.add("// deresolve token");
-		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add("String deResolvedValue = tokenResolver.deResolve((" + OBJECT + ") o, attribute, eObject);");
 		sc.add("// write result");
@@ -502,10 +525,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintReferenceMethod(StringComposite sc) {
-		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, String tokenName, int count) {");
+		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
 
-		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o));");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
@@ -519,18 +543,23 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintContainedObjectMethod(StringComposite sc) {
-		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " reference, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements) {");
-		sc.add("printFormattingElements(foundFormattingElements);");
+		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, containment, o));");
 		sc.add("doPrint((" + E_OBJECT + ") o);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintFormattingElementsMethod(StringComposite sc) {
-		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements) {");
+		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + STRING + " hiddenTokenText) {");
 		// TODO (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
+		sc.add("if (hiddenTokenText != null) {");
+		sc.add("writer.write(hiddenTokenText);");
+		sc.add("return;");
+		sc.add("}");
 		// (b) if whitespace of linebreak elements were found, print those
 		sc.add("if (foundFormattingElements.size() > 0) {");
 		sc.add("for (" + formattingElementClassName + " foundFormattingElement : foundFormattingElements) {");

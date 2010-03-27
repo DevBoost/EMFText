@@ -582,6 +582,7 @@
     <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement"/>
     <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal"/>
     <eLiterals name="OVERRIDE_LAYOUT_INFORMATION_ADAPTER" value="181" literal="overrideLayoutInformationAdapter"/>
+    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION" value="182" literal="overrideLayoutInformation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

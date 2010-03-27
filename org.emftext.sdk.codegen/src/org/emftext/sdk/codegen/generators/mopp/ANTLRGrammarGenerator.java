@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT_IMPL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
@@ -51,6 +52,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROXY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_BUILDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.THROWABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
@@ -124,7 +126,7 @@ import org.emftext.sdk.util.StringUtil;
  * checked by this generator) it can be used to generate a text parser which
  * allows to create model instances from plain text files.
  * 
- * To enable code completion the grammar is augmented with addition code. For
+ * To enable code completion the grammar is augmented with additional code. For
  * example, for each terminal a field is created and all terminals are connected
  * to their follow set. During code completion the parser runs in a special mode
  * (rememberExpectations=true). To derive the set of elements that can potentially
@@ -164,6 +166,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String parseResultClassName;
 	private String pairClassName;
 	private String followSetProviderClassName;
+	private String syntaxElementClassName;
+	private String grammarInformationClassName;
+	private String layoutInformationAdapterClassName;
+	private String layoutInformationClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -210,6 +216,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
 		followSetProviderClassName = getContext().getQualifiedClassName(EArtifact.FOLLOW_SET_PROVIDER);
+		syntaxElementClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
+		grammarInformationClassName = getContext().getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
+		layoutInformationClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
+		layoutInformationAdapterClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 	}
 
 	private void initOptions() {
@@ -338,6 +348,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addTerminateMethod(sc);
 		addCompletedElementMethod(sc);
 		addCreateDynamicProxyMethod(sc);
+		addRetrieveLayoutInformationMethod(sc);
+		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -661,6 +673,35 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addRetrieveLayoutInformationMethod(StringComposite sc) {
+		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object) {");
+		sc.add("int currentPos = getTokenStream().index();");
+		sc.add("if (currentPos == 0) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("int endPos = currentPos - 1;");
+		sc.add("for (; endPos >= this.lastPosition2; endPos--) {");
+		sc.add(TOKEN + " token = getTokenStream().get(endPos);");
+		sc.add("int _channel = token.getChannel();");
+		sc.add("if (_channel != 99) {");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add(STRING_BUILDER + " hiddenTokenText = new " + STRING_BUILDER + "();");
+		sc.add("for (int pos = this.lastPosition2; pos < endPos; pos++) {");
+		sc.add(TOKEN + " token = getTokenStream().get(pos);");
+		sc.add("int _channel = token.getChannel();");
+		sc.add("if (_channel == 99) {");
+		sc.add("hiddenTokenText.append(token.getText());");
+		sc.add("}");
+		sc.add("}");
+		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
+		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, hiddenTokenText.toString()));");
+		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addCreateInstanceMethod(String lexerName, String parserName,
 			StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createInstance("
@@ -736,7 +777,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ tokenResolverFactoryClassName + "();");
 		sc.add("@SuppressWarnings(\"unused\")");
 		sc.addLineBreak();
+		sc.add("// the index of the last token that was handled by collectHiddenTokens()");
 		sc.add("private int lastPosition;");
+		sc.add("// the index of the last token that was handled by retrieveLayoutInformation()");
+		sc.add("private int lastPosition2;");
 		sc.add("private " + tokenResolveResultClassName
 				+ " tokenResolveResult = new "
 				+ tokenResolveResultClassName + "();");
@@ -1049,6 +1093,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					+ genClassUtil.getCreateObjectCall(recursiveType,
 							dummyEObjectClassName) + ";");
 			sc.add("collectHiddenTokens(element);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(rule) + ", null);");
 			sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new "
 					+ ARRAY_LIST + "<" + E_OBJECT + ">();");
 			sc.add("}");
@@ -1162,6 +1207,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 							dummyEObjectClassName) + "()" + ", \""
 					+ recurseName + "\");");
 			sc.add("collectHiddenTokens(element);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(rule) + ", null);");
 			sc.add("}");
 			sc.add(":");
 
@@ -1632,6 +1678,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						dummyEObjectClassName) + ";");
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(csString) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
@@ -1768,6 +1815,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					}
 					
 					resolvements.add("collectHiddenTokens(element);");
+					resolvements.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(placeholder) + ", " + proxyIdent + ");");
 					resolvements
 							.add("registerContextDependentProxy(new "
 									+ contextDependentURIFragmentFactoryClassName
@@ -1782,7 +1830,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 									+ ">("
 									+ getContext()
 											.getReferenceResolverAccessor(genFeature)
-									+ "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("
+									+ "), element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
 									+ generatorUtil.getFeatureConstant(genClass,
 											genFeature) + "), " + resolvedIdent
 									+ ", " + proxyIdent + ");");
@@ -1838,6 +1886,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
 		if (terminal instanceof Containment) {
 			sc.add("copyLocalizationInfos(" + ident + ", element); ");
 		} else {

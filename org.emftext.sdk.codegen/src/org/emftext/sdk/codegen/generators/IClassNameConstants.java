@@ -617,6 +617,7 @@ public class IClassNameConstants {
 	public static String STACK = Stack.class.getName();
 	public static String STATUS = Status.class.getName();
 	public static String STRING = String.class.getName();
+	public static String STRING_BUILDER = StringBuilder.class.getName();
 	public static String STRING_READER = StringReader.class.getName();
 	public static String STRING_WRITER = StringWriter.class.getName();
 	public static String STRUCTURED_SELECTION = StructuredSelection.class.getName();

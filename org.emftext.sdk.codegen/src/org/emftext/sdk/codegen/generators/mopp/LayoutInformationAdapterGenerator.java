@@ -10,12 +10,15 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 
+	private String layoutInformationClassName;
+
 	public LayoutInformationAdapterGenerator() {
 		super();
 	}
 
 	private LayoutInformationAdapterGenerator(GenerationContext context) {
 		super(context, EArtifact.LAYOUT_INFORMATION_ADAPTER);
+		layoutInformationClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -40,10 +43,13 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		addIsAdapterForTypeMethod(sc);
 		addNotifyChangedMethod(sc);
 		addSetTargetMethod(sc);
+		addGetLayoutInformationsMethod(sc);
+		addAddLayoutInformationMethod(sc);
 	}
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + NOTIFIER + " target;");
+		sc.add("private " + LIST + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST + "<" + layoutInformationClassName + ">();");
 		sc.addLineBreak();
 	}
 
@@ -74,4 +80,17 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addGetLayoutInformationsMethod(StringComposite sc) {
+		sc.add("public " + LIST + "<" + layoutInformationClassName + "> getLayoutInformations() {");
+		sc.add("return layoutInformations;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddLayoutInformationMethod(StringComposite sc) {
+		sc.add("public void addLayoutInformation(" + layoutInformationClassName + " layoutInformation) {");
+		sc.add("layoutInformations.add(layoutInformation);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
 }
