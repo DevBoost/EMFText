@@ -337,6 +337,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("boolean foundFeatureToPrint = false;");
 		sc.add(syntaxElementClassName + " syntaxElement = decorator.getDecoratedElement();");
 		sc.add(cardinalityClassName + " cardinality = syntaxElement.getCardinality();");
+		sc.add("boolean isFirstIteration = true;");
 		sc.add("while (true) {");
 		sc.add(LIST + "<" + syntaxElementDecoratorClassName + "> subKeywordsToPrint = new " + ARRAY_LIST + "<" + syntaxElementDecoratorClassName + ">();");
 		sc.add("boolean keepDecorating = false;");
@@ -360,8 +361,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("foundFeatureToPrint |= keepDecorating;");
 		sc.add("// we only print keywords if a feature was printed or the syntax element in mandatory");
-		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".PLUS) {");
+		sc.add("if (cardinality == " + cardinalityClassName + ".ONE) {");
 		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
+		sc.add("} else if (cardinality == " + cardinalityClassName + ".PLUS) {");
+		sc.add("if (isFirstIteration) {");
+		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
+		sc.add("} else {");
+		sc.add("if (keepDecorating) {");
+		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
+		sc.add("}");
+		sc.add("}");
 		sc.add("} else if (keepDecorating && (cardinality == " + cardinalityClassName + ".STAR || cardinality == " + cardinalityClassName + ".QUESTIONMARK)) {");
 		sc.add("keywordsToPrint.addAll(subKeywordsToPrint);");
 		sc.add("}");
@@ -370,6 +379,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("} else if (!keepDecorating) {");
 		sc.add("break;");
 		sc.add("}");
+		sc.add("isFirstIteration = false;");
 		sc.add("}");
 		sc.add("return foundFeatureToPrint;");
 		sc.add("}");
