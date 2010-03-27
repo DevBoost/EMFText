@@ -18,7 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
+import org.emftext.sdk.codegen.generators.mopp.BabylonSpecificationGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**

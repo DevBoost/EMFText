@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_STRING_STREAM;
@@ -87,6 +87,7 @@ import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectationComputer;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;

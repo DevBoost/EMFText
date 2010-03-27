@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -57,6 +57,7 @@ import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;

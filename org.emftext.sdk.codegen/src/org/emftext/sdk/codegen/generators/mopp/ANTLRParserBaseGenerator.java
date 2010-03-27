@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.mopp;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
@@ -21,6 +21,7 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 

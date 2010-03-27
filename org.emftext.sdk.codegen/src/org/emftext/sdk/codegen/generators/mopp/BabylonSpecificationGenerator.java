@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.generators.mopp;
 
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -21,11 +21,18 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 
 /**
- * An experimental (not yet implemented) generator for the SGLR compiler
+ * An experimental (not yet implemented) generator for the Babylon compiler
  * framework.
  */
-// TODO sheyden: implement this generator
-public class SGLRGrammarGenerator implements IGenerator {
+// TODO cbuerger: implement this class
+public class BabylonSpecificationGenerator implements IGenerator {
+
+	public BabylonSpecificationGenerator() {
+		super();
+	}
+
+	private BabylonSpecificationGenerator(GenerationContext context) {
+	}
 
 	public boolean generate(PrintWriter out) {
 		return false;
@@ -40,6 +47,6 @@ public class SGLRGrammarGenerator implements IGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return null;
+		return new BabylonSpecificationGenerator(context);
 	}
 }

@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
+import org.emftext.sdk.codegen.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
