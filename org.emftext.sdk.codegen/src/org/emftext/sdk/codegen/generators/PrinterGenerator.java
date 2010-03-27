@@ -81,7 +81,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TextPrinterGenerator extends AbstractPrinterGenerator {
+public class PrinterGenerator extends AbstractPrinterGenerator {
 
 	private final static String localtabName = "localtab";
 
@@ -103,11 +103,11 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 
 	private GenClassCache genClassCache;
 
-	public TextPrinterGenerator() {
+	public PrinterGenerator() {
 		super();
 	}
 
-	private TextPrinterGenerator(GenerationContext context) {
+	private PrinterGenerator(GenerationContext context) {
 		super(context, EArtifact.PRINTER);
 
 		this.concretSyntax = context.getConcreteSyntax();
@@ -778,6 +778,6 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new TextPrinterGenerator(context);
+		return new PrinterGenerator(context);
 	}
 }

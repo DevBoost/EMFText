@@ -63,7 +63,7 @@ import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
 import org.emftext.sdk.codegen.generators.SyntaxCoverageInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.TerminateParsingExceptionGenerator;
-import org.emftext.sdk.codegen.generators.TextPrinterGenerator;
+import org.emftext.sdk.codegen.generators.PrinterGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.generators.TextTokenGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
@@ -206,7 +206,7 @@ public enum EArtifact {
 	SCANNERLESS_SCANNER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessScanner", new ScannerlessScannerGenerator(), OptionTypes.OVERRIDE_PARSER),
 	SCANNERLESS_PARSER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessParser", new ScannerlessParserGenerator(), OptionTypes.OVERRIDE_PARSER),
 	PROBLEM(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Problem", new ProblemClassGenerator(), OptionTypes.OVERRIDE_PROBLEM_CLASS),
-	PRINTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", new TextPrinterGenerator(), OptionTypes.OVERRIDE_PRINTER),
+	PRINTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", new PrinterGenerator(), OptionTypes.OVERRIDE_PRINTER),
 	PRINTER2(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer2", new Printer2Generator(), OptionTypes.OVERRIDE_PRINTER2),
 	SYNTAX_ELEMENT_DECORATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxElementDecorator", new SyntaxElementDecoratorGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR), 
 	RESOURCE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
