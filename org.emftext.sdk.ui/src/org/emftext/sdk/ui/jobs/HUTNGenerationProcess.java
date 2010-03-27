@@ -252,9 +252,10 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			}
 		}
 		
-		if(featureSyntaxChoice.getOptions().size() > 0) {
+		if (featureSyntaxChoice.getOptions().size() > 0) {
 			CompoundDefinition innerCompound = concretesyntaxFactory.createCompoundDefinition();
-			innerCompound.setDefinitions(featureSyntaxChoice);
+			innerCompound.getChildren().clear();
+			innerCompound.getChildren().add(featureSyntaxChoice);
 			ruleSequence.getParts().add(innerCompound);
 			innerCompound.setCardinality(concretesyntaxFactory.createSTAR());
 		}

@@ -107,7 +107,7 @@ public class LeftRecursionDetector {
 			}
 			else if (definition instanceof CompoundDefinition) {
 				CompoundDefinition compound = (CompoundDefinition) definition;
-				Rule leftProducingRule = findLeftProducingRule(metaclass, compound.getDefinitions(), currentRule);
+				Rule leftProducingRule = findLeftProducingRule(metaclass, compound.getDefinition(), currentRule);
 				if (leftProducingRule != null) {
 					return leftProducingRule;
 				}

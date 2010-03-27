@@ -1063,7 +1063,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 			CompoundDefinition compound = ConcretesyntaxPackage.eINSTANCE
 					.getConcretesyntaxFactory().createCompoundDefinition();
-			compound.setDefinitions(reducedChoice);
+			compound.getChildren().clear();
+			compound.getChildren().add(reducedChoice);
 			newSequence.getParts().add(compound);
 
 			choice.getOptions().add(newSequence);
@@ -1572,7 +1573,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 				CompoundDefinition compoundDef = (CompoundDefinition) definition;
 				sc.add("(");
-				count = printChoice(compoundDef.getDefinitions(), rule, sc,
+				count = printChoice(compoundDef.getDefinition(), rule, sc,
 						count, eClassesReferenced, subScopeID);
 				sc.add(")");
 				i++;

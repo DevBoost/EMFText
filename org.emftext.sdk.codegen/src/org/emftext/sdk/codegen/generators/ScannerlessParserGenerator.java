@@ -1291,7 +1291,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addMethodForCompound(StringComposite sc,
 			ConcreteSyntax syntax, GenClass ruleMetaClass, CompoundDefinition compound) {
 
-		addMethodForChoice(sc, syntax, ruleMetaClass, compound.getDefinitions());
+		addMethodForChoice(sc, syntax, ruleMetaClass, compound.getDefinition());
 	}
 
 	private void addCardinalityCode(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
@@ -1311,7 +1311,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addCodeForCompoundDefinition(StringComposite sc,
 			ConcreteSyntax syntax, CompoundDefinition cd) {
 		sc.add("// handle compound definition");
-		Choice choice = cd.getDefinitions();
+		Choice choice = cd.getDefinition();
 		sc.add("matched = " + getMethodName(choice) + "();");
 	}
 

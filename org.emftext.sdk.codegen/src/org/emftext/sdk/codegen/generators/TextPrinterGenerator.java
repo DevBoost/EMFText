@@ -143,7 +143,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 				if (def instanceof CompoundDefinition) {
 					String subChoiceName = namePrefix + choiceIndex++;
 					Choice currentChoice = ((CompoundDefinition) def)
-							.getDefinitions();
+							.getDefinition();
 					choiceMap.put(currentChoice, subChoiceName);
 					choiceSet.add(currentChoice);
 					extractChoices(currentChoice, choiceSet, choiceMap,
@@ -570,7 +570,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 	private void printCompound(StringComposite sc, Set<String> neededFeatures,
 			Cardinality cardinality, CompoundDefinition compound) {
 		String printStatement = 
-				choice2Name.get(compound.getDefinitions())
+				choice2Name.get(compound.getDefinition())
 				+ "(element, localtab, out, printCountingMap);";
 		//localTabDefinition.enable();
 		// enter once
@@ -580,7 +580,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 			// needed features in this sequence
 			// note: this implementation might remove to much in
 			// some cases!
-			for (Sequence seq1 : compound.getDefinitions()
+			for (Sequence seq1 : compound.getDefinition()
 					.getOptions()) {
 				neededFeatures
 						.removeAll(sequence2NecessaryFeatures
@@ -606,7 +606,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 			//compoundDeclaration.enable();
 			
 			sc.add(choice2Name.get(compound
-									.getDefinitions())
+									.getDefinition())
 							+ "(element, localtab, out1, printCountingMap1);");
 			sc.add("if (printCountingMap.equals(printCountingMap1)) {");
 			if (isMany) {
@@ -621,7 +621,7 @@ public class TextPrinterGenerator extends AbstractPrinterGenerator {
 			// this could be enhanced by a counter on needed
 			// features
 			Collection<String> reachableFeatures = getReachableFeatures(compound
-					.getDefinitions());
+					.getDefinition());
 			if (!neededFeatures.isEmpty()
 					&& !Collections.disjoint(neededFeatures,
 							reachableFeatures)) {

@@ -204,7 +204,7 @@ public class ExpectationComputer {
 
 	private Set<Expectation> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
 			CompoundDefinition compound,Set<GenClass> contributingNonterminals) {
-		Choice choice = compound.getDefinitions();
+		Choice choice = compound.getDefinition();
 		Set<Expectation> firstSet = computeFirstSetForChoice(syntax, rule, choice, contributingNonterminals);
 		return firstSet;
 	}

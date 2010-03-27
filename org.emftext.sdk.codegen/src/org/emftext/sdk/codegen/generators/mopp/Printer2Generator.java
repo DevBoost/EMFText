@@ -245,7 +245,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintRuleMethod(StringComposite sc, CompoundDefinition cd) {
 		addPrintSyntaxElementMethodBasic(sc, cd);
-		Choice definitions = cd.getDefinitions();
+		Choice definitions = cd.getDefinition();
 		addPrintSyntaxElementMethod(sc, definitions);
 	}
 

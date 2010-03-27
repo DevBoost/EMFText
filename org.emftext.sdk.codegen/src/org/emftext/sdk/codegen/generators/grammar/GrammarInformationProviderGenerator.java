@@ -191,7 +191,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
-			Choice choice = compound.getDefinitions();
+			Choice choice = compound.getDefinition();
 			addConstant(sc, objectToFieldNameMap, rule, choice);
 			String choiceFieldName = csUtil.getFieldName(choice);
 			String fieldName = csUtil.getFieldName(next);
