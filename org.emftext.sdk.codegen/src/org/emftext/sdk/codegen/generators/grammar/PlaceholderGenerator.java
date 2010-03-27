@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PlaceholderGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
+	private String terminalClassName;
 	private String cardinalityEnumName;
 
 	public PlaceholderGenerator() {
@@ -20,7 +20,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 
 	private PlaceholderGenerator(GenerationContext context) {
 		super(context, EArtifact.PLACEHOLDER);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
+		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
 		cardinalityEnumName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
@@ -34,34 +34,24 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("// A class to represent placeholders in a grammar.");
-		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + terminalClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
-		addGetFeatureMethod(sc);
 		addGetTokenNameMethod(sc);
 		sc.add("}");
 		return true;
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
 		sc.add("private final " + STRING + " tokenName;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, " + cardinalityEnumName + " cardinality) {"); 
-		sc.add("super(cardinality, null);"); 
-		sc.add("this.feature = feature;"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, " + cardinalityEnumName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("this.tokenName = tokenName;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-	}
-
-	private void addGetFeatureMethod(StringComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
-		sc.add("return feature;");
 		sc.add("}"); 
 		sc.addLineBreak();
 	}

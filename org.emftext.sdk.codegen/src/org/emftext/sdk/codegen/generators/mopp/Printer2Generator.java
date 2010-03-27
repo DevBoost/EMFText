@@ -61,9 +61,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String keywordClassName;
 	private String placeholderClassName;
 	private String cardinalityClassName;
-	private String compoundClassName;
 	private String choiceClassName;
-	private String sequenceClassName;
 	private String containmentClassName;
 	private String formattingElementClassName;
 	private String lineBreakClassName;
@@ -72,6 +70,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private String iTextResourceClassName;
 	private String iTokenResolverClassName;
 	private String iReferenceResolverClassName;
+	private String terminalClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -90,14 +89,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
 		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
 		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		compoundClassName = context.getQualifiedClassName(EArtifact.COMPOUND);
 		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
-		sequenceClassName = context.getQualifiedClassName(EArtifact.SEQUENCE);
 		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
 		formattingElementClassName = context.getQualifiedClassName(EArtifact.FORMATTING_ELEMENT);
 		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
 		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
 		iReferenceResolverClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER);
+		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -207,7 +205,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean startedPrintingElement = false;");
-		sc.add("private " + LIST + "<" + formattingElementClassName + "> foundFormattingElements = new " + ARRAY_LIST + "<" + formattingElementClassName + ">();");
 		sc.addLineBreak();
 	}
 
@@ -314,7 +311,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void " + getMethodName(rule) + "(" + getMetaClassName(rule) + " eObject) {");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
-		sc.add("printTree(decoratorTree, eObject);");
+		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -345,12 +342,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("boolean keepDecorating = false;");
 		sc.add("if (syntaxElement instanceof " + keywordClassName + ") {");
 		sc.add("subKeywordsToPrint.add(decorator);");
-		sc.add("} else if (syntaxElement instanceof " + placeholderClassName + ") {");
-		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") syntaxElement;");
-		addCodeToDecorateWithFeature(sc, "placeholder");
-		sc.add("} else if (syntaxElement instanceof " + containmentClassName + ") {");
-		sc.add(containmentClassName + " containment = (" + containmentClassName + ") syntaxElement;");
-		addCodeToDecorateWithFeature(sc, "containment");
+		sc.add("} else if (syntaxElement instanceof " + terminalClassName + ") {");
+		sc.add(terminalClassName + " terminal = (" + terminalClassName + ") syntaxElement;");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = terminal.getFeature();");
+		sc.add("int countLeft = printCountingMap.get(feature.getName());");
+		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
+		sc.add("decorator.addIndexToPrint(countLeft);");
+		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
+		sc.add("keepDecorating = true;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);");
@@ -376,20 +376,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCodeToDecorateWithFeature(StringComposite sc, String syntaxElementVarName) {
-		sc.add(E_STRUCTURAL_FEATURE + " feature = " + syntaxElementVarName + ".getFeature();");
-		sc.add("int countLeft = printCountingMap.get(feature.getName());");
-		sc.add("if (countLeft > 0) {");
-		sc.add("decorator.addIndexToPrint(countLeft);");
-		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
-		sc.add("keepDecorating = true;");
-		sc.add("}");
-	}
-	
 	private void addPrintTreeMethod(StringComposite sc) {
-		sc.add("public boolean printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject) {");
+		sc.add("public boolean printTree(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements) {");
 		sc.add(syntaxElementClassName + " printElement = decorator.getDecoratedElement();");
 		sc.add(cardinalityClassName + " cardinality = printElement.getCardinality();");
+		sc.add(LIST + "<" + formattingElementClassName + "> cloned = new " + ARRAY_LIST + "<" + formattingElementClassName + ">();");
+		sc.add("cloned.addAll(foundFormattingElements);");
+		sc.add("boolean foundSomethingAtAll = false;");
 		sc.add("boolean foundSomethingToPrint;");
 		sc.add("while (true) {");
 		sc.add("foundSomethingToPrint = false;");
@@ -410,6 +403,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("if (foundSomethingToPrint) {");
+		sc.add("foundSomethingAtAll = true;");
+		sc.add("}");
 		sc.add("if (printElement instanceof " + whiteSpaceClassName + ") {");
 		sc.add("foundFormattingElements.add((" + whiteSpaceClassName + ") printElement);");
 		sc.add("}");
@@ -417,13 +413,18 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("foundFormattingElements.add((" + lineBreakClassName + ") printElement);");
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
-		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject);");
+		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements);");
 		sc.add("}");
 		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".QUESTIONMARK) {");
 		sc.add("break;");
 		sc.add("} else if (!foundSomethingToPrint) {");
 		sc.add("break;");
 		sc.add("}");
+		sc.add("}");
+		sc.add("// we only print formatting elements if a feature was printed or the syntax element in mandatory");
+		sc.add("if (!foundSomethingAtAll && (cardinality == " + cardinalityClassName + ".STAR || cardinality == " + cardinalityClassName + ".QUESTIONMARK)) {");
+		sc.add("foundFormattingElements.clear();");
+		sc.add("foundFormattingElements.addAll(cloned);");
 		sc.add("}");
 		sc.add("return foundSomethingToPrint;");
 		sc.add("}");
@@ -567,7 +568,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintMethod(StringComposite sc) {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
-		sc.add("foundFormattingElements.clear();");
 		sc.add("doPrint(element);");
 		sc.add("writer.flush();");
 		sc.add("}");

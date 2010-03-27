@@ -90,6 +90,7 @@ import org.emftext.sdk.codegen.generators.grammar.LineBreakGenerator;
 import org.emftext.sdk.codegen.generators.grammar.PlaceholderGenerator;
 import org.emftext.sdk.codegen.generators.grammar.SequenceGenerator;
 import org.emftext.sdk.codegen.generators.grammar.SyntaxElementGenerator;
+import org.emftext.sdk.codegen.generators.grammar.TerminalGenerator;
 import org.emftext.sdk.codegen.generators.grammar.WhiteSpaceGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
@@ -324,6 +325,7 @@ public enum EArtifact {
 	CARDINALITY(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Cardinality", new CardinalityGenerator(), OptionTypes.OVERRIDE_CARDINALITY),
 	SYNTAX_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "SyntaxElement", new SyntaxElementGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT),
 	KEYWORD(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Keyword", new KeywordGenerator(), OptionTypes.OVERRIDE_KEYWORD),
+	TERMINAL(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Terminal", new TerminalGenerator(), OptionTypes.OVERRIDE_TERMINAL),
 	PLACEHOLDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Placeholder", new PlaceholderGenerator(), OptionTypes.OVERRIDE_PLACEHOLDER),
 	CHOICE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Choice", new ChoiceGenerator(), OptionTypes.OVERRIDE_CHOICE),
 	COMPOUND(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Compound", new CompoundGenerator(), OptionTypes.OVERRIDE_COMPOUND),

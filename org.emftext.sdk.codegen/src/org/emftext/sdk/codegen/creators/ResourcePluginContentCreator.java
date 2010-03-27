@@ -119,6 +119,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.CARDINALITY));
 	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_ELEMENT));
 	    creators.add(new GenericArtifactCreator(EArtifact.KEYWORD));
+	    creators.add(new GenericArtifactCreator(EArtifact.TERMINAL));
 	    creators.add(new GenericArtifactCreator(EArtifact.PLACEHOLDER));
 	    creators.add(new GenericArtifactCreator(EArtifact.CHOICE));
 	    creators.add(new GenericArtifactCreator(EArtifact.CONTAINMENT));

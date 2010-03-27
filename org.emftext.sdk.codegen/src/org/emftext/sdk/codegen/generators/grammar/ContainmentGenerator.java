@@ -10,7 +10,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ContainmentGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
+	private String terminalClassName;
 	private String cardinalityClassName;
 
 	public ContainmentGenerator() {
@@ -19,7 +19,7 @@ public class ContainmentGenerator extends JavaBaseGenerator {
 
 	private ContainmentGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTAINMENT);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
+		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
 		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
@@ -32,17 +32,10 @@ public class ContainmentGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + terminalClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
-		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality) {"); 
-		sc.add("super(cardinality, null);"); 
-		sc.add("this.feature = feature;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {"); 
-		sc.add("return feature;"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("}"); 
 		sc.add("}");
 		return true;
