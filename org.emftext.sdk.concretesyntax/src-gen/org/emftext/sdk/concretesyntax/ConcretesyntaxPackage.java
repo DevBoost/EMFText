@@ -864,22 +864,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int COMPOUND_DEFINITION__CARDINALITY = CARDINALITY_DEFINITION__CARDINALITY;
 
 	/**
-	 * The feature id for the '<em><b>Definitions</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOUND_DEFINITION__DEFINITIONS = CARDINALITY_DEFINITION_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Compound Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOUND_DEFINITION_FEATURE_COUNT = CARDINALITY_DEFINITION_FEATURE_COUNT + 1;
+	int COMPOUND_DEFINITION_FEATURE_COUNT = CARDINALITY_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
@@ -2531,17 +2522,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getCompoundDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.CompoundDefinition#getDefinitions <em>Definitions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Definitions</em>'.
-	 * @see org.emftext.sdk.concretesyntax.CompoundDefinition#getDefinitions()
-	 * @see #getCompoundDefinition()
-	 * @generated
-	 */
-	EReference getCompoundDefinition_Definitions();
-
-	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDirective <em>Token Directive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3634,14 +3614,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMPOUND_DEFINITION = eINSTANCE.getCompoundDefinition();
-
-		/**
-		 * The meta object literal for the '<em><b>Definitions</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPOUND_DEFINITION__DEFINITIONS = eINSTANCE.getCompoundDefinition_Definitions();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.

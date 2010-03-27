@@ -124,7 +124,7 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					}
 				} else if (part instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) part;
-					Choice subChoice = compound.getDefinitions();
+					Choice subChoice = compound.getDefinition();
 					boolean isUsedInSubChoice = isUsed(subChoice, genFeature);
 					if (isUsedInSubChoice) {
 						return true;

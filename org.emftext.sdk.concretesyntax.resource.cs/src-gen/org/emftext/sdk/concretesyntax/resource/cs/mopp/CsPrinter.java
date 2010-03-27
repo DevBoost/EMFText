@@ -1596,26 +1596,31 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the map is initialized with the number of elements stored in each structural
 		// feature. for lists this is the list size. for non-multiple features it is either
 		// 1 (if the feature is set) or 0 (if the feature is null).
-		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(3);
+		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(2);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN));
 		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY));
 		printCountingMap.put("cardinality", temp == null ? 0 : 1);
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS));
-		printCountingMap.put("definitions", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		// DEFINITION PART BEGINS (CsString)
 		out.print("(");
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("definitions");
+		count = printCountingMap.get("children");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("definitions", count - 1);
+			printCountingMap.put("children", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(")");

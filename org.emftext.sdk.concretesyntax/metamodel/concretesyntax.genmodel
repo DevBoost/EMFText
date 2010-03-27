@@ -311,7 +311,7 @@
     <genClasses ecoreClass="concretesyntax.ecore#//STAR"/>
     <genClasses ecoreClass="concretesyntax.ecore#//QUESTIONMARK"/>
     <genClasses ecoreClass="concretesyntax.ecore#//CompoundDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CompoundDefinition/definitions"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CompoundDefinition/getDefinition"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//TokenDirective"/>
     <genClasses ecoreClass="concretesyntax.ecore#//RegexComposer">

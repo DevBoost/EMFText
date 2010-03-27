@@ -148,7 +148,7 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 					newFeatureToCountMap.put(feature, add(previousMinMax, currentMinMax));
 				} else if (part instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) part;
-					Choice subChoices = compound.getDefinitions();
+					Choice subChoices = compound.getDefinition();
 					countOccurences(subChoices, newFeatureToCountMap);
 				}
 			}

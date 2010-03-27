@@ -934,15 +934,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCompoundDefinition_Definitions() {
-		return (EReference)compoundDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTokenDirective() {
 		return tokenDirectiveEClass;
 	}
@@ -1589,7 +1580,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		questionmarkEClass = createEClass(QUESTIONMARK);
 
 		compoundDefinitionEClass = createEClass(COMPOUND_DEFINITION);
-		createEReference(compoundDefinitionEClass, COMPOUND_DEFINITION__DEFINITIONS);
 
 		tokenDirectiveEClass = createEClass(TOKEN_DIRECTIVE);
 
@@ -1876,7 +1866,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(questionmarkEClass, org.emftext.sdk.concretesyntax.QUESTIONMARK.class, "QUESTIONMARK", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(compoundDefinitionEClass, CompoundDefinition.class, "CompoundDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompoundDefinition_Definitions(), this.getChoice(), null, "definitions", null, 1, 1, CompoundDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(compoundDefinitionEClass, this.getChoice(), "getDefinition", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(tokenDirectiveEClass, TokenDirective.class, "TokenDirective", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

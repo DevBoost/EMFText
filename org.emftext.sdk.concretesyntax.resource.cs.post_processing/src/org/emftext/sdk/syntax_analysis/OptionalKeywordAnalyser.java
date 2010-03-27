@@ -45,7 +45,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 				CompoundDefinition compoundDefinition = (CompoundDefinition) next;
 				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK ||
 						compoundDefinition.getCardinality() instanceof STAR) {
-					for (Sequence sequence : compoundDefinition.getDefinitions().getOptions()) {
+					for (Sequence sequence : compoundDefinition.getDefinition().getOptions()) {
 						boolean containsKeyword = false;
 						boolean restOptional = true;
 						

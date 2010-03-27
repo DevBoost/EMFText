@@ -82,7 +82,7 @@ RULES {
 	
 	Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
 	
-	CompoundDefinition ::= "(" definitions ")" cardinality?;
+	CompoundDefinition ::= "(" children : Choice ")" cardinality?;
 
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= "!" tab[NUMBER] #1;

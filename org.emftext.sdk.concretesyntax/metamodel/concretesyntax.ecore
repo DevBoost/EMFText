@@ -243,8 +243,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="STAR" eSuperTypes="#//Cardinality"/>
   <eClassifiers xsi:type="ecore:EClass" name="QUESTIONMARK" eSuperTypes="#//Cardinality"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//CardinalityDefinition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="definitions" lowerBound="1"
-        eType="#//Choice" containment="true"/>
+    <eOperations name="getDefinition" eType="#//Choice">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenDirective" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="RegexComposer">

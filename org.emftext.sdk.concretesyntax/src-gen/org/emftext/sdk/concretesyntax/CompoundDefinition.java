@@ -17,17 +17,12 @@
 package org.emftext.sdk.concretesyntax;
 
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Compound Definition</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.CompoundDefinition#getDefinitions <em>Definitions</em>}</li>
- * </ul>
- * </p>
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompoundDefinition()
  * @model
@@ -35,29 +30,15 @@ package org.emftext.sdk.concretesyntax;
  */
 public interface CompoundDefinition extends CardinalityDefinition {
 	/**
-	 * Returns the value of the '<em><b>Definitions</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Definitions</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Definitions</em>' containment reference.
-	 * @see #setDefinitions(Choice)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompoundDefinition_Definitions()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	Choice getDefinitions();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.CompoundDefinition#getDefinitions <em>Definitions</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Definitions</em>' containment reference.
-	 * @see #getDefinitions()
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; \r\n// there should be at most one child\nassert children == null || children .size ( ) == 1 ; \r\nif ( children .size ( ) > 0 ) { \r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; \r\n\tif ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { \r\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; \r\n\t} else { \r\n\t\t// there should be no element other than Choice\nassert false ; \r\n\t\treturn null ; \r\n\t} \r\n} \r\nreturn null ; \r\n'"
 	 * @generated
 	 */
-	void setDefinitions(Choice value);
+	Choice getDefinition();
 
 } // CompoundDefinition

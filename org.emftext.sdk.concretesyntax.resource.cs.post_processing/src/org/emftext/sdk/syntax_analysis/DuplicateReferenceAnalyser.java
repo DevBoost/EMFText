@@ -116,7 +116,7 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 					}
 				} else if (definition instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) definition;
-					Choice subChoice = compound.getDefinitions();
+					Choice subChoice = compound.getDefinition();
 					// recursive method call
 					occurences += countProblematicOccurrences(subChoice, feature, occurences > 0);
 				}
@@ -140,7 +140,7 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 					result.add(terminal);
 				} else if (definition instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) definition;
-					Choice subChoice = compound.getDefinitions();
+					Choice subChoice = compound.getDefinition();
 					result.addAll(collectAllTerminals(subChoice));
 				}
 			}
