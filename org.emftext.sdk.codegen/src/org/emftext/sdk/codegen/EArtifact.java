@@ -126,6 +126,7 @@ import org.emftext.sdk.codegen.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.generators.mopp.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.generators.mopp.BabylonSpecificationGenerator;
+import org.emftext.sdk.codegen.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.generators.mopp.Printer2Generator;
 import org.emftext.sdk.codegen.generators.mopp.PrinterGenerator;
 import org.emftext.sdk.codegen.generators.mopp.ScannerlessParserGenerator;
@@ -229,6 +230,7 @@ public enum EArtifact {
 	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),
 	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
 	SYNTAX_COVERAGE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER),
+	LAYOUT_INFORMATION_ADAPTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LayoutInformationAdapter", new LayoutInformationAdapterGenerator(), OptionTypes.OVERRIDE_LAYOUT_INFORMATION_ADAPTER),
 
 	NATURE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Nature", new NatureGenerator(), OptionTypes.OVERRIDE_NATURE),
 	BUILDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Builder", new BuilderGenerator(), OptionTypes.OVERRIDE_BUILDER),

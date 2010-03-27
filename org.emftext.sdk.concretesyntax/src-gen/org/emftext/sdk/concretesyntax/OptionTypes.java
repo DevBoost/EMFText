@@ -1796,7 +1796,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TERMINAL(180, "OVERRIDE_TERMINAL", "overrideTerminal");
+	OVERRIDE_TERMINAL(180, "OVERRIDE_TERMINAL", "overrideTerminal"), /**
+	 * The '<em><b>OVERRIDE LAYOUT INFORMATION ADAPTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAYOUT_INFORMATION_ADAPTER(181, "OVERRIDE_LAYOUT_INFORMATION_ADAPTER", "overrideLayoutInformationAdapter");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4484,6 +4492,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_TERMINAL_VALUE = 180;
 
 	/**
+	 * The '<em><b>OVERRIDE LAYOUT INFORMATION ADAPTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAYOUT INFORMATION ADAPTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAYOUT_INFORMATION_ADAPTER
+	 * @model literal="overrideLayoutInformationAdapter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE = 181;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4670,6 +4693,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER,
 			OVERRIDE_FORMATTING_ELEMENT,
 			OVERRIDE_TERMINAL,
+			OVERRIDE_LAYOUT_INFORMATION_ADAPTER,
 		};
 
 	/**
@@ -4898,6 +4922,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER_VALUE: return OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER;
 			case OVERRIDE_FORMATTING_ELEMENT_VALUE: return OVERRIDE_FORMATTING_ELEMENT;
 			case OVERRIDE_TERMINAL_VALUE: return OVERRIDE_TERMINAL;
+			case OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE: return OVERRIDE_LAYOUT_INFORMATION_ADAPTER;
 		}
 		return null;
 	}

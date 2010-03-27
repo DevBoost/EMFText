@@ -581,6 +581,7 @@
     <eLiterals name="OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER" value="178" literal="overrideDefaultHoverTextProvider"/>
     <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement"/>
     <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal"/>
+    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION_ADAPTER" value="181" literal="overrideLayoutInformationAdapter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
