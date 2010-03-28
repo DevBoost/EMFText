@@ -167,6 +167,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String pairClassName;
 	private String followSetProviderClassName;
 	private String syntaxElementClassName;
+	private String placeholderClassName;
+	private String keywordClassName;
 	private String grammarInformationClassName;
 	private String layoutInformationAdapterClassName;
 	private String layoutInformationClassName;
@@ -217,6 +219,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
 		followSetProviderClassName = getContext().getQualifiedClassName(EArtifact.FOLLOW_SET_PROVIDER);
 		syntaxElementClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
+		placeholderClassName = getContext().getQualifiedClassName(EArtifact.PLACEHOLDER);
+		keywordClassName = getContext().getQualifiedClassName(EArtifact.KEYWORD);
 		grammarInformationClassName = getContext().getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
 		layoutInformationClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
 		layoutInformationAdapterClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
@@ -675,6 +679,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addRetrieveLayoutInformationMethod(StringComposite sc) {
 		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object) {");
+		sc.add("if (!(syntaxElement instanceof " + placeholderClassName + ") && !(syntaxElement instanceof " + keywordClassName + ")) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("int currentPos = getTokenStream().index();");
 		sc.add("if (currentPos == 0) {");
 		sc.add("return;");

@@ -149,13 +149,17 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + STRING + " getHiddenTokenText(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object) {");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
+		sc.add("String hiddenTokenText = layoutInformation.getHiddenTokenText();");
 		sc.add("if (object == null) {");
-		sc.add("return layoutInformation.getHiddenTokenText();");
+		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= for \" + syntaxElement);");
+		sc.add("return hiddenTokenText;");
 		sc.add("} else if (object == layoutInformation.getObject()) {");
-		sc.add("return layoutInformation.getHiddenTokenText();");
+		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= (\" + object + \") for \" + syntaxElement);");
+		sc.add("return hiddenTokenText;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		//sc.add("System.out.println(\"getHiddenTokenText() can't find \" + object + \" for \" + syntaxElement);");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -546,7 +550,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, containment, o));");
 		sc.add("doPrint((" + E_OBJECT + ") o);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -554,13 +557,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintFormattingElementsMethod(StringComposite sc) {
 		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + STRING + " hiddenTokenText) {");
-		// TODO (a) if the element to print is at the correct printing spot (the
+		// (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
 		sc.add("if (hiddenTokenText != null) {");
 		sc.add("writer.write(hiddenTokenText);");
+		sc.add("foundFormattingElements.clear();");
 		sc.add("return;");
 		sc.add("}");
-		// (b) if whitespace of linebreak elements were found, print those
+		// (b) if Whitespace of LineBreak elements were found, print those
 		sc.add("if (foundFormattingElements.size() > 0) {");
 		sc.add("for (" + formattingElementClassName + " foundFormattingElement : foundFormattingElements) {");
 		sc.add("if (foundFormattingElement instanceof " + whiteSpaceClassName + ") {");
