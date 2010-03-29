@@ -536,21 +536,25 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeMethod(StringComposite sc) {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add(STRING + " result;");
 		sc.add(OBJECT + " attributeValue = getValue(eObject, attribute, count);");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
 		sc.add(STRING + " visibleTokenText = getVisibleTokenText(layoutInformation);");
 		sc.add("// if there is text for the attribute we use it");
 		sc.add("if (visibleTokenText != null) {");
-		sc.add("writer.write(visibleTokenText);");
+		sc.add("result = visibleTokenText;");
 		sc.add("} else {");
 		sc.add("// if no text is available, the attribute is deresolved to obtain its textual representation");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(STRING + " deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);");
-		sc.add("// write result");
-		sc.add("writer.write(deResolvedValue);");
+		sc.add("result = deResolvedValue;");
 		sc.add("}");
+		sc.add("if (result != null && !\"\".equals(result)) {");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add("}");
+		sc.add("// write result");
+		sc.add("writer.write(result);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
