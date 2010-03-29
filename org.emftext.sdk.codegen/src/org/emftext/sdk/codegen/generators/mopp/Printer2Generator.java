@@ -146,14 +146,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addGetHiddenTokenTextMethod(StringComposite sc) {
-		sc.add("private " + STRING + " getHiddenTokenText(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object) {");
+		sc.add("private " + STRING + " getHiddenTokenText(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + E_OBJECT + " container) {");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
 		sc.add("String hiddenTokenText = layoutInformation.getHiddenTokenText();");
 		sc.add("if (object == null) {");
 		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= for \" + syntaxElement);");
 		sc.add("return hiddenTokenText;");
-		sc.add("} else if (object == layoutInformation.getObject()) {");
+		sc.add("} else if (object == layoutInformation.getObject(container)) {");
 		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= (\" + object + \") for \" + syntaxElement);");
 		sc.add("return hiddenTokenText;");
 		sc.add("}");
@@ -427,7 +427,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(INTEGER + " indexToPrint = decorator.getNextIndexToPrint();");
 		sc.add("if (indexToPrint != null) {");
 		sc.add("if (printElement instanceof " + keywordClassName + ") {");
-		sc.add("printKeyword((" + keywordClassName + ") printElement, foundFormattingElements, layoutInformations);");
+		sc.add("printKeyword(eObject, (" + keywordClassName + ") printElement, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
 		sc.add("} else if (printElement instanceof " + placeholderClassName + ") {");
 		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") printElement;");
@@ -494,8 +494,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintKeywordMethod(StringComposite sc) {
-		sc.add("public void printKeyword(" + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, keyword, null));");
+		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, keyword, null, eObject));");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -517,7 +517,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " o = getValue(eObject, attribute, count);");
 
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o));");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o, eObject));");
 		sc.add("// deresolve token");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
@@ -532,7 +532,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
 
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o));");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o, eObject));");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");

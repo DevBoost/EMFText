@@ -41,8 +41,9 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private final " + syntaxElementClassName + " syntaxElement;");
-		sc.add("private final " + OBJECT + " object;");
 		sc.add("private final " + STRING + " hiddenTokenText;");
+		sc.add("private " + OBJECT + " object;");
+		sc.add("private boolean wasResolved;");
 		sc.addLineBreak();
 	}
 
@@ -70,7 +71,25 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetObjectMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getObject() {");
+		sc.add("public " + OBJECT + " getObject(" + E_OBJECT + " container) {");
+		sc.add("if (wasResolved) {");
+		sc.add("return object;");
+		sc.add("}");
+		sc.add("if (object instanceof " + INTERNAL_E_OBJECT + ") {");
+		sc.add(INTERNAL_E_OBJECT + " internalObject = (" + INTERNAL_E_OBJECT + ") object;");
+		sc.add("if (internalObject.eIsProxy()) {");
+		sc.add("if (container instanceof " + INTERNAL_E_OBJECT + ") {");
+		sc.add(INTERNAL_E_OBJECT + " internalContainer = (" + INTERNAL_E_OBJECT + ") container;");
+		sc.add(E_OBJECT + " resolvedObject = internalContainer.eResolveProxy(internalObject);");
+		sc.add("if (resolvedObject != internalObject) {");
+		sc.add("object = resolvedObject;");
+		sc.add("wasResolved = true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("wasResolved = true;");
+		sc.add("}");
 		sc.add("return object;");
 		sc.add("}");
 		sc.addLineBreak();
