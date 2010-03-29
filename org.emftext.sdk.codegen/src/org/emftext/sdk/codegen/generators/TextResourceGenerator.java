@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
@@ -68,6 +69,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	private String locationMapClassName;
 	private String iResourcePostProcessorProviderClassName;
 	private String iContextDependentURIFragmentFactoryClassName;
+	private String layoutInformationAdapterClassName;
 	
 	private boolean saveChangedResourcesOnly = false;
 
@@ -85,6 +87,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		locationMapClassName = context.getQualifiedClassName(EArtifact.LOCATION_MAP);
 		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
 		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		layoutInformationAdapterClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 	}
@@ -131,6 +134,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	addAddURIFragmentMethod(sc);
     	addRegisterContextDependentProxyMethod(sc);
     	addGetEObjectMethod(sc);
+    	addReplaceProxyInLayoutAdaptersMethod(sc);
     	addGetResultElementMethod(sc);
     	addRemoveDiagnosticsMethod(sc);
     	addAttachErrorsMethod(sc);
@@ -555,17 +559,33 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("} else if (!result.wasResolved()) {");
     	sc.add("return null;");
     	sc.add("} else {");
+    	sc.add(E_OBJECT + " proxy = uriFragment.getProxy();");
     	sc.add("//remove an error that might have been added by an earlier attempt");
-    	sc.add("removeDiagnostics(uriFragment.getProxy(), getErrors());");
+    	sc.add("removeDiagnostics(proxy, getErrors());");
     	sc.add("//remove old warnings and attach new");
-    	sc.add("removeDiagnostics(uriFragment.getProxy(), getWarnings());");
-    	sc.add("attachWarnings(result, uriFragment.getProxy());");
+    	sc.add("removeDiagnostics(proxy, getWarnings());");
+    	sc.add("attachWarnings(result, proxy);");
     	sc.add(getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping = result.getMappings().iterator().next();");
-    	sc.add("return getResultElement(uriFragment, mapping, uriFragment.getProxy(), result.getErrorMessage());");
+    	sc.add(E_OBJECT + " resultElement = getResultElement(uriFragment, mapping, proxy, result.getErrorMessage());");
+    	sc.add(E_OBJECT + " container = uriFragment.getContainer();");
+    	sc.add("replaceProxyInLayoutAdapters(container, proxy, resultElement);");
+    	sc.add("return resultElement;");
     	sc.add("}");
     	sc.add("} else {");
     	sc.add("return super.getEObject(id);");
     	sc.add("}");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addReplaceProxyInLayoutAdaptersMethod(StringComposite sc) {
+    	sc.add("protected void replaceProxyInLayoutAdapters(" + E_OBJECT + " container, " + E_OBJECT + " proxy, " + E_OBJECT + " target) {");
+		sc.add("for (" + ADAPTER + " adapter : container.eAdapters()) {");
+		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName + ") {");
+		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = (" + layoutInformationAdapterClassName + ") adapter;");
+		sc.add("layoutInformationAdapter.replaceProxy(proxy, target);");
+		sc.add("}");
+		sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
 	}

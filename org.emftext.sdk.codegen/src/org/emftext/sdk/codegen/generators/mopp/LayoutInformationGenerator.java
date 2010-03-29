@@ -1,6 +1,9 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -42,17 +45,19 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private final " + syntaxElementClassName + " syntaxElement;");
 		sc.add("private final " + STRING + " hiddenTokenText;");
+		sc.add("private final " + STRING + " visibleTokenText;");
 		sc.add("private " + OBJECT + " object;");
 		sc.add("private boolean wasResolved;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + STRING + " hiddenTokenText) {");
+		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + STRING + " hiddenTokenText, " + STRING + " visibleTokenText) {");
 		sc.add("super();");
 		sc.add("this.syntaxElement = syntaxElement;");
 		sc.add("this.object = object;");
 		sc.add("this.hiddenTokenText = hiddenTokenText;");
+		sc.add("this.visibleTokenText = visibleTokenText;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -61,6 +66,8 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		addGetSyntaxElementMethod(sc);
 		addGetObjectMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
+		addGetVisibleTokenTextMethod(sc);
+		addReplaceProxyMethod(sc);
 	}
 
 	private void addGetSyntaxElementMethod(StringComposite sc) {
@@ -75,6 +82,9 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		sc.add("if (wasResolved) {");
 		sc.add("return object;");
 		sc.add("}");
+		sc.add("// we need to try to resolve proxy objects again, because the proxy");
+		sc.add("// might have been resolve before this adapter existed, which means");
+		sc.add("// we missed the replaceProxy() notification");
 		sc.add("if (object instanceof " + INTERNAL_E_OBJECT + ") {");
 		sc.add(INTERNAL_E_OBJECT + " internalObject = (" + INTERNAL_E_OBJECT + ") object;");
 		sc.add("if (internalObject.eIsProxy()) {");
@@ -98,6 +108,22 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 	private void addGetHiddenTokenTextMethod(StringComposite sc) {
 		sc.add("public " + STRING + " getHiddenTokenText() {");
 		sc.add("return hiddenTokenText;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetVisibleTokenTextMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getVisibleTokenText() {");
+		sc.add("return visibleTokenText;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addReplaceProxyMethod(StringComposite sc) {
+		sc.add("public void replaceProxy(" + E_OBJECT + " proxy, " + E_OBJECT + " target) {");
+		sc.add("if (this.object == proxy) {");
+		sc.add("this.object = target;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

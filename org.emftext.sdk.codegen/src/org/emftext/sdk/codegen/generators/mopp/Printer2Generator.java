@@ -142,25 +142,45 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
 		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
+		addGetLayoutInformationMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
+		addGetVisibleTokenTextMethod(sc);
+	}
+
+	private void addGetLayoutInformationMethod(StringComposite sc) {
+		sc.add("private " + layoutInformationClassName + " getLayoutInformation(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + E_OBJECT + " container) {");
+		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
+		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
+		sc.add("if (object == null) {");
+		sc.add("return layoutInformation;");
+		sc.add("} else if (object == layoutInformation.getObject(container)) {");
+		sc.add("return layoutInformation;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetHiddenTokenTextMethod(StringComposite sc) {
-		sc.add("private " + STRING + " getHiddenTokenText(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + E_OBJECT + " container) {");
-		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
-		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
-		sc.add("String hiddenTokenText = layoutInformation.getHiddenTokenText();");
-		sc.add("if (object == null) {");
-		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= for \" + syntaxElement);");
-		sc.add("return hiddenTokenText;");
-		sc.add("} else if (object == layoutInformation.getObject(container)) {");
-		//sc.add("System.out.println(\"getHiddenTokenText() =>\" + hiddenTokenText + \"<= (\" + object + \") for \" + syntaxElement);");
-		sc.add("return hiddenTokenText;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		//sc.add("System.out.println(\"getHiddenTokenText() can't find \" + object + \" for \" + syntaxElement);");
+		sc.add("private " + STRING + " getHiddenTokenText(" + layoutInformationClassName + " layoutInformation) {");
+		sc.add("if (layoutInformation != null) {");
+		sc.add("return layoutInformation.getHiddenTokenText();");
+		sc.add("} else {");
 		sc.add("return null;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetVisibleTokenTextMethod(StringComposite sc) {
+		sc.add("private " + STRING + " getVisibleTokenText(" + layoutInformationClassName + " layoutInformation) {");
+		sc.add("if (layoutInformation != null) {");
+		sc.add("return layoutInformation.getVisibleTokenText();");
+		sc.add("} else {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -495,7 +515,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, keyword, null, eObject));");
+		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -515,33 +536,46 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeMethod(StringComposite sc) {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add(OBJECT + " o = getValue(eObject, attribute, count);");
-
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o, eObject));");
-		sc.add("// deresolve token");
+		sc.add(OBJECT + " attributeValue = getValue(eObject, attribute, count);");
+		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add(STRING + " visibleTokenText = getVisibleTokenText(layoutInformation);");
+		sc.add("// if there is text for the attribute we use it");
+		sc.add("if (visibleTokenText != null) {");
+		sc.add("writer.write(visibleTokenText);");
+		sc.add("} else {");
+		sc.add("// if no text is available, the attribute is deresolved to obtain its textual representation");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
-		sc.add("String deResolvedValue = tokenResolver.deResolve((" + OBJECT + ") o, attribute, eObject);");
+		sc.add(STRING + " deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);");
 		sc.add("// write result");
 		sc.add("writer.write(deResolvedValue);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPrintReferenceMethod(StringComposite sc) {
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
-
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformations, placeholder, o, eObject));");
+		sc.add(OBJECT + " referencedObject = getValue(eObject, reference, count);");
+		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
+		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add(STRING + " visibleTokenText = getVisibleTokenText(layoutInformation);");
+		sc.add("// if text for the reference is available we use it");
+		sc.add("if (visibleTokenText != null) {");
+		sc.add("writer.write(visibleTokenText);");
+		sc.add("} else {");
+		sc.add("// if no text for the reference is available we must deresolve the reference");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
 		
-		sc.add(STRING + " deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") o, eObject, reference);");
+		sc.add(STRING + " deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") referencedObject, eObject, reference);");
 		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.add("// write result");
 		sc.add("writer.write(deresolvedToken);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

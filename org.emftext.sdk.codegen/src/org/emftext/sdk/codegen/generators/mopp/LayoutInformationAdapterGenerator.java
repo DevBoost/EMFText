@@ -45,6 +45,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		addSetTargetMethod(sc);
 		addGetLayoutInformationsMethod(sc);
 		addAddLayoutInformationMethod(sc);
+		addReplaceProxyMethod(sc);
 	}
 
 	private void addFields(StringComposite sc) {
@@ -90,6 +91,15 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 	private void addAddLayoutInformationMethod(StringComposite sc) {
 		sc.add("public void addLayoutInformation(" + layoutInformationClassName + " layoutInformation) {");
 		sc.add("layoutInformations.add(layoutInformation);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addReplaceProxyMethod(StringComposite sc) {
+		sc.add("public void replaceProxy(" + E_OBJECT + " proxy, " + E_OBJECT + " target) {");
+		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
+		sc.add("layoutInformation.replaceProxy(proxy, target);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
