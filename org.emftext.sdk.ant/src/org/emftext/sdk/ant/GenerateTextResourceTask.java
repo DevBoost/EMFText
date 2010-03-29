@@ -55,6 +55,7 @@ public class GenerateTextResourceTask extends Task {
 	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
 	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
 	private SyntaxProcessor preprocessor;
+	private boolean generateANTLRPlugin;
 	
 	@Override
 	public void execute() throws BuildException {
@@ -75,7 +76,7 @@ public class GenerateTextResourceTask extends Task {
 			
 			Result result = new AntResourcePluginGenerator().run(
 					syntax, 
-					new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this)), 
+					new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this), generateANTLRPlugin), 
 					new AntLogMarker(this), 
 					new AntDelegateProgressMonitor(this)
 			);
@@ -149,7 +150,9 @@ public class GenerateTextResourceTask extends Task {
 		}
 	}
 	
-
+	public void setGenerateANTLRPlugin(boolean generateANTLRPlugin) {
+		this.generateANTLRPlugin = generateANTLRPlugin;
+	}
 
 	public void setSyntax(File syntaxFile) {
 		this.syntaxFile = syntaxFile;

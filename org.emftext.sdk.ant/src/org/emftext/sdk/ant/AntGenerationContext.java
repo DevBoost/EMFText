@@ -29,15 +29,18 @@ public class AntGenerationContext extends GenerationContext {
 
 	private File workspaceRootFolder;
 	private String syntaxProjectName;
+	private boolean generateANTLRPlugin;
 
 	public AntGenerationContext(
 			ConcreteSyntax concreteSyntax,
 			File workspaceRootFolder,
 			String syntaxProjectName,
-			IProblemCollector problemCollector) {
+			IProblemCollector problemCollector,
+			boolean generateANTLRPlugin) {
 		super(concreteSyntax, problemCollector);
 		this.workspaceRootFolder = workspaceRootFolder;
 		this.syntaxProjectName = syntaxProjectName;
+		this.generateANTLRPlugin = generateANTLRPlugin;
 	}
 
 	public File getProjectFolder(EPlugins plugin) {
@@ -54,5 +57,10 @@ public class AntGenerationContext extends GenerationContext {
 		String syntaxFilePath = getConcreteSyntaxFile().getAbsolutePath();
 		String syntaxPluginFolderPath = workspaceRootFolder.getAbsolutePath() + File.separator + getSyntaxProjectName() + File.separator;
 		return syntaxFilePath.substring(syntaxPluginFolderPath.length()).replace(File.separator, "/");
+	}
+
+	@Override
+	public boolean getGenerateANTLRPlugin() {
+		return generateANTLRPlugin;
 	}
 }

@@ -79,4 +79,9 @@ public class UIGenerationContext extends GenerationContext {
 	private IFile getWorkspaceFile() {
 		return (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(getConcreteSyntax().eResource().getURI().toPlatformString(true));
 	}
+
+	@Override
+	public boolean getGenerateANTLRPlugin() {
+		return true;
+	}
 }

@@ -103,16 +103,20 @@ public abstract class PluginsCreator {
 		
 		// create the project for the plug-ins
 		createProject(context, progress, EPlugins.RESOURCE_PLUGIN);
-		createProject(context, progress, EPlugins.ANTLR_PLUGIN);
+		if (context.getGenerateANTLRPlugin()) {
+			createProject(context, progress, EPlugins.ANTLR_PLUGIN);
+		}
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
 		ResourcePluginContentCreator pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
 
-		// generate the resource class, parser, and printer
-		ANTLRPluginContentCreator antlrPluginGenerator = new ANTLRPluginContentCreator();
-		antlrPluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_ANTLR_PLUGIN));
+		if (context.getGenerateANTLRPlugin()) {
+			// generate the ANTLR commons plug-in
+			ANTLRPluginContentCreator antlrPluginGenerator = new ANTLRPluginContentCreator();
+			antlrPluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_ANTLR_PLUGIN));
+		}
 
 		// errors from parser generator?
 		if (ResourceUtil.containsProblems(csResource)) {

@@ -390,4 +390,12 @@ public abstract class GenerationContext {
 	public Map<GenFeature, String> getFeatureToConstantNameMap() {
 		return eFeatureToConstantNameMap;
 	}
+
+	/**
+	 * The result of this method indicates whether generating 
+	 * the ANTLR commons plug-in is required or not.
+	 * 
+	 * @return
+	 */
+	public abstract boolean getGenerateANTLRPlugin();
 }
