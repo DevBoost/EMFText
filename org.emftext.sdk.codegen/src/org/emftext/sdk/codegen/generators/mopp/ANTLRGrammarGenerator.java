@@ -1825,7 +1825,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					}
 					
 					resolvements.add("collectHiddenTokens(element);");
-					resolvements.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(placeholder) + ", " + proxyIdent + ");");
 					resolvements
 							.add("registerContextDependentProxy(new "
 									+ contextDependentURIFragmentFactoryClassName
