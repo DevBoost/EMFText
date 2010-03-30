@@ -564,12 +564,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(OBJECT + " referencedObject = getValue(eObject, reference, count);");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
-		sc.add(STRING + " visibleTokenText = getVisibleTokenText(layoutInformation);");
-		sc.add("// if text for the reference is available we use it");
-		sc.add("if (visibleTokenText != null) {");
-		sc.add("writer.write(visibleTokenText);");
-		sc.add("} else {");
-		sc.add("// if no text for the reference is available we must deresolve the reference");
+		sc.add("// nc-references must always be printed by deresolving the reference");
+		sc.add("// we cannot use the visible token information, because deresolving");
+		sc.add("// usually depends on attribute of the reference object instead of the");
+		sc.add("// object itself");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
@@ -579,7 +577,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.add("// write result");
 		sc.add("writer.write(deresolvedToken);");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -600,6 +597,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (hiddenTokenText != null) {");
 		sc.add("writer.write(hiddenTokenText);");
 		sc.add("foundFormattingElements.clear();");
+		sc.add("startedPrintingElement = false;");
 		sc.add("return;");
 		sc.add("}");
 		// (b) if Whitespace of LineBreak elements were found, print those
@@ -620,6 +618,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("foundFormattingElements.clear();");
+		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
 		// (c) if not, print default token space
 		sc.add("if (startedPrintingElement) {");
