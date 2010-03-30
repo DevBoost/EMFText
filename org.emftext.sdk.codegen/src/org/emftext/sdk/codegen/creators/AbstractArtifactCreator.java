@@ -61,12 +61,19 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 			boolean doSave = !exists || doOverride;
 		    if (doSave) {
 		    	try {
-					StreamUtil.setContentIfChanged(targetFile, artifact.getContentStream());
+					boolean changed = StreamUtil.setContentIfChanged(targetFile, artifact.getContentStream());
+					if (changed) {
+						notifyArtifactChanged(context);
+					}
 				} catch (IOException e) {
 					context.getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
 				}
 		    }
 		}
+	}
+
+	public void notifyArtifactChanged(GenerationContext context) {
+		// do nothing. sub classes override this method.
 	}
 
 	public abstract Collection<IArtifact> getArtifactsToCreate(GenerationContext context);

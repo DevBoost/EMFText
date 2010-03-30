@@ -46,7 +46,7 @@ public class StreamUtil {
 		return content.toString();
 	}
 
-	public static void setContentIfChanged(File target, InputStream in) throws IOException {
+	public static boolean setContentIfChanged(File target, InputStream in) throws IOException {
 		target.getParentFile().mkdirs();
 		long currentSize = target.length();
 		if (!target.exists()) {
@@ -61,14 +61,17 @@ public class StreamUtil {
 		
 		if (newSize != currentSize) {
 			writeBuffer(target, newContent);
+			return true;
 		} else {
 			// size is equal, check content
 			byte[] currentContent = getContent(target);
 			boolean contentIsEqual = Arrays.equals(currentContent, newContent);
 			if (contentIsEqual) {
 				// do nothing - the new content is the same as the old one
+				return false;
 			} else {
 				writeBuffer(target, newContent);
+				return true;
 			}
 		}
 	}

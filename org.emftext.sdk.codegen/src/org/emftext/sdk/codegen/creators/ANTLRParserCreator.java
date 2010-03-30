@@ -28,10 +28,12 @@ import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 public class ANTLRParserCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {
-		File antlrFile = context.getANTLRGrammarFile();
-        ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
-        Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getParentFile().getAbsolutePath(), antlrFile.getAbsolutePath()});
-        antlrTool.process();
+		if (context.getANTLRGrammarHasChanged()) {
+			File antlrFile = context.getANTLRGrammarFile();
+        	ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
+        	Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getParentFile().getAbsolutePath(), antlrFile.getAbsolutePath()});
+        	antlrTool.process();
+		}
 	}
 
 	public String getArtifactDescription() {

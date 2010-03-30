@@ -41,6 +41,11 @@ public class ANTLRGrammarCreator extends AbstractArtifactCreator {
 	    );
 	}
 
+	public void notifyArtifactChanged(GenerationContext context) {
+		super.notifyArtifactChanged(context);
+		context.setANTLRGrammarHasChanged();
+	}
+
 	public OptionTypes getOverrideOption() {
 		return OptionTypes.OVERRIDE_PARSER;
 	}

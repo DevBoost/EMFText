@@ -73,6 +73,7 @@ public abstract class GenerationContext {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String licenceText;
+	private boolean antlrGrammarHasChanged;
 	
 	/**
 	 * A counter that is used to indicate the next free id in 'idMap'.
@@ -95,7 +96,7 @@ public abstract class GenerationContext {
 
 	private int featureCounter = 0;
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
-	
+
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
@@ -398,4 +399,12 @@ public abstract class GenerationContext {
 	 * @return
 	 */
 	public abstract boolean getGenerateANTLRPlugin();
+
+	public void setANTLRGrammarHasChanged() {
+		antlrGrammarHasChanged = true;
+	}
+
+	public boolean getANTLRGrammarHasChanged() {
+		return antlrGrammarHasChanged;
+	}
 }
