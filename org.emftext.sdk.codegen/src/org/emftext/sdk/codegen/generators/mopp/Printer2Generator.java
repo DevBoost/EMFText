@@ -356,7 +356,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		sc.add("public void " + getMethodName(rule) + "(" + getMetaClassName(rule) + " eObject) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
-		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = layoutInformationAdapter.getLayoutInformations();");
+		sc.add(LIST + "<" + layoutInformationClassName + "> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();");
+		sc.add("// we create a copy of the original list of layout information object in order");
+		sc.add("// to be able to remove used informations");
+		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST + "<" + layoutInformationClassName+ ">(originalLayoutInformations.size());");
+		sc.add("layoutInformations.addAll(originalLayoutInformations);");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 		sc.add("decorateTree(decoratorTree, eObject);");
 		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">(), layoutInformations);");
@@ -516,7 +520,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("writer.write(keyword.getValue());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -551,7 +555,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("result = deResolvedValue;");
 		sc.add("}");
 		sc.add("if (result != null && !\"\".equals(result)) {");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("}");
 		sc.add("// write result");
 		sc.add("writer.write(result);");
@@ -563,7 +567,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " referencedObject = getValue(eObject, reference, count);");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, getHiddenTokenText(layoutInformation));");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("// nc-references must always be printed by deresolving the reference");
 		sc.add("// we cannot use the visible token information, because deresolving");
 		sc.add("// usually depends on attribute of the reference object instead of the");
@@ -591,10 +595,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintFormattingElementsMethod(StringComposite sc) {
-		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + STRING + " hiddenTokenText) {");
+		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + layoutInformationClassName + " layoutInformation) {");
 		// (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
+		sc.add(STRING + " hiddenTokenText = getHiddenTokenText(layoutInformation);");
 		sc.add("if (hiddenTokenText != null) {");
+		sc.add("// removed used information");
+		sc.add("layoutInformations.remove(layoutInformation);");
 		sc.add("writer.write(hiddenTokenText);");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingElement = false;");
