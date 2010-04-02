@@ -23,7 +23,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	private java.util.Map<?, ?> options;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean startedPrintingElement = false;
-	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>();
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -32,7 +31,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
-		foundFormattingElements.clear();
 		doPrint(element);
 		writer.flush();
 	}
@@ -155,159 +153,315 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Import(org.emftext.sdk.concretesyntax.Import eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Option(org.emftext.sdk.concretesyntax.Option eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Rule(org.emftext.sdk.concretesyntax.Rule eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Sequence(org.emftext.sdk.concretesyntax.Sequence eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_4);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Choice(org.emftext.sdk.concretesyntax.Choice eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_CsString(org.emftext.sdk.concretesyntax.CsString eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_6);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken(org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken(org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderInQuotes(org.emftext.sdk.concretesyntax.PlaceholderInQuotes eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Containment(org.emftext.sdk.concretesyntax.Containment eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_CompoundDefinition(org.emftext.sdk.concretesyntax.CompoundDefinition eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_WhiteSpaces(org.emftext.sdk.concretesyntax.WhiteSpaces eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_LineBreak(org.emftext.sdk.concretesyntax.LineBreak eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_NormalTokenDefinition(org.emftext.sdk.concretesyntax.NormalTokenDefinition eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_TokenPriorityDirective(org.emftext.sdk.concretesyntax.TokenPriorityDirective eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_16);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_AtomicRegex(org.emftext.sdk.concretesyntax.AtomicRegex eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_RegexReference(org.emftext.sdk.concretesyntax.RegexReference eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PLUS(org.emftext.sdk.concretesyntax.PLUS eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_STAR(org.emftext.sdk.concretesyntax.STAR eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_QUESTIONMARK(org.emftext.sdk.concretesyntax.QUESTIONMARK eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_21);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Abstract(org.emftext.sdk.concretesyntax.Abstract eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_TokenStyle(org.emftext.sdk.concretesyntax.TokenStyle eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Annotation(org.emftext.sdk.concretesyntax.Annotation eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_KeyValuePair(org.emftext.sdk.concretesyntax.KeyValuePair eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
+		// we create a copy of the original list of layout information object in order
+		// to be able to remove used informations
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation>(originalLayoutInformations.size());
+		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject);
+		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
 	}
 	
 	// creates a tree of decorator objects which reflects the syntax tree that is
@@ -340,25 +494,17 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		boolean foundFeatureToPrint = false;
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = decorator.getDecoratedElement();
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality = syntaxElement.getCardinality();
+		boolean isFirstIteration = true;
 		while (true) {
 			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator> subKeywordsToPrint = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator>();
 			boolean keepDecorating = false;
 			if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) {
 				subKeywordsToPrint.add(decorator);
-			} else if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) {
-				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) syntaxElement;
-				org.eclipse.emf.ecore.EStructuralFeature feature = placeholder.getFeature();
+			} else if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) {
+				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) syntaxElement;
+				org.eclipse.emf.ecore.EStructuralFeature feature = terminal.getFeature();
 				int countLeft = printCountingMap.get(feature.getName());
-				if (countLeft > 0) {
-					decorator.addIndexToPrint(countLeft);
-					printCountingMap.put(feature.getName(), countLeft - 1);
-					keepDecorating = true;
-				}
-			} else if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {
-				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) syntaxElement;
-				org.eclipse.emf.ecore.EStructuralFeature feature = containment.getFeature();
-				int countLeft = printCountingMap.get(feature.getName());
-				if (countLeft > 0) {
+				if (countLeft > terminal.getMandatoryOccurencesAfter()) {
 					decorator.addIndexToPrint(countLeft);
 					printCountingMap.put(feature.getName(), countLeft - 1);
 					keepDecorating = true;
@@ -372,8 +518,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			}
 			foundFeatureToPrint |= keepDecorating;
 			// we only print keywords if a feature was printed or the syntax element in mandatory
-			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.PLUS) {
+			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE) {
 				keywordsToPrint.addAll(subKeywordsToPrint);
+			} else if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.PLUS) {
+				if (isFirstIteration) {
+					keywordsToPrint.addAll(subKeywordsToPrint);
+				} else {
+					if (keepDecorating) {
+						keywordsToPrint.addAll(subKeywordsToPrint);
+					}
+				}
 			} else if (keepDecorating && (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.STAR || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK)) {
 				keywordsToPrint.addAll(subKeywordsToPrint);
 			}
@@ -382,32 +536,37 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			} else if (!keepDecorating) {
 				break;
 			}
+			isFirstIteration = false;
 		}
 		return foundFeatureToPrint;
 	}
 	
-	public boolean printTree(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject) {
+	public boolean printTree(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement printElement = decorator.getDecoratedElement();
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality = printElement.getCardinality();
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> cloned = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>();
+		cloned.addAll(foundFormattingElements);
+		boolean foundSomethingAtAll = false;
 		boolean foundSomethingToPrint;
 		while (true) {
 			foundSomethingToPrint = false;
 			java.lang.Integer indexToPrint = decorator.getNextIndexToPrint();
 			if (indexToPrint != null) {
 				if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) {
-					printKeyword((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) printElement, foundFormattingElements);
+					printKeyword(eObject, (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) printElement, foundFormattingElements, layoutInformations);
 					foundSomethingToPrint = true;
 				} else if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) {
 					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) printElement;
-					org.eclipse.emf.ecore.EStructuralFeature feature = placeholder.getFeature();
-					printFeature(eObject, feature, placeholder.getTokenName(), indexToPrint, foundFormattingElements);
+					printFeature(eObject, placeholder, indexToPrint, foundFormattingElements, layoutInformations);
 					foundSomethingToPrint = true;
 				} else if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {
 					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) printElement;
-					org.eclipse.emf.ecore.EStructuralFeature feature = containment.getFeature();
-					printContainedObject(eObject, feature, indexToPrint, foundFormattingElements);
+					printContainedObject(eObject, containment, indexToPrint, foundFormattingElements, layoutInformations);
 					foundSomethingToPrint = true;
 				}
+			}
+			if (foundSomethingToPrint) {
+				foundSomethingAtAll = true;
 			}
 			if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
 				foundFormattingElements.add((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) printElement);
@@ -416,7 +575,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				foundFormattingElements.add((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) printElement);
 			}
 			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
-				foundSomethingToPrint |= printTree(childDecorator, eObject);
+				foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements, layoutInformations);
 			}
 			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK) {
 				break;
@@ -424,40 +583,67 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				break;
 			}
 		}
+		// we only print formatting elements if a feature was printed or the syntax element in mandatory
+		if (!foundSomethingAtAll && (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.STAR || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK)) {
+			foundFormattingElements.clear();
+			foundFormattingElements.addAll(cloned);
+		}
 		return foundSomethingToPrint;
 	}
 	
-	public void printKeyword(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
-		printFormattingElements(foundFormattingElements);
+	public void printKeyword(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);
+		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
 		writer.write(keyword.getValue());
 	}
 	
-	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, java.lang.String tokenName, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
-		printFormattingElements(foundFormattingElements);
+	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		org.eclipse.emf.ecore.EStructuralFeature feature = placeholder.getFeature();
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
-			printAttribute(eObject, (org.eclipse.emf.ecore.EAttribute) feature, tokenName, count);
+			printAttribute(eObject, (org.eclipse.emf.ecore.EAttribute) feature, placeholder, count, foundFormattingElements, layoutInformations);
 		} else {
-			printReference(eObject, (org.eclipse.emf.ecore.EReference) feature, tokenName, count);
+			printReference(eObject, (org.eclipse.emf.ecore.EReference) feature, placeholder, count, foundFormattingElements, layoutInformations);
 		}
 	}
 	
-	public void printAttribute(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EAttribute attribute, String tokenName, int count) {
-		java.lang.Object o = getValue(eObject, attribute, count);
-		// deresolve token
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
-		tokenResolver.setOptions(getOptions());
-		String deResolvedValue = tokenResolver.deResolve((java.lang.Object) o, attribute, eObject);
+	public void printAttribute(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EAttribute attribute, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		java.lang.String result;
+		java.lang.Object attributeValue = getValue(eObject, attribute, count);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);
+		java.lang.String visibleTokenText = getVisibleTokenText(layoutInformation);
+		// if there is text for the attribute we use it
+		if (visibleTokenText != null) {
+			result = visibleTokenText;
+		} else {
+			// if no text is available, the attribute is deresolved to obtain its textual representation
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());
+			tokenResolver.setOptions(getOptions());
+			java.lang.String deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);
+			result = deResolvedValue;
+		}
+		if (result != null && !"".equals(result)) {
+			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		}
 		// write result
-		writer.write(deResolvedValue);
+		writer.write(result);
 	}
 	
-	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature reference, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
-		printFormattingElements(foundFormattingElements);
+	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		org.eclipse.emf.ecore.EStructuralFeature reference = containment.getFeature();
 		java.lang.Object o = getValue(eObject, reference, count);
 		doPrint((org.eclipse.emf.ecore.EObject) o);
 	}
 	
-	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
+	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
+		java.lang.String hiddenTokenText = getHiddenTokenText(layoutInformation);
+		if (hiddenTokenText != null) {
+			// removed used information
+			layoutInformations.remove(layoutInformation);
+			writer.write(hiddenTokenText);
+			foundFormattingElements.clear();
+			startedPrintingElement = false;
+			return;
+		}
 		if (foundFormattingElements.size() > 0) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement foundFormattingElement : foundFormattingElements) {
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
@@ -475,6 +661,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				}
 			}
 			foundFormattingElements.clear();
+			startedPrintingElement = false;
 		} else {
 			if (startedPrintingElement) {
 				startedPrintingElement = false;
@@ -495,13 +682,19 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		return o;
 	}
 	
-	public void printReference(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EReference reference, String tokenName, int count) {
-		java.lang.Object o = getValue(eObject, reference, count);
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
+	public void printReference(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EReference reference, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		java.lang.Object referencedObject = getValue(eObject, reference, count);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
+		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		// nc-references must always be printed by deresolving the reference
+		// we cannot use the visible token information, because deresolving
+		// usually depends on attribute of the reference object instead of the
+		// object itself
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());
 		tokenResolver.setOptions(getOptions());
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver referenceResolver = getReferenceResolverSwitch().getResolver(reference);
 		referenceResolver.setOptions(getOptions());
-		java.lang.String deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) o, eObject, reference);
+		java.lang.String deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) referencedObject, eObject, reference);
 		java.lang.String deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);
 		// write result
 		writer.write(deresolvedToken);
@@ -553,6 +746,46 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			return;
 		}
 		resource.addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), cause);
+	}
+	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter getLayoutInformationAdapter(org.eclipse.emf.ecore.EObject element) {
+		for (org.eclipse.emf.common.notify.Adapter adapter : element.eAdapters()) {
+			if (adapter instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) {
+				return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) adapter;
+			}
+		}
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter newAdapter = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter();
+		element.eAdapters().add(newAdapter);
+		return newAdapter;
+	}
+	
+	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation getLayoutInformation(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, java.lang.Object object, org.eclipse.emf.ecore.EObject container) {
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation : layoutInformations) {
+			if (syntaxElement == layoutInformation.getSyntaxElement()) {
+				if (object == null) {
+					return layoutInformation;
+				} else if (object == layoutInformation.getObject(container)) {
+					return layoutInformation;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private java.lang.String getHiddenTokenText(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
+		if (layoutInformation != null) {
+			return layoutInformation.getHiddenTokenText();
+		} else {
+			return null;
+		}
+	}
+	
+	private java.lang.String getVisibleTokenText(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
+		if (layoutInformation != null) {
+			return layoutInformation.getVisibleTokenText();
+		} else {
+			return null;
+		}
 	}
 	
 }

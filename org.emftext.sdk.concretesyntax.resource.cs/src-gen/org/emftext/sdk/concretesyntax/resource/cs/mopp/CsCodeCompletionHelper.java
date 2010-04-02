@@ -198,14 +198,14 @@ public class CsCodeCompletionHelper {
 						// the FOLLOW set should contain only non-containment references
 						assert false;
 					} else {
-						return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix());
+						return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName());
 					}
 				}
 			} else if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
 				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
 				if (featureType instanceof org.eclipse.emf.ecore.EEnum) {
 					org.eclipse.emf.ecore.EEnum enumType = (org.eclipse.emf.ecore.EEnum) featureType;
-					return deriveProposals(expectedTerminal, enumType, content, cursorOffset);
+					return handleEnumAttribute(metaInformation, expectedFeature, enumType, expectedTerminal.getPrefix(), container);
 				} else {
 					// handle EAttributes (derive default value depending on
 					// the type of the attribute, figure out token resolver, and
@@ -223,40 +223,47 @@ public class CsCodeCompletionHelper {
 		return java.util.Collections.emptyList();
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement, org.eclipse.emf.ecore.EEnum enumType, String content, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleEnumAttribute(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EEnum enumType, String prefix, org.eclipse.emf.ecore.EObject container) {
 		java.util.Collection<org.eclipse.emf.ecore.EEnumLiteral> enumLiterals = enumType.getELiterals();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 		for (org.eclipse.emf.ecore.EEnumLiteral literal : enumLiterals) {
-			String proposal = literal.getLiteral();
-			String prefix = expectedElement.getPrefix();
-			if (matches(proposal, prefix)) {
-				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(proposal, prefix, !"".equals(prefix), true));
+			String unResolvedLiteral = literal.getLiteral();
+			// use token resolver to get de-resolved value of the literal
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = metaInformation.getTokenResolverFactory();
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());
+			String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);
+			if (matches(resolvedLiteral, prefix)) {
+				result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(resolvedLiteral, prefix, !"".equals(prefix), true));
 			}
 		}
 		return result;
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix, java.lang.String tokenName) {
 		// proposals for non-containment references are derived by calling the
 		// reference resolver switch in fuzzy mode.
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = metaInformation.getTokenResolverFactory();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EObject> result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolveResult<org.eclipse.emf.ecore.EObject>(true);
 		resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject>> mappings = result.getMappings();
 		if (mappings != null) {
 			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<org.eclipse.emf.ecore.EObject> mapping : mappings) {
-				final String identifier = mapping.getIdentifier();
 				org.eclipse.swt.graphics.Image image = null;
 				if (mapping instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) {
-					java.lang.Object target =((org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) mapping).getTargetElement();
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?> elementMapping = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) mapping;
+					java.lang.Object target = elementMapping.getTargetElement();
+					// de-resolve reference to obtain correct identifier
+					org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
+					final String identifier = tokenResolver.deResolve(elementMapping.getIdentifier(), reference, container);
 					if (target instanceof org.eclipse.emf.ecore.EObject) {
 						image = getImage((org.eclipse.emf.ecore.EObject) target);
 					}
-				}
-				// check the prefix. return only matching references
-				if (matches(identifier, prefix)) {
-					resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, prefix, true, true, image));
+					// check the prefix. return only matching references
+					if (matches(identifier, prefix)) {
+						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCompletionProposal(identifier, prefix, true, true, image));
+					}
 				}
 			}
 			return resultSet;
@@ -342,6 +349,9 @@ public class CsCodeCompletionHelper {
 	}
 	
 	public org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.EObject element) {
+		if (!org.eclipse.core.runtime.Platform.isRunning()) {
+			return null;
+		}
 		org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory = new org.eclipse.emf.edit.provider.ComposedAdapterFactory(org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory());

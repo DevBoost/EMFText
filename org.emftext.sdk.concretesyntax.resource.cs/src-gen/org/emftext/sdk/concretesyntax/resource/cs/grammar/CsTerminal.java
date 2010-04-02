@@ -14,9 +14,23 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-public class CsContainment extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
+public class CsTerminal extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
-		super(feature, cardinality, mandatoryOccurencesAfter);
+	private final org.eclipse.emf.ecore.EStructuralFeature feature;
+	private final int mandatoryOccurencesAfter;
+	
+	public CsTerminal(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
+		super(cardinality, null);
+		this.feature = feature;
+		this.mandatoryOccurencesAfter = mandatoryOccurencesAfter;
 	}
+	
+	public org.eclipse.emf.ecore.EStructuralFeature getFeature() {
+		return feature;
+	}
+	
+	public int getMandatoryOccurencesAfter() {
+		return mandatoryOccurencesAfter;
+	}
+	
 }

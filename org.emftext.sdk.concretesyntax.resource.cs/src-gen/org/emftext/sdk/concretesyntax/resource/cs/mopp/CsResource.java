@@ -253,16 +253,29 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} else if (!result.wasResolved()) {
 				return null;
 			} else {
+				org.eclipse.emf.ecore.EObject proxy = uriFragment.getProxy();
 				//remove an error that might have been added by an earlier attempt
-				removeDiagnostics(uriFragment.getProxy(), getErrors());
+				removeDiagnostics(proxy, getErrors());
 				//remove old warnings and attach new
-				removeDiagnostics(uriFragment.getProxy(), getWarnings());
-				attachWarnings(result, uriFragment.getProxy());
+				removeDiagnostics(proxy, getWarnings());
+				attachWarnings(result, proxy);
 				org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping = result.getMappings().iterator().next();
-				return getResultElement(uriFragment, mapping, uriFragment.getProxy(), result.getErrorMessage());
+				org.eclipse.emf.ecore.EObject resultElement = getResultElement(uriFragment, mapping, proxy, result.getErrorMessage());
+				org.eclipse.emf.ecore.EObject container = uriFragment.getContainer();
+				replaceProxyInLayoutAdapters(container, proxy, resultElement);
+				return resultElement;
 			}
 		} else {
 			return super.getEObject(id);
+		}
+	}
+	
+	protected void replaceProxyInLayoutAdapters(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject proxy, org.eclipse.emf.ecore.EObject target) {
+		for (org.eclipse.emf.common.notify.Adapter adapter : container.eAdapters()) {
+			if (adapter instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) {
+				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) adapter;
+				layoutInformationAdapter.replaceProxy(proxy, target);
+			}
 		}
 	}
 	

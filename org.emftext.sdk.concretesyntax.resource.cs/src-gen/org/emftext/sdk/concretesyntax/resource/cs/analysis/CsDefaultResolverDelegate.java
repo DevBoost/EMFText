@@ -68,11 +68,14 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				}
 			}
 			if (isURI(identifier)) {
-				org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), identifier);
-				if (element == null) {
-					return;
+				org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
+				if (resource != null) {
+					org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), identifier);
+					if (element == null) {
+						return;
+					}
+					checkElement(element, type, identifier, resolveFuzzy, false, result);
 				}
-				checkElement(element, type, identifier, resolveFuzzy, false, result);
 			}
 		} catch (java.lang.RuntimeException rte) {
 			// catch exception here to prevent EMF proxy resolution from swallowing it
@@ -222,11 +225,15 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, java.lang.String uriString) {
-		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriString);
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
-		org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
-		if (contents.size() > 0) {
-			return contents.get(0);
+		try {
+			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriString);
+			org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
+			org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
+			if (contents.size() > 0) {
+				return contents.get(0);
+			}
+		} catch (java.lang.RuntimeException re) {
+			// do nothing here. if no resource can be loaded the uriString is probably not a valid resource URI
 		}
 		return null;
 	}
