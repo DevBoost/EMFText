@@ -1767,7 +1767,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				}
 
 				printTerminalAction(terminal, rule, sc, internalIdent, proxyIdent, internalIdent,
-						resolvements, null, false);
+						resolvements, null, true);
 
 				internalCount++;
 			}
