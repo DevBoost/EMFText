@@ -583,6 +583,7 @@
     <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal"/>
     <eLiterals name="OVERRIDE_LAYOUT_INFORMATION_ADAPTER" value="181" literal="overrideLayoutInformationAdapter"/>
     <eLiterals name="OVERRIDE_LAYOUT_INFORMATION" value="182" literal="overrideLayoutInformation"/>
+    <eLiterals name="USE_CLASSIC_PRINTER" value="183" literal="useClassicPrinter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

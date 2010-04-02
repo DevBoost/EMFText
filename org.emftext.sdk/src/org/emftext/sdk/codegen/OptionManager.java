@@ -74,6 +74,9 @@ public class OptionManager {
 	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
+		if (option == OptionTypes.USE_CLASSIC_PRINTER) {
+			return true;
+		}
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}

@@ -36,6 +36,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	
 	public OptionsAnalyser() {
 		BOOLEAN_OPTIONS = new ArrayList<OptionTypes>();
+		BOOLEAN_OPTIONS.add(OptionTypes.USE_CLASSIC_PRINTER);
 		BOOLEAN_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
 		BOOLEAN_OPTIONS.add(OptionTypes.FORCE_EOF);
 		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);

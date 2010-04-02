@@ -25,6 +25,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class MetaInformationGenerator extends JavaBaseGenerator {
 
@@ -219,9 +220,15 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreatePrinterMethod(StringComposite sc) {
-		String printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER);
+		String printerClassName;
+		boolean useClassicPrinter = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.USE_CLASSIC_PRINTER);
 
 		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		if (useClassicPrinter) {
+			printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER);
+		} else {
+			printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER2);
+		}
 		sc.add("return new " + printerClassName + "(outputStream, resource);");
 		sc.add("}");
         sc.addLineBreak();

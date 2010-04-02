@@ -1812,7 +1812,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LAYOUT_INFORMATION(182, "OVERRIDE_LAYOUT_INFORMATION", "overrideLayoutInformation");
+	OVERRIDE_LAYOUT_INFORMATION(182, "OVERRIDE_LAYOUT_INFORMATION", "overrideLayoutInformation"), /**
+	 * The '<em><b>USE CLASSIC PRINTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #USE_CLASSIC_PRINTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	USE_CLASSIC_PRINTER(183, "USE_CLASSIC_PRINTER", "useClassicPrinter");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4530,6 +4538,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_LAYOUT_INFORMATION_VALUE = 182;
 
 	/**
+	 * The '<em><b>USE CLASSIC PRINTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>USE CLASSIC PRINTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #USE_CLASSIC_PRINTER
+	 * @model literal="useClassicPrinter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int USE_CLASSIC_PRINTER_VALUE = 183;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4718,6 +4741,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TERMINAL,
 			OVERRIDE_LAYOUT_INFORMATION_ADAPTER,
 			OVERRIDE_LAYOUT_INFORMATION,
+			USE_CLASSIC_PRINTER,
 		};
 
 	/**
@@ -4948,6 +4972,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TERMINAL_VALUE: return OVERRIDE_TERMINAL;
 			case OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE: return OVERRIDE_LAYOUT_INFORMATION_ADAPTER;
 			case OVERRIDE_LAYOUT_INFORMATION_VALUE: return OVERRIDE_LAYOUT_INFORMATION;
+			case USE_CLASSIC_PRINTER_VALUE: return USE_CLASSIC_PRINTER;
 		}
 		return null;
 	}
