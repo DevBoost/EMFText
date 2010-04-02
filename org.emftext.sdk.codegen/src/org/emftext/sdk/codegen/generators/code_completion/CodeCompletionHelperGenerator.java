@@ -36,6 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
+import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -129,7 +130,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		addFindPrefixMethod(sc);
 		addDeriveProposalsMethod1(sc);
 		addDeriveProposalsMethod2(sc);
-		addDeriveProposalsMethod4(sc);
+		addHandleEnumAttributeMethod(sc);
 		addHandleNCReferenceMethod(sc);
 		addHandleAttributeMethod(sc);
 		addDeriveProposalMethod1(sc);
@@ -142,6 +143,9 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private void addGetImageMethod(StringComposite sc) {
 		sc.add("public " + IMAGE + " getImage(" + E_OBJECT + " element) {");
+		sc.add("if (!" + PLATFORM + ".isRunning()) {");
+		sc.add("return null;");
+		sc.add("}");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
 		sc.add(ADAPTER_FACTORY_LABEL_PROVIDER + " labelProvider = new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory);");
 		sc.add("return labelProvider.getImage(element);");
@@ -201,15 +205,18 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDeriveProposalsMethod4(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + expectedTerminalClassName + " expectedElement, " + E_ENUM + " enumType, String content, int cursorOffset) {");
+	private void addHandleEnumAttributeMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleEnumAttribute(" + iMetaInformationClassName + " metaInformation, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_ENUM + " enumType, String prefix, " + E_OBJECT + " container) {");
 		sc.add(COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
-		sc.add("String proposal = literal.getLiteral();");
-		sc.add("String prefix = expectedElement.getPrefix();");
-		sc.add("if (matches(proposal, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), true));");
+		sc.add("String unResolvedLiteral = literal.getLiteral();");
+		sc.add("// use token resolver to get de-resolved value of the literal");
+		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());");
+		sc.add("String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);");
+		sc.add("if (matches(resolvedLiteral, prefix)) {");
+		sc.add("result.add(new " + completionProposalClassName + "(resolvedLiteral, prefix, !\"\".equals(prefix), true));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return result;");
@@ -244,27 +251,31 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addHandleNCReferenceMethod(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleNCReference(" + iMetaInformationClassName + " metaInformation, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + STRING + " prefix) {");
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleNCReference(" + iMetaInformationClassName + " metaInformation, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + STRING + " prefix, " + STRING + " tokenName) {");
 		sc.add("// proposals for non-containment references are derived by calling the");
 		sc.add("// reference resolver switch in fuzzy mode.");
 		sc.add(iReferenceResolverSwitchClassName + " resolverSwitch = metaInformation.getReferenceResolverSwitch();");
+		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
 		sc.add(iReferenceResolveResultClassName + "<" + E_OBJECT + "> result = new " + referenceResolveResultClassName + "<" + E_OBJECT + ">(true);");
 		sc.add("resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);");
 		sc.add(COLLECTION + "<" + iReferenceMappingClassName + "<" + E_OBJECT + ">> mappings = result.getMappings();");
 		sc.add("if (mappings != null) {");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
-		sc.add("final String identifier = mapping.getIdentifier();");
 		sc.add(IMAGE + " image = null;");
 		sc.add("if (mapping instanceof " + elementMappingClassName + "<?>) {");
-		sc.add(OBJECT + " target =((" + elementMappingClassName + "<?>) mapping).getTargetElement();");
+		sc.add(elementMappingClassName + "<?> elementMapping = (" + elementMappingClassName + "<?>) mapping;");
+		sc.add(OBJECT + " target = elementMapping.getTargetElement();");
+		sc.add("// de-resolve reference to obtain correct identifier");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("final String identifier = tokenResolver.deResolve(elementMapping.getIdentifier(), reference, container);");
 		sc.add("if (target instanceof " + E_OBJECT + ") {");
 		sc.add("image = getImage((" + E_OBJECT + ") target);");
-		sc.add("}");
 		sc.add("}");
 		sc.add("// check the prefix. return only matching references");
 		sc.add("if (matches(identifier, prefix)) {");
 		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true, image));");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return resultSet;");
@@ -340,14 +351,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// the FOLLOW set should contain only non-containment references");
 		sc.add("assert false;");
 		sc.add("} else {");
-		sc.add("return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix());");
+		sc.add("return handleNCReference(metaInformation, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName());");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
 		sc.add("if (featureType instanceof " + E_ENUM + ") {");
 		sc.add(E_ENUM + " enumType = (" + E_ENUM + ") featureType;");
-		sc.add("return deriveProposals(expectedTerminal, enumType, content, cursorOffset);");
+		sc.add("return handleEnumAttribute(metaInformation, expectedFeature, enumType, expectedTerminal.getPrefix(), container);");
 		sc.add("} else {");
 		sc.add("// handle EAttributes (derive default value depending on");
 		sc.add("// the type of the attribute, figure out token resolver, and");

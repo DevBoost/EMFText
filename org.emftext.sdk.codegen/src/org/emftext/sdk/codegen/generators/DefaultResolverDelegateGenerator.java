@@ -136,11 +136,15 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
 	private void addLoadResourceMethod(StringComposite sc) {
 		sc.add("private " + E_OBJECT + " loadResource(" + RESOURCE_SET + " resourceSet, " + STRING + " uriString) {");
+		sc.add("try {");
 		sc.add(URI + " uri = " + URI + ".createURI(uriString);");
 		sc.add(RESOURCE + " resource = resourceSet.getResource(uri, true);");
 		sc.add(E_LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
 		sc.add("if (contents.size() > 0) {");
 		sc.add("return contents.get(0);");
+		sc.add("}");
+		sc.add("} catch (" + RUNTIME_EXCEPTION + " re) {");
+		sc.add("// do nothing here. if no resource can be loaded the uriString is probably not a valid resource URI");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
@@ -347,11 +351,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (isURI(identifier)) {");
+		sc.add(RESOURCE + " resource = container.eResource();");
+		sc.add("if (resource != null) {");
 		sc.add(E_OBJECT + " element = loadResource(container.eResource().getResourceSet(), identifier);");
 		sc.add("if (element == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("checkElement(element, type, identifier, resolveFuzzy, false, result);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
 		sc.add("// catch exception here to prevent EMF proxy resolution from swallowing it");

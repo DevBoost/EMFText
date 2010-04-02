@@ -36,6 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_HANDLER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -51,6 +52,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROXY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STACK;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_BUILDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.THROWABLE;
@@ -329,6 +331,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
 		addCopyLocalizationInfosMethod2(sc);
+		addSetLocalizationEndMethod(sc);
 		addCreateInstanceMethod(lexerName, parserName, sc);
 		addDefaultConstructor(parserName, sc);
 		addDoParseMethod(lexerName, sc);
@@ -510,10 +513,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCompletedElementMethod(StringComposite sc) {
 		sc.add("protected void completedElement(Object element) {");
 		sc.add("if (element instanceof " + E_OBJECT + ") {");
+		sc.add("this.incompleteObjects.pop();");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
-		// TODO mseifert: remove this debug output
-		//sc.add("System.out.println(\"COMPLETED : \" + element + \" TOKEN INDEX = \" + tokenIndexOfLastCompleteElement + \" EXP INDEX = \" + expectedElementsIndexOfLastCompleteElement);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -811,6 +813,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "> lexerExceptionsPosition = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<" + INTEGER
 				+ ">());");
+		sc.add("protected " + STACK + "<" + E_OBJECT
+				+ "> incompleteObjects = new " + STACK + "<" + E_OBJECT
+				+ ">();");
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
 		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
@@ -827,6 +832,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("parseToIndexTypeObject = type;");
 		sc.add("final " + COMMON_TOKEN_STREAM + " tokenStream = (" + COMMON_TOKEN_STREAM + ") getTokenStream();");
 		sc.add(iParseResultClassName + " result = parse();");
+		sc.add("for (" + E_OBJECT + " incompleteObject : incompleteObjects) {");
+		sc.add(LEXER + " lexer = (" + LEXER + ") tokenStream.getTokenSource();");
+		sc.add("int endChar = lexer.getCharIndex();");
+		sc.add("int endLine = lexer.getLine();");
+		sc.add("setLocalizationEnd(result.getPostParseCommands(), incompleteObject, endChar, endLine);");
+		sc.add("}");
 		sc.add("if (result != null) {");
 		sc.add(E_OBJECT + " root = result.getRoot();");
 		sc.add("if (root != null) {");
@@ -916,6 +927,26 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
 		sc.add("locationMap.setLine(target, locationMap.getLine(source));");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetLocalizationEndMethod(StringComposite sc) {
+		sc.add("// set the end character index and the last line for the given object in the location map");
+		sc.add("protected void setLocalizationEnd(" + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT + " object, final int endChar, final int endLine) {");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("if (locationMap == null) {");
+		sc.add("// the locationMap can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("locationMap.setCharEnd(object, endChar);");
+		sc.add("locationMap.setLine(object, endLine);");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("});");
@@ -1686,6 +1717,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("element = "
 				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),
 						dummyEObjectClassName) + ";");
+		sc.add("incompleteObjects.push(element);");
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(csString) + ", null);");
