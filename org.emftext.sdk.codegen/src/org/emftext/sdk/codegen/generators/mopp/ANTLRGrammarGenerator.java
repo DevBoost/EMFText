@@ -511,6 +511,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addCompletedElementMethod(StringComposite sc) {
+		// TODO instead of passing isContainment, we can call this method only
+		// for contained objects
 		sc.add("protected void completedElement(" + OBJECT + " object, boolean isContainment) {");
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
 		sc.add("this.incompleteObjects.pop();");
