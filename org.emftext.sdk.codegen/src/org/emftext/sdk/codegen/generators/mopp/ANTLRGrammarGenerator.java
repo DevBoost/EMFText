@@ -511,12 +511,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addCompletedElementMethod(StringComposite sc) {
-		sc.add("protected void completedElement(Object element) {");
-		sc.add("if (element instanceof " + E_OBJECT + ") {");
+		sc.add("protected void completedElement(" + OBJECT + " object, boolean isContainment) {");
+		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
 		sc.add("this.incompleteObjects.pop();");
+		sc.add("}");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1504,7 +1504,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Containment containment = (Containment) definitions.get(1);
 			printCsString(csString, rule, sc, 0, eClassesReferenced);									
 			sc.add("arg = " + nextRuleName);
-			printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null");
+			printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null", true);
 			sc.add("|");
 			sc.addLineBreak();
 		}
@@ -1527,7 +1527,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			CsString csString = (CsString) firstSequence.getParts().get(1);
 			Containment containment = (Containment) definitions.get(1);
 			printCsString(csString, rule, sc, 0, eClassesReferenced);	
-			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null");
+			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null", true);
 			sc.add("|");
 			sc.addLineBreak();
 		}
@@ -1568,8 +1568,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
 			}
 			sc.add("rightArg = " + nextRuleName);
-			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
-			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
+			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null", true);
 			sc.add("{ leftArg = element; /* this may become an argument in the next iteration */ }");
 			if (ruleIterator.hasNext()) {
 				sc.add("|");
@@ -1602,8 +1602,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Containment rightContainment = (Containment) definitions.get(2);
 			printCsString(csString, rule, sc, 0, eClassesReferenced);	
 			sc.add("rightArg = " + ruleName);
-			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null");
-			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null");
+			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
+			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null", true);
 			if (ruleIterator.hasNext()) {
 				sc.add("|");
 				sc.addLineBreak();	
@@ -1765,7 +1765,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				}
 
 				printTerminalAction(terminal, rule, sc, internalIdent, proxyIdent, internalIdent,
-						resolvements, null);
+						resolvements, null, false);
 
 				internalCount++;
 			}
@@ -1887,7 +1887,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				}
 
 				printTerminalAction(placeholder, rule, sc, ident, proxyIdent, expressionToBeSet,
-						resolvements, tokenName);
+						resolvements, tokenName, false);
 			}
 		}
 
@@ -1901,7 +1901,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			String proxyIdent,
 			String expressionToBeSet, 
 			StringComposite resolvements,
-			String tokenName) {
+			String tokenName,
+			boolean isContainment) {
 		
 		final GenFeature genFeature = terminal.getFeature();
 		final GenClass genClass = rule.getMetaclass();
@@ -1924,7 +1925,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 		sc.add("if (" + expressionToBeSet + " != null) {");
 		final String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
-		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet);
+		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
