@@ -546,8 +546,10 @@ options {
 		if (isContainment && !this.incompleteObjects.isEmpty()) {
 			this.incompleteObjects.pop();
 		}
-		this.tokenIndexOfLastCompleteElement = getTokenStream().index();
-		this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;
+		if (object instanceof org.eclipse.emf.ecore.EObject) {
+			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
+			this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;
+		}
 	}
 	
 	// creates a dynamic Java proxy that mimics the interface
@@ -668,7 +670,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					if (a0_0 != null) {
 						if (a0_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS, a0_0);
-							completedElement(a0_0, false);
+							completedElement(a0_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_0_0_0_0, a0_0);
@@ -704,7 +706,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					if (a1_0 != null) {
 						if (a1_0 != null) {
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), a1_0);
-							completedElement(a1_0, false);
+							completedElement(a1_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_1_0_0_0, a1_0);
@@ -1091,7 +1093,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 							if (a13_0 != null) {
 								if (a13_0 != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS, a13_0);
-									completedElement(a13_0, false);
+									completedElement(a13_0, true);
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_12_0_0_4_0_0_1, a13_0);
@@ -1183,7 +1185,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 							if (a17_0 != null) {
 								if (a17_0 != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS, a17_0);
-									completedElement(a17_0, false);
+									completedElement(a17_0, true);
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_4_0_0_1, a17_0);
@@ -1290,7 +1292,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 							if (a22_0 != null) {
 								if (a22_0 != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS, a22_0);
-									completedElement(a22_0, false);
+									completedElement(a22_0, true);
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_4_0_0_1, a22_0);
@@ -1398,7 +1400,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 							if (a27_0 != null) {
 								if (a27_0 != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES, a27_0);
-									completedElement(a27_0, false);
+									completedElement(a27_0, true);
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_15_0_0_4_0_0_1, a27_0);
@@ -1483,7 +1485,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					if (a31_0 != null) {
 						if (a31_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a31_0);
-							completedElement(a31_0, false);
+							completedElement(a31_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_20_0_0_1, a31_0);
@@ -1889,7 +1891,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 					if (a0_0 != null) {
 						if (a0_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS, a0_0);
-							completedElement(a0_0, false);
+							completedElement(a0_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_0_0_0_1, a0_0);
@@ -1980,7 +1982,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 			if (a3_0 != null) {
 				if (a3_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__CHILDREN, a3_0);
-					completedElement(a3_0, false);
+					completedElement(a3_0, true);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_4, a3_0);
@@ -2026,7 +2028,7 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 				if (a0_0 != null) {
 					if (a0_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN, a0_0);
-						completedElement(a0_0, false);
+						completedElement(a0_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_4_0_0_0, a0_0);
@@ -2066,7 +2068,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 			if (a0_0 != null) {
 				if (a0_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN, a0_0);
-					completedElement(a0_0, false);
+					completedElement(a0_0, true);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5_0_0_0, a0_0);
@@ -2114,7 +2116,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 					if (a2_0 != null) {
 						if (a2_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN, a2_0);
-							completedElement(a2_0, false);
+							completedElement(a2_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5_0_0_1_0_0_1, a2_0);
@@ -2322,7 +2324,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 				if (a4_0 != null) {
 					if (a4_0 != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), a4_0);
-						completedElement(a4_0, false);
+						completedElement(a4_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_4, a4_0);
@@ -2442,7 +2444,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 				if (a3_0 != null) {
 					if (a3_0 != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), a3_0);
-						completedElement(a3_0, false);
+						completedElement(a3_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_3, a3_0);
@@ -2702,7 +2704,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 				if (a8_0 != null) {
 					if (a8_0 != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), a8_0);
-						completedElement(a8_0, false);
+						completedElement(a8_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_8, a8_0);
@@ -2972,7 +2974,7 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 				if (a5_0 != null) {
 					if (a5_0 != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a5_0);
-						completedElement(a5_0, false);
+						completedElement(a5_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_2, a5_0);
@@ -3033,7 +3035,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 			if (a1_0 != null) {
 				if (a1_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN, a1_0);
-					completedElement(a1_0, false);
+					completedElement(a1_0, true);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_1, a1_0);
@@ -3084,7 +3086,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 				if (a3_0 != null) {
 					if (a3_0 != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3_0);
-						completedElement(a3_0, false);
+						completedElement(a3_0, true);
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_3, a3_0);
@@ -3240,7 +3242,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 					if (a0_0 != null) {
 						if (a0_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS, a0_0);
-							completedElement(a0_0, false);
+							completedElement(a0_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_0_0_0_0, a0_0);
@@ -3321,7 +3323,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			if (a3_0 != null) {
 				if (a3_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS, a3_0);
-					completedElement(a3_0, false);
+					completedElement(a3_0, true);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_5, a3_0);
@@ -3363,7 +3365,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 					if (a5_0 != null) {
 						if (a5_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS, a5_0);
-							completedElement(a5_0, false);
+							completedElement(a5_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_6_0_0_3, a5_0);
@@ -3537,7 +3539,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 			if (a3_0 != null) {
 				if (a3_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a3_0);
-					completedElement(a3_0, false);
+					completedElement(a3_0, true);
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15_0_0_6, a3_0);
@@ -3578,7 +3580,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 					if (a5_0 != null) {
 						if (a5_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS, a5_0);
-							completedElement(a5_0, false);
+							completedElement(a5_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15_0_0_7_0_0_3, a5_0);
@@ -4106,7 +4108,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					if (a3_0 != null) {
 						if (a3_0 != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a3_0);
-							completedElement(a3_0, false);
+							completedElement(a3_0, true);
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_1, a3_0);
@@ -4146,7 +4148,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 							if (a5_0 != null) {
 								if (a5_0 != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a5_0);
-									completedElement(a5_0, false);
+									completedElement(a5_0, true);
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_2_0_0_1, a5_0);

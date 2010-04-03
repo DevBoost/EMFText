@@ -23,8 +23,17 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		while (!interpretationStack.empty()) {
 			org.eclipse.emf.ecore.EObject next = interpretationStack.pop();
 			result = interprete(next, context);
+			if (!continueInterpretation(result)) {
+				break;
+			}
 		}
 		return result;
+	}
+	
+	// override this method to stop the overall interpretation depending on
+	// the result of the interpretation of a single model elements
+	public boolean continueInterpretation(ResultType result) {
+		return true;
 	}
 	
 	public ResultType interprete(org.eclipse.emf.ecore.EObject object, ContextType context) {
