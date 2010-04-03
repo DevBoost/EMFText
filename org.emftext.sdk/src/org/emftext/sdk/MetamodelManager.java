@@ -14,8 +14,12 @@
 package org.emftext.sdk;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -99,32 +103,42 @@ public class MetamodelManager implements IGenPackageFinder {
 		genPackageFinders.add(finder);
 	}
 
-	public IGenPackageFinderResult findGenPackage(String nsURI,
+	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI,
 			String locationHint, GenPackageDependentElement container,
-			Resource resource) {
+			Resource resource, boolean resolveFuzzy) {
 
 		if (nsURI == null) {
-			return null;
+			return Collections.emptySet();
 		}
-		if (cache.isInvalidUri(nsURI)) {
-			return null;
+		if (cache.isInvalidUri(nsURI) && !resolveFuzzy) {
+			return Collections.emptySet();
 		}
-		if (cache.isCached(nsURI)) {
-			return cache.lookUp(nsURI);
+		if (cache.isCached(nsURI) && !resolveFuzzy) {
+			IGenPackageFinderResult genPackageFromCache = cache.lookUp(nsURI);
+			Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>(1);
+			result.add(genPackageFromCache);
+			return result;
 		}
 		
+		Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>(1);
+		boolean foundPackage = false;
 		for (IGenPackageFinder finder : genPackageFinders) {
-			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, locationHint, container, resource);
+			Collection<IGenPackageFinderResult> finderResult = finder.findGenPackages(nsURI, locationHint, container, resource, resolveFuzzy);
 			if (finderResult != null) {
-				cache.store(nsURI, finderResult);
-				GenPackage foundPackage = finderResult.getResult();
-				if (foundPackage != null) {
-					return finderResult;
+				for (IGenPackageFinderResult nextResult : finderResult) {
+					cache.store(nsURI, nextResult);
+					result.add(nextResult);
+					foundPackage = true;
 				}
 			}
+			if (foundPackage && !resolveFuzzy) {
+				break;
+			}
 		}
-		this.cache.addInvalidUri(nsURI);
-		return null;
+		if (!foundPackage) {
+			this.cache.addInvalidUri(nsURI);
+		}
+		return result;
 	}
 
 	public ConcreteSyntax findConcreteSyntax(String csName, String locationHint, Import container, GenPackage genPackage, Resource textResource) {
@@ -150,14 +164,14 @@ public class MetamodelManager implements IGenPackageFinder {
 	}
 
 	public static Map<String, GenPackage> getGenPackages(GenModel genModel) {
-		Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
-		for(GenPackage genPackage : genModel.getGenPackages()) {
+		Map<String, GenPackage> genPackages = new LinkedHashMap<String, GenPackage>();
+		for (GenPackage genPackage : genModel.getGenPackages()) {
 			genPackages.putAll(getNestedPackages(genPackage));
 		}
 		
 		// added to resolve imported GenPackages too. 
-		for(GenPackage genPackage : genModel.getUsedGenPackages()) {
-			if(genPackage.getEcorePackage() != null) {
+		for (GenPackage genPackage : genModel.getUsedGenPackages()) {
+			if (genPackage.getEcorePackage() != null) {
 				genPackages.putAll(getNestedPackages(genPackage));
 			}
 		}

@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -25,25 +28,25 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageByNameFinder extends GenPackageInFileFinder {
 	
-	public IGenPackageFinderResult findGenPackage(String nsURI,
-			String locationHint, GenPackageDependentElement container, Resource resource) {
+	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI,
+			String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		
 		if (resource == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		ResourceSet rs = resource.getResourceSet();
 		if (rs == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
 		URI genModelURI = resourceURI.appendFileExtension("genmodel");
 		try {
-			return findGenPackage(getSyntax(container), nsURI, rs, genModelURI);
+			return findGenPackages(getSyntax(container), nsURI, rs, genModelURI, resolveFuzzy);
 		} catch (Exception e) {
     		EMFTextSDKPlugin.logError("Error searching for generator model " + nsURI, e);
 		}
 		
-		return null;
+		return Collections.emptySet();
 	}
 }

@@ -14,6 +14,8 @@
 package org.emftext.sdk;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -49,11 +51,18 @@ public class MetamodelHelper {
 
 	private MetamodelManager mmManager = new MetamodelManager();
 
-	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource) {
+	public Collection<GenPackage> findGenPackages(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource, boolean resolveFuzzy) {
 		configureMetaModelManager(options);
-		final IGenPackageFinderResult result = mmManager.findGenPackage(uri, locationHint, container, resource);
+		final Collection<IGenPackageFinderResult> result = mmManager.findGenPackages(uri, locationHint, container, resource, resolveFuzzy);
 		if (result != null) {
-			return result.getResult();
+			Collection<GenPackage> foundPackages = new LinkedHashSet<GenPackage>();
+			for (IGenPackageFinderResult resolvedPackage : result) {
+				GenPackage genPackage = resolvedPackage.getResult();
+				if (genPackage != null) {
+					foundPackages.add(genPackage);
+				}
+			}
+			return foundPackages;
 		} else {
 			return null;
 		}

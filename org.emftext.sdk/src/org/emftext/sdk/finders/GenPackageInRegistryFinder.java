@@ -13,7 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
@@ -114,11 +116,14 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		}
 	}
 	
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
+	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		init();
-		if (cache.containsKey(nsURI)) {
-			return cache.get(nsURI);
+		Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>();
+		for (String nextNsURI : cache.keySet()) {
+			if (nextNsURI.equals(nsURI) || resolveFuzzy) {
+				result.add(cache.get(nextNsURI));
+			}
 		}
-		return null;
+		return result;
 	}
 }

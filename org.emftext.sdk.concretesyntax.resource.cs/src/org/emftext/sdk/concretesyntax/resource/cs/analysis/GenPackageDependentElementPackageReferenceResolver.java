@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -30,13 +31,18 @@ public class GenPackageDependentElementPackageReferenceResolver implements ICsRe
 
 	public void resolve(String nsURI, GenPackageDependentElement container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenPackage> result) {
 		String locationHint = container.getPackageLocationHint();
-		GenPackage genPackage = mmHelper.findGenPackage(options, container, nsURI, locationHint, container.eResource());
-		if (genPackage == null) {
+		Collection<GenPackage> genPackages = mmHelper.findGenPackages(options, container, nsURI, locationHint, container.eResource(), resolveFuzzy);
+		if (genPackages == null || genPackages.isEmpty()) {
 			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved." + 
 					(locationHint == null ? "" : " Maybe " + locationHint + " is wrong?")
 			);
 		} else {
-			result.addMapping(nsURI, genPackage);
+			for (GenPackage genPackage : genPackages) {
+				result.addMapping(genPackage.getNSURI(), genPackage);
+				if (!resolveFuzzy) {
+					break;
+				}
+			}
 		}
 	}
 	

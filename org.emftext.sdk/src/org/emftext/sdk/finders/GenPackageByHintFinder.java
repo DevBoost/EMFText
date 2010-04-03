@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,14 +32,14 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	
 	private Set<String> faultyHints = new HashSet<String>();
 	
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
+	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (locationHint == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		if (faultyHints.contains(locationHint)) {
-			return null;
+			return Collections.emptySet();
 		}
-		return findGenPackageUsingHint(nsURI, locationHint, container, resource);
+		return findGenPackagesUsingHint(nsURI, locationHint, container, resource, resolveFuzzy);
 	}
 
 	/**
@@ -48,24 +50,23 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	 * @param platformString
 	 * @return
 	 */
-	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
+	private Collection<IGenPackageFinderResult> findGenPackagesUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (resource == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		ResourceSet rs = resource.getResourceSet();
 		if (rs == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		try {
 			URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
 			if ("genmodel".equals(hintURI.fileExtension())) {
-				return findGenPackage(getSyntax(container), nsURI, rs, hintURI);
+				return findGenPackages(getSyntax(container), nsURI, rs, hintURI, resolveFuzzy);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			EMFTextSDKPlugin.logError("Exception while looking for generator package.", e);
 		}
 		
-		return null;
+		return Collections.emptySet();
 	}
 }

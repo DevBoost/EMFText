@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
+import java.util.Collection;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
@@ -32,5 +34,5 @@ public interface IGenPackageFinder {
 	 *                 shall be preferred)
 	 * @return
 	 */
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource);
+	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy);
 }
