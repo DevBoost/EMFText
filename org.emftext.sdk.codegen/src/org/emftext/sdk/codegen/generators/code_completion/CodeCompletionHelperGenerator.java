@@ -46,6 +46,13 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
+	/**
+	 * This is a temporary flag which can be used to enable the
+	 * generation of debug output. This flag must be removed once
+	 * all code completion issues have been resolved.
+	 */
+	public static final boolean INSERT_DEBUG_OUTPUT_CODE = false;
+
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private String iExpectedElementClassName;
@@ -319,7 +326,6 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("break;");
 		sc.add("}");
 		sc.add(E_CLASS + " neededClass = eStructuralFeature.getEContainingClass();");
-		//sc.add("System.out.println(sc.add("Need sc.add(" + neededClass.getName() + sc.add(".sc.add(" + eStructuralFeature.getName());");
 		sc.add("// fill the content list during the first iteration of the loop");
 		sc.add("if (contentList == null) {");
 		sc.add("contentList = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
@@ -333,10 +339,14 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("for (int i = contentList.size() - 1; i >= 0; i--) {");
 		sc.add(E_OBJECT + " object = contentList.get(i);");
 		sc.add("if (neededClass.isInstance(object)) {");
-		//sc.add("System.out.println(sc.add("Found sc.add(" + object);");
+		if (INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"Found \" + object);");
+		}
 		sc.add(E_OBJECT + " newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);");
 		sc.add(eObjectUtilClassName + ".setFeature(object, eStructuralFeature, newContainer, false);");
-		//sc.add("System.out.println(sc.add("Attached sc.add(" + newContainer);");
+		if (INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"Attached \" + newContainer);");
+		}
 		sc.add("container = newContainer;");
 		sc.add("attachedArtificialContainer = true;");
 		sc.add("}");
@@ -406,8 +416,9 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("end = Math.min(end, cursorOffset);");
 		sc.add("final String prefix = content.substring(end, Math.min(content.length(), cursorOffset));");
-		// TODO mseifert: remove this debug output
-		sc.add("System.out.println(\"Found prefix '\" + prefix + \"'\");");
+		if (INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"Found prefix '\" + prefix + \"'\");");
+		}
 		sc.add("return prefix;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -479,8 +490,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
 		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));");
-		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
-		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
+		if (INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
+			sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
+		}
 		
 		sc.add("setPrefixes(expectedAfterCursor, content, cursorOffset);");
 		sc.add("setPrefixes(expectedBeforeCursor, content, cursorOffset);");

@@ -92,6 +92,7 @@ import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.ExpectationComputer;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -859,7 +860,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("for (int i = expectedElementsIndexOfLastCompleteElement; i >= 0; i--) {");
 		sc.add(expectedTerminalClassName + " expectedElementI = expectedElements.get(i);");
 		sc.add("if (expectedElementI.getFollowSetID() == lastFollowSetID) {");
-		sc.add("System.out.println(\"FOLLOW ELEMENT \" + expectedElementI);");
+		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"FOLLOW ELEMENT \" + expectedElementI);");
+		}
 		sc.add("currentFollowSet.add(expectedElementI);");
 		sc.add("} else {");
 		sc.add("break;");
@@ -870,7 +873,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("int i;");
 		sc.add("for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {");
 		sc.add(COMMON_TOKEN + " nextToken = (" + COMMON_TOKEN + ") tokenStream.get(i);");
-		sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
+		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
+		}
 		sc.add("if (nextToken.getChannel() == 99) {");
 		sc.add("// hidden tokens do not reduce the follow set");
 		sc.add("} else {");
@@ -885,10 +890,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("newFollowSet.clear();");
 		sc.add("// normal tokens do reduce the follow set - only elements that match the token are kept");
 		sc.add("for (" + expectedTerminalClassName + " nextFollow : currentFollowSet) {");
-		sc.add("System.out.println(\"CHECKING : \" + nextFollow);");
+		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"CHECKING : \" + nextFollow);");
+		}
 		sc.add("if (nextFollow.getTerminal().getTokenName().equals(getTokenNames()[nextToken.getType()])) {");
 		sc.add("// keep this one - it matches");
-		sc.add("System.out.println(\"MATCH! \" + nextFollow);");
+		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
+			sc.add("System.out.println(\"MATCH! \" + nextFollow);");
+		}
 		sc.add(COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
 		sc.add("for (" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]> newFollowerPair : newFollowers) {");
 		sc.add(iExpectedElementClassName + " newFollower = newFollowerPair.getLeft();");
@@ -1921,8 +1930,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),
 						dummyEObjectClassName) + ";");
 		sc.add("}");
-		// TODO mseifert: escape tokeName correctly
-		sc.add(new StringComponent(STRING + " tokenName = \"" + tokenName + "\";", "tokenName"));
+		sc.add(new StringComponent(STRING + " tokenName = \"" + StringUtil.escapeToJavaString(tokenName) + "\";", "tokenName"));
 		sc.add("if (" + ident + " != null) {");
 		if (resolvements != null) {
 			sc.add(resolvements);
