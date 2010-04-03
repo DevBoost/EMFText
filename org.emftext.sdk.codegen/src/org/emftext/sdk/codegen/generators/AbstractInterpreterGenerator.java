@@ -62,13 +62,27 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> {");
 		sc.addLineBreak();
 		addFields(sc);
-		addInterpreteMethod(sc);
-		addDoSwitchMethod(sc);
-		addInterpreteTypeMethods(sc);
-		addAddObjectToInterpreteMethod(sc);
+		addMethods(sc);
 		sc.add("}");
 		
 		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addInterpreteMethod(sc);
+		addContinueInterpretationMethod(sc);
+		addDoSwitchMethod(sc);
+		addInterpreteTypeMethods(sc);
+		addAddObjectToInterpreteMethod(sc);
+	}
+
+	private void addContinueInterpretationMethod(StringComposite sc) {
+		sc.add("// override this method to stop the overall interpretation depending on");
+		sc.add("// the result of the interpretation of a single model elements");
+		sc.add("public boolean continueInterpretation(ResultType result) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addDoSwitchMethod(StringComposite sc) {
@@ -149,6 +163,9 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		sc.add("while (!interpretationStack.empty()) {");
 		sc.add(E_OBJECT + " next = interpretationStack.pop();");
 		sc.add("result = interprete(next, context);");
+		sc.add("if (!continueInterpretation(result)) {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
