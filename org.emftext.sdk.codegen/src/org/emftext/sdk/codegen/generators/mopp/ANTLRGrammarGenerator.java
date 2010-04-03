@@ -517,8 +517,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
 		sc.add("this.incompleteObjects.pop();");
 		sc.add("}");
+		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
