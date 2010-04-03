@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
-	private static final Map<String, GenPackageInRegistryFinderResult> cache = new HashMap<String, GenPackageInRegistryFinderResult>();
+	private static final Map<String, GenPackageInRegistry> cache = new HashMap<String, GenPackageInRegistry>();
 	private static boolean isInitialized = false;
 	
 	private static void init() {
@@ -62,7 +62,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		            	for (GenPackage genPackage : genModel.getGenPackages()) {
 		        			if (genPackage != null && !genPackage.eIsProxy()) {
 			            		String nsURI = genPackage.getNSURI();
-			            		final GenPackageInRegistryFinderResult result = new GenPackageInRegistryFinderResult(genPackage);
+			            		final GenPackageInRegistry result = new GenPackageInRegistry(genPackage);
 								cache.put(nsURI, result);
 								registerSubGenPackages(genPackage);
 		        			}
@@ -86,7 +86,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		for(GenPackage genPackage : parentPackage.getSubGenPackages()) {
 			if (genPackage != null && !genPackage.eIsProxy()) {
         		String nsURI = genPackage.getNSURI();
-        		final GenPackageInRegistryFinderResult result = new GenPackageInRegistryFinderResult(genPackage);
+        		final GenPackageInRegistry result = new GenPackageInRegistry(genPackage);
 				cache.put(nsURI, result);
 				registerSubGenPackages(genPackage);
 			}
@@ -94,14 +94,14 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	}
 	
 	/**
-	 * An implementation of the IGenPackageFinderResult that is used to
+	 * An implementation of the IResolvedGenPackage that is used to
 	 * return generator package found in the EMF registry.
 	 */
-	private static class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
+	private static class GenPackageInRegistry implements IResolvedGenPackage {
 
 		private GenPackage genPackage;
 		
-		public GenPackageInRegistryFinderResult(GenPackage genPackage) {
+		public GenPackageInRegistry(GenPackage genPackage) {
 			Assert.isNotNull(genPackage);
 			
 			this.genPackage = genPackage;
@@ -116,9 +116,9 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		}
 	}
 	
-	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		init();
-		Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>();
+		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
 		for (String nextNsURI : cache.keySet()) {
 			if (nextNsURI.equals(nsURI) || resolveFuzzy) {
 				result.add(cache.get(nextNsURI));

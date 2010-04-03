@@ -56,7 +56,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
-	protected Collection<IGenPackageFinderResult> findGenPackages(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI, boolean resolveFuzzy) {
+	protected Collection<IResolvedGenPackage> findGenPackages(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI, boolean resolveFuzzy) {
 		Resource genModelResource = null;
 		
 		try {
@@ -119,14 +119,14 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 				}
 			}
 
-			Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>();
+			Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
 			Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
 			for (String uri : packages.keySet()) {
 				if (uri == null) {
 					continue;
 				}
 				if (uri.equals(nsURI) || resolveFuzzy) {
-					GenPackageInFileResult nextResult = new GenPackageInFileResult(packages.get(nsURI), ecoreFile, genmodelFile);
+					GenPackageInFile nextResult = new GenPackageInFile(packages.get(nsURI), ecoreFile, genmodelFile);
 					result.add(nextResult);
 					if (!resolveFuzzy) {
 						break;

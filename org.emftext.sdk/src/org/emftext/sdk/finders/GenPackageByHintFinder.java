@@ -32,7 +32,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	
 	private Set<String> faultyHints = new HashSet<String>();
 	
-	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (locationHint == null) {
 			return Collections.emptySet();
 		}
@@ -50,7 +50,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	 * @param platformString
 	 * @return
 	 */
-	private Collection<IGenPackageFinderResult> findGenPackagesUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	private Collection<IResolvedGenPackage> findGenPackagesUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (resource == null) {
 			return Collections.emptySet();
 		}

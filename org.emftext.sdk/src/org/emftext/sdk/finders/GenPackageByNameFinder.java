@@ -28,7 +28,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageByNameFinder extends GenPackageInFileFinder {
 	
-	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI,
+	public Collection<IResolvedGenPackage> findGenPackages(String nsURI,
 			String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		
 		if (resource == null) {

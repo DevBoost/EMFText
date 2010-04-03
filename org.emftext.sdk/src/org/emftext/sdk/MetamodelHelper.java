@@ -31,7 +31,7 @@ import org.emftext.sdk.finders.GenPackageByNameFinder;
 import org.emftext.sdk.finders.GenPackageInRegistryFinder;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IGenPackageFinder;
-import org.emftext.sdk.finders.IGenPackageFinderResult;
+import org.emftext.sdk.finders.IResolvedGenPackage;
 
 /**
  * A helper class that can be used search for generator packages, 
@@ -53,10 +53,10 @@ public class MetamodelHelper {
 
 	public Collection<GenPackage> findGenPackages(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource, boolean resolveFuzzy) {
 		configureMetaModelManager(options);
-		final Collection<IGenPackageFinderResult> result = mmManager.findGenPackages(uri, locationHint, container, resource, resolveFuzzy);
+		final Collection<IResolvedGenPackage> result = mmManager.findGenPackages(uri, locationHint, container, resource, resolveFuzzy);
 		if (result != null) {
 			Collection<GenPackage> foundPackages = new LinkedHashSet<GenPackage>();
-			for (IGenPackageFinderResult resolvedPackage : result) {
+			for (IResolvedGenPackage resolvedPackage : result) {
 				GenPackage genPackage = resolvedPackage.getResult();
 				if (genPackage != null) {
 					foundPackages.add(genPackage);

@@ -18,7 +18,7 @@ import java.io.File;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 
 /**
- * An implementation of the IGenPackageFinderResult interface used
+ * An implementation of the IResolvedGenPackage interface 
  * that can be used by finders that look up generator models in 
  * files. When objects of this class are created the modification
  * time of the .ecore file that is referenced by the generator 
@@ -26,7 +26,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
  * (when the generator model is looked up in the model cache)
  * used to check whether the meta model has changed.
  */
-public class GenPackageInFileResult implements IGenPackageFinderResult {
+public class GenPackageInFile implements IResolvedGenPackage {
 
 	private GenPackage genPackage;
 	private File ecoreFile;
@@ -34,7 +34,7 @@ public class GenPackageInFileResult implements IGenPackageFinderResult {
 	private long initialEcoreModificationStamp;
 	private long initialGenmodelModificationStamp;
 	
-	public GenPackageInFileResult(GenPackage genPackage, File ecoreFile, File genmodelFile) {
+	public GenPackageInFile(GenPackage genPackage, File ecoreFile, File genmodelFile) {
 		assert genPackage != null;
 		//assert ecoreFile != null;
 		

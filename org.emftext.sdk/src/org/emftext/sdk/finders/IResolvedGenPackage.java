@@ -18,12 +18,15 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 /**
  * Implementations of this interface are instantiated by implementations of
  * {@link IGenPackageFinder}. The main purpose of this interface is to
- * encapsulate a set of {@link GenPackage}s.
+ * encapsulate a {@link GenPackage} that was found by a resolver. Besides
+ * encapsulating the {@link GenPackage} itself, implementations of this 
+ * interface must indicate whether the encapsulated {@link GenPackage} has 
+ * changed.
  */
-public interface IGenPackageFinderResult {
+public interface IResolvedGenPackage {
 
 	/**
-	 * @return The encapsulated {@link GenPackage}s.
+	 * @return The encapsulated {@link GenPackage}.
 	 */
 	public GenPackage getResult();
 

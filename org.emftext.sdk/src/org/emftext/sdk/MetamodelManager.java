@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IConcreteSyntaxFinderResult;
 import org.emftext.sdk.finders.IGenPackageFinder;
-import org.emftext.sdk.finders.IGenPackageFinderResult;
+import org.emftext.sdk.finders.IResolvedGenPackage;
 
 /**
  * The MetamodelManager uses finders to search for generator packages and
@@ -57,22 +57,22 @@ public class MetamodelManager implements IGenPackageFinder {
 	 */
 	private class MetamodelCache {
 		
-		private Map<String, IGenPackageFinderResult> internalCache = new HashMap<String, IGenPackageFinderResult>();
+		private Map<String, IResolvedGenPackage> internalCache = new HashMap<String, IResolvedGenPackage>();
 		private Set<String> invalidUris = new HashSet<String>();
 		
 		public boolean isCached(String nsURI) {
-			IGenPackageFinderResult result = internalCache.get(nsURI);
+			IResolvedGenPackage result = internalCache.get(nsURI);
 			if (result != null) {
 				return !result.hasChanged();
 			}
 			return false;
 		}
 		
-		public IGenPackageFinderResult lookUp(String nsURI) {
+		public IResolvedGenPackage lookUp(String nsURI) {
 			return internalCache.get(nsURI);
 		}
 		
-		public void store(String nsURI, IGenPackageFinderResult foundPackage) {
+		public void store(String nsURI, IResolvedGenPackage foundPackage) {
 			internalCache.put(nsURI, foundPackage);
 		}
 		
@@ -103,7 +103,7 @@ public class MetamodelManager implements IGenPackageFinder {
 		genPackageFinders.add(finder);
 	}
 
-	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI,
+	public Collection<IResolvedGenPackage> findGenPackages(String nsURI,
 			String locationHint, GenPackageDependentElement container,
 			Resource resource, boolean resolveFuzzy) {
 
@@ -114,18 +114,18 @@ public class MetamodelManager implements IGenPackageFinder {
 			return Collections.emptySet();
 		}
 		if (cache.isCached(nsURI) && !resolveFuzzy) {
-			IGenPackageFinderResult genPackageFromCache = cache.lookUp(nsURI);
-			Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>(1);
+			IResolvedGenPackage genPackageFromCache = cache.lookUp(nsURI);
+			Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>(1);
 			result.add(genPackageFromCache);
 			return result;
 		}
 		
-		Collection<IGenPackageFinderResult> result = new LinkedHashSet<IGenPackageFinderResult>(1);
+		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>(1);
 		boolean foundPackage = false;
 		for (IGenPackageFinder finder : genPackageFinders) {
-			Collection<IGenPackageFinderResult> finderResult = finder.findGenPackages(nsURI, locationHint, container, resource, resolveFuzzy);
+			Collection<IResolvedGenPackage> finderResult = finder.findGenPackages(nsURI, locationHint, container, resource, resolveFuzzy);
 			if (finderResult != null) {
-				for (IGenPackageFinderResult nextResult : finderResult) {
+				for (IResolvedGenPackage nextResult : finderResult) {
 					cache.store(nsURI, nextResult);
 					result.add(nextResult);
 					foundPackage = true;

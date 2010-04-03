@@ -34,5 +34,5 @@ public interface IGenPackageFinder {
 	 *                 shall be preferred)
 	 * @return
 	 */
-	public Collection<IGenPackageFinderResult> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy);
+	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy);
 }
