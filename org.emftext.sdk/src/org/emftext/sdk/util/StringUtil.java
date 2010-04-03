@@ -302,6 +302,9 @@ public class StringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToJavaString(String text) {
+		if (text == null) {
+			return null;
+		}
 		//for javac: replace one backslash by two and escape double quotes
 		return text.replaceAll("\\\\", "\\\\\\\\").
 			replaceAll("\"", "\\\\\"").
