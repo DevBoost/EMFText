@@ -40,7 +40,7 @@ public class FileCopier implements IArtifactCreator {
 	}
 
 	public void createArtifacts(GenerationContext context) {
-		// TODO this does not belong here
+		// TODO mseifert: this does not belong here
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		

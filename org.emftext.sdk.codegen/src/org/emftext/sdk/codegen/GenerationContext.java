@@ -338,13 +338,13 @@ public abstract class GenerationContext {
 		this.licenceText = text;
 	}
 
-	// TODO this does not belong here
+	// TODO mseifert: this does not belong here
 	public String getBuilderID() {
 		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
 		return pluginID + ".builder";
 	}
 
-	// TODO this does not belong here
+	// TODO mseifert: this does not belong here
 	public String getNatureID() {
 		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
 		return pluginID + ".nature";

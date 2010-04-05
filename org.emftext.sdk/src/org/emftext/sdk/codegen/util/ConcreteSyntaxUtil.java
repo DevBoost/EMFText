@@ -40,7 +40,6 @@ import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
-import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -57,6 +56,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EObjectUtil;
@@ -426,37 +426,6 @@ public class ConcreteSyntaxUtil {
 		return scopeID;
 	}
 
-	public Rule findContainingRule(EObject syntaxElement) {
-		if (syntaxElement == null) {
-			return null;
-		}
-		if (syntaxElement instanceof Rule) {
-			return (Rule) syntaxElement;
-		}
-		return findContainingRule(syntaxElement.eContainer());
-	}
-
-	public CsString findKeyword(ConcreteSyntax syntax, String keyword) {
-		Collection<CsString> keywords = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
-		for (CsString nextKeyword : keywords) {
-			if (keyword.equals(nextKeyword.getValue())) {
-				return nextKeyword;
-			}
-		}
-		return null;
-	}
-
-	// TODO add check for meta class name
-	public List<CompoundDefinition> findCompounds(ConcreteSyntax syntax, String metaClassName) {
-		Collection<CompoundDefinition> compounds = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition());
-		return new ArrayList<CompoundDefinition>(compounds);
-	}
-
-	public List<Terminal> findTerminals(ConcreteSyntax syntax) {
-		Collection<Terminal> terminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
-		return new ArrayList<Terminal>(terminals);
-	}
-
 	public EList<GenClass> getAllowedSubTypes(Containment containment) {
 		EList<GenClass> types;
 		// is there an explicit type defined?
@@ -493,9 +462,9 @@ public class ConcreteSyntaxUtil {
 	}
 
 	// TODO mseifert: move this method to ConcreteSyntax.ejava
-	public String getFieldName(EObject object) {
-		ConcreteSyntax syntax = findContainingRule(object).getSyntax();
+	public String getFieldName(SyntaxElement syntaxElement) {
+		ConcreteSyntax syntax = syntaxElement.getContainingRule().getSyntax();
 		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
-		return getFieldName(escapedSyntaxName + "_", object);
+		return getFieldName(escapedSyntaxName + "_", syntaxElement);
 	}
 }

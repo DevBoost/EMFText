@@ -60,8 +60,7 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addCancelMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addCancelMethod(StringComposite sc) {
 		sc.add("protected void canceling() {");
 		sc.add("resource.cancelReload();");
 		sc.add("}");
@@ -71,8 +70,7 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addParseMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addParseMethod(StringComposite sc) {
 		sc.add("// Schedules a task for background parsing that will be started after");
 		sc.add("// a delay.");
 		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, final " + editorClassName + " editor) {");
@@ -116,7 +114,7 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private static long DELAY = 500;");
 		sc.addLineBreak();
 		sc.add("// this timer is used to schedule a parsing task and execute");

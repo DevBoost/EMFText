@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -122,6 +123,56 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 			} 
 		} 
 		return null ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean hasAnnotation(AnnotationType type, String key, String value) {
+		for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { 
+			if ( annotation .getType ( ) == type ) { 
+				if ( key != null ) { 
+					for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { 
+						if ( key .equals ( parameter .getKey ( ) ) && parameter .getValue ( ) .equals ( value ) ) { 
+							return true ; 
+						} 
+					} 
+				} else { 
+					return true ; 
+				} 
+			} 
+		} 
+		return false ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOverrideRemoveRule() {
+		// TODO mseifert: use constant here
+		return hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , "remove" , "true" ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOverrideRule(GenClass metaClass) {
+		// TODO figure out why 'metaClass == null' is needed
+		if ( metaClass == null || getMetaclass ( ) == metaClass ) { 
+			if ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { 
+				return true ; 
+			} 
+		} 
+		return false ; 
 		
 	}
 

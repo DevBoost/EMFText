@@ -59,8 +59,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addApplyToMethod(sc);
 		addGetValueByNameMethod(sc);
 		addEClassMethod(sc);
@@ -68,8 +67,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		addToStringMethod(sc);
 	}
 
-	private void addToStringMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addToStringMethod(StringComposite sc) {
 		sc.add("public String toString() {");
 		sc.add("String keyValuePairs = recurseFeatureName + \": \";");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " f : keyValueMap.keySet()) {");
@@ -79,16 +77,14 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addESetMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addESetMethod(StringComposite sc) {
 		sc.add("public void eSet(" + E_STRUCTURAL_FEATURE + " structuralFeature, " + OBJECT + " a0) {");
 		sc.add("this.keyValueMap.put(structuralFeature, a0);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addEClassMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addEClassMethod(StringComposite sc) {
 		sc.add("// proxy method");
 		sc.add("public " + E_CLASS + " eClass() {");
 		sc.add("return type;");
@@ -96,8 +92,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetValueByNameMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetValueByNameMethod(StringComposite sc) {
 		sc.add("public " + OBJECT + " getValueByName(String name) {");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " f : this.keyValueMap.keySet()) {");
 		sc.add("if (f.getName().equals(name)) return this.keyValueMap.get(f);");
@@ -107,8 +102,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addApplyToMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addApplyToMethod(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " applyTo(" + E_OBJECT + " currentTarget) {");
 		sc.add(E_STRUCTURAL_FEATURE + " recurseFeature = currentTarget.eClass().getEStructuralFeature(this.recurseFeatureName);");
 		sc.add(E_OBJECT + " newObject = currentTarget.eClass().getEPackage().getEFactoryInstance().create(type);");
@@ -123,8 +117,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " type, String recurseFeatureName) {");
 		sc.add("this.recurseFeatureName = recurseFeatureName;");
 		sc.add("this.type = type;");
@@ -133,7 +126,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + MAP + "<" + E_STRUCTURAL_FEATURE + ", " + OBJECT + "> keyValueMap;");
 		sc.add("private String recurseFeatureName;");
 		sc.add("private " + E_CLASS + " type;");

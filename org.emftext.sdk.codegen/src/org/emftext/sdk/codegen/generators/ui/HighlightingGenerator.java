@@ -95,8 +95,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addListenersMethod(sc);
 		addSetHighlightingMethod(sc);
 		addSetCategoryHighlightingMethod(sc);
@@ -114,8 +113,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		addHandleContentOutlineSelectionMethod(sc);
 	}
 
-	private void addHandleContentOutlineSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHandleContentOutlineSelectionMethod(StringComposite sc) {
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION + " selection) {");
 		sc.add("if (!selection.isEmpty()) {");
 		sc.add(OBJECT + " selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
@@ -136,8 +134,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSelectionChangedMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSelectionChangedMethod(StringComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add("if (event.getSelection() instanceof " + TREE_SELECTION + ") {");
 		sc.add("handleContentOutlineSelection(event.getSelection());");
@@ -146,16 +143,14 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetSelectionMethod(StringComposite sc) {
 		sc.add("public " + I_SELECTION + " getSelection() {");
 		sc.add("return selection;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSetSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetSelectionMethod(StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
 		sc.add("this.selection = selection;");
 		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners) {");
@@ -165,23 +160,21 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveSelectionChangedListenerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveSelectionChangedListenerMethod(StringComposite sc) {
 		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("selectionChangedListeners.remove(listener);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddSelectionChangedListenerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddSelectionChangedListenerMethod(StringComposite sc) {
 		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("selectionChangedListeners.add(listener);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + ARRAY_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
 		sc.add("private " + I_SELECTION + " selection = null;");
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
@@ -202,8 +195,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetStyleRangeAtPositionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetStyleRangeAtPositionMethod(StringComposite sc) {
 		sc.add("private " + STYLE_RANGE + " getStyleRangeAtPosition(" + POSITION + " position) {");
 		sc.add(STYLE_RANGE + " styleRange = null;");
 		sc.add("try {");
@@ -221,8 +213,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConvertToWidgetPositionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConvertToWidgetPositionMethod(StringComposite sc) {
 		sc.add("private " + POSITION + " convertToWidgetPosition(" + POSITION + " position) {");
 		sc.add("if (position == null) {");
 		sc.add("return null;");
@@ -237,8 +228,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addResetValuesMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addResetValuesMethod(StringComposite sc) {
 		sc.add("// Resets the changed values after setting the preference pages.");
 		sc.add("public void resetValues() {");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
@@ -251,8 +241,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetEObjectSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetEObjectSelectionMethod(StringComposite sc) {
 		sc.add("public void setEObjectSelection() {");
 		sc.add("display.syncExec(new Runnable() {");
 		sc.add("public void run() {");
@@ -266,8 +255,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveHighlightingCategoryMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveHighlightingCategoryMethod(StringComposite sc) {
 		sc.add("private void removeHighlightingCategory(" + I_DOCUMENT + " document, String category) {");
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
 		sc.add("boolean isOccurrence = (category.equals(" + positionCategoryClassName + ".DEFINTION.toString()) || category.equals(" + positionCategoryClassName + ".PROXY.toString()));");
@@ -300,8 +288,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveHighlightingMethod(StringComposite sc) {
 		sc.add("private void removeHighlighting() {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
 		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".BRACKET.toString());");
@@ -313,8 +300,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetCategoryHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetCategoryHighlightingMethod(StringComposite sc) {
 		sc.add("private void setCategoryHighlighting(" + I_DOCUMENT + " document, String category) {");
 		sc.add(STYLE_RANGE + " styleRange = null;");
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
@@ -363,8 +349,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetHighlightingMethod(StringComposite sc) {
 		sc.add("private void setHighlighting() {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
 		sc.add("if (isHighlightBrackets) {");
@@ -384,8 +369,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addListenersMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addListenersMethod(StringComposite sc) {
 		sc.add("private void addListeners(" + editorClassName + " editor) {");
 		sc.add("UpdateHighlightingListener hl = new UpdateHighlightingListener();");
 		sc.add("textWidget.addKeyListener(hl);");
@@ -396,8 +380,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates the highlighting manager class.");
 		sc.add("//");
 		sc.add("// @param textResource");
@@ -431,8 +414,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPositionHelperClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addPositionHelperClass(StringComposite sc) {
 		sc.add("// A key and mouse <code>" + LISTENER + "</code> for the highlighting. Removes the");
 		sc.add("// highlighting before document change. No highlighting is set after");
 		sc.add("// document change to increase the performance. No finding new occurrences");

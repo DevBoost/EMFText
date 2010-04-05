@@ -55,4 +55,48 @@ eclass Rule {
 		}
 		return Integer.MIN_VALUE;
 	}
+
+	/**
+	 * Checks whether this rule is annotated with the given AnnotationType.
+	 * If a key and a value is given it is further checked whether the
+	 * annotation specifies this key and value. 
+	 */
+	hasAnnotation() {
+		for (Annotation annotation : getAnnotations()) {
+			if (annotation.getType() == type) {
+				if (key != null) {
+					for (KeyValuePair parameter : annotation.getParameters()) {
+						if (key.equals(parameter.getKey())
+								&& parameter.getValue().equals(value)) {
+							return true;
+						}
+					}
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks whether this rule is annotated with @Override(remove="true").
+	 */
+	isOverrideRemoveRule() {
+		// TODO mseifert: use constant here
+		return hasAnnotation(AnnotationType.OVERRIDE, "remove", "true");
+	}
+
+	/**
+	 * Checks whether this rule is annotated with @Override.
+	 */
+	isOverrideRule() {
+		// TODO figure out why 'metaClass == null' is needed
+		if (metaClass == null || getMetaclass() == metaClass) {
+			if (hasAnnotation(AnnotationType.OVERRIDE, null, null)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -241,25 +241,12 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation">
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/rule"/>
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/type"/>
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/key"/>
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/hasAnnotation/value"/>
-      </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getActiveStartSymbols"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllStartSymbols"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/initialiseAnnotatedOperatorRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubsets"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isOverrideRemoveRule">
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRemoveRule/rule"/>
-      </genOperations>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule">
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/rule"/>
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isOverrideRule/metaClass"/>
-      </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getGenClassCache"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isAbstract"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isImportedRule">
@@ -282,6 +269,15 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorAnnotation"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getOperatorWeight"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Rule/getDefinition"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/hasAnnotation">
+        <genParameters ecoreParameter="concretesyntax.ecore#//Rule/hasAnnotation/type"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//Rule/hasAnnotation/key"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//Rule/hasAnnotation/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/isOverrideRemoveRule"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Rule/isOverrideRule">
+        <genParameters ecoreParameter="concretesyntax.ecore#//Rule/isOverrideRule/metaClass"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Choice">
       <genOperations ecoreOperation="concretesyntax.ecore#//Choice/getOptions"/>
@@ -413,6 +409,13 @@
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/getEscapedTypeName">
         <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/getEscapedTypeName/genClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/hasMapType">
+        <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/hasMapType/genClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//GenClassCache/containsEqualByName">
+        <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/containsEqualByName/list"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//GenClassCache/containsEqualByName/genClass"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//GenClassCacheEntry">

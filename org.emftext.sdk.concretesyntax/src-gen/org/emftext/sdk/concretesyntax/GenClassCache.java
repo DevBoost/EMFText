@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
@@ -59,6 +60,8 @@ public interface GenClassCache extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
+	 *  Return the qualified name of the interface for the given GenClass.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { \r\n\tjava.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; \r\n\tget_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; \r\n} \r\nreturn get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; \r\n'"
 	 * @generated
@@ -70,10 +73,42 @@ public interface GenClassCache extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
+	 *  Return an esacped version of the qualified name of the interface for 
+	 *  the given GenClass. Underscores and dots are replaced to be able to use 
+	 *  the returned name, for example, as method name.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; \r\njava.lang.String escapedName = interfaceName .replace ( \"_\" , \"_005f\" ) ; \r\nescapedName = escapedName .replace ( \".\" , \"_\" ) ; \r\nreturn escapedName ; \r\n'"
 	 * @generated
 	 */
 	String getEscapedTypeName(GenClass genClass);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Checks whether the given GenClass has a map type.
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; \r\n'"
+	 * @generated
+	 */
+	boolean hasMapType(GenClass genClass);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Checks whether the given list of GenClasses contains a GenClass
+	 *  with the same name and namespace URI as the given GenClass. 
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model listMany="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { \r\n\torg.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; \r\n\torg.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; \r\n\tif ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n'"
+	 * @generated
+	 */
+	boolean containsEqualByName(EList<GenClass> list, GenClass genClass);
 
 } // GenClassCache

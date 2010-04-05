@@ -66,8 +66,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addIsOpeningBracketMethod(sc);
 		addIsBracketMethod(sc);
 		addGetBracketPairMethod1(sc);
@@ -86,8 +85,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		addMatchingBracketsMethod(sc);
 	}
 
-	private void addMatchingBracketsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMatchingBracketsMethod(StringComposite sc) {
 		sc.add("// Searches the matching bracket at the left side of the caret. The position");
 		sc.add("// information will be stored in the <code>" + I_DOCUMENT + "</code> in the category");
 		sc.add("// <code>ExtensionConstants.PositionCategory.BRACKET</code>.");
@@ -145,8 +143,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addAddListenersMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddListenersMethod(StringComposite sc) {
 		sc.add("// Adds listeners to handle bracket automatic closing.");
 		sc.add("private void addListeners() {");
 		sc.add("ClosingListener closingListener = new ClosingListener();");
@@ -157,8 +154,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketStringMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetBracketStringMethod(StringComposite sc) {
 		sc.add("// Gets this bracket set as <code>String</code>. It is useful to store in");
 		sc.add("// the <code>" + I_PREFERENCE_STORE + "</code>.");
 		sc.add("//");
@@ -181,8 +177,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketArrayMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetBracketArrayMethod(StringComposite sc) {
 		sc.add("// Gets a list of bracket pairs. This call is for the list in the preference page.");
 		sc.add("//");
 		sc.add("// @return a list of bracket pairs in the form");
@@ -199,8 +194,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetBracketsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetBracketsMethod(StringComposite sc) {
 		sc.add("// Removes the old bracket set and set the given bracket set. It is useful");
 		sc.add("// to take a stored <code>String</code> in a preference store. A bracket pair");
 		sc.add("// contains of opening, closing and isClosingEnabledInside = {'1','0')");
@@ -223,8 +217,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveBracketPairsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveBracketPairsMethod(StringComposite sc) {
 		sc.add("// Removes brackets.");
 		sc.add("public void removeBracketPairs(String bracketsAsArray[]) {");
 		sc.add("for (String bracket : bracketsAsArray) {");
@@ -235,8 +228,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemoveMethod(StringComposite sc) {
 		sc.add("// Removes the given bracket pair.");
 		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " remove(String opening, String closing) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
@@ -250,16 +242,14 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSizeMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSizeMethod(StringComposite sc) {
 		sc.add("public int size() {");
 		sc.add("return bracketPairs.size();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetCounterpartMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetCounterpartMethod(StringComposite sc) {
 		sc.add("// Gets the counter part of a bracket.");
 		sc.add("public String getCounterpart(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
@@ -275,8 +265,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addResetBracketsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addResetBracketsMethod(StringComposite sc) {
 		sc.add("// Removes all bracket pairs from this bracket set, reload the bracket set from the preference store.");
 		sc.add("public boolean resetBrackets() {");
 		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_BRACKETS_SUFFIX);");
@@ -289,8 +278,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetClosingInsideMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetClosingInsideMethod(StringComposite sc) {
 		sc.add("// Sets whether other bracket pairs shall be automatically closed, when used inside of this bracket pair.");
 		sc.add("public boolean setClosingEnabledInside(" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair, boolean closingEnabledInside) {");
 		sc.add("if (bracketPair instanceof BracketPair) {");
@@ -302,8 +290,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddBracketPairMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddBracketPairMethod(StringComposite sc) {
 		sc.add("// Adds the bracket pair to this bracket set.");
 		sc.add("public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside) {");
 		sc.add("if (isBracket(opening) || isBracket(closing)) {");
@@ -315,8 +302,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketPairMethod2(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetBracketPairMethod2(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " getBracketPair(int index) {");
 		sc.add("try {");
 		sc.add("return bracketPairs.get(index);");
@@ -327,8 +313,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketPairMethod1(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetBracketPairMethod1(StringComposite sc) {
 		sc.add("// Returns the bracket pair with the given opening and closing.");
 		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " getBracketPair(String opening, String closing) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
@@ -341,8 +326,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsBracketMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsBracketMethod(StringComposite sc) {
 		sc.add("// Checks whether the string is a bracket.");
 		sc.add("public boolean isBracket(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
@@ -355,8 +339,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsOpeningBracketMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsOpeningBracketMethod(StringComposite sc) {
 		sc.add("// Checks whether the given string is an open bracket.");
 		sc.add("public boolean isOpeningBracket(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
@@ -369,8 +352,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates a bracket set to manage the bracket pairs.");
 		sc.add("//");
 		sc.add("// @param sourceViewer");
@@ -393,14 +375,12 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInnerClasses(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addInnerClasses(StringComposite sc) {
 		addBracketPairClass(sc);
 		addClosingListenerClass(sc);
 	}
 
-	private void addClosingListenerClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addClosingListenerClass(StringComposite sc) {
 		sc.add("// A listener for the automatic closing.");
 		sc.add("private class ClosingListener implements " + VERIFY_LISTENER + ", " + MODIFY_LISTENER + ", " + VERIFY_KEY_LISTENER + " {");
 		sc.add("private int closingLength = -1;");
@@ -471,8 +451,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addBracketPairClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addBracketPairClass(StringComposite sc) {
 		sc.add("// A single pair of brackets.");
 		sc.add("private class BracketPair implements " + getClassNameHelper().getI_BRACKET_PAIR() + " {");
 		sc.addLineBreak();
@@ -503,7 +482,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		String positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
 		
 		sc.add("// the separator between a bracket pair, should not contain escape needed");

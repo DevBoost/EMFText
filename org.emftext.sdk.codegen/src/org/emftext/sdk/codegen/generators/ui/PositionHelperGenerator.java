@@ -46,16 +46,14 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addAddPositionMethod(sc);
 		addGetPositionsMethod(sc);
 		addGetFirstPositionMethod(sc);
 		addRemovePositionsMethod(sc);
 	}
 
-	private void addRemovePositionsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRemovePositionsMethod(StringComposite sc) {
 		sc.add("// Deletes the position category from the document.");
 		sc.add("// All positions in this category are thus deleted as well.");
 		sc.add("//");
@@ -70,8 +68,7 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addGetFirstPositionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetFirstPositionMethod(StringComposite sc) {
 		sc.add("// Gets the first position of a specific category of the given document.");
 		sc.add("//");
 		sc.add("// @param document the document to get the positions from");
@@ -92,8 +89,7 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetPositionsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetPositionsMethod(StringComposite sc) {
 		sc.add("// Gets the positions of a specific category of the given document.");
 		sc.add("//");
 		sc.add("// @param document the document to get the positions from");
@@ -110,8 +106,7 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddPositionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddPositionMethod(StringComposite sc) {
 		sc.add("// Adds a position with the given offset and length into a document.");
 		sc.add("//");
 		sc.add("// @param document the document to add a position into");

@@ -248,7 +248,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private final String fileExtension;");
 		sc.add("private " + TEXT + " containerText;");
 		sc.add("private " + TEXT + " fileText;");

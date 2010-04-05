@@ -524,8 +524,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addColorListLabelProviderClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addColorListLabelProviderClass(StringComposite sc) {
 		sc.add("// Color list label provider.");
 		sc.add("private class ColorListLabelProvider extends " + LABEL_PROVIDER + " {");
 		sc.addLineBreak();
@@ -538,8 +537,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHighlightingColorListItemClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHighlightingColorListItemClass(StringComposite sc) {
 		sc.add("// Item in the highlighting color list.");
 		sc.add("private static class HighlightingColorListItem implements Comparable<HighlightingColorListItem> {");
 		sc.add("// Display name ");
@@ -608,8 +606,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addChangedRGBPreferenceClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addChangedRGBPreferenceClass(StringComposite sc) {
 		sc.add("private static class ChangedRGBPreference extends AbstractChangedPreference {");
 		sc.addLineBreak();
 		sc.add("private " + RGB + " newValue;");
@@ -626,8 +623,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addChangedBooleanPreferenceClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addChangedBooleanPreferenceClass(StringComposite sc) {
 		sc.add("private static class ChangedBooleanPreference extends AbstractChangedPreference {");
 		sc.addLineBreak();
 		sc.add("private boolean newValue;");
@@ -644,8 +640,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAbstractChangedPreferenceClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAbstractChangedPreferenceClass(StringComposite sc) {
 		sc.add("private abstract static class AbstractChangedPreference implements IChangedPreference {");
 		sc.addLineBreak();
 		sc.add("private String key;");
@@ -662,15 +657,14 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIChangePreferenceInterface(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIChangePreferenceInterface(StringComposite sc) {
 		sc.add("private interface IChangedPreference {");
 		sc.add("public void apply(" + I_PREFERENCE_STORE + " store);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
 		sc.add("private static final " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
 		sc.add("private static final " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");

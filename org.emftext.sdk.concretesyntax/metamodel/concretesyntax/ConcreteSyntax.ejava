@@ -47,24 +47,6 @@ eclass ConcreteSyntax {
 		return get_eClassUtil();
 	}
 	
-	hasAnnotation() {
-		for (Annotation annotation : rule.getAnnotations()) {
-			if (annotation.getType() == type) {
-				if (key != null) {
-					for (KeyValuePair parameter : annotation.getParameters()) {
-						if (key.equals(parameter.getKey())
-								&& parameter.getValue().equals(value)) {
-							return true;
-						}
-					}
-				} else {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	getActiveStartSymbols() {
 		EList<GenClass> symbols = new BasicEList<GenClass>();
 		symbols.addAll(getStartSymbols());
@@ -101,7 +83,7 @@ eclass ConcreteSyntax {
 		EList<Rule> l = new BasicEList<Rule>(getRules().size());
 		for (Rule rule : getRules()) {
 			// don't add rules that are @override rules with remove=true
-			if (!isOverrideRemoveRule(rule)) {
+			if (!rule.isOverrideRemoveRule()) {
 				l.add(rule);
 			}
 		}
@@ -112,7 +94,7 @@ eclass ConcreteSyntax {
 					for (Rule rule : getRules()) {
 						// don't add rules that have @override rules for same
 						// meta-class
-						if (isOverrideRule(rule, importedRule.getMetaclass())) {
+						if (rule.isOverrideRule(importedRule.getMetaclass())) {
 							continue outer;
 						}
 					}
@@ -174,21 +156,5 @@ eclass ConcreteSyntax {
 			}
 		}
 		return subset;
-	}
-
-	isOverrideRemoveRule() {
-		// TODO mseifert: use constant here, move method to class 'Rule'
-		return hasAnnotation(rule, AnnotationType.OVERRIDE, "remove", "true");
-	}
-
-		// TODO mseifert: move method to class 'Rule'
-	isOverrideRule() {
-		// TODO figure out why 'metaClass == null' is needed
-		if (metaClass == null || rule.getMetaclass() == metaClass) {
-			if (hasAnnotation(rule, AnnotationType.OVERRIDE, null, null)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

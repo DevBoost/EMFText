@@ -60,13 +60,12 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");
 		sc.addLineBreak();
 	}
 
-	private void addDetectHyperlinksMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addDetectHyperlinksMethod(StringComposite sc) {
 		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
@@ -92,8 +91,7 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates a hyperlink detector.");
 		sc.add("// @param resource the resource for calculating the locations.");
 		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");

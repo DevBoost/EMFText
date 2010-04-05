@@ -50,8 +50,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetPreviousMethod(sc);
 		addGetNextMethod(sc);
 		addResourceMethod(sc);
@@ -63,31 +62,27 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		addGetLeadingImageWidthMethod(sc);
 	}
 
-	private void addGetLeadingImageWidthMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetLeadingImageWidthMethod(StringComposite sc) {
 		sc.add("public int getLeadingImageWidth() {");
 		sc.add("return 0;");
 		sc.add("}");
 	}
 
-	private void addGetInputNameMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetInputNameMethod(StringComposite sc) {
 		sc.add("public String getInputName() {");
 		sc.add("return element == null ? \"\" : element.toString(); ");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetInputElementMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetInputElementMethod(StringComposite sc) {
 		sc.add("public " + OBJECT + " getInputElement() {");
 		sc.add("return element == null ? (" + OBJECT + ") htmlContent : element;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenTextMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTokenTextMethod(StringComposite sc) {
 		sc.add("//");
 		sc.add("// @return the token text, it is needed for a hyperlink where the caret has");
 		sc.add("//         to jump to");
@@ -97,24 +92,21 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addToStringMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addToStringMethod(StringComposite sc) {
 		sc.add("public String toString() {");
 		sc.add("return getHtml();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetHtmlMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHtmlMethod(StringComposite sc) {
 		sc.add("public String getHtml() {");
 		sc.add("return htmlContent;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addResourceMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addResourceMethod(StringComposite sc) {
 		sc.add("// @return the resource");
 		sc.add("public " + RESOURCE + " getResource() {");
 		sc.add("return resource;");
@@ -122,8 +114,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addGetNextMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetNextMethod(StringComposite sc) {
 		sc.add("// The next input or <code>null</code> if this");
 		sc.add("// is the last.");
 		sc.add("//");
@@ -134,8 +125,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addGetPreviousMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetPreviousMethod(StringComposite sc) {
 		sc.add("// The previous input or <code>null</code> if this");
 		sc.add("// is the first.");
 		sc.add("//");
@@ -146,8 +136,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates a new browser information control input.");
 		sc.add("//");
 		sc.add("// @param previous");
@@ -174,7 +163,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private final " + getResourceClassName() + " fPrevious;");
 		sc.add("private " + getResourceClassName() + " fNext;");
 		sc.add("private final " + E_OBJECT + " element;");

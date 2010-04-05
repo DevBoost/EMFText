@@ -31,6 +31,7 @@ import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.EObjectUtil;
@@ -68,16 +69,16 @@ public class ExpectationComputer {
 	 * @param syntaxElement
 	 * @return
 	 */
-	public Set<Expectation> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement) {
-		return computeFirstSet(syntax,syntaxElement, new LinkedHashSet<GenClass>());
+	public Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement) {
+		return computeFirstSet(syntax, syntaxElement, new LinkedHashSet<GenClass>());
 	}
 	
 	
-	public Set<Expectation> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
+	public Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement) {
 		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
 	}
 	
-	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
+	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		if (syntaxElement instanceof STAR) {
 			return firstSet;
@@ -88,7 +89,7 @@ public class ExpectationComputer {
 		if (syntaxElement instanceof PLUS) {
 			return firstSet;
 		}
-		Rule rule = csUtil.findContainingRule(syntaxElement);
+		Rule rule = syntaxElement.getContainingRule();
 		
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
@@ -105,7 +106,7 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 		
-	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
+	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
 		Set<Expectation> result = new LinkedHashSet<Expectation>();
 		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals));
 		if (syntaxElement instanceof STAR) {
@@ -119,7 +120,7 @@ public class ExpectationComputer {
 		}
 		
 		EReference reference = syntaxElement.eContainmentFeature();
-		EObject container = syntaxElement.eContainer();
+		SyntaxElement container = (SyntaxElement) syntaxElement.eContainer();
 		if (container == null) {
 			return result;
 		}
@@ -163,7 +164,7 @@ public class ExpectationComputer {
 				int index = childrenList.indexOf(syntaxElement);
 				if (childrenList.size() > index + 1) {
 					// found an element next right
-					EObject nextInList = (EObject) childrenList.get(index + 1);
+					SyntaxElement nextInList = (SyntaxElement) childrenList.get(index + 1);
 					Set<Expectation> firstSetOfNext = computeFirstSet(syntax, nextInList, contributingNonterminals);
 					result.addAll(firstSetOfNext);
 					if (firstSetOfNext.contains(EPSILON)) {
@@ -172,20 +173,20 @@ public class ExpectationComputer {
 				} else {
 					// object was the last one in the list, 
 					// we must try one level higher
-					result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules, contributingNonterminals));
+					result.addAll(computeFollowSet(syntax, (SyntaxElement) syntaxElement.eContainer(), usedRules, contributingNonterminals));
 				}
 			} else if (children instanceof EObject) {
 				assert syntaxElement == children;
 				// object was the only one stored in the reference, 
 				// we must try one level higher
-				result.addAll(computeFollowSet(syntax, syntaxElement.eContainer(), usedRules, contributingNonterminals));
+				result.addAll(computeFollowSet(syntax, (SyntaxElement) syntaxElement.eContainer(), usedRules, contributingNonterminals));
 			}
 		}
 		result.remove(EPSILON);
 		return result;
 	}
 
-	private Collection<Expectation> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, EObject syntaxElement, Set<GenClass> contributingNonterminals) {
+	private Collection<Expectation> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
 		if (canBeRepeated(syntaxElement)) {
 			return computeFirstSet(syntax, syntaxElement, contributingNonterminals);
 		} else {

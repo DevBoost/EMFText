@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -108,6 +109,33 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 		java.lang.String escapedName = interfaceName .replace ( "_" , "_005f" ) ; 
 		escapedName = escapedName .replace ( "." , "_" ) ; 
 		return escapedName ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean hasMapType(GenClass genClass) {
+		return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean containsEqualByName(EList<GenClass> list, GenClass genClass) {
+		for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { 
+			org.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; 
+			org.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; 
+			if ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { 
+				return true ; 
+			} 
+		} 
+		return false ; 
 		
 	}
 

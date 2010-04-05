@@ -54,8 +54,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addSetSelectionMethod(sc);
 		addHandleSelectMethod(sc);
 		addHandleInvalidSelectionMethod(sc);
@@ -66,16 +65,14 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		addFireSelectionChangedMethod(sc);
 	}
 
-	private void addRefreshMethod4(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRefreshMethod4(StringComposite sc) {
 		sc.add("public void refresh(boolean updateLabels) {");
 		sc.add("super.refresh(updateLabels);");
 		sc.add("expandToLevel(getAutoExpandLevel());");
 		sc.add("}");
 	}
 
-	private void addRefreshMethod3(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRefreshMethod3(StringComposite sc) {
 		sc.add("public void refresh() {");
 		sc.add("super.refresh();");
 		sc.add("expandToLevel(getAutoExpandLevel());");
@@ -83,8 +80,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRefreshMethod2(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRefreshMethod2(StringComposite sc) {
 		sc.add("public void refresh(Object element) {");
 		sc.add("super.refresh(element);");
 		sc.add("expandToLevel(getAutoExpandLevel());");
@@ -92,8 +88,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRefreshMethod1(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addRefreshMethod1(StringComposite sc) {
 		sc.add("public void refresh(Object element, boolean updateLabels) {");
 		sc.add("super.refresh(element, updateLabels);");
 		sc.add("expandToLevel(getAutoExpandLevel());");
@@ -101,8 +96,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetSelectionMethod(StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
 		sc.add("if (selection instanceof " + getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION) + ") {");
 		sc.add("suppressNotifications = true;");
@@ -116,8 +110,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addHandleSelectMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHandleSelectMethod(StringComposite sc) {
 		sc.add("protected void handleSelect(" + SELECTION_EVENT + " event) {");
 		sc.add("if (event.item == null) {");
 		sc.add("// In the cases of an invalid document, the tree widget in the outline might fire an event");
@@ -130,8 +123,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addHandleInvalidSelectionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHandleInvalidSelectionMethod(StringComposite sc) {
 		sc.add("protected void handleInvalidSelection(" + I_SELECTION + " selection, " + I_SELECTION + " newSelection) {");
 		sc.add("//this may not fire a selection changed event to avoid cyclic events between editor and outline");
 		sc.add("}");
@@ -146,8 +138,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + COMPOSITE + " parent, int style) {");
 		sc.add("super(parent, style);");
 		sc.add("}");

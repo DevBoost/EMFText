@@ -75,7 +75,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -1098,7 +1097,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			List<String> ruleNames = new LinkedList<String>();		
 			//first check if this startsymbol is a common expression metaclass, if so
 			//only add a reference to it but not to its supclasses
-			//TODO: sven: we should also check for genclass prefixes or use full qualified names
+			//TODO sven: we should also check for genclass prefixes or use full qualified names
 			if(!syntax.getOperatorRuleSubset(startSymbol.getName()).isEmpty()){
 				ruleNames.add(getRuleName(startSymbol));
 			}
@@ -1960,7 +1959,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 
 		for (GenClass referencedClass : eClassesReferenced.keySet()) {
-			if (!containsEqualByName(eClassesWithSyntax, referencedClass)) {
+			if (!genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)) {
 				// rule not explicitly defined in CS: most likely a choice rule
 				// in the AS
 				//Expression slices are formed over a common abstract superclass
@@ -2006,20 +2005,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 			count++;
 		}
-	}
-
-	// TODO this method does not belong here
-	private boolean containsEqualByName(EList<GenClass> list, GenClass o) {
-		for (GenClass entry : list) {
-			EClass entryClass = entry.getEcoreClass();
-			EClass oClass = o.getEcoreClass();
-			if (entryClass.getName().equals(oClass.getName())
-					&& entryClass.getEPackage().getNsURI().equals(
-							oClass.getEPackage().getNsURI())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void addTokenDefinitions(StringComposite sc) {

@@ -102,8 +102,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetHoverInfoMethod(sc);
 		addGetHoverRegionMethod(sc);
 		addGetHoverControlCreatorMethod(sc);
@@ -116,16 +115,14 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		addGetFirstProxyMethod(sc);
 	}
 
-	private void addInnerClasses(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addInnerClasses(StringComposite sc) {
 		addSimpleSelectionProviderClass(sc);
 		addOpenDeclarationActionClass(sc);
 		addPresenterControlCreatorClass(sc);
 		addHoverControlCreatorClass(sc);
 	}
 
-	private void addHoverControlCreatorClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHoverControlCreatorClass(StringComposite sc) {
 		sc.add("//Hover control creator. Creates a hover control before focus.");
 		sc.add("public static final class HoverControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
 		sc.addLineBreak();
@@ -168,16 +165,14 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfoMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHoverInfoMethod(StringComposite sc) {
 		sc.add("public String getHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add("return ((" + docBrowserInformationControlInputClassName + ") getHoverInfo2(textViewer, hoverRegion)).getHtml();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverRegionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHoverRegionMethod(StringComposite sc) {
 		sc.add("public " + I_REGION + " getHoverRegion(" + I_TEXT_VIEWER + " textViewer, int offset) {");
 		sc.add(POINT + " selection = textViewer.getSelectedRange();");
 		sc.add("if (selection.x <= offset && offset < selection.x + selection.y) {");
@@ -188,7 +183,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " hoverTextProvider;");
@@ -203,8 +198,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverControlCreatorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHoverControlCreatorMethod(StringComposite sc) {
 		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getHoverControlCreator() {");
 		sc.add("if (hoverControlCreator == null) {");
 		sc.add("hoverControlCreator = new HoverControlCreator(");
@@ -215,8 +209,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetInformationPresenterControlCreatorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetInformationPresenterControlCreatorMethod(StringComposite sc) {
 		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getInformationPresenterControlCreator() {");
 		sc.add("if (presenterControlCreator == null) {");
 		sc.add("presenterControlCreator = new PresenterControlCreator();");
@@ -226,16 +219,14 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfo2Method(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHoverInfo2Method(StringComposite sc) {
 		sc.add("public " + OBJECT + " getHoverInfo2(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add("return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addInternalGetHoverInfoMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addInternalGetHoverInfoMethod(StringComposite sc) {
 		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
@@ -248,8 +239,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfo3Method(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHoverInfo3Method(StringComposite sc) {
 		sc.add("// Computes the hover info.");
 		sc.add("//");
 		sc.add("// @param elements");
@@ -294,8 +284,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetStyleSheetMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetStyleSheetMethod(StringComposite sc) {
 		sc.add("// Sets the style sheet font.");
 		sc.add("//");
 		sc.add("// @return the hover style sheet");
@@ -317,8 +306,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetFirstProxyMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetFirstProxyMethod(StringComposite sc) {
 		sc.add("private static " + E_OBJECT + " getFirstProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
 		sc.add("for (" + E_OBJECT + " object : elements) {");
 		sc.add("if (object.eIsProxy()) {");
@@ -329,8 +317,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addLoadStyleSheetMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addLoadStyleSheetMethod(StringComposite sc) {
 		sc.add("// Loads and returns the hover style sheet.");
 		sc.add("//");
 		sc.add("// @return the style sheet, or <code>null</code> if unable to load");
@@ -367,8 +354,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPresenterControlCreatorClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addPresenterControlCreatorClass(StringComposite sc) {
 		sc.add("// Presenter control creator. Creates a hover control after focus.");
 		sc.add("public static final class PresenterControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
 		sc.addLineBreak();
@@ -414,8 +400,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addOpenDeclarationActionClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addOpenDeclarationActionClass(StringComposite sc) {
 		sc.add("// This action will be activated if the button in the hover window is pushed");
 		sc.add("// to jump to the declaration.");
 		sc.add("public static class OpenDeclarationAction extends " + ACTION + " {");
@@ -453,8 +438,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates a new TextHover to collect the information about the hovered");
 		sc.add("// element.");
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
@@ -465,8 +449,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSimpleSelectionProviderClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSimpleSelectionProviderClass(StringComposite sc) {
 		sc.add("// A simple default implementation of a {@link " + I_SELECTION_PROVIDER + "}. It stores");
 		sc.add("// the selection and notifies all selection change listeners when the selection");
 		sc.add("// is set.");

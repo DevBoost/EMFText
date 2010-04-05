@@ -1,5 +1,7 @@
 epackage concretesyntax;
 
+import org.eclipse.emf.ecore.EClass;
+
 import genmodel.GenClass;
 
 /**
@@ -9,6 +11,9 @@ import genmodel.GenClass;
  */
 eclass GenClassCache {
 	
+	/**
+	 * Return the qualified name of the interface for the given GenClass.
+	 */
 	getQualifiedInterfaceName() {
 		if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {
 			String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();
@@ -17,10 +22,39 @@ eclass GenClassCache {
 		return get_qualifiedInterfaceNameCache().get(genClass);
 	}
 
+	/**
+	 * Return an esacped version of the qualified name of the interface for 
+	 * the given GenClass. Underscores and dots are replaced to be able to use 
+	 * the returned name, for example, as method name.
+	 */
 	getEscapedTypeName() {
 		String interfaceName = getQualifiedInterfaceName(genClass);
 		String escapedName = interfaceName.replace("_", "_005f");
 		escapedName = escapedName.replace(".", "_");
 		return escapedName;
+	}
+	
+	/**
+	 * Checks whether the given GenClass has a map type.
+	 */
+	hasMapType() {
+		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
+	}
+
+	/**
+	 * Checks whether the given list of GenClasses contains a GenClass
+	 * with the same name and namespace URI as the given GenClass. 
+	 */
+	containsEqualByName() {
+		for (GenClass entry : list) {
+			EClass entryClass = entry.getEcoreClass();
+			EClass oClass = genClass.getEcoreClass();
+			if (entryClass.getName().equals(oClass.getName())
+					&& entryClass.getEPackage().getNsURI().equals(
+							oClass.getEPackage().getNsURI())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

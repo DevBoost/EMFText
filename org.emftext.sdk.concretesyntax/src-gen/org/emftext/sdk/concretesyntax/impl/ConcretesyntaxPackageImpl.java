@@ -1770,12 +1770,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		EOperation op = addEOperation(concreteSyntaxEClass, this.getRule(), "getOperatorRuleSubset", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "identifier", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "hasAnnotation", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAnnotationType(), "type", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getActiveStartSymbols", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getAllStartSymbols", 0, -1, IS_UNIQUE, IS_ORDERED);
@@ -1787,13 +1781,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(concreteSyntaxEClass, null, "initialiseAnnotatedOperatorRules", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(concreteSyntaxEClass, theEcorePackage.getEString(), "getOperatorRuleSubsets", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "isOverrideRemoveRule", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "isOverrideRule", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theGenModelPackage.getGenClass(), "metaClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(concreteSyntaxEClass, this.getGenClassCache(), "getGenClassCache", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1823,6 +1810,16 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(ruleEClass, theEcorePackage.getEInt(), "getOperatorWeight", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(ruleEClass, this.getChoice(), "getDefinition", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(ruleEClass, theEcorePackage.getEBoolean(), "hasAnnotation", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAnnotationType(), "type", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(ruleEClass, theEcorePackage.getEBoolean(), "isOverrideRemoveRule", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(ruleEClass, theEcorePackage.getEBoolean(), "isOverrideRule", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGenModelPackage.getGenClass(), "metaClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(choiceEClass, Choice.class, "Choice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1982,6 +1979,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEParameter(op, theGenModelPackage.getGenClass(), "genClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(genClassCacheEClass, theEcorePackage.getEString(), "getEscapedTypeName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGenModelPackage.getGenClass(), "genClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(genClassCacheEClass, theEcorePackage.getEBoolean(), "hasMapType", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGenModelPackage.getGenClass(), "genClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(genClassCacheEClass, theEcorePackage.getEBoolean(), "containsEqualByName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGenModelPackage.getGenClass(), "list", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theGenModelPackage.getGenClass(), "genClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(genClassCacheEntryEClass, Map.Entry.class, "GenClassCacheEntry", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);

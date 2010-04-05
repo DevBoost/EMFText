@@ -189,7 +189,7 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + BUTTON + " enableCheckbox;");
 		sc.add("private " + LABEL + " defColorLabel;");
 		sc.add("private " + COLOR_SELECTOR + " defColorSelector;");

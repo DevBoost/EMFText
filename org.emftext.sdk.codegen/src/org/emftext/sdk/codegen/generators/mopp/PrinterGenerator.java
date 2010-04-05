@@ -494,7 +494,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
 							sc.add("Object o = element."
-									+ getAccessMethod(genClass, genFeature) + ";");
+									+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
 								sc.add("int index = list.size() - count;");
@@ -522,7 +522,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								|| cardinality instanceof STAR) {
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST + "<?> list = (" + LIST +"<?>)element."
-										+ getAccessMethod(genClass, genFeature)
+										+ getAccessMethod(genClassCache, genClass, genFeature)
 										+ ";");
 								sc.add("int index  = list.size() - count;");
 								sc.add("if (index < 0) {");
@@ -542,7 +542,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 										+ featureName + "\", 0);");
 							} else if (cardinality instanceof PLUS) {
 								sc.add(OBJECT + " o = element."
-										+ getAccessMethod(genClass, genFeature) + ";");
+										+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\", count - 1);");
@@ -765,7 +765,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			sc.add("temp = element." + getAccessMethod(genClass, genFeature)
+			sc.add("temp = element." + getAccessMethod(genClassCache, genClass, genFeature)
 					+ ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;

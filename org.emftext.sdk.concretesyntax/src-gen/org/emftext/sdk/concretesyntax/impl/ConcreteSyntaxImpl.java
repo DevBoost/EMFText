@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -649,29 +648,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean hasAnnotation(Rule rule, AnnotationType type, String key, String value) {
-		for ( org.emftext.sdk.concretesyntax.Annotation annotation : rule .getAnnotations ( ) ) { 
-			if ( annotation .getType ( ) == type ) { 
-				if ( key != null ) { 
-					for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { 
-						if ( key .equals ( parameter .getKey ( ) ) && parameter .getValue ( ) .equals ( value ) ) { 
-							return true ; 
-						} 
-					} 
-				} else { 
-					return true ; 
-				} 
-			} 
-		} 
-		return false ; 
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<GenClass> getActiveStartSymbols() {
 		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
 		symbols .addAll ( getStartSymbols ( ) ) ; 
@@ -718,7 +694,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; 
 		for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { 
 			// don't add rules that are @override rules with remove=true
-		if ( ! isOverrideRemoveRule ( rule ) ) { 
+		if ( ! rule .isOverrideRemoveRule ( ) ) { 
 				l .add ( rule ) ; 
 			} 
 		} 
@@ -729,7 +705,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 					for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { 
 						// don't add rules that have @override rules for same
 		// meta-class
-		if ( isOverrideRule ( rule , importedRule .getMetaclass ( ) ) ) { 
+		if ( rule .isOverrideRule ( importedRule .getMetaclass ( ) ) ) { 
 							continue outer ; 
 						} 
 					} 
@@ -794,33 +770,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	public EList<String> getOperatorRuleSubsets() {
 		initialiseAnnotatedOperatorRules ( ) ; 
 		return get_operatorRuleSubsets ( ) ; 
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isOverrideRemoveRule(Rule rule) {
-		// TODO mseifert: use constant here, move method to class 'Rule'
-		return hasAnnotation ( rule , org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , "remove" , "true" ) ; 
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isOverrideRule(Rule rule, GenClass metaClass) {
-		// TODO figure out why 'metaClass == null' is needed
-		if ( metaClass == null || rule .getMetaclass ( ) == metaClass ) { 
-			if ( hasAnnotation ( rule , org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { 
-				return true ; 
-			} 
-		} 
-		return false ; 
 		
 	}
 

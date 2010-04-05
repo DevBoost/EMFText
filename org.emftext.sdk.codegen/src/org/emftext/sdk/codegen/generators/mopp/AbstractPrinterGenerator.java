@@ -38,7 +38,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	protected String getMetaClassName(Rule rule) {
-		if (hasMapType(rule.getMetaclass()) ) {
+		if (rule.getSyntax().getGenClassCache().hasMapType(rule.getMetaclass()) ) {
 			return rule.getMetaclass().getQualifiedClassName();
 		}
 		return genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
@@ -89,20 +89,15 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	// TODO mseifert: I think this code is also somewhere else
-	protected String getAccessMethod(GenClass genClass, GenFeature genFeature) {
-		if (hasMapType(genClass)) {
+	// TODO mseifert: this code should go to class GenClassCache
+	protected String getAccessMethod(GenClassCache genClassCache, GenClass genClass, GenFeature genFeature) {
+		if (genClassCache.hasMapType(genClass)) {
 			return "get" + StringUtil.capitalize(genFeature.getName()) + "()";
 		}
 		else {
 			String method = "eGet(element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "))";
 			return method;
 		}
-	}
-
-	// TODO mseifert: this should go somewhere else
-	protected boolean hasMapType(GenClass genClass) {
-		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
 	}
 
 	protected String getTabString(int count) {

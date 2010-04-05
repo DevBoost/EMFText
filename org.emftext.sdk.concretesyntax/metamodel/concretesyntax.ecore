@@ -16,16 +16,6 @@
       </eAnnotations>
       <eParameters name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eOperations name="hasAnnotation" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : rule .getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == type ) { &#xD;&#xA;&#x9;&#x9;if ( key != null ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if ( key .equals ( parameter .getKey ( ) ) &amp;&amp; parameter .getValue ( ) .equals ( value ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;} else { &#xD;&#xA;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
-        <details key="documentation" value=""/>
-      </eAnnotations>
-      <eParameters name="rule" eType="#//Rule"/>
-      <eParameters name="type" eType="#//AnnotationType"/>
-      <eParameters name="key" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-      <eParameters name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    </eOperations>
     <eOperations name="getActiveStartSymbols" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;symbols .addAll ( getStartSymbols ( ) ) ; &#xD;&#xA;if ( symbols .size ( ) > 0 ) { &#xD;&#xA;&#x9;return symbols ; &#xD;&#xA;} &#xD;&#xA;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Import > imports = getImports ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Import importedElement : imports ) { &#xD;&#xA;&#x9;final org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement .getConcreteSyntax ( ) ; &#xD;&#xA;&#x9;if ( importedSyntax != null ) { &#xD;&#xA;&#x9;&#x9;symbols .addAll ( importedSyntax .getActiveStartSymbols ( ) ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return symbols ; &#xD;&#xA;"/>
@@ -40,7 +30,7 @@
     </eOperations>
     <eOperations name="getAllRules" upperBound="-1" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;&#xA;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;// don't add rules that are @override rules with remove=true&#xA;if ( ! isOverrideRemoveRule ( rule ) ) { &#xD;&#xA;&#x9;&#x9;l .add ( rule ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Import aImport : getImports ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport .getConcreteSyntax ( ) ; &#xD;&#xA;&#x9;if ( importedCS != null ) { &#xD;&#xA;&#x9;&#x9;outer : for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS .getAllRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// don't add rules that have @override rules for same&#xA;// meta-class&#xA;if ( isOverrideRule ( rule , importedRule .getMetaclass ( ) ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;continue outer ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;l .add ( importedRule ) ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return org.eclipse.emf.common.util.ECollections .unmodifiableEList ( l ) ; &#xD;&#xA;"/>
+        <details key="body" value="//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;&#xA;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;// don't add rules that are @override rules with remove=true&#xA;if ( ! rule .isOverrideRemoveRule ( ) ) { &#xD;&#xA;&#x9;&#x9;l .add ( rule ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Import aImport : getImports ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport .getConcreteSyntax ( ) ; &#xD;&#xA;&#x9;if ( importedCS != null ) { &#xD;&#xA;&#x9;&#x9;outer : for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS .getAllRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// don't add rules that have @override rules for same&#xA;// meta-class&#xA;if ( rule .isOverrideRule ( importedRule .getMetaclass ( ) ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;continue outer ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;l .add ( importedRule ) ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return org.eclipse.emf.common.util.ECollections .unmodifiableEList ( l ) ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -61,21 +51,6 @@
         <details key="body" value="initialiseAnnotatedOperatorRules ( ) ; &#xD;&#xA;return get_operatorRuleSubsets ( ) ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
-    </eOperations>
-    <eOperations name="isOverrideRemoveRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="// TODO mseifert: use constant here, move method to class 'Rule'&#xA;return hasAnnotation ( rule , org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , &quot;remove&quot; , &quot;true&quot; ) ; &#xD;&#xA;"/>
-        <details key="documentation" value=""/>
-      </eAnnotations>
-      <eParameters name="rule" eType="#//Rule"/>
-    </eOperations>
-    <eOperations name="isOverrideRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="// TODO figure out why 'metaClass == null' is needed&#xA;if ( metaClass == null || rule .getMetaclass ( ) == metaClass ) { &#xD;&#xA;&#x9;if ( hasAnnotation ( rule , org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
-        <details key="documentation" value=""/>
-      </eAnnotations>
-      <eParameters name="rule" eType="#//Rule"/>
-      <eParameters name="metaClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="getGenClassCache" eType="#//GenClassCache">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -171,6 +146,28 @@
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
+    </eOperations>
+    <eOperations name="hasAnnotation" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == type ) { &#xD;&#xA;&#x9;&#x9;if ( key != null ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if ( key .equals ( parameter .getKey ( ) ) &amp;&amp; parameter .getValue ( ) .equals ( value ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;} else { &#xD;&#xA;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with the given AnnotationType.&#xD;&#xA; If a key and a value is given it is further checked whether the&#xD;&#xA; annotation specifies this key and value. &#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="type" eType="#//AnnotationType"/>
+      <eParameters name="key" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+      <eParameters name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    </eOperations>
+    <eOperations name="isOverrideRemoveRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="// TODO mseifert: use constant here&#xA;return hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , &quot;remove&quot; , &quot;true&quot; ) ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with @Override(remove=&quot;true&quot;).&#xD;&#xA;"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="isOverrideRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="// TODO figure out why 'metaClass == null' is needed&#xA;if ( metaClass == null || getMetaclass ( ) == metaClass ) { &#xD;&#xA;&#x9;if ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with @Override.&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="metaClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaclass" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -640,15 +637,30 @@
     <eOperations name="getQualifiedInterfaceName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { &#xD;&#xA;&#x9;java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; &#xD;&#xA;&#x9;get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; &#xD;&#xA;} &#xD;&#xA;return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; &#xD;&#xA;"/>
-        <details key="documentation" value=""/>
+        <details key="documentation" value="&#xD;&#xA; Return the qualified name of the interface for the given GenClass.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="getEscapedTypeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; &#xD;&#xA;java.lang.String escapedName = interfaceName .replace ( &quot;_&quot; , &quot;_005f&quot; ) ; &#xD;&#xA;escapedName = escapedName .replace ( &quot;.&quot; , &quot;_&quot; ) ; &#xD;&#xA;return escapedName ; &#xD;&#xA;"/>
-        <details key="documentation" value=""/>
+        <details key="documentation" value="&#xD;&#xA; Return an esacped version of the qualified name of the interface for &#xD;&#xA; the given GenClass. Underscores and dots are replaced to be able to use &#xD;&#xA; the returned name, for example, as method name.&#xD;&#xA;"/>
       </eAnnotations>
+      <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    </eOperations>
+    <eOperations name="hasMapType" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether the given GenClass has a map type.&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    </eOperations>
+    <eOperations name="containsEqualByName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; &#xD;&#xA;&#x9;if ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) &amp;&amp; entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether the given list of GenClasses contains a GenClass&#xD;&#xA; with the same name and namespace URI as the given GenClass. &#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="list" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="_qualifiedInterfaceNameCache"

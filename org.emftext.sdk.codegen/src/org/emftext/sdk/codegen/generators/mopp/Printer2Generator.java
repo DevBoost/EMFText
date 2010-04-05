@@ -294,15 +294,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintSyntaxElementMethodBasic(StringComposite sc, EObject syntaxElement) {
 		if (syntaxElement instanceof CsString) {
-			sc.add("public void print_" + csUtil.getFieldName(syntaxElement) + "() {");
 			CsString csString = (CsString) syntaxElement;
+			sc.add("public void print_" + csUtil.getFieldName(csString) + "() {");
 			String value = csString.getValue();
 			sc.add("writer.write(\"" + StringUtil.escapeToJavaString(value) + "\");");
 			sc.add("}");
 			sc.addLineBreak();
 		} else if (syntaxElement instanceof WhiteSpaces) {
-			sc.add("public void print_" + csUtil.getFieldName(syntaxElement) + "() {");
 			WhiteSpaces whiteSpace = (WhiteSpaces) syntaxElement;
+			sc.add("public void print_" + csUtil.getFieldName(whiteSpace) + "() {");
 			int count = whiteSpace.getAmount();
 			if (count > 0) {
 				String spaces = getWhiteSpaceString(count);
@@ -323,7 +323,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			if (feature instanceof EReference) {
 				sc.add("// eObject is the container of the attribute or reference value to be printed");
 				sc.add("// value is the attribute or reference value to be printed");
-				sc.add("public void print_" + csUtil.getFieldName(syntaxElement) + "(" + genClassCache.getQualifiedInterfaceName(genClass) + " eObject, " + OBJECT + " value) {");
+				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + genClassCache.getQualifiedInterfaceName(genClass) + " eObject, " + OBJECT + " value) {");
 				sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
 						+ tokenName
 						+ "\");");
@@ -338,7 +338,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			} else {
 				sc.add("// eObject is the container of the attribute or reference value to be printed");
 				sc.add("// value is the attribute or reference value to be printed");
-				sc.add("public void print_" + csUtil.getFieldName(syntaxElement) + "(" + E_OBJECT + " eObject, " + OBJECT + " value) {");
+				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + E_OBJECT + " eObject, " + OBJECT + " value) {");
 				sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
 						+ tokenName
 						+ "\");");

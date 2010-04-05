@@ -147,24 +147,27 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 
 	private void addConstant(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule, EObject next) {
 		if (next instanceof CsString) {
-			String value = ((CsString) next).getValue();
-			String fieldName = csUtil.getFieldName(next);
+			CsString csString = (CsString) next;
+			String value = csString.getValue();
+			String fieldName = csUtil.getFieldName(csString);
 			sc.add("public final static " + keywordClassName + " " + fieldName + " = new " + keywordClassName + "(\"" + StringUtil.escapeToJavaString(value) + "\", " + getCardinality(next) + ");");
 		} else if (next instanceof Placeholder) {
 			Placeholder placeholder = (Placeholder) next;
 			GenFeature genFeature = placeholder.getFeature();
 			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
 			String featureAccessor = getFeatureAccessor;
-			String fieldName = csUtil.getFieldName(next);
+			String fieldName = csUtil.getFieldName(placeholder);
 			int mandatoryOccurencesAfter = getMandatoryOccurencesAfter(placeholder, genFeature);
 			sc.add("public final static " + placeholderClassName + " " + fieldName + " = new " + placeholderClassName + "(" + featureAccessor + ", \"" + StringUtil.escapeToJavaString(placeholder.getToken().getName()) + "\", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else if (next instanceof WhiteSpaces) {
-			int amount = ((WhiteSpaces) next).getAmount();
-			String fieldName = csUtil.getFieldName(next);
+			WhiteSpaces whiteSpaces = (WhiteSpaces) next;
+			int amount = whiteSpaces.getAmount();
+			String fieldName = csUtil.getFieldName(whiteSpaces);
 			sc.add("public final static " + whiteSpaceClassName + " " + fieldName + " = new " + whiteSpaceClassName + "(" + amount + ", " + getCardinality(next) + ");");
 		} else if (next instanceof LineBreak) {
-			int amount = ((LineBreak) next).getTab();
-			String fieldName = csUtil.getFieldName(next);
+			LineBreak lineBreak = (LineBreak) next;
+			int amount = lineBreak.getTab();
+			String fieldName = csUtil.getFieldName(lineBreak);
 			sc.add("public final static " + lineBreakClassName + " " + fieldName + " = new " + lineBreakClassName + "(" + getCardinality(next) + ", " + amount + ");");
 		} else if (next instanceof Sequence) {
 			Sequence sequence = (Sequence) next;
@@ -174,7 +177,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 				addConstant(sc, objectToFieldNameMap, rule, part);
 				elements.add(csUtil.getFieldName(part));
 			}
-			String fieldName = csUtil.getFieldName(next);
+			String fieldName = csUtil.getFieldName(sequence);
 			sc.add("public final static " + sequenceClassName + " " + fieldName + " = new " + sequenceClassName + "(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Choice) {
 			Choice choice = (Choice) next;
@@ -184,13 +187,13 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 				addConstant(sc, objectToFieldNameMap, rule, part);
 				elements.add(csUtil.getFieldName(part));
 			}
-			String fieldName = csUtil.getFieldName(next);
+			String fieldName = csUtil.getFieldName(choice);
 			sc.add("public final static " + choiceClassName + " " + fieldName + " = new " + choiceClassName + "(" + getCardinality(next) + ", " + StringUtil.explode(elements, ", ") + ");");
 		} else if (next instanceof Containment) {
 			Containment containment = (Containment) next;
 			GenFeature genFeature = containment.getFeature();
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
-			String fieldName = csUtil.getFieldName(next);
+			String fieldName = csUtil.getFieldName(containment);
 			int mandatoryOccurencesAfter = getMandatoryOccurencesAfter(containment, genFeature);
 			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else if (next instanceof CompoundDefinition) {
@@ -198,7 +201,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 			Choice choice = compound.getDefinition();
 			addConstant(sc, objectToFieldNameMap, rule, choice);
 			String choiceFieldName = csUtil.getFieldName(choice);
-			String fieldName = csUtil.getFieldName(next);
+			String fieldName = csUtil.getFieldName(compound);
 			sc.add("public final static " + compoundClassName + " " + fieldName + " = new " + compoundClassName + "(" + choiceFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
