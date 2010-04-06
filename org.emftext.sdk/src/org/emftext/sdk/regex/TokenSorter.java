@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -151,8 +150,10 @@ public class TokenSorter {
 			boolean ignoreUnreachables) throws SorterException {
 		List<ComparableTokenDefinition> compareables = translateToComparables(toSort);
 
-		Collections.sort(compareables);
-		// doSort(compareables);
+		// PITFALL: Can't use collections sort here since token definition comparision is not
+		// transitive that means t1 < t2 and t2 < t3 does not imply t1 < t3
+		//Collections.sort(compareables);
+		doSort(compareables);
 
 		List<CompleteTokenDefinition> resultList = new ArrayList<CompleteTokenDefinition>();
 		for (ComparableTokenDefinition directive : compareables) {
@@ -243,27 +244,27 @@ public class TokenSorter {
 		return regex;
 	}
 
-	// private List<ComparableTokenDirective> doSort(
-	// List<ComparableTokenDirective> toSorted) {
-	// for (int i = 0; i < toSorted.size(); i++) {
-	// ComparableTokenDirective runHolder = toSorted.get(i);
-	//
-	// for (int j = i + 1; j < toSorted.size(); j++) {
-	// ComparableTokenDirective compareHolder = toSorted.get(j);
-	// int compare = runHolder.compareTo(compareHolder);
-	//
-	// if (compare > 0) {
-	// ComparableTokenDirective dummy = runHolder;
-	// toSorted.set(i, compareHolder);
-	// toSorted.set(j, dummy);
-	//
-	// runHolder = compareHolder;
-	// }
-	//
-	// }
-	// }
-	//
-	// return toSorted;
-	// }
+	private List<ComparableTokenDefinition> doSort(
+			List<ComparableTokenDefinition> toSorted) {
+		for (int i = 0; i < toSorted.size(); i++) {
+			ComparableTokenDefinition runHolder = toSorted.get(i);
+
+			for (int j = i + 1; j < toSorted.size(); j++) {
+				ComparableTokenDefinition compareHolder = toSorted.get(j);
+				int compare = runHolder.compareTo(compareHolder);
+
+				if (compare > 0) {
+					ComparableTokenDefinition dummy = runHolder;
+					toSorted.set(i, compareHolder);
+					toSorted.set(j, dummy);
+
+					runHolder = compareHolder;
+				}
+
+			}
+		}
+
+		return toSorted;
+	}
 
 }
