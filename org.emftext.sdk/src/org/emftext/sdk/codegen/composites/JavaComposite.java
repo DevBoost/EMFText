@@ -37,6 +37,16 @@ public class JavaComposite extends StringComposite {
 			return true;
 		}
 		// add line breaks after single line comments
-		return component.toString().contains("//");
+		String componentText = component.toString();
+		boolean isSingleLineComment = componentText.contains("//");
+		if (isSingleLineComment) {
+			return true;
+		}
+		boolean isMultiLineComment = 
+			"/*".equals(componentText) ||      // start of multi-line comment
+			"/**".equals(componentText) ||     // start of Javadoc comment
+			componentText.startsWith(" * ") || // intermediate line
+			" */".equals(componentText);       // end of multi-line comment
+		return isMultiLineComment;
 	}
 }
