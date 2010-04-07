@@ -1451,8 +1451,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				//we do unary operators first
 				if (operatorType == OperatorAnnotationType.UNARY) {
 					 //1st case: unary operator starts with keyword
-					// TODO mseifert: handle placeholders
-					if (firstSequence.getParts().get(0) instanceof CsString) {
+					
+					if (firstSequence.getParts().get(0) instanceof CsString || firstSequence.getParts().get(0) instanceof Placeholder) {
 						printUnaryRightRecursiveRule(sc, eClassesReferenced,
 								firstRule, rulesWithEqualWeight, nextRuleName);	
 					}
@@ -1509,13 +1509,24 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
 			assert definitions.size() == 2;
-			// TODO mseifert: handle placeholders as first argument
-			assert definitions.get(0) instanceof CsString;
-			assert definitions.get(1) instanceof Containment;
-			CsString csString = (CsString) definitions.get(0);
-			Containment containment = (Containment) definitions.get(1);
-			printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			
+			Definition operator = definitions.get(0);
+			Definition right = definitions.get(1);
+			
+			assert right instanceof Containment;
+			assert operator instanceof CsString || operator instanceof Placeholder;
+			
+			if (operator instanceof CsString) {
+				CsString csString = (CsString) operator;
+				printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			} else {
+				assert operator instanceof Placeholder;
+				Placeholder placeholder = (Placeholder) operator;
+				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+			}
+			
 			sc.add("arg = " + nextRuleName);
+			Containment containment = (Containment) right;
 			printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null", true);
 			sc.add("|");
 			sc.addLineBreak();
@@ -1533,12 +1544,25 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
 			assert definitions.size() == 2;
-			assert definitions.get(0) instanceof Containment;
-			// TODO mseifert: handle placeholders as second argument
-			assert definitions.get(1) instanceof CsString;
-			CsString csString = (CsString) firstSequence.getParts().get(1);
-			Containment containment = (Containment) definitions.get(1);
-			printCsString(csString, rule, sc, 0, eClassesReferenced);	
+			
+			Definition left = definitions.get(0);
+			Definition operator = definitions.get(1);
+			
+			assert operator instanceof CsString || operator instanceof Placeholder;
+			assert left instanceof Containment;
+			
+			// TODO mirko: cwende added support for placeholders. However, isn't it 
+			// necessary to print containment action before operator action?
+			if (operator instanceof CsString) {
+				CsString csString = (CsString) operator;
+				printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			} else {
+				assert operator instanceof Placeholder;
+				Placeholder placeholder = (Placeholder) operator;
+				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+			}
+			
+			Containment containment = (Containment) left;
 			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null", true);
 			sc.add("|");
 			sc.addLineBreak();
@@ -1605,14 +1629,27 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Rule rule = ruleIterator.next();
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
 			assert definitions.size() == 3;
-			assert definitions.get(0) instanceof Containment;
-			// TODO mseifert: handle placeholders as second argument
-			assert definitions.get(1) instanceof CsString;
-			assert definitions.get(2) instanceof Containment;
-			Containment leftContainment = (Containment) definitions.get(0);
-			CsString csString = (CsString) definitions.get(1);
-			Containment rightContainment = (Containment) definitions.get(2);
-			printCsString(csString, rule, sc, 0, eClassesReferenced);	
+			
+			Definition left = definitions.get(0);
+			Definition operator = definitions.get(1);
+			Definition right = definitions.get(2);
+			
+			assert left instanceof Containment;
+			assert operator instanceof CsString || operator instanceof Placeholder;
+			assert right instanceof Containment;
+			
+			Containment leftContainment = (Containment) left;
+			Containment rightContainment = (Containment) right;
+			
+			if (operator instanceof CsString) {
+				CsString csString = (CsString) operator;
+				printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			} else {
+				assert operator instanceof Placeholder;
+				Placeholder placeholder = (Placeholder) operator;
+				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+			}
+			
 			sc.add("rightArg = " + ruleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
 			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null", true);
