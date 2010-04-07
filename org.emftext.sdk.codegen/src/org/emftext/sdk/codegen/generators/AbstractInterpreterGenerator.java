@@ -15,6 +15,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
@@ -54,11 +55,23 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		allGenClasses = getAllGenClasses();
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addJavadoc(
+				"This class provides basic infrastructure to interprete models. " +
+				"To implement concrete interpreters, subclass this abstract interpreter " +
+				"and override the interprete_* methods. The interpretation can be customized " +
+				"by binding the two type parameters (ResultType, ContextType). The former " +
+				"is returned by all interprete_* methods, while the latter is passed from " +
+				"method to method while traversing the model. The concrete traversal strategy " +
+				"can also be exchanged. One can use a static traversal strategy by pushing " +
+				"all objects to interprete on the interpretation stack (using addObjectToInterprete()) " +
+				"before calling interprete(). Alternativly, the tranversal strategy can be dynamic " +
+				"by pushing object on the interpretation stack during interpretation."
+		);
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> {");
 		sc.addLineBreak();
 		addFields(sc);

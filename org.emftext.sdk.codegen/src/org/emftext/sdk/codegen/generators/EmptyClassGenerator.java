@@ -20,7 +20,7 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class EmptyClassGenerator extends JavaBaseGenerator {
 
@@ -44,7 +44,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		this.targetPackage = targetPackage;
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 
 		sc.add("package " + context.getPackageName(targetPackage) + ";");
 		sc.addLineBreak();

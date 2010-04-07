@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators.ui;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PositionCategoryGenerator extends JavaBaseGenerator {
@@ -29,7 +29,7 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.POSITION_CATEGORY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

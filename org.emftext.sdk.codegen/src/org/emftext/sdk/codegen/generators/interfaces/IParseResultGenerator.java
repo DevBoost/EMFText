@@ -19,7 +19,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IParseResultGenerator extends JavaBaseGenerator {
@@ -41,7 +41,7 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		return new IParseResultGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

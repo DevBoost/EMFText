@@ -49,4 +49,11 @@ public class JavaComposite extends StringComposite {
 			" */".equals(componentText);       // end of multi-line comment
 		return isMultiLineComment;
 	}
+
+	public void addJavadoc(String text) {
+		add("/**");
+		// TODO mseifert: split text into chunks of 80 characters (split at space)
+		add(" * " + text);
+		add(" */");
+	}
 }

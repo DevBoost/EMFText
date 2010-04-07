@@ -1,12 +1,13 @@
 package org.emftext.sdk.codegen.generators.code_completion;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARABLE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
@@ -24,7 +25,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		return new CompletionProposalGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

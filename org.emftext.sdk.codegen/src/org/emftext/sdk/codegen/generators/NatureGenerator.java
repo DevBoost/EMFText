@@ -9,6 +9,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROJECT_N
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class NatureGenerator extends JavaBaseGenerator {
@@ -29,7 +30,7 @@ public class NatureGenerator extends JavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_PROJECT_NATURE + " {");

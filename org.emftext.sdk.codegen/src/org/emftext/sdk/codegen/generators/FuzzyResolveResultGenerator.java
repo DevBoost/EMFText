@@ -20,7 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 
@@ -32,7 +32,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

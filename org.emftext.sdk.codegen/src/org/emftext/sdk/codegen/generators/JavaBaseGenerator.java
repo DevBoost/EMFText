@@ -25,7 +25,7 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 	}
 
 	final public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+		JavaComposite sc = new JavaComposite();
 		addLicenceHeader(sc);
 		boolean success = generateJavaContents(sc);
 		out.write(sc.toString());
@@ -56,5 +56,5 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 		return getContext().getLicenceText();
 	}
 
-	public abstract boolean generateJavaContents(StringComposite sc);
+	public abstract boolean generateJavaContents(JavaComposite sc);
 }

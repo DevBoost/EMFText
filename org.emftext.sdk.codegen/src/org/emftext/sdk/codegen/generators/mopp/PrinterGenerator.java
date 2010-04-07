@@ -183,7 +183,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		List<Rule> rules = prepare();
 		
 		sc.add("package " + getResourcePackageName() + ";");

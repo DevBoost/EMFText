@@ -19,9 +19,9 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.TokenResolverGenerator;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * Creates the Java files for the token resolvers using the content

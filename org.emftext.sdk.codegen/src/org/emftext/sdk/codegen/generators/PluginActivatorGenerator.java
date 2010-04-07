@@ -27,6 +27,7 @@ import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class PluginActivatorGenerator extends JavaBaseGenerator {
@@ -39,7 +40,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

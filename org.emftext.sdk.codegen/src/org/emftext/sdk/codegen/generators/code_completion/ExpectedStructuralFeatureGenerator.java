@@ -20,6 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
@@ -42,7 +43,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		return new ExpectedStructuralFeatureGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

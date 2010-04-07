@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXC
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
 
@@ -34,7 +34,7 @@ public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
 		return new TerminateParsingExceptionGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

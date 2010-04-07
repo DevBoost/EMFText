@@ -1,10 +1,17 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFIER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
@@ -25,7 +32,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		return new LayoutInformationAdapterGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

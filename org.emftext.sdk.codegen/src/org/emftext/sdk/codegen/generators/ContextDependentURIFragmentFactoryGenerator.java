@@ -19,7 +19,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerator {
 
@@ -36,7 +36,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

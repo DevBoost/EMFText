@@ -28,6 +28,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -64,7 +65,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		this.proxyReference = proxyReference;
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 
 		sc.add("package " + context.getResolverPackageName() + ";");
 		sc.addLineBreak();

@@ -26,7 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
@@ -46,7 +46,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 		return new CopiedEObjectInternalEListGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		//TODO mseifert: override remove() method of iterators
 		
 		sc.add("package " + getResourcePackageName() + ";");

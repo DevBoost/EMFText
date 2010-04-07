@@ -30,7 +30,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ResourceUtilGenerator extends JavaBaseGenerator {
@@ -47,7 +47,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		return new ResourceUtilGenerator(context);
 	}
 
-	public boolean generateJavaContents(StringComposite sc) {
+	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
