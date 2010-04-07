@@ -287,7 +287,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	private GenClass mapIdentifierToGenClass(ConcreteSyntax syntax, String identifier){
 		//This is stupid because a resolver should do it
 		GenClassFinder finder = new GenClassFinder();
-		Set<GenClass> genClasses = finder.findAllGenClasses(syntax,false,true);
+		Set<GenClass> genClasses = finder.findAllGenClasses(syntax,true,true);
 		for(GenClass genClass:genClasses){
 			if(genClass.getName().equals(identifier)){
 				return genClass;
