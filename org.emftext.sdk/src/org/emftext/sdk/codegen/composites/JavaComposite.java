@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.composites;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A custom StringComposite that is configured with the Java-specific
  * line break characters and indentation starter and stoppers.
@@ -52,8 +55,43 @@ public class JavaComposite extends StringComposite {
 
 	public void addJavadoc(String text) {
 		add("/**");
-		// TODO mseifert: split text into chunks of 80 characters (split at space)
-		add(" * " + text);
+		// split text into chunks of 80 characters (split at space)
+		List<String> lines = split(text, 80);
+		for (String line : lines) {
+			add(" * " + line);
+		}
 		add(" */");
+	}
+	
+	/**
+	 * Splits the given text into lines where each line does
+	 * contain at most 'maxLength' characters. The text is split
+	 * at space characters (i.e., words are not split).
+	 * 
+	 * @param text the string to split
+	 * @param maxLength the maximum length of the lines returned
+	 * @return
+	 */
+	public List<String> split(String text, int maxLength) {
+		String tail = text;
+		List<String> result = new ArrayList<String>();
+		int length = Integer.MAX_VALUE;
+		while (length > maxLength) {
+			length = tail.length();
+			if (length <= maxLength) {
+				result.add(tail);
+			} else {
+				String head = tail.substring(0, maxLength);
+				int indexOfLastSpace = head.lastIndexOf(" ");
+				if (indexOfLastSpace >= 0) {
+					head = tail.substring(0, indexOfLastSpace);
+				} else {
+					indexOfLastSpace = head.length() - 1;
+				}
+				result.add(head);
+				tail = tail.substring(indexOfLastSpace + 1).trim();
+			}
+		}
+		return result;
 	}
 }
