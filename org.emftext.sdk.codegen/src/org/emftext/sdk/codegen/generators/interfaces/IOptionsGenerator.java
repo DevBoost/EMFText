@@ -38,22 +38,30 @@ public class IOptionsGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A list of constants that contains the keys for some options that");
-		sc.add("// are built into EMFText. Generated resource plug-ins do automatically");
-		sc.add("// recognize this options and use them if they are configured properly.");
+		sc.addJavadoc(
+			"A list of constants that contains the keys for some options that " +
+			"are built into EMFText. Generated resource plug-ins do automatically " +
+			"recognize this options and use them if they are configured properly."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// The key for the option to provide a stream pre-processor.");
+		sc.addJavadoc("The key for the option to provide a stream pre-processor.");
 		sc.add("public String INPUT_STREAM_PREPROCESSOR_PROVIDER = \"INPUT_STREAM_PREPROCESSOR_PROVIDER\";");
 		sc.addLineBreak();
 		
-		sc.add("// The key for the option to provide a resource post-processor.");
+		sc.addJavadoc("The key for the option to provide a resource post-processor.");
 		sc.add("public String RESOURCE_POSTPROCESSOR_PROVIDER = \"RESOURCE_POSTPROCESSOR_PROVIDER\";");
 		sc.addLineBreak();
 		
-		sc.add("// The key for the option specify an expected content type in text resources and text parsers.");
+		sc.addJavadoc(
+			"The key for the option to specify an expected content type in text resources and text parsers. " +
+			"A content type is an EClass that specifies the root object of a text resource. If this option " +
+			"is set, the parser does not use the start symbols defined in the .cs specification, use the " +
+			"given EClass as start symbol instead."
+		);
 		sc.add("public final String RESOURCE_CONTENT_TYPE = \"RESOURCE_CONTENT_TYPE\";");
+		sc.addLineBreak();
 		
 		sc.add("}");
 		return true;

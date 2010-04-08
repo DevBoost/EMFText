@@ -62,94 +62,100 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// This interface provides information about a generated EMFText");
-		sc.add("// text resource plug-in.");
+		sc.addJavadoc("This interface provides information about a generated EMFText text resource plug-in.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
 		sc.add("public String getURI();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the name of the concrete syntax. This name is used");
-		sc.add("// as file extension.");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns the name of the concrete syntax. This name is used as file extension.\n\n" +
+			"@return the file extension"
+		);
 		sc.add("public String getSyntaxName();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the relative path to the .cs file within the plug-in.");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns the relative path to the .cs file within the plug-in.\n\n" +
+			"@return relative path to the .cs specification"
+		);
 		sc.add("public String getPathToCSDefinition();");
 		sc.addLineBreak();
 		
-		sc.add("// Return a lexer capable to split the underlying text file into tokens.");
-		sc.add("//");
-		sc.add("// @return a lexer instance.");
+		sc.addJavadoc(
+			"Returns a lexer capable to split the underlying text file into tokens.\n\n" +
+			"@return a new instance of the lexer class."
+		);
 		sc.add("public " + iTextScannerClassName + " createLexer();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns an instance of the parser. This factory method");
-		sc.add("// is needed, because we can not create ANTLR parsers using");
-		sc.add("// the default constructor without arguments, because they");
-		sc.add("// expect the input stream or rather a token stream.");
-		sc.add("//");
-		sc.add("// @param inputStream");
-		sc.add("// @param encoding");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns an instance of the parser. This factory method " +
+			"is needed, because we can not create ANTLR parsers using " +
+			"the default constructor without arguments, because this constructor " + 
+			"does expect the input stream or rather a token stream as arguments. "+
+			"Furthermore, the parser implementation can be exchanged by returning " +
+			"other parsers in this factory method.\n\n" +
+			"@param inputStream the stream to read from\n" +
+			"@param encoding the encoding of the input stream, pass null to use platform default encoding\n" +
+			"@return a new instance of the parser class"
+		);
 		sc.add("public " + iTextParserClassName  + " createParser(" + INPUT_STREAM + " inputStream, String encoding);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns a new instance of the printer.");
-		sc.add("//");
-		sc.add("// @param outputStream the stream to print to");
-		sc.add("// @param resource");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns a new instance of the printer.\n\n" +
+			"@param outputStream the stream to print to\n" +
+			"@param resource that contains the elements that will be printed\n" +
+			"@return a new instance of the printer class"
+		);
 		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " ouputStream, " + iTextResourceClassName + " resource);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns all meta classes for which syntax was defined. This");
-		sc.add("// information is used both by the NewFileWizard and the code");
-		sc.add("// completion.");
+		sc.addJavadoc(
+			"Returns all meta classes for which syntax was defined. This " +
+			"information is used both by the NewFileWizard and the code " +
+			"completion."
+		);
 		sc.add("public " + E_CLASS + "[] getClassesWithSyntax();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns an instance of the reference resolver switch class.");
+		sc.addJavadoc("Returns an instance of the reference resolver switch class.");
 		sc.add("public " + iReferenceResolverSwitchClassName + " getReferenceResolverSwitch();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns an instance of the token resolver factory.");
-		
+		sc.addJavadoc("Returns an instance of the token resolver factory.");
 		sc.add("public " + iTokenResolverFactoryClassName  + " getTokenResolverFactory();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns a list of all tokens defined in the syntax.");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc("Returns a list of the names of all tokens defined in the syntax.");
 		sc.add("public String[] getTokenNames();");
 		sc.addLineBreak();
 		
-		sc.add("// Return the default style that should be used to present tokens of the");
-		sc.add("// given type.");
-		sc.add("//");
-		sc.add("// @param tokenName the name of the token type");
-		sc.add("// @return a style object or null if not default style is set");
+		sc.addJavadoc(
+			"Returns the default style that should be used to present tokens of the " +
+			"given type.\n\n" +
+			"@param tokenName the name of the token type\n" +
+			"@return a style object or null if no default style is set"
+		);
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the default bracket pairs.");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc("Returns the default bracket pairs.");
 		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns all classes for which folding should be enabled");
-		sc.add("// in the editor.");
+		sc.addJavadoc("Returns all classes for which folding must be enabled in the editor.");
 		sc.add("public " + E_CLASS + "[] getFoldableClasses();");
 		sc.addLineBreak();
 		
-		sc.add("// @return a hover text provider which provides the hover text of an <code>EObject</code>");
+		sc.addJavadoc("Returns a hover text provider which provides the hover text for <code>EObject</code>s");
 		sc.add("public " + iHoverTextProviderClassName  + " getHoverTextProvider();");
+		sc.addLineBreak();
+		
 		sc.add("}");
+		
 		return true;
 	}
 }

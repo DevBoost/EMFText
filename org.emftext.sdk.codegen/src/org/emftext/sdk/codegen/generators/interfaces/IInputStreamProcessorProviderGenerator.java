@@ -43,20 +43,21 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementors of this interface can provide InputStreamProcessors. These");
-		sc.add("// processors can be used to pre-process input stream before a text resource");
-		sc.add("// is actually lexed and parsed. This can be for example useful to do an");
-		sc.add("// encoding conversion.");
-		sc.add("//");
+		sc.addJavadoc(
+			"Implementors of this interface can provide InputStreamProcessors. These " +
+			"processors can be used to pre-process input stream before a text resource " +
+			"is actually lexed and parsed. This can be for example useful to do an " +
+			"encoding conversion."
+		);
 		// TODO use EMF's load option Resource.OPTION_CIPHER instead
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Return a processor for the given input stream.");
-		sc.add("//");
-		sc.add("// @param inputStream the actual stream that provides the content of a resource");
-		sc.add("// @return a processor that pre-processes the input stream");
-		
+		sc.addJavadoc(
+			"Returns a processor for the given input stream.\n\n" +
+			"@param inputStream the actual stream that provides the content of a resource\n" +
+			"@return a processor that pre-processes the input stream"
+		);
 		sc.add("public " + inputStreamProcessorClassName + " getInputStreamProcessor(" + INPUT_STREAM + " inputStream);");
 		sc.add("}");
 		return true;

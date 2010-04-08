@@ -46,13 +46,17 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An interface used to access the result of parsing a");
-		sc.add("// document.");
+		sc.addJavadoc("An interface used to access the result of parsing a document.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns the root object of the document.");
 		sc.add("public " + E_OBJECT + " getRoot();");
 		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns a list of command that must be executed after parsing the document.");
 		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
+		sc.addLineBreak();
 		
 		sc.add("}");
 		return true;

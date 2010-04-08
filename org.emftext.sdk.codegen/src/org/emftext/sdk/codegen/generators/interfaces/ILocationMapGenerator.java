@@ -41,63 +41,69 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A LocationMap map EObjects to the position of their textual");
-		sc.add("// representations. For each " + E_OBJECT + " the map can contain information");
-		sc.add("// about the line, the column, the character position where the");
-		sc.add("// object begins and the character position where the object ends.");
+		sc.addJavadoc(
+			"A LocationMap maps EObjects to the position of their textual " +
+			"representations. For each " + E_OBJECT + " the map contains information " +
+			"about the line, the column, the character position where the " +
+			"object begins and the character position where the object ends."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Used by parsers to set location information.");
 		sc.add("public void setLine(" + E_OBJECT + " element, int line);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Returns the line where the given element starts.");
 		sc.add("public int getLine(" + E_OBJECT + " element);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Used by parsers to set location information.");
 		sc.add("public void setColumn(" + E_OBJECT + " element, int column);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Returns the column where the given element starts.");
 		sc.add("public int getColumn(" + E_OBJECT + " element);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Used by parsers to set location information.");
 		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Returns the character position where the given element starts.");
 		sc.add("public int getCharStart(" + E_OBJECT + " element);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Used by parsers to set location information.");
 		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd);");
 		sc.addLineBreak();
 		
-		sc.add("// Used by parsers to set location information.");
+		sc.addJavadoc("Returns the character position where the given element ends.");
 		sc.add("public int getCharEnd(" + E_OBJECT + " element);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns all EObjects that are located at the given");
-		sc.add("// offset in the text document. The method can return");
-		sc.add("// multiple elements, because containers include their");
-		sc.add("// children in the textual representation.");
-		sc.add("//");
-		sc.add("// @param documentOffset");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns all EObjects that are located at the given " +
+			"offset in the text document. This method can return " +
+			"multiple elements, because containers include their " +
+			"children in the textual representation.\n\n" +
+			"@param documentOffset\n the offset where to search for elements\n" +
+			"@return a list of elements located at the given offset"
+		);
 		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(int documentOffset);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns all EObjects that are located between the given");
-		sc.add("// offsets in the text document. The method can return");
-		sc.add("// multiple elements.");
-		sc.add("//");
-		sc.add("// @param startOffset");
-		sc.add("// @param endOffset");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns all EObjects that are located between the given " +
+			"offsets in the text document. The method can return " +
+			"multiple elements.\n\n" +
+			"@param startOffset\n" +
+			"@param endOffset\n" +
+			"@return a list of elements located between the given offsets"
+		);
 		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(int startOffset, int endOffset);");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}
