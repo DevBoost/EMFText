@@ -44,8 +44,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A representation for a range in a document where a keyword (i.e.,");
-		sc.add("// a static string) is expected.");
+		sc.addJavadoc("A representation for a range in a document where a keyword (i.e., a static string) is expected.");
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);

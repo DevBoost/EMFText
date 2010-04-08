@@ -30,7 +30,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A proposal for completing an incomplete document.");
+		sc.addJavadoc("A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
 		addFields(sc);
 		addConstructor1(sc);
@@ -40,7 +40,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetInsertStringMethod(sc);
 		addGetPrefixMethod(sc);
 		addGetStartsWithPrefixMethod(sc);
@@ -50,7 +50,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		addHashCodeMethod(sc);
 	}
 
-	private void addHashCodeMethod(StringComposite sc) {
+	private void addHashCodeMethod(JavaComposite sc) {
 		sc.add("public int hashCode() {");
 		sc.add("return getInsertString().hashCode();");
 		sc.add("}");
@@ -58,9 +58,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		sc.add("public int compareTo(" + getResourceClassName() + " object) {");
 		sc.add("if (object instanceof " + getResourceClassName() + ") {");
 		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
-		sc.add("// proposals that start with the prefix are preferred over the ones that do not");
+		sc.addComment("proposals that start with the prefix are preferred over the ones that do not");
 		sc.add("int startCompare = (startsWithPrefix ? 1 : 0) - (other.getStartsWithPrefix() ? 1 : 0);");
-		sc.add("// if both proposals start with the prefix of both do not the insert string is compared");
+		sc.addComment("if both proposals start with the prefix of both do not the insert string is compared");
 		sc.add("return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;");
 		sc.add("}");
 		sc.add("return -1;");

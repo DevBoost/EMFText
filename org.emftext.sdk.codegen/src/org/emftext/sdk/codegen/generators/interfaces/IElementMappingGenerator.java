@@ -41,13 +41,14 @@ public class IElementMappingGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A mapping from an identifier to an EObject.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the reference this mapping points to.");
+		sc.addJavadoc(
+			"A mapping from an identifier to an EObject.\n\n" +
+			"@param <ReferenceType> the type of the reference this mapping points to."
+		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> extends " + iReferenceMappingClassName + "<ReferenceType> {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the target object the identifier is mapped to.");
+		sc.addJavadoc("Returns the target object the identifier is mapped to.");
 		sc.add("public ReferenceType getTargetElement();");
 		sc.add("}");
 		return true;

@@ -38,32 +38,23 @@ public class IBracketPairGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A simple interface to access information about matching");
-		sc.add("// brackets.");
-		
+		sc.addJavadoc("A simple interface to access information about matching brackets.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the opening bracket.");
-		sc.add("//");
-		sc.add("// @return");
-		
+		sc.addJavadoc("Returns the opening bracket.");
 		sc.add("public String getOpeningBracket();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the closing bracket.");
-		sc.add("//");
-		sc.add("// @return");
-		
+		sc.addJavadoc("Returns the closing bracket.");
 		sc.add("public String getClosingBracket();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns whether other bracket pairs shall be");
-		sc.add("// automatically closed, when used inside of this");
-		sc.add("// bracket pair.");
-		sc.add("//");
-		sc.add("// @return");
-		
+		sc.addJavadoc(
+			"Returns whether other bracket pairs shall be " +
+			"automatically closed, when used inside of this " +
+			"bracket pair."
+		);
 		sc.add("public boolean isClosingEnabledInside();");
 		sc.add("}");
 		return true;

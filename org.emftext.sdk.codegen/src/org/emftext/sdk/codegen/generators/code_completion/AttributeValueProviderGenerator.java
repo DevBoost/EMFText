@@ -33,8 +33,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// This class provides sets of values for attributes.");
-		sc.add("// It is used by the code completion processor.");
+		sc.addJavadoc("This class provides sets of values for attributes. It is used by the code completion processor.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addGetDefaultValuesMethod(sc);

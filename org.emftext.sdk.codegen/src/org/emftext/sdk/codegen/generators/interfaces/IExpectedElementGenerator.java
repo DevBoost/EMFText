@@ -49,8 +49,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An element that is expected at a given position in a resource");
-		sc.add("// stream.");
+		sc.addJavadoc("An element that is expected at a given position in a resource stream.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + STRING +" getTokenName();");

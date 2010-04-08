@@ -33,11 +33,13 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A representation for a range in a document where a terminal (i.e.,");
-		sc.add("// a placeholder or a keyword) is expected.");
-		sc.add("// The range is expressed using two integers denoting the start of the range");
-		sc.add("// including hidden tokens (e.g., whitespace) and excluding those token ");
-		sc.add("// (i.e., the part of the document containing the relevant characters).");
+		sc.addJavadoc(
+			"A representation for a range in a document where a terminal (i.e., " +
+			"a placeholder or a keyword) is expected. " +
+			"The range is expressed using two integers denoting the start of the range " +
+			"including hidden tokens (e.g., whitespace) and excluding those token " +
+			"(i.e., the part of the document containing the relevant characters)."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 

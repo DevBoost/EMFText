@@ -53,12 +53,23 @@ public class JavaComposite extends StringComposite {
 		return isMultiLineComment;
 	}
 
-	public void addJavadoc(String text) {
-		add("/**");
+	public void addComment(String text) {
 		// split text into chunks of 80 characters (split at space)
 		List<String> lines = split(text, 80);
 		for (String line : lines) {
-			add(" * " + line);
+			add("// " + line);
+		}
+	}
+	
+	public void addJavadoc(String text) {
+		add("/**");
+		String[] chunks = text.split("\n");
+		for (String chunk : chunks) {
+			// split chunk into lines of 80 characters (split at space)
+			List<String> lines = split(chunk, 80);
+			for (String line : lines) {
+				add(" * " + line);
+			}
 		}
 		add(" */");
 	}

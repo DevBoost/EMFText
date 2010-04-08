@@ -51,8 +51,7 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Abstract super class for all expected elements. Provides methods to");
-		sc.add("// add followers");
+		sc.addJavadoc("Abstract super class for all expected elements. Provides methods to add followers.");
 		sc.add("public abstract class " + getResourceClassName() + " implements " + iExpectedElementClassName + " {");
 		sc.addLineBreak();
 

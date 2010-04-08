@@ -38,10 +38,11 @@ public class ICommandGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A simple interface for commands that can be executed");
-		sc.add("// and that return information about the success of their");
-		sc.add("// execution.");
-		
+		sc.addJavadoc(
+			"A simple interface for commands that can be executed " +
+			"and that return information about the success of their " +
+			"execution."
+		);
 		sc.add("public interface " + getResourceClassName() + "<ContextType> {");
 		sc.addLineBreak();
 		sc.add("public boolean execute(ContextType context);");

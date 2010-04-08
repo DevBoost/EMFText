@@ -31,7 +31,7 @@ public class KeywordGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A class to represent a keyword in the grammar.");
+		sc.addJavadoc("A class to represent a keyword in the grammar.");
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);

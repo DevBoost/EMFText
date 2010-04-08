@@ -52,8 +52,10 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// This class provides the follow sets for all terminals of");
-		sc.add("// the grammar. These sets are used during code completion.");
+		sc.addJavadoc(
+			"This class provides the follow sets for all terminals of " +
+			"the grammar. These sets are used during code completion."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addTerminalConstants(sc);
@@ -61,7 +63,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addTerminalConstants(StringComposite sc) {
+	private void addTerminalConstants(JavaComposite sc) {
 		Map<EObject, String> idMap = context.getIdMap();
 		for (EObject expectedElement : idMap.keySet()) {
 			String terminalID = idMap.get(expectedElement);
@@ -152,7 +154,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 			i++;
 		}
 		// call all wireX() methods from the static constructor
-		sc.add("// wire the terminals");
+		sc.addComment("wire the terminals");
 		sc.add("static {");
 		for (int c = 0; c < numberOfMethods; c++) {
 			sc.add("wire" + c + "();");

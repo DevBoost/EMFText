@@ -40,15 +40,11 @@ public class IConfigurableGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementors of this interface can be configured by a");
-		sc.add("// map of options (or parameters).");
-		
+		sc.addJavadoc("Implementors of this interface can be configured by a map of options (or parameters).");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Passed the options given by the map to the configurable");
-		sc.add("// object.");
-		
+		sc.addJavadoc("Passes the options given by the map to the configurable object.");
 		sc.add("public void setOptions(" + MAP + "<?,?> options);");
 		sc.add("}");
 		return true;

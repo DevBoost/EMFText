@@ -34,7 +34,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A class to represent placeholders in a grammar.");
+		sc.addJavadoc("A class to represent placeholders in a grammar.");
 		sc.add("public class " + getResourceClassName() + " extends " + terminalClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);

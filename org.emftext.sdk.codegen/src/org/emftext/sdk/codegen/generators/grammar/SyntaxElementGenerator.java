@@ -31,8 +31,10 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// The abstract super class for all elements of a grammar.");
-		sc.add("// This class provides methods to traverse the grammar rules.");
+		sc.addJavadoc(
+			"The abstract super class for all elements of a grammar. " + 
+			"This class provides methods to traverse the grammar rules."
+		);
 		sc.add("public abstract class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addFields(sc);

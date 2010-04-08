@@ -48,9 +48,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A representation for a range in a document where a structural feature (e.g.,");
-		sc.add("// a reference) is expected.");
-		
+		sc.addJavadoc("A representation for a range in a document where a structural feature (e.g., a reference) is expected.");
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);

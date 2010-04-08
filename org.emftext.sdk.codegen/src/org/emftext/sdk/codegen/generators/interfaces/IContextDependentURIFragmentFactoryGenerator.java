@@ -44,22 +44,22 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An interface for factories to create instances of " + iContextDependentURIFragmentClassName + ".");
-		sc.add("//");
-		sc.add("// @param <ContainerType> the type of the class containing the reference to be resolved");
-		sc.add("// @param <ReferenceType> the type of the reference to be resolved");
-		sc.add("//");
+		sc.addJavadoc(
+			"An interface for factories to create instances of " + iContextDependentURIFragmentClassName + ".\n\n" +
+			"@param <ContainerType> the type of the class containing the reference to be resolved\n" +
+			"@param <ReferenceType> the type of the reference to be resolved"
+		);
 		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
 		sc.addLineBreak();
 		
-		sc.add("// Create a new instance of the " + iContextDependentURIFragmentClassName + " interface.");
-		sc.add("//");
-		sc.add("// @param identifier the identifier that references an " + E_OBJECT + "");
-		sc.add("// @param container the object that contains the reference");
-		sc.add("// @param reference the reference itself");
-		sc.add("// @param positionInReference the position of the identifier (if the reference is multiple)");
-		sc.add("// @param proxy the proxy that will be resolved later to the actual " + E_OBJECT + "");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Create a new instance of the " + iContextDependentURIFragmentClassName + " interface.\n\n" +
+			"@param identifier the identifier that references an " + E_OBJECT + "\n" +
+			"@param container the object that contains the reference\n" +
+			"@param reference the reference itself\n" +
+			"@param positionInReference the position of the identifier (if the reference is multiple)\n" +
+			"@param proxy the proxy that will be resolved later to the actual " + E_OBJECT + "\n" +
+			"@return the new instance of " + iContextDependentURIFragmentClassName);
 		sc.add("public " + iContextDependentURIFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
 		sc.add("}");
 		return true;

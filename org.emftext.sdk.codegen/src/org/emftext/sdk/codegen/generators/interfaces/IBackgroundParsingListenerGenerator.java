@@ -40,15 +40,17 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A listener interface for classes that need notification");
-		sc.add("// when a background parsing pass has completed.");
+		sc.addJavadoc(
+			"A listener interface for classes that need notification " +
+			"when a background parsing pass has completed.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Signals that the given resource has been changed and");
-		sc.add("// the background parsing is completed.");
-		sc.add("//");
-		sc.add("// @param resource the resource that has changed");
+		sc.addJavadoc(
+			"Signals that the given resource has been changed and " +
+			"the background parsing is completed.\n\n" +
+			"@param resource the resource that has changed"
+		);
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource);");
 		sc.add("}");
 		return true;
