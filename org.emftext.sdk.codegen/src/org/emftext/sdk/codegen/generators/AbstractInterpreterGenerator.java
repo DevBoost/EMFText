@@ -61,16 +61,16 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-				"This class provides basic infrastructure to interprete models. " +
+				"This class provides basic infrastructure to interpret models. " +
 				"To implement concrete interpreters, subclass this abstract interpreter " +
 				"and override the interprete_* methods. The interpretation can be customized " +
 				"by binding the two type parameters (ResultType, ContextType). The former " +
 				"is returned by all interprete_* methods, while the latter is passed from " +
 				"method to method while traversing the model. The concrete traversal strategy " +
 				"can also be exchanged. One can use a static traversal strategy by pushing " +
-				"all objects to interprete on the interpretation stack (using addObjectToInterprete()) " +
-				"before calling interprete(). Alternativly, the tranversal strategy can be dynamic " +
-				"by pushing object on the interpretation stack during interpretation."
+				"all objects to interpret on the interpretation stack (using addObjectToInterprete()) " +
+				"before calling interprete(). Alternatively, the traversal strategy can be dynamic " +
+				"by pushing objects on the interpretation stack during interpretation."
 		);
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> {");
 		sc.addLineBreak();
