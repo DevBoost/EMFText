@@ -54,7 +54,7 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		sc.add("public " + E_OBJECT + " getRoot();");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Returns a list of command that must be executed after parsing the document.");
+		sc.addJavadoc("Returns a list of commands that must be executed after parsing the document.");
 		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
 		sc.addLineBreak();
 		

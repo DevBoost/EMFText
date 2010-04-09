@@ -55,63 +55,69 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An extended resource that can hold information about the exact positions");
-		sc.add("// of each element of its content in a text file. This can be used to give");
-		sc.add("// more detailed error feedback.");
-		sc.add("//");
+		sc.addJavadoc(
+			"An extended resource that can hold information about the exact positions " +
+			"of each element of its content in a text file. This can be used to give " +
+			"more detailed error feedback."
+		);
 		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ", " + iTextResourcePluginPartClassName + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Try to load the content of this resource from the given stream. If");
-		sc.add("// loading fails, the state of this resource is kept. If loading is");
-		sc.add("// successful, the content of this resource is replaced with the new");
-		sc.add("// content.");
-		sc.add("// This method can be used to try loading erroneous files, as e.g.,");
-		sc.add("// needed during background parsing in the editor.");
-		sc.add("//");
-		sc.add("// @param stream the stream to read from");
-		sc.add("// @param options the load options to use");
-		sc.add("// @throws " + IO_EXCEPTION + " thrown if the stream can not be read");
+		sc.addJavadoc(
+			"Try to load the content of this resource from the given stream. If " +
+			"loading fails, the state of this resource is kept. If loading is " + 
+			"successful, the content of this resource is replaced with the new " +
+			"content.\n" +
+			"This method can be used to try loading erroneous files, as e.g., " +
+			"needed during background parsing in the editor.\n\n" +
+			"@param stream the stream to read from\n" +
+			"@param options the load options to use\n" +
+			"@throws " + IO_EXCEPTION + " thrown if the stream can not be read"
+		);
 		sc.add("public void reload(" + INPUT_STREAM + " stream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Try to cancel a current reload of this resource. It is not guaranteed");
-		sc.add("// that canceling is successful. If this resource has already finished");
-		sc.add("// parsing the new content, it will replace its content unconditionally.");
+		sc.addJavadoc(
+			"Try to cancel a current reload of this resource. It is not guaranteed " +
+			"that canceling is successful. If this resource has already finished " +
+			"parsing the new content, it will replace its content unconditionally."
+		);
 		sc.add("public void cancelReload();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns a map containing information about the location of model");
-		sc.add("// elements in the text.");
-		sc.add("//");
-		sc.add("// @return the model element to text location mapping");
+		sc.addJavadoc(
+			"Returns a map containing information about the location of model elements in the text.\n\n" +
+			"@return the model element to text location mapping"
+		);
 		sc.add("public " + iLocationMapClassName + " getLocationMap();");
 		sc.addLineBreak();
 		
-		sc.add("// Add an error that should be displayed at the position of the given element.");
+		sc.addJavadoc("Adds an error that should be displayed at the position of the given element.");
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element);");
 		sc.addLineBreak();
 		
-		sc.add("// Add an error to be displayed at the indicated position.");
+		sc.addJavadoc("Adds an error to be displayed at the indicated position.");
 		sc.add("public void addProblem(" + iProblemClassName + " problem, int column, int line, int charStart, int charEnd);");
 		sc.addLineBreak();
 		
-		sc.add("// Internal method used by the parser to register a context dependent proxy object for later resolution.");
-		sc.add("//");
-		sc.add("// @param container");
-		sc.add("// @param reference");
-		sc.add("// @param pos");
-		sc.add("// @param id");
-		sc.add("// @param proxyElement");
+		sc.addJavadoc(
+			"Internal method used by the parser to register a context dependent proxy object for later resolution.\n\n" +
+			"@param container\n" +
+			"@param reference\n" +
+			"@param pos\n" +
+			"@param id\n" +
+			"@param proxyElement"
+		);
 		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");
 		sc.addLineBreak();
 		
-		sc.add("// Attaches a warning with the given message to object 'cause'.");
+		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");
 		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		
-		sc.add("// Attaches an error with the given message to object 'cause'.");
+		sc.addJavadoc("Attaches an error with the given message to object 'cause'.");
 		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause);");
+		sc.addLineBreak();
 
 		sc.add("}");
 		return true;

@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -44,98 +45,99 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// The result of a single attempt to resolve an identifier. The");
-		sc.add("// result can either be successful (identifier was resolved to one");
-		sc.add("// or more objects) or failed (identifier was not resolved). In");
-		sc.add("// the case of failure, the result provides an error message.");
-		sc.add("//");
-		sc.add("// This interface must not be implemented by clients.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the references that can be contained in this result");
+		sc.addJavadoc(
+			"The result of a single attempt to resolve an identifier. The " +
+			"result can either be successful (identifier was resolved to one " +
+			"or more objects) or failed (identifier was not resolved). In " +
+			"the case of failure, the result provides an error message.\n\n" +
+			"This interface must not be implemented by clients.\n\n" +
+			"@param <ReferenceType> the type of the references that can be contained in this result"
+		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the error message that describes what went wrong while");
-		sc.add("// resolving a reference.");
+		sc.addJavadoc("Returns the error message that describes what went wrong while resolving a reference.");
 		sc.add("public String getErrorMessage();");
 		sc.addLineBreak();
 		
-		sc.add("// Sets the error message that describes what went wrong while");
-		sc.add("// resolving a reference. If a mapping for the reference was");
-		sc.add("// already found (i.e., addMapping() was called before), the");
-		sc.add("// call to this method is ignored. If addMapping() is called");
-		sc.add("// afterwards, the error message is also discarded.");
-		sc.add("//");
-		sc.add("// @param message the error that prevented resolving the reference");
-		sc.add("public void setErrorMessage(String message);");
+		sc.addJavadoc(
+			"Sets the error message that describes what went wrong while " +
+			"resolving a reference. If a mapping for the reference was " +
+			"already found (i.e., addMapping() was called before), the " +
+			"call to this method is ignored. If addMapping() is called " +
+			"afterwards, the error message is also discarded.\n\n" +
+			"@param message the error that prevented resolving the reference"
+		);
+		sc.add("public void setErrorMessage(" + STRING + " message);");
 		sc.addLineBreak();
 		
-		sc.add("// Adds a mapping from the given identifier to the given object.");
-		sc.add("// Adding such a mapping means that the identifier was resolved");
-		sc.add("// to reference the target object.");
-		sc.add("// Previous errors as well as future ones will be discarded. Once");
-		sc.add("// a mapping is found, resolve errors have no meaning any more.");
-		sc.add("//");
-		sc.add("// The target object can be null if the resolution is fuzzy.");
-		sc.add("// Otherwise target must not be null and implementations of");
-		sc.add("// this method can throw an IllegalArgumentException if this");
-		sc.add("// rule is violated.");
-		sc.add("//");
-		sc.add("// Optionally a warning can be passed to this method if resolving");
-		sc.add("// the reference was successful, but not accurate.");
-		sc.add("public void addMapping(String identifier, ReferenceType target, String warning);");
+		sc.addJavadoc(
+			"Adds a mapping from the given identifier to the given object. " +
+			"Adding such a mapping means that the identifier was resolved " +
+			"to reference the target object. " +
+			"Previous errors as well as future ones will be discarded. Once " +
+			"a mapping is found, resolve errors have no meaning any more.\n\n" +
+			"The target object can be null if the resolution is fuzzy. " +
+			"Otherwise target must not be null and implementations of " +
+			"this method can throw an IllegalArgumentException if this " +
+			"rule is violated.\n\n" +
+			"Optionally a warning can be passed to this method if resolving " +
+			"the reference was successful, but not accurate."
+		);
+		sc.add("public void addMapping(" + STRING + " identifier, ReferenceType target, " + STRING + " warning);");
 		sc.addLineBreak();
 		
-		sc.add("// @see addMapping(String, ReferenceType, String)");
-		sc.add("public void addMapping(String identifier, ReferenceType target);");
+		sc.addJavadoc("@see addMapping(String, ReferenceType, String)");
+		sc.add("public void addMapping(" + STRING + " identifier, ReferenceType target);");
 		sc.addLineBreak();
 		
-		sc.add("// Adds a mapping from the given identifier to another identifier.");
-		sc.add("// This is useful for multilevel resolving where internal identifiers");
-		sc.add("// are replace by external ones depending on the context. Usually");
-		sc.add("// the external identifiers are replaced by target object later on.");
-		sc.add("//");
-		sc.add("// Optionally a warning can be passed to this method if resolving");
-		sc.add("// the reference was successful, but not accurate.");
-		sc.add("//");
-		sc.add("// @param identifier");
-		sc.add("// @param newIdentifier");
-		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier, String warning);");
+		sc.addJavadoc(
+			"Adds a mapping from the given identifier to another identifier. " +
+			"This is useful for multilevel resolving where internal identifiers " +
+			"are replaced by external ones depending on the context. Usually " +
+			"the external identifiers are replaced by target object later on.\n\n" +
+			"Optionally a warning can be passed to this method if resolving " +
+			"reference was successful, but not accurate.\n\n" +
+			"@param identifier\n" +
+			"@param newIdentifier");
+		sc.add("public void addMapping(" + STRING + " identifier, " + URI + " newIdentifier, " + STRING + " warning);");
 		sc.addLineBreak();
 		
-		sc.add("// @see addMapping(String, " + URI + ", String)");
-		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier);");
+		sc.addJavadoc("@see addMapping(String, " + URI + ", String)");
+		sc.add("public void addMapping(" + STRING + " identifier, " + URI + " newIdentifier);");
 		sc.addLineBreak();
 		
-		sc.add("// Indicates the type of the result. Depending on the type of");
-		sc.add("// the result different information is available (e.g., the");
-		sc.add("// error message is only set if the resolve operation failed).");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Indicates the type of the result. Depending on the type of " +
+			"the result different information is available (e.g., the " +
+			"error message is only set if the resolve operation failed).\n\n" +
+			"@return true if the reference was sucessfully resolved"
+		);
 		sc.add("public boolean wasResolved();");
 		sc.addLineBreak();
 		
-		sc.add("// Indicates the type of the result. Depending on the type of");
-		sc.add("// the result different information is available (e.g., the");
-		sc.add("// unique mapping is only set if the resolve operation returned");
-		sc.add("// a unique result).");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Indicates the type of the result. Depending on the type of " +
+			"the result different information is available (e.g., the " +
+			"unique mapping is only set if the resolve operation returned " +
+			"a unique result).\n\n" +
+			"@return true if the reference was resolved to exactly one target object");
 		sc.add("public boolean wasResolvedUniquely();");
 		sc.addLineBreak();
 		
-		sc.add("// Indicates the type of the result. Depending on the type of");
-		sc.add("// the result different information is available (e.g., the");
-		sc.add("// multiple mappings are only set if the resolve operation returned");
-		sc.add("// multiple result).");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Indicates the type of the result. Depending on the type of " +
+			"the result different information is available (e.g., the " +
+			"multiple mappings are only set if the resolve operation returned " +
+			"multiple result).\n\n"+
+			"@return true the reference was resolved to more than one target object");
 		sc.add("public boolean wasResolvedMultiple();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns all mappings that were found while resolving an");
-		sc.add("// identifier.");
+		sc.addJavadoc("Returns all mappings that were found while resolving an identifier.");
 		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

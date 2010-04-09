@@ -47,32 +47,34 @@ public class ITokenResolverGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Basic Interface to directly manipulate parsed tokens and convert them into the attribute type in the meta model.");
-		sc.add("// All generated TokenResolvers per default delegate requests to an instance of JavaBasedTokenResolver which performs");
-		sc.add("// a standard conversion to Java Types based on the type of the attribute.");
-		sc.add("//");
-		sc.add("// @see " + getClassNameHelper().getDEFAULT_TOKEN_RESOLVER());
-		sc.add("// @see org.emftext.sdk.codegen.TokenResolverGenerator");
-		sc.add("//");
+		sc.addJavadoc(
+			"A basic interface to convert parsed tokens to the attribute type in the meta model. " +
+			"All generated TokenResolvers per default delegate requests to an instance of " + getContext().getClassName(EArtifact.DEFAULT_TOKEN_RESOLVER) + " which performs " +
+			"a standard conversion based on the EMF type conversion. This includes conversion of registered EDataTypes.\n\n" +
+			"@see " + getClassNameHelper().getDEFAULT_TOKEN_RESOLVER()
+		);
 		sc.add("public interface " + getResourceClassName() + " extends " + iConfigurableClassName + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Converts a token into an " + OBJECT + " (the value of the attribute).");
-		sc.add("//");
-		sc.add("// @param lexem the parsed String");
-		sc.add("// @param feature the corresponding feature in the meta model");
-		sc.add("// @param result the result of resolving the lexem, can be used to add processing errors");
+		sc.addJavadoc(
+			"Converts a token into an " + OBJECT + " (the value of the attribute).\n\n" +
+			"@param lexem the text of the parsed token\n" +
+			"@param feature the corresponding feature in the meta model\n" +
+			"@param result the result of resolving the lexem, can be used to add processing errors"
+		);
 		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result);");
 		sc.addLineBreak();
 		
-		sc.add("// Does the inverse mapping from an " + OBJECT + " (attribute value) to a lexem which can be printed.");
-		sc.add("//");
-		sc.add("// @param value the " + OBJECT + " to be printed as String");
-		sc.add("// @param feature the corresponding feature (attribute)");
-		sc.add("// @param container the container of the object");
-		sc.add("//");
-		sc.add("// @return the String representation or null if a problem occurred");
+		sc.addJavadoc(
+			"Converts an " + OBJECT + " (the value of an attribute) to a string which can be printed. " +
+			"This is the inverse of resolving a token with a call to resolve().\n\n" +
+			"@param value the " + OBJECT + " to be printed as String\n" +
+			"@param feature the corresponding feature (EAttribute)\n" +
+			"@param container the container of the object\n" +
+			"@return the String representation or null if a problem occurred");
 		sc.add("public String deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container);");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

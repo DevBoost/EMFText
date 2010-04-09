@@ -38,37 +38,40 @@ public class ITokenResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementations of this interface are used store the result of");
-		sc.add("// resolving a token.");
+		sc.addJavadoc("Implementations of this interface are used store the result of resolving a token.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the error message that describes what went wrong while");
-		sc.add("// resolving a token.");
+		sc.addJavadoc("Returns the error message that describes what went wrong while resolving a token.");
 		sc.add("public String getErrorMessage();");
 		sc.addLineBreak();
 		
-		sc.add("// Sets the error message that describes what went wrong while");
-		sc.add("// resolving a token. If a mapping for the token was");
-		sc.add("// already found (i.e., setResult() was called before), the");
-		sc.add("// call to this method is ignored. If setResult() is called");
-		sc.add("// afterwards, the error message is also discarded.");
-		sc.add("//");
-		sc.add("// @param message the error that prevented resolving the token");
+		sc.addJavadoc(
+			"Sets the error message that describes what went wrong while " +
+			"resolving a token. If a mapping for the token was already found " +
+			"(i.e., setResult() was called before), the call to this method " +
+			"is ignored. If setResult() is called afterwards, the error message " + 
+			"is also discarded.\n\n" +
+			"@param message the error that prevented resolving the token"
+		);
 		sc.add("public void setErrorMessage(String message);");
 		sc.addLineBreak();
 		
-		sc.add("// Sets the result of resolving a token.");
-		sc.add("//");
-		sc.add("// @param resolvedToken");
+		sc.addJavadoc(
+			"Sets the result of resolving a token.\n\n" +
+			"@param resolvedToken the object the token was resolved to"
+		);
 		sc.add("public void setResolvedToken(Object resolvedToken);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the result of resolving a token or null if it");
-		sc.add("// could not be resolved correctly.");
-		sc.add("//");
-		sc.add("// @param resolvedToken");
+		sc.addJavadoc(
+			"Returns the result of resolving a token or null if it " +
+			"could not be resolved correctly.\n\n" +
+			"@return the object the token was resolved to"
+		);
 		sc.add("public Object getResolvedToken();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

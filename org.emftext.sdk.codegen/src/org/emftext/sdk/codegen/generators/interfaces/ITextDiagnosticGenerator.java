@@ -44,35 +44,39 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An extended diagnostic that gives access to the exact position of the problem");
-		sc.add("// in a character stream.");
+		sc.addJavadoc(
+			"An extended diagnostic that gives access to the exact position of the problem " +
+			"in a character stream."
+		);
 		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ".Diagnostic {");
 		sc.addLineBreak();
 		
-		sc.add("// @return Position of the first character of the problem area.");
+		sc.addJavadoc("Returns the position of the first character of the problem area.");
 		sc.add("public int getCharStart();");
 		sc.addLineBreak();
 		
-		sc.add("// @return Position of the last character of the problem area.");
+		sc.addJavadoc("Returns the position of the last character of the problem area.");
 		sc.add("public int getCharEnd();");
 		sc.addLineBreak();
 		
-		sc.add("// @return The column of the problem area.");
+		sc.addJavadoc("Returns the column of the problem area.");
 		sc.add("public int getColumn();");
 		sc.addLineBreak();
 		
-		sc.add("// @return The line that contains the problem area.");
+		sc.addJavadoc("Returns the line that contains the problem area.");
 		sc.add("public int getLine();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the problem that was found.");
-		sc.add("//");
-		sc.add("// @return");
+		sc.addJavadoc("Returns the problem that was found.");
 		sc.add("public " + iProblemClassName + " getProblem();");
 		sc.addLineBreak();
 		
-		sc.add("// Checks whether the problem was caused by the given element.");
+		sc.addJavadoc(
+			"Checks whether the problem was caused by the given element.\n\n" +
+			"@return true if the problem was caused by <code>element</code>"
+		);
 		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element);");
+		sc.addLineBreak();
 		
 		sc.add("}");
 		return true;

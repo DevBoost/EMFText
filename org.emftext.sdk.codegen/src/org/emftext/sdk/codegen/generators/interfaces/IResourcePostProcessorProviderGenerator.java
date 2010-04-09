@@ -41,14 +41,14 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementors of this interface can provide a post-processor");
-		sc.add("// for text resources.");
+		sc.addJavadoc("Implementors of this interface can provide a post-processor for text resources.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the processor that shall be called after text");
-		sc.add("// resource are successfully parsed.");
+		sc.addJavadoc("Returns the processor that shall be called after text resource are successfully parsed.");
 		sc.add("public " + iResourcePostProcessorClassName + " getResourcePostProcessor();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

@@ -41,16 +41,21 @@ public class IResourcePostProcessorGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementors of this interface can be used to post-process");
-		sc.add("// parsed text resources. This can be useful to validate or");
-		sc.add("// modify the model that was instantiated for the text.");
+		sc.addJavadoc(
+			"Implementors of this interface can be used to post-process " +
+			"parsed text resources. This can be useful to validate or " +
+			"modify the model that was instantiated for the text."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Processes the resource after it was parsed.");
-		sc.add("//");
-		sc.add("// @param resource the resource to validate of modify");
+		sc.addJavadoc(
+			"Processes the resource after it was parsed. This method is automatically called for registered post processors.\n\n" +
+			"@param resource the resource to validate of modify"
+		);
 		sc.add("public void process(" + textResourceClassName + " resource);");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

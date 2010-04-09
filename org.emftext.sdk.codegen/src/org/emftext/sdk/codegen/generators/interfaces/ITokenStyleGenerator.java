@@ -38,30 +38,34 @@ public class ITokenStyleGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A common interface for token styles. Text resources must");
-		sc.add("// return style information using object implementing this");
-		sc.add("// interface.");
+		sc.addJavadoc(
+			"A common interface for token styles. Text resources must " +
+			"return style information using classes that implement this " +
+			"interface."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the color of the token as array of length 3.");
+		sc.addJavadoc("Returns the color of the token as array of length 3.");
 		sc.add("public int[] getColorAsRGB();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns true if the token must be displayed in bold face.");
+		sc.addJavadoc("Returns true if the token must be displayed in bold face.");
 		sc.add("public boolean isBold();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns true if the token must be displayed in italic face.");
+		sc.addJavadoc("Returns true if the token must be displayed in italic face.");
 		sc.add("public boolean isItalic();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns true if the token must be displayed in strike through style.");
+		sc.addJavadoc("Returns true if the token must be displayed in strike through style.");
 		sc.add("public boolean isStrikethrough();");
 		sc.addLineBreak();
 		
-		sc.add("// Returns true if the token must be displayed underline.");
+		sc.addJavadoc("Returns true if the token must be displayed underlined.");
 		sc.add("public boolean isUnderline();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

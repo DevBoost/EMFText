@@ -41,18 +41,22 @@ public class ITokenResolverFactoryGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A TokenResolverFactory creates TokenResolvers for a given token name.");
-		sc.add("// They may be implemented like a registry.");
+		sc.addJavadoc(
+			"A TokenResolverFactory creates TokenResolvers. The concrete resolver to be created " +
+			"is determined by the given token name (i.e., the type of the token). " +
+			"One may consider TokenResolverFactories as a registry, which maps token types to TokenResolvers."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Creates a token resolver for normal tokens of type 'tokenName'.");
+		sc.addJavadoc("Creates a token resolver for normal tokens of type <code>tokenName</code>.");
 		sc.add("public " + iTokenResolverClassName + " createTokenResolver(String tokenName);");
 		sc.addLineBreak();
 		
-		sc.add("// Creates a token resolver for COLLECT-IN tokens that are stores in");
-		sc.add("// feature 'featureName'.");
+		sc.addJavadoc("Creates a token resolver for COLLECT-IN tokens that are stored in feature <code>featureName</code>.");
 		sc.add("public " + iTokenResolverClassName + " createCollectInTokenResolver(String featureName);");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

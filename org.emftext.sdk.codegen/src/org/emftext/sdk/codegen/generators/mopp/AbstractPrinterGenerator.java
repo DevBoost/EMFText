@@ -10,6 +10,7 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.GenClassCache;
@@ -49,11 +50,11 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		return "print_" + ruleName;
 	}
 
-	protected void addAddWarningToResourceMethod(StringComposite sc) {
+	protected void addAddWarningToResourceMethod(JavaComposite sc) {
 		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
 		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the printer is used stand alone");
+		sc.addComment("the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
     	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), cause);");

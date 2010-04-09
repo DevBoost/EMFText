@@ -88,6 +88,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
@@ -261,7 +262,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.ANTLR_MEMOIZE);
 
-		StringComposite sc = new ANTLRGrammarComposite();
+		ANTLRGrammarComposite sc = new ANTLRGrammarComposite();
 
 		sc.add("grammar " + csName + ";");
 		sc.addLineBreak();
@@ -295,7 +296,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
-		StringComposite grammarCore = new ANTLRGrammarComposite();
+		ANTLRGrammarComposite grammarCore = new ANTLRGrammarComposite();
 		addRules(grammarCore);
 		addTokenDefinitions(grammarCore);
 
@@ -311,7 +312,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return getCollectedErrors().isEmpty();
 	}
 
-	private void addRules(StringComposite sc) {
+	private void addRules(ANTLRGrammarComposite sc) {
 		printStartRule(sc);
 
 		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
@@ -322,7 +323,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addMethods(String lexerName, String parserName,
-			StringComposite sc) {
+			ANTLRGrammarComposite sc) {
 		generatorUtil.addAddErrorToResourceMethod(sc, getClassNameHelper());
 		addAddExpectedElementMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getClassNameHelper());
@@ -376,8 +377,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addReportLexicalErrorsMethod(StringComposite sc) {
-		sc.add("// Translates errors thrown by the lexer into human readable messages.");
+	private void addReportLexicalErrorsMethod(JavaComposite sc) {
+		sc.addJavadoc("Translates errors thrown by the lexer into human readable messages.");
 		sc.add("public void reportLexicalError(final " + RECOGNITION_EXCEPTION + " e)  {");
 		sc.add(STRING + " message = \"\";");
 		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
@@ -406,8 +407,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addReportErrorMethod(StringComposite sc) {
-		sc.add("// Translates errors thrown by the parser into human readable messages.");
+	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
+		sc.addJavadoc("Translates errors thrown by the parser into human readable messages.");
 		sc.add("public void reportError(final " + RECOGNITION_EXCEPTION + " e)  {");
 		sc.add(STRING + " message = e.getMessage();");
 		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
@@ -444,7 +445,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText+\"}?\";");
 		sc.add("}");
 		
-		sc.add("// the resource may be null if the parse is used for code completion");
+		sc.addComment("the resource may be null if the parse is used for code completion");
 		sc.add("final " + STRING + " finalMessage = message;");
 		
 		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
@@ -465,9 +466,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addParseMethod(StringComposite sc) {
-		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
-		sc.add("// RecognitionExceptions.");
+	private void addParseMethod(ANTLRGrammarComposite sc) {
+		sc.addJavadoc("Implementation that calls {@link #doParse()} and handles the thrown RecognitionExceptions.");
 		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
 		sc.add("terminateParsing = false;");
 		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
@@ -481,8 +481,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("reportError(re);");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
 		sc.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
-		sc.add("//? can be caused if a null is set on EMF models where not allowed;");
-		sc.add("//? this will just happen if other errors occurred before");
+		sc.addComment(
+			"can be caused if a null is set on EMF models where not allowed. " +
+			"this will just happen if other errors occurred before"
+		);
 		sc.add("} else {");
 		sc.add("iae.printStackTrace();");
 		sc.add("}");
@@ -539,8 +541,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDefaultConstructor(String parserName, StringComposite sc) {
-		sc.add("// This default constructor is only used to call createInstance() on it");
+	private void addDefaultConstructor(String parserName, ANTLRGrammarComposite sc) {
+		sc.addJavadoc("This default constructor is only used to call createInstance() on it.");
 		sc.add("public " + parserName + "() {");
 		sc.add("super(null);");
 		sc.add("}");
@@ -562,10 +564,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDoParseMethod(String lexerName, StringComposite sc) {
+	private void addDoParseMethod(String lexerName, ANTLRGrammarComposite sc) {
 		sc.add("protected " + E_OBJECT + " doParse() throws " + RECOGNITION_EXCEPTION + " {");
 		sc.add("this.lastPosition = 0;");
-		sc.add("// required because the lexer class can not be subclassed");
+		sc.addComment("required because the lexer class can not be subclassed");
 		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;");
 		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;");
 		sc.add(OBJECT + " typeObject = getTypeObject();");
@@ -590,7 +592,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCollectHiddenTokensMethod(String lexerName, StringComposite sc) {
+	private void addCollectHiddenTokensMethod(String lexerName, ANTLRGrammarComposite sc) {
 		List<CompleteTokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getActiveTokens());
 		sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
 		if (!collectTokenDefinitions.isEmpty()) {
@@ -625,7 +627,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				// we do not know the EClass of the element at generation time.
 				sc.add(E_STRUCTURAL_FEATURE + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
 				sc.add("if (feature != null) {");
-				sc.add("// call token resolver");
+				sc.addComment("call token resolver");
 
 				String identifierPrefix = "resolved";
 				String resolverIdentifier = identifierPrefix + "Resolver";
@@ -743,9 +745,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addCreateDynamicProxyMethod(StringComposite sc) {
-		sc.add("// creates a dynamic Java proxy that mimics the interface");
-		sc.add("// of the given class.");
+	private void addCreateDynamicProxyMethod(ANTLRGrammarComposite sc) {
+		sc.addJavadoc("Creates a dynamic Java proxy that mimics the interface of the given class.");
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public <T> T createDynamicProxy(" + CLASS + "<T> clazz) {");
 		sc.add(OBJECT + " proxy = " + PROXY + ".newProxyInstance(this.getClass().getClassLoader(), new " + CLASS + "<?>[]{clazz, " + E_OBJECT + ".class, " + INTERNAL_E_OBJECT + ".class}, new " + INVOCATION_HANDLER + "() {");
@@ -753,7 +754,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + E_OBJECT + " dummyObject = new " + E_OBJECT_IMPL + "() {};");
 		sc.addLineBreak();
 		sc.add("public " + OBJECT + " invoke(" + OBJECT + " object, " + METHOD + " method, " + OBJECT + "[] args) throws " + THROWABLE + " {");
-		sc.add("// search in dummyObject for the requested method");
+		sc.addComment("search in dummyObject for the requested method");
 		sc.add(METHOD + "[] methodsInDummy = dummyObject.getClass().getMethods();");
 		sc.add("for (" + METHOD + " methodInDummy : methodsInDummy) {");
 		sc.add("boolean matches = true;");
@@ -787,49 +788,105 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(ANTLRGrammarComposite sc) {
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY()
 				+ " tokenResolverFactory = new "
 				+ tokenResolverFactoryClassName + "();");
-		sc.add("@SuppressWarnings(\"unused\")");
 		sc.addLineBreak();
-		sc.add("// the index of the last token that was handled by collectHiddenTokens()");
+		
+		sc.addJavadoc("the index of the last token that was handled by collectHiddenTokens()");
+		sc.add("@SuppressWarnings(\"unused\")");
 		sc.add("private int lastPosition;");
-		sc.add("// the index of the last token that was handled by retrieveLayoutInformation()");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("the index of the last token that was handled by retrieveLayoutInformation()");
 		sc.add("private int lastPosition2;");
+		sc.addLineBreak();
+		
 		sc.add("private " + tokenResolveResultClassName
 				+ " tokenResolveResult = new "
 				+ tokenResolveResultClassName + "();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"A flag that indicateds whether the parser should remember all expected elements. " +
+			"This flag is set to true when using the parse for code completion. Otherwise it is " +
+			"set to false."
+		);
 		sc.add("private boolean rememberExpectedElements = false;");
+		sc.addLineBreak();
+		
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"A list of expected elements the were collected while parsing the input stream. " +
+			"This list is only filled if <code>rememberExpectedElements</code> is set to true."
+		);
 		sc.add("private " + LIST + "<" + expectedTerminalClassName
 				+ "> expectedElements = new " + ARRAY_LIST + "<"
 				+ expectedTerminalClassName + ">();");
+		sc.addLineBreak();
+
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.add("//helper lists to allow a lexer to pass errors to its parser");
+		
+		sc.addJavadoc("A helper list to allow a lexer to pass errors to its parser");
 		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION
 				+ "> lexerExceptions = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<"
 				+ RECOGNITION_EXCEPTION + ">());");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Another helper list to allow a lexer to pass positions of errors to its parser");
 		sc.add("protected " + LIST + "<" + INTEGER
 				+ "> lexerExceptionsPosition = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<" + INTEGER
 				+ ">());");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"A stack for incomplete objects. This stack is used only when the parser is used " +
+			"for code completion. Whenever the parser starts to read an object it is pushed on " +
+			"the stack. Once the element was parser completely it is popped for the stack."
+		);
 		sc.add("protected " + STACK + "<" + E_OBJECT
 				+ "> incompleteObjects = new " + STACK + "<" + E_OBJECT
 				+ ">();");
+		sc.addLineBreak();
+
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
+		
+		sc.addJavadoc(
+			"A collection that is filled with commands to be exectued after parsing. " +
+			"This collection is cleared before parsing starts and returned as part of " +
+			"the parse result object."
+		);
 		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"A flag to indicate that the parser should stop parsing as soon as possible. " +
+			"The flag is set to false before parsing starts. It can be set to true by invoking " +
+			"the terminateParsing() method from another thread. This feature is used, when documents " +
+			"are parsed in the background (i.e., while editing them). In order to cancel running " +
+			"parsers, the parsing process can be terminated. This is done whenever a document " +
+			"changes, because the previous content of the document is not valid anymore and parsing " +
+			"the old content is not necessary any longer."
+		);
 		sc.add("private boolean terminateParsing;");
+		sc.addLineBreak();
+		
 		sc.add("private int tokenIndexOfLastCompleteElement;");
+		sc.addLineBreak();
+		
 		sc.add("private int expectedElementsIndexOfLastCompleteElement;");
 		sc.addLineBreak();
 	}
 
-	private void addParseToExpectedElementsMethod(StringComposite sc) {
+	private void addParseToExpectedElementsMethod(ANTLRGrammarComposite sc) {
 		sc.add("public " + LIST + "<" + expectedTerminalClassName
 				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource) {");
 		sc.add("rememberExpectedElements = true;");
@@ -851,7 +908,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("command.execute(dummyResource);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("// remove all expected elements that were added after the last complete element");
+		sc.addComment("remove all expected elements that were added after the last complete element");
 		sc.add("expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);");
 		sc.add("int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();");
 		sc.add(SET + "<" + expectedTerminalClassName + "> currentFollowSet = new " + LINKED_HASH_SET +"<" + expectedTerminalClassName + ">();");
@@ -876,10 +933,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
 		}
 		sc.add("if (nextToken.getChannel() == 99) {");
-		sc.add("// hidden tokens do not reduce the follow set");
+		sc.addComment("hidden tokens do not reduce the follow set");
 		sc.add("} else {");
-		sc.add("// now that we have found the next visible token the position for that expected terminals");
-		sc.add("// can be set");
+		sc.addComment(
+			"now that we have found the next visible token the position for that expected terminals " +
+			"can be set"
+		);
 		sc.add("for (" + expectedTerminalClassName + " nextFollow : newFollowSet) {");
 		// TODO this is somewhat inefficient since the token stream is searched from
 		// the beginning
@@ -887,13 +946,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("setPosition(nextFollow, i);");
 		sc.add("}");
 		sc.add("newFollowSet.clear();");
-		sc.add("// normal tokens do reduce the follow set - only elements that match the token are kept");
+		sc.addComment("normal tokens do reduce the follow set - only elements that match the token are kept");
 		sc.add("for (" + expectedTerminalClassName + " nextFollow : currentFollowSet) {");
 		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
 			sc.add("System.out.println(\"CHECKING : \" + nextFollow);");
 		}
 		sc.add("if (nextFollow.getTerminal().getTokenName().equals(getTokenNames()[nextToken.getType()])) {");
-		sc.add("// keep this one - it matches");
+		sc.addComment("keep this one - it matches");
 		if (CodeCompletionHelperGenerator.INSERT_DEBUG_OUTPUT_CODE) {
 			sc.add("System.out.println(\"MATCH! \" + nextFollow);");
 		}
@@ -911,8 +970,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("followSetID++;");
 		sc.add("}");
-		sc.add("// after the last token in the stream we must set the position for the elements that were");
-		sc.add("// added during the last iteration of the loop");
+		sc.addComment(
+			"after the last token in the stream we must set the position for the elements that were " +
+			"added during the last iteration of the loop"
+		);
 		sc.add("for (" + expectedTerminalClassName + " nextFollow : newFollowSet) {");
 		// TODO this is somewhat inefficient since the token stream is searched from
 		// the beginning
@@ -924,15 +985,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
+	private void addCopyLocalizationInfosMethod1(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
 		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
-		sc.add("// the locationMap can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
@@ -946,15 +1006,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetLocalizationEndMethod(StringComposite sc) {
-		sc.add("// set the end character index and the last line for the given object in the location map");
+	private void addSetLocalizationEndMethod(ANTLRGrammarComposite sc) {
+		sc.addJavadoc("Sets the end character index and the last line for the given object in the location map.");
 		sc.add("protected void setLocalizationEnd(" + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT + " object, final int endChar, final int endLine) {");
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
-		sc.add("// the locationMap can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("locationMap.setCharEnd(object, endChar);");
@@ -966,15 +1025,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
+	private void addCopyLocalizationInfosMethod2(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
 				+ " source, final " + E_OBJECT + " target) {");
 		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
-		sc.add("// the locationMap can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("if (source == null) {");
@@ -1068,7 +1126,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return csName + "Parser";
 	}
 
-	private void printStartRule(StringComposite sc) {
+	private void printStartRule(ANTLRGrammarComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		// do the start symbol rule
 		sc.add("start ");
@@ -1084,7 +1142,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				expectations.addAll(firstSet);
 			}
 		}
-		sc.add("// follow set for start rule(s)");
+		sc.addComment("follow set for start rule(s)");
 		addExpectationsCode(sc, expectations);
 		sc.add("expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
 		sc.add("}");
@@ -1125,7 +1183,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void printRightRecursion(StringComposite sc, Rule rule,
+	private void printRightRecursion(ANTLRGrammarComposite sc, Rule rule,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> classesReferenced) {
 
@@ -1274,7 +1332,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	}
 
-	private void printGrammarRules(StringComposite sc,
+	private void printGrammarRules(ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 
@@ -1346,7 +1404,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		if (!concreteSyntax.getOperatorRules().isEmpty()) {
 			for (String expressionIdent : concreteSyntax.getOperatorRuleSubsets()) {
 				EList<Rule> expressionSubset = concreteSyntax.getOperatorRuleSubset(expressionIdent);
-				printGrammarExpressionSlice(expressionSubset, sc, eClassesWithSyntax, eClassesReferenced);
+				printGrammarExpressionSlice(sc, expressionSubset, eClassesWithSyntax, eClassesReferenced);
 			}
 		}
 	}
@@ -1375,7 +1433,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void printGrammarRule(Rule rule, StringComposite sc,
+	private void printGrammarRule(Rule rule, ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 		GenClass genClass = rule.getMetaclass();
@@ -1401,8 +1459,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	// TODO mseifert: split this method into smaller ones	
 	private void printGrammarExpressionSlice(
+			ANTLRGrammarComposite sc,
 			List<Rule> slice, 
-			StringComposite sc,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, 
 			Collection<Terminal>> eClassesReferenced) {
@@ -1487,7 +1545,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 	}
 
-	private void printPrimitiveOperatorRule(StringComposite sc,
+	private void printPrimitiveOperatorRule(ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			List<Rule> rulesWithEqualWeight) {
@@ -1553,13 +1611,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			
 			// TODO mirko: cwende added support for placeholders. However, isn't it 
 			// necessary to print containment action before operator action?
+			// this does also apply to other types of operator rules!
 			if (operator instanceof CsString) {
 				CsString csString = (CsString) operator;
 				printCsString(csString, rule, sc, 0, eClassesReferenced);									
 			} else {
 				assert operator instanceof Placeholder;
 				Placeholder placeholder = (Placeholder) operator;
-				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);
 			}
 			
 			Containment containment = (Containment) left;
@@ -1676,7 +1735,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return "parse_" + ruleName;
 	}
 
-	private int printChoice(Choice choice, Rule rule, StringComposite sc,
+	private int printChoice(Choice choice, Rule rule, ANTLRGrammarComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
 		Iterator<Sequence> it = choice.getOptions().iterator();
 		while (it.hasNext()) {
@@ -1690,7 +1749,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return count;
 	}
 
-	private int printSequence(Sequence sequence, Rule rule, StringComposite sc,
+	private int printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
 
 		int i = 0;
@@ -1729,7 +1788,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				sc.add(")" + cardinality);
 			}
 			sc.add("{");
-			sc.add("// expected elements (follow set)");
+			sc.addComment("expected elements (follow set)");
 			addExpectationsCode(sc, expectations);
 			sc.add("}");
 

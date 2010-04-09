@@ -63,7 +63,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetSyntaxElementMethod(sc);
 		addGetObjectMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
@@ -78,14 +78,16 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetObjectMethod(StringComposite sc) {
+	private void addGetObjectMethod(JavaComposite sc) {
 		sc.add("public " + OBJECT + " getObject(" + E_OBJECT + " container) {");
 		sc.add("if (wasResolved) {");
 		sc.add("return object;");
 		sc.add("}");
-		sc.add("// we need to try to resolve proxy objects again, because the proxy");
-		sc.add("// might have been resolve before this adapter existed, which means");
-		sc.add("// we missed the replaceProxy() notification");
+		sc.addComment(
+			"we need to try to resolve proxy objects again, because the proxy " +
+			"might have been resolved before this adapter existed, which means " +
+			"we missed the replaceProxy() notification"
+		);
 		sc.add("if (object instanceof " + INTERNAL_E_OBJECT + ") {");
 		sc.add(INTERNAL_E_OBJECT + " internalObject = (" + INTERNAL_E_OBJECT + ") object;");
 		sc.add("if (internalObject.eIsProxy()) {");

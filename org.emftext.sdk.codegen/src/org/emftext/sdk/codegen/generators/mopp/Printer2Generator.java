@@ -121,7 +121,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) { 
+	private void addMethods(JavaComposite sc) { 
 		addPrintMethod(sc);
 		addDoPrintMethod(sc, syntax.getAllRules());
 		addPrintRuleMethods(sc);
@@ -217,10 +217,12 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetDecoratorTreeMethod(StringComposite sc) {
+	private void addGetDecoratorTreeMethod(JavaComposite sc) {
 		// TODO this trees can be reused
-		sc.add("// creates a tree of decorator objects which reflects the syntax tree that is");
-		sc.add("// attached to the given syntax element");
+		sc.addJavadoc(
+			"creates a tree of decorator objects which reflects the syntax tree that is " +
+			"attached to the given syntax element"
+		);
 		sc.add("public " + syntaxElementDecoratorClassName + " getDecoratorTree(" + syntaxElementClassName + " syntaxElement) {");
 		sc.add(syntaxElementClassName + "[] children = syntaxElement.getChildren();");
 		sc.add("int childCount = children.length;");

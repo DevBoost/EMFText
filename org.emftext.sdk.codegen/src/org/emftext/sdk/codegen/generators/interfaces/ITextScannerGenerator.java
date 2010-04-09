@@ -41,18 +41,22 @@ public class ITextScannerGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A common interface for scanners to be used by EMFText.");
-		sc.add("// A scanner is initialized with a text and delivers a");
-		sc.add("// sequence of tokens.");
+		sc.addJavadoc(
+			"A common interface for scanners to be used by EMFText. " +
+			"A scanner is initialized with a text and delivers a " +
+			"sequence of tokens."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Sets the text that must be scanned.");
+		sc.addJavadoc("Sets the text that must be scanned.");
 		sc.add("public void setText(String text);");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the next token found in the text.");
+		sc.addJavadoc("Returns the next token found in the text.");
 		sc.add("public " + iTextTokenClassName + " getNextToken();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

@@ -199,7 +199,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc, List<Rule> rules) {
+	private void addMethods(JavaComposite sc, List<Rule> rules) {
 		addMatchCountMethod(sc);
 		addDoPrintMethod(sc, rules);
         addGetReferenceResolverSwitchMethod(sc);

@@ -41,17 +41,20 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// This interface is extended by all other EMFText runtime");
-		sc.add("// API interfaces for generated components. It provides");
-		sc.add("// access to the plug-in meta information.");
-		
+		sc.addJavadoc(
+			"This interface is extended by some other generated classes. " +
+			"It provides access to the plug-in meta information."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns a meta information object for the language plug-in");
-		sc.add("// that contains this part.");
-		
+		sc.addJavadoc(
+			"Returns a meta information object for the language plug-in " +
+			"that contains this part."
+		);
 		sc.add("public " + iMetaInformationClassName + " getMetaInformation();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}

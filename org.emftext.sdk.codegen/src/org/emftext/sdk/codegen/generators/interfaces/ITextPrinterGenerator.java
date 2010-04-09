@@ -44,16 +44,18 @@ public class ITextPrinterGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Converts a tree of <code>" + E_OBJECT + "</code>s into a plain text.");
+		sc.addJavadoc("Converts a tree of <code>" + E_OBJECT + "</code>s into a plain text.");
 		sc.add("public interface " + getResourceClassName() + " extends " + iConfigurableClassName + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Prints the given <code>" + E_OBJECT + "</code> and its content to some");
-		sc.add("// underlying output stream.");
-		sc.add("//");
-		sc.add("// @param element The element to print.");
-		sc.add("// @throws " + IO_EXCEPTION + " if printing to an underlying stream or device fails.");
+		sc.addJavadoc(
+			"Prints the given <code>" + E_OBJECT + "</code> and its content to the " +
+			"underlying output stream that was passed to this printer upon creation.\n\n" +
+			"@param element The element to print.\n" +
+			"@throws " + IO_EXCEPTION + " if printing to the underlying stream or device fails."
+		);
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + ";");
+		sc.addLineBreak();
 		
 		sc.add("}");
 		return true;

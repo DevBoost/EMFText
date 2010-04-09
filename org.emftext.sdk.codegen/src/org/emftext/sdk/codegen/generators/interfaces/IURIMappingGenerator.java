@@ -43,20 +43,23 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Implementors of this interface map identifiers to URIs.");
-		sc.add("// This is sometime necessary when resolving references depends");
-		sc.add("// on the resolution of others.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> unused type parameter which is needed to implement IReferenceMapping.");
-		sc.add("//");
+		sc.addJavadoc(
+			"Implementors of this interface map identifiers to URIs. " +
+			"This is sometimes necessary when resolving references depends " +
+			"on the resolution of others.\n\n" +
+			"@param <ReferenceType> unused type parameter which is needed to implement " + iReferenceMappingClassName + "."
+		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> extends " + iReferenceMappingClassName + "<ReferenceType> {");
 		sc.addLineBreak();
 		
-		sc.add("// Returns an alternative proxy " + URI + " that should follow EMF's default naming scheme");
-		sc.add("// such that it can be resolved by the default resolution mechanism that will be called");
-		sc.add("// on this " + URI + " (see <code>Resource.getEObject()</code>).");
-		
+		sc.addJavadoc(
+			"Returns an alternative proxy URI that should follow EMF's default naming scheme " +
+			"such that it can be resolved by the default resolution mechanism that will be called " +
+			"on this URI (see <code>Resource.getEObject()</code>)."
+		);
 		sc.add("public " + URI + " getTargetIdentifier();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		return true;
 	}
