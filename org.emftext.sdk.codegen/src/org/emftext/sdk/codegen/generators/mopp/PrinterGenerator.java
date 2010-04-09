@@ -274,7 +274,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
+	private void addPrintRuleMethod(JavaComposite sc, Rule rule) {
 		
 		final GenClass genClass = rule.getMetaclass();
 
@@ -293,7 +293,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void printChoices(StringComposite sc, Rule rule) {
+	private void printChoices(JavaComposite sc, Rule rule) {
 		for (Choice choice : rule2SubChoice.get(rule)) {
 			sc
 					.add("public void "
@@ -308,12 +308,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	private void addPrintCollectedTokensCode(StringComposite sc, Rule rule) {
+	private void addPrintCollectedTokensCode(JavaComposite sc, Rule rule) {
 
 		final GenClass genClass = rule.getMetaclass();
 		List<GenFeature> featureList = genClass.getAllGenFeatures();
 
-		sc.add("// print collected hidden tokens");
+		sc.addComment("print collected hidden tokens");
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
@@ -330,7 +330,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	private void printChoice(Choice choice, StringComposite sc, GenClass genClass) {
+	private void printChoice(Choice choice, JavaComposite sc, GenClass genClass) {
 		String countName = "count";
 		sc.add(new StringComponent("int " + countName + ";", countName));
 		
@@ -340,7 +340,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			if (seqIt.hasNext()) {
 				Sequence firstSeq = seqIt.next();
 				int count = 0;
-				StringComposite sc1 = new JavaComposite();
+				JavaComposite sc1 = new JavaComposite();
 				sc1.add("switch(alt) {");
 				sc.add("alt=" + count++ + ";");
 				sc.add("int matches=");
@@ -383,7 +383,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		return result;
 	}
 
-	private void printSequence(Sequence sequence, StringComposite sc,
+	private void printSequence(Sequence sequence, JavaComposite sc,
 			GenClass genClass) {
 		Set<String> neededFeatures = new LinkedHashSet<String>(
 				sequence2NecessaryFeatures.get(sequence));
@@ -408,10 +408,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	private void printDefinition(StringComposite sc, GenClass genClass,
+	private void printDefinition(JavaComposite sc, GenClass genClass,
 			Set<String> neededFeatures,
 			ListIterator<Definition> definitionIterator, Definition definition) {
-		sc.add("// DEFINITION PART BEGINS (" + definition.eClass().getName() + ")");
+		sc.addComment("DEFINITION PART BEGINS (" + definition.eClass().getName() + ")");
 		String printPrefix = "out.print(";
 		if (definition instanceof LineBreak) {
 			LineBreak lineBreak = (LineBreak) definition;
@@ -749,14 +749,16 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	 * @param sc
 	 * @param genClass
 	 */
-	protected void printCountingMapIntialization(StringComposite sc, GenClass genClass) {
+	protected void printCountingMapIntialization(JavaComposite sc, GenClass genClass) {
 		List<GenFeature> featureList = genClass.getAllGenFeatures();
 		String printCountingMapName = "printCountingMap";
-		sc.add("// the " + printCountingMapName + " contains a mapping from feature names to");
-		sc.add("// the number of remaining elements that still need to be printed.");
-		sc.add("// the map is initialized with the number of elements stored in each structural");
-		sc.add("// feature. for lists this is the list size. for non-multiple features it is either");
-		sc.add("// 1 (if the feature is set) or 0 (if the feature is null).");
+		sc.addComment(
+			"The " + printCountingMapName + " contains a mapping from feature names to " +
+			"the number of remaining elements that still need to be printed. " +
+			"The map is initialized with the number of elements stored in each structural " +
+			"feature. For lists this is the list size. For non-multiple features it is either " +
+			"1 (if the feature is set) or 0 (if the feature is null)."
+		);
 		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
 				+ featureList.size() + ");", printCountingMapName));
 		

@@ -143,7 +143,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addInnerClasses(StringComposite sc) {
+	private void addInnerClasses(JavaComposite sc) {
 		// add context interface and implementation
 		addICommandContextClass(sc);
 		addCommandContextClass(sc);
@@ -181,7 +181,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addObjectCompletedCommandClass(StringComposite sc) {
+	private void addObjectCompletedCommandClass(JavaComposite sc) {
 		sc.add("public class ObjectCompletedCommand implements ICommand {");
 		sc.add("public int start;");
 		sc.add("public int end;");
@@ -194,8 +194,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
 		sc.add("if (resource != null) {");
-		sc.add("// the resource can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add(E_OBJECT + " currentContainer = context.getCurrentContainer();");
 		sc.add("setLocalizationInfo(currentContainer, start, end);");
 		sc.add("}");
@@ -210,9 +209,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addSetLocalizationInfoMethod(StringComposite sc) {
+	private void addSetLocalizationInfoMethod(JavaComposite sc) {
 		sc.add("public void setLocalizationInfo(" + E_OBJECT + " object, int start, int end) {");
-		sc.add("// the resource may be null if the parse is used in standalone mode");
+		sc.addComment("the resource may be null if the parse is used in standalone mode");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -236,7 +235,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddProxyCommandClass(StringComposite sc) {
+	private void addAddProxyCommandClass(JavaComposite sc) {
 		sc.add("public class AddProxyCommand<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
@@ -259,7 +258,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
-		sc.add("// call token resolver");
+		sc.addComment("call token resolver");
 		sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result = getFreshTokenResolveResult();");
@@ -267,17 +266,17 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
 		sc.add("if (resolvedObject == null) {");
-		sc.add("// add error to resource");
+		sc.addComment("add error to resource");
 		sc.add("addErrorToResource(result.getErrorMessage(), start, end);");
 		sc.add("} else {");
-		sc.add("// call reference resolver (feature is a non-containment reference)");
+		sc.addComment("call reference resolver (feature is a non-containment reference)");
     	sc.add(STRING + " resolvedString = (" + STRING + ") resolvedObject;");
     	sc.add(E_OBJECT + " proxyObject = proxyClass.getEPackage().getEFactoryInstance().create(proxyClass);"); 
     	//sc.add("collectHiddenTokens(element);");
     	sc.add("registerContextDependentProxy(new " + 
     			contextDependentURIFragmentFactoryClassName + 
     			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
-		sc.add("// add proxy");
+		sc.addComment("add proxy object");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
 		sc.add("addObjectToFeature(currentObject, proxyObject, featureID);");
 		sc.add("setLocalizationInfo(proxyObject, start, end);");
@@ -289,7 +288,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetAttributeValueCommandClass(StringComposite sc) {
+	private void addSetAttributeValueCommandClass(JavaComposite sc) {
 		sc.add("public class SetAttributeValueCommand implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
@@ -308,7 +307,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
-		sc.add("// call token resolver");
+		sc.addComment("call token resolver");
 		sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result = getFreshTokenResolveResult();");
@@ -316,10 +315,10 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
 		sc.add("if (resolvedObject == null) {");
-		sc.add("// add error to resource");
+		sc.addComment("add error to resource");
 		sc.add("addErrorToResource(result.getErrorMessage(), start, end);");
 		sc.add("} else {");
-		sc.add("// add proxy (if feature is a non-containment reference)");
+		sc.addComment("add proxy object (if feature is a non-containment reference)");
 		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
 		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
 		sc.add("}");
@@ -459,7 +458,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addCreateInstanceMethod(sc);
 		addGetResourceMethod(sc);
 		addParseMethod(sc);
@@ -498,27 +497,27 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		addTerminateMethod(sc);
 	}
 
-	private void addTerminateMethod(StringComposite sc) {
+	private void addTerminateMethod(JavaComposite sc) {
 		sc.add("public void terminate() {");
-		sc.add("// TODO implement this");
+		sc.addComment("TODO implement this");
 		sc.add("}");
 	}
 
-	private void addAddCommandMethod(StringComposite sc) {
+	private void addAddCommandMethod(JavaComposite sc) {
 		sc.add("public void addCommand(ICommand command) {");
 		sc.add("if (restoreStackMode) {");
 		sc.add("throw new RuntimeException(\"Can't add commands in restoreStackMode.\");");
 		sc.add("}");
-		sc.add("// if the parser is in scan mode the command can be thrown away");
+		sc.addComment("if the parser is in scan mode the command can be thrown away");
 		sc.add("if (!scanMode) {");
 		sc.add("commands.add(command);");
 		sc.add("}");
 		sc.add("}");
 	}
 
-	private void addAddTokenMethod(StringComposite sc) {
+	private void addAddTokenMethod(JavaComposite sc) {
 		sc.add("public void addToken(final " + STRING + " tokenName, final " + STRING + " text, final int offset, final int length) {");
-		sc.add("// only if the parser is in scan mode the tokens are collected");
+		sc.addComment("only if the parser is in scan mode the tokens are collected");
 		sc.add("if (scanMode) {");
 		sc.add("tokens.add(new " + getClassNameHelper().getI_TEXT_TOKEN() + "() {");
 		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
@@ -662,7 +661,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMatchUnusedTokensMethod(StringComposite sc) {
+	private void addMatchUnusedTokensMethod(JavaComposite sc) {
 		sc.add("public boolean matchUnusedTokens() {");
 		sc.add("while (true) {");
 		sc.add("boolean found = false;");
@@ -670,7 +669,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isHidden()) {
 				String field = getFieldName(tokenDefinition);
-				sc.add("// TODO add tokens to collect-in features");
+				sc.addComment("TODO add tokens to collect-in features");
 				sc.add("found |= null != matchesRegexp(" + field + ", \"unused " + field + "\", true);");
 			}
 		}
@@ -746,12 +745,12 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addParseStartSymbolsMethod(StringComposite sc) {
+	private void addParseStartSymbolsMethod(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		sc.add("public boolean parseStartSymbols() {");
 		sc.add("boolean matches;");
 		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
-			sc.add("// try start symbol: " + startSymbol.getName());
+			sc.addComment("try start symbol: " + startSymbol.getName());
 			sc.add("restoreStackMode = true;");
 			sc.add("matches = " + getMethodName(startSymbol) + "();");
 			sc.add("if (isStackReady(\"" + getMethodName(startSymbol) + "\")) {");
