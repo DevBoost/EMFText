@@ -74,33 +74,32 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Displays HTML information in a {@link org.eclipse.swt.browser." + BROWSER + "} widget.");
-		sc.add("// <p>");
-		sc.add("// This {@link IInformationControlExtension2} expects {@link #setInput(Object)} to be");
-		sc.add("// called with an argument of type {@link BrowserInformationControlInput}.");
-		sc.add("// </p>");
-		sc.add("// <p>");
-		sc.add("// Moved into this package from <code>org.eclipse.jface.internal.text.revisions</code>.</p>");
-		sc.add("// <p>");
-		sc.add("// This class may be instantiated; it is not intended to be subclassed.</p>");
-		sc.add("// <p>");
-		sc.add("// Current problems:");
-		sc.add("// <ul>");
-		sc.add("// 	<li>the size computation is too small</li>");
-		sc.add("// 	<li>focusLost event is not sent - see https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532</li>");
-		sc.add("// </ul>");
-		sc.add("// </p>");
-		sc.add("//");
-		sc.add("// @since 3.2");
-		sc.add("///");
+		sc.addJavadoc(
+			"Displays HTML information in a {@link " + BROWSER + "} widget.\n" +
+			"<p>\n" +
+			"This {@link IInformationControlExtension2} expects {@link #setInput(Object)} to be " +
+			"called with an argument of type {@link BrowserInformationControlInput}.\n" +
+			"</p>\n" +
+			"<p>Moved into this package from <code>org.eclipse.jface.internal.text.revisions</code>.</p>\n" +
+			"<p>This class may be instantiated; it is not intended to be subclassed.</p>\n" +
+			"<p>Current problems:\n" +
+			"<ul>\n" +
+			"\t<li>the size computation is too small</li>\n" +
+			"\t<li>focusLost event is not sent - see https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532</li>\n" +
+			"</ul>\n" +
+			"</p>\n" +
+			"@since 3.2"
+		);
+		
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_INFORMATION_CONTROL + " implements " + I_INFORMATION_CONTROL_EXTENSION2 + ", " + I_DELAYED_INPUT_CHANGE_PROVIDER + " {");
 		sc.addLineBreak();
-		sc.add("// Tells whether the " + SWT + " " + BROWSER + " widget and hence this information");
-		sc.add("// control is available.");
-		sc.add("//");
-		sc.add("// @param parent the parent component used for checking or <code>null</code> if none");
-		sc.add("// @return <code>true</code> if this control is available");
-		sc.add("///");
+		sc.addJavadoc(
+			"Tells whether the " + SWT + " " + BROWSER + " widget and hence this information " +
+			"control is available.\n\n" +
+			"@param parent the parent component used for checking or <code>null</code> if none\n" +
+			"@return <code>true</code> if this control is available"
+		);
+		
 		sc.add("public static boolean isAvailable(" + COMPOSITE + " parent) {");
 		sc.add("if (!fgAvailabilityChecked) {");
 		sc.add("try {");
@@ -126,48 +125,51 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("// Minimal size constraints.");
+		sc.addJavadoc("Minimal size constraints.");
 		sc.add("private static final int MIN_WIDTH = 80;");
 		sc.add("private static final int MIN_HEIGHT = 50;");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("// Availability checking cache.");
+		sc.addJavadoc("Availability checking cache.");
 		sc.add("private static boolean fgIsAvailable = false;");
 		sc.add("private static boolean fgAvailabilityChecked = false;");
 		sc.addLineBreak();
-		sc.add("// Cached scroll bar width and height");
+		sc.addJavadoc("Cached scroll bar width and height");
 		sc.add("private static " + POINT + " fgScrollBarSize;");
 		sc.addLineBreak();
-		sc.add("// The control's browser widget");
+		sc.addJavadoc("The control's browser widget");
 		sc.add("private " + BROWSER + " fBrowser;");
-		sc.add("// Tells whether the browser has content");
+		sc.addJavadoc("Tells whether the browser has content");
 		sc.add("private boolean fBrowserHasContent;");
-		sc.add("// Text layout used to approximate size of content when rendered in browser");
+		sc.addJavadoc("Text layout used to approximate size of content when rendered in browser");
 		sc.add("private " + TEXT_LAYOUT + " fTextLayout;");
-		sc.add("// Bold text style */");
+		sc.addJavadoc("Bold text style");
 		sc.add("private " + TEXT_STYLE + " fBoldStyle;");
 		sc.addLineBreak();
 		sc.add("private " + docBrowserInformationControlInputClassName + " fInput;");
 		sc.addLineBreak();
-		sc.add("// <code>true</code> iff the browser has completed loading of the last");
-		sc.add("// input set via {@link #setInformation(String)}.");
+		sc.addJavadoc(
+			"<code>true</code> iff the browser has completed loading of the last " +
+			"input set via {@link #setInformation(String)}."
+		);
 		sc.add("private boolean fCompleted = false;");
 		sc.addLineBreak();
-		sc.add("// The listener to be notified when a delayed location changing event happened.");
+		sc.addJavadoc("The listener to be notified when a delayed location changing event happened.");
 		sc.add("private " + I_INPUT_CHANGED_LISTENER + " fDelayedInputChangeListener;");
 		sc.addLineBreak();
-		sc.add("// The listeners to be notified when the input changed.");
+		sc.addJavadoc("The listeners to be notified when the input changed.");
 		sc.add("private " + LISTENER_LIST + " fInputChangeListeners = new " + LISTENER_LIST + "(" + LISTENER_LIST + ".IDENTITY);");
 		sc.addLineBreak();
-		sc.add("// The symbolic name of the font used for size computations, or <code>null</code> to use dialog font.");
+		sc.addJavadoc("The symbolic name of the font used for size computations, or <code>null</code> to use dialog font.");
 		sc.add("private final String fSymbolicFontName;");
 		sc.addLineBreak();
 
-		sc.add("// Creates a browser information control with the given shell as parent.");
-		sc.add("//");
-		sc.add("// @param parent the parent shell");
-		sc.add("// @param symbolicFontName the symbolic name of the font used for size computations");
-		sc.add("// @param resizable <code>true</code> if the control should be resizable");
+		sc.addJavadoc(
+			"Creates a browser information control with the given shell as parent.\n\n" +
+			"@param parent the parent shell\n" +
+			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
+			"@param resizable <code>true</code> if the control should be resizable"
+		);
 		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, boolean resizable) {");
 		sc.add("super(parent, resizable);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
@@ -175,35 +177,34 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Creates a browser information control with the given shell as parent.");
-		sc.add("//");
-		sc.add("// @param parent the parent shell");
-		sc.add("// @param symbolicFontName the symbolic name of the font used for size computations");
-		sc.add("// @param statusFieldText the text to be used in the optional status field");
-		sc.add("//            or <code>null</code> if the status field should be hidden");
+		sc.addJavadoc(
+			"Creates a browser information control with the given shell as parent.\n\n" +
+			"@param parent the parent shell\n" +
+			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
+			"@param statusFieldText the text to be used in the optional status field " +
+			"or <code>null</code> if the status field should be hidden"
+		);
 		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, String statusFieldText) {");
 		sc.add("super(parent, statusFieldText);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
 		sc.add("create();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Creates a browser information control with the given shell as parent.");
-		sc.add("//");
-		sc.add("// @param parent the parent shell");
-		sc.add("// @param symbolicFontName the symbolic name of the font used for size computations");
-		sc.add("// @param toolBarManager the manager or <code>null</code> if toolbar is not desired");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		sc.addJavadoc(
+			"Creates a browser information control with the given shell as parent.\n\n" +
+			"@param parent the parent shell\n" +
+			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
+			"@param toolBarManager the manager or <code>null</code> if toolbar is not desired\n" +
+			"@since 3.4"
+		);
 		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, " + TOOL_BAR_MANAGER + " toolBarManager) {");
 		sc.add("super(parent, toolBarManager);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
 		sc.add("create();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jface.text." + ABSTRACT_INFORMATION_CONTROL + "#createContent(org.eclipse.swt.widgets." + COMPOSITE + ")");
-		sc.add("///");
+		
+		sc.addJavadoc("@see org.eclipse.jface.text." + ABSTRACT_INFORMATION_CONTROL + "#createContent(" + COMPOSITE + ")");
 		sc.add("protected void createContent(" + COMPOSITE + " parent) {");
 		sc.add("fBrowser= new " + BROWSER + "(parent, " + SWT + ".NONE);");
 		sc.add(DISPLAY + " display= getShell().getDisplay();");
@@ -230,15 +231,14 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("// Replace browser's built-in context menu with none");
+		sc.addComment("Replace browser's built-in context menu with none");
 		sc.add("fBrowser.setMenu(new " + MENU + "(getShell(), " + SWT + ".NONE));");
 		sc.addLineBreak();
 		sc.add("createTextLayout();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// {@inheritDoc} This control can handle {@link String}(no handle) and");
+		sc.addJavadoc("{@inheritDoc} This control can handle {@link String}(no handle) and");
 		sc.add("public void setInput(Object input) {");
 		sc.add(ASSERT + ".isLegal(input == null || input instanceof String || input instanceof " + docBrowserInformationControlInputClassName + ");");
 		sc.addLineBreak();
@@ -261,16 +261,20 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("boolean RTL= (getShell().getStyle() & " + SWT + ".RIGHT_TO_LEFT) != 0;");
 		sc.add("boolean resizable= isResizable();");
 		sc.addLineBreak();
-		sc.add("// The default \"overflow:auto\" would not result in a predictable width for the client area");
-		sc.add("// and the re-wrapping would cause visual noise");
+		sc.addComment(
+			"The default \"overflow:auto\" would not result in a predictable width for the client area " +
+			"and the re-wrapping would cause visual noise"
+		);
 		sc.add("String[] styles= null;");
 		sc.add("if (RTL && resizable) {");
 		sc.add("styles= new String[] { \"direction:rtl;\", \"overflow:scroll;\", \"word-wrap:break-word;\" };");
 		sc.add("} else if (RTL && !resizable) {");
 		sc.add("styles= new String[] { \"direction:rtl;\", \"overflow:hidden;\", \"word-wrap:break-word;\" };");
 		sc.add("} else if (!resizable) {");
-		sc.add("//XXX: In IE, \"word-wrap: break-word;\" causes bogus wrapping even in non-broken words :-(see e.g. Javadoc of String).");
-		sc.add("// Re-check whether we really still need this now that the Javadoc Hover header already sets this style.");
+		sc.addComment(
+			"XXX: In IE, \"word-wrap: break-word;\" causes bogus wrapping even in non-broken words :-(see e.g. Javadoc of String). " +
+			"Re-check whether we really still need this now that the Javadoc Hover header already sets this style."
+		);
 		sc.add("styles= new String[] { \"overflow:hidden;\"/*, \"word-wrap: break-word;\"*/ }; ");
 		sc.add("} else {");
 		sc.add("styles= new String[] { \"overflow:scroll;\" }; ");
@@ -280,11 +284,13 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add(htmlPrinterClassName + ".insertStyles(buffer, styles);");
 		sc.add("content= buffer.toString();");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// XXX: Should add some JavaScript here that shows something like");
-		sc.add("// \"(continued...)\" or \"...\" at the end of the visible area when the page overflowed");
-		sc.add("// with \"overflow:hidden;\".");
-		sc.add("///");
+		
+		sc.addComment(
+			"XXX: Should add some JavaScript here that shows something like " +
+			"\"(continued...)\" or \"...\" at the end of the visible area when the page overflowed " +
+			"with \"overflow:hidden;\"."
+		);
+		
 		sc.addLineBreak();
 		sc.add("fCompleted= false;");
 		sc.add("fBrowser.setText(content);");
@@ -295,9 +301,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControl#setVisible(boolean)");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControl#setVisible(boolean)");
 		sc.add("public void setVisible(boolean visible) {");
 		sc.add(SHELL + " shell= getShell();");
 		sc.add("if (shell.isVisible() == visible) {");
@@ -310,14 +315,16 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// The " + BROWSER + " widget flickers when made visible while it is not completely loaded.");
-		sc.add("// The fix is to delay the call to setVisible until either loading is completed");
-		sc.add("// (see ProgressListener in constructor), or a timeout has been reached.");
-		sc.add("///");
+		
+		sc.addComment(
+			"The Browser widget flickers when made visible while it is not completely loaded. " +
+			"The fix is to delay the call to setVisible until either loading is completed " +
+			"(see ProgressListener in constructor), or a timeout has been reached."
+		);
+		
 		sc.add("final " + DISPLAY + " display = shell.getDisplay();");
 		sc.addLineBreak();
-		sc.add("// Make sure the display wakes from sleep after timeout:");
+		sc.addComment("Make sure the display wakes from sleep after timeout:");
 		sc.add("display.timerExec(100, new Runnable() {");
 		sc.add("public void run() {");
 		sc.add("fCompleted= true;");
@@ -325,7 +332,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("});");
 		sc.addLineBreak();
 		sc.add("while (!fCompleted) {");
-		sc.add("// Drive the event loop to process the events required to load the browser widget's contents:");
+		sc.addComment("Drive the event loop to process the events required to load the browser widget's contents:");
 		sc.add("if (!display.readAndDispatch()) {");
 		sc.add("display.sleep();");
 		sc.add("}");
@@ -336,10 +343,12 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// Avoids flickering when replacing hovers, especially on Vista in ON_CLICK mode.");
-		sc.add("// Causes flickering on GTK. Carbon does not care.");
-		sc.add("///");
+		
+		sc.addComment(
+			"Avoids flickering when replacing hovers, especially on Vista in ON_CLICK mode. " +
+			"Causes flickering on GTK. Carbon does not care."
+		);
+		
 		sc.add("if (\"win32\".equals(" + SWT + ".getPlatform())) {");
 		sc.add("shell.moveAbove(null);");
 		sc.add("}");
@@ -347,9 +356,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("super.setVisible(true);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jface.text." + ABSTRACT_INFORMATION_CONTROL + "#setSize(int, int)");
-		sc.add("///");
+		
+		sc.addJavadoc("@see " + ABSTRACT_INFORMATION_CONTROL + "#setSize(int, int)");
 		sc.add("public void setSize(int width, int height) {");
 		sc.add("fBrowser.setRedraw(false); // avoid flickering");
 		sc.add("try {");
@@ -359,16 +367,15 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Creates and initializes the text layout used");
-		sc.add("// to compute the size hint.");
-		sc.add("//");
-		sc.add("// @since 3.2");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Creates and initializes the text layout used to compute the size hint.\n\n" +
+			"@since 3.2"
+		);
 		sc.add("private void createTextLayout() {");
 		sc.add("fTextLayout= new " + TEXT_LAYOUT + "(fBrowser.getDisplay());");
 		sc.addLineBreak();
-		sc.add("// Initialize fonts");
+		sc.addComment("Initialize fonts");
 		sc.add("String symbolicFontName= fSymbolicFontName == null ? " + J_FACE_RESOURCES + ".DIALOG_FONT : fSymbolicFontName;");
 		sc.add(FONT + " font = " + J_FACE_RESOURCES + ".getFont(symbolicFontName);");
 		sc.add("fTextLayout.setFont(font);");
@@ -376,7 +383,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("font = " + J_FACE_RESOURCES + ".getFontRegistry().getBold(symbolicFontName);");
 		sc.add("fBoldStyle = new " + TEXT_STYLE + "(font, null, null);");
 		sc.addLineBreak();
-		sc.add("// Compute and set tab width");
+		sc.addComment("Compute and set tab width");
 		sc.add("fTextLayout.setText(\"    \"); ");
 		sc.add("int tabWidth = fTextLayout.getBounds().width;");
 		sc.add("fTextLayout.setTabs(new int[] {tabWidth});");
@@ -384,9 +391,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("fTextLayout.setText(\"\"); ");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControl#dispose()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControl#dispose()");
 		sc.add("public void dispose() {");
 		sc.add("if (fTextLayout != null) {");
 		sc.add("fTextLayout.dispose();");
@@ -397,9 +403,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("super.dispose();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControl#computeSizeHint()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControl#computeSizeHint()");
 		sc.add("public " + POINT + " computeSizeHint() {");
 		sc.add(POINT + " sizeConstraints = getSizeConstraints();");
 		sc.add(RECTANGLE + " trim = computeTrim();");
@@ -442,12 +447,12 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("int minWidth= bounds.width;");
 		sc.add("height= height + bounds.height;");
 		sc.addLineBreak();
-		sc.add("// Add some air to accommodate for different browser renderings");
+		sc.addComment("Add some air to accommodate for different browser renderings");
 		sc.add("minWidth+= 15;");
 		sc.add("height+= 15;");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("// Apply max size constraints");
+		sc.addComment("Apply max size constraints");
 		sc.add("if (sizeConstraints != null) {");
 		sc.add("if (sizeConstraints.x != " + SWT + ".DEFAULT) {");
 		sc.add("minWidth= Math.min(sizeConstraints.x, minWidth + trim.width);");
@@ -457,16 +462,15 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// Ensure minimal size");
+		sc.addComment("Ensure minimal size");
 		sc.add("int width= Math.max(MIN_WIDTH, minWidth);");
 		sc.add("height= Math.max(MIN_HEIGHT, height);");
 		sc.add(POINT + " windowSize = new " + POINT + "(width, height);");
 		sc.add("return windowSize;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jface.text.IInformationControlExtension3#computeTrim()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see org.eclipse.jface.text.IInformationControlExtension3#computeTrim()");
 		sc.add("public " + RECTANGLE + " computeTrim() {");
 		sc.add(RECTANGLE + " trim = super.computeTrim();");
 		sc.add("if (isResizable()) {");
@@ -480,112 +484,106 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("return trim;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Adds the listener to the collection of listeners who will be");
-		sc.add("// notified when the current location has changed or is about to change.");
-		sc.add("//");
-		sc.add("// @param listener the location listener");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		sc.addJavadoc(
+			"Adds the listener to the collection of listeners who will be " +
+			"notified when the current location has changed or is about to change.\n\n" +
+			"@param listener the location listener\n" +
+			"@since 3.4"
+		);
 		sc.add("public void addLocationListener(" + LOCATION_LISTENER + " listener) {");
 		sc.add("fBrowser.addLocationListener(listener);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControl#setForegroundColor(" + COLOR + ")");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControl#setForegroundColor(" + COLOR + ")");
 		sc.add("public void setForegroundColor(" + COLOR + " foreground) {");
 		sc.add("super.setForegroundColor(foreground);");
 		sc.add("fBrowser.setForeground(foreground);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControl#setBackgroundColor(" + COLOR + ")");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControl#setBackgroundColor(" + COLOR + ")");
 		sc.add("public void setBackgroundColor(" + COLOR + " background) {");
 		sc.add("super.setBackgroundColor(background);");
 		sc.add("fBrowser.setBackground(background);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see IInformationControlExtension#hasContents()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see IInformationControlExtension#hasContents()");
 		sc.add("public boolean hasContents() {");
 		sc.add("return fBrowserHasContent;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Adds a listener for input changes to this input change provider.");
-		sc.add("// Has no effect if an identical listener is already registered.");
-		sc.add("//");
-		sc.add("// @param inputChangeListener the listener to add");
-		sc.add("// @since 3.4");
-		sc.add("///");
+
+		sc.addJavadoc(
+			"Adds a listener for input changes to this input change provider. " +
+			"Has no effect if an identical listener is already registered.\n\n" +
+			"@param inputChangeListener the listener to add\n" +
+			"@since 3.4"
+		);
 		sc.add("public void addInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
 		sc.add(ASSERT + ".isNotNull(inputChangeListener);");
 		sc.add("fInputChangeListeners.add(inputChangeListener);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Removes the given input change listener from this input change provider.");
-		sc.add("// Has no effect if an identical listener is not registered.");
-		sc.add("//");
-		sc.add("// @param inputChangeListener the listener to remove");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Removes the given input change listener from this input change provider. " +
+			"Has no effect if an identical listener is not registered.\n\n" +
+			"@param inputChangeListener the listener to remove\n" +
+			"@since 3.4");
 		sc.add("public void removeInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
 		sc.add("fInputChangeListeners.remove(inputChangeListener);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jface.text." + I_DELAYED_INPUT_CHANGE_PROVIDER + "#setDelayedInputChangeListener(org.eclipse.jface.text." + I_INPUT_CHANGED_LISTENER + ")");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"@see " + I_DELAYED_INPUT_CHANGE_PROVIDER + "#setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + ")\n" +
+			"@since 3.4"
+		);
 		sc.add("public void setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
 		sc.add("fDelayedInputChangeListener= inputChangeListener;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Tells whether a delayed input change listener is registered.");
-		sc.add("//");
-		sc.add("// @return <code>true</code> iff a delayed input change");
-		sc.add("//         listener is currently registered");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Tells whether a delayed input change listener is registered.\n\n" +
+			"@return <code>true</code> iff a delayed input change listener is currently registered\n" +
+			"@since 3.4"
+		);
 		sc.add("public boolean hasDelayedInputChangeListener() {");
 		sc.add("return fDelayedInputChangeListener != null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Notifies listeners of a delayed input change.");
-		sc.add("//");
-		sc.add("// @param newInput the new input, or <code>null</code> to request cancellation");
-		sc.add("// @since 3.4");
-		sc.add("///");
+
+		sc.addJavadoc(
+			"Notifies listeners of a delayed input change.\n\n" +
+			"@param newInput the new input, or <code>null</code> to request cancellation\n" +
+			"@since 3.4"
+		);
 		sc.add("public void notifyDelayedInputChange(Object newInput) {");
 		sc.add("if (fDelayedInputChangeListener != null)");
 		sc.add("fDelayedInputChangeListener.inputChanged(newInput);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see java.lang.Object#toString()");
-		sc.add("// @since 3.4");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"@see java.lang.Object#toString()\n" +
+			"@since 3.4"
+		);
 		sc.add("public String toString() {");
 		sc.add("String style= (getShell().getStyle() & " + SWT + ".RESIZE) == 0 ? \"fixed\" : \"resizeable\";");
 		sc.add("return super.toString() + \" -  style: \" + style; ");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// @return the current browser input or <code>null</code>");
-		sc.add("///");
+		
+		sc.addJavadoc("@return the current browser input or <code>null</code>");
 		sc.add("public " + docBrowserInformationControlInputClassName + " getInput() {");
 		sc.add("return fInput;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jface.text.IInformationControlExtension5#computeSizeConstraints(int, int)");
-		sc.add("///");
+		
+		sc.addJavadoc("@see org.eclipse.jface.text.IInformationControlExtension5#computeSizeConstraints(int, int)");
 		sc.add("public " + POINT + " computeSizeConstraints(int widthInChars, int heightInChars) {");
 		sc.add("if (fSymbolicFontName == null) {");
 		sc.add("return null;");

@@ -164,14 +164,13 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addAddErrorToResourceMethod(StringComposite sc, ClassNameHelper classNameHelper) {
+	public void addAddErrorToResourceMethod(JavaComposite sc, ClassNameHelper classNameHelper) {
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 
 		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("resource.addProblem(new " + classNameHelper.getI_PROBLEM() + "() {");

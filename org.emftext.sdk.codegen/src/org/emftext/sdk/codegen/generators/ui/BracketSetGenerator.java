@@ -220,9 +220,9 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveBracketPairsMethod(StringComposite sc) {
-		sc.add("// Removes brackets.");
-		sc.add("public void removeBracketPairs(String bracketsAsArray[]) {");
+	private void addRemoveBracketPairsMethod(JavaComposite sc) {
+		sc.addJavadoc("Removes pairs of brackets.");
+		sc.add("public void removeBracketPairs(String[] bracketsAsArray) {");
 		sc.add("for (String bracket : bracketsAsArray) {");
 		sc.add("String[] tmp = bracket.split(BRACKET_SEPARATOR);");
 		sc.add("remove(tmp[0], tmp[1]);");
@@ -231,8 +231,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRemoveMethod(StringComposite sc) {
-		sc.add("// Removes the given bracket pair.");
+	private void addRemoveMethod(JavaComposite sc) {
+		sc.addJavadoc("Removes the given bracket pair.");
 		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " remove(String opening, String closing) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
@@ -252,8 +252,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetCounterpartMethod(StringComposite sc) {
-		sc.add("// Gets the counter part of a bracket.");
+	private void addGetCounterpartMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the counter part of a bracket.");
 		sc.add("public String getCounterpart(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
@@ -268,8 +268,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addResetBracketsMethod(StringComposite sc) {
-		sc.add("// Removes all bracket pairs from this bracket set, reload the bracket set from the preference store.");
+	private void addResetBracketsMethod(JavaComposite sc) {
+		sc.addJavadoc("Removes all bracket pairs from this bracket set, reload the bracket set from the preference store.");
 		sc.add("public boolean resetBrackets() {");
 		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_BRACKETS_SUFFIX);");
 		sc.add("if (bracketPairs == null) {");
@@ -281,8 +281,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetClosingInsideMethod(StringComposite sc) {
-		sc.add("// Sets whether other bracket pairs shall be automatically closed, when used inside of this bracket pair.");
+	private void addSetClosingInsideMethod(JavaComposite sc) {
+		sc.addJavadoc("Sets whether other bracket pairs shall be automatically closed, when used inside of this bracket pair.");
 		sc.add("public boolean setClosingEnabledInside(" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair, boolean closingEnabledInside) {");
 		sc.add("if (bracketPair instanceof BracketPair) {");
 		sc.add("((BracketPair) bracketPair).setClosingEnabledInside(closingEnabledInside);");
@@ -293,8 +293,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddBracketPairMethod(StringComposite sc) {
-		sc.add("// Adds the bracket pair to this bracket set.");
+	private void addAddBracketPairMethod(JavaComposite sc) {
+		sc.addJavadoc("Adds the bracket pair to this bracket set.");
 		sc.add("public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside) {");
 		sc.add("if (isBracket(opening) || isBracket(closing)) {");
 		sc.add("return false;");
@@ -316,8 +316,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketPairMethod1(StringComposite sc) {
-		sc.add("// Returns the bracket pair with the given opening and closing.");
+	private void addGetBracketPairMethod1(JavaComposite sc) {
+		sc.addJavadoc("Returns the bracket pair with the given opening and closing.");
 		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " getBracketPair(String opening, String closing) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
@@ -329,8 +329,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsBracketMethod(StringComposite sc) {
-		sc.add("// Checks whether the string is a bracket.");
+	private void addIsBracketMethod(JavaComposite sc) {
+		sc.addJavadoc("Checks whether the string is a bracket.");
 		sc.add("public boolean isBracket(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket()) || bracket.equals(bracketPair.getClosingBracket())) {");
@@ -342,8 +342,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsOpeningBracketMethod(StringComposite sc) {
-		sc.add("// Checks whether the given string is an open bracket.");
+	private void addIsOpeningBracketMethod(JavaComposite sc) {
+		sc.addJavadoc("Checks whether the given string is an open bracket.");
 		sc.add("public boolean isOpeningBracket(String bracket) {");
 		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
@@ -355,13 +355,15 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates a bracket set to manage the bracket pairs.");
-		sc.add("//");
-		sc.add("// @param sourceViewer");
-		sc.add("//            the source viewer for matching brackets");
-		sc.add("// @param extension");
-		sc.add("//            the file extension of the DSL");
+	private void addConstructor(JavaComposite sc) {
+		// TODO check whether the parameter 'extension' is really needed
+		// this might be a left-over from the ancient times when EMFText had
+		// a runtime
+		sc.addJavadoc(
+			"Creates a bracket set to manage the bracket pairs.\n\n" +
+			"@param sourceViewer the source viewer for matching brackets\n" +
+			"@param extension the file extension of the DSL"
+		);
 		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer, String extension) {");
 		sc.add("languageID = extension;");
 		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + ">();");
@@ -378,13 +380,13 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInnerClasses(StringComposite sc) {
+	private void addInnerClasses(JavaComposite sc) {
 		addBracketPairClass(sc);
 		addClosingListenerClass(sc);
 	}
 
-	private void addClosingListenerClass(StringComposite sc) {
-		sc.add("// A listener for the automatic closing.");
+	private void addClosingListenerClass(JavaComposite sc) {
+		sc.addJavadoc("A listener for the automatic closing.");
 		sc.add("private class ClosingListener implements " + VERIFY_LISTENER + ", " + MODIFY_LISTENER + ", " + VERIFY_KEY_LISTENER + " {");
 		sc.add("private int closingLength = -1;");
 		sc.add("private int addedPosition = -1;");
@@ -393,7 +395,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("private String closing;");
 		sc.addLineBreak();
 		
-		sc.add("// Automatic closing will be activated if the text about to insert is a bracket.");
+		sc.addJavadoc("Automatic closing will be activated if the text about to insert is a bracket.");
 		sc.add("public void verifyText(" + VERIFY_EVENT + " e) {");
 		sc.add("int caret = textWidget.getCaretOffset();");
 		sc.add("if (!isOpeningBracket(e.text)) {");
@@ -411,10 +413,12 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// After a change there are two cases which have to be considered:");
-		sc.add("// 1) if an automatic closing happened the caret will be set between the bracket pair");
-		sc.add("// 2) if a bracket opening is deleted on the left side of the caret the");
-		sc.add("//    bracket closing on the right side of this caret is deleted as well");
+		sc.addJavadoc(
+			"After a change there are two cases which have to be considered:\n" +
+			"1) if an automatic closing happened the caret will be set between the bracket pair\n" +
+			"2) if a bracket opening is deleted on the left side of the caret the " +
+			"bracket closing on the right side of this caret is deleted as well"
+		);
 		sc.add("public void modifyText(" + MODIFY_EVENT + " e) {");
 		sc.add("if (closingAdded) {");
 		sc.add("closingAdded = false;");
@@ -429,11 +433,11 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// This is for the Backspace key, if you want to delete a previous character.");
+		sc.addJavadoc("This is for the Backspace key, if you want to delete a previous character.");
 		sc.add("public void verifyKey(" + VERIFY_EVENT + " e) {");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
 		sc.add("int caret = caretOffset;");
-		sc.add("// Discard the closing bracket if there is one");
+		sc.addComment("Discard the closing bracket if there is one");
 		sc.add("if (closing != null && closing.equals(\"\" + e.character) && addedPosition == caret) {");
 		sc.add("e.doit = false;");
 		sc.add("textWidget.setCaretOffset(caret + 1);");
@@ -454,8 +458,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addBracketPairClass(StringComposite sc) {
-		sc.add("// A single pair of brackets.");
+	private void addBracketPairClass(JavaComposite sc) {
+		sc.addJavadoc("A single pair of brackets.");
 		sc.add("private class BracketPair implements " + getClassNameHelper().getI_BRACKET_PAIR() + " {");
 		sc.addLineBreak();
 		sc.add("private final " + STRING + "[] brackets;");
@@ -485,11 +489,13 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		String positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
 		
-		sc.add("// the separator between a bracket pair, should not contain escape needed");
-		sc.add("// character, it will be used as regular expression");
+		sc.addJavadoc(
+			"the separator between a bracket pair, should not contain escape needed " +
+			"character, it will be used as regular expression"
+		);
 		sc.add("public final static " + STRING + " BRACKET_SEPARATOR = \" and \";");
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> bracketPairs;");
