@@ -67,7 +67,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addIsOpeningBracketMethod(sc);
 		addIsBracketMethod(sc);
 		addGetBracketPairMethod1(sc);
@@ -86,10 +86,13 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		addMatchingBracketsMethod(sc);
 	}
 
-	private void addMatchingBracketsMethod(StringComposite sc) {
-		sc.add("// Searches the matching bracket at the left side of the caret. The position");
-		sc.add("// information will be stored in the <code>" + I_DOCUMENT + "</code> in the category");
-		sc.add("// <code>ExtensionConstants.PositionCategory.BRACKET</code>.");
+	private void addMatchingBracketsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches the matching bracket at the left side of the caret. The position " +
+			"information will be stored in the <code>" + I_DOCUMENT + "</code> in the category " +
+			"<code>ExtensionConstants.PositionCategory.BRACKET</code>."
+			// TODO fix referenced class
+		);
 		sc.add("public void matchingBrackets() {");
 		sc.add(I_DOCUMENT + " document = viewer.getDocument();");
 		sc.add(PROJECTION_VIEWER + " projectionViewer = null;");
@@ -144,8 +147,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addAddListenersMethod(StringComposite sc) {
-		sc.add("// Adds listeners to handle bracket automatic closing.");
+	private void addAddListenersMethod(JavaComposite sc) {
+		sc.addJavadoc("Adds listeners to handle bracket automatic closing.");
 		sc.add("private void addListeners() {");
 		sc.add("ClosingListener closingListener = new ClosingListener();");
 		sc.add("textWidget.addVerifyListener(closingListener);");
@@ -155,12 +158,13 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketStringMethod(StringComposite sc) {
-		sc.add("// Gets this bracket set as <code>String</code>. It is useful to store in");
-		sc.add("// the <code>" + I_PREFERENCE_STORE + "</code>.");
-		sc.add("//");
-		sc.add("// @return String the bracket set in the form \"()<>[]\"");
-		sc.add("// @see " + I_PREFERENCE_STORE + "");
+	private void addGetBracketStringMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns this bracket set as <code>String</code>. This is useful to store the set in " +
+			"the <code>" + I_PREFERENCE_STORE + "</code>.\n\n" +
+			"@return String the bracket set in the form \"()<>[]\"\n" +
+			"@see " + I_PREFERENCE_STORE
+		);
 		sc.add("public " + STRING + " getBracketString() {");
 		sc.add("if (bracketPairs.size() < 1) {");
 		sc.add("return \"\";");
@@ -178,11 +182,11 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketArrayMethod(StringComposite sc) {
-		sc.add("// Gets a list of bracket pairs. This call is for the list in the preference page.");
-		sc.add("//");
-		sc.add("// @return a list of bracket pairs in the form");
-		sc.add("//         <code>String[]{\"{BRACKET_SEPARATOR}\",\"(BRACKET_SEPARATOR)\"}</code>");
+	private void addGetBracketArrayMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns a list of bracket pairs. This call is for the list in the preference page.\n\n" +
+			"@return a list of bracket pairs in the form <code>String[]{\"{BRACKET_SEPARATOR}\",\"(BRACKET_SEPARATOR)\"}</code>"
+		);
 		sc.add("public String[] getBracketArray() {");
 		sc.add("String[] ret = new String[bracketPairs.size()];");
 		sc.add("int i = 0;");
@@ -195,16 +199,14 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetBracketsMethod(StringComposite sc) {
-		sc.add("// Removes the old bracket set and set the given bracket set. It is useful");
-		sc.add("// to take a stored <code>String</code> in a preference store. A bracket pair");
-		sc.add("// contains of opening, closing and isClosingEnabledInside = {'1','0')");
-		sc.add("//");
-		sc.add("// @param bracketSet");
-		sc.add("//            the bracket set as a <code>String</code> in the form \"()0<>0[]1\",");
-		sc.add("//            it has to have a length == 3*n");
-		sc.add("// @return <code>true</code> if successful");
-		sc.add("//");
+	private void addSetBracketsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes the old bracket set and sets the given bracket set. It is useful " +
+			"to take a stored <code>String</code> in a preference store. A bracket pair " +
+			"contains of opening, closing and isClosingEnabledInside = {'1','0'}.\n\n" +
+			"@param bracketSet the bracket set as a <code>String</code> in the form \"()0<>0[]1\". This string must have length == 3*n\n" +
+			"@return <code>true</code> if successful"
+		);
 		sc.add("public boolean setBrackets(String bracketSet) {");
 		sc.add("if (bracketSet.length() % 3 != 0) {");
 		sc.add("return false;");

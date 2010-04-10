@@ -69,13 +69,14 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// The preference page for the bracket setting with following features:");
-		sc.add("// <ul>");
-		sc.add("// <li>enables bracket matching</li>");
-		sc.add("// <li>chooses matching highlight color</li>");
-		sc.add("// <li>customizes bracket set</li>");
-		sc.add("// </ul>");
-		sc.add("//");
+		sc.addJavadoc(
+			"The preference page for the bracket setting with following features:\n" +
+			"<ul>\n" +
+			"<li>enables bracket matching</li>\n" +
+			"<li>chooses matching highlight color</li>\n" +
+			"<li>customizes bracket set</li>\n" +
+			"</ul>"
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -85,7 +86,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addInitMethod(sc);
 		addCreateContentsMethod(sc);
 		addHandleMatchingBracketsSelectionMethod(sc);
@@ -97,11 +98,10 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		addUpdateActiveEditorMethod(sc);
 	}
 
-	private void addUpdateActiveEditorMethod(StringComposite sc) {
-		sc.add("// Sets the chosen options to the preference store and refreshs it in the");
-		sc.add("// editor.");
+	private void addUpdateActiveEditorMethod(JavaComposite sc) {
+		sc.addJavadoc("Sets the chosen options to the preference store and refreshs it in the editor.");
 		sc.add("private void updateActiveEditor() {");
-		sc.add("// set the values after ok or apply");
+		sc.addComment("set the values after ok or apply");
 		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
 		sc.add("getPreferenceStore().setValue(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());");
 		sc.add("getPreferenceStore().setValue(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));");
@@ -132,8 +132,8 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPerformDefaultsMethod(StringComposite sc) {
-		sc.add("// Sets the default values for this preference page.");
+	private void addPerformDefaultsMethod(JavaComposite sc) {
+		sc.addJavadoc("Sets the default values for this preference page.");
 		sc.add("protected void performDefaults() {");
 		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(");
 		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
@@ -244,12 +244,10 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHandleMatchingBracketsSelectionMethod(StringComposite sc) {
-		sc.add("//");
-		sc.add("// Initialize and handle the values of this preference page");
-		sc.add("//");
+	private void addHandleMatchingBracketsSelectionMethod(JavaComposite sc) {
+		sc.addJavadoc("Initialize and handle the values of this preference page.");
 		sc.add("private void handleMatchingBracketsSelection() {");
-		sc.add("// not for the case of none existing language");
+		sc.addComment("not for the case of none existing language");
 		sc.add("enableCheckbox.setSelection(getPreferenceStore().getBoolean(");
 		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
 		sc.add("enableClosingInside.setSelection(false);");
@@ -270,11 +268,11 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreateContentsMethod(StringComposite sc) {
+	private void addCreateContentsMethod(JavaComposite sc) {
 		sc.add("@Override").addLineBreak();
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.addLineBreak();
-		sc.add("// outer Composite");
+		sc.addComment("outer Composite");
 		sc.add(COMPOSITE + " settingComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
 		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
 		sc.add(GRID_DATA + " gd;");
@@ -368,11 +366,8 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitMethod(StringComposite sc) {
-		sc.add("//");
-		sc.add("// @see");
-		sc.add("// org.eclipse.ui." + I_WORKBENCH_PREFERENCE_PAGE + "#init(org.eclipse.ui." + I_WORKBENCH + ")");
-		sc.add("///");
+	private void addInitMethod(JavaComposite sc) {
+		sc.addJavadoc("@see " + I_WORKBENCH_PREFERENCE_PAGE + "#init(" + I_WORKBENCH + ")");
 		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
 		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
@@ -385,10 +380,8 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("//");
-		sc.add("// Creates a preference page for bracket setting.");
-		sc.add("//");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc("Creates a preference page for bracket setting.");
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();

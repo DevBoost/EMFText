@@ -38,7 +38,7 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A helper class that decides which tokens can be used for custom syntax highlighting.");
+		sc.addJavadoc("A helper class that decides which tokens can be used for custom syntax highlighting.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		

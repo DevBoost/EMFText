@@ -50,14 +50,16 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("// the syntax element to be decorated");
+	private void addFields(JavaComposite sc) {
+		sc.addJavadoc("the syntax element to be decorated");
 		sc.add("private " + syntaxElementClassName + " decoratedElement;");
 		sc.addLineBreak();
-		sc.add("// an array of child decorators (one decorator per child of the decorated syntax element");
+		
+		sc.addJavadoc("an array of child decorators (one decorator per child of the decorated syntax element");
 		sc.add("private " + getResourceClassName() + "[] childDecorators;");
 		sc.addLineBreak();
-		sc.add("// a list of the indices that must be printed");
+		
+		sc.addJavadoc("a list of the indices that must be printed");
 		sc.add("private " + LIST + "<" + INTEGER+ "> indicesToPrint = new " + ARRAY_LIST + "<" + INTEGER+ ">();");
 		sc.addLineBreak();
 	}

@@ -758,7 +758,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("return true;");
 			sc.add("}");
 			sc.add("} else {");
-			sc.add("// continue searching for stack ID");
+			sc.addComment("continue searching for stack ID");
 			sc.add("}");
 		}
 		sc.add("return false;");
@@ -766,25 +766,25 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addIsStackReadyMethod(StringComposite sc) {
+	private void addIsStackReadyMethod(JavaComposite sc) {
 		sc.add("public boolean isStackReady(String stackID) {");
 		sc.add("if (!restoreStackMode) {");
-		sc.add("// ready (stack was restored before");
+		sc.addComment("ready (stack was restored before");
 		sc.add("return true;");
 		sc.add("} else if (stackID.equals(restoreStackID)) {");
 		sc.add("restoreStackMode = false;");
 		sc.add("restoreStackID = null;");
-		sc.add("// ready (stack is now restored)");
+		sc.addComment("ready (stack is now restored)");
 		sc.add("return true;");
 		sc.add("} else {");
-		sc.add("// not ready (stack has not reached stackID)");
+		sc.addComment("not ready (stack has not reached stackID)");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private void addParseMethod(StringComposite sc) {
+	private void addParseMethod(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 
 		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
@@ -799,7 +799,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		List<GenClass> activeStartSymbols = syntax.getActiveStartSymbols();
 		for (int i = activeStartSymbols.size() - 1; i >= 0; i--) {
 			GenClass startSymbol = activeStartSymbols.get(i);
-			sc.add("// try start symbol: " + startSymbol.getName());
+			sc.addComment("try start symbol: " + startSymbol.getName());
 			//sc.add("if (tryOtherStartSymbols) {");
 			//sc.add("offset = 0;");
 			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">(), \"" + getMethodName(startSymbol) + "\"));");
@@ -814,9 +814,11 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		
 		sc.add("ICommandContext context = new CommandContext();");
 		sc.add("if (success) {");
-		sc.add("// build content tree by executing commands");
-		sc.add("// do not execute the last pop container command to obtain");
-		sc.add("// the root element");
+		sc.addComment(
+			"Build content tree by executing commands. " +
+			"Do not execute the last pop container command to obtain " +
+			"the root element."
+		);
 		//sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
 		//sc.add("ICommand command = commands.get(c);");
 		//sc.add("System.out.println(c + \": \" + command);");
@@ -832,7 +834,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("parseError = null;");
 		sc.add("}");
 		sc.add("addParseErrorToResource();");
-		sc.add("// return root element");
+		sc.addComment("return root element");
 		String parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 		sc.add(parseResultClassName + " result = new " + parseResultClassName + "();");
 		sc.add("result.setRoot(context.getCurrentContainer());");
@@ -878,25 +880,25 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return name;
 	}
 
-	private void addProcessParseTrialStackMethod(StringComposite sc) {
+	private void addProcessParseTrialStackMethod(JavaComposite sc) {
 		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.FORCE_EOF);
 
 		sc.add("public boolean processParseTrialStack() {");
 		sc.add("while (!parseTrials.empty()) {");
 		sc.add("ParsePosition nextTrial = parseTrials.pop();");
-		sc.add("// restore parse position");
+		sc.addComment("restore parse position");
 		sc.add("restoreStackMode = false;");
 		sc.add("offset = nextTrial.getOffset();");
 		sc.add("commands = nextTrial.getCommands();");
 		sc.add("tokens = nextTrial.getTokens();");
-		sc.add("// restore parse stack");
+		sc.addComment("restore parse stack");
 		sc.add("restoreStackMode = true;");
 		sc.add("restoreStackID = nextTrial.getMethodName();");
 		sc.add("boolean success = parseStartSymbols();");
 		sc.add("if (success) {");
 		if (forceEOFToken) {
 			sc.add("if (offset == content.length()) {");
-			sc.add("// the content was successfully parsed up to the last character, we do not need to try something else");
+			sc.addComment("the content was successfully parsed up to the last character, we do not need to try something else");
 			sc.add("return true;");
 			sc.add("}");
 		} else {
@@ -947,16 +949,16 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
-		sc.add("// the current position in the content");
+		sc.addJavadoc("the current position in the content");
 		sc.add("private int offset;");
 		sc.add("private " + STACK + "<ParsePosition> parseTrials;");
 		
 		sc.add("private boolean scanMode = false;");
 		sc.add("private boolean restoreStackMode = false;");
 		sc.add("private String restoreStackID;");
-		sc.add("// the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
+		sc.addJavadoc("the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
 		sc.add("private " + LINKED_LIST + "<ICommand> commands;");
@@ -1032,7 +1034,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return "TOKEN_" + tokenDefinition.getName();
 	}
 
-	private void addMethodsForRules(StringComposite sc) {
+	private void addMethodsForRules(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<Rule> rules = syntax.getAllRules();
 		for (Rule rule : rules) {
@@ -1040,7 +1042,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private void addMethodForRule(StringComposite sc, ConcreteSyntax syntax, Rule rule) {
+	private void addMethodForRule(JavaComposite sc, ConcreteSyntax syntax, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
 
 		sc.add("public boolean " + getMethodName(metaclass) + "() {");
@@ -1074,7 +1076,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		addMethodForChoice(sc, syntax, metaclass, choice);
 	}
 
-	private void addMethodForChoice(StringComposite sc, ConcreteSyntax syntax,
+	private void addMethodForChoice(JavaComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, Choice choice) {
 
 		sc.add("public boolean " + getMethodName(choice) + "() {");
@@ -1087,9 +1089,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private void addCodeForChoice(StringComposite sc, Choice choice) {
+	private void addCodeForChoice(JavaComposite sc, Choice choice) {
 		List<Sequence> options = choice.getOptions();
-		sc.add("// begin options");
+		sc.addComment("begin options");
 		for (Sequence option : options) {
 			sc.add("{");
 			sc.add("boolean success = " + getMethodName(option) + "();");
@@ -1100,11 +1102,11 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("}");
 			sc.add("}");
 		}
-		sc.add("// end options");
+		sc.addComment("end options");
 		sc.add("return false;");
 	}
 
-	private void addMethodForDefinition(StringComposite sc, ConcreteSyntax syntax,
+	private void addMethodForDefinition(JavaComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, Definition part) {
 		sc.add("public boolean " + getMethodName(part) + "() {");
 		sc.add("boolean matchedAll = true;");
@@ -1126,7 +1128,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 	
-	private void addMethodForSequence(StringComposite sc, ConcreteSyntax syntax,
+	private void addMethodForSequence(JavaComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, Sequence sequence) {
 
 		sc.add("public boolean " + getMethodName(sequence) + "() {");
@@ -1138,11 +1140,11 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		for (Definition part : parts) {
 			if (part instanceof WhiteSpaces) {
 				// do nothing
-				sc.add("// whitespace");
+				sc.addComment("whitespace");
 				continue;
 			} else if (part instanceof LineBreak) {
 				// do nothing
-				sc.add("// linebreak");
+				sc.addComment("linebreak");
 				continue;
 			}
 
@@ -1151,14 +1153,14 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("if (isStackReady) {");
 			sc.add("matchedAll &= matchedPart;");
 			sc.add("if (!matchedAll) {");
-			sc.add("// stop matching the sequence");
+			sc.addComment("stop matching the sequence");
 			sc.add("offset = offsetCopy;");
 			sc.add("return false;");
 			sc.add("}");
 			sc.add("}");
 		}
 		sc.add("if (isStackReady(\"" + getMethodName(sequence) + "\")) {");
-		sc.add("// this sequence is valid");
+		sc.addComment("this sequence is valid");
 		sc.add("return true;");
 		sc.add("} else {");
 		sc.add("return false;");
@@ -1186,7 +1188,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 	*/
 
-	private void addMethodForCardinality(StringComposite sc, ConcreteSyntax syntax,
+	private void addMethodForCardinality(JavaComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, CardinalityDefinition definition) {
 
 		Cardinality cardinality = definition.getCardinality();
@@ -1200,7 +1202,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		} else if (cardinality instanceof STAR) {
 			// cardinality == 0..*
 			sc.add("while (matched) {");
-			sc.add("// put trial on stack (try parsing without matching THING*)");
+			sc.addComment("put trial on stack (try parsing without matching THING*)");
 			String methodName = getNext(definition);
 			if (methodName != null) {
 				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
@@ -1214,7 +1216,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			// cardinality == 1..*
 			sc.add("boolean matchedAtLeastOnce = false;");
 			sc.add("while (matched) {");
-			sc.add("// TODO put trial on stack (try parsing without matching THING+)");
+			sc.addComment("TODO put trial on stack (try parsing without matching THING+)");
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("if (matchedAtLeastOnce) {");
@@ -1229,7 +1231,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
-			sc.add("// put trial on stack (try parsing without matching THING)");
+			sc.addComment("put trial on stack (try parsing without matching THING)");
 			String methodName = getNext(definition);
 			if (methodName != null) {
 				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
@@ -1289,7 +1291,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private void addMethodForCompound(StringComposite sc,
+	private void addMethodForCompound(JavaComposite sc,
 			ConcreteSyntax syntax, GenClass ruleMetaClass, CompoundDefinition compound) {
 
 		addMethodForChoice(sc, syntax, ruleMetaClass, compound.getDefinition());
@@ -1299,7 +1301,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("matchedAll = " + getMethodName(cd) + "();");
 	}
 
-	private void addCodeForElementWithCardinality(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, CardinalityDefinition cd) {
+	private void addCodeForElementWithCardinality(JavaComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, CardinalityDefinition cd) {
 		if (cd instanceof Terminal) {
 			addCodeForTerminal(sc, syntax, ruleMetaClass, (Terminal) cd);
 		} else if (cd instanceof CompoundDefinition) {
@@ -1309,14 +1311,14 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private void addCodeForCompoundDefinition(StringComposite sc,
+	private void addCodeForCompoundDefinition(JavaComposite sc,
 			ConcreteSyntax syntax, CompoundDefinition cd) {
-		sc.add("// handle compound definition");
+		sc.addComment("handle compound definition");
 		Choice choice = cd.getDefinition();
 		sc.add("matched = " + getMethodName(choice) + "();");
 	}
 
-	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Containment containment) {
+	private void addMethodForContainment(JavaComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Containment containment) {
 		final GenFeature genFeature = containment.getFeature();
 		final GenClass featureType = genFeature.getTypeGenClass();
 
@@ -1332,36 +1334,36 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			alternatives.add(featureType);
 		}
 		for (GenClass genClass : alternatives) {
-			sc.add("// try subclass " + genClass.getName());
+			sc.addComment("try subclass " + genClass.getName());
 			sc.add("{");
-			sc.add("// restore old offset");
+			sc.addComment("restore old offset");
 			sc.add("this.offset = offsetCopy;");
 			sc.add("boolean success = " + getMethodName(genClass) + "();");
 			sc.add("if (success) {");
-			sc.add("// add command to add element to the containment reference");
+			sc.addComment("add command to add element to the containment reference");
 			sc.add("addCommand(new AddContainedObjectCommand(" + generatorUtil.getFeatureConstant(ruleMetaClass, genFeature) + "));");
 			sc.add("return true;");
 			sc.add("}");
 			sc.add("}");
 		}
-		sc.add("// no subclass matched");
+		sc.addComment("no subclass matched");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addCodeForCsString(StringComposite sc, CsString csString) {
+	private void addCodeForCsString(JavaComposite sc, CsString csString) {
 		String value = csString.getValue();
-		sc.add("// match cs string \"" + value + "\"");
+		sc.addComment("match cs string \"" + value + "\"");
 		sc.add("matchedAll &= matches(\"" + value + "\");");
 	}
 
-	private void addCodeForTerminal(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Terminal terminal) {
+	private void addCodeForTerminal(JavaComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Terminal terminal) {
 		if (terminal instanceof Placeholder) {
 			Placeholder defaultTokenTerminal = (Placeholder) terminal;
 			CompleteTokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
-			sc.add("// match regexp \"" + regexp.replaceAll("\n", "").replace("\r", "") + "\"");
+			sc.addComment("match regexp \"" + regexp.replaceAll("\n", "").replace("\r", "") + "\"");
 			String fieldName = getFieldName(tokenDefinition);
 			String tokenName = tokenDefinition.getName();
 			sc.add("int offsetBeforeMatch = offset;");
@@ -1409,8 +1411,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	private void addCodeForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
-		sc.add("// handle containment reference '" + containment.getFeature().getName() + "'");
+	private void addCodeForContainment(JavaComposite sc, ConcreteSyntax syntax, Containment containment) {
+		sc.addComment("handle containment reference '" + containment.getFeature().getName() + "'");
 		sc.add("matched &= " + getMethodName(containment) + "();");
 	}
 

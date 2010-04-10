@@ -46,10 +46,12 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A background parsing strategy that starts parsing after a amount of");
-		sc.add("// time after the last key stroke. If keys are pressed within the delay");
-		sc.add("// interval, the delay is reset. If keys are pressed during background");
-		sc.add("// parsing the parse thread is stopped and a new parse task is scheduled.");
+		sc.addJavadoc(
+			"A background parsing strategy that starts parsing after a amount of " +
+			"time after the last key stroke. If keys are pressed within the delay " +
+			"interval, the delay is reset. If keys are pressed during background " +
+			"parsing the parse thread is stopped and a new parse task is scheduled."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
@@ -71,9 +73,11 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addParseMethod(StringComposite sc) {
-		sc.add("// Schedules a task for background parsing that will be started after");
-		sc.add("// a delay.");
+	private void addParseMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Schedules a task for background parsing that will be started after " +
+			"a delay."
+		);
 		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, final " + editorClassName + " editor) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
@@ -83,23 +87,25 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// this synchronization is needed to avoid the creation");
-		sc.add("// of multiple tasks. without the synchronization this");
-		sc.add("// could easily happen, when this method is accessed by");
-		sc.add("// multiple threads. the creation of multiple task would");
-		sc.add("// imply the multiple background parsing threads for one");
-		sc.add("// editor are created, which is not desired.");
+		sc.addComment(
+			"this synchronization is needed to avoid the creation " +
+			"of multiple tasks. without the synchronization this " +
+			"could easily happen, when this method is accessed by " +
+			"multiple threads. the creation of multiple tasks would " +
+			"imply the multiple background parsing threads for one " +
+			"editor are created, which is not desired."
+		);
 		sc.add("synchronized (lock) {");
-		sc.add("// cancel old task");
+		sc.addComment("cancel old task");
 		sc.add("if (job != null) {");
-		sc.add("// stop current parser (if there is one)");
+		sc.addComment("stop current parser (if there is one)");
 		sc.add("job.cancel();");
 		sc.add("try {");
 		sc.add("job.join();");
 		sc.add("} catch (InterruptedException e) {}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// schedule new task");
+		sc.addComment("schedule new task");
 		sc.add("job = new " + JOB + "(\"parsing document\") {");
 		sc.addLineBreak();
 		
@@ -115,13 +121,18 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private static long DELAY = 500;");
 		sc.addLineBreak();
-		sc.add("// this timer is used to schedule a parsing task and execute");
-		sc.add("// it after a given delay");
+
+		sc.addJavadoc(
+			"this timer is used to schedule a parsing task and execute " +
+			"it after a given delay"
+		);
 		sc.add("private Object lock = new Object();");
-		sc.add("// the background parsing task (may be null)");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("the background parsing task (may be null)");
 		sc.add("private " + JOB + " job;");
 		sc.addLineBreak();
 	}
