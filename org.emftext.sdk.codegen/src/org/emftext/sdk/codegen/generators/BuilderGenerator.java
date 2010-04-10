@@ -45,16 +45,16 @@ public class BuilderGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addIsBuildingNeededMethod(StringComposite sc) {
+	private void addIsBuildingNeededMethod(JavaComposite sc) {
 		sc.add("public boolean isBuildingNeeded(" + URI + " uri) {");
-		sc.add("// change this to return true to enable building of all resources");
+		sc.addComment("change this to return true to enable building of all resources");
 		sc.add("return false;");
 		sc.add("}");
 	}
 
-	private void addBuildMethod(StringComposite sc) {
+	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor) {");
-		sc.add("// set option " + OptionTypes.OVERRIDE_BUILDER + " to 'false' and then perform build here");
+		sc.addComment("set option " + OptionTypes.OVERRIDE_BUILDER + " to 'false' and then perform build here");
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -81,7 +81,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addInterpreteMethod(sc);
 		addContinueInterpretationMethod(sc);
 		addDoSwitchMethod(sc);
@@ -89,9 +89,11 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		addAddObjectToInterpreteMethod(sc);
 	}
 
-	private void addContinueInterpretationMethod(StringComposite sc) {
-		sc.add("// override this method to stop the overall interpretation depending on");
-		sc.add("// the result of the interpretation of a single model elements");
+	private void addContinueInterpretationMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Override this method to stop the overall interpretation depending on " +
+			"the result of the interpretation of a single model elements."
+		);
 		sc.add("public boolean continueInterpretation(ResultType result) {");
 		sc.add("return true;");
 		sc.add("}");

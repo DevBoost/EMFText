@@ -35,12 +35,12 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// An implementation of the ResolveResult interface that delegates");
-		sc.add("// all method calls to another ResolveResult. Client may subclass");
-		sc.add("// this class to easily create custom ResolveResults.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the references that can be contained in this result");
-		sc.add("//");
+		sc.addJavadoc(
+			"An implementation of the ResolveResult interface that delegates " +
+			"all method calls to another ResolveResult. Client may subclass " +
+			"this class to easily create custom ResolveResults.\n\n" +
+			"@param <ReferenceType> the type of the references that can be contained in this result"
+		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> delegate;");

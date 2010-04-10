@@ -40,13 +40,13 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A factory for ContextDependentURIFragments. Given a feasible reference resolver,");
-		sc.add("// the factory returns a matching fragment that used the resolver to resolver proxy");
-		sc.add("// objects.");
-		sc.add("//");
-		sc.add("// @param <ContainerType> the type of the class containing the reference to be resolved");
-		sc.add("// @param <ReferenceType> the type of the reference to be resolved");
-		sc.add("//");
+		sc.addJavadoc(
+			"A factory for ContextDependentURIFragments. Given a feasible reference resolver, " +
+			"this factory returns a matching fragment that used the resolver to resolver proxy " +
+			"objects.\n\n" +
+			"@param <ContainerType> the type of the class containing the reference to be resolved\n" +
+			"@param <ReferenceType> the type of the reference to be resolved"
+		);
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private final " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> resolver;");

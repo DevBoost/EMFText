@@ -43,7 +43,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A default implementation for token resolvers. It tries to resolve lexems using Java methods.");
+		sc.addJavadoc("A default implementation for token resolvers. It tries to resolve lexems using Java methods.");
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
 		sc.addLineBreak();
 		addFields(sc);

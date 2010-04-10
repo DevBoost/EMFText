@@ -104,7 +104,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addResolveMethod(sc);
 		addCheckElementMethod(sc);
 		addCastMethod(sc);
@@ -135,7 +135,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addLoadResourceMethod(StringComposite sc) {
+	private void addLoadResourceMethod(JavaComposite sc) {
 		sc.add("private " + E_OBJECT + " loadResource(" + RESOURCE_SET + " resourceSet, " + STRING + " uriString) {");
 		sc.add("try {");
 		sc.add(URI + " uri = " + URI + ".createURI(uriString);");
@@ -145,14 +145,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("return contents.get(0);");
 		sc.add("}");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " re) {");
-		sc.add("// do nothing here. if no resource can be loaded the uriString is probably not a valid resource URI");
+		sc.addComment("do nothing here. if no resource can be loaded the uriString is probably not a valid resource URI");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addIsUriMethod(StringComposite sc) {
+	private void addIsUriMethod(JavaComposite sc) {
 		sc.add("private boolean isURI(" + STRING + " identifier) {");
 		sc.add("if (identifier == null) {");
 		sc.add("return false;");
@@ -160,7 +160,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("try {");
 		sc.add(URI + ".createURI(identifier);");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
-		sc.add("// the identifier string is not a valid URI");
+		sc.addComment("the identifier string is not a valid URI");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
@@ -168,7 +168,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetNameMethod(StringComposite sc) {
+	private void addGetNameMethod(JavaComposite sc) {
 		sc.add("private " + STRING + " getName(ReferenceType element) {");
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if(element.eIsProxy()) {");
@@ -182,7 +182,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("else if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("return (" + STRING + ") element.eGet(nameAttr);");
 		sc.add("} else {");
-		sc.add("//try any other string attribute found");
+		sc.addComment("try any other string attribute found");
 		sc.add("for (" + E_ATTRIBUTE + " strAttribute : element.eClass().getEAllAttributes()) {");
 		sc.add("if (!strAttribute.isMany() &&");
 		sc.add("strAttribute.getEType().getInstanceClassName().equals(" + STRING + ".class.getName())) {");
@@ -216,10 +216,10 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMatchesMethod1(StringComposite sc) {
+	private void addMatchesMethod1(JavaComposite sc) {
 		sc.add("private " + STRING + " matches(" + E_OBJECT + " element, " + STRING + " identifier, boolean matchFuzzy) {");
 
-		sc.add("// first check for attributes that have set the ID flag to true");
+		sc.addComment("first check for attributes that have set the ID flag to true");
 		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = element.eClass().getEStructuralFeatures();");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
@@ -235,13 +235,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// then check for an attribute that is called 'name'");
+		sc.addComment("then check for an attribute that is called 'name'");
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add(OBJECT + " attributeValue = element.eGet(nameAttr);");
 		sc.add("return matches(identifier, attributeValue, matchFuzzy);");
 		sc.add("} else {");
-		sc.add("//try any other string attribute found");
+
+		sc.addComment("try any other string attribute found");
 		sc.add("for (" + E_ATTRIBUTE + " stringAttribute : element.eClass().getEAllAttributes()) {");
 		sc.add("if (stringAttribute.getEType().getInstanceClassName().equals(" + STRING + ".class.getName())) {");
 		sc.add(OBJECT + " attributeValue = element.eGet(stringAttribute);");
@@ -283,11 +284,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCastMethod(StringComposite sc) {
-		sc.add("// This method encapsulates an unchecked cast from EObject to");
-		sc.add("// ReferenceType. We can not do this cast strictly type safe,");
-		sc.add("// because type parameters are erased by compilation. Thus, an");
-		sc.add("// instanceof check can not be performed at runtime.");
+	private void addCastMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This method encapsulates an unchecked cast from EObject to " +
+			"ReferenceType. We cannot do this cast strictly type safe, " +
+			"because type parameters are erased by compilation. Thus, an " +
+			"instanceof check cannot be performed at runtime."
+		);
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
 		sc.add("private ReferenceType cast(" + E_OBJECT + " element) {");
@@ -296,7 +299,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCheckElementMethod(StringComposite sc) {
+	private void addCheckElementMethod(JavaComposite sc) {
 		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, boolean checkStringWise, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
 		sc.add("if (element.eIsProxy()) {");
 		sc.add("return true;");
@@ -308,7 +311,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add(STRING + " match;");
-		sc.add("// do not compare string-wise if identifier is a URI");
+		sc.addComment("do not compare string-wise if identifier is a URI");
 		sc.add("if (checkStringWise) {");
 		sc.add("match = matches(element, identifier, resolveFuzzy);");
 		sc.add("} else {");
@@ -317,11 +320,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("if (match == null) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("// we can safely cast 'element' to 'ReferenceType' here,");
-		sc.add("// because we've checked the type of 'element' against");
-		sc.add("// the type of the reference. unfortunately the compiler");
-		sc.add("// does not know that this is sufficient, so we must call");
-		sc.add("// cast(), which is not type safe by itself.");
+		sc.addComment(
+			"we can safely cast 'element' to 'ReferenceType' here, " +
+			"because we've checked the type of 'element' against " +
+			"the type of the reference. unfortunately the compiler " +
+			"does not know that this is sufficient, so we must call " +
+			"cast(), which is not type safe by itself."
+		);
 		sc.add("result.addMapping(match, cast(element));");
 		sc.add("if (!resolveFuzzy) {");
 		sc.add("return false;");
@@ -331,19 +336,21 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addResolveMethod(StringComposite sc) {
-		sc.add("// This standard implementation searches the tree for objects of the ");
-		sc.add("// correct type with a name attribute matching the identifier.");
+	private void addResolveMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This standard implementation searches the tree for objects of the " +
+			"correct type with a name attribute matching the identifier."
+		);
 		sc.add("protected void resolve(" + STRING + " identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
 		sc.add("try {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(container);");
-		sc.add("// first check whether the root element matches");
+		sc.addComment("first check whether the root element matches");
 		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("// then check the contents");
+		sc.addComment("then check the contents");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> iterator = root.eAllContents(); iterator.hasNext(); ) {");
 		sc.add(E_OBJECT + " element = iterator.next();");
 		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);");
@@ -362,7 +369,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
-		sc.add("// catch exception here to prevent EMF proxy resolution from swallowing it");
+		sc.addComment("catch exception here to prevent EMF proxy resolution from swallowing it");
 		sc.add("rte.printStackTrace();");
 		sc.add("}");
 		sc.add("}");

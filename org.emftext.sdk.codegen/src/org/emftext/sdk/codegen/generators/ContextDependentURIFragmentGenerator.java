@@ -43,11 +43,11 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Standard implementation of <code>IContextDependentURIFragment</code>.");
-		sc.add("//");
-		sc.add("// @param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.");
-		sc.add("// @param <ReferenceType> the type of the reference which shall be resolved by this fragment.");
-		sc.add("//");
+		sc.addJavadoc(
+			"Standard implementation of <code>IContextDependentURIFragment</code>.\n\n" +
+			"@param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.\n" +
+			"@param <ReferenceType> the type of the reference which shall be resolved by this fragment."
+		);
 		sc.add("public abstract class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("protected String identifier;");
@@ -78,15 +78,17 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("resolving = true;");
 		sc.add("if (result == null || !result.wasResolved()) {");
 		sc.add("result = new " + qualifiedReferenceResolveResultClassName + "<ReferenceType>(false);");
-		sc.add("//set an initial default error message");
+		sc.addComment("set an initial default error message");
 		sc.add("result.setErrorMessage(getStdErrorMessage());");
 		sc.addLineBreak();
 		sc.add("" + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> resolver = getResolver();");
-		sc.add("//do the actual resolving");
+		sc.addComment("do the actual resolving");
 		sc.add("resolver.resolve(getIdentifier(), getContainer(), getReference(), getPositionInReference(), false, result);");
 		sc.addLineBreak();
-		sc.add("//EMFText allows proxies to resolve to multiple objects");
-		sc.add("//the first is returned, the others are added here to the reference");
+		sc.addComment(
+			"EMFText allows proxies to resolve to multiple objects. " +
+			"The first one is returned, the others are added here to the reference."
+		);
 		sc.add("if(result.wasResolvedMultiple()) {");
 		sc.add("handleMultipleResults();");
 		sc.add("}");
@@ -130,10 +132,12 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("assert false;");
 		sc.add("}");
 		sc.add("try {");
-		sc.add("// if target is an another proxy and list is \"unique\"");
-		sc.add("// add() will try to resolve the new proxy to check for uniqueness.");
-		sc.add("// There seems to be no way to avoid that. Until now this does not");
-		sc.add("// cause any problems.");
+		sc.addComment(
+			"if target is an another proxy and list is \"unique\" " +
+			"add() will try to resolve the new proxy to check for uniqueness. " +
+			"There seems to be no way to avoid that. Until now this does not " +
+			"cause any problems."
+		);
 		sc.add("if (proxyPosition + 1 == list.size()) {");
 		sc.add("list.add(target);");
 		sc.add("} else {");
