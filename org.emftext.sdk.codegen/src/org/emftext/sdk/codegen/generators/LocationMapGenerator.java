@@ -29,6 +29,9 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class LocationMapGenerator extends JavaBaseGenerator {
 
+	private static final String SYNCHRONISATION_COMMENT = 
+		"We need to synchronize the write access, because other threads may iterate over the map concurrently.";
+
 	public LocationMapGenerator() {
 		super();
 	}
@@ -41,116 +44,55 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A basic implementation of the ILocationMap interface. Instances");
-		sc.add("// store information about element locations using four maps.");
-		sc.add("// <p>");
-		sc.add("// The set-methods can be called multiple times by the parser that may visit");
-		sc.add("// multiple children from which it copies the localization information for the parent");
-		sc.add("// (i.e., the element for which set-method is called)");
-		sc.add("// It implements the following behavior:");
-		sc.add("// <p>");
-		sc.add("// Line:   The lowest of all sources is used for target<br>");
-		sc.add("// Column: The lowest of all sources is used for target<br>");
-		sc.add("// Start:  The lowest of all sources is used for target<br>");
-		sc.add("// End:    The highest of all sources is used for target<br>");
-		sc.add("//");
+		sc.addJavadoc(
+			"A basic implementation of the ILocationMap interface. Instances " +
+			"store information about element locations using four maps.\n" +
+			"<p>\n" +
+			"The set-methods can be called multiple times by the parser that may visit " +
+			"multiple children from which it copies the localization information for the parent " +
+			"element (i.e., the element for which set-method is called). " +
+			"It implements the following behavior:\n" +
+			"<p>\n" +
+			"Line:   The lowest of all sources is used for target<br>\n" +
+			"Column: The lowest of all sources is used for target<br>\n" +
+			"Start:  The lowest of all sources is used for target<br>\n" +
+			"End:    The highest of all sources is used for target<br>"
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_LOCATION_MAP() + " {");
 		sc.addLineBreak();
-		sc.add("// A basic interface that can be implemented to select");
-		sc.add("// EObjects based of their location in a text resource.");
-		sc.add("public interface ISelector {");
-		sc.add("boolean accept(int startOffset, int endOffset);");
+		addInnerClassISelector(sc);
+		addFields(sc);
+		addMethods(sc);
 		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.addLineBreak();
-		
-		sc.add("public void setLine(" + E_OBJECT + " element, int line) {");
-		sc.add("setMapValueToMin(lineMap, element, line);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public int getLine(" + E_OBJECT + " element) {");
-		sc.add("return getMapValue(lineMap, element);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setColumn(" + E_OBJECT + " element, int column) {");
-		sc.add("setMapValueToMin(columnMap, element, column);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public int getColumn(" + E_OBJECT + " element) {");
-		sc.add("return getMapValue(columnMap, element);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart) {");
-		sc.add("setMapValueToMin(charStartMap, element, charStart);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public int getCharStart(" + E_OBJECT + " element) {");
-		sc.add("return getMapValue(charStartMap, element);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd) {");
-		sc.add("setMapValueToMax(charEndMap, element, charEnd);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public int getCharEnd(" + E_OBJECT + " element) {");
-		sc.add("return getMapValue(charEndMap, element);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private int getMapValue(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
-		sc.add("if (!map.containsKey(element)) return -1;");
-		sc.add(INTEGER + " value = map.get(element);");
-		sc.add("return value == null ? -1 : value.intValue();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private void setMapValueToMin(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
-		sc.add("// we need to synchronize the write access, because other threads may iterate");
-		sc.add("// over the map concurrently");
-		sc.add("synchronized (this) {");
-		sc.add("if (element == null || value < 0) return;");
-		sc.add("if (map.containsKey(element) && map.get(element) < value) return;");
-		sc.add("map.put(element, value);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private void setMapValueToMax(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
-		sc.add("// we need to synchronize the write access, because other threads may iterate");
-		sc.add("// over the map concurrently");
-		sc.add("synchronized (this) {");
-		sc.add("if (element == null || value < 0) return;");
-		sc.add("if (map.containsKey(element) && map.get(element) > value) return;");
-		sc.add("map.put(element, value);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(final int documentOffset) {");
-		sc.add(LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
-		sc.add("public boolean accept(int start, int end) {");
-		sc.add("return start <= documentOffset && end >= documentOffset;");
-		sc.add("}");
-		sc.add("});");
-		sc.add("return result;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(final int startOffset, final int endOffset) {");
-		sc.add("" + LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
-		sc.add("public boolean accept(int start, int end) {");
-		sc.add("return start >= startOffset && end <= endOffset;");
-		sc.add("}");
-		sc.add("});");
-		sc.add("return result;");
-		sc.add("}");
-		sc.addLineBreak();
+		return true;
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addSetLineMethod(sc);
+		addGetLineMethod(sc);
+		addSetColumnMethod(sc);
+		addGetColumnMethod(sc);
+		addSetCharStartMethod(sc);
+		addGetCharStartMethod(sc);
+		addSetCharEndMethod(sc);
+		addGetCharEndMethod(sc);
+		addGetMapValueMethod(sc);
+		addSetMapValueToMinMethod(sc);
+		addSetMapValueToMaxMethod(sc);
+		addGetElementsAtMethod(sc);
+		addGetElementsBetween(sc);
+		addGetElementsMethod(sc);
+	}
+
+	private void addGetElementsMethod(JavaComposite sc) {
 		sc.add("private " + LIST + "<" + E_OBJECT + "> getElements(ISelector s) {");
-		sc.add("// there might be more than one element at the given offset");
-		sc.add("// thus, we collect all of them and sort them afterwards");
+		sc.addComment(
+			"There might be more than one element at the given offset. " +
+			"Thus, we collect all of them and sort them afterwards."
+		);
 		sc.add(LIST + "<" + E_OBJECT + "> result = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
-		sc.add("// we need to synchronize the iteration over the map, because");
-		sc.add("// other threads may write to the map concurrently");
+		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("for (" + E_OBJECT + " next : charStartMap.keySet()) {");
 		sc.add(INTEGER + " start = charStartMap.get(next);");
@@ -172,8 +114,138 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		sc.add("});");
 		sc.add("return result;");
 		sc.add("}");
+	}
+
+	private void addGetElementsBetween(JavaComposite sc) {
+		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(final int startOffset, final int endOffset) {");
+		sc.add("" + LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
+		sc.add("public boolean accept(int start, int end) {");
+		sc.add("return start >= startOffset && end <= endOffset;");
 		sc.add("}");
-		return true;
+		sc.add("});");
+		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetElementsAtMethod(JavaComposite sc) {
+		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(final int documentOffset) {");
+		sc.add(LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
+		sc.add("public boolean accept(int start, int end) {");
+		sc.add("return start <= documentOffset && end >= documentOffset;");
+		sc.add("}");
+		sc.add("});");
+		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetMapValueToMaxMethod(JavaComposite sc) {
+		sc.add("private void setMapValueToMax(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.addComment(SYNCHRONISATION_COMMENT);
+		sc.add("synchronized (this) {");
+		sc.add("if (element == null || value < 0) return;");
+		sc.add("if (map.containsKey(element) && map.get(element) > value) return;");
+		sc.add("map.put(element, value);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetMapValueToMinMethod(JavaComposite sc) {
+		sc.add("private void setMapValueToMin(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.addComment(SYNCHRONISATION_COMMENT);
+		sc.add("synchronized (this) {");
+		sc.add("if (element == null || value < 0) return;");
+		sc.add("if (map.containsKey(element) && map.get(element) < value) return;");
+		sc.add("map.put(element, value);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetMapValueMethod(JavaComposite sc) {
+		sc.add("private int getMapValue(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
+		sc.add("if (!map.containsKey(element)) return -1;");
+		sc.add(INTEGER + " value = map.get(element);");
+		sc.add("return value == null ? -1 : value.intValue();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetCharEndMethod(JavaComposite sc) {
+		sc.add("public int getCharEnd(" + E_OBJECT + " element) {");
+		sc.add("return getMapValue(charEndMap, element);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetCharEndMethod(JavaComposite sc) {
+		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd) {");
+		sc.add("setMapValueToMax(charEndMap, element, charEnd);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetCharStartMethod(JavaComposite sc) {
+		sc.add("public int getCharStart(" + E_OBJECT + " element) {");
+		sc.add("return getMapValue(charStartMap, element);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetCharStartMethod(JavaComposite sc) {
+		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart) {");
+		sc.add("setMapValueToMin(charStartMap, element, charStart);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetColumnMethod(JavaComposite sc) {
+		sc.add("public int getColumn(" + E_OBJECT + " element) {");
+		sc.add("return getMapValue(columnMap, element);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetColumnMethod(JavaComposite sc) {
+		sc.add("public void setColumn(" + E_OBJECT + " element, int column) {");
+		sc.add("setMapValueToMin(columnMap, element, column);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetLineMethod(JavaComposite sc) {
+		sc.add("public int getLine(" + E_OBJECT + " element) {");
+		sc.add("return getMapValue(lineMap, element);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetLineMethod(JavaComposite sc) {
+		sc.add("public void setLine(" + E_OBJECT + " element, int line) {");
+		sc.add("setMapValueToMin(lineMap, element, line);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.addLineBreak();
+	}
+
+	private void addInnerClassISelector(JavaComposite sc) {
+		sc.addJavadoc(
+			"A basic interface that can be implemented to select " +
+			"EObjects based of their location in a text resource."
+		);
+		sc.add("public interface ISelector {");
+		sc.add("boolean accept(int startOffset, int endOffset);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

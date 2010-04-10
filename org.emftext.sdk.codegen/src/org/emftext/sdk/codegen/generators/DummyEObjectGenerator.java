@@ -41,14 +41,14 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// The DummyEObject is used to build a stack of dummy objects when descending");
-		sc.add("// by tail recursion into left recursive rules. They cache the setting");
-		sc.add("// information for initializing concrete EObject instances.");
-		sc.add("//");
-		sc.add("// When the tail descent is finished this stack is reduced in reverse order. The");
-		sc.add("// EObjects are created using the setting informations and a containment hierarchy");
-		sc.add("// is build using the left recursive EStructuralFeature.");
-		sc.add("//");
+		sc.addJavadoc(
+			"The DummyEObject is used to build a stack of dummy objects when descending " +
+			"by tail recursion into left recursive rules. They cache the setting " +
+			"information for initializing concrete EObject instances.\n\n" +
+			"When the tail descent is finished this stack is reduced in reverse order. The " +
+			"EObjects are created using the setting informations and a containment hierarchy " +
+			"is build using the left recursive EStructuralFeature."
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + E_OBJECT_IMPL + "  {");
 		sc.addLineBreak();
 		
@@ -60,7 +60,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addApplyToMethod(sc);
 		addGetValueByNameMethod(sc);
 		addEClassMethod(sc);
@@ -85,8 +85,8 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addEClassMethod(StringComposite sc) {
-		sc.add("// proxy method");
+	private void addEClassMethod(JavaComposite sc) {
+		sc.addJavadoc("proxy method");
 		sc.add("public " + E_CLASS + " eClass() {");
 		sc.add("return type;");
 		sc.add("}");

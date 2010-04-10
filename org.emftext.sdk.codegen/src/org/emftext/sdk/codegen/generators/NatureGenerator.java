@@ -41,17 +41,17 @@ public class NatureGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("public static final String NATURE_ID = \"" + getContext().getNatureID() + "\";");
 		sc.addLineBreak();
 		sc.add("private " + I_PROJECT + " project;");
 		sc.addLineBreak();
-		sc.add("// the IDs of all builders, IDs of additional builders can be added here");
+		sc.addJavadoc("the IDs of all builders, IDs of additional builders can be added here");
 		sc.add("public final static String[] BUILDER_IDS = {" + builderAdapterClassName + ".BUILDER_ID};");
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addActivateMethod(sc);
 		addDeactivateMethod(sc);
 		addHasNatureMethod(sc);
@@ -147,7 +147,7 @@ public class NatureGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDeactivateMethod(StringComposite sc) {
+	private void addDeactivateMethod(JavaComposite sc) {
 		sc.add("public static void deactivate(" + I_PROJECT + " project) {");
 		sc.add("try {");
 		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
@@ -155,7 +155,7 @@ public class NatureGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < natures.length; ++i) {");
 		sc.add("if (NATURE_ID.equals(natures[i])) {");
-		sc.add("// Remove the nature");
+		sc.addComment("Remove the nature");
 		sc.add("String[] newNatures = new String[natures.length - 1];");
 		sc.add("System.arraycopy(natures, 0, newNatures, 0, i);");
 		sc.add("System.arraycopy(natures, i + 1, newNatures, i, natures.length - i - 1);");
@@ -170,7 +170,7 @@ public class NatureGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addActivateMethod(StringComposite sc) {
+	private void addActivateMethod(JavaComposite sc) {
 		sc.add("public static void activate(" + I_PROJECT + " project) {");
 		sc.add("try {");
 		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
@@ -178,11 +178,11 @@ public class NatureGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < natures.length; ++i) {");
 		sc.add("if (NATURE_ID.equals(natures[i])) {");
-		sc.add("// already active");
+		sc.addComment("already active");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("// Add the nature");
+		sc.addComment("Add the nature");
 		sc.add("String[] newNatures = new String[natures.length + 1];");
 		sc.add("System.arraycopy(natures, 0, newNatures, 0, natures.length);");
 		sc.add("newNatures[natures.length] = NATURE_ID;");

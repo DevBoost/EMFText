@@ -29,14 +29,15 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
+		String iElementMappingClassName = getClassNameHelper().getI_ELEMENT_MAPPING();
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A basic implementation of the IElementMapping interface.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the reference that can be mapped to");
-		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_ELEMENT_MAPPING() + "<ReferenceType> {");
+		sc.addJavadoc(
+			"A basic implementation of the " + iElementMappingClassName + " interface.\n\n" +
+			"@param <ReferenceType> the type of the reference that can be mapped to"
+		);
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iElementMappingClassName + "<ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private final ReferenceType target;");
 		sc.add("private String identifier;");

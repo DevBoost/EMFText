@@ -22,29 +22,45 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class URIMappingGenerator extends JavaBaseGenerator {
 
+	private String iUriMappingClassName;
+
 	public URIMappingGenerator() {
 		super();
 	}
 
 	private URIMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.URI_MAPPING);
+		iUriMappingClassName = getContext().getQualifiedClassName(EArtifact.I_URI_MAPPING);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A basic implementation of the IURIMapping interface that can");
-		sc.add("// map identifiers to URIs.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> unused type parameter which is needed to implement IURIMapping.");
-		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_URI_MAPPING() + "<ReferenceType> {");
+		sc.addJavadoc(
+			"A basic implementation of the " + iUriMappingClassName  + " interface that can " +
+			"map identifiers to URIs.\n\n" +
+			"@param <ReferenceType> unused type parameter which is needed to implement " + iUriMappingClassName  + "."
+		);
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iUriMappingClassName + "<ReferenceType> {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addGetTargetIdentifierMethod(sc);
+		addGetIdentifierMethod(sc);
+		addGetWarningMethod(sc);
+		sc.add("}");
+		return true;
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + URI + " uri;");
 		sc.add("private String identifier;");
 		sc.add("private String warning;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(String identifier, " + URI + " newIdentifier, String warning) {");
 		sc.add("super();");
 		sc.add("this.uri = newIdentifier;");
@@ -52,20 +68,27 @@ public class URIMappingGenerator extends JavaBaseGenerator {
 		sc.add("this.warning = warning;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetTargetIdentifierMethod(JavaComposite sc) {
 		sc.add("public " + URI + " getTargetIdentifier() {");
 		sc.add("return uri;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetIdentifierMethod(JavaComposite sc) {
 		sc.add("public String getIdentifier() {");
 		sc.add("return identifier;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetWarningMethod(JavaComposite sc) {
 		sc.add("public String getWarning() {");
 		sc.add("return warning;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("}");
-		return true;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

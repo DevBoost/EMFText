@@ -49,8 +49,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		sc.add("package " + context.getPackageName(targetPackage) + ";");
 		sc.addLineBreak();
 
-		sc.add("// this empty class was generated to overwrite exiting");
-		sc.add("// classes");
+		sc.addJavadoc("This empty class was generated to overwrite exiting classes.");
 		sc.add("public class " + className + " {");
 		sc.add("}");
 

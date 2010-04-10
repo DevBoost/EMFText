@@ -44,7 +44,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A singleton class for the text resource plug-in.");
+		sc.addJavadoc("A singleton class for the text resource plug-in.");
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_UI_PLUGIN + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -55,7 +55,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addStartMethod(sc);
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
@@ -63,15 +63,13 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		addLogErrorMethod(sc);
 	}
 
-	private void addLogErrorMethod(StringComposite sc) {
-		sc.add("// Helper method for error logging.");
-		sc.add("//");
-		sc.add("// @param message");
-		sc.add("//            the error message");
-		sc.add("// @param exception");
-		sc.add("//            the exception that describes the error in detail");
-		sc.add("// @return the status object describing the error");
-		sc.add("//");
+	private void addLogErrorMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Helper method for error logging.\n\n" +
+			"@param message the error message to log\n" +
+			"@param exception the exception that describes the error in detail\n" +
+			"@return the status object describing the error"
+		);
 		sc.add("public static " + I_STATUS + " logError(String message, Throwable exception) {");
 		sc.add(I_STATUS + " status;");
 		sc.add("if (exception != null) {");

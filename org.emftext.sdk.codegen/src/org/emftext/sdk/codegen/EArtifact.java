@@ -314,7 +314,7 @@ public enum EArtifact {
 	I_TOKEN_RESOLVE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolveResult", new ITokenResolveResultGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVE_RESULT),
 	I_TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolverFactory", new ITokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER_FACTORY),
 	I_TOKEN_STYLE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenStyle", new ITokenStyleGenerator(), OptionTypes.OVERRIDE_ITOKEN_STYLE),
-	IURI_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "URIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING),
+	I_URI_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "URIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING),
 	E_PROBLEM_TYPE(RESOURCE_PLUGIN, ROOT_PACKAGE, "", "EProblemType", new EProblemTypeGenerator(), OptionTypes.OVERRIDE_EPROBLEM_TYPE),
 	
 	CODE_COMPLETION_HELPER(RESOURCE_PLUGIN, CC_PACKAGE, "", "CodeCompletionHelper", new CodeCompletionHelperGenerator(), OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER),

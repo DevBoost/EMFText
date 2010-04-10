@@ -33,6 +33,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -133,7 +134,7 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(StringComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, ClassNameHelper classNameHelper) {
+	public void addRegisterContextDependentProxyMethod(JavaComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, ClassNameHelper classNameHelper) {
 		String typeParameters = "";
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
@@ -144,8 +145,7 @@ public class GeneratorUtil {
 		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
 		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
-		sc.add("// code completion");
+		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");

@@ -30,7 +30,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 	}
 
 	private IURIMappingGenerator(GenerationContext context) {
-		super(context, EArtifact.IURI_MAPPING);
+		super(context, EArtifact.I_URI_MAPPING);
 		iReferenceMappingClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING);
 	}
 

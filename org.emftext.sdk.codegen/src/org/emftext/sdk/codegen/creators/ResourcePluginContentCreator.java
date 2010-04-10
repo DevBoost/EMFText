@@ -204,7 +204,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVE_RESULT));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVER_FACTORY));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_STYLE));
-	    creators.add(new GenericArtifactCreator(EArtifact.IURI_MAPPING));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_URI_MAPPING));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_BACKGROUND_PARSING_LISTENER));
 	    creators.add(new GenericArtifactCreator(EArtifact.E_PROBLEM_TYPE));
 

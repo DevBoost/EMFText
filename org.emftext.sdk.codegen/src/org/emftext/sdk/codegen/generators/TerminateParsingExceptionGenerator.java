@@ -39,14 +39,20 @@ public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// This exception is used to terminate generated parsers. Depending on");
-		sc.add("// the state of a stop flag the parser throw this exception to break");
-		sc.add("// the control flow and allow users of the parser to stop parsing.");
+		sc.addJavadoc(
+			"This exception is used to terminate generated parsers. Depending on " +
+			"the state of a stop flag the parser throws this exception to break " +
+			"the control flow and allow users of the parser to stop parsing."
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + RUNTIME_EXCEPTION + " {");
 		sc.addLineBreak();
-		sc.add("private static final long serialVersionUID = 117529647036954724L;");
-		sc.addLineBreak();
+		addFields(sc);
 		sc.add("}");
 		return true;
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("private static final long serialVersionUID = 117529647036954724L;");
+		sc.addLineBreak();
 	}
 }

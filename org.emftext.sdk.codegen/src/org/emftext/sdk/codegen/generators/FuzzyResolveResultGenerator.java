@@ -24,74 +24,131 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 
+	private String iReferenceResolveResultClassName;
+
 	public FuzzyResolveResultGenerator() {
 		super();
 	}
 
 	private FuzzyResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
+		iReferenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
+		String iReferenceResolveResultSimpleClassName = getContext().getClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A FuzzyResolveResult is an implementation of the IReferenceResolveResult");
-		sc.add("// interface that delegates all method calls to a given IReferenceResolveResult");
-		sc.add("// with ReferenceType EObject. It is used by reference resolver switches to");
-		sc.add("// collect results from different reference resolvers in a type safe manner.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the reference that is resolved");
-		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
+		sc.addJavadoc(
+			"A FuzzyResolveResult is an implementation of the " + iReferenceResolveResultSimpleClassName + " " +
+			"interface that delegates all method calls to a given " + iReferenceResolveResultSimpleClassName + " " +
+			"with ReferenceType EObject. It is used by reference resolver switches to " +
+			"collect results from different reference resolvers in a type safe manner.\n\n" +
+			"@param <ReferenceType> the type of the reference that is resolved"
+		);
+		sc.add("public class " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");
 		sc.addLineBreak();
-		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> delegate;");
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+		return true;
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("private " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> delegate;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> delegate) {");
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + iReferenceResolveResultClassName + "<" + E_OBJECT + "> delegate) {");
 		sc.add("this.delegate = delegate;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public String getErrorMessage() {");
-		sc.add("return delegate.getErrorMessage();");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetErrorMessageMethod(sc);
+		addGetMappingsMethod(sc);
+		addWasResolvedMethod(sc);
+		addWasResolvedMultipleMethod(sc);
+		addWasResolvedUniquelyMethod(sc);
+		addSetErrorMessageMethod(sc);
+		addAddMappingMethod1(sc);
+		addAddMappingMethod2(sc);
+		addAddMappingMethod3(sc);
+		addAddMappingMethod4(sc);
+	}
+
+	private void addAddMappingMethod4(JavaComposite sc) {
+		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
+		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean wasResolved() {");
-		sc.add("return delegate.wasResolved();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean wasResolvedMultiple() {");
-		sc.add("return delegate.wasResolvedMultiple();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean wasResolvedUniquely() {");
-		sc.add("return delegate.wasResolvedUniquely();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setErrorMessage(String message) {");
-		sc.add("delegate.setErrorMessage(message);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void addMapping(String identifier, ReferenceType target) {");
-		sc.add("delegate.addMapping(identifier, (" + E_OBJECT + ") target);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
-		sc.add("delegate.addMapping(identifier, uri);");
-		sc.add("}");
-		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod3(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("delegate.addMapping(identifier, (" + E_OBJECT + ") target, warning);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
-		sc.add("delegate.addMapping(identifier, uri, warning);");
+	}
+
+	private void addAddMappingMethod2(JavaComposite sc) {
+		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
+		sc.add("delegate.addMapping(identifier, uri);");
 		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod1(JavaComposite sc) {
+		sc.add("public void addMapping(String identifier, ReferenceType target) {");
+		sc.add("delegate.addMapping(identifier, (" + E_OBJECT + ") target);");
 		sc.add("}");
-		return true;
+		sc.addLineBreak();
+	}
+
+	private void addSetErrorMessageMethod(JavaComposite sc) {
+		sc.add("public void setErrorMessage(String message) {");
+		sc.add("delegate.setErrorMessage(message);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addWasResolvedUniquelyMethod(JavaComposite sc) {
+		sc.add("public boolean wasResolvedUniquely() {");
+		sc.add("return delegate.wasResolvedUniquely();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addWasResolvedMultipleMethod(JavaComposite sc) {
+		sc.add("public boolean wasResolvedMultiple() {");
+		sc.add("return delegate.wasResolvedMultiple();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addWasResolvedMethod(JavaComposite sc) {
+		sc.add("public boolean wasResolved() {");
+		sc.add("return delegate.wasResolved();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetMappingsMethod(JavaComposite sc) {
+		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetErrorMessageMethod(JavaComposite sc) {
+		sc.add("public String getErrorMessage() {");
+		sc.add("return delegate.getErrorMessage();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -9,7 +9,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -25,7 +24,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.StreamUtil;
 import org.emftext.sdk.util.StringUtil;
 
-public class NewFileContentProviderGenerator extends BaseGenerator {
+public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private String mimimalModelHelperClassName;
@@ -42,9 +41,7 @@ public class NewFileContentProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
-		
+	public boolean generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -53,13 +50,10 @@ public class NewFileContentProviderGenerator extends BaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		
-		out.write(sc.toString());
-		out.flush();
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetMetaInformationMethod(sc);
 		addGetNewFileContentMethod(sc);
 		addGetExampleContentMethod1(sc);
@@ -94,11 +88,11 @@ public class NewFileContentProviderGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetExampleContentMethod2(StringComposite sc) {
+	private void addGetExampleContentMethod2(JavaComposite sc) {
 		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, " + STRING + " newFileName) {");
-		sc.add("// create a minimal model");
+		sc.addComment("create a minimal model");
 		sc.add(E_OBJECT + " root = new " + mimimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
-		sc.add("// use printer to get text for model");
+		sc.addComment("use printer to get text for model");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
 		sc.add(getClassNameHelper().getI_TEXT_PRINTER() + " printer = getPrinter(buffer);");
 		sc.add("try {");

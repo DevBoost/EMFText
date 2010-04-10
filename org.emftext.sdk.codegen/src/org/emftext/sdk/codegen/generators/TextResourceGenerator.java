@@ -115,7 +115,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	addPositionBasedTestDiagnosticClass(sc);
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addConstructors(sc);
         addDoLoadMethod(sc);
         addReloadMethod(sc);
@@ -272,17 +272,18 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addLoadOptionsMethod(StringComposite sc) {
-		sc.add("// Adds a new key,value pair to the list of options. If there");
-    	sc.add("// is already an option with the same key, the two values are ");
-    	sc.add("// collected in a list.");
+	private void addLoadOptionsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds a new key,value pair to the list of options. If there " +
+    		"is already an option with the same key, the two values are " +
+    		"collected in a list."
+    	);
     	sc.add("private void addLoadOption(" + MAP + "<" + OBJECT + ", " + OBJECT + "> options," + OBJECT + " key, " + OBJECT + " value) {");
-    	sc.add("// check if there is already an option set");
+    	sc.addComment("check if there is already an option set");
     	sc.add("if (options.containsKey(key)) {");
     	sc.add(OBJECT + " currentValue = options.get(key);");
     	sc.add("if (currentValue instanceof " + LIST + "<?>) {");
-    	sc.add("// if the current value is a list, we add the new value to");
-    	sc.add("// this list");
+    	sc.addComment("if the current value is a list, we add the new value to this list");
     	sc.add(LIST + "<?> currentValueAsList = (" + LIST + "<?>) currentValue;");
     	sc.add(LIST + "<" + OBJECT + "> currentValueAsObjectList = " + getClassNameHelper().getLIST_UTIL() + ".copySafelyToObjectList(currentValueAsList);");
     	sc.add("if (value instanceof " + COLLECTION + "<?>) {");
@@ -292,8 +293,10 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("}");
     	sc.add("options.put(key, currentValueAsObjectList);");
     	sc.add("} else {");
-    	sc.add("// if the current value is not a list, we create a fresh list");
-    	sc.add("// and add both the old (current) and the new value to this list");
+    	sc.addComment(
+    		"if the current value is not a list, we create a fresh list " +
+    		"and add both the old (current) and the new value to this list"
+    	);
     	sc.add(LIST + "<" + OBJECT + "> newValueList = new " + ARRAY_LIST + "<" + OBJECT + ">();");
     	sc.add("newValueList.add(currentValue);");
     	sc.add("if (value instanceof " + COLLECTION + "<?>) {");
@@ -310,11 +313,11 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addAddDefaultLoadOptionsMethod(StringComposite sc) {
+	private void addAddDefaultLoadOptionsMethod(JavaComposite sc) {
 		sc.add("protected " + MAP + "<" + OBJECT + ", " + OBJECT + "> addDefaultLoadOptions(" + MAP + "<?, ?> loadOptions) {");
     	sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptionsCopy = " + getClassNameHelper().getMAP_UTIL() + ".copySafelyToObjectToObjectMap(loadOptions);");
     	sc.add("if (" + PLATFORM + ".isRunning()) {");
-    	sc.add("// find default load option providers");
+    	sc.addComment("find default load option providers");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
     	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + getClassNameHelper().getPLUGIN_ACTIVATOR() + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
     	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
@@ -381,11 +384,13 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addSetURIMethod(StringComposite sc) {
+	private void addSetURIMethod(JavaComposite sc) {
 		sc.add("public void setURI(" + URI  + " uri) {");
-    	sc.add("//because of the context dependent proxy resolving it is ");
-    	sc.add("//essential to resolve all proxies before the URI is changed");
-    	sc.add("//which can cause loss of object identities");
+		sc.addComment(
+			"because of the context dependent proxy resolving it is " +
+    		"essential to resolve all proxies before the URI is changed " +
+    		"which can cause loss of object identities"
+    	);
     	sc.add(ECORE_UTIL + ".resolveAll(this);");
     	sc.add("super.setURI(uri);");
     	sc.add("}");
@@ -432,8 +437,8 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addDoUnloadMethod(StringComposite sc) {
-		sc.add("// Extends the super implementation by clearing all information about element positions.");
+	private void addDoUnloadMethod(JavaComposite sc) {
+		sc.addJavadoc("Extends the super implementation by clearing all information about element positions.");
     	sc.add("protected void doUnload() {");
     	sc.add("super.doUnload();");
     	sc.add("clearState();");
@@ -441,10 +446,10 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addClearStateMethod(StringComposite sc) {
-		sc.add("// Extends the super implementation by clearing all information about element positions.");
+	private void addClearStateMethod(JavaComposite sc) {
+		sc.addJavadoc("Extends the super implementation by clearing all information about element positions.");
     	sc.add("protected void clearState() {");
-    	sc.add("//clear concrete syntax information");
+    	sc.addComment("clear concrete syntax information");
     	sc.add("resetLocationMap();");
     	sc.add("internalURIFragmentMap.clear();");
     	sc.add("getErrors().clear();");
@@ -472,9 +477,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addAttachErrorsMethod(StringComposite sc) {
+	private void addAttachErrorsMethod(JavaComposite sc) {
 		sc.add("private void attachErrors(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<?> result, " + E_OBJECT + " proxy) {");
-    	sc.add("// attach errors to resource");
+    	sc.addComment("attach errors to this resource");
     	sc.add("assert result != null;");
     	sc.add("final " + STRING + " errorMessage = result.getErrorMessage();");
     	sc.add("if (errorMessage == null) {");
@@ -486,9 +491,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addRemoveDiagnosticsMethod(StringComposite sc) {
+	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
 		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + DIAGNOSTIC + "> diagnostics) {");
-    	sc.add("// remove errors/warnings from resource");
+    	sc.addComment("remove all errors/warnings this resource");
     	sc.add("for (" + DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(diagnostics)) {");
     	sc.add("if (errorCand instanceof " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") {");
     	sc.add("if (((" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") errorCand).wasCausedBy(proxy)) {");
@@ -500,7 +505,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addGetResultElementMethod(StringComposite sc) {
+	private void addGetResultElementMethod(JavaComposite sc) {
 		sc.add("private " + E_OBJECT + " getResultElement(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + "> uriFragment, " + getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final " + STRING + " errorMessage) {");
     	sc.add("if (mapping instanceof " + getClassNameHelper().getI_URI_MAPPING() + "<?>) {");
     	sc.add(URI + " uri = ((" + getClassNameHelper().getI_URI_MAPPING() + "<? extends " + E_OBJECT + ">)mapping).getTargetIdentifier();");
@@ -509,10 +514,10 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("try {");
     	sc.add("result = this.getResourceSet().getEObject(uri, true);");
     	sc.add("} catch (" + EXCEPTION + " e) {");
-    	sc.add("//we can catch exceptions here, because EMF will try to resolve again and handle the exception");
+    	sc.addComment("we can catch exceptions here, because EMF will try to resolve again and handle the exception");
     	sc.add("}");
     	sc.add("if (result == null || result.eIsProxy()) {");
-    	sc.add("//unable to resolve: attach error");
+    	sc.addComment("unable to resolve: attach error");
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
@@ -529,7 +534,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("if (!uriFragment.getReference().isContainment() && oppositeReference != null) {");
     	sc.add("if (reference.isMany()) {");
     	sc.add(MANY_INVERSE + "<" + E_OBJECT + "> list = " + getClassNameHelper().getCAST_UTIL() + ".cast(element.eGet(oppositeReference, false));					");
-    	sc.add("//avoids duplicate entries in the reference caused by adding to the oppositeReference ");
+    	sc.addComment("avoids duplicate entries in the reference caused by adding to the oppositeReference ");
     	sc.add("list.basicAdd(uriFragment.getContainer(),null);");
     	sc.add("} else {");
     	sc.add("uriFragment.getContainer().eSet(uriFragment.getReference(), element);");
@@ -544,14 +549,14 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addGetEObjectMethod(StringComposite sc) {
+	private void addGetEObjectMethod(JavaComposite sc) {
 		sc.add("public " + E_OBJECT + " getEObject(String id) {");
     	sc.add("if (internalURIFragmentMap.containsKey(id)) {");
     	sc.add(getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + "> uriFragment = internalURIFragmentMap.get(id);");
     	sc.add("boolean wasResolvedBefore = uriFragment.isResolved();");
     	sc.add(getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<? extends " + E_OBJECT + "> result = uriFragment.resolve();");
     	sc.add("if (result == null) {");
-    	sc.add("//the resolving did call itself");
+    	sc.addComment("the resolving did call itself");
     	sc.add("return null;");
     	sc.add("}");
     	sc.add("if (!wasResolvedBefore && !result.wasResolved()) {");
@@ -561,9 +566,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("return null;");
     	sc.add("} else {");
     	sc.add(E_OBJECT + " proxy = uriFragment.getProxy();");
-    	sc.add("//remove an error that might have been added by an earlier attempt");
+    	sc.addComment("remove an error that might have been added by an earlier attempt");
     	sc.add("removeDiagnostics(proxy, getErrors());");
-    	sc.add("//remove old warnings and attach new");
+    	sc.addComment("remove old warnings and attach new");
     	sc.add("removeDiagnostics(proxy, getWarnings());");
     	sc.add("attachWarnings(result, proxy);");
     	sc.add(getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping = result.getMappings().iterator().next();");
@@ -744,14 +749,14 @@ public class TextResourceGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
 	}
 
-	private void addReloadMethod(StringComposite sc) {
+	private void addReloadMethod(JavaComposite sc) {
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
         sc.add("try {");
         sc.add("isLoaded = false;");
         sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptions = addDefaultLoadOptions(options);");
         sc.add("doLoad(inputStream, loadOptions);");
         sc.add("} catch (" + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + " tpe) {");
-        sc.add("// do nothing - the resource is left unchanged if this exception is thrown");
+        sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
         sc.add("}");
         sc.add("isLoaded = true;");
         sc.add("}");

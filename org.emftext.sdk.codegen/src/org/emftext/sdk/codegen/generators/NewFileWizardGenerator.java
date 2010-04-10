@@ -87,7 +87,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetCategoryIdMethod(sc);
 		addSetCategoryIdMethod(sc);
 		addAddPagesMethod(sc);
@@ -116,10 +116,12 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitMethod(StringComposite sc) {
-		sc.add("// We will accept the selection in the workbench to see if");
-		sc.add("// we can initialize from it.");
-		sc.add("// @see IWorkbenchWizard#init(" + I_WORKBENCH + ", " + I_STRUCTURED_SELECTION + ")");
+	private void addInitMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"We will accept the selection in the workbench to see if " +
+			"we can initialize from it.\n" +
+			"@see IWorkbenchWizard#init(" + I_WORKBENCH + ", " + I_STRUCTURED_SELECTION + ")"
+		);
 		sc.add("public void init(" + I_WORKBENCH + " workbench, " + I_STRUCTURED_SELECTION + " selection) {");
 		sc.add("this.selection = selection;");
 		sc.add("}");
@@ -134,8 +136,8 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addOpenContentStreamMethod(StringComposite sc) {
-		sc.add("// We will initialize file contents with a sample text.");
+	private void addOpenContentStreamMethod(JavaComposite sc) {
+		sc.addJavadoc("We will initialize file contents with a sample text.");
 		sc.add("private " + INPUT_STREAM + " openContentStream() {");
 		sc.add("return new " + BYTE_ARRAY_INPUT_STREAM + "(new " + metaInformationClassName + "().getNewFileContentProvider().getNewFileContent(newName).getBytes());");
 		sc.add("}");
@@ -156,12 +158,14 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDoFinishMethod(StringComposite sc) {
-		sc.add("// The worker method. It will find the container, create the");
-		sc.add("// file if missing or just replace its contents, and open");
-		sc.add("// the editor on the newly created file.");
+	private void addDoFinishMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"The worker method. It will find the container, create the " +
+			"file if missing or just replace its contents, and open " +
+			"the editor on the newly created file."
+		);
 		sc.add("private void doFinish(String containerName, String fileName, " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
-		sc.add("// create a sample file");
+		sc.addComment("create a sample file");
 		sc.add("monitor.beginTask(\"Creating \" + fileName, 2);");
 		sc.add("final " + I_FILE + " file = getFile(fileName, containerName);");
 		sc.add("try {");
@@ -190,10 +194,12 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPerformFinishMethod(StringComposite sc) {
-		sc.add("// This method is called when 'Finish' button is pressed in");
-		sc.add("// the wizard. We will create an operation and run it");
-		sc.add("// using wizard as execution context.");
+	private void addPerformFinishMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This method is called when 'Finish' button is pressed in " +
+			"the wizard. We will create an operation and run it " +
+			"using the wizard as execution context."
+		);
 		sc.add("public boolean performFinish() {");
 		sc.add("final String containerName = page.getContainerName();");
 		sc.add("final String fileName = page.getFileName();");
@@ -211,7 +217,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (file.exists()) {");
-		sc.add("// ask for confirmation");
+		sc.addComment("ask for confirmation");
 		sc.add(MESSAGE_BOX + " messageBox = new " + MESSAGE_BOX + "(getShell(), " + SWT + ".ICON_QUESTION");
 		sc.add("| " + SWT + ".YES | " + SWT + ".NO);");
 		sc.add("messageBox.setMessage(\"File \\\"\" + fileName + \"\\\" already exists. Do you want to override it?\");");
@@ -248,8 +254,8 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddPagesMethod(StringComposite sc) {
-		sc.add("// Adds the page to the wizard.");
+	private void addAddPagesMethod(JavaComposite sc) {
+		sc.addJavadoc("Adds the pages to the wizard.");
 		sc.add("public void addPages() {");
 		sc.add("page = new " + newFileWizardPageClassName + "(selection, getFileExtension());");
 		sc.add("addPage(page);");

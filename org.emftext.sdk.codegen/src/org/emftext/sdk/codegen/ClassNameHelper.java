@@ -176,7 +176,7 @@ public class ClassNameHelper {
 	}
 
 	public String getI_URI_MAPPING() {
-		return context.getQualifiedClassName(EArtifact.IURI_MAPPING);
+		return context.getQualifiedClassName(EArtifact.I_URI_MAPPING);
 	}
 
 	public String getLIST_UTIL() {

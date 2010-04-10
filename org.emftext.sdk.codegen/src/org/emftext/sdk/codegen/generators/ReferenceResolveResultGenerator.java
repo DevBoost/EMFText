@@ -24,8 +24,9 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 
-	private String qualifiedElementMappingClassName;
-	private String qualifiedURIMappingClassName;
+	private String iReferenceResolveResultClassName;
+	private String elementMappingClassName;
+	private String uriMappingClassName;
 
 	public ReferenceResolveResultGenerator() {
 		super();
@@ -33,54 +34,95 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 
 	private ReferenceResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVE_RESULT);
-		qualifiedElementMappingClassName = context.getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
-		qualifiedURIMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
+		elementMappingClassName = context.getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
+		uriMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
+		iReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A basic implementation of IResolveResult interface");
-		sc.add("// that collects mappings in a list.");
-		sc.add("//");
-		sc.add("// @param <ReferenceType> the type of the references that can be contained in this result");
-		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
+		sc.addJavadoc(
+			"A basic implementation of the " + iReferenceResolveResultClassName + " interface that collects mappings in a list.\n\n" +
+			"@param <ReferenceType> the type of the references that can be contained in this result"
+		);
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addGetErrorMessage(sc);
+		addGetMappingsMethod(sc);
+		addWasResolvedMethod(sc);
+		addWasResolvedMultipleMethod(sc);
+		addWasResolvedUniquelyMethod(sc);
+		addSetErrorMessageMethod(sc);
+		addAddMappingMethod1(sc);
+		addAddMappingMethod2(sc);
+		addAddMappingMethod3(sc);
+		addAddMappingMethod4(sc);
+		sc.add("}");
+		return true;
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> mappings;");
 		sc.add("private String errorMessage;");
 		sc.add("private boolean resolveFuzzy;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(boolean resolveFuzzy) {");
 		sc.add("super();");
 		sc.add("this.resolveFuzzy = resolveFuzzy;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetErrorMessage(JavaComposite sc) {
 		sc.add("public String getErrorMessage() {");
 		sc.add("return errorMessage;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetMappingsMethod(JavaComposite sc) {
 		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
 		sc.add("return mappings;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addWasResolvedMethod(JavaComposite sc) {
 		sc.add("public boolean wasResolved() {");
 		sc.add("return mappings != null;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addWasResolvedMultipleMethod(JavaComposite sc) {
 		sc.add("public boolean wasResolvedMultiple() {");
 		sc.add("return mappings != null && mappings.size() > 1;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addWasResolvedUniquelyMethod(JavaComposite sc) {
 		sc.add("public boolean wasResolvedUniquely() {");
 		sc.add("return mappings != null && mappings.size() == 1;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addSetErrorMessageMethod(JavaComposite sc) {
 		sc.add("public void setErrorMessage(String message) {");
 		sc.add("errorMessage = message;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod1(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target) {");
 		sc.add("if (!resolveFuzzy && target == null) {");
 		sc.add("throw new IllegalArgumentException(\"Mapping references to null is only allowed for fuzzy resolution.\");");
@@ -88,26 +130,33 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("addMapping(identifier, target, null);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod2(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("if (mappings == null) {");
 		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
 		sc.add("}");
-		sc.add("mappings.add(new " + qualifiedElementMappingClassName + "<ReferenceType>(identifier, target, warning));");
+		sc.add("mappings.add(new " + elementMappingClassName + "<ReferenceType>(identifier, target, warning));");
 		sc.add("errorMessage = null;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod3(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
 		sc.add("addMapping(identifier, uri, null);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addAddMappingMethod4(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
 		sc.add("if (mappings == null) {");
 		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
 		sc.add("}");
-		sc.add("mappings.add(new " + qualifiedURIMappingClassName + "<ReferenceType>(identifier, uri, warning));");
+		sc.add("mappings.add(new " + uriMappingClassName + "<ReferenceType>(identifier, uri, warning));");
 		sc.add("}");
-		sc.add("}");
-		return true;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
