@@ -13,7 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
-
+// TODO mseifert: remove this class. it was only a temporary hack to ease
+// the generation of the generators for the runtime classes
 public class ClassNameHelper {
 
 	private GenerationContext context;
