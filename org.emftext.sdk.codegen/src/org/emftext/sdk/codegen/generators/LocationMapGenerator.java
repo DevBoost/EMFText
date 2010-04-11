@@ -46,16 +46,16 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the ILocationMap interface. Instances " +
-			"store information about element locations using four maps.\n" +
-			"<p>\n" +
+			"store information about element locations using four maps.",
+			"<p>",
 			"The set-methods can be called multiple times by the parser that may visit " +
 			"multiple children from which it copies the localization information for the parent " +
 			"element (i.e., the element for which set-method is called). " +
-			"It implements the following behavior:\n" +
-			"<p>\n" +
-			"Line:   The lowest of all sources is used for target<br>\n" +
-			"Column: The lowest of all sources is used for target<br>\n" +
-			"Start:  The lowest of all sources is used for target<br>\n" +
+			"It implements the following behavior:",
+			"<p>",
+			"Line:   The lowest of all sources is used for target<br>",
+			"Column: The lowest of all sources is used for target<br>",
+			"Start:  The lowest of all sources is used for target<br>",
 			"End:    The highest of all sources is used for target<br>"
 		);
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_LOCATION_MAP() + " {");

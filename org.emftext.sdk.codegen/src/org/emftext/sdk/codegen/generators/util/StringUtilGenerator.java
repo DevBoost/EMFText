@@ -55,8 +55,8 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Capitalizes the first letter of the given string.\n\n" +
-			"@param text the string to capitalize.\n" +
+			"Capitalizes the first letter of the given string.",
+			"@param text the string to capitalize.",
 			"@return the modified string."
 		);
 		sc.add("public static String capitalize(String text) {");
@@ -90,8 +90,8 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Converts a string that contains upper-case letter and " +
 			"underscores (e.g., constant names) to a camel-case string. " +
-			"For example, MY_CONSTANT is converted to myConstant.\n\n" +
-			"@param text the string to convert\n" +
+			"For example, MY_CONSTANT is converted to myConstant.",
+			"@param text the string to convert",
 			"@return a camel-case version of text"
 		);
 		sc.add("public static String convertAllCapsToLowerCamelCase(String text) {");
@@ -219,8 +219,8 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Escapes the given text such that it can be safely embedded in a string " +
-			"literal in Java source code.\n\n" +
-			"@param text the text to escape\n" +
+			"literal in Java source code.",
+			"@param text the text to escape",
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToJavaString(String text) {");
@@ -234,9 +234,9 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 			"literal in the Java source code contained in an ANTLR grammar. This " +
 			"method is similar to escapeToJavaString(), but does also convert the " +
 			"percent character to its Unicode representation, because the percent " +
-			"character has special meaning in ANTLR grammars.\n\n" +
-			"Also, single quotes are escaped. God knows why.\n\n" +
-			"@param text the text to escape" +
+			"character has special meaning in ANTLR grammars.",
+			"Also, single quotes are escaped. God knows why.",
+			"@param text the text to escape",
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToJavaStringInANTLRGrammar(String text) {");
@@ -252,8 +252,8 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 			"Escapes the given text such that it can be safely embedded in an " +
 			"ANTLR grammar as keyword (i.e., an in-line token). Single quotes " +
 			"are escaped using a backslash. Backslashes are escaped using a " +
-			"backslash.\n\n" +
-			"@param text the text to escape\n" +
+			"backslash.",
+			"@param text the text to escape",
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToANTLRKeyword(String value) {");

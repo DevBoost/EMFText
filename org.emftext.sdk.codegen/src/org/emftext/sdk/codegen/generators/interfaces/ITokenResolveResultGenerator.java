@@ -51,14 +51,14 @@ public class ITokenResolveResultGenerator extends JavaBaseGenerator {
 			"resolving a token. If a mapping for the token was already found " +
 			"(i.e., setResult() was called before), the call to this method " +
 			"is ignored. If setResult() is called afterwards, the error message " + 
-			"is also discarded.\n\n" +
+			"is also discarded.",
 			"@param message the error that prevented resolving the token"
 		);
 		sc.add("public void setErrorMessage(String message);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Sets the result of resolving a token.\n\n" +
+			"Sets the result of resolving a token.",
 			"@param resolvedToken the object the token was resolved to"
 		);
 		sc.add("public void setResolvedToken(Object resolvedToken);");
@@ -66,7 +66,7 @@ public class ITokenResolveResultGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Returns the result of resolving a token or null if it " +
-			"could not be resolved correctly.\n\n" +
+			"could not be resolved correctly.",
 			"@return the object the token was resolved to"
 		);
 		sc.add("public Object getResolvedToken();");

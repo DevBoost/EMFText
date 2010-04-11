@@ -50,8 +50,8 @@ public class ITextPrinterGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Prints the given <code>" + E_OBJECT + "</code> and its content to the " +
-			"underlying output stream that was passed to this printer upon creation.\n\n" +
-			"@param element The element to print.\n" +
+			"underlying output stream that was passed to this printer upon creation.",
+			"@param element The element to print.",
 			"@throws " + IO_EXCEPTION + " if printing to the underlying stream or device fails."
 		);
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + ";");

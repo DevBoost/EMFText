@@ -34,7 +34,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"A basic implementation of the " + iElementMappingClassName + " interface.\n\n" +
+			"A basic implementation of the " + iElementMappingClassName + " interface.",
 			"@param <ReferenceType> the type of the reference that can be mapped to"
 		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iElementMappingClassName + "<ReferenceType> {");

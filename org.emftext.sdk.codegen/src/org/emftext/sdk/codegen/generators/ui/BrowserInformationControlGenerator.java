@@ -75,19 +75,19 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Displays HTML information in a {@link " + BROWSER + "} widget.\n" +
-			"<p>\n" +
+			"Displays HTML information in a {@link " + BROWSER + "} widget.",
+			"<p>",
 			"This {@link IInformationControlExtension2} expects {@link #setInput(Object)} to be " +
-			"called with an argument of type {@link BrowserInformationControlInput}.\n" +
-			"</p>\n" +
-			"<p>Moved into this package from <code>org.eclipse.jface.internal.text.revisions</code>.</p>\n" +
-			"<p>This class may be instantiated; it is not intended to be subclassed.</p>\n" +
-			"<p>Current problems:\n" +
-			"<ul>\n" +
-			"\t<li>the size computation is too small</li>\n" +
-			"\t<li>focusLost event is not sent - see https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532</li>\n" +
-			"</ul>\n" +
-			"</p>\n" +
+			"called with an argument of type {@link BrowserInformationControlInput}.",
+			"</p>",
+			"<p>Moved into this package from <code>org.eclipse.jface.internal.text.revisions</code>.</p>",
+			"<p>This class may be instantiated; it is not intended to be subclassed.</p>",
+			"<p>Current problems:",
+			"<ul>",
+			"\t<li>the size computation is too small</li>",
+			"\t<li>focusLost event is not sent - see https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532</li>",
+			"</ul>",
+			"</p>",
 			"@since 3.2"
 		);
 		
@@ -95,8 +95,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Tells whether the " + SWT + " " + BROWSER + " widget and hence this information " +
-			"control is available.\n\n" +
-			"@param parent the parent component used for checking or <code>null</code> if none\n" +
+			"control is available.",
+			"@param parent the parent component used for checking or <code>null</code> if none",
 			"@return <code>true</code> if this control is available"
 		);
 		
@@ -165,9 +165,9 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 
 		sc.addJavadoc(
-			"Creates a browser information control with the given shell as parent.\n\n" +
-			"@param parent the parent shell\n" +
-			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
+			"Creates a browser information control with the given shell as parent.",
+			"@param parent the parent shell",
+			"@param symbolicFontName the symbolic name of the font used for size computations",
 			"@param resizable <code>true</code> if the control should be resizable"
 		);
 		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, boolean resizable) {");
@@ -178,9 +178,9 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Creates a browser information control with the given shell as parent.\n\n" +
-			"@param parent the parent shell\n" +
-			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
+			"Creates a browser information control with the given shell as parent.",
+			"@param parent the parent shell",
+			"@param symbolicFontName the symbolic name of the font used for size computations",
 			"@param statusFieldText the text to be used in the optional status field " +
 			"or <code>null</code> if the status field should be hidden"
 		);
@@ -191,10 +191,10 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Creates a browser information control with the given shell as parent.\n\n" +
-			"@param parent the parent shell\n" +
-			"@param symbolicFontName the symbolic name of the font used for size computations\n" +
-			"@param toolBarManager the manager or <code>null</code> if toolbar is not desired\n" +
+			"Creates a browser information control with the given shell as parent.",
+			"@param parent the parent shell",
+			"@param symbolicFontName the symbolic name of the font used for size computations",
+			"@param toolBarManager the manager or <code>null</code> if toolbar is not desired",
 			"@since 3.4"
 		);
 		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, " + TOOL_BAR_MANAGER + " toolBarManager) {");
@@ -369,7 +369,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Creates and initializes the text layout used to compute the size hint.\n\n" +
+			"Creates and initializes the text layout used to compute the size hint.",
 			"@since 3.2"
 		);
 		sc.add("private void createTextLayout() {");
@@ -486,8 +486,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Adds the listener to the collection of listeners who will be " +
-			"notified when the current location has changed or is about to change.\n\n" +
-			"@param listener the location listener\n" +
+			"notified when the current location has changed or is about to change.",
+			"@param listener the location listener",
 			"@since 3.4"
 		);
 		sc.add("public void addLocationListener(" + LOCATION_LISTENER + " listener) {");
@@ -517,8 +517,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 
 		sc.addJavadoc(
 			"Adds a listener for input changes to this input change provider. " +
-			"Has no effect if an identical listener is already registered.\n\n" +
-			"@param inputChangeListener the listener to add\n" +
+			"Has no effect if an identical listener is already registered.",
+			"@param inputChangeListener the listener to add",
 			"@since 3.4"
 		);
 		sc.add("public void addInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
@@ -529,16 +529,17 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Removes the given input change listener from this input change provider. " +
-			"Has no effect if an identical listener is not registered.\n\n" +
-			"@param inputChangeListener the listener to remove\n" +
-			"@since 3.4");
+			"Has no effect if an identical listener is not registered.",
+			"@param inputChangeListener the listener to remove",
+			"@since 3.4"
+		);
 		sc.add("public void removeInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
 		sc.add("fInputChangeListeners.remove(inputChangeListener);");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"@see " + I_DELAYED_INPUT_CHANGE_PROVIDER + "#setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + ")\n" +
+			"@see " + I_DELAYED_INPUT_CHANGE_PROVIDER + "#setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + ")",
 			"@since 3.4"
 		);
 		sc.add("public void setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
@@ -547,8 +548,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Tells whether a delayed input change listener is registered.\n\n" +
-			"@return <code>true</code> iff a delayed input change listener is currently registered\n" +
+			"Tells whether a delayed input change listener is registered.",
+			"@return <code>true</code> iff a delayed input change listener is currently registered",
 			"@since 3.4"
 		);
 		sc.add("public boolean hasDelayedInputChangeListener() {");
@@ -557,8 +558,8 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 
 		sc.addJavadoc(
-			"Notifies listeners of a delayed input change.\n\n" +
-			"@param newInput the new input, or <code>null</code> to request cancellation\n" +
+			"Notifies listeners of a delayed input change.",
+			"@param newInput the new input, or <code>null</code> to request cancellation",
 			"@since 3.4"
 		);
 		sc.add("public void notifyDelayedInputChange(Object newInput) {");
@@ -568,7 +569,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"@see java.lang.Object#toString()\n" +
+			"@see java.lang.Object#toString()",
 			"@since 3.4"
 		);
 		sc.add("public String toString() {");

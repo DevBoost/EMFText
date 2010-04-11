@@ -70,21 +70,21 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns the name of the concrete syntax. This name is used as file extension.\n\n" +
+			"Returns the name of the concrete syntax. This name is used as file extension.",
 			"@return the file extension"
 		);
 		sc.add("public String getSyntaxName();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns the relative path to the .cs file within the plug-in.\n\n" +
+			"Returns the relative path to the .cs file within the plug-in.",
 			"@return relative path to the .cs specification"
 		);
 		sc.add("public String getPathToCSDefinition();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns a lexer capable to split the underlying text file into tokens.\n\n" +
+			"Returns a lexer capable to split the underlying text file into tokens.",
 			"@return a new instance of the lexer class."
 		);
 		sc.add("public " + iTextScannerClassName + " createLexer();");
@@ -96,18 +96,18 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 			"the default constructor without arguments, because this constructor " + 
 			"does expect the input stream or rather a token stream as arguments. "+
 			"Furthermore, the parser implementation can be exchanged by returning " +
-			"other parsers in this factory method.\n\n" +
-			"@param inputStream the stream to read from\n" +
-			"@param encoding the encoding of the input stream, pass null to use platform default encoding\n" +
+			"other parsers in this factory method.",
+			"@param inputStream the stream to read from",
+			"@param encoding the encoding of the input stream, pass null to use platform default encoding",
 			"@return a new instance of the parser class"
 		);
 		sc.add("public " + iTextParserClassName  + " createParser(" + INPUT_STREAM + " inputStream, String encoding);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns a new instance of the printer.\n\n" +
-			"@param outputStream the stream to print to\n" +
-			"@param resource that contains the elements that will be printed\n" +
+			"Returns a new instance of the printer.",
+			"@param outputStream the stream to print to",
+			"@param resource that contains the elements that will be printed",
 			"@return a new instance of the printer class"
 		);
 		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " ouputStream, " + iTextResourceClassName + " resource);");
@@ -135,8 +135,8 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Returns the default style that should be used to present tokens of the " +
-			"given type.\n\n" +
-			"@param tokenName the name of the token type\n" +
+			"given type.",
+			"@param tokenName the name of the token type",
 			"@return a style object or null if no default style is set"
 		);
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName);");

@@ -117,7 +117,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 
 	private void addGetNextMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns the next input or <code>null</code> if this is the last.\n\n" +
+			"Returns the next input or <code>null</code> if this is the last.",
 			"@return the next input or <code>null</code>"
 		);
 		sc.add("public " + getResourceClassName() + " getNext() {");
@@ -128,7 +128,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 
 	private void addGetPreviousMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns the previous input or <code>null</code> if this is the first.\n\n" +
+			"Returns the previous input or <code>null</code> if this is the first.",
 			"@return the previous input or <code>null</code>"
 		);
 		sc.add("public " + getResourceClassName() + " getPrevious() {");
@@ -139,10 +139,10 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates a new browser information control input.\n\n" +
-			"@param previous previous input, or <code>null</code> if none available\n" +
-			"@param element the element, or <code>null</code> if none available\n" +
-			"@param htmlContent HTML contents, must not be null\n" +
+			"Creates a new browser information control input.",
+			"@param previous previous input, or <code>null</code> if none available",
+			"@param element the element, or <code>null</code> if none available",
+			"@param htmlContent HTML contents, must not be null",
 			"@param leadingImageWidth the indent required for the element image"
 		);
 		sc.add("public " + getResourceClassName() + "(" + getResourceClassName() + " previous, " + E_OBJECT + " element, " + RESOURCE + " resource, String htmlContent, String tokenText) {");

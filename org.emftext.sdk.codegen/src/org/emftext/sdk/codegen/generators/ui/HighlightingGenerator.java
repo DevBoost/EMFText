@@ -382,10 +382,10 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates the highlighting manager class.\n\n" +
-			"@param textResource the text resource to be provided to other classes\n" +
-			"@param sourceviewer the source viewer converts offset between master and slave documents\n" +
-			"@param colorManager the color manager provides highlighting colors\n" +
+			"Creates the highlighting manager class.",
+			"@param textResource the text resource to be provided to other classes",
+			"@param sourceviewer the source viewer converts offset between master and slave documents",
+			"@param colorManager the color manager provides highlighting colors",
 			"@param editor"
 		);
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");

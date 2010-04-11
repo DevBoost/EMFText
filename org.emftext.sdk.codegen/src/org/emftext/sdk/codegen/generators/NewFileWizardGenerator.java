@@ -119,7 +119,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 	private void addInitMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"We will accept the selection in the workbench to see if " +
-			"we can initialize from it.\n" +
+			"we can initialize from it.",
 			"@see IWorkbenchWizard#init(" + I_WORKBENCH + ", " + I_STRUCTURED_SELECTION + ")"
 		);
 		sc.add("public void init(" + I_WORKBENCH + " workbench, " + I_STRUCTURED_SELECTION + " selection) {");

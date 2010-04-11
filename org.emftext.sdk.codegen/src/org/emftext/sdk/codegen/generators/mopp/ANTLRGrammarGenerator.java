@@ -655,7 +655,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						+ ") token).getLine(), ((" + COMMON_TOKEN
 						+ ") token).getCharPositionInLine(), ((" + COMMON_TOKEN
 						+ ") token).getStartIndex(), ((" + COMMON_TOKEN
-						+ ") token).getStopIndex());\n");
+						+ ") token).getStopIndex());");
 				sc.add("}");
 				sc.add("if (java.lang.String.class.isInstance("
 						+ resolvedObjectIdentifier + ")) {");

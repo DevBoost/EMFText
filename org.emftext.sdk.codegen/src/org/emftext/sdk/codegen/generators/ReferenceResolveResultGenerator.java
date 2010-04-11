@@ -44,7 +44,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"A basic implementation of the " + iReferenceResolveResultClassName + " interface that collects mappings in a list.\n\n" +
+			"A basic implementation of the " + iReferenceResolveResultClassName + " interface that collects mappings in a list.",
 			"@param <ReferenceType> the type of the references that can be contained in this result"
 		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");

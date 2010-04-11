@@ -65,9 +65,9 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 
 	private void addLogErrorMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Helper method for error logging.\n\n" +
-			"@param message the error message to log\n" +
-			"@param exception the exception that describes the error in detail\n" +
+			"Helper method for error logging.",
+			"@param message the error message to log",
+			"@param exception the exception that describes the error in detail",
 			"@return the status object describing the error"
 		);
 		sc.add("public static " + I_STATUS + " logError(String message, Throwable exception) {");

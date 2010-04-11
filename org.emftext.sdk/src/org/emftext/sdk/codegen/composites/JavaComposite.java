@@ -53,25 +53,52 @@ public class JavaComposite extends StringComposite {
 		return isMultiLineComment;
 	}
 
-	public void addComment(String text) {
-		String[] chunks = text.split("\n");
-		for (String chunk : chunks) {
-			// split chunk into lines of 80 characters (split at space)
-			List<String> lines = split(chunk, 80);
-			for (String line : lines) {
-				add("// " + line);
+	public void addComment(String... paragraphs) {
+		for (String paragraph : paragraphs) {
+			String[] chunks = paragraph.split("\n");
+			for (String chunk : chunks) {
+				// split chunk into lines of 80 characters (split at space)
+				List<String> lines = split(chunk, 80);
+				for (String line : lines) {
+					add("// " + line);
+				}
 			}
 		}
 	}
 	
-	public void addJavadoc(String text) {
+	public void addJavadoc(String... paragraphs) {
 		add("/**");
-		String[] chunks = text.split("\n");
-		for (String chunk : chunks) {
-			// split chunk into lines of 80 characters (split at space)
-			List<String> lines = split(chunk, 80);
-			for (String line : lines) {
-				add(" * " + line);
+		boolean wasParameterParagraph = false;
+		for (String paragraph : paragraphs) {
+			boolean addEmptyLine = false;
+			if (paragraph.startsWith("@param")) {
+				if (!wasParameterParagraph) {
+					addEmptyLine = true;
+				}
+				wasParameterParagraph = true;
+			}
+			if (paragraph.startsWith("@return")) {
+				addEmptyLine = true;
+			}
+			if (paragraph.startsWith("@throws")) {
+				addEmptyLine = true;
+			}
+			if (paragraph.startsWith("@see")) {
+				addEmptyLine = true;
+			}
+			if (paragraph.startsWith("@since")) {
+				addEmptyLine = true;
+			}
+			if (addEmptyLine) {
+				add(" * ");
+			}
+			String[] chunks = paragraph.split("\n");
+			for (String chunk : chunks) {
+				// split chunk into lines of 80 characters (split at space)
+				List<String> lines = split(chunk, 80);
+				for (String line : lines) {
+					add(" * " + line);
+				}
 			}
 		}
 		add(" */");

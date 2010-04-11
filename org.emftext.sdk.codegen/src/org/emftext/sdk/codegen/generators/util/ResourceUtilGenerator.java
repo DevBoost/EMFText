@@ -77,8 +77,8 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 
 	private void addFindUnresolvedProxiesMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Searches for all unresolved proxy object in the given resource.\n\n" +
-			"@param resource\n" +
+			"Searches for all unresolved proxy object in the given resource.",
+			"@param resource",
 			"@return all proxy object that are not resolvable"
 		);
 		sc.add("public static " + LIST + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
@@ -106,8 +106,8 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 			"Tries to resolve all unresolved proxy objects in the " +
 			"given resource. If all proxies were resolved true is " +
 			"returned. If some could not be resolved, false is " +
-			"returned.\n\n" +
-			"@param resource the resource containing the proxy object\n" +
+			"returned.",
+			"@param resource the resource containing the proxy object",
 			"@return true on success"
 		);
 		sc.add("public static boolean resolveAll(" + RESOURCE + " resource) {");

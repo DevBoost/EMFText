@@ -250,10 +250,10 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 
 	private void addGetHoverInfo3Method(JavaComposite sc) {
 		sc.addJavadoc(
-			"Computes the hover info.\n\n" +
-			"@param elements the resolved elements\n" +
-			"@param constantValue a constant value iff result contains exactly 1 constant field, or <code>null</code>\n" +
-			"@param previousInput the previous input, or <code>null</code>\n" +
+			"Computes the hover info.",
+			"@param elements the resolved elements",
+			"@param constantValue a constant value iff result contains exactly 1 constant field, or <code>null</code>",
+			"@param previousInput the previous input, or <code>null</code>",
 			"@return the HTML hover info for the given element(s) or <code>null</code> if no information is available"
 		);
 		sc.add("private " + docBrowserInformationControlInputClassName + " getHoverInfo(" + LIST + "<" + E_OBJECT + "> elements, " + I_TEXT_VIEWER + " textViewer, " + docBrowserInformationControlInputClassName + " previousInput) {");
@@ -290,7 +290,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 
 	private void addGetStyleSheetMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Sets the style sheet font.\n\n" +
+			"Sets the style sheet font.",
 			"@return the hover style sheet"
 		);
 		sc.add("private static String getStyleSheet() {");
@@ -323,7 +323,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 
 	private void addLoadStyleSheetMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Loads and returns the hover style sheet.\n\n" +
+			"Loads and returns the hover style sheet.",
 			"@return the style sheet, or <code>null</code> if unable to load"
 		);
 		sc.add("private static String loadStyleSheet() {");
@@ -417,7 +417,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("private final " + browserInformationControlClassName + " infoControl;");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Creates the action to jump to the declaration.\n\n" +
+			"Creates the action to jump to the declaration.",
 			"@param infoControl the info control holds the hover information and the target element"
 		);
 		sc.add("public OpenDeclarationAction(" + browserInformationControlClassName + " infoControl) {");

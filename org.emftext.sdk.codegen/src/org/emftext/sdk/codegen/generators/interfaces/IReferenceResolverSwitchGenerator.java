@@ -55,10 +55,10 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Attempts to resolve a reference string fuzzy (returning objects that do not match exactly). " +
-			"This is need during code completion.\n\n" +
-			"@param identifier The identifier for the reference.\n" +
-			"@param container The object that contains the reference.\n" +
-			"@param reference The reference that points to the target of the reference.\n" +
+			"This is need during code completion.",
+			"@param identifier The identifier for the reference.",
+			"@param container The object that contains the reference.",
+			"@param reference The reference that points to the target of the reference.",
 			"@param result an object to store the result of the resolve operation."
 		);
 		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");

@@ -54,8 +54,8 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns a processor for the given input stream.\n\n" +
-			"@param inputStream the actual stream that provides the content of a resource\n" +
+			"Returns a processor for the given input stream.",
+			"@param inputStream the actual stream that provides the content of a resource",
 			"@return a processor that pre-processes the input stream"
 		);
 		sc.add("public " + inputStreamProcessorClassName + " getInputStreamProcessor(" + INPUT_STREAM + " inputStream);");

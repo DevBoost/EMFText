@@ -43,8 +43,8 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator {
 			"&quot;something else&quot; is defined by subclasses " +
 			"of this interface. Implementors of such subclasses " +
 			"are used during the process of resolving references, " +
-			"where identifiers need to be mapped to other objects.\n\n" + 
-			"This interface must not be implemented by clients.\n\n" +
+			"where identifiers need to be mapped to other objects.", 
+			"This interface must not be implemented by clients.",
 			"@param <ReferenceType> the type of the reference this mapping points to."
 		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> {");

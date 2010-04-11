@@ -44,7 +44,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 			"A FuzzyResolveResult is an implementation of the " + iReferenceResolveResultSimpleClassName + " " +
 			"interface that delegates all method calls to a given " + iReferenceResolveResultSimpleClassName + " " +
 			"with ReferenceType EObject. It is used by reference resolver switches to " +
-			"collect results from different reference resolvers in a type safe manner.\n\n" +
+			"collect results from different reference resolvers in a type safe manner.",
 			"@param <ReferenceType> the type of the reference that is resolved"
 		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");

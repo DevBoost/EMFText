@@ -159,9 +159,9 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates the hyperlink.\n\n" +
-			"@param region the region of the hyperlink to highlight\n" +
-			"@param linkTarget the link target where this hyperlink should go to\n" +
+			"Creates the hyperlink.",
+			"@param region the region of the hyperlink to highlight",
+			"@param linkTarget the link target where this hyperlink should go to",
 			"@param targetText the text to specify the target position in the <code>linkTarget</code>"
 		);
 		sc.add("public " + getResourceClassName() + "(" + I_REGION + " region, " + E_OBJECT + " linkTarget, String targetText) {");

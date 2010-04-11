@@ -478,10 +478,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Computes a set of proposals for the given document assuming the cursor is " +
 			"at 'cursorOffset'. The proposals are derived using the meta information, i.e., " +
-			"the generated language plug-in.\n\n" +
-			"@param originalResource\n" +
-			"@param content the documents content\n" +
-			"@param cursorOffset \n" +
+			"the generated language plug-in.",
+			"@param originalResource",
+			"@param content the documents content",
+			"@param cursorOffset",
 			"@return"
 		);
 		

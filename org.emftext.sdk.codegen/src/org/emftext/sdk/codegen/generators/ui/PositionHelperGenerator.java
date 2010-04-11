@@ -57,8 +57,8 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 	private void addRemovePositionsMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Deletes the position category from the document. " +
-			"All positions in this category are thus deleted as well.\n\n" +
-			"@param document the document contains the category\n" +
+			"All positions in this category are thus deleted as well.",
+			"@param document the document contains the category",
 			"@param category the category to be removed"
 		);
 		sc.add("public void removePositions(" + I_DOCUMENT + " document, String category) {");
@@ -71,9 +71,9 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 
 	private void addGetFirstPositionMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns the first position of a specific category of the given document.\n\n" +
-			"@param document the document to get the positions from\n" +
-			"@param category the category of the position\n" +
+			"Returns the first position of a specific category of the given document.",
+			"@param document the document to get the positions from",
+			"@param category the category of the position",
 			"@return a position. If there is none return <code>null</code>."
 		);
 		sc.add("public " + POSITION + " getFirstPosition(" + I_DOCUMENT + " document, String category) {");
@@ -91,9 +91,9 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 
 	private void addGetPositionsMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns the positions of a specific category of the given document.\n\n" +
-			"@param document the document to get the positions from\n" +
-			"@param category the position's category\n" +
+			"Returns the positions of a specific category of the given document.",
+			"@param document the document to get the positions from",
+			"@param category the position's category",
 			"@return an array of positions. If there is none return an array with the length = 0"
 		);
 		sc.add("public " + POSITION + "[] getPositions(" + I_DOCUMENT + " document, String category) {");
@@ -108,11 +108,11 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 
 	private void addAddPositionMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Adds a position with the given offset and length into a document.\n\n" +
-			"@param document the document to add a position into\n" +
-			"@param category the category of this position\n" +
-			"@param offset the offset of the position\n" +
-			"@param length the length of the position\n"
+			"Adds a position with the given offset and length into a document.",
+			"@param document the document to add a position into",
+			"@param category the category of this position",
+			"@param offset the offset of the position",
+			"@param length the length of the position"
 		);
 		sc.add("public void addPosition(" + I_DOCUMENT + " document, String category, int offset, int length) {");
 		sc.add("try {");

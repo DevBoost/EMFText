@@ -48,7 +48,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Signals that the given resource has been changed and " +
-			"the background parsing is completed.\n\n" +
+			"the background parsing is completed.",
 			"@param resource the resource that has changed"
 		);
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource);");

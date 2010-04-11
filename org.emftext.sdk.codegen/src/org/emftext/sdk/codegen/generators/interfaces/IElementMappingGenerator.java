@@ -42,7 +42,7 @@ public class IElementMappingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A mapping from an identifier to an EObject.\n\n" +
+			"A mapping from an identifier to an EObject.",
 			"@param <ReferenceType> the type of the reference this mapping points to."
 		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> extends " + iReferenceMappingClassName + "<ReferenceType> {");

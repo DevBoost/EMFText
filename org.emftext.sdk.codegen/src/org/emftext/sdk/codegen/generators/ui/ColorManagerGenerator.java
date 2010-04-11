@@ -59,8 +59,8 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 
 	private void addGetColorMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Constructs and caches the given color.\n\n" +
-			"@param rgb The color as " + RGB + "\n" +
+			"Constructs and caches the given color.",
+			"@param rgb The color as " + RGB,
 			"@return The color (from cache or newly constructed)"
 		);
 		sc.add("public " + COLOR + " getColor(" + RGB + " rgb) {");

@@ -50,7 +50,7 @@ public class IResourcePostProcessorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Processes the resource after it was parsed. This method is automatically called for registered post processors.\n\n" +
+			"Processes the resource after it was parsed. This method is automatically called for registered post processors.",
 			"@param resource the resource to validate of modify"
 		);
 		sc.add("public void process(" + textResourceClassName + " resource);");

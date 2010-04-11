@@ -157,8 +157,8 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates a new editor configuration.\n\n" +
-			"@param editor the editor to configure\n" +
+			"Creates a new editor configuration.",
+			"@param editor the editor to configure",
 			"@param colorManager the color manager to use"
 		);
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor, " + colorManagerClassName + " colorManager) {");

@@ -67,11 +67,11 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 			"Try to load the content of this resource from the given stream. If " +
 			"loading fails, the state of this resource is kept. If loading is " + 
 			"successful, the content of this resource is replaced with the new " +
-			"content.\n" +
+			"content.",
 			"This method can be used to try loading erroneous files, as e.g., " +
-			"needed during background parsing in the editor.\n\n" +
-			"@param stream the stream to read from\n" +
-			"@param options the load options to use\n" +
+			"needed during background parsing in the editor.",
+			"@param stream the stream to read from",
+			"@param options the load options to use",
 			"@throws " + IO_EXCEPTION + " thrown if the stream can not be read"
 		);
 		sc.add("public void reload(" + INPUT_STREAM + " stream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + ";");
@@ -86,7 +86,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns a map containing information about the location of model elements in the text.\n\n" +
+			"Returns a map containing information about the location of model elements in the text.",
 			"@return the model element to text location mapping"
 		);
 		sc.add("public " + iLocationMapClassName + " getLocationMap();");
@@ -101,11 +101,11 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Internal method used by the parser to register a context dependent proxy object for later resolution.\n\n" +
-			"@param container\n" +
-			"@param reference\n" +
-			"@param pos\n" +
-			"@param id\n" +
+			"Internal method used by the parser to register a context dependent proxy object for later resolution.",
+			"@param container",
+			"@param reference",
+			"@param pos",
+			"@param id",
 			"@param proxyElement"
 		);
 		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");

@@ -44,8 +44,8 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Standard implementation of <code>IContextDependentURIFragment</code>.\n\n" +
-			"@param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.\n" +
+			"Standard implementation of <code>IContextDependentURIFragment</code>.",
+			"@param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.",
 			"@param <ReferenceType> the type of the reference which shall be resolved by this fragment."
 		);
 		sc.add("public abstract class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<ReferenceType> {");

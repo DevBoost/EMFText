@@ -74,8 +74,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 
 	private void addUnmarkMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Removes all markers from a given resource.\n\n" +
-			"@param resource The resource where to delete markers from\n" +
+			"Removes all markers from a given resource.",
+			"@param resource The resource where to delete markers from",
 			"@throws " + CORE_EXCEPTION
 		);
 		sc.add("public static void unmark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
@@ -118,8 +118,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 
 	private void addMarkMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Marks a file with markers.\n\n" +
-			"@param resource The resource that is the file to mark.\n" +
+			"Marks a file with markers.",
+			"@param resource The resource that is the file to mark.",
 			"@throws " + CORE_EXCEPTION
 		);
 		sc.add("public static void mark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");

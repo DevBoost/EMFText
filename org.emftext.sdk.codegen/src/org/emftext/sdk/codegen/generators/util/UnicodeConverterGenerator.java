@@ -67,7 +67,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Creates a new UnicodeConverter that reads from the given stream.\n\n" +
+			"Creates a new UnicodeConverter that reads from the given stream.",
 			"@param inputStream the original stream to read from"
 		);
 		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM + " inputStream) {");

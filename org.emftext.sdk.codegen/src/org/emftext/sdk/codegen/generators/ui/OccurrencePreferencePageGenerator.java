@@ -64,11 +64,11 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"The preference page to set the occurrence highlighting with folling features:\n" +
-			"<ul>\n" +
-			"<li>enables the occurrence highlighting</li>\n" +
-			"<li>chooses the highlight color for definition</li>\n" +
-			"<li>chooses the highlight color for the proxy elements</li>\n" +
+			"The preference page to set the occurrence highlighting with folling features:",
+			"<ul>",
+			"<li>enables the occurrence highlighting</li>",
+			"<li>chooses the highlight color for definition</li>",
+			"<li>chooses the highlight color for the proxy elements</li>",
 			"</ul>"
 		);
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");

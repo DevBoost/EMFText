@@ -26,8 +26,8 @@ public class PairGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A typed pair of objects.\n\n" +
-			"@param <T1> the type of the first (left) object\n" +
+			"A typed pair of objects.",
+			"@param <T1> the type of the first (left) object",
 			"@param <T2> the type of the second (right) object"
 		);
 		sc.add("public class " + getResourceClassName() + "<T1, T2> {");

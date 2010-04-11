@@ -52,7 +52,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Reads the text contents from a reader of HTML contents and translates " +
-			"the tags or cut them out.\n" +
+			"the tags or cut them out.",
 			"<p>Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>"
 		);
 		
@@ -88,8 +88,8 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Transforms the HTML text from the reader to formatted text.\n\n" +
-			"@param reader the reader\n" +
+			"Transforms the HTML text from the reader to formatted text.",
+			"@param reader the reader",
 			"@param presentation If not <code>null</code>, formattings will be applied to the presentation."
 		);
 		sc.add("public HTML2TextReader(" + READER + " reader, " + TEXT_PRESENTATION + " presentation) {");
@@ -409,7 +409,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns the internal reader.\n\n" +
+			"Returns the internal reader.",
 			"@return the internal reader"
 		);
 		
@@ -419,8 +419,8 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns the next character.\n\n" +
-			"@return the next character\n" +
+			"Returns the next character.",
+			"@return the next character",
 			"@throws " + IO_EXCEPTION + " in case reading the character fails"
 		);
 		
@@ -475,8 +475,8 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Returns the readable content as string.\n\n" +
-			"@return the readable content as string" +
+			"Returns the readable content as string.",
+			"@return the readable content as string",
 			"@throws " + IO_EXCEPTION + " in case reading fails"
 		);
 		sc.add("public String getString() throws " + IO_EXCEPTION + " {");
@@ -493,7 +493,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("private static final String UNIT;");
 		sc.addComment(
-			"See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993\n" +
+			"See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993",
 			"if the platform is a mac the UNIT is set to \"px\""
 		);
 		sc.add("static {");
@@ -561,7 +561,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment(
-			"Find insertion index\n" +
+			"Find insertion index",
 			"a) within existing body tag with trailing space"
 		);
 		sc.add("int index= buffer.indexOf(\"<body \");");

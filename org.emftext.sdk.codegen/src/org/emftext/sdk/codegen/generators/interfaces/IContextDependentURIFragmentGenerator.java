@@ -51,14 +51,14 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 			"which is a String that can be resolved to an element within a " +
 			"<code>Resource</code>, the <code>identifier</code> of a " +
 			"<code>IContextDependentURIFragment</code> does not have " +
-			"to be globally unique.\n" +
-			"<p>\n" +
+			"to be globally unique.",
+			"<p>",
 			"An <code>IContextDependentURIFragment</code> is registered " +
 			"a <code>ITextResource</code> for a proxy for which it defines the URI fragment." +
 			"<code>ITextResource.getEObject()</code> uses the" +
 			"<code>IContextDependentURIFragment.resolve()</code> instead of the normal" +
 			"<code>URI.fragment</code>-based resolving when an" +
-			"<code>IContextDependentURIFragment.resolve()</code> is available.\n\n" +
+			"<code>IContextDependentURIFragment.resolve()</code> is available.",
 			"@param <ReferenceType> the type of the reference that can be resolved by this fragment"
 		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> {");
@@ -92,7 +92,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Resolves the proxy to the real element(s) using context information.\n\n" +
+			"Resolves the proxy to the real element(s) using context information.",
 			"@return result of resolving process"
 		);
 		sc.add("public " + iReferenceResolveResultClassName + "<ReferenceType> resolve();");

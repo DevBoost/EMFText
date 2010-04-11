@@ -103,9 +103,9 @@ public class EClassUtilGenerator extends JavaBaseGenerator {
 	private void addGetSubClassMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns all subclasses of 'superClass' that are contained " +
-			"in 'availableClasses'.\n\n" +
-			"@param superClass the superclass\n" +
-			"@param availableClasses the set of classes to search in\n" +
+			"in 'availableClasses'.",
+			"@param superClass the superclass",
+			"@param availableClasses the set of classes to search in",
 			"@return a list of all subclasses of 'superClass'"
 		);
 		sc.add("public " + LIST + "<" + E_CLASS + "> getSubClasses(" + E_CLASS + " superClass, " + E_CLASS + "[] availableClasses) {");

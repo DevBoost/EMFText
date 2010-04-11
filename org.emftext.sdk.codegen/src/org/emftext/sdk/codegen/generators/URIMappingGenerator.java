@@ -39,7 +39,7 @@ public class URIMappingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the " + iUriMappingClassName  + " interface that can " +
-			"map identifiers to URIs.\n\n" +
+			"map identifiers to URIs.",
 			"@param <ReferenceType> unused type parameter which is needed to implement " + iUriMappingClassName  + "."
 		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iUriMappingClassName + "<ReferenceType> {");

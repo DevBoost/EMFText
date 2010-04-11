@@ -51,7 +51,7 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 			"This method encapsulate an unchecked cast from Object to " +
 			E_MAP + "<Object, Object>. This case can not be performed type " +
 			"safe, because type parameters are not available for " +
-			"reflective access to Ecore models.\n\n" +
+			"reflective access to Ecore models.",
 			"@return the same object casted to a map"
 		);
 		sc.add("@SuppressWarnings(\"unchecked\")");
@@ -81,8 +81,8 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 			"This method encapsulate an unchecked cast from Object to " +
 			MAP + "<Object, Object>. This case can not be performed type " +
 			"safe, because type parameters are not available for " +
-			"reflective access to Ecore models.\n\n" +
-			"@param value the object to cast\n" +
+			"reflective access to Ecore models.",
+			"@param value the object to cast",
 			"@return the same object casted to a map"
 		);
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();

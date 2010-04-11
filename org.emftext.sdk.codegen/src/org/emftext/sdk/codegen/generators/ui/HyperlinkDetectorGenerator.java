@@ -98,7 +98,7 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates a hyperlink detector.\n\n" +
+			"Creates a hyperlink detector.",
 			"@param resource the resource to use for calculating the locations."
 		);
 		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");

@@ -189,7 +189,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private void addSetCaretMethod(JavaComposite sc) {
 		
 		sc.addJavadoc(
-			"Sets the caret to the offset of the given element.\n\n" +
+			"Sets the caret to the offset of the given element.",
 			"@param element has to be contained in the resource of this editor."
 		);
 		sc.add("public void setCaret(" + E_OBJECT + " element, String text) {");
@@ -529,7 +529,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 			"Reacts to changes of the text resource displayed in the editor and " +
 			"resources cross-referenced by it. Cross-referenced resources are " +
 			"unloaded, the displayed resource is reloaded. An attempt to resolve all " +
-			"proxies in the displayed resource is made after each change.\n\n" +
+			"proxies in the displayed resource is made after each change.",
 			"The code pretty much corresponds to what EMF generates for a tree editor."
 		);
 		sc.add("private class ModelResourceChangeListener implements " + I_RESOURCE_CHANGE_LISTENER + " {");

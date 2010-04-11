@@ -72,7 +72,7 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Checks whether the problem was caused by the given element.\n\n" +
+			"Checks whether the problem was caused by the given element.",
 			"@return true if the problem was caused by <code>element</code>"
 		);
 		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element);");

@@ -161,8 +161,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 	private void addGetBracketStringMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns this bracket set as <code>String</code>. This is useful to store the set in " +
-			"the <code>" + I_PREFERENCE_STORE + "</code>.\n\n" +
-			"@return String the bracket set in the form \"()<>[]\"\n" +
+			"the <code>" + I_PREFERENCE_STORE + "</code>.",
+			"@return String the bracket set in the form \"()<>[]\"",
 			"@see " + I_PREFERENCE_STORE
 		);
 		sc.add("public " + STRING + " getBracketString() {");
@@ -184,7 +184,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 
 	private void addGetBracketArrayMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns a list of bracket pairs. This call is for the list in the preference page.\n\n" +
+			"Returns a list of bracket pairs. This call is for the list in the preference page.",
 			"@return a list of bracket pairs in the form <code>String[]{\"{BRACKET_SEPARATOR}\",\"(BRACKET_SEPARATOR)\"}</code>"
 		);
 		sc.add("public String[] getBracketArray() {");
@@ -203,8 +203,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Removes the old bracket set and sets the given bracket set. It is useful " +
 			"to take a stored <code>String</code> in a preference store. A bracket pair " +
-			"contains of opening, closing and isClosingEnabledInside = {'1','0'}.\n\n" +
-			"@param bracketSet the bracket set as a <code>String</code> in the form \"()0<>0[]1\". This string must have length == 3*n\n" +
+			"contains of opening, closing and isClosingEnabledInside = {'1','0'}.",
+			"@param bracketSet the bracket set as a <code>String</code> in the form \"()0<>0[]1\". This string must have length == 3*n",
 			"@return <code>true</code> if successful"
 		);
 		sc.add("public boolean setBrackets(String bracketSet) {");
@@ -360,8 +360,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		// this might be a left-over from the ancient times when EMFText had
 		// a runtime
 		sc.addJavadoc(
-			"Creates a bracket set to manage the bracket pairs.\n\n" +
-			"@param sourceViewer the source viewer for matching brackets\n" +
+			"Creates a bracket set to manage the bracket pairs.",
+			"@param sourceViewer the source viewer for matching brackets",
 			"@param extension the file extension of the DSL"
 		);
 		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer, String extension) {");
@@ -414,8 +414,8 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"After a change there are two cases which have to be considered:\n" +
-			"1) if an automatic closing happened the caret will be set between the bracket pair\n" +
+			"After a change there are two cases which have to be considered:",
+			"1) if an automatic closing happened the caret will be set between the bracket pair",
 			"2) if a bracket opening is deleted on the left side of the caret the " +
 			"bracket closing on the right side of this caret is deleted as well"
 		);

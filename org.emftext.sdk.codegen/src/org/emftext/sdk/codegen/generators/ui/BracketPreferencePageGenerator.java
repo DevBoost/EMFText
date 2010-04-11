@@ -70,11 +70,11 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"The preference page for the bracket setting with following features:\n" +
-			"<ul>\n" +
-			"<li>enables bracket matching</li>\n" +
-			"<li>chooses matching highlight color</li>\n" +
-			"<li>customizes bracket set</li>\n" +
+			"The preference page for the bracket setting with following features:",
+			"<ul>",
+			"<li>enables bracket matching</li>",
+			"<li>chooses matching highlight color</li>",
+			"<li>customizes bracket set</li>",
 			"</ul>"
 		);
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");

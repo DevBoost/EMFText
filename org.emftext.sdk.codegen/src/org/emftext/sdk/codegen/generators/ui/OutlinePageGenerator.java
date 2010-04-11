@@ -132,7 +132,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 
 	private void addGetTreeViewer(JavaComposite sc) {
 		sc.addJavadoc(
-			"Returns this page's tree viewer.\n\n" +
+			"Returns this page's tree viewer.",
 			"@return this page's tree viewer, or <code>null</code> if <code>createControl</code> has not been called yet"
 		);
 		sc.add("protected " + TREE_VIEWER + " getTreeViewer() {");

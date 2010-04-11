@@ -88,7 +88,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Preference page for configuring syntax coloring.\n" +
+			"Preference page for configuring syntax coloring.",
 			"<p>" +
 			"<i>Parts of the code were taken from the JDT Java Editor</i>"
 		);

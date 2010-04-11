@@ -60,7 +60,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Parses the content given to the parser and create a tree " +
 			"of EObjects. The root of this tree is wrapped together " +
-			"with some commands that might be executed after parsing into a result object.\n\n" +
+			"with some commands that might be executed after parsing into a result object.",
 			"@return the result of the parse process"
 		);
 		sc.add("public " + iParseResultClassName + " parse();");
@@ -68,7 +68,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"Parses the document and returns a list of expected elements. " +
-			"Each expected element covers a range in the input stream.\n\n" +
+			"Each expected element covers a range in the input stream.",
 			"If the parser implementation can not determine expected " +
 			"elements null can be returned. " +
 			"This method is used by the code completion to figure out " +

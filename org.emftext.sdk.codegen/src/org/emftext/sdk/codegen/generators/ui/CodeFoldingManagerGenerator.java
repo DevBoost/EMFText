@@ -264,7 +264,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
 	private void addSaveCodeFoldingStateFileMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Saves the code folding state to a XML file in the state location.\n\n" +
+			"Saves the code folding state to a XML file in the state location.",
 			"@param uriString the key to determine the file to save to"
 		);
 		sc.add("public void saveCodeFoldingStateFile(String uriString) {");
@@ -294,7 +294,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
 	private void addRestoreCodeFoldingStateFromFileMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Restores the code folding state from a XML file in the state location.\n\n" +
+			"Restores the code folding state from a XML file in the state location.",
 			"@param uriString the key to determine the file to load the state from"
 		);
 		sc.add("public void restoreCodeFoldingStateFromFile(String uriString) {");
@@ -371,7 +371,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Tries to add this position into the model. Only positions with more than " +
 			"3 lines can be taken in. If multiple positions exist on the same line, the " +
-			"longest will be chosen. The shorter ones will be deleted.\n\n" +
+			"longest will be chosen. The shorter ones will be deleted.",
 			"@param position the position to be added."
 		);
 		sc.add("private void addPosition(" + POSITION + " position) {");
@@ -419,8 +419,8 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Checks the offset of the given <code>" + POSITION + "</code> against the " +
 			"<code>" + POSITION + "</code>s in <code>additions</code> to determine the " +
-			"existence whether the given position is contained in the additions set.\n\n" +
-			"@param position the position to check\n\n" +
+			"existence whether the given position is contained in the additions set.",
+			"@param position the position to check",
 			"@return <code>true</code> if it is in the <code>additions</code>"
 		);
 		sc.add("private boolean isInAdditions(" + POSITION + " position) {");
@@ -439,7 +439,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Checks whether the given postition are in the <code>" + PROJECTION_ANNOTATION_MODEL + "</code> or in " +
 			"the addition set. If not it tries to add into <code>additions</code>. " +
-			"Deletes old " + PROJECTION_ANNOTATION + " with line count less than 2.\n\n" +
+			"Deletes old " + PROJECTION_ANNOTATION + " with line count less than 2.",
 			"@param positions a list of available foldable positions"
 		);
 		sc.add("public void updateCodefolding(" + LIST + "<" + POSITION + "> positions) {");
@@ -554,7 +554,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
 			"Creates a code folding manager to handle the " +
-			"<code>" + PROJECTION_ANNOTATION + "</code>.\n\n" +
+			"<code>" + PROJECTION_ANNOTATION + "</code>.",
 			"@param sourceViewer the source viewer to calculate the element lines"
 		);
 		sc.add("public " + getResourceClassName() + "(" + PROJECTION_VIEWER + " sourceViewer," + editorClassName + " textEditor) {");

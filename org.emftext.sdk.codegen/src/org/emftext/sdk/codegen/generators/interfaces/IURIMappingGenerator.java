@@ -46,7 +46,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Implementors of this interface map identifiers to URIs. " +
 			"This is sometimes necessary when resolving references depends " +
-			"on the resolution of others.\n\n" +
+			"on the resolution of others.",
 			"@param <ReferenceType> unused type parameter which is needed to implement " + iReferenceMappingClassName + "."
 		);
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType> extends " + iReferenceMappingClassName + "<ReferenceType> {");

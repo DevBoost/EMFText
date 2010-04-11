@@ -44,7 +44,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"The DummyEObject is used to build a stack of dummy objects when descending " +
 			"by tail recursion into left recursive rules. They cache the setting " +
-			"information for initializing concrete EObject instances.\n\n" +
+			"information for initializing concrete EObject instances.",
 			"When the tail descent is finished this stack is reduced in reverse order. The " +
 			"EObjects are created using the setting informations and a containment hierarchy " +
 			"is build using the left recursive EStructuralFeature."

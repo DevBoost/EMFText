@@ -86,8 +86,8 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 			"Returns all EObjects that are located at the given " +
 			"offset in the text document. This method can return " +
 			"multiple elements, because containers include their " +
-			"children in the textual representation.\n\n" +
-			"@param documentOffset\n the offset where to search for elements\n" +
+			"children in the textual representation.",
+			"@param documentOffset\n the offset where to search for elements",
 			"@return a list of elements located at the given offset"
 		);
 		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(int documentOffset);");
@@ -96,9 +96,9 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Returns all EObjects that are located between the given " +
 			"offsets in the text document. The method can return " +
-			"multiple elements.\n\n" +
-			"@param startOffset\n" +
-			"@param endOffset\n" +
+			"multiple elements.",
+			"@param startOffset",
+			"@param endOffset",
 			"@return a list of elements located between the given offsets"
 		);
 		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(int startOffset, int endOffset);");
