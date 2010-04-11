@@ -54,10 +54,13 @@ public class JavaComposite extends StringComposite {
 	}
 
 	public void addComment(String text) {
-		// split text into chunks of 80 characters (split at space)
-		List<String> lines = split(text, 80);
-		for (String line : lines) {
-			add("// " + line);
+		String[] chunks = text.split("\n");
+		for (String chunk : chunks) {
+			// split chunk into lines of 80 characters (split at space)
+			List<String> lines = split(chunk, 80);
+			for (String line : lines) {
+				add("// " + line);
+			}
 		}
 	}
 	
