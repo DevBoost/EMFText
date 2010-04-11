@@ -54,7 +54,8 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// This class finds the positions to highlight and adds them to the document.");
+		
+		sc.addJavadoc("This class finds the positions to highlight and adds them to the document.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
@@ -66,7 +67,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetResolvedEObjectMethod(sc);
 		addTryToResolveMethod(sc);
 		addGetEObjectAtCurrentPositionMethod(sc);
@@ -80,28 +81,30 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		addResetTokenRegionMethod(sc);
 	}
 
-	private void addResetTokenRegionMethod(StringComposite sc) {
-		sc.add("// Resets the token region to enable remove highlighting if the text is changing.");
+	private void addResetTokenRegionMethod(JavaComposite sc) {
+		sc.addJavadoc("Resets the token region to enable remove highlighting if the text is changing.");
 		sc.add("public void resetTokenRegion(){");
 		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addIsPositionsChangedMethod(StringComposite sc) {
-		sc.add("// Check whether the token region changed to decide to highlight or not.");
-		sc.add("//");
-		sc.add("// @return <code>true</code> if the occurrences should be highlighted");
+	private void addIsPositionsChangedMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Check whether the token region changed to decide to highlight or not.\n\n" +
+			"@return <code>true</code> if the occurrences should be highlighted"
+		);
 		sc.add("public boolean isPositionsChanged() {");
 		sc.add("return isPositionsChanged;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addIsToRemoveHighlightingMethod(StringComposite sc) {
-		sc.add("// Check whether it is time to remove the occurrence highlighting.");
-		sc.add("//");
-		sc.add("// @return <code>true</code> if the caret changed the token.");
+	private void addIsToRemoveHighlightingMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Check whether it is time to remove the occurrence highlighting.\n\n" +
+			"@return <code>true</code> if the caret changed the token."
+		);
 		sc.add("public boolean isToRemoveHighlighting() {");
 		sc.add(STYLED_TEXT + " textWidget = projectionViewer.getTextWidget();");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
@@ -169,12 +172,12 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHandleOccurrenceHighlightingMethod(StringComposite sc) {
-		sc.add("// Finds the positions of the occurrences which will be highlighted. The");
-		sc.add("// brackets and the key words should not be highlighted.");
-		sc.add("//");
-		sc.add("// @param bracketSet");
-		sc.add("//            the set of brackets which have to be ignored.");
+	private void addHandleOccurrenceHighlightingMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Finds the positions of the occurrences which will be highlighted. The " +
+			"brackets and the key words should not be highlighted.\n\n" +
+			"@param bracketSet the set of brackets which have to be ignored."
+		);
 		sc.add("public void handleOccurrenceHighlighting(" + bracketSetClassName + " bracketSet) {");
 		sc.add("if (textResource == null) {");
 		sc.add("return;");
@@ -212,7 +215,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.add("String text = tokenScanner.getTokenText();");
 		sc.add("if (tokenOffset <= caretOffset && tokenLength + tokenOffset > caretOffset) {");
 		sc.add("if (text.trim().equals(\"\")) {");
-		sc.add("// the rejected elements");
+		sc.addComment("the rejected elements");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("tokenText = text;");
@@ -249,18 +252,19 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenTextMethod(StringComposite sc) {
-		sc.add("// Gets the token text at the caret.");
-		sc.add("//");
-		sc.add("// @return the token text");
+	private void addGetTokenTextMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the token text at the caret.\n\n" +
+			"@return the token text"
+		);
 		sc.add("public String getTokenText() {");
 		sc.add("return tokenText;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetEObjectAtCurrentPositionMethod(StringComposite sc) {
-		sc.add("// @return the eObject at the current cursor position.");
+	private void addGetEObjectAtCurrentPositionMethod(JavaComposite sc) {
+		sc.addJavadoc("@return the eObject at the current cursor position.");
 		sc.add("public " + E_OBJECT + " getEObjectAtCurrentPosition() {");
 		sc.add(STYLED_TEXT + " textWidget = projectionViewer.getTextWidget();");
 		sc.add("if (textWidget == null) {");
@@ -278,8 +282,10 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.add("if (candidate.eIsProxy()) {");
 		sc.add("candidate = getResolvedEObject(candidate);");
 		sc.add("}");
-		sc.add("//take an element that is actually contained in a resource");
-		sc.add("//the location map might reference elements that were removed by a post processor");
+		sc.addComment(
+			"take an element that is actually contained in a resource. " +
+			"the location map might reference elements that were removed by a post processor"
+		);
 		sc.add("if (candidate.eResource() != null) {");
 		sc.add("return candidate;");
 		sc.add("}");
@@ -289,14 +295,12 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addTryToResolveMethod(StringComposite sc) {
-		sc.add("// Tries to resolve the first proxy object in a list.");
-		sc.add("//");
-		sc.add("// @param objects");
-		sc.add("//            the <code>" + E_OBJECT + "</code>s at the text caret");
-		sc.add("// @return the resolved <code>" + E_OBJECT + "</code> of the first proxy");
-		sc.add("//         <code>" + E_OBJECT + "</code> in a list. If there are none returns");
-		sc.add("//         <code>null</code>");
+	private void addTryToResolveMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Tries to resolve the first proxy object in a list.\n\n" +
+			"@param objects the <code>EObject</code>s at the text caret\n" +
+			"@return the resolved <code>EObject</code> of the first proxy <code>EObject</code> in a list. If there are none returns <code>null</code>"
+		);
 		sc.add("public " + E_OBJECT + " tryToResolve(" + LIST + "<" + E_OBJECT + "> objects) {");
 		sc.add("for (" + E_OBJECT + " object : objects) {");
 		sc.add("if (object.eIsProxy()) {");
@@ -315,16 +319,13 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates the Occurrence class to find position to highlight.");
-		sc.add("//");
-		sc.add("// @param textResource");
-		sc.add("//            the text resource for location.");
-		sc.add("// @param sourceViewer");
-		sc.add("//            the source viewer for the text");
-		sc.add("// @param tokenScanner");
-		sc.add("//            the token scanner helps to find the searched tokens");
-		sc.add("//");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates the Occurrence class to find position to highlight.\n\n" +
+			"@param textResource the text resource for location\n" +
+			"@param sourceViewer the source viewer for the text\n" +
+			"@param tokenScanner the token scanner helps to find the searched tokens"
+		);
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + textTokenScannerClassName + " tokenScanner) {");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = sourceViewer;");

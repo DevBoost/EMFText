@@ -55,7 +55,8 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A hyperlink for the proxy elements in source code.");
+		
+		sc.addJavadoc("A hyperlink for the proxy elements in source code.");
 		sc.add("public class " + getResourceClassName() + " implements " + I_HYPERLINK + " {");
 		sc.addLineBreak();
 		
@@ -67,7 +68,7 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetHyperlinkTextMethod(sc);
 		addLengthMethod(sc);
 		addGetTypeLabelMethod(sc);
@@ -103,11 +104,13 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addOpenMethod(StringComposite sc) {
-		sc.add("// Opens the resource in <code>linkTarget</code> with");
-		sc.add("// EMFText editor, if it supports the file extension of this");
-		sc.add("// resource, and tries to jump to the definition. Else it tries to open with");
-		sc.add("// a default editor.");
+	private void addOpenMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Opens the resource in <code>linkTarget</code> with " +
+			"EMFText editor, if it supports the file extension of this " +
+			"resource, and tries to jump to the definition. Otherwise it tries to open with " +
+			"a default editor."
+		);
 		sc.add("public void open() {");
 		sc.add("if (linkTarget == null) {");
 		sc.add("return;");
@@ -139,29 +142,28 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addLengthMethod(StringComposite sc) {
-		sc.add("// @return the length of the hyperlink text");
+	private void addLengthMethod(JavaComposite sc) {
+		sc.addJavadoc("@return the length of the hyperlink text");
 		sc.add("public int length() {");
 		sc.add("return text.length();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetHyperlinkTextMethod(
-			StringComposite sc) {
+	private void addGetHyperlinkTextMethod(StringComposite sc) {
 		sc.add("public String getHyperlinkText() {");
 		sc.add("return text;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates the hyperlink.");
-		sc.add("//");
-		sc.add("// @param region");
-		sc.add("//            the region of the hyperlink to highlight");
-		sc.add("// @param linkTarget the link target where this hyperlink should go to");
-		sc.add("// @param targetText the text to specify the target position in the <code>linkTarget</code>");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates the hyperlink.\n\n" +
+			"@param region the region of the hyperlink to highlight\n" +
+			"@param linkTarget the link target where this hyperlink should go to\n" +
+			"@param targetText the text to specify the target position in the <code>linkTarget</code>"
+		);
 		sc.add("public " + getResourceClassName() + "(" + I_REGION + " region, " + E_OBJECT + " linkTarget, String targetText) {");
 		sc.add("this.region = region;");
 		sc.add("this.linkTarget = linkTarget;");

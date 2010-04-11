@@ -42,8 +42,10 @@ public class ListUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A utility class that encapsulates some case operations that need to be performed");
-		sc.add("// unchecked, because of Java's type erasure.");
+		sc.addJavadoc(
+			"A utility class that encapsulates some case operations that need to be performed " +
+			"unchecked, because of Java's type erasure."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();

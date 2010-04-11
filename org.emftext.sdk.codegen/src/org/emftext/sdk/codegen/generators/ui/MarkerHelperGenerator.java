@@ -46,9 +46,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Helper class to add markers to test files based on EMF's <code>" + RESOURCE + "." + DIAGNOSTIC + "</code>.");
-		sc.add("// If a resource contains <code>" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + "</code>s it uses the more precise information of");
-		sc.add("// this extended diagnostic type.");
+		sc.addJavadoc(
+			"Helper class to add markers to text files based on EMF's <code>" + DIAGNOSTIC + "</code>. " +
+			"If a resource contains <code>" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + "</code>s it uses the more precise information of " +
+			"this extended diagnostic type."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
@@ -59,7 +61,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addMarkMethod(sc);
 		addCreateMarkersFromDiagnosticsMethod(sc);
 		addUnmarkMethod(sc);
@@ -70,12 +72,12 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addUnmarkMethod(StringComposite sc) {
-		sc.add("// Removes all markers from a given resource.");
-		sc.add("//");
-		sc.add("// @param resource The resource where to delete markers from.");
-		sc.add("//");
-		sc.add("// @throws " + CORE_EXCEPTION + "");
+	private void addUnmarkMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all markers from a given resource.\n\n" +
+			"@param resource The resource where to delete markers from\n" +
+			"@throws " + CORE_EXCEPTION
+		);
 		sc.add("public static void unmark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
 		sc.add("if (file != null) {");
@@ -84,7 +86,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addCreateMarkersFromDiagnosticsMethod(StringComposite sc) {
+	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
 		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
 		sc.addLineBreak();
 		sc.add("for (" + DIAGNOSTIC + " diagnostic : diagnostics) {");
@@ -104,7 +106,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
 		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
-		sc.add("// ignore");
+		sc.addComment("ignore");
 		sc.add("} else {");
 		sc.add("ce.printStackTrace();");
 		sc.add("}");
@@ -114,17 +116,18 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMarkMethod(StringComposite sc) {
-		sc.add("// Marks a file with markers.");
-		sc.add("//");
-		sc.add("// @param resource The resource that is the file to mark.");
-		sc.add("// @throws " + CORE_EXCEPTION + "");
+	private void addMarkMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Marks a file with markers.\n\n" +
+			"@param resource The resource that is the file to mark.\n" +
+			"@throws " + CORE_EXCEPTION
+		);
 		sc.add("public static void mark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
-		sc.add("//URI might not point at a platform file");
+		sc.addComment("URI might not point at a platform file");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");

@@ -56,10 +56,12 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverTestMethod(StringComposite sc) {
+	private void addGetHoverTestMethod(JavaComposite sc) {
 		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
-		sc.add("// set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain");
-		sc.add("// custom hover texts");
+		sc.addComment(
+			"Set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain " +
+			"custom hover texts."
+		);
 		sc.add("return defaultProvider.getHoverText(object);");
 		sc.add("}");
 		sc.addLineBreak();

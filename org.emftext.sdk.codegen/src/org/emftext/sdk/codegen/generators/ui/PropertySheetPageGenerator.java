@@ -56,7 +56,7 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addSelectionChangedMethod1(sc);
 		addSelectionChangedMethod2(sc);
 		addContainsGenProxyMethod(sc);
@@ -64,16 +64,20 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		addIsInstanceOfMethod(sc);
 	}
 
-	private void addSelectionChangedMethod2(StringComposite sc) {
+	private void addSelectionChangedMethod2(JavaComposite sc) {
 		sc.add("public void selectionChanged(" + I_WORKBENCH_PART + " part, " + I_SELECTION + " iSelection) {");
-		sc.add("// this is a workaround for a bug in EMF");
-		sc.add("// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301");
-		sc.add("// unfortunately Ed Merks refuses to fix it, so we need to solve it here");
+		sc.addComment(
+			"this is a workaround for a bug in EMF " +
+			"see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301" +
+			"unfortunately Ed Merks refuses to fix it, so we need to solve it here"
+		);
 		sc.add("if (iSelection instanceof " + eObjectSelectionName + ") {");
 		sc.add("final " + eObjectSelectionName + " selection = (" + eObjectSelectionName + ") iSelection;");
 		sc.add("final " + E_OBJECT + " selectedObject = selection.getSelectedObject();");
-		sc.add("// check whether the selected object or one of its children contains");
-		sc.add("// a proxy which is a GenXYZClass (e.g., GenFeature, GenClass, GenPackage)");
+		sc.addComment(
+			"check whether the selected object or one of its children contains " +
+			"a proxy which is a GenXYZClass (e.g., GenFeature, GenClass, GenPackage)"
+		);
 		sc.add("if (containsGenProxy(selectedObject)) {");
 		sc.add("return;");
 		sc.add("}");
@@ -92,7 +96,7 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		
-		sc.add("// end of workaround");
+		sc.addComment("end of workaround");
 		sc.add("super.selectionChanged(part, iSelection);");
 		sc.add("}");
 		sc.addLineBreak();

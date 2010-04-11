@@ -33,23 +33,27 @@ public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// An interface that defines some constants used to create");
-		sc.add("// the keys for preferences.");
+		
+		sc.addJavadoc(
+			"An interface that defines some constants used to create " +
+			"the keys for preferences."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("//Constants for syntax highlighting");
-		sc.add("//");
-		sc.add("// Preference key suffix to enable syntax highlighting for");
-		sc.add("// a token type.");
+		
+		sc.addComment("Constants for syntax highlighting");
+		sc.addJavadoc("Preference key suffix to enable syntax highlighting for a token type.");
 		sc.add("public static final String EDITOR_ENABLE_SUFFIX = \"_enable\";");
 		sc.add("public static final String EDITOR_COLOR_SUFFIX = \"_color\";");
 		sc.addLineBreak();
-		sc.add("//Constants for brackets");
+		
+		sc.addComment("Constants for brackets");
 		sc.add("public static final String EDITOR_MATCHING_BRACKETS_COLOR = \"_matchingBracketsColor\";");
 		sc.add("public static final String EDITOR_MATCHING_BRACKETS_CHECKBOX = \"_matchingBracketsCheckbox\";");
 		sc.add("public static final String EDITOR_BRACKETS_SUFFIX = \"_brackets\";");
 		sc.addLineBreak();
-		sc.add("//Constants for occurrence highlighting");
+
+		sc.addComment("Constants for occurrence highlighting");
 		sc.add("public static final String EDITOR_OCCURRENCE_CHECKBOX = \"_occurrenceHighlightingCheckbox\";");
 		sc.add("public static final String EDITOR_DEFINITION_COLOR = \"_definition_color\";");
 		sc.add("public static final String EDITOR_PROXY_COLOR = \"_proxy_color\";");

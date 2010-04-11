@@ -54,7 +54,8 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() +";");
 		sc.addLineBreak();
-		sc.add("// Class used to initialize default preference values.");
+		
+		sc.addJavadoc("A class used to initialize default preference values.");
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER + " {");
 		sc.addLineBreak();
 		// TODO this should not be used here!
@@ -66,16 +67,16 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("initializeDefaultBrackets();");
 		sc.addLineBreak();
 		sc.add(I_PREFERENCE_STORE + " store = " + activatorClassName + ".getDefault().getPreferenceStore();");
-		sc.add("//Set default value for matching brackets");
+		sc.addComment("Set default value for matching brackets");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR, \"192,192,192\");");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, true);");
 		sc.addLineBreak();
-		sc.add("//Set default value for occurrences");
+		sc.addComment("Set default value for occurrences");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX, true);");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR, \"240,216,168\");");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR, \"212,212,212\");");
 		sc.addLineBreak();
-		sc.add("//store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);");
+		sc.addComment("store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -93,7 +94,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		
 		sc.add("private void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
-		sc.add("// set default brackets for ITextResource bracket set");
+		sc.addComment("set default brackets for ITextResource bracket set");
 		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "(null, languageId);");
 		sc.add("final " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> bracketPairs = metaInformation.getBracketPairs();");
 		sc.add("if (bracketPairs != null) {");

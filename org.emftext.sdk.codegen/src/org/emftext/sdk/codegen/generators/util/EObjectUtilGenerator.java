@@ -52,11 +52,12 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A utility class that can be used to work with EObjects.");
-		sc.add("// While many similar methods are provided by EMF's own");
-		sc.add("// EcoreUtil class, the missing ones are collected here.");
-		sc.add("//");
-		sc.add("// @see org.eclipse.emf.ecore.util.EcoreUtil");
+		sc.addJavadoc(
+			"A utility class that can be used to work with EObjects. " +
+			"While many similar methods are provided by EMF's own " +
+			"EcoreUtil class, the missing ones are collected here.\n\n" +
+			"@see org.eclipse.emf.ecore.util.EcoreUtil"
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addMethods(sc);

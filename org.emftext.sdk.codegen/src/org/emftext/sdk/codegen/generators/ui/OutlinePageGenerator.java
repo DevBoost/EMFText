@@ -61,7 +61,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Simple Outline Page using the ReflectiveItemAdapters provided by EMF");
+		sc.addJavadoc("Simple Outline Page using the ReflectiveItemAdapters provided by EMF");
 		sc.add("public class " + getResourceClassName() + " extends " + PAGE + " implements " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_CONTENT_OUTLINE_PAGE + " {");
 		sc.addLineBreak();
 		
@@ -73,7 +73,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addCreateControlMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
 		addGetControlMethod(sc);
@@ -95,8 +95,8 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetFocusMethod(StringComposite sc) {
-		sc.add("// Sets focus to a part in the page.");
+	private void addSetFocusMethod(JavaComposite sc) {
+		sc.addJavadoc("Sets focus to a part in the page.");
 		sc.add("public void setFocus() {");
 		sc.add("treeViewer.getControl().setFocus();");
 		sc.add("}");
@@ -130,11 +130,11 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTreeViewer(StringComposite sc) {
-		sc.add("// Returns this page's tree viewer.");
-		sc.add("//");
-		sc.add("// @return this page's tree viewer, or <code>null</code> if");
-		sc.add("//         <code>createControl</code> has not been called yet");
+	private void addGetTreeViewer(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns this page's tree viewer.\n\n" +
+			"@return this page's tree viewer, or <code>null</code> if <code>createControl</code> has not been called yet"
+		);
 		sc.add("protected " + TREE_VIEWER + " getTreeViewer() {");
 		sc.add("return treeViewer;");
 		sc.add("}");
@@ -172,7 +172,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreateControlMethod(StringComposite sc) {
+	private void addCreateControlMethod(JavaComposite sc) {
 		sc.add("public void createControl(" + COMPOSITE + " parent) {");
 		sc.add("treeViewer = new " + outlinePageTreeViewerClassName + "(parent, " + SWT + ".MULTI | " + SWT + ".H_SCROLL | " + SWT + ".V_SCROLL);");
 		sc.add("Object[] listeners = selectionChangedListeners.getListeners();");
@@ -190,7 +190,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 		sc.add(E_LIST + "<" + RESOURCE + "> resources = resourceSet.getResources();");
 		sc.add("treeViewer.setInput(resources.get(0));");
 		sc.add("if (!resources.isEmpty()) {");
-		sc.add("// Select the root object in the view.");
+		sc.addComment("Select the root object in the view.");
 		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resources.get(0)), true);");
 		sc.add("}");
 		sc.add("}");

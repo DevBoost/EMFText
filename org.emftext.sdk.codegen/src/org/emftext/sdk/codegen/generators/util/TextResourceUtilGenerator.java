@@ -49,8 +49,10 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Class TextResourceUtil can be used to perform common tasks on text resources,");
-		sc.add("// such as loading and saving resources, as well as, checking them for errors.");
+		sc.addJavadoc(
+			"Class TextResourceUtil can be used to perform common tasks on text resources, " +
+			"such as loading and saving resources, as well as, checking them for errors."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");

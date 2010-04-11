@@ -73,7 +73,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 
 	private void addGetInputNameMethod(StringComposite sc) {
 		sc.add("public String getInputName() {");
-		sc.add("return element == null ? \"\" : element.toString(); ");
+		sc.add("return element == null ? \"\" : element.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

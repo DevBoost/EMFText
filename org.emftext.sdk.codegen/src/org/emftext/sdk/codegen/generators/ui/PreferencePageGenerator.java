@@ -49,16 +49,29 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// The root preference page");
-		sc.add("//");
+		
+		sc.addJavadoc("The root preference page");
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
+		addmethods(sc);
+		sc.add("}");
+		return true;
+	}
+
+	private void addmethods(JavaComposite sc) {
+		addInitMethod(sc);
+		addCreateContentsMethod(sc);
+	}
+
+	private void addInitMethod(JavaComposite sc) {
 		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
 		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\" " + getContext().getCapitalizedConcreteSyntaxName() + " Text Editor Preferences\");");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addCreateContentsMethod(JavaComposite sc) {
 		sc.add("@Override");
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.add(COMPOSITE + " settingComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
@@ -81,8 +94,7 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
         sc.add("});");
         sc.add("return settingComposite;");
 		sc.add("}");
-		sc.add("}");
-		return true;
+		sc.addLineBreak();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

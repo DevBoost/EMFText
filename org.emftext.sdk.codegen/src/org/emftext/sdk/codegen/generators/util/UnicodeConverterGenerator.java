@@ -44,12 +44,13 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A UnicodeConverter can read an input stream and convert");
-		sc.add("// unicode escape sequences (backslash + uXXXX) to actual");
-		sc.add("// unicode characters. Each escaped unicode sequence (6 bytes)");
-		sc.add("// is replaced by the respective UTF-8 byte sequence (1 to 4");
-		sc.add("// bytes).");
-		sc.add("//");
+		sc.addJavadoc(
+			"A UnicodeConverter can read an input stream and convert " +
+			"unicode escape sequences (backslash + uXXXX) to actual " +
+			"unicode characters. Each escaped unicode sequence (6 bytes) " +
+			"is replaced by the respective UTF-8 byte sequence (1 to 4 " +
+			"bytes)."
+		);
 		// TODO mseifert: information about replaced sequences must be
 		// passed to the LocationMap or parser to make sure that the
 		// positions of elements found in the stream are correct.
@@ -61,24 +62,23 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("private static final char BACKSLASH = '\\\\';");
 		sc.addLineBreak();
 		
-		sc.add("// The original input stream.");
-		
+		sc.addJavadoc("The original input stream.");
 		sc.add("private " + INPUT_STREAM + " inputStream;");
 		sc.addLineBreak();
 		
-		sc.add("// Creates a new UnicodeConverter that reads from the given");
-		sc.add("// stream.");
-		sc.add("//");
-		sc.add("// @param inputStream the original stream to read from");
-		
+		sc.addJavadoc(
+			"Creates a new UnicodeConverter that reads from the given stream.\n\n" +
+			"@param inputStream the original stream to read from"
+		);
 		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM + " inputStream) {");
 		sc.add("this.inputStream = inputStream;");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Reads one character from the stream. Escaped unicode characters are");
-		sc.add("// converted to UTF-8 byte sequences (i.e., up to four bytes).");
-		
+		sc.addJavadoc(
+			"Reads one character from the stream. Escaped unicode characters are " +
+			"converted to UTF-8 byte sequences (i.e., up to four bytes)."
+		);
 		sc.add("@Override");
 		sc.add("public int read() throws " + IO_EXCEPTION + " {");
 		sc.add("if (!stackIsEmpty()) {");
@@ -87,15 +87,15 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("int read = inputStream.read();");
 		sc.addLineBreak();
-		sc.add("// Must have format \\\\uXXXX where XXXX is a hex number");
+		sc.addComment("Must have format \\\\uXXXX where XXXX is a hex number");
 		sc.add("if (read >= 0) {");
 		sc.add("char c = (char) read;");
 		sc.add("if (c == BACKSLASH) {");
 		sc.add("int next = inputStream.read();");
 		sc.add("char nextChar = (char) next;");
 		sc.add("if (nextChar == 'u') {");
-		sc.add("// Now we found the 'u' we need to find another 4 hex digits");
-		sc.add("// Note: shifting left by 4 is the same as multiplying by 16");
+		sc.addComment("Now we found the 'u' we need to find another 4 hex digits");
+		sc.addComment("Note: shifting left by 4 is the same as multiplying by 16");
 		sc.add("int v = 0; // Accumulator");
 		sc.add("boolean complete = true;");
 		sc.add("int j = 0;");
@@ -103,7 +103,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("next = inputStream.read();");
 		sc.add("nextChar = (char) next;");
 		sc.add("if (nextChar == 'u') {");
-		sc.add("// ignore more u characters");
+		sc.addComment("ignore more u characters");
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("j++;");
@@ -143,8 +143,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("v = ((v << 4) + 10 + nextChar) - 65;");
 		sc.add("break;");
 		sc.add("default:");
-		sc.add("// this case can never happen if the unicode");
-		sc.add("// escape sequences are correct");
+		sc.addComment("this case can never happen if the unicode escape sequences are correct");
 		sc.add("v = 0; // clear the accumulator");
 		sc.add("break;");
 		sc.add("}");
@@ -154,21 +153,21 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("return encodePushAndReturn(v);");
 		sc.add("}");
 		sc.add("} else {");
-		sc.add("// was: lookAheadCharacter = next;");
+		sc.addComment("was: lookAheadCharacter = next;");
 		sc.add("encodePush(next);");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("return encodePushAndReturn(read);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("// do not encode negative numbers, because they signal EOF");
+		sc.addComment("do not encode negative numbers, because they signal EOF");
 		sc.add("return read;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private int encodePushAndReturn(int next) {");
 		sc.add("byte[] encoded = encode(next);");
-		sc.add("// we must add the bytes backwards because we use a stack");
-		sc.add("// we do not push the first byte since it is returned immediately");
+		sc.addComment("we must add the bytes backwards because we use a stack");
+		sc.addComment("we do not push the first byte since it is returned immediately");
 		sc.add("for (int i = encoded.length - 1; i >= 1; i--) {");
 		sc.add("push(unsignedByteToInt(encoded[i]));");
 		sc.add("}");
@@ -177,7 +176,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("private void encodePush(int next) {");
 		sc.add("byte[] encoded = encode(next);");
-		sc.add("// we must add the bytes backwards because we use a stack");
+		sc.addComment("we must add the bytes backwards because we use a stack");
 		sc.add("for (int i = encoded.length - 1; i >= 0; i--) {");
 		sc.add("push(unsignedByteToInt(encoded[i]));");
 		sc.add("}");
@@ -205,7 +204,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public static byte[] encode(int ch) {");
-		sc.add("//return encode(new int[]{ch});");
+		sc.addComment("return encode(new int[]{ch});");
 		sc.add("int bytesNeeded = 0;");
 		sc.add("if (ch < 0x80) {");
 		sc.add("++bytesNeeded;");
@@ -216,9 +215,9 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("} else {");
 		sc.add("bytesNeeded += 4;");
 		sc.add("}");
-		sc.add("// allocate a byte[] of the necessary size");
+		sc.addComment("allocate a byte[] of the necessary size");
 		sc.add("byte[] utf8 = new byte[bytesNeeded];");
-		sc.add("// do the conversion from character code points to utf-8");
+		sc.addComment("do the conversion from character code points to utf-8");
 		sc.add("int bytes = 0;");
 		sc.add("if (ch < 0x80) {");
 		sc.add("utf8[bytes++] = (byte) ch;");
@@ -239,7 +238,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public static byte[] encode(int[] ch) {");
-		sc.add("// determine how many bytes are needed for the complete conversion");
+		sc.addComment("determine how many bytes are needed for the complete conversion");
 		sc.add("int bytesNeeded = 0;");
 		sc.add("for (int i = 0; i < ch.length; i++) {");
 		sc.add("if (ch[i] < 0x80) {");
@@ -252,9 +251,9 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		sc.add("bytesNeeded += 4;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("// allocate a byte[] of the necessary size");
+		sc.addComment("allocate a byte[] of the necessary size");
 		sc.add("byte[] utf8 = new byte[bytesNeeded];");
-		sc.add("// do the conversion from character code points to utf-8");
+		sc.addComment("do the conversion from character code points to utf-8");
 		sc.add("for (int i = 0, bytes = 0; i < ch.length; i++) {");
 		sc.add("if (ch[i] < 0x80) {");
 		sc.add("utf8[bytes++] = (byte) ch[i];");

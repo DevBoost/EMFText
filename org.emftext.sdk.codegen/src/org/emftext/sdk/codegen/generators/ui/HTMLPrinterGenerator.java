@@ -46,15 +46,16 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.");
+		
+		sc.addJavadoc("This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("// Reads the text contents from a reader of HTML contents and translates");
-		sc.add("// the tags or cut them out.");
-		sc.add("// <p>");
-		sc.add("// Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>");
-		sc.add("///");
+		sc.addJavadoc(
+			"Reads the text contents from a reader of HTML contents and translates " +
+			"the tags or cut them out.\n" +
+			"<p>Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>"
+		);
+		
 		sc.add("private static final class HTML2TextReader extends " + READER + " {");
 		sc.addLineBreak();
 		sc.add("private static final String EMPTY_STRING= \"\";");
@@ -76,23 +77,24 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("protected boolean fWasWhiteSpace;");
 		sc.add("private int fCharAfterWhiteSpace;");
 		sc.addLineBreak();
-		sc.add("// Tells whether white space characters are skipped.");
-		sc.add("///");
+		
+		sc.addJavadoc("Tells whether white space characters are skipped.");
 		sc.add("private boolean fSkipWhiteSpace= true;");
 		sc.addLineBreak();
+		
 		sc.add("private boolean fReadFromBuffer;");
 		sc.add("private StringBuffer fBuffer;");
 		sc.add("private int fIndex;");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Transforms the HTML text from the reader to formatted text.");
-		sc.add("//");
-		sc.add("// @param reader the reader");
-		sc.add("// @param presentation If not <code>null</code>, formattings will be applied to");
-		sc.add("// the presentation.");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Transforms the HTML text from the reader to formatted text.\n\n" +
+			"@param reader the reader\n" +
+			"@param presentation If not <code>null</code>, formattings will be applied to the presentation."
+		);
 		sc.add("public HTML2TextReader(" + READER + " reader, " + TEXT_PRESENTATION + " presentation) {");
 		sc.addLineBreak();
+		
 		sc.add("fReader= reader;");
 		sc.add("fBuffer= new StringBuffer();");
 		sc.add("fIndex= 0;");
@@ -101,24 +103,24 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("fWasWhiteSpace= true;");
 		sc.addLineBreak();
 		sc.add("fgTags= new " + LINKED_HASH_SET + "<String>();");
-		sc.add("fgTags.add(\"b\"); ");
-		sc.add("fgTags.add(\"br\"); ");
-		sc.add("fgTags.add(\"br/\"); ");
-		sc.add("fgTags.add(\"br /\"); ");
-		sc.add("fgTags.add(\"div\"); ");
-		sc.add("fgTags.add(\"h1\"); ");
-		sc.add("fgTags.add(\"h2\"); ");
-		sc.add("fgTags.add(\"h3\"); ");
-		sc.add("fgTags.add(\"h4\"); ");
-		sc.add("fgTags.add(\"h5\"); ");
-		sc.add("fgTags.add(\"p\"); ");
-		sc.add("fgTags.add(\"dl\"); ");
-		sc.add("fgTags.add(\"dt\"); ");
-		sc.add("fgTags.add(\"dd\"); ");
-		sc.add("fgTags.add(\"li\"); ");
-		sc.add("fgTags.add(\"ul\"); ");
-		sc.add("fgTags.add(\"pre\"); ");
-		sc.add("fgTags.add(\"head\"); ");
+		sc.add("fgTags.add(\"b\");");
+		sc.add("fgTags.add(\"br\");");
+		sc.add("fgTags.add(\"br/\");");
+		sc.add("fgTags.add(\"br /\");");
+		sc.add("fgTags.add(\"div\");");
+		sc.add("fgTags.add(\"h1\");");
+		sc.add("fgTags.add(\"h2\");");
+		sc.add("fgTags.add(\"h3\");");
+		sc.add("fgTags.add(\"h4\");");
+		sc.add("fgTags.add(\"h5\");");
+		sc.add("fgTags.add(\"p\");");
+		sc.add("fgTags.add(\"dl\");");
+		sc.add("fgTags.add(\"dt\");");
+		sc.add("fgTags.add(\"dd\");");
+		sc.add("fgTags.add(\"li\");");
+		sc.add("fgTags.add(\"ul\");");
+		sc.add("fgTags.add(\"pre\");");
+		sc.add("fgTags.add(\"head\");");
 		sc.addLineBreak();
 		sc.add("fgEntityLookup= new " + LINKED_HASH_MAP + "<String, String>(7);");
 		sc.add("fgEntityLookup.put(\"lt\", \"<\");");
@@ -178,9 +180,8 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see org.eclipse.jdt.internal.ui.text.SubstitutionTextReader#computeSubstitution(int)");
-		sc.add("///");
+		
+		sc.addJavadoc("@see org.eclipse.jdt.internal.ui.text.SubstitutionTextReader#computeSubstitution(int)");
 		sc.add("protected String computeSubstitution(int c) throws " + IO_EXCEPTION + " {");
 		sc.addLineBreak();
 		sc.add("if (c == '<')");
@@ -233,15 +234,15 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return EMPTY_STRING;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"dl\".equals(html)) ");
+		sc.add("if (\"dl\".equals(html))");
 		sc.add("return LINE_DELIM;");
 		sc.addLineBreak();
-		sc.add("if (\"dd\".equals(html)) ");
-		sc.add("return \"\t\"; ");
+		sc.add("if (\"dd\".equals(html))");
+		sc.add("return \"\t\";");
 		sc.addLineBreak();
 		// FIXME: this hard-coded prefix does not work for RTL languages, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=91682
 		//This return is taken from org.eclipse.jface.internal.text.html.HTMLMessages.properties
-		sc.add("if (\"li\".equals(html))  ");
+		sc.add("if (\"li\".equals(html))");
 		sc.add("return LINE_DELIM + \"\\t-\\n \";");
 		sc.addLineBreak();
 		sc.add("if (\"/b\".equals(html)) {");
@@ -268,7 +269,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return LINE_DELIM;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"/dd\".equals(html)) ");
+		sc.add("if (\"/dd\".equals(html))");
 		sc.add("return LINE_DELIM;");
 		sc.addLineBreak();
 		sc.add("if (\"head\".equals(html) && !fHeaderDetected) {");
@@ -285,9 +286,8 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return EMPTY_STRING;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// A '<' has been read. Process a html tag");
-		sc.add("///");
+		
+		sc.addJavadoc("A '<' has been read. Process a html tag");
 		sc.add("private String processHTMLTag() throws " + IO_EXCEPTION + " {");
 		sc.addLineBreak();
 		sc.add("StringBuffer buf= new StringBuffer();");
@@ -319,7 +319,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("if (!isInComment(buf) || isCommentEnd(buf)) {");
 		sc.add("break;");
 		sc.add("}");
-		sc.add("// unfinished comment");
+		sc.addComment("unfinished comment");
 		sc.add("buf.append((char) ch);");
 		sc.add("} while (true);");
 		sc.addLineBreak();
@@ -327,12 +327,12 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private boolean isInComment(StringBuffer buf) {");
-		sc.add("return buf.length() >= 3 && \"!--\".equals(buf.substring(0, 3)); ");
+		sc.add("return buf.length() >= 3 && \"!--\".equals(buf.substring(0, 3));");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private boolean isCommentEnd(StringBuffer buf) {");
 		sc.add("int tagLen= buf.length();");
-		sc.add("return tagLen >= 5 && \"--\".equals(buf.substring(tagLen - 2)); ");
+		sc.add("return tagLen >= 5 && \"--\".equals(buf.substring(tagLen - 2));");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String processPreformattedText(int c) {");
@@ -364,12 +364,11 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return str;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return \"&\" + symbol; // not found ");
+		sc.add("return \"&\" + symbol; // not found");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// A '&' has been read. Process a entity");
-		sc.add("///");
+		
+		sc.addJavadoc("A '&' has been read. Process a entity");
 		sc.add("private String processEntity() throws " + IO_EXCEPTION + " {");
 		sc.add("StringBuffer buf= new StringBuffer();");
 		sc.add("int ch= nextChar();");
@@ -408,26 +407,23 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("return len;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Returns the internal reader.");
-		sc.add("//");
-		sc.add("// @return the internal reader");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Returns the internal reader.\n\n" +
+			"@return the internal reader"
+		);
+		
 		sc.add("protected " + READER + " getReader() {");
 		sc.add("return fReader;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Returns the next character.");
-		sc.add("// @return the next character");
-		sc.add("// @throws " + IO_EXCEPTION + " in case reading the character fails");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Returns the next character.\n\n" +
+			"@return the next character\n" +
+			"@throws " + IO_EXCEPTION + " in case reading the character fails"
+		);
+		
 		sc.add("protected int nextChar() throws " + IO_EXCEPTION + " {");
 		sc.add("fReadFromBuffer= (fBuffer.length() > 0);");
 		sc.add("if (fReadFromBuffer) {");
@@ -456,17 +452,15 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("return ch;");
 		sc.add("}");
-		sc.add("//*");
-		sc.add("// @see " + READER + "#ready()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see " + READER + "#ready()");
 		sc.add("public boolean ready() throws " + IO_EXCEPTION + " {");
 		sc.add("return fReader.ready();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// @see " + READER + "#reset()");
-		sc.add("///");
+		
+		sc.addJavadoc("@see " + READER + "#reset()");
 		sc.add("public void reset() throws " + IO_EXCEPTION + " {");
 		sc.add("fReader.reset();");
 		sc.add("fWasWhiteSpace= true;");
@@ -479,11 +473,12 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.add("fSkipWhiteSpace= state;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("//*");
-		sc.add("// Returns the readable content as string.");
-		sc.add("// @return the readable content as string");
-		sc.add("// @exception " + IO_EXCEPTION + " in case reading fails");
-		sc.add("///");
+		
+		sc.addJavadoc(
+			"Returns the readable content as string.\n\n" +
+			"@return the readable content as string" +
+			"@throws " + IO_EXCEPTION + " in case reading fails"
+		);
 		sc.add("public String getString() throws " + IO_EXCEPTION + " {");
 		sc.add("StringBuffer buf= new StringBuffer();");
 		sc.add("int ch;");
@@ -497,8 +492,10 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addLineBreak();
 		sc.add("private static final String UNIT;");
-		sc.add("// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993");
-		sc.add("//if the platform is a mac the UNIT is set to \"px\"");
+		sc.addComment(
+			"See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993\n" +
+			"if the platform is a mac the UNIT is set to \"px\""
+		);
 		sc.add("static {");
 		sc.add("String platform = " + SWT + ".getPlatform();");
 		sc.add("UNIT= (platform.equals(\"carbon\")||platform.equals(\"cocoa\")) ? \"px\" : \"pt\";");
@@ -506,7 +503,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("public static void addParagraph(StringBuffer buffer, String paragraph) {");
 		sc.add("if (paragraph != null) {");
-		sc.add("buffer.append(\"<p>\"); ");
+		sc.add("buffer.append(\"<p>\");");
 		sc.add("buffer.append(paragraph);");
 		sc.add("}");
 		sc.add("}");
@@ -515,27 +512,27 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("StringBuffer pageProlog= new StringBuffer(300);");
 		sc.addLineBreak();
-		sc.add("pageProlog.append(\"<html>\"); ");
+		sc.add("pageProlog.append(\"<html>\");");
 		sc.addLineBreak();
 		sc.add("if (styleSheet == null)");
 		sc.add("return;");
 		sc.addLineBreak();
-		sc.add("buffer.append(\"<head><style CHARSET=\\\"ISO-8859-1\\\" TYPE=\\\"text/css\\\">\"); ");
+		sc.add("buffer.append(\"<head><style CHARSET=\\\"ISO-8859-1\\\" TYPE=\\\"text/css\\\">\");");
 		sc.add("buffer.append(styleSheet);");
-		sc.add("buffer.append(\"</style></head><body>\"); ");
+		sc.add("buffer.append(\"</style></head><body>\");");
 		sc.addLineBreak();
 		sc.add("buffer.insert(position,  pageProlog.toString());");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public static void addPageEpilog(StringBuffer buffer) {");
-		sc.add("buffer.append(\"</body></html>\"); ");
+		sc.add("buffer.append(\"</body></html>\");");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public static void addSmallHeader(StringBuffer buffer, String header) {");
 		sc.add("if (header != null) {");
-		sc.add("buffer.append(\"<h5>\"); ");
+		sc.add("buffer.append(\"<h5>\");");
 		sc.add("buffer.append(header);");
-		sc.add("buffer.append(\"</h5>\"); ");
+		sc.add("buffer.append(\"</h5>\");");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -558,21 +555,23 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("StringBuffer styleBuf= new StringBuffer(10 * styles.length);");
 		sc.add("for (int i= 0; i < styles.length; i++) {");
-		sc.add("styleBuf.append(\" style=\\\"\"); ");
+		sc.add("styleBuf.append(\" style=\\\"\");");
 		sc.add("styleBuf.append(styles[i]);");
 		sc.add("styleBuf.append('\"');");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// Find insertion index");
-		sc.add("// a) within existing body tag with trailing space");
-		sc.add("int index= buffer.indexOf(\"<body \"); ");
+		sc.addComment(
+			"Find insertion index\n" +
+			"a) within existing body tag with trailing space"
+		);
+		sc.add("int index= buffer.indexOf(\"<body \");");
 		sc.add("if (index != -1) {");
 		sc.add("buffer.insert(index+5, styleBuf);");
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// b) within existing body tag without attributes");
-		sc.add("index= buffer.indexOf(\"<body>\"); ");
+		sc.addComment("b) within existing body tag without attributes");
+		sc.add("index= buffer.indexOf(\"<body>\");");
 		sc.add("if (index != -1) {");
 		sc.add("buffer.insert(index+5, ' ');");
 		sc.add("buffer.insert(index+6, styleBuf);");

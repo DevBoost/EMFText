@@ -60,9 +60,11 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A helper class that is able to create minimal model instances for Ecore");
-		sc.add("// models.");
-		sc.add("//");
+		sc.addJavadoc(
+			"A helper class that is able to create minimal model instances for Ecore " +
+			"models."
+		);
+		
 		// TODO mseifert: add cross references where possible
 		//                Proxies are now added with a pointer to nowhere. This way we have
 		//                at least something that can be printed even if it results in an error.
@@ -76,7 +78,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetMinimalModel1Method(sc);
 		addGetMinimalModel2Method(sc);
 		addGetMinimalModel3Method(sc);
@@ -98,7 +100,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetMinimalModel3Method(StringComposite sc) {
+	private void addGetMinimalModel3Method(JavaComposite sc) {
 		sc.add("public " + E_OBJECT + " getMinimalModel(" + E_CLASS + " eClass, " + E_CLASS + "[] allAvailableClasses, String name) {");
 		sc.add("if (!contains(allAvailableClasses, eClass)) {");
 		sc.add("return null;");
@@ -123,12 +125,12 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		sc.add("if (type instanceof " + E_CLASS + ") {");
 		sc.add(E_CLASS + " typeClass = (" + E_CLASS + ") type;");
 		sc.add("if (eClassUtil.isNotConcrete(typeClass)) {");
-		sc.add("// find subclasses");
+		sc.addComment("find subclasses");
 		sc.add(LIST + "<" + E_CLASS + "> subClasses = eClassUtil.getSubClasses(typeClass, allAvailableClasses);");
 		sc.add("if (subClasses.size() == 0) {");
 		sc.add("continue;");
 		sc.add("} else {");
-		sc.add("// pick the first subclass");
+		sc.addComment("pick the first subclass");
 		sc.add("typeClass = subClasses.get(0);");
 		sc.add("}");
 		sc.add("}");
@@ -148,7 +150,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		// the code below prevents the NewFileWizard for the CS language
 		// to work
 		sc.add("subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);");
-		sc.add("// set some proxy URI to make this object a proxy");
+		sc.addComment("set some proxy URI to make this object a proxy");
 		sc.add("String initialValue = \"#some\" + " + stringUtilClassName + ".capitalize(typeClass.getName());");
 		sc.add(URI + " proxyURI = " + URI + ".createURI(initialValue);");
 		sc.add("((" + INTERNAL_E_OBJECT + ") subModel).eSetProxyURI(proxyURI);");

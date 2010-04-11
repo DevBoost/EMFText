@@ -256,7 +256,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("fBrowserHasContent= content != null && content.length() > 0;");
 		sc.addLineBreak();
 		sc.add("if (!fBrowserHasContent)");
-		sc.add("content= \"<html><body ></html>\"; ");
+		sc.add("content= \"<html><body ></html>\";");
 		sc.addLineBreak();
 		sc.add("boolean RTL= (getShell().getStyle() & " + SWT + ".RIGHT_TO_LEFT) != 0;");
 		sc.add("boolean resizable= isResizable();");
@@ -275,9 +275,9 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 			"XXX: In IE, \"word-wrap: break-word;\" causes bogus wrapping even in non-broken words :-(see e.g. Javadoc of String). " +
 			"Re-check whether we really still need this now that the Javadoc Hover header already sets this style."
 		);
-		sc.add("styles= new String[] { \"overflow:hidden;\"/*, \"word-wrap: break-word;\"*/ }; ");
+		sc.add("styles= new String[] { \"overflow:hidden;\"/*, \"word-wrap: break-word;\"*/ };");
 		sc.add("} else {");
-		sc.add("styles= new String[] { \"overflow:scroll;\" }; ");
+		sc.add("styles= new String[] { \"overflow:scroll;\" };");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("StringBuffer buffer= new StringBuffer(content);");
@@ -384,11 +384,11 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("fBoldStyle = new " + TEXT_STYLE + "(font, null, null);");
 		sc.addLineBreak();
 		sc.addComment("Compute and set tab width");
-		sc.add("fTextLayout.setText(\"    \"); ");
+		sc.add("fTextLayout.setText(\"    \");");
 		sc.add("int tabWidth = fTextLayout.getBounds().width;");
 		sc.add("fTextLayout.setTabs(new int[] {tabWidth});");
 		sc.addLineBreak();
-		sc.add("fTextLayout.setText(\"\"); ");
+		sc.add("fTextLayout.setText(\"\");");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -442,7 +442,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		sc.add("textWidth= Math.max(textWidth, lineWidth);");
 		sc.add("}");
 		sc.add("bounds.width= textWidth;");
-		sc.add("fTextLayout.setText(\"\"); ");
+		sc.add("fTextLayout.setText(\"\");");
 		sc.addLineBreak();
 		sc.add("int minWidth= bounds.width;");
 		sc.add("height= height + bounds.height;");
@@ -573,7 +573,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 		);
 		sc.add("public String toString() {");
 		sc.add("String style= (getShell().getStyle() & " + SWT + ".RESIZE) == 0 ? \"fixed\" : \"resizeable\";");
-		sc.add("return super.toString() + \" -  style: \" + style; ");
+		sc.add("return super.toString() + \" -  style: \" + style;");
 		sc.add("}");
 		sc.addLineBreak();
 		

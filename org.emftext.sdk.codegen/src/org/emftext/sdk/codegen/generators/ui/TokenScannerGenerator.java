@@ -48,9 +48,10 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 	public boolean generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");
-		sc.add("// to the generated lexer.");
-		sc.add("//");
+		sc.addJavadoc(
+			"An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface " +
+			"to the generated lexer."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_SCANNER + " {");
 		sc.addLineBreak();
 		
@@ -62,7 +63,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetTokenLengthMethod(sc);
 		addGetTokenOffsetMethod(sc);
 		addNextTokenMethod(sc);
@@ -76,13 +77,13 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addSetRangeMethod(StringComposite sc) {
+	private void addSetRangeMethod(JavaComposite sc) {
 		sc.add("public void setRange(" + I_DOCUMENT + " document, int offset, int length) {");
 		sc.add("this.offset = offset;");
 		sc.add("try {");
 		sc.add("lexer.setText(document.get(offset, length));");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
-		sc.add("//ignore this error. It might occur during editing when locations are outdated quickly.");
+		sc.addComment("ignore this error. It might occur during editing when locations are outdated quickly.");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -138,10 +139,10 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
+	private void addConstructor(JavaComposite sc) {
 		String metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 
-		sc.add("// @param colorManager A manager to obtain color objects");
+		sc.addJavadoc("@param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + colorManagerClassName + " colorManager) {");
 		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");
 		sc.add("this.languageId = new " + metaInformationClassName + "().getSyntaxName();");

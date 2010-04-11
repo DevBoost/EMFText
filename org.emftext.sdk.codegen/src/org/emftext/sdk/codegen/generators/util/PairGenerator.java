@@ -24,11 +24,12 @@ public class PairGenerator extends JavaBaseGenerator {
 	public boolean generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A typed pair of objects.");
-		sc.add("//");
-		sc.add("// @param <T1> the type of the first (left) object");
-		sc.add("// @param <T2> the type of the second (right) object");
-		sc.add("//");
+		
+		sc.addJavadoc(
+			"A typed pair of objects.\n\n" +
+			"@param <T1> the type of the first (left) object\n" +
+			"@param <T2> the type of the second (right) object"
+		);
 		sc.add("public class " + getResourceClassName() + "<T1, T2> {");
 		sc.addLineBreak();
 		addFields(sc);

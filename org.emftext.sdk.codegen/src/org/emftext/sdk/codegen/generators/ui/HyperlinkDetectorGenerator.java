@@ -48,8 +48,11 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A hyperlink detector returns hyperlink if the token, where the mouse cursor");
-		sc.add("// hovers, is a proxy.");
+		
+		sc.addJavadoc(
+			"A hyperlink detector returns hyperlink if the token, where the mouse cursor " +
+			"hovers, is a proxy."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + I_HYPERLINK_DETECTOR + " {");
 		sc.addLineBreak();
 
@@ -90,11 +93,14 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates a hyperlink detector.");
-		sc.add("// @param resource the resource for calculating the locations.");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a hyperlink detector.\n\n" +
+			"@param resource the resource to use for calculating the locations."
+		);
 		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");
 		sc.add("textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
 		sc.add("}");

@@ -124,7 +124,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addMarkerUpdateListenerClass(sc);
 		addDocumentListenerClass(sc);
 		addModelResourceChangeListenerClass(sc);
@@ -176,23 +176,22 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreateSourceViewerMethod(StringComposite sc) {
+	private void addCreateSourceViewerMethod(JavaComposite sc) {
 		sc.add("protected " + I_SOURCE_VIEWER + " createSourceViewer(" + COMPOSITE + " parent, " + I_VERTICAL_RULER + " ruler, int styles) {");
 		sc.add(I_SOURCE_VIEWER + " viewer = new " + PROJECTION_VIEWER + "(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);");
-		sc.add("// ensure decoration support has been created and configured.");
+		sc.addComment("ensure decoration support has been created and configured.");
 		sc.add("getSourceViewerDecorationSupport(viewer);");
 		sc.add("return viewer;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSetCaretMethod(StringComposite sc) {
-		sc.add("//");
-		sc.add("// Sets the caret to the offset of the given element.");
-		sc.add("//");
-		sc.add("// @param element");
-		sc.add("//            has to be contained in the resource of this editor.");
-		sc.add("//");
+	private void addSetCaretMethod(JavaComposite sc) {
+		
+		sc.addJavadoc(
+			"Sets the caret to the offset of the given element.\n\n" +
+			"@param element has to be contained in the resource of this editor."
+		);
 		sc.add("public void setCaret(" + E_OBJECT + " element, String text) {");
 		sc.add("try {");
 		sc.add("if (element == null || text == null || text.equals(\"\")) {");
@@ -231,7 +230,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitializeEditingDomainMethod(StringComposite sc) {
+	private void addInitializeEditingDomainMethod(JavaComposite sc) {
 		sc.add("private void initializeEditingDomain() {");
 		sc.add("adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(" + COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
 		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
@@ -239,8 +238,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
 		sc.addLineBreak();
 		sc.add(BASIC_COMMAND_STACK + " commandStack = new " + BASIC_COMMAND_STACK + "();");
-		sc.add("// CommandStackListeners can listen for changes. Not sure whether this");
-		sc.add("// is needed.");
+		sc.addComment("CommandStackListeners can listen for changes. Not sure whether this is needed.");
 		sc.addLineBreak();
 		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory,commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
 		sc.add("}");
@@ -272,14 +270,16 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetPropertySheetPageMethod(StringComposite sc) {
+	private void addGetPropertySheetPageMethod(JavaComposite sc) {
 		sc.add("public " + I_PROPERTY_SHEET_PAGE + " getPropertySheetPage() {");
 		sc.add("if (propertySheetPage == null) {");
 		sc.add("propertySheetPage = new " + propertySheetClassName + "();");
-		sc.add("// add a slightly modified adapter factory that does not return any");
-		sc.add("// editors for properties");
-		sc.add("// this way, a model can never be modified through the properties");
-		sc.add("// view");
+		sc.addComment(
+			"add a slightly modified adapter factory that does not return any " +
+			"editors for properties. " +
+			"this way, a model can never be modified through the properties" +
+			"view."
+		);
 		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory) {");
 		sc.add("protected " + I_PROPERTY_SOURCE + " createPropertySource(" + OBJECT + " object, " + I_ITEM_PROPERTY_SOURCE + " itemPropertySource) {");
 		sc.add("return new " + PROPERTY_SOURCE + "(object, itemPropertySource) {");
@@ -339,7 +339,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPerformSaveAsMethod(StringComposite sc) {
+	private void addPerformSaveAsMethod(JavaComposite sc) {
 		sc.add("protected void performSaveAs(" + I_PROGRESS_MONITOR + " progressMonitor) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") getEditorInput();");
 		sc.add("String path = input.getFile().getFullPath().toString();");
@@ -349,15 +349,15 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("super.performSaveAs(progressMonitor);");
 		sc.addLineBreak();
-		sc.add("// load and resave - input has been changed to new path by super");
+		sc.addComment("load and resave - input has been changed to new path by super");
 		sc.add(FILE_EDITOR_INPUT + " newInput = (" + FILE_EDITOR_INPUT + ") getEditorInput();");
 		sc.add("String newPath = newInput.getFile().getFullPath().toString();");
 		sc.add(URI + " newPlatformURI = " + URI + ".createPlatformResourceURI(newPath, true);");
 		sc.add(RESOURCE + " newFile = resourceSet.createResource(newPlatformURI);");
-		sc.add("// if the extension is the same, saving was already performed by super by saving the plain text");
+		sc.addComment("if the extension is the same, saving was already performed by super by saving the plain text");
 		sc.add("if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {");
 		sc.add("oldFile.unload();");
-		sc.add("// save code folding state, is it possible with a new name");
+		sc.addComment("save code folding state, is it possible with a new name");
 		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
 		sc.add("}");
 		sc.add("else {");
@@ -395,14 +395,14 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPerformSaveMethod(StringComposite sc) {
+	private void addPerformSaveMethod(JavaComposite sc) {
 		sc.add("protected void performSave(boolean overwrite, " + I_PROGRESS_MONITOR + " progressMonitor) {");
 		sc.addLineBreak();
 		sc.add("super.performSave(overwrite, progressMonitor);");
-		sc.add("// update markers after the resource has been reloaded");
+		sc.addComment("update markers after the resource has been reloaded");
 		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
-		sc.add("// Save code folding state");
+		sc.addComment("Save code folding state");
 		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -423,7 +423,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitializeResourceObjectMethod(StringComposite sc) {
+	private void addInitializeResourceObjectMethod(JavaComposite sc) {
 		boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.DISABLE_BUILDER);
 
 		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT + " editorInput) {");
@@ -440,10 +440,10 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("if (loadedResource == null) {");
 		sc.add("try {");
 		sc.add(RESOURCE  + " demandLoadedResource = null;");
-		sc.add("//here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
+		sc.addComment("here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = this.resource;");
 		sc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
-		sc.add("//do not attempt to load if file extension has changed in a 'save as' operation	");
+		sc.addComment("do not attempt to load if file extension has changed in a 'save as' operation	");
 		sc.add("}");
 		sc.add("else {");
 		sc.add("demandLoadedResource = resourceSet.getResource(uri, true);");
@@ -451,10 +451,9 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("if (demandLoadedResource instanceof " + getClassNameHelper().getI_TEXT_RESOURCE() + ") {");
 		sc.add("setResource((" + getClassNameHelper().getI_TEXT_RESOURCE() + ") demandLoadedResource);");
 		sc.add("} else {");
-		sc.add("// the resource was not loaded by an EMFText resource, but");
-		sc.add("// some other EMF resource");
+		sc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
 		sc.add(activatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
-		sc.add("//close this editor because it can not present the resource");
+		sc.addComment("close this editor because it can not present the resource");
 		sc.add("close(false);");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
@@ -467,23 +466,25 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreatePartControlMethod(StringComposite sc) {
+	private void addCreatePartControlMethod(JavaComposite sc) {
 		sc.add("public void createPartControl(" + COMPOSITE + " parent) {");
 		sc.add("super.createPartControl(parent);");
 		sc.add("display = parent.getShell().getDisplay();");
-		sc.add("// we might need to refresh the markers, because the display was not set before, which");
-		sc.add("// prevents updates of the markers");
+		sc.addComment(
+			"we might need to refresh the markers, because the display was not set before, which " +
+			"prevents updates of the markers"
+		);
 		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
-		sc.add("// Code Folding");
+		sc.addComment("Code Folding");
 		sc.add(PROJECTION_VIEWER + " viewer = (" + PROJECTION_VIEWER + ") getSourceViewer();");
-		sc.add("// Occurrence initiation, need ITextResource and ISourceViewer.");
+		sc.addComment("Occurrence initiation, need ITextResource and ISourceViewer.");
 		sc.add("highlighting = new " + highlightingClassName + "(getResource(), viewer, colorManager, this);");
 		sc.addLineBreak();
 		sc.add("projectionSupport = new " + PROJECTION_SUPPORT + "(viewer, getAnnotationAccess(), getSharedColors());");
 		sc.add("projectionSupport.install();");
 		sc.addLineBreak();
-		sc.add("// turn projection mode on");
+		sc.addComment("turn projection mode on");
 		sc.add("viewer.doOperation(" + PROJECTION_VIEWER + ".TOGGLE);");
 		sc.add("codeFoldingManager = new " + codeFoldingManagerClassName + "(viewer, this);");
 		sc.add("}");
@@ -523,15 +524,14 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addModelResourceChangeListenerClass(StringComposite sc) {
-		sc.add("//");
-		sc.add("// Reacts to changes of the text resource displayed in the editor and");
-		sc.add("// resources cross-referenced by it. Cross-referenced resources are");
-		sc.add("// unloaded, the displayed resource is reloaded. An attempt to resolve all");
-		sc.add("// proxies in the displayed resource is made after each change.");
-		sc.add("//");
-		sc.add("// The code pretty much corresponds to what EMF generates for a tree editor");
-		sc.add("//");
+	private void addModelResourceChangeListenerClass(JavaComposite sc) {
+		sc.addJavadoc(
+			"Reacts to changes of the text resource displayed in the editor and " +
+			"resources cross-referenced by it. Cross-referenced resources are " +
+			"unloaded, the displayed resource is reloaded. An attempt to resolve all " +
+			"proxies in the displayed resource is made after each change.\n\n" +
+			"The code pretty much corresponds to what EMF generates for a tree editor."
+		);
 		sc.add("private class ModelResourceChangeListener implements " + I_RESOURCE_CHANGE_LISTENER + " {");
 		sc.add("public void resourceChanged(" + I_RESOURCE_CHANGE_EVENT + " event) {");
 		sc.add(I_RESOURCE_DELTA + " delta = event.getDelta();");
@@ -550,7 +550,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("changedResource.unload();");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = getResource();");
 		sc.add("if (changedResource.equals(currentResource)) {");
-		sc.add("// reload the resource displayed in the editor");
+		sc.addComment("reload the resource displayed in the editor");
 		sc.add("resourceSet.getResource(currentResource.getURI(), true);");
 		sc.add("}");
 		// TODO this is kind of strange, since the code is the same as in setResource()
@@ -559,8 +559,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add(ECORE_UTIL + ".resolveAll(currentResource);");
 		sc.add("}");
 		sc.add("refreshMarkers(currentResource);");
-		sc.add("// reset the selected element in outline and");
-		sc.add("// properties by text position");
+		sc.addComment("reset the selected element in outline and properties by text position");
 		sc.add("if (highlighting != null) {");
 		sc.add("highlighting.setEObjectSelection();");
 		sc.add("}");
@@ -581,8 +580,8 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDocumentListenerClass(StringComposite sc) {
-		sc.add("// A custom document listener that triggers background parsing if needed.");
+	private void addDocumentListenerClass(JavaComposite sc) {
+		sc.addJavadoc("A custom document listener that triggers background parsing if needed.");
 		sc.add("private final class DocumentListener implements " + I_DOCUMENT_LISTENER + " {");
 		sc.addLineBreak();
 		sc.add("public void documentAboutToBeChanged(" + DOCUMENT_EVENT + " event) {");

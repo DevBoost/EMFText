@@ -52,16 +52,35 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Class ResourceUtil can be used to perform common tasks on resources,");
-		sc.add("// such as resolving proxy object, saving resources, as well as, checking");
-		sc.add("// them for errors.");
+		sc.addJavadoc(
+			"Class ResourceUtil can be used to perform common tasks on resources, " +
+			"such as resolving proxy object, saving resources, as well as, checking " +
+			"them for errors."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("// Searches for all unresolved proxy object in the given resource.");
-		sc.add("//");
-		sc.add("// @param resource");
-		sc.add("// @return all proxy object that are not resolvable");
+		addMethods(sc);
+		
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addFindUnresolvedProxiesMethod(sc);
+		addResolveAllMethod(sc);
+		addSaveResourceMethod(sc);
+		addContainsErrorsMethod(sc);
+		addContainsWarningsMethod(sc);
+		addContainsProblemsMethod(sc);
+	}
+
+	private void addFindUnresolvedProxiesMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches for all unresolved proxy object in the given resource.\n\n" +
+			"@param resource\n" +
+			"@return all proxy object that are not resolvable"
+		);
 		sc.add("public static " + LIST + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
 		sc.add(LIST + "<" + E_OBJECT + "> unresolveProxies = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
@@ -80,15 +99,17 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("return unresolveProxies;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("// Tries to resolve all unresolved proxy objects in the");
-		sc.add("// given resource. If all proxies were resolved true is");
-		sc.add("// returned. If some could not be resolved, false is");
-		sc.add("// returned.");
-		sc.add("//");
-		sc.add("// @param resource the resource containing the proxy object");
-		sc.add("// @return true on success");
-		
+	}
+
+	private void addResolveAllMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Tries to resolve all unresolved proxy objects in the " +
+			"given resource. If all proxies were resolved true is " +
+			"returned. If some could not be resolved, false is " +
+			"returned.\n\n" +
+			"@param resource the resource containing the proxy object\n" +
+			"@return true on success"
+		);
 		sc.add("public static boolean resolveAll(" + RESOURCE + " resource) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("if (findUnresolvedProxies(resource).size() > 0) {");
@@ -98,6 +119,9 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addSaveResourceMethod(JavaComposite sc) {
 		sc.add("public static void saveResource(" + FILE + " file, " + RESOURCE + " resource) throws " + IO_EXCEPTION + " {");
 		sc.add(MAP + "<?, ?> options = " + COLLECTIONS + ".EMPTY_MAP;");
 		sc.add(OUTPUT_STREAM + " outputStream = new " + FILE_OUTPUT_STREAM + "(file);");
@@ -105,18 +129,26 @@ public class ResourceUtilGenerator extends JavaBaseGenerator {
 		sc.add("outputStream.close();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addContainsErrorsMethod(JavaComposite sc) {
 		sc.add("public static boolean containsErrors(" + RESOURCE + " resource) {");
 		sc.add("return !resource.getErrors().isEmpty();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addContainsWarningsMethod(JavaComposite sc) {
 		sc.add("public static boolean containsWarnings(" + RESOURCE + " resource) {");
 		sc.add("return !resource.getWarnings().isEmpty();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addContainsProblemsMethod(JavaComposite sc) {
 		sc.add("public static boolean containsProblems(" + RESOURCE + " resource) {");
 		sc.add("return containsErrors(resource) || containsWarnings(resource);");
 		sc.add("}");
-		sc.add("}");
-		return true;
+		sc.addLineBreak();
 	}
 }

@@ -42,7 +42,8 @@ public class PixelConverterGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A utility class for pixel conversion.");
+		
+		sc.addJavadoc("A utility class for pixel conversion.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("private " + FONT_METRICS + " fFontMetrics;");

@@ -87,10 +87,12 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A class to display the information of an element.");
-		sc.add("// Most of the code is taken from");
-		sc.add("// <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>.");
-		sc.add("//");
+		
+		sc.addJavadoc(
+			"A class to display the information of an element. " +
+			"Most of the code is taken from " +
+			"<code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + I_TEXT_HOVER + ", " + I_TEXT_HOVER_EXTENSION + ", " + I_TEXT_HOVER_EXTENSION2 + "{");
 		sc.addLineBreak();
 
@@ -103,7 +105,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetHoverInfoMethod(sc);
 		addGetHoverRegionMethod(sc);
 		addGetHoverControlCreatorMethod(sc);
@@ -116,26 +118,28 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		addGetFirstProxyMethod(sc);
 	}
 
-	private void addInnerClasses(StringComposite sc) {
+	private void addInnerClasses(JavaComposite sc) {
 		addSimpleSelectionProviderClass(sc);
 		addOpenDeclarationActionClass(sc);
 		addPresenterControlCreatorClass(sc);
 		addHoverControlCreatorClass(sc);
 	}
 
-	private void addHoverControlCreatorClass(StringComposite sc) {
-		sc.add("//Hover control creator. Creates a hover control before focus.");
+	private void addHoverControlCreatorClass(JavaComposite sc) {
+		sc.addJavadoc("Hover control creator. Creates a hover control before focus.");
 		sc.add("public static final class HoverControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
 		sc.addLineBreak();
-		sc.add("// The information presenter control creator.");
+		
+		sc.addJavadoc("The information presenter control creator.");
 		sc.add("private final " + I_INFORMATION_CONTROL_CREATOR + " fInformationPresenterControlCreator;");
 		sc.addLineBreak();
-		sc.add("// @param informationPresenterControlCreator");
-		sc.add("//            control creator for enriched hover");
+		
+		sc.addJavadoc("@param informationPresenterControlCreator control creator for enriched hover");
 		sc.add("public HoverControlCreator(" + I_INFORMATION_CONTROL_CREATOR + " informationPresenterControlCreator) {");
 		sc.add("fInformationPresenterControlCreator = informationPresenterControlCreator;");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
 		sc.add("String tooltipAffordanceString = " + EDITORS_UI + ".getTooltipAffordanceString();");
 		sc.add("if (" + browserInformationControlClassName + ".isAvailable(parent)) {");
@@ -150,6 +154,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public boolean canReuse(" + I_INFORMATION_CONTROL + " control) {");
 		sc.add("if (!super.canReuse(control)) {");
 		sc.add("return false;");
@@ -184,17 +189,20 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " hoverTextProvider;");
-		sc.add("// The style sheet (css).");
+		
+		sc.addJavadoc("The style sheet (css).");
 		sc.add("private static String styleSheet;");
 		sc.addLineBreak();
-		sc.add("// The hover control creator.");
+		
+		sc.addJavadoc("The hover control creator.");
 		sc.add("private " + I_INFORMATION_CONTROL_CREATOR + " hoverControlCreator;");
 		sc.addLineBreak();
-		sc.add("// The presentation control creator.");
+		
+		sc.addJavadoc("The presentation control creator.");
 		sc.add("private " + I_INFORMATION_CONTROL_CREATOR + " presenterControlCreator;");
 		sc.addLineBreak();
 	}
@@ -240,24 +248,19 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfo3Method(StringComposite sc) {
-		sc.add("// Computes the hover info.");
-		sc.add("//");
-		sc.add("// @param elements");
-		sc.add("//            the resolved elements");
-		sc.add("// @param constantValue");
-		sc.add("//            a constant value iff result contains exactly 1 constant field,");
-		sc.add("//            or <code>null</code>");
-		sc.add("// @param previousInput");
-		sc.add("//            the previous input, or <code>null</code>");
-		sc.add("// @return the HTML hover info for the given element(s) or <code>null</code>");
-		sc.add("//         if no information is available");
+	private void addGetHoverInfo3Method(JavaComposite sc) {
+		sc.addJavadoc(
+			"Computes the hover info.\n\n" +
+			"@param elements the resolved elements\n" +
+			"@param constantValue a constant value iff result contains exactly 1 constant field, or <code>null</code>\n" +
+			"@param previousInput the previous input, or <code>null</code>\n" +
+			"@return the HTML hover info for the given element(s) or <code>null</code> if no information is available"
+		);
 		sc.add("private " + docBrowserInformationControlInputClassName + " getHoverInfo(" + LIST + "<" + E_OBJECT + "> elements, " + I_TEXT_VIEWER + " textViewer, " + docBrowserInformationControlInputClassName + " previousInput) {");
 		sc.add("StringBuffer buffer = new StringBuffer();");
 		sc.add(E_OBJECT + " proxyObject = getFirstProxy(elements);");
 		sc.add(E_OBJECT + " declarationObject = null;");
-		sc.add("// get the token text, which is hovered. It is needed to jump to the");
-		sc.add("// declaration.");
+		sc.addComment("get the token text, which is hovered. It is needed to jump to the declaration.");
 		sc.add("String tokenText = \"\";");
 		sc.add("if (proxyObject != null) {");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
@@ -285,17 +288,17 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetStyleSheetMethod(StringComposite sc) {
-		sc.add("// Sets the style sheet font.");
-		sc.add("//");
-		sc.add("// @return the hover style sheet");
-		sc.add("//");
+	private void addGetStyleSheetMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Sets the style sheet font.\n\n" +
+			"@return the hover style sheet"
+		);
 		sc.add("private static String getStyleSheet() {");
 		sc.add("if (styleSheet == null) {");
 		sc.add("styleSheet = loadStyleSheet();");
 		sc.add("}");
 		sc.add("String css = styleSheet;");
-		sc.add("// Sets background color for the hover text window");
+		sc.addComment("Sets background color for the hover text window");
 		sc.add("css += \"body {background-color:#FFFFE1;}\\n\";");
 		sc.add("if (css != null) {");
 		sc.add(FONT_DATA + " fontData = " + J_FACE_RESOURCES + ".getFontRegistry().getFontData(FONT)[0];");
@@ -318,10 +321,11 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addLoadStyleSheetMethod(StringComposite sc) {
-		sc.add("// Loads and returns the hover style sheet.");
-		sc.add("//");
-		sc.add("// @return the style sheet, or <code>null</code> if unable to load");
+	private void addLoadStyleSheetMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Loads and returns the hover style sheet.\n\n" +
+			"@return the style sheet, or <code>null</code> if unable to load"
+		);
 		sc.add("private static String loadStyleSheet() {");
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
 		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + GenerationContext.DEFAULT_CSS_DIR + "/" + GenerationContext.HOVER_STYLE_FILENAME + "\");");
@@ -355,8 +359,8 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPresenterControlCreatorClass(StringComposite sc) {
-		sc.add("// Presenter control creator. Creates a hover control after focus.");
+	private void addPresenterControlCreatorClass(JavaComposite sc) {
+		sc.addJavadoc("Presenter control creator. Creates a hover control after focus.");
 		sc.add("public static final class PresenterControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
 		sc.addLineBreak();
 		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
@@ -375,9 +379,11 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add(docBrowserInformationControlInputClassName + " input = (" + docBrowserInformationControlInputClassName + ") newInput;");
 		sc.add(OBJECT + " inputElement = input.getInputElement();");
 		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION + "(inputElement));");
-		sc.add("// If there is an element of type EObject in the");
-		sc.add("// input element, the button to open the declaration");
-		sc.add("// will be set enable");
+		sc.addComment(
+			"If there is an element of type EObject in the " +
+			"input element, the button to open the declaration " +
+			"will be set enable"
+		);
 		sc.add("boolean isEObjectInput = inputElement instanceof " + E_OBJECT + ";");
 		sc.add("openDeclarationAction.setEnabled(isEObjectInput);");
 		sc.add("if (isEObjectInput) {");
@@ -401,18 +407,19 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addOpenDeclarationActionClass(StringComposite sc) {
-		sc.add("// This action will be activated if the button in the hover window is pushed");
-		sc.add("// to jump to the declaration.");
+	private void addOpenDeclarationActionClass(JavaComposite sc) {
+		sc.addJavadoc(
+			"This action will be activated if the button in the hover window is pushed " +
+			"to jump to the declaration."
+		);
 		sc.add("public static class OpenDeclarationAction extends " + ACTION + " {");
 		sc.addLineBreak();
 		sc.add("private final " + browserInformationControlClassName + " infoControl;");
 		sc.addLineBreak();
-		sc.add("// Creates the action to jump to the declaration.");
-		sc.add("//");
-		sc.add("// @param infoControl");
-		sc.add("//            the info control holds the hover information and the");
-		sc.add("//            target element");
+		sc.addJavadoc(
+			"Creates the action to jump to the declaration.\n\n" +
+			"@param infoControl the info control holds the hover information and the target element"
+		);
 		sc.add("public OpenDeclarationAction(" + browserInformationControlClassName + " infoControl) {");
 		sc.add("this.infoControl = infoControl;");
 		sc.add("setText(\"Open Declaration\");");
@@ -421,7 +428,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("setImageDescriptor(images.getImageDescriptor(" + I_SHARED_IMAGES + ".IMG_ETOOL_HOME_NAV));");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// Creates, sets, activates a hyperlink.");
+		sc.addJavadoc("Creates, sets, activates a hyperlink.");
 		sc.add("public void run() {");
 		sc.add(docBrowserInformationControlInputClassName + " infoInput = (" + docBrowserInformationControlInputClassName + ") infoControl.getInput();");
 		sc.add("infoControl.notifyDelayedInputChange(null);");
@@ -439,9 +446,11 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates a new TextHover to collect the information about the hovered");
-		sc.add("// element.");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a new TextHover to collect the information about the hovered " +
+			"element."
+		);
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
 		sc.add("super();");
 		sc.add("this.editor = editor;");
@@ -450,10 +459,12 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSimpleSelectionProviderClass(StringComposite sc) {
-		sc.add("// A simple default implementation of a {@link " + I_SELECTION_PROVIDER + "}. It stores");
-		sc.add("// the selection and notifies all selection change listeners when the selection");
-		sc.add("// is set.");
+	private void addSimpleSelectionProviderClass(JavaComposite sc) {
+		sc.addJavadoc(
+			"A simple default implementation of a {@link " + I_SELECTION_PROVIDER + "}. It stores " +
+			"the selection and notifies all selection change listeners when the selection " +
+			"is set."
+		);
 		sc.add("public static class SimpleSelectionProvider implements " + I_SELECTION_PROVIDER + " {");
 		sc.addLineBreak();
 		sc.add("private final " + LISTENER_LIST + " selectionChangedListeners;");

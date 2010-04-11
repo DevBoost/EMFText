@@ -20,7 +20,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR_SELECTOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EDITOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
@@ -88,10 +87,12 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Preference page for configuring syntax coloring.");
-		sc.add("// <p>");
-		sc.add("// <i>Parts of the code were taken from the JDT Java " + EDITOR + "</i>");
-		sc.add("///");
+		sc.addJavadoc(
+			"Preference page for configuring syntax coloring.\n" +
+			"<p>" +
+			"<i>Parts of the code were taken from the JDT Java Editor</i>"
+		);
+		
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -101,7 +102,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		addChangedRGBPreferenceClass(sc);
 		addHighlightingColorListItemClass(sc);
 		addColorListLabelProviderClass(sc);
-		sc.add("// Color list content provider.");
+		sc.addJavadoc("Color list content provider.");
 		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER + " {");
 		sc.addLineBreak();
 		sc.add("public ColorListContentProvider() {");
@@ -139,15 +140,15 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("private " + LABEL + " fColorEditorLabel;");
 		sc.add("private " + BUTTON + " fBoldCheckBox;");
 		sc.add("private " + BUTTON + " fEnableCheckbox;");
-		sc.add("// Check box for italic preference.");
+		sc.addJavadoc("Check box for italic preference.");
 		sc.add("private " + BUTTON + " fItalicCheckBox;");
-		sc.add("// Check box for strikethrough preference.");
+		sc.addJavadoc("Check box for strikethrough preference.");
 		sc.add("private " + BUTTON + " fStrikethroughCheckBox;");
-		sc.add("// Check box for underline preference.");
+		sc.addJavadoc("Check box for underline preference.");
 		sc.add("private " + BUTTON + " fUnderlineCheckBox;");
 		sc.add("private " + BUTTON + " fForegroundColorButton;");
 		sc.addLineBreak();
-		sc.add("// Highlighting color list viewer");
+		sc.addJavadoc("Highlighting color list viewer");
 		sc.add("private " + STRUCTURED_VIEWER + " fListViewer;");
 		sc.addLineBreak();
 		sc.add("public void dispose() {");
@@ -245,7 +246,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add(SCROLL_BAR + " vBar = ((" + SCROLLABLE + ") fListViewer.getControl()).getVerticalBar();");
 		sc.add("if (vBar != null)");
 		sc.add("maxWidth += vBar.getSize().x * 3; // scrollbars and tree indentation");
-		sc.add("// guess");
+		sc.addComment("guess");
 		sc.add("gd.widthHint = maxWidth;");
 		sc.addLineBreak();
 		sc.add("fListViewer.getControl().setLayoutData(gd);");
@@ -263,7 +264,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("private void addListenersToStyleButtons() {");
 		sc.add("fForegroundColorButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -277,7 +278,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("fBoldCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -289,7 +290,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("fItalicCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -300,7 +301,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("});");
 		sc.add("fStrikethroughCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -312,7 +313,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("fUnderlineCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -324,7 +325,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("fEnableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("// do nothing");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
@@ -339,8 +340,8 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("fItalicCheckBox.setEnabled(enable);");
 		sc.add("fStrikethroughCheckBox.setEnabled(enable);");
 		sc.add("fUnderlineCheckBox.setEnabled(enable);");
-		sc.add("// uninstallSemanticHighlighting();");
-		sc.add("// installSemanticHighlighting();");
+		sc.addComment("uninstallSemanticHighlighting();");
+		sc.addComment("installSemanticHighlighting();");
 		sc.add("}");
 		sc.add("});");
 		sc.add("}");
@@ -413,7 +414,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("filler.setLayoutData(gd);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// Returns the current highlighting color list item.");
+		sc.addJavadoc("Returns the current highlighting color list item.");
 		sc.add("private HighlightingColorListItem getHighlightingColorListItem() {");
 		sc.add(I_STRUCTURED_SELECTION + " selection = (" + I_STRUCTURED_SELECTION + ") fListViewer.getSelection();");
 		sc.add("Object element = selection.getFirstElement();");
@@ -471,7 +472,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("if (!super.performCancel()) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("// discard all changes that were made");
+		sc.addComment("discard all changes that were made");
 		sc.add("changedPreferences.clear();");
 		sc.add("return true;");
 		sc.add("}");
@@ -488,7 +489,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("super.performDefaults();");
 		sc.addLineBreak();
 		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
-		sc.add("// reset all preferences to their default values");
+		sc.addComment("reset all preferences to their default values");
 		sc.add("for (String languageID : content.keySet()) {");
 		sc.add(LIST + "<HighlightingColorListItem> items = content.get(languageID);");
 		sc.add("for (HighlightingColorListItem item : items) {");
@@ -525,8 +526,8 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addColorListLabelProviderClass(StringComposite sc) {
-		sc.add("// Color list label provider.");
+	private void addColorListLabelProviderClass(JavaComposite sc) {
+		sc.addJavadoc("Color list label provider.");
 		sc.add("private class ColorListLabelProvider extends " + LABEL_PROVIDER + " {");
 		sc.addLineBreak();
 		sc.add("public String getText(Object element) {");
@@ -538,24 +539,24 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHighlightingColorListItemClass(StringComposite sc) {
-		sc.add("// Item in the highlighting color list.");
+	private void addHighlightingColorListItemClass(JavaComposite sc) {
+		sc.addJavadoc("Item in the highlighting color list.");
 		sc.add("private static class HighlightingColorListItem implements Comparable<HighlightingColorListItem> {");
-		sc.add("// Display name ");
+		sc.addJavadoc("Display name");
 		sc.add("private String fDisplayName;");
-		sc.add("// Color preference key");
+		sc.addJavadoc("Color preference key");
 		sc.add("private String fColorKey;");
-		sc.add("// Bold preference key");
+		sc.addJavadoc("Bold preference key");
 		sc.add("private String fBoldKey;");
-		sc.add("// Italic preference key");
+		sc.addJavadoc("Italic preference key");
 		sc.add("private String fItalicKey;");
-		sc.add("// Strikethrough preference key.");
+		sc.addJavadoc("Strikethrough preference key.");
 		sc.add("private String fStrikethroughKey;");
-		sc.add("// Underline preference key.");
+		sc.addJavadoc("Underline preference key.");
 		sc.add("private String fUnderlineKey;");
 		sc.add("private String fEnableKey;");
 		sc.addLineBreak();
-		sc.add("// Initialize the item with the given values.");
+		sc.addJavadoc("Initializes a new item with the given values.");
 		sc.add("public HighlightingColorListItem(String languageID, String tokenName) {");
 		sc.add("fDisplayName = tokenName;");
 		sc.add("fColorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.COLOR);");
@@ -566,43 +567,53 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("fEnableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.ENABLE);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the bold preference key");
+		
+		sc.addJavadoc("@return the bold preference key");
 		sc.add("public String getBoldKey() {");
 		sc.add("return fBoldKey;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the bold preference key");
+		
+		sc.addJavadoc("@return the italic preference key");
 		sc.add("public String getItalicKey() {");
 		sc.add("return fItalicKey;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the strikethrough preference key");
+		
+		sc.addJavadoc("@return the strikethrough preference key");
 		sc.add("public String getStrikethroughKey() {");
 		sc.add("return fStrikethroughKey;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the underline preference key");
+		
+		sc.addJavadoc("@return the underline preference key");
 		sc.add("public String getUnderlineKey() {");
 		sc.add("return fUnderlineKey;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the color preference key");
+		
+		sc.addJavadoc("@return the color preference key");
 		sc.add("public String getColorKey() {");
 		sc.add("return fColorKey;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// @return the display name");
+		
+		sc.addJavadoc("@return the display name");
 		sc.add("public String getDisplayName() {");
 		sc.add("return fDisplayName;");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public String getEnableKey() {");
 		sc.add("return fEnableKey;");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public int compareTo(HighlightingColorListItem o) {");
 		sc.add("return fDisplayName.compareTo(o.getDisplayName());");
 		sc.add("}");
+		sc.addLineBreak();
+		
 		sc.add("}");
 		sc.addLineBreak();
 	}

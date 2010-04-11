@@ -534,7 +534,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("if (!uriFragment.getReference().isContainment() && oppositeReference != null) {");
     	sc.add("if (reference.isMany()) {");
     	sc.add(MANY_INVERSE + "<" + E_OBJECT + "> list = " + getClassNameHelper().getCAST_UTIL() + ".cast(element.eGet(oppositeReference, false));					");
-    	sc.addComment("avoids duplicate entries in the reference caused by adding to the oppositeReference ");
+    	sc.addComment("avoids duplicate entries in the reference caused by adding to the oppositeReference");
     	sc.add("list.basicAdd(uriFragment.getContainer(),null);");
     	sc.add("} else {");
     	sc.add("uriFragment.getContainer().eSet(uriFragment.getReference(), element);");

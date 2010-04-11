@@ -61,9 +61,11 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// The NewWizardPage allows setting the container for the new file, as well");
-		sc.add("// as the file name. The page will only accept file name without the extension");
-		sc.add("// OR with the extension that matches the expected one.");
+		sc.addJavadoc(
+			"The NewWizardPage allows setting the container for the new file, as well " +
+			"as the file name. The page will only accept file names without extension " +
+			"OR with an extension that matches the expected one."
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + WIZARD_PAGE + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -73,7 +75,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addCreateControlMethod(sc);
 		addInitializeMethod(sc);
 		addHandleBrowseMethod(sc);
@@ -104,8 +106,8 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addDialogChangedMethod(StringComposite sc) {
-		sc.add("// Ensures that both text fields are set.");
+	private void addDialogChangedMethod(JavaComposite sc) {
+		sc.addJavadoc("Ensures that both text fields are set.");
 		sc.add("private void dialogChanged() {");
 		sc.add(I_RESOURCE + " container = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(new " + PATH + "(getContainerName()));");
 		sc.add("String fileName = getFileName();");
@@ -139,9 +141,11 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHandleBrowseMethod(StringComposite sc) {
-		sc.add("// Uses the standard container selection dialog to choose the new value for");
-		sc.add("// the container field.");
+	private void addHandleBrowseMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Uses the standard container selection dialog to choose the new value for " +
+			"the container field."
+		);
 		sc.add("private void handleBrowse() {");
 		sc.add(CONTAINER_SELECTION_DIALOG + " dialog = new " + CONTAINER_SELECTION_DIALOG + "(");
 		sc.add("getShell(), " + RESOURCES_PLUGIN + ".getWorkspace().getRoot(), false,");
@@ -156,8 +160,8 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addInitializeMethod(StringComposite sc) {
-		sc.add("// Tests if the current workbench selection is a suitable container to use.");
+	private void addInitializeMethod(JavaComposite sc) {
+		sc.addJavadoc("Tests if the current workbench selection is a suitable container to use.");
 		sc.add("private void initialize() {");
 		sc.add("String name = \"new_file\";");
 		sc.add("if (selection != null && selection.isEmpty() == false");
@@ -166,7 +170,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.add("if (ssel.size() > 1)");
 		sc.add("return;");
 		sc.add("Object obj = ssel.getFirstElement();");
-		sc.add("// test for IAdaptable");
+		sc.addComment("test for IAdaptable");
 		sc.add("if ((! (obj instanceof " + I_RESOURCE + ")) && (obj instanceof " + I_ADAPTABLE + ")) {");
 		sc.add("obj = (" + I_RESOURCE + ") ((" + I_ADAPTABLE + ") obj).getAdapter(" + I_RESOURCE + ".class);");
 		sc.add("}");
@@ -177,8 +181,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.add("} else {");
 		sc.add(I_RESOURCE + " resource = (" + I_RESOURCE + ") obj;");
 		sc.add("container = resource.getParent();");
-		sc.add("// we use the name of the currently selected file");
-		sc.add("// instead of 'new_file'.");
+		sc.addComment("we use the name of the currently selected file instead of 'new_file'.");
 		sc.add("name = resource.getFullPath().removeFileExtension().lastSegment();");
 		sc.add("}");
 		sc.add(I_PATH + " fullPath = container.getFullPath();");
@@ -190,8 +193,8 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addCreateControlMethod(StringComposite sc) {
-		sc.add("// @see IDialogPage#createControl(" + COMPOSITE + ")");
+	private void addCreateControlMethod(JavaComposite sc) {
+		sc.addJavadoc("@see IDialogPage#createControl(" + COMPOSITE + ")");
 		sc.add("public void createControl(" + COMPOSITE + " parent) {");
 		sc.add(COMPOSITE + " container = new " + COMPOSITE + "(parent, " + SWT + ".NULL);");
 		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
@@ -235,10 +238,8 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Constructor for NewWizardPage.");
-		sc.add("//");
-		sc.add("// @param pageName");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc("Constructor for NewWizardPage.");
 		sc.add("public " + getResourceClassName() + "(" + I_SELECTION + " selection, String fileExtension) {");
 		sc.add("super(\"wizardPage\");");
 		sc.add("setTitle(\"Create new " + getContext().getConcreteSyntax().getName() + " file\");");

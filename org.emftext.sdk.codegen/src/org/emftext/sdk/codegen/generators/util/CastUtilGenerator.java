@@ -38,8 +38,10 @@ public class CastUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// Utility class that provides a method to cast objects to");
-		sc.add("// type parameterized classes without a warning.");
+		sc.addJavadoc(
+			"Utility class that provides a method to cast objects to " +
+			"type parameterized classes without a warning."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();

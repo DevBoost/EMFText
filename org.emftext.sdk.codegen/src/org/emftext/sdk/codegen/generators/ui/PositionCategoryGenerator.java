@@ -33,7 +33,8 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// An enumeration of all position categories.");
+		
+		sc.addJavadoc("An enumeration of all position categories.");
 		sc.add("public enum " + getResourceClassName() + " {");
 		sc.add("BRACKET, DEFINTION, PROXY;");
 		sc.add("}");

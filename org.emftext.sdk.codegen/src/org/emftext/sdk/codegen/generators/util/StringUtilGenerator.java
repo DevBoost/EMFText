@@ -44,18 +44,21 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A utility class that provides some common methods to work");
-		sc.add("// with Strings.");
+		sc.addJavadoc(
+			"A utility class that provides some common methods to work " +
+			"with Strings."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("public final static String HEX_DIGIT_REGEXP = \"[0-9a-fA-F]\";");
 		sc.add("public final static String UNICODE_SEQUENCE_REGEXP = \"\\\\A\\\\\\\\u\" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;");
 		sc.addLineBreak();
 		
-		sc.add("// Capitalizes the first letter of the given string.");
-		sc.add("//");
-		sc.add("// @param text a string.");
-		sc.add("// @return the modified string.");
+		sc.addJavadoc(
+			"Capitalizes the first letter of the given string.\n\n" +
+			"@param text the string to capitalize.\n" +
+			"@return the modified string."
+		);
 		sc.add("public static String capitalize(String text) {");
 		sc.add("String h = text.substring(0, 1).toUpperCase();");
 		sc.add("String t = text.substring(1);");
@@ -63,14 +66,12 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Returns the part of 'tail' that is not present at the end of");
-		sc.add("// 'text'. For example if text = 'abc' and tail = 'cd' this method");
-		sc.add("// returns 'd'. If 'tail' can not be found at the end of 'text',");
-		sc.add("// 'tail' is returned as is.");
-		sc.add("//");
-		sc.add("// @param text");
-		sc.add("// @param tail");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Returns the part of 'tail' that is not present at the end of " +
+			"'text'. For example if text = 'abc' and tail = 'cd' this method " +
+			"returns 'd'. If 'tail' can not be found at the end of 'text', " +
+			"'tail' is returned as is."
+		);
 		sc.add("public static String getMissingTail(String text, String tail) {");
 		sc.add("for (int i = 1; i < tail.length(); i++) {");
 		sc.add("int endIndex = text.length();");
@@ -86,12 +87,13 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Converts a string that contains upper-case letter and");
-		sc.add("// underscores (e.g., constant names) to a camel-case string.");
-		sc.add("// For example, MY_CONSTANT is converted to myConstant.");
-		sc.add("//");
-		sc.add("// @param text the string to convert");
-		sc.add("// @return");
+		sc.addJavadoc(
+			"Converts a string that contains upper-case letter and " +
+			"underscores (e.g., constant names) to a camel-case string. " +
+			"For example, MY_CONSTANT is converted to myConstant.\n\n" +
+			"@param text the string to convert\n" +
+			"@return a camel-case version of text"
+		);
 		sc.add("public static String convertAllCapsToLowerCamelCase(String text) {");
 		sc.add("String lowerCase = text.toLowerCase();");
 		sc.add("while (true) {");
@@ -119,11 +121,7 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Concatenates the given parts and puts 'glue' between them.");
-		sc.add("//");
-		sc.add("// @param parts");
-		sc.add("// @param glue");
-		sc.add("// @return");
+		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
 		sc.add("public static String explode(" + COLLECTION + "<String> parts, String glue) {");
 		sc.add("StringBuilder sb = new StringBuilder();");
 		sc.add(ITERATOR + "<String> it = parts.iterator();");
@@ -138,11 +136,7 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Removes single quotes at the start and end of tokenName.");
-		sc.add("//");
-		sc.add("// @param tokenName");
-		sc.add("// @return");
-		
+		sc.addJavadoc("Removes single quotes at the start and end of tokenName.");
 		sc.add("public static String formatTokenName(String tokenName) {");
 		sc.add("if (tokenName.length() > 0 && tokenName.startsWith(\"'\")) {");
 		sc.add("tokenName = tokenName.substring(1, tokenName.length());");
@@ -176,7 +170,7 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("} else if (nextR >= 0 && nextR < nextNorR) {");
 		sc.add("nextNorR = nextR;");
 		sc.add("} else {");
-		sc.add("// found no EOL character");
+		sc.addComment("found no EOL character");
 		sc.add("break;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -223,51 +217,52 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Escapes the given text such that it can be safely embedded in a string");
-		sc.add("// literal in Java source code.");
-		sc.add("//");
-		sc.add("// @param text the text to escape");
-		sc.add("// @return the escaped text");
-		
+		sc.addJavadoc(
+			"Escapes the given text such that it can be safely embedded in a string " +
+			"literal in Java source code.\n\n" +
+			"@param text the text to escape\n" +
+			"@return the escaped text"
+		);
 		sc.add("public static String escapeToJavaString(String text) {");
-		sc.add("//for javac: replace one backslash by two and escape double quotes");
+		sc.addComment("for javac: replace one backslash by two and escape double quotes");
 		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\").replaceAll(\"\\\"\", \"\\\\\\\\\\\"\");");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Escapes the given text such that it can be safely embedded in a string");
-		sc.add("// literal in the Java source code contained in an ANTLR grammar. This");
-		sc.add("// method is similar to escapeToJavaString(), but does also convert the");
-		sc.add("// percent character to its Unicode representation, because the percent");
-		sc.add("// character has special meaning in ANTLR grammars.");
-		sc.add("//");
-		sc.add("// Also, single quotes are escaped. God knows why.");
-		sc.add("//");
-		sc.add("// @param text the text to escape");
-		sc.add("// @return the escaped text");
-		
+		sc.addJavadoc(
+			"Escapes the given text such that it can be safely embedded in a string "+ 
+			"literal in the Java source code contained in an ANTLR grammar. This " +
+			"method is similar to escapeToJavaString(), but does also convert the " +
+			"percent character to its Unicode representation, because the percent " +
+			"character has special meaning in ANTLR grammars.\n\n" +
+			"Also, single quotes are escaped. God knows why.\n\n" +
+			"@param text the text to escape" +
+			"@return the escaped text"
+		);
 		sc.add("public static String escapeToJavaStringInANTLRGrammar(String text) {");
-		sc.add("// we must use the Unicode representation for the % character, because");
-		sc.add("// StringTemplate does treat % special");
+		sc.addComment(
+			"we must use the Unicode representation for the % character, because " +
+			"StringTemplate does treat % special"
+		);
 		sc.add("return escapeToJavaString(text.replaceAll(\"'\", \"\\\\'\")).replace(\"%\", \"\\u0025\");");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("// Escapes the given text such that it can be safely embedded in an");
-		sc.add("// ANTLR grammar as keyword (i.e., an in-line token). Single quotes");
-		sc.add("// are escaped using a backslash. Backslashes are escaped using a");
-		sc.add("// backslash.");
-		sc.add("//");
-		sc.add("// @param text the text to escape");
-		sc.add("// @return the escaped text");
-		
+		sc.addJavadoc(
+			"Escapes the given text such that it can be safely embedded in an " +
+			"ANTLR grammar as keyword (i.e., an in-line token). Single quotes " +
+			"are escaped using a backslash. Backslashes are escaped using a " +
+			"backslash.\n\n" +
+			"@param text the text to escape\n" +
+			"@return the escaped text"
+		);
 		sc.add("public static String escapeToANTLRKeyword(String value) {");
 		sc.add("String result = value;");
 		sc.add("int index = result.indexOf(\"\\\\\");");
 		sc.add("while (index >= 0) {");
 		sc.add("String tail = result.substring(index);");
 		sc.add("if (!tail.matches(UNICODE_SEQUENCE_REGEXP)) {");
-		sc.add("// not Unicode - do escape backslash");
+		sc.addComment("not Unicode - do escape backslash");
 		sc.add("String head = \"\";");
 		sc.add("if (index > 0) {");
 		sc.add("head = result.substring(0, index - 1);");

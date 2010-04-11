@@ -62,16 +62,37 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// The preference page to set the occurrence highlighting with folling features:");
-		sc.add("// <ul>");
-		sc.add("// <li>enables the occurrence highlighting</li>");
-		sc.add("// <li>chooses the highlight color for definition</li>");
-		sc.add("// <li>chooses the highlight color for the proxy elements</li>");
-		sc.add("// </ul>");
-		sc.add("//");
+		
+		sc.addJavadoc(
+			"The preference page to set the occurrence highlighting with folling features:\n" +
+			"<ul>\n" +
+			"<li>enables the occurrence highlighting</li>\n" +
+			"<li>chooses the highlight color for definition</li>\n" +
+			"<li>chooses the highlight color for the proxy elements</li>\n" +
+			"</ul>"
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
+
 		addFields(sc);
+		addMethods(sc);
+		
+		sc.add("}");
+		return true;
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addCreateContentsMethod(sc);
+		addInitMethod(sc);
+		addAddListenersToStyleButtonsMethod(sc);
+		addInitializeValuesMethod(sc);
+		addPerformDefaultsMethod(sc);
+		addPerformOkMethod(sc);
+		addPerformApplyMethod(sc);
+		addUpdateActiveEditorMethod(sc);
+	}
+
+	private void addCreateContentsMethod(JavaComposite sc) {
 		sc.add("@Override");
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.add(COMPOSITE + " settingComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
@@ -118,13 +139,17 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("return settingComposite;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addInitMethod(JavaComposite sc) {
 		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
 		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the highlight coloring of occurrences.\");");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addAddListenersToStyleButtonsMethod(JavaComposite sc) {
 		sc.add("private void addListenersToStyleButtons() {");
 		sc.add("enableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "(){");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e){");
@@ -137,7 +162,9 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addInitializeValuesMethod(JavaComposite sc) {
 		sc.add("private void initializeValues() {");
 		sc.add("boolean enable = getPreferenceStore().getBoolean(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX);");
 		sc.add("enableCheckbox.setSelection(enable);");
@@ -151,7 +178,10 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("useColorSelector.setColorValue(rgb);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// Set the default values for this preference page.");
+	}
+
+	private void addPerformDefaultsMethod(JavaComposite sc) {
+		sc.addJavadoc("Set the default values for this preference page.");
 		sc.add("protected void performDefaults() {");
 		sc.add("boolean enable = getPreferenceStore().getDefaultBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
 		sc.add("enableCheckbox.setSelection(enable);");
@@ -161,7 +191,9 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("useColorSelector.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(getPreferenceStore(), " + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR));");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addPerformOkMethod(JavaComposite sc) {
 		sc.add("public boolean performOk() {");
 		sc.add("if(!super.performOk()) {");
 		sc.add("return false;");
@@ -170,11 +202,17 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addPerformApplyMethod(JavaComposite sc) {
 		sc.add("protected void performApply() {");
 		sc.add("updateActiveEditor();");
 		sc.add("}");
-		sc.add("// Sets the chosen options to the preference store and refreshs it in the editor.");
+		sc.addLineBreak();
+	}
+
+	private void addUpdateActiveEditorMethod(JavaComposite sc) {
+		sc.addJavadoc("Sets the chosen options to the preference store and refreshs it in the editor.");
 		sc.add("private void updateActiveEditor() {");
 		sc.add("getPreferenceStore().setValue(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX, enableCheckbox.getSelection());");
 		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), " + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR, defColorSelector.getColorValue());");
@@ -186,8 +224,7 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("((" + editorClassName + ") editor).invalidateTextRepresentation();");
 		sc.add("}");
 		sc.add("}");
-		sc.add("}");
-		return true;
+		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {

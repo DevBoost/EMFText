@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MOUSE_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MOUSE_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
@@ -85,7 +84,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A manager class for the highlighting of occurrences and brackets.");
+		sc.addJavadoc("A manager class for the highlighting of occurrences and brackets.");
 		sc.add("public class " + getResourceClassName() + " implements " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -96,7 +95,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addListenersMethod(sc);
 		addSetHighlightingMethod(sc);
 		addSetCategoryHighlightingMethod(sc);
@@ -229,8 +228,8 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addResetValuesMethod(StringComposite sc) {
-		sc.add("// Resets the changed values after setting the preference pages.");
+	private void addResetValuesMethod(JavaComposite sc) {
+		sc.addJavadoc("Resets the changed values after setting the preference pages.");
 		sc.add("public void resetValues() {");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
 		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_OCCURRENCE_CHECKBOX);");
@@ -381,18 +380,14 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates the highlighting manager class.");
-		sc.add("//");
-		sc.add("// @param textResource");
-		sc.add("//            the text resource to be provided to other classes");
-		sc.add("// @param sourceviewer");
-		sc.add("//            the source viewer converts offset between master and slave");
-		sc.add("//            documents");
-		sc.add("// @param colorManager");
-		sc.add("//            the color manager provides highlighting colors");
-		sc.add("// @param emfTextEditor");
-		sc.add("// @param iPropertySheetPage");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates the highlighting manager class.\n\n" +
+			"@param textResource the text resource to be provided to other classes\n" +
+			"@param sourceviewer the source viewer converts offset between master and slave documents\n" +
+			"@param colorManager the color manager provides highlighting colors\n" +
+			"@param editor"
+		);
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
 		sc.add("sourceviewer.getSelectionProvider();");
@@ -415,11 +410,13 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addPositionHelperClass(StringComposite sc) {
-		sc.add("// A key and mouse <code>" + LISTENER + "</code> for the highlighting. Removes the");
-		sc.add("// highlighting before document change. No highlighting is set after");
-		sc.add("// document change to increase the performance. No finding new occurrences");
-		sc.add("// if the caret is still in the same token to increase the performance.");
+	private void addPositionHelperClass(JavaComposite sc) {
+		sc.addJavadoc(
+			"A key and mouse listener for the highlighting. It removes the " +
+			"highlighting before documents change. No highlighting is set after " +
+			"document changes to increase the performance. Occurrences are not searched " +
+			"if the caret is still in the same token to increase the performance."
+		);
 		sc.add("private final class UpdateHighlightingListener implements " + KEY_LISTENER + ", " + VERIFY_LISTENER + ", " + MOUSE_LISTENER + ", " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
 		sc.addLineBreak();
 		sc.add("private boolean changed = false;");
@@ -461,9 +458,9 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("public void mouseDown(" + MOUSE_EVENT + " e) {");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// 1-left click, 2-middle click,");
+		sc.addComment("1-left click, 2-middle click,");
 		sc.add("public void mouseUp(" + MOUSE_EVENT + " e) {");
-		sc.add("// 3-right click");
+		sc.addComment("3-right click");
 		sc.add("if (e.button != 1) {");
 		sc.add("return;");
 		sc.add("}");

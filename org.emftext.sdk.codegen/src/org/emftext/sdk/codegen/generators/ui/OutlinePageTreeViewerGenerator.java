@@ -40,8 +40,11 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// This custom implementation of a TreeViewer expands the tree");
-		sc.add("// automatically up to a specified depth.");
+		
+		sc.addJavadoc(
+			"This custom implementation of a TreeViewer expands the tree " +
+			"automatically up to a specified depth."
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
 		sc.addLineBreak();
 		
@@ -55,7 +58,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addSetSelectionMethod(sc);
 		addHandleSelectMethod(sc);
 		addHandleInvalidSelectionMethod(sc);
@@ -111,11 +114,13 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addHandleSelectMethod(StringComposite sc) {
+	private void addHandleSelectMethod(JavaComposite sc) {
 		sc.add("protected void handleSelect(" + SELECTION_EVENT + " event) {");
 		sc.add("if (event.item == null) {");
-		sc.add("// In the cases of an invalid document, the tree widget in the outline might fire an event");
-		sc.add("// (with item == null) without user interaction. We do not want to react to that event.");		
+		sc.addComment(
+			"In the cases of an invalid document, the tree widget in the outline might fire an event " +
+			"(with item == null) without user interaction. We do not want to react to that event."
+		);		
 		sc.add("}");
 		sc.add("else {");
 		sc.add("super.handleSelect(event);");
@@ -124,9 +129,9 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addHandleInvalidSelectionMethod(StringComposite sc) {
+	private void addHandleInvalidSelectionMethod(JavaComposite sc) {
 		sc.add("protected void handleInvalidSelection(" + I_SELECTION + " selection, " + I_SELECTION + " newSelection) {");
-		sc.add("//this may not fire a selection changed event to avoid cyclic events between editor and outline");
+		sc.addComment("this may not fire a selection changed event to avoid cyclic events between editor and outline");
 		sc.add("}");
 		sc.addLineBreak();
 	}
