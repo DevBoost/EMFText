@@ -263,7 +263,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addSaveCodeFoldingStateFileMethod(JavaComposite sc) {
-		sc.addComment(
+		sc.addJavadoc(
 			"Saves the code folding state to a XML file in the state location.\n\n" +
 			"@param uriString the key to determine the file to save to"
 		);
