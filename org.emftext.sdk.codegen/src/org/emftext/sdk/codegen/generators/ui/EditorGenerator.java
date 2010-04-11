@@ -112,9 +112,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// A text editor for '" + getContext().getConcreteSyntax().getName() + "' models.");
-		sc.add("//");
+		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models.");
 		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + " {");
 		sc.addLineBreak();
 		

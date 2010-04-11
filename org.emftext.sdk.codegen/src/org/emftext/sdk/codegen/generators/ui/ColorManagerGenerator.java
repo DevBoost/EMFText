@@ -41,7 +41,7 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A class for RGB-based color objects.");
+		sc.addJavadoc("A class for RGB-based color objects.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
@@ -52,17 +52,17 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addDisposeMethod(sc);
 		addGetColorMethod(sc);
 	}
 
-	private void addGetColorMethod(StringComposite sc) {
-		sc.add("// Constructs and caches the given color.");
-		sc.add("//");
-		sc.add("// @param rgb The color as " + RGB + "");
-		sc.add("// @return The color (from cache or newly constructed)");
-		sc.add("//");
+	private void addGetColorMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Constructs and caches the given color.\n\n" +
+			"@param rgb The color as " + RGB + "\n" +
+			"@return The color (from cache or newly constructed)"
+		);
 		sc.add("public " + COLOR + " getColor(" + RGB + " rgb) {");
 		sc.add(COLOR + " color = fColorTable.get(rgb);");
 		sc.add("if (color == null) {");
@@ -73,8 +73,8 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	private void addDisposeMethod(StringComposite sc) {
-		sc.add("// Disposes all colors in the cache.");
+	private void addDisposeMethod(JavaComposite sc) {
+		sc.addJavadoc("Disposes all colors in the cache.");
 		sc.add("public void dispose() {");
 		sc.add(ITERATOR + "<" + COLOR + "> e = fColorTable.values().iterator();");
 		sc.add("while (e.hasNext()) {");

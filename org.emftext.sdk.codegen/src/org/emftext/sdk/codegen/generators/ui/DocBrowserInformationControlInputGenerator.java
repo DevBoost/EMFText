@@ -38,8 +38,10 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// Provides input for the <code>TextHover</code>. The most is copied from");
-		sc.add("// <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocBrowserInformationControlInput</code>");
+		sc.addJavadoc(
+			"Provides input for the <code>TextHover</code>. The most is copied from " +
+			"<code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocBrowserInformationControlInput</code>."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
@@ -51,7 +53,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetPreviousMethod(sc);
 		addGetNextMethod(sc);
 		addResourceMethod(sc);
@@ -83,10 +85,8 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenTextMethod(StringComposite sc) {
-		sc.add("//");
-		sc.add("// @return the token text, it is needed for a hyperlink where the caret has");
-		sc.add("//         to jump to");
+	private void addGetTokenTextMethod(JavaComposite sc) {
+		sc.addJavadoc("@return the token text, it is needed for a hyperlink where the caret has to jump to");
 		sc.add("public String getTokenText() {");
 		sc.add("return tokenText;");
 		sc.add("}");
@@ -107,54 +107,49 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	private void addResourceMethod(StringComposite sc) {
-		sc.add("// @return the resource");
+	private void addResourceMethod(JavaComposite sc) {
+		sc.addJavadoc("@return the resource");
 		sc.add("public " + RESOURCE + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetNextMethod(StringComposite sc) {
-		sc.add("// The next input or <code>null</code> if this");
-		sc.add("// is the last.");
-		sc.add("//");
-		sc.add("// @return the next input or <code>null</code>");
+	private void addGetNextMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the next input or <code>null</code> if this is the last.\n\n" +
+			"@return the next input or <code>null</code>"
+		);
 		sc.add("public " + getResourceClassName() + " getNext() {");
 		sc.add("return fNext;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetPreviousMethod(StringComposite sc) {
-		sc.add("// The previous input or <code>null</code> if this");
-		sc.add("// is the first.");
-		sc.add("//");
-		sc.add("// @return the previous input or <code>null</code>");
+	private void addGetPreviousMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the previous input or <code>null</code> if this is the first.\n\n" +
+			"@return the previous input or <code>null</code>"
+		);
 		sc.add("public " + getResourceClassName() + " getPrevious() {");
 		sc.add("return fPrevious;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates a new browser information control input.");
-		sc.add("//");
-		sc.add("// @param previous");
-		sc.add("//            previous input, or <code>null</code> if none available");
-		sc.add("// @param element");
-		sc.add("//            the element, or <code>null</code> if none available");
-		sc.add("// @param htmlContent");
-		sc.add("//            HTML contents, must not be null");
-		sc.add("// @param leadingImageWidth");
-		sc.add("//            the indent required for the element image");
-		sc.add("///");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a new browser information control input.\n\n" +
+			"@param previous previous input, or <code>null</code> if none available\n" +
+			"@param element the element, or <code>null</code> if none available\n" +
+			"@param htmlContent HTML contents, must not be null\n" +
+			"@param leadingImageWidth the indent required for the element image"
+		);
 		sc.add("public " + getResourceClassName() + "(" + getResourceClassName() + " previous, " + E_OBJECT + " element, " + RESOURCE + " resource, String htmlContent, String tokenText) {");
 		sc.add("fPrevious= previous;");
 		sc.add("if (previous != null) {");
 		sc.add("previous.fNext= this;");
 		sc.add("}");
-		sc.add("//super(previous);");
 		sc.add("assert htmlContent != null;");
 		sc.add("this.element = element;");
 		sc.add("this.htmlContent = htmlContent;");

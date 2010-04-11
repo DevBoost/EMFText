@@ -79,10 +79,12 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// This manager adds new projection annotations for the code folding and deletes");
-		sc.add("// old projection annotations with lines < 3. It is needed to hold the toggle");
-		sc.add("// states. It provides the ability to restore the toggle states between Eclipse");
-		sc.add("// sessions and after closing, opening as well.");
+		sc.addJavadoc(
+			"This manager adds new projection annotations for the code folding and deletes " +
+			"old projection annotations with lines < 3. It is needed to hold the toggle " +
+			"states. It provides the ability to restore the toggle states between Eclipse " +
+			"sessions and after closing, opening as well."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
@@ -97,7 +99,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addAddCloseListenerMethod(sc);
 		addUpdateCodefoldingMethod(sc);
 		addIsInAdditionsMethod(sc);
@@ -210,7 +212,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMakeMD5Method(StringComposite sc) {
+	private void addMakeMD5Method(JavaComposite sc) {
 		sc.add("private String makeMD5(String text) {");
 		sc.add(MESSAGE_DIGEST + " md = null;");
 		sc.add("byte[] encryptMsg = null;");
@@ -227,20 +229,20 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("byteStr = Integer.toHexString(encryptMsg[i]);");
 		sc.add("switch (byteStr.length()) {");
 		sc.add("case 1:");
-		sc.add("// if hex-number length is 1, add a '0' before");
+		sc.addComment("if hex-number length is 1, add a '0' before");
 		sc.add("swap = \"0\" + Integer.toHexString(encryptMsg[i]);");
 		sc.add("break;");
 		sc.add("case 2:");
-		sc.add("// correct hex-letter");
+		sc.addComment("correct hex-letter");
 		sc.add("swap = Integer.toHexString(encryptMsg[i]);");
 		sc.add("break;");
 		sc.add("case 8:");
-		sc.add("// get the correct substring");
+		sc.addComment("get the correct substring");
 		sc.add("swap = (Integer.toHexString(encryptMsg[i])).substring(6, 8);");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("strBuf.append(swap);");
-		sc.add("// appending swap to get complete hash-key");
+		sc.addComment("appending swap to get complete hash-key");
 		sc.add("}");
 		sc.add("return strBuf.toString();");
 		sc.add("}");
@@ -260,10 +262,11 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSaveCodeFoldingStateFileMethod(StringComposite sc) {
-		sc.add("// Saves the code folding state to a XML file in the state location.");
-		sc.add("//");
-		sc.add("// @param uriString the key to determine the file name to save");
+	private void addSaveCodeFoldingStateFileMethod(JavaComposite sc) {
+		sc.addComment(
+			"Saves the code folding state to a XML file in the state location.\n\n" +
+			"@param uriString the key to determine the file to save to"
+		);
 		sc.add("public void saveCodeFoldingStateFile(String uriString) {");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("if (document == null) {");
@@ -289,10 +292,11 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRestoreCodeFoldingStateFromFileMethod(StringComposite sc) {
-		sc.add("// Restores the code folding state from a XML file in the state location.");
-		sc.add("//");
-		sc.add("// @param uriString the key to determine the file name");
+	private void addRestoreCodeFoldingStateFromFileMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Restores the code folding state from a XML file in the state location.\n\n" +
+			"@param uriString the key to determine the file to load the state from"
+		);
 		sc.add("public void restoreCodeFoldingStateFromFile(String uriString) {");
 		sc.add("final " + FILE + " stateFile = getCodeFoldingStateFile(uriString);");
 		sc.add("if (stateFile == null || !stateFile.exists()) {");
@@ -317,8 +321,8 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addRestoreCodeFoldingMethod(StringComposite sc) {
-		sc.add("// Restore the code folding state information from the given memento.");
+	private void addRestoreCodeFoldingMethod(JavaComposite sc) {
+		sc.addJavadoc("Restores the code folding state information from the given memento.");
 		sc.add("public void restoreCodeFolding(" + I_MEMENTO + " memento) {");
 		sc.add("if (memento == null) {");
 		sc.add("return;");
@@ -336,7 +340,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add(POSITION + " position = new " + POSITION + "(offset, length);");
 		sc.add("projectionAnnotationModel.addAnnotation(annotation, position);");
 		sc.add("}");
-		sc.add("// postset collapse state to prevent wrong displaying folding code.");
+		sc.addComment("postset collapse state to prevent wrong displaying folding code.");
 		sc.add("for (" + PROJECTION_ANNOTATION + " annotation : collapsedStates.keySet()) {");
 		sc.add("Boolean isCollapsed = collapsedStates.get(annotation);");
 		sc.add("if (isCollapsed != null && isCollapsed.booleanValue()) {");
@@ -347,8 +351,8 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSaveCodeFoldingMethod(StringComposite sc) {
-		sc.add("// Saves the code folding state into the given memento.");
+	private void addSaveCodeFoldingMethod(JavaComposite sc) {
+		sc.addJavadoc("Saves the code folding state into the given memento.");
 		sc.add("public void saveCodeFolding(" + I_MEMENTO + " memento) {");
 		sc.add(ITERATOR + "<?> annotationIt = projectionAnnotationModel.getAnnotationIterator();");
 		sc.add("while (annotationIt.hasNext()) {");
@@ -363,13 +367,13 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddPositionMethod(StringComposite sc) {
-		sc.add("//");
-		sc.add("// Tries to add this position into the model. Only positions with more than");
-		sc.add("// 3 lines can be taken in. If more positions exist on the same line, the");
-		sc.add("// longer one will be chosen. The shorter one in additions will be deleted.");
-		sc.add("//");
-		sc.add("// @param position the position to be added.");
+	private void addAddPositionMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Tries to add this position into the model. Only positions with more than " +
+			"3 lines can be taken in. If multiple positions exist on the same line, the " +
+			"longest will be chosen. The shorter ones will be deleted.\n\n" +
+			"@param position the position to be added."
+		);
 		sc.add("private void addPosition(" + POSITION + " position) {");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("int lines = 0;");
@@ -383,8 +387,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("// if a position to add existed on the same line, the longer one will be");
-		sc.add("// chosen");
+		sc.addComment("if a position to add existed on the same line, the longest one will be chosen");
 		sc.add("try {");
 		sc.add("for (" + PROJECTION_ANNOTATION + " annotationToAdd : additions.keySet()) {");
 		sc.add(POSITION + " positionToAdd = additions.get(annotationToAdd);");
@@ -412,14 +415,14 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsInAdditionsMethod(StringComposite sc) {
-		sc.add("// Checks the offset of this <code>" + POSITION + "</code> with the");
-		sc.add("// <code>" + POSITION + "</code>s in <code>additions</code> to determine the");
-		sc.add("// existence.");
-		sc.add("//");
-		sc.add("// @param position the position to check");
-		sc.add("//");
-		sc.add("// @return <code>true</code> if it is in the <code>additions</code>");
+	private void addIsInAdditionsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks the offset of the given <code>" + POSITION + "</code> against the " +
+			"<code>" + POSITION + "</code>s in <code>additions</code> to determine the " +
+			"existence whether the given position is contained in the additions set.\n\n" +
+			"@param position the position to check\n\n" +
+			"@return <code>true</code> if it is in the <code>additions</code>"
+		);
 		sc.add("private boolean isInAdditions(" + POSITION + " position) {");
 		sc.add("for (" + ANNOTATION + " addition : additions.keySet()) {");
 		sc.add(POSITION + " additionPosition = additions.get(addition);");
@@ -432,12 +435,13 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addUpdateCodefoldingMethod(StringComposite sc) {
-		sc.add("// Checks whether it is in the <code>" + PROJECTION_ANNOTATION_MODEL + "</code> or in");
-		sc.add("// the addition set. If not it tries to add into <code>additions</code>.");
-		sc.add("// Deletes old " + PROJECTION_ANNOTATION + " with line count < 2.");
-		sc.add("//");
-		sc.add("// @param positions a list of available foldable positions");
+	private void addUpdateCodefoldingMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the given postition are in the <code>" + PROJECTION_ANNOTATION_MODEL + "</code> or in " +
+			"the addition set. If not it tries to add into <code>additions</code>. " +
+			"Deletes old " + PROJECTION_ANNOTATION + " with line count less than 2.\n\n" +
+			"@param positions a list of available foldable positions"
+		);
 		sc.add("public void updateCodefolding(" + LIST + "<" + POSITION + "> positions) {");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("if (document == null) {");
@@ -448,7 +452,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("while (annotationIterator.hasNext()) {");
 		sc.add("oldAnnotations.add((" + PROJECTION_ANNOTATION + ") annotationIterator.next());");
 		sc.add("}");
-		sc.add("// Add new Position with a unique line offset");
+		sc.addComment("Add new Position with a unique line offset");
 		sc.add("for (" + POSITION + " position : positions) {");
 		sc.add("if (!isInAdditions(position)) {");
 		sc.add("addPosition(position);");
@@ -547,12 +551,12 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Creates a code folding manager to handle the");
-		sc.add("// <code>" + PROJECTION_ANNOTATION + "</code>.");
-		sc.add("//");
-		sc.add("// @param sourceViewer");
-		sc.add("//            the source viewer to calculate the element lines");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a code folding manager to handle the " +
+			"<code>" + PROJECTION_ANNOTATION + "</code>.\n\n" +
+			"@param sourceViewer the source viewer to calculate the element lines"
+		);
 		sc.add("public " + getResourceClassName() + "(" + PROJECTION_VIEWER + " sourceViewer," + editorClassName + " textEditor) {");
 		sc.add("this.projectionAnnotationModel = sourceViewer.getProjectionAnnotationModel();");
 		sc.add("this.sourceViewer = sourceViewer;");

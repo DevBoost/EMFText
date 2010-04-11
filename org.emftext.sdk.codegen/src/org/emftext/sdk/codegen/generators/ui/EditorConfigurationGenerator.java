@@ -61,8 +61,10 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// This class provides the configuration for the generated editor. It registers");
-		sc.add("// content assistance and syntax highlighting.");
+		sc.addJavadoc(
+			"This class provides the configuration for the generated editor. " +
+			"It registers content assistance and syntax highlighting."
+		);
 		sc.add("public class " + getResourceClassName() + " extends " + SOURCE_VIEWER_CONFIGURATION + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -73,7 +75,7 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetContentAssistantMethod(sc);
 		addGetConfiguredContentTypesMethod(sc);
 		addGetScannerMethod(sc);
@@ -122,9 +124,7 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetScannerMethod(StringComposite sc) {
-		sc.add("// @param fileExtension");
-		sc.add("// @return");
+	private void addGetScannerMethod(JavaComposite sc) {
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
 		sc.add("return new " + textTokenScannerClassName + "(colorManager);");
 		sc.add("}");
@@ -155,12 +155,12 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("// Create a new editor configuration.");
-		sc.add("//");
-		sc.add("// @param editor");
-		sc.add("// @param colorManager");
-		sc.add("///");
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a new editor configuration.\n\n" +
+			"@param editor the editor to configure\n" +
+			"@param colorManager the color manager to use"
+		);
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor, " + colorManagerClassName + " colorManager) {");
 		sc.add("this.theEditor = editor;");
 		sc.add("this.colorManager = colorManager;");

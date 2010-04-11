@@ -41,7 +41,7 @@ public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.add("try {");
 		sc.add("value = object.eGet(attribute);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add("// Exception in eGet, do nothing");
+		sc.addComment("Exception in eGet, do nothing");
 		sc.add("}");
 		sc.add("if (value != null && value.toString() != null && !value.toString().equals(\"[]\")) {");
 		sc.add("label += \"<br />\" + attribute.getName() + \": \" + object.eGet(attribute).toString();");
