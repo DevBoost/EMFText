@@ -9,17 +9,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class KeywordGenerator extends JavaBaseGenerator {
 
-	private String cardinalityEnumClassName;
-	private String syntaxElementClassName;
-
 	public KeywordGenerator() {
 		super();
 	}
 
 	private KeywordGenerator(GenerationContext context) {
 		super(context, EArtifact.KEYWORD);
-		cardinalityEnumClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -47,7 +42,7 @@ public class KeywordGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String value, " + cardinalityEnumClassName + " cardinality) {"); 
+		sc.add("public " + getResourceClassName() + "(String value, " + cardinalityClassName + " cardinality) {"); 
 		sc.add("super(cardinality, null);"); 
 		sc.add("this.value = value;"); 
 		sc.add("}"); 

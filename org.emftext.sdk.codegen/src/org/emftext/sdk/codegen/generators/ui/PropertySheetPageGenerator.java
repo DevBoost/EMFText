@@ -34,15 +34,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PropertySheetPageGenerator extends JavaBaseGenerator {
 	
-	private String eObjectSelectionName;
-
 	public PropertySheetPageGenerator() {
 		super();
 	}
 
 	private PropertySheetPageGenerator(GenerationContext context) {
 		super(context, EArtifact.PROPERTY_SHEET_PAGE);
-		eObjectSelectionName = context.getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -71,8 +68,8 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 			"see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301" +
 			"unfortunately Ed Merks refuses to fix it, so we need to solve it here"
 		);
-		sc.add("if (iSelection instanceof " + eObjectSelectionName + ") {");
-		sc.add("final " + eObjectSelectionName + " selection = (" + eObjectSelectionName + ") iSelection;");
+		sc.add("if (iSelection instanceof " + eObjectSelectionClassName + ") {");
+		sc.add("final " + eObjectSelectionClassName + " selection = (" + eObjectSelectionClassName + ") iSelection;");
 		sc.add("final " + E_OBJECT + " selectedObject = selection.getSelectedObject();");
 		sc.addComment(
 			"check whether the selected object or one of its children contains " +

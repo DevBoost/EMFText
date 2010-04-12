@@ -33,17 +33,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CompletionProcessorGenerator extends JavaBaseGenerator {
 
-	private String editorClassName;
-	private String completionProposalClassName;
-
 	public CompletionProcessorGenerator() {
 		super();
 	}
 
 	private CompletionProcessorGenerator(GenerationContext context) {
 		super(context, EArtifact.COMPLETION_PROCESSOR);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

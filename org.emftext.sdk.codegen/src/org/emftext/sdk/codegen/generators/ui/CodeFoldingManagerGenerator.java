@@ -64,15 +64,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
-	private String editorClassName;
-
 	public CodeFoldingManagerGenerator() {
 		super();
 	}
 
 	private CodeFoldingManagerGenerator(GenerationContext context) {
 		super(context, EArtifact.CODE_FOLDING_MANAGER);
-		this.editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -251,7 +248,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
 	private void addGetCodeFoldingStateFileMethod(StringComposite sc) {
 		sc.add("private " + FILE + " getCodeFoldingStateFile(String uriString) {");
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
+		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + pluginActivatorClassName + ".PLUGIN_ID);");
 		sc.add(I_PATH + " path = " + PLATFORM + ".getStateLocation(bundle);");
 		sc.add("if (path == null) {");
 		sc.add("return null;");

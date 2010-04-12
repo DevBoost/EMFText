@@ -80,31 +80,12 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class EditorGenerator extends JavaBaseGenerator {
 
-	private String editorConfigurationClassName;
-	private String outlinePageClassName;
-	private String propertySheetClassName;
-	private String highlightingClassName;
-	private String codeFoldingManagerClassName;
-	private String activatorClassName;
-	private String colorManagerClassName;
-	private String backgroundParsingStrategyClassName;
-	private String natureClassName;
-
 	public EditorGenerator() {
 		super();
 	}
 
 	private EditorGenerator(GenerationContext context) {
 		super(context, EArtifact.EDITOR);
-		editorConfigurationClassName = getContext().getQualifiedClassName(EArtifact.EDITOR_CONFIGURATION);
-		outlinePageClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE);
-		propertySheetClassName = getContext().getQualifiedClassName(EArtifact.PROPERTY_SHEET_PAGE);
-		highlightingClassName = getContext().getQualifiedClassName(EArtifact.HIGHLIGHTING);
-		codeFoldingManagerClassName = getContext().getQualifiedClassName(EArtifact.CODE_FOLDING_MANAGER);
-		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-		backgroundParsingStrategyClassName = getContext().getQualifiedClassName(EArtifact.BACKGROUND_PARSING_STRATEGY);
-		natureClassName = getContext().getQualifiedClassName(EArtifact.NATURE);
 	}
 
 	@Override
@@ -273,7 +254,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private void addGetPropertySheetPageMethod(JavaComposite sc) {
 		sc.add("public " + I_PROPERTY_SHEET_PAGE + " getPropertySheetPage() {");
 		sc.add("if (propertySheetPage == null) {");
-		sc.add("propertySheetPage = new " + propertySheetClassName + "();");
+		sc.add("propertySheetPage = new " + propertySheetPageClassName + "();");
 		sc.addComment(
 			"add a slightly modified adapter factory that does not return any " +
 			"editors for properties. " +
@@ -452,7 +433,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("setResource((" + getClassNameHelper().getI_TEXT_RESOURCE() + ") demandLoadedResource);");
 		sc.add("} else {");
 		sc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
-		sc.add(activatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
+		sc.add(pluginActivatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
 		sc.addComment("close this editor because it can not present the resource");
 		sc.add("close(false);");
 		sc.add("}");
@@ -637,7 +618,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("private " + outlinePageClassName + " outlinePage;");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
 		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
-		sc.add("private " + propertySheetClassName + " propertySheetPage;");
+		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
 		sc.add("private " + DISPLAY + " display;");

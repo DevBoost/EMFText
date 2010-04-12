@@ -34,15 +34,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PreferencePageGenerator extends JavaBaseGenerator {
 
-	private String pluginActivatorClassName;
-
 	public PreferencePageGenerator() {
 		super();
 	}
 
 	private PreferencePageGenerator(GenerationContext context) {
 		super(context, EArtifact.PREFERENCE_PAGE);
-		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

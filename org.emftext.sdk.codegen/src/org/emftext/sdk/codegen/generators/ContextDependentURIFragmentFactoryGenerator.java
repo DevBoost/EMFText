@@ -23,17 +23,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerator {
 
-	private String contextDependentURIFragmentClassName;
-	private String iContextDependentURIFragmentFactoryClassName;
-
 	public ContextDependentURIFragmentFactoryGenerator() {
 		super();
 	}
 
 	private ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		contextDependentURIFragmentClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
-		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -47,7 +42,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 			"@param <ContainerType> the type of the class containing the reference to be resolved",
 			"@param <ReferenceType> the type of the reference to be resolved"
 		);
-		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private final " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> resolver;");
 		sc.addLineBreak();
@@ -57,7 +52,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		sc.addLineBreak();
 		sc.add("public " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
 		sc.addLineBreak();
-		sc.add("return new " + contextDependentURIFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
+		sc.add("return new " + contextDependentUriFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
 		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> getResolver() {");
 		sc.add("return resolver;");
 		sc.add("}");

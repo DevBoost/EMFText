@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IProblemGenerator extends JavaBaseGenerator {
 
-	private String eProblemTypeClassName;
-
 	public IProblemGenerator() {
 		super();
 	}
 
 	private IProblemGenerator(GenerationContext context) {
 		super(context, EArtifact.I_PROBLEM);
-		eProblemTypeClassName = getContext().getQualifiedClassName(EArtifact.E_PROBLEM_TYPE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

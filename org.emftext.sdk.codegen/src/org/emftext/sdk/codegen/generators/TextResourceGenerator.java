@@ -63,14 +63,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
-	private String resolverSwitchClassName;
-	private String iPrinterClassName;
 	private String csSyntaxName;
-	private String problemClassName;
-	private String locationMapClassName;
-	private String iResourcePostProcessorProviderClassName;
-	private String iContextDependentURIFragmentFactoryClassName;
-	private String layoutInformationAdapterClassName;
 	
 	private boolean saveChangedResourcesOnly = false;
 
@@ -82,13 +75,6 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		super(context, EArtifact.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
-		resolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
-		iPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
-		problemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
-		locationMapClassName = context.getQualifiedClassName(EArtifact.LOCATION_MAP);
-		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
-		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		layoutInformationAdapterClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 	}
@@ -354,14 +340,14 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private void addAddErrorMethod(StringComposite sc) {
 		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause) {");
-    	sc.add("addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(message, " + getContext().getQualifiedClassName(EArtifact.E_PROBLEM_TYPE) + ".ERROR), cause);");
+    	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".ERROR), cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
 	private void addAddWarningMethod(StringComposite sc) {
 		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause) {");
-    	sc.add("addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(message, " + getContext().getQualifiedClassName(EArtifact.E_PROBLEM_TYPE) + ".WARNING), cause);");
+    	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".WARNING), cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -427,7 +413,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
     	sc.add("} catch (" + EXCEPTION + " e) {");
-    	sc.add(getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".logError(\"Exception while running a post-processor.\", e);");
+    	sc.add(pluginActivatorClassName + ".logError(\"Exception while running a post-processor.\", e);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -597,7 +583,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, " + STRING + " id, " + E_OBJECT + " proxyElement) {");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, " + STRING + " id, " + E_OBJECT + " proxyElement) {");
     	sc.add("int pos = -1;");
     	sc.add("if (reference.isMany()) {");
     	sc.add("pos = ((" + LIST + "<?>)container.eGet(reference)).size();");
@@ -647,7 +633,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " getReferenceResolverSwitch() {");
         sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
-        sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
+        sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + referenceResolverSwitchClassName + "();");
         sc.add("}");
         sc.add("return " + RESOLVER_SWITCH_FIELD_NAME + ";");
         sc.add("}");
@@ -656,8 +642,8 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        sc.add(iPrinterClassName + " printer = getMetaInformation().createPrinter(outputStream, this);");
-        sc.add(getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add(iTextPrinterClassName + " printer = getMetaInformation().createPrinter(outputStream, this);");
+        sc.add(iReferenceResolverSwitchClassName + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add("for(" + E_OBJECT + " root : getContents()) {");
         sc.add("printer.print(root);");

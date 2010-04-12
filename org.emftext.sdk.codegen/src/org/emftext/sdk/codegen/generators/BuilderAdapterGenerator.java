@@ -20,19 +20,12 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class BuilderAdapterGenerator extends JavaBaseGenerator {
 
-	private String iBuilderClassName;
-	private String builderClassName;
-	private String textResourceClassName;
-
 	public BuilderAdapterGenerator() {
 		super();
 	}
 
 	private BuilderAdapterGenerator(GenerationContext context) {
 		super(context, EArtifact.BUILDER_ADAPTER);
-		iBuilderClassName = getContext().getQualifiedClassName(EArtifact.I_BUILDER);
-		builderClassName = getContext().getQualifiedClassName(EArtifact.BUILDER);
-		textResourceClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

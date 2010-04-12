@@ -44,15 +44,12 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
-	private String iReferenceCacheClassName;
-
 	public DefaultResolverDelegateGenerator() {
 		super();
 	}
 
 	private DefaultResolverDelegateGenerator(GenerationContext context) {
 		super(context, EArtifact.DEFAULT_RESOLVER_DELEGATE);
-		iReferenceCacheClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_CACHE);
 	}
 
 	@Override

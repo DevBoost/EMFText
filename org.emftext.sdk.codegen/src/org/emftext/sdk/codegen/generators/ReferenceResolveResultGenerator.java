@@ -24,19 +24,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 
-	private String iReferenceResolveResultClassName;
-	private String elementMappingClassName;
-	private String uriMappingClassName;
-
 	public ReferenceResolveResultGenerator() {
 		super();
 	}
 
 	private ReferenceResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVE_RESULT);
-		elementMappingClassName = context.getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
-		uriMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
-		iReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

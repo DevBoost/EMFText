@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextScannerGenerator extends JavaBaseGenerator {
 
-	private String iTextTokenClassName;
-
 	public ITextScannerGenerator() {
 		super();
 	}
 
 	private ITextScannerGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_SCANNER);
-		iTextTokenClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_TOKEN);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

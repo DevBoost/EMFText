@@ -18,15 +18,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
  */
 public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
-
 	public SyntaxElementDecoratorGenerator() {
 		super();
 	}
 
 	private SyntaxElementDecoratorGenerator(GenerationContext context) {
 		super(context, EArtifact.SYNTAX_ELEMENT_DECORATOR);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

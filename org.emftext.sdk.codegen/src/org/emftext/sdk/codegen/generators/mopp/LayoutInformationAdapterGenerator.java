@@ -17,15 +17,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 
-	private String layoutInformationClassName;
-
 	public LayoutInformationAdapterGenerator() {
 		super();
 	}
 
 	private LayoutInformationAdapterGenerator(GenerationContext context) {
 		super(context, EArtifact.LAYOUT_INFORMATION_ADAPTER);
-		layoutInformationClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

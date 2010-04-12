@@ -102,12 +102,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	private String contextDependentURIFragmentFactoryClassName;
-	private String dummyEObjectClassName;
-	private String exptectedTerminalClassName;
-	private String tokenResolveResultClassName;
-	private String tokenResolverFactoryClassName;
-
 	private Set<String> parseMethods = new LinkedHashSet<String>();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassCache genClassCache;
@@ -119,11 +113,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private ScannerlessParserGenerator(GenerationContext context) {
 		super(context, EArtifact.SCANNERLESS_PARSER);
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
-		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		this.dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
-		this.tokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
-		this.contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		this.exptectedTerminalClassName = context.getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
 	}
 
 	@Override
@@ -274,7 +263,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
     	sc.add(E_OBJECT + " proxyObject = proxyClass.getEPackage().getEFactoryInstance().create(proxyClass);"); 
     	//sc.add("collectHiddenTokens(element);");
     	sc.add("registerContextDependentProxy(new " + 
-    			contextDependentURIFragmentFactoryClassName + 
+    			contextDependentUriFragmentFactoryClassName + 
     			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
 		sc.addComment("add proxy object");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
@@ -283,7 +272,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentURIFragmentFactoryClassName, false, getClassNameHelper());
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentUriFragmentFactoryClassName, false, getClassNameHelper());
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -739,7 +728,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + exptectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -835,7 +824,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("addParseErrorToResource();");
 		sc.addComment("return root element");
-		String parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 		sc.add(parseResultClassName + " result = new " + parseResultClassName + "();");
 		sc.add("result.setRoot(context.getCurrentContainer());");
 		sc.add("result.getPostParseCommands().addAll(postParseCommands);");

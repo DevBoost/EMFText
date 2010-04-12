@@ -29,15 +29,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class TextResourceUtilGenerator extends JavaBaseGenerator {
 
-	private String textResourceClassName;
-
 	public TextResourceUtilGenerator() {
 		super();
 	}
 
 	private TextResourceUtilGenerator(GenerationContext context) {
 		super(context, EArtifact.TEXT_RESOURCE_UTIL);
-		textResourceClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -33,15 +33,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 
-	private String hyperlinkClassName;
-
 	public HyperlinkDetectorGenerator() {
 		super();
 	}
 
 	private HyperlinkDetectorGenerator(GenerationContext context) {
 		super(context, EArtifact.HYPERLINK_DETECTOR);
-		hyperlinkClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

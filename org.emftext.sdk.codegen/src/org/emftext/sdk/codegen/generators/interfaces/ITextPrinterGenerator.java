@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextPrinterGenerator extends JavaBaseGenerator {
 
-	private String iConfigurableClassName;
-
 	public ITextPrinterGenerator() {
 		super();
 	}
 
 	private ITextPrinterGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_PRINTER);
-		iConfigurableClassName = getContext().getQualifiedClassName(EArtifact.I_CONFIGURABLE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

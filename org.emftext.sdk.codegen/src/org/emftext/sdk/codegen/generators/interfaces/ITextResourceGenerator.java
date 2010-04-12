@@ -29,21 +29,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextResourceGenerator extends JavaBaseGenerator {
 
-	private String iTextResourcePluginPartClassName;
-	private String iLocationMapClassName;
-	private String iProblemClassName;
-	private String iContextDependentURIFragmentFactoryClassName;
-
 	public ITextResourceGenerator() {
 		super();
 	}
 
 	private ITextResourceGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_RESOURCE);
-		iTextResourcePluginPartClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE_PLUGIN_PART);
-		iLocationMapClassName = getContext().getQualifiedClassName(EArtifact.I_LOCATION_MAP);
-		iProblemClassName = getContext().getQualifiedClassName(EArtifact.I_PROBLEM);
-		iContextDependentURIFragmentFactoryClassName = getContext().getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -108,7 +99,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 			"@param id",
 			"@param proxyElement"
 		);
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");

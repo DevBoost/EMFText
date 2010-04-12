@@ -58,25 +58,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 
-	private String activatorClassName;
-	private String editorClassName;
-	private String syntaxColoringHelperClassName;
-	private String antlrTokenHelperClassName;
-	private String pixelConverterClassName;
-	private String metaInformationClassName;
-
 	public SyntaxColoringPreferencePageGenerator() {
 		super();
 	}
 
 	private SyntaxColoringPreferencePageGenerator(GenerationContext context) {
 		super(context, EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE);
-		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		syntaxColoringHelperClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_COLORING_HELPER);
-		antlrTokenHelperClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_TOKEN_HELPER);
-		pixelConverterClassName = getContext().getQualifiedClassName(EArtifact.PIXEL_CONVERTER);
-		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -448,7 +435,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add(COLLECTIONS + ".sort(terminals);");
 		sc.add("content.put(languageId, terminals);");
 		sc.addLineBreak();
-		sc.add("setPreferenceStore(" + activatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Configure syntax coloring for .\" + languageId + \" files.\");");
 		sc.add("}");
 		sc.addLineBreak();

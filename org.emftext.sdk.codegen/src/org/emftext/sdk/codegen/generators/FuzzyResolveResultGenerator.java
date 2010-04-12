@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 
-	private String iReferenceResolveResultClassName;
-
 	public FuzzyResolveResultGenerator() {
 		super();
 	}
 
 	private FuzzyResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
-		iReferenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -13,15 +13,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 
-	private String iExpectedElementClassName;
-
 	public ExpectedTerminalGenerator() {
 		super();
 	}
 
 	private ExpectedTerminalGenerator(GenerationContext context) {
 		super(context, EArtifact.EXPECTED_TERMINAL);
-		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

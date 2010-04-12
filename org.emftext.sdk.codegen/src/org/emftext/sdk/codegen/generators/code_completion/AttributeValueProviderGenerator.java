@@ -12,15 +12,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class AttributeValueProviderGenerator extends JavaBaseGenerator {
 
-	private String stringUtilClassName;
-
 	public AttributeValueProviderGenerator() {
 		super();
 	}
 
 	private AttributeValueProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.ATTRIBUTE_VALUE_PROVIDER);
-		stringUtilClassName = getContext().getQualifiedClassName(EArtifact.STRING_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

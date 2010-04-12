@@ -56,51 +56,12 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	private String iExpectedElementClassName;
-	private String iMetaInformationClassName;
-	private String iTextParserClassName;
-	private String iReferenceResolverSwitchClassName;
-	private String iReferenceResolveResultClassName;
-	private String iReferenceMappingClassName;
-	private String iTokenResolverFactoryClassName;
-	private String iTokenResolverClassName;
-	private String stringUtilClassName;
-	private String expectedCsStringClassName;
-	private String expectedStructuralFeatureClassName;
-	private String referenceResolveResultClassName;
-	private String iTextResourceClassName;
-	private String iLocationMapClassName;
-	private String expectedTerminalClassName;
-	private String completionProposalClassName;
-	private String eObjectUtilClassName;
-	private String attributeValueProviderClassName;
-	private String elementMappingClassName;
-
 	public CodeCompletionHelperGenerator() {
 		super();
 	}
 
 	private CodeCompletionHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.CODE_COMPLETION_HELPER);
-		iMetaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
-		iTextParserClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PARSER);
-		iReferenceResolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER_SWITCH);
-		iReferenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
-		referenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.REFERENCE_RESOLVE_RESULT);
-		iReferenceMappingClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING);
-		iTokenResolverFactoryClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER_FACTORY);
-		iTokenResolverClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER);
-		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
-		iLocationMapClassName = getContext().getQualifiedClassName(EArtifact.I_LOCATION_MAP);
-		stringUtilClassName = getContext().getQualifiedClassName(EArtifact.STRING_UTIL);
-		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
-		expectedCsStringClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
-		expectedStructuralFeatureClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
-		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
-		completionProposalClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROPOSAL);
-		eObjectUtilClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_UTIL);
-		attributeValueProviderClassName = getContext().getQualifiedClassName(EArtifact.ATTRIBUTE_VALUE_PROVIDER);
-		elementMappingClassName = getContext().getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

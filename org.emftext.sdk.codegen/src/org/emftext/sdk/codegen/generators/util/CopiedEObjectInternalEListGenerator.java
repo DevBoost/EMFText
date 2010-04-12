@@ -31,15 +31,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 
-	private String copiedEListClassName;
-
 	public CopiedEObjectInternalEListGenerator() {
 		super();
 	}
 
 	private CopiedEObjectInternalEListGenerator(GenerationContext context) {
 		super(context, EArtifact.COPIED_E_OBJECT_INTERNAL_E_LIST);
-		copiedEListClassName = getContext().getQualifiedClassName(EArtifact.COPIED_E_LIST);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

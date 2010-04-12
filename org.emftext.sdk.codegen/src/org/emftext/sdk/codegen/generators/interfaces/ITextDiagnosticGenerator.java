@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 
-	private String iProblemClassName;
-
 	public ITextDiagnosticGenerator() {
 		super();
 	}
 
 	private ITextDiagnosticGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_DIAGNOSTIC);
-		iProblemClassName = getContext().getQualifiedClassName(EArtifact.I_PROBLEM);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

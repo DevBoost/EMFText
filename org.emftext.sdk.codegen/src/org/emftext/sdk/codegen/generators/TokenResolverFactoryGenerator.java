@@ -133,8 +133,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + "> tokenName2TokenResolver;");
 		sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_TOKEN_RESOLVER() + "> featureName2CollectInTokenResolver;");
-		String qualifiedDefaultTokenResolverClassName = getContext().getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
-		sc.add("private static " + getClassNameHelper().getI_TOKEN_RESOLVER() + " defaultResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
+		sc.add("private static " + getClassNameHelper().getI_TOKEN_RESOLVER() + " defaultResolver = new " + defaultTokenResolverClassName + "();");
 		sc.addLineBreak();
 	}
 

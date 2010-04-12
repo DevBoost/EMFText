@@ -44,17 +44,12 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	private String editorClassName;
-	private String outlinePageTreeViewerClassName;
-
 	public OutlinePageGenerator() {
 		super();
 	}
 
 	private OutlinePageGenerator(GenerationContext context) {
 		super(context, EArtifact.OUTLINE_PAGE);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		outlinePageTreeViewerClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

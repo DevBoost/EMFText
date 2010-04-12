@@ -26,15 +26,12 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class HoverTextProviderGenerator extends JavaBaseGenerator {
 	
-	private String defaultHoverTextProviderClassName;
-
 	public HoverTextProviderGenerator() {
 		super();
 	}
 
 	private HoverTextProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.HOVER_TEXT_PROVIDER);
-		defaultHoverTextProviderClassName = context.getQualifiedClassName(EArtifact.DEFAULT_HOVER_TEXT_PROVIDER);
 	}
 
 	@Override

@@ -45,7 +45,6 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassCache genClassCache;
-	private String iReferenceResolverClassName;
 
 	public ReferenceResolverSwitchGenerator() {
 		super();
@@ -54,7 +53,6 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private ReferenceResolverSwitchGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
-		iReferenceResolverClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER);
 	}
 	
 	@Override

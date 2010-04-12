@@ -24,21 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextParserGenerator extends JavaBaseGenerator {
 
-	private String iConfigurableClassName;
-	private String iParseResultClassName;
-	private String expectedTerminalClassName;
-	private String iTextResourceClassName;
-
 	public ITextParserGenerator() {
 		super();
 	}
 
 	private ITextParserGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_PARSER);
-		iConfigurableClassName = getContext().getQualifiedClassName(EArtifact.I_CONFIGURABLE);
-		iParseResultClassName = getContext().getQualifiedClassName(EArtifact.I_PARSE_RESULT);
-		expectedTerminalClassName = getContext().getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
-		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

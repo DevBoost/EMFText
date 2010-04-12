@@ -22,17 +22,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 
-	private String abstractExpectedElementClassName;
-	private String keywordClassName;
-
 	public ExpectedCsStringGenerator() {
 		super();
 	}
 
 	private ExpectedCsStringGenerator(GenerationContext context) {
 		super(context, EArtifact.EXPECTED_CS_STRING);
-		abstractExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.ABSTRACT_EXPECTED_ELEMENT);
-		keywordClassName = getContext().getQualifiedClassName(EArtifact.KEYWORD);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

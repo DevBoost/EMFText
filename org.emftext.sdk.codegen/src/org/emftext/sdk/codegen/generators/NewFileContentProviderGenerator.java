@@ -27,8 +27,6 @@ import org.emftext.sdk.util.StringUtil;
 public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
-	private String mimimalModelHelperClassName;
-	private String metaInformationClassName;
 
 	public NewFileContentProviderGenerator() {
 		super();
@@ -36,8 +34,6 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 	
 	private NewFileContentProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.NEW_FILE_CONTENT_PROVIDER);
-		mimimalModelHelperClassName = getContext().getQualifiedClassName(EArtifact.MINIMAL_MODEL_HELPER);
-		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	@Override
@@ -63,7 +59,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 
 	private void addGetPrinterMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
-		sc.add("return getMetaInformation().createPrinter(outputStream, new " + getContext().getQualifiedClassName(EArtifact.RESOURCE) + "());");
+		sc.add("return getMetaInformation().createPrinter(outputStream, new " + textResourceClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -91,7 +87,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 	private void addGetExampleContentMethod2(JavaComposite sc) {
 		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, " + STRING + " newFileName) {");
 		sc.addComment("create a minimal model");
-		sc.add(E_OBJECT + " root = new " + mimimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
+		sc.add(E_OBJECT + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
 		sc.addComment("use printer to get text for model");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
 		sc.add(getClassNameHelper().getI_TEXT_PRINTER() + " printer = getPrinter(buffer);");

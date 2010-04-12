@@ -32,17 +32,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class TokenScannerGenerator extends JavaBaseGenerator {
 
-	private String colorManagerClassName;
-	private String pluginActivatorClassName;
-
 	public TokenScannerGenerator() {
 		super();
 	}
 
 	private TokenScannerGenerator(GenerationContext context) {
 		super(context, EArtifact.TOKEN_SCANNER);
-		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -140,8 +135,6 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		String metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
-
 		sc.addJavadoc("@param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + colorManagerClassName + " colorManager) {");
 		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");

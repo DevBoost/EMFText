@@ -33,21 +33,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class OccurrenceGenerator extends JavaBaseGenerator {
 
-	private String positionHelperClassName;
-	private String textTokenScannerClassName;
-	private String bracketSetClassName;
-	private String positionCategoryClassName;
-
 	public OccurrenceGenerator() {
 		super();
 	}
 
 	private OccurrenceGenerator(GenerationContext context) {
 		super(context, EArtifact.OCCURENCE);
-		positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
-		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
-		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -326,12 +317,12 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 			"@param sourceViewer the source viewer for the text",
 			"@param tokenScanner the token scanner helps to find the searched tokens"
 		);
-		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + textTokenScannerClassName + " tokenScanner) {");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + tokenScannerClassName + " tokenScanner) {");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = sourceViewer;");
 		sc.addLineBreak();
 		sc.add("quotedTokenArray = new " + ARRAY_LIST + "<String>();");
-		sc.add("String[] tokenNames = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getTokenNames();");
+		sc.add("String[] tokenNames = new " + metaInformationClassName + "().getTokenNames();");
 		sc.add("for (String tokenName : tokenNames) {");
 		// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
 		sc.add("if (tokenName.startsWith(\"'\") && tokenName.endsWith(\"'\")) {");
@@ -346,7 +337,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
-		sc.add("private " + textTokenScannerClassName + " tokenScanner;");
+		sc.add("private " + tokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");

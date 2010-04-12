@@ -23,15 +23,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 
-	private String inputStreamProcessorClassName;
-
 	public IInputStreamProcessorProviderGenerator() {
 		super();
 	}
 
 	private IInputStreamProcessorProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.I_INPUT_STREAM_PROCESSOR_PROVIDER);
-		inputStreamProcessorClassName = getContext().getQualifiedClassName(EArtifact.INPUT_STREAM_PROCESSOR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

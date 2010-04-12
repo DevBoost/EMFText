@@ -22,15 +22,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class URIMappingGenerator extends JavaBaseGenerator {
 
-	private String iUriMappingClassName;
-
 	public URIMappingGenerator() {
 		super();
 	}
 
 	private URIMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.URI_MAPPING);
-		iUriMappingClassName = getContext().getQualifiedClassName(EArtifact.I_URI_MAPPING);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

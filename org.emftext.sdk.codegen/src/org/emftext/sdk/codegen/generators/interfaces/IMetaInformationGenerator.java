@@ -26,31 +26,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IMetaInformationGenerator extends JavaBaseGenerator {
 
-	private String iTextScannerClassName;
-	private String iTextParserClassName;
-	private String iTextPrinterClassName;
-	private String iTextResourceClassName;
-	private String iReferenceResolverSwitchClassName;
-	private String iTokenResolverFactoryClassName;
-	private String iTokenStyleClassName;
-	private String iBracketPairClassName;
-	private String iHoverTextProviderClassName;
-
 	public IMetaInformationGenerator() {
 		super();
 	}
 
 	private IMetaInformationGenerator(GenerationContext context) {
 		super(context, EArtifact.I_META_INFORMATION);
-		iTextScannerClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_SCANNER);
-		iTextParserClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PARSER);
-		iReferenceResolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER_SWITCH);
-		iTokenResolverFactoryClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER_FACTORY);
-		iTokenStyleClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_STYLE);
-		iBracketPairClassName = getContext().getQualifiedClassName(EArtifact.I_BRACKET_PAIR);
-		iHoverTextProviderClassName = getContext().getQualifiedClassName(EArtifact.I_HOVER_TEXT_PROVIDER);
-		iTextPrinterClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
-		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

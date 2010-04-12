@@ -8,19 +8,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class CompoundGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
-	private String cardinalityClassName;
-	private String choiceClassName;
-
 	public CompoundGenerator() {
 		super();
 	}
 
 	private CompoundGenerator(GenerationContext context) {
 		super(context, EArtifact.COMPOUND);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

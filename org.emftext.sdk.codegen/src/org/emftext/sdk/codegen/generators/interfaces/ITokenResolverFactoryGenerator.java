@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITokenResolverFactoryGenerator extends JavaBaseGenerator {
 
-	private String iTokenResolverClassName;
-
 	public ITokenResolverFactoryGenerator() {
 		super();
 	}
 
 	private ITokenResolverFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TOKEN_RESOLVER_FACTORY);
-		iTokenResolverClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

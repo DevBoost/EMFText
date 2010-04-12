@@ -30,15 +30,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 
-	private String editorClassName;
-
 	public BackgroundParsingStrategyGenerator() {
 		super();
 	}
 
 	private BackgroundParsingStrategyGenerator(GenerationContext context) {
 		super(context, EArtifact.BACKGROUND_PARSING_STRATEGY);
-		editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
 	@Override

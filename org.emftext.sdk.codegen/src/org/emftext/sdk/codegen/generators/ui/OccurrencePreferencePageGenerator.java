@@ -39,19 +39,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 
-	private String pluginActivatorClassName;
-	private String editorClassName;
-	private String preferenceConstantsClassName;
-
 	public OccurrencePreferencePageGenerator() {
 		super();
 	}
 
 	private OccurrencePreferencePageGenerator(GenerationContext context) {
 		super(context, EArtifact.OCCURRENCE_PREFERENCE_PAGE);
-		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		preferenceConstantsClassName = getContext().getQualifiedClassName(EArtifact.PREFERENCE_CONSTANTS);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

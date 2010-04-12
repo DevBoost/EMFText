@@ -10,17 +10,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ContainmentGenerator extends JavaBaseGenerator {
 
-	private String terminalClassName;
-	private String cardinalityClassName;
-
 	public ContainmentGenerator() {
 		super();
 	}
 
 	private ContainmentGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTAINMENT);
-		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

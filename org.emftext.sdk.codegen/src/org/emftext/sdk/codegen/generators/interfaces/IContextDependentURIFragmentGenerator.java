@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 
-	private String iReferenceResolveResultClassName;
-
 	public IContextDependentURIFragmentGenerator() {
 		super();
 	}
 
 	private IContextDependentURIFragmentGenerator(GenerationContext context) {
 		super(context, EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
-		iReferenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -13,17 +13,12 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BuilderGenerator extends JavaBaseGenerator {
 
-	private String iBuilderClassName;
-	private String textResourceClassName;
-
 	public BuilderGenerator() {
 		super();
 	}
 
 	private BuilderGenerator(GenerationContext context) {
 		super(context, EArtifact.BUILDER);
-		iBuilderClassName = getContext().getQualifiedClassName(EArtifact.I_BUILDER);
-		textResourceClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

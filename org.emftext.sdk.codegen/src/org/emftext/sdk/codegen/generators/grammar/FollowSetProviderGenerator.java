@@ -24,21 +24,12 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	private String expectedCsStringClassName;
-	private String expectedStructuralFeatureClassName;
-	private String iExpectedElementClassName;
-	private String grammarInformationProviderClassName;
-
 	public FollowSetProviderGenerator() {
 		super();
 	}
 
 	private FollowSetProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.FOLLOW_SET_PROVIDER);
-		iExpectedElementClassName = context.getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
-		expectedCsStringClassName = context.getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
-		expectedStructuralFeatureClassName = context.getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
-		grammarInformationProviderClassName = context.getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

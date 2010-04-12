@@ -24,17 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IReferenceResolverGenerator extends JavaBaseGenerator {
 
-	private String iConfigurableClassName;
-	private String iReferenceResolveResultClassName;
-
 	public IReferenceResolverGenerator() {
 		super();
 	}
 
 	private IReferenceResolverGenerator(GenerationContext context) {
 		super(context, EArtifact.I_REFERENCE_RESOLVER);
-		iConfigurableClassName = getContext().getQualifiedClassName(EArtifact.I_CONFIGURABLE);
-		iReferenceResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

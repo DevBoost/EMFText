@@ -88,7 +88,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private ConcreteSyntax concretSyntax;
-	private String tokenResolverFactoryClassName;
 	
 	/** maps all choices to a method name */
 	private Map<Choice, String> choice2Name;
@@ -111,7 +110,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 		this.concretSyntax = context.getConcreteSyntax();
 		this.genClassCache = concretSyntax.getGenClassCache();
-		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 	}
 
 	private void extractChoices(List<Rule> rules,

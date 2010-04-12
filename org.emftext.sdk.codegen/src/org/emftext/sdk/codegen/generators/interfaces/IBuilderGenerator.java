@@ -12,15 +12,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IBuilderGenerator extends JavaBaseGenerator {
 
-	private String textResourceClassName;
-
 	public IBuilderGenerator() {
 		super();
 	}
 
 	private IBuilderGenerator(GenerationContext context) {
 		super(context, EArtifact.I_BUILDER);
-		textResourceClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

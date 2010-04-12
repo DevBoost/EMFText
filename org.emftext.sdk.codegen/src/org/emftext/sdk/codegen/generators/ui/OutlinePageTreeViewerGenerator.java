@@ -102,7 +102,7 @@ public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 
 	private void addSetSelectionMethod(StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
-		sc.add("if (selection instanceof " + getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION) + ") {");
+		sc.add("if (selection instanceof " + eObjectSelectionClassName + ") {");
 		sc.add("suppressNotifications = true;");
 		sc.add("super.setSelection(selection, reveal);");
 		sc.add("suppressNotifications = false;");

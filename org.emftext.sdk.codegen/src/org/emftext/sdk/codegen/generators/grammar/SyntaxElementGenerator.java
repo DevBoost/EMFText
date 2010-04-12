@@ -11,15 +11,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class SyntaxElementGenerator extends JavaBaseGenerator {
 
-	private String cardinalityEnumName;
-
 	public SyntaxElementGenerator() {
 		super();
 	}
 
 	private SyntaxElementGenerator(GenerationContext context) {
 		super(context, EArtifact.SYNTAX_ELEMENT);
-		cardinalityEnumName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -47,12 +44,12 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private " + getResourceClassName() + "[] children;");
 		sc.add("private " + getResourceClassName() + " parent;");
-		sc.add("private " + cardinalityEnumName + " cardinality;");
+		sc.add("private " + cardinalityClassName + " cardinality;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + cardinalityEnumName + " cardinality, " + getResourceClassName() + "[] children) {");
+		sc.add("public " + getResourceClassName() + "(" + cardinalityClassName + " cardinality, " + getResourceClassName() + "[] children) {");
 		sc.add("this.cardinality = cardinality;"); 
 		sc.add("this.children = children;"); 
 		sc.add("if (this.children != null) {"); 
@@ -97,7 +94,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetCardinalityMethod(StringComposite sc) {
-		sc.add("public " + cardinalityEnumName + " getCardinality() {");
+		sc.add("public " + cardinalityClassName + " getCardinality() {");
 		sc.add("return cardinality;");
 		sc.add("}");
 		sc.addLineBreak();

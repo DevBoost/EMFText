@@ -26,17 +26,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 
-	private String abstractExpectedElementClassName;
-	private String placeholderClassName;
-
 	public ExpectedStructuralFeatureGenerator() {
 		super();
 	}
 
 	private ExpectedStructuralFeatureGenerator(GenerationContext context) {
 		super(context, EArtifact.EXPECTED_STRUCTURAL_FEATURE);
-		abstractExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.ABSTRACT_EXPECTED_ELEMENT);
-		placeholderClassName = getContext().getQualifiedClassName(EArtifact.PLACEHOLDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -36,25 +36,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class EditorConfigurationGenerator extends JavaBaseGenerator {
 
-	private String editorClassName;
-	private String colorManagerClassName;
-	private String completionProcessorClassName;
-	private String textTokenScannerClassName;
-	private String textHoverClassName;
-	private String hyperlinkDetectorClassName;
-
 	public EditorConfigurationGenerator() {
 		super();
 	}
 
 	private EditorConfigurationGenerator(GenerationContext context) {
 		super(context, EArtifact.EDITOR_CONFIGURATION);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-		completionProcessorClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROCESSOR);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
-		textHoverClassName = getContext().getQualifiedClassName(EArtifact.TEXT_HOVER);
-		hyperlinkDetectorClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK_DETECTOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -126,7 +113,7 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 
 	private void addGetScannerMethod(JavaComposite sc) {
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
-		sc.add("return new " + textTokenScannerClassName + "(colorManager);");
+		sc.add("return new " + tokenScannerClassName + "(colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

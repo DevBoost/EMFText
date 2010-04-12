@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
 
-	private String iMetaInformationClassName;
-
 	public ITextResourcePluginPartGenerator() {
 		super();
 	}
 
 	private ITextResourcePluginPartGenerator(GenerationContext context) {
 		super(context, EArtifact.I_TEXT_RESOURCE_PLUGIN_PART);
-		iMetaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

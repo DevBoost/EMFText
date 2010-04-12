@@ -52,32 +52,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class HighlightingGenerator extends JavaBaseGenerator {
 
-	private String textTokenScannerClassName;
-	private String colorManagerClassName;
-	private String editorClassName;
-	private String activatorClassName;
-	
-	private String positionHelperClassName;
-	private String occurenceClassName;
-	private String bracketSetClassName;
-	private String positionCategoryClassName;
-	private String eObjectSelectClassName;
-
 	public HighlightingGenerator() {
 		super();
 	}
 
 	private HighlightingGenerator(GenerationContext context) {
 		super(context, EArtifact.HIGHLIGHTING);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
-		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
-		occurenceClassName = getContext().getQualifiedClassName(EArtifact.OCCURENCE);
-		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
-		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
-		eObjectSelectClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -180,7 +160,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private boolean isHighlightBrackets = true;");
 		sc.add("private boolean isHighlightOccurrences = true;");
-		sc.add("private " + textTokenScannerClassName + " scanner;");
+		sc.add("private " + tokenScannerClassName + " scanner;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + COLOR + " definitionColor;");
 		sc.add("private " + COLOR + " proxyColor;");
@@ -247,7 +227,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("public void run() {");
 		sc.add(E_OBJECT + " selectedEObject = occurrence.getEObjectAtCurrentPosition();");
 		sc.add("if (selectedEObject != null) {");
-		sc.add("setSelection(new " + eObjectSelectClassName + "(selectedEObject, false));");
+		sc.add("setSelection(new " + eObjectSelectionClassName + "(selectedEObject, false));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("});");
@@ -391,10 +371,10 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
 		sc.add("sourceviewer.getSelectionProvider();");
-		sc.add("preferenceStore = " + activatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("preferenceStore = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
-		sc.add("scanner = new " + textTokenScannerClassName + "(colorManager);");
+		sc.add("scanner = new " + tokenScannerClassName + "(colorManager);");
 		sc.add("occurrence = new " + occurenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(sourceviewer, \"" + getContext().getConcreteSyntax().getName() + "\");");
 		sc.add("this.colorManager = colorManager;");

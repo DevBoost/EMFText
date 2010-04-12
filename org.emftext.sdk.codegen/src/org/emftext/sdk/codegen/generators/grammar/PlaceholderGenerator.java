@@ -12,17 +12,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PlaceholderGenerator extends JavaBaseGenerator {
 
-	private String terminalClassName;
-	private String cardinalityEnumName;
-
 	public PlaceholderGenerator() {
 		super();
 	}
 
 	private PlaceholderGenerator(GenerationContext context) {
 		super(context, EArtifact.PLACEHOLDER);
-		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
-		cardinalityEnumName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -50,7 +45,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, " + cardinalityEnumName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("this.tokenName = tokenName;"); 
 		sc.add("}"); 

@@ -57,17 +57,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 
-	private String docBrowserInformationControlInputClassName;
-	private String htmlPrinterClassName;
-
 	public BrowserInformationControlGenerator() {
 		super();
 	}
 
 	private BrowserInformationControlGenerator(GenerationContext context) {
 		super(context, EArtifact.BROWER_INFORMATION_CONTROL);
-		docBrowserInformationControlInputClassName = getContext().getQualifiedClassName(EArtifact.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
-		htmlPrinterClassName = getContext().getQualifiedClassName(EArtifact.HTML_PRINTER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

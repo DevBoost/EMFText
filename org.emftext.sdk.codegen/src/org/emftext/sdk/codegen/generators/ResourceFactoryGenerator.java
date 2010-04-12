@@ -30,8 +30,6 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
  */
 public class ResourceFactoryGenerator extends JavaBaseGenerator {
 	
-	private String qualifiedTextResourceClassName;
-	
 	public ResourceFactoryGenerator() {
 		super();
 	}
@@ -44,7 +42,6 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator {
 	 */
 	private ResourceFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.RESOURCE_FACTORY);
-		this.qualifiedTextResourceClassName = context.getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	@Override
@@ -62,7 +59,7 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("public " + RESOURCE + " createResource(" + URI + " uri) {");
-		sc.add("return new " + qualifiedTextResourceClassName + "(uri);");
+		sc.add("return new " + textResourceClassName + "(uri);");
 		sc.add("}");
 		
 		sc.add("}");

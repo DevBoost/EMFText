@@ -155,26 +155,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
 
 	private ConcreteSyntax concreteSyntax;
-	
-	// some fully qualified names of classes that are repeatedly used
-	private String tokenResolverFactoryClassName;
-	private String dummyEObjectClassName;
-	private String tokenResolveResultClassName;
-	private String contextDependentURIFragmentFactoryClassName;
-	private String iTextResourceClassName;
-	private String iCommandClassName;
-	private String iParseResultClassName;
-	private String expectedTerminalClassName;
-	private String iExpectedElementClassName;
-	private String parseResultClassName;
-	private String pairClassName;
-	private String followSetProviderClassName;
-	private String syntaxElementClassName;
-	private String placeholderClassName;
-	private String keywordClassName;
-	private String grammarInformationClassName;
-	private String layoutInformationAdapterClassName;
-	private String layoutInformationClassName;
 
 	/**
 	 * A map that projects the fully qualified name of generator classes to the
@@ -208,25 +188,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		super(context, EArtifact.ANTLR_GRAMMAR);
 		concreteSyntax = context.getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
-		// initialize class names
-		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		dummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
-		tokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
-		contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
-		iCommandClassName = context.getQualifiedClassName(EArtifact.I_COMMAND);
-		iParseResultClassName = context.getQualifiedClassName(EArtifact.I_PARSE_RESULT);
-		expectedTerminalClassName = context.getQualifiedClassName(EArtifact.EXPECTED_TERMINAL);
-		iExpectedElementClassName = context.getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
-		parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
-		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
-		followSetProviderClassName = getContext().getQualifiedClassName(EArtifact.FOLLOW_SET_PROVIDER);
-		syntaxElementClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		placeholderClassName = getContext().getQualifiedClassName(EArtifact.PLACEHOLDER);
-		keywordClassName = getContext().getQualifiedClassName(EArtifact.KEYWORD);
-		grammarInformationClassName = getContext().getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
-		layoutInformationClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
-		layoutInformationAdapterClassName = getContext().getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 	}
 
 	private void initOptions() {
@@ -349,7 +310,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc,
-				contextDependentURIFragmentFactoryClassName, true, getClassNameHelper());
+				contextDependentUriFragmentFactoryClassName, true, getClassNameHelper());
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -1204,7 +1165,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					+ genClassUtil.getCreateObjectCall(recursiveType,
 							dummyEObjectClassName) + ";");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ", null);");
 			sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new "
 					+ ARRAY_LIST + "<" + E_OBJECT + ">();");
 			sc.add("}");
@@ -1318,7 +1279,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 							dummyEObjectClassName) + "()" + ", \""
 					+ recurseName + "\");");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ", null);");
 			sc.add("}");
 			sc.add(":");
 
@@ -1828,7 +1789,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("incompleteObjects.push(element);");
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(csString) + ", null);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(csString) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
@@ -1967,7 +1928,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					resolvements.add("collectHiddenTokens(element);");
 					resolvements
 							.add("registerContextDependentProxy(new "
-									+ contextDependentURIFragmentFactoryClassName
+									+ contextDependentUriFragmentFactoryClassName
 									+ "<"
 									+ genClassCache
 											.getQualifiedInterfaceName(genFeature
@@ -2035,7 +1996,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationClassName + "." + csUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
 		if (terminal instanceof Containment) {
 			sc.add("copyLocalizationInfos(" + ident + ", element); ");
 		} else {

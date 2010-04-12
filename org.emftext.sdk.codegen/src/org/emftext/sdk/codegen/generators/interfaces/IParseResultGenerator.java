@@ -24,17 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IParseResultGenerator extends JavaBaseGenerator {
 
-	private String iTextResourceClassName;
-	private String iCommandClassName;
-
 	public IParseResultGenerator() {
 		super();
 	}
 
 	private IParseResultGenerator(GenerationContext context) {
 		super(context, EArtifact.I_PARSE_RESULT);
-		iTextResourceClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
-		iCommandClassName = getContext().getQualifiedClassName(EArtifact.I_COMMAND);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -24,7 +24,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	private GenClassCache genClassCache;
 	
-	private String referenceResolverSwitchClassName;
 	private int tokenSpace;
 
 	public AbstractPrinterGenerator() {
@@ -34,7 +33,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	public AbstractPrinterGenerator(GenerationContext context, EArtifact artifact) {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
-		this.referenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 		initializeTokenSpace();
 	}
 
@@ -52,12 +50,12 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	protected void addAddWarningToResourceMethod(JavaComposite sc) {
 		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
+		sc.add(iTextResourceClassName + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-    	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), cause);");
+    	sc.add("resource.addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR), cause);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

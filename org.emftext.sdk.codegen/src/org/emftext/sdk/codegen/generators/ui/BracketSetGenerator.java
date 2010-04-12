@@ -38,15 +38,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class BracketSetGenerator extends JavaBaseGenerator {
 
-	private String positionCategoryClassName;
-
 	public BracketSetGenerator() {
 		super();
 	}
 
 	private BracketSetGenerator(GenerationContext context) {
 		super(context, EArtifact.BRACKET_SET);
-		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -371,7 +368,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.add("viewer = sourceViewer;");
 		sc.add("textWidget = viewer.getTextWidget();");
 		sc.add("}");
-		sc.add("preferenceStore = " + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".getDefault().getPreferenceStore();");
+		sc.add("preferenceStore = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("if (sourceViewer != null && preferenceStore != null) {");
 		sc.add("resetBrackets();");
 		sc.add("addListeners();");
@@ -490,8 +487,6 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(JavaComposite sc) {
-		String positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
-		
 		sc.addJavadoc(
 			"the separator between a bracket pair, should not contain escape needed " +
 			"character, it will be used as regular expression"

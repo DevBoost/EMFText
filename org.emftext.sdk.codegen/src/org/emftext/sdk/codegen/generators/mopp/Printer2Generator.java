@@ -55,25 +55,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private ConcreteSyntax syntax;
-	private String tokenResolverFactoryClassName;
-	private String syntaxElementDecoratorClassName;
-	private String syntaxElementClassName;
-	private String grammarInformationProviderClassName;
-	private String keywordClassName;
-	private String placeholderClassName;
-	private String cardinalityClassName;
-	private String choiceClassName;
-	private String containmentClassName;
-	private String formattingElementClassName;
-	private String lineBreakClassName;
-	private String whiteSpaceClassName;
-	private String iTextPrinterClassName;
-	private String iTextResourceClassName;
-	private String iTokenResolverClassName;
-	private String iReferenceResolverClassName;
-	private String terminalClassName;
-	private String layoutInformationAdapterClassName;
-	private String layoutInformationClassName;
 	
 	public Printer2Generator() {
 		super();
@@ -82,25 +63,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private Printer2Generator(GenerationContext context) {
 		super(context, EArtifact.PRINTER2);
 		syntax = context.getConcreteSyntax();
-		tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		iTextPrinterClassName = context.getQualifiedClassName(EArtifact.I_TEXT_PRINTER);
-		iTokenResolverClassName = context.getQualifiedClassName(EArtifact.I_TOKEN_RESOLVER);
-		iTextResourceClassName = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
-		syntaxElementDecoratorClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT_DECORATOR);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		grammarInformationProviderClassName = context.getQualifiedClassName(EArtifact.GRAMMAR_INFORMATION_PROVIDER);
-		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
-		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
-		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
-		formattingElementClassName = context.getQualifiedClassName(EArtifact.FORMATTING_ELEMENT);
-		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
-		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
-		iReferenceResolverClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER);
-		terminalClassName = context.getQualifiedClassName(EArtifact.TERMINAL);
-		layoutInformationClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION);
-		layoutInformationAdapterClassName = context.getQualifiedClassName(EArtifact.LAYOUT_INFORMATION_ADAPTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

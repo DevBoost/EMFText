@@ -8,17 +8,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class LineBreakGenerator extends JavaBaseGenerator {
 
-	private String cardinalityClassName;
-	private String formattingElementName;
-
 	public LineBreakGenerator() {
 		super();
 	}
 
 	private LineBreakGenerator(GenerationContext context) {
 		super(context, EArtifact.LINE_BREAK);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		formattingElementName = context.getQualifiedClassName(EArtifact.FORMATTING_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -30,7 +25,7 @@ public class LineBreakGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + formattingElementName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + formattingElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final int tabs;");
 		sc.addLineBreak();

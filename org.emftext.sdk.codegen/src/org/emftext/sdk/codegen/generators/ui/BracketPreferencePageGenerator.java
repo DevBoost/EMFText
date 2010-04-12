@@ -45,23 +45,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 
-	private String preferenceConstantsClassName;
-	private String bracketSetClassName;
-	private String pluginActivatorClassName;
-	private String editorClassName;
-	private String metaInformationClassName;
-
 	public BracketPreferencePageGenerator() {
 		super();
 	}
 
 	private BracketPreferencePageGenerator(GenerationContext context) {
 		super(context, EArtifact.BRACKET_PREFERENCE_PAGE);
-		preferenceConstantsClassName = getContext().getQualifiedClassName(EArtifact.PREFERENCE_CONSTANTS);
-		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
-		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
-		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	@Override
@@ -412,7 +401,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("private " + BUTTON + " addBracketButton;");
 		sc.add("private " + BUTTON + " removeBracketButton;");
 		sc.add("private " + MAP + "<String, String> bracketSetTemp = new " + LINKED_HASH_MAP + "<String, String>();");
-		sc.add("private String language = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getSyntaxName();");
+		sc.add("private String language = new " + metaInformationClassName + "().getSyntaxName();");
 		sc.addLineBreak();
 		sc.add("private " + bracketSetClassName + " bracketsTmp;");
 		sc.addLineBreak();

@@ -8,17 +8,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class ChoiceGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
-	private String cardinalityClassName;
-
 	public ChoiceGenerator() {
 		super();
 	}
 
 	private ChoiceGenerator(GenerationContext context) {
 		super(context, EArtifact.CHOICE);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

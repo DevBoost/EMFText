@@ -37,8 +37,6 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  */
 public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 	
-	private String qualifiedTextResourceFactoryName;
-	
 	public ResourceFactoryDelegatorGenerator() {
 		super();
 	}
@@ -48,7 +46,6 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 	 */
 	private ResourceFactoryDelegatorGenerator(GenerationContext context) {
 		super(context, EArtifact.RESOURCE_FACTORY_DELEGATOR);
-		this.qualifiedTextResourceFactoryName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
 	}
 
 	@Override
@@ -130,7 +127,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
     	sc.add("}");
     	sc.add("}");
     	sc.add("if (factories.get(\"\") == null) {");
-    	sc.add("factories.put(\"\", new " + qualifiedTextResourceFactoryName + "());");
+    	sc.add("factories.put(\"\", new " + resourceFactoryClassName + "());");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();

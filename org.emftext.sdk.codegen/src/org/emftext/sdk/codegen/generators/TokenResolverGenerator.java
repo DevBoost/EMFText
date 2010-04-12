@@ -53,7 +53,6 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	private final NameUtil nameUtil = new NameUtil();
 	
 	private CompleteTokenDefinition definition;
-	private String defaultTokenResolverClassName;
 	
 	public TokenResolverGenerator() {
 		super();
@@ -61,7 +60,6 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	
 	private TokenResolverGenerator(GenerationContext context) {
 		super(context, EArtifact.TOKEN_RESOLVER);
-		this.defaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator {
 
-	private String iResourcePostProcessorClassName;
-
 	public IResourcePostProcessorProviderGenerator() {
 		super();
 	}
 
 	private IResourcePostProcessorProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
-		iResourcePostProcessorClassName = getContext().getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

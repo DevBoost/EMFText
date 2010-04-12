@@ -8,17 +8,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class SequenceGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
-	private String cardinalityClassName;
-
 	public SequenceGenerator() {
 		super();
 	}
 
 	private SequenceGenerator(GenerationContext context) {
 		super(context, EArtifact.SEQUENCE);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

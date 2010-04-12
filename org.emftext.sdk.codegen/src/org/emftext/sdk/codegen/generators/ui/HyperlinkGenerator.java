@@ -40,15 +40,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class HyperlinkGenerator extends JavaBaseGenerator {
 
-	private String editorClassName;
-
 	public HyperlinkGenerator() {
 		super();
 	}
 
 	private HyperlinkGenerator(GenerationContext context) {
 		super(context, EArtifact.HYPERLINK);
-		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

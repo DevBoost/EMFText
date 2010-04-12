@@ -28,15 +28,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 
-	private String qualifiedReferenceResolveResultClassName;
-
 	public ContextDependentURIFragmentGenerator() {
 		super();
 	}
 	
 	private ContextDependentURIFragmentGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
-		qualifiedReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -77,7 +74,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("resolving = true;");
 		sc.add("if (result == null || !result.wasResolved()) {");
-		sc.add("result = new " + qualifiedReferenceResolveResultClassName + "<ReferenceType>(false);");
+		sc.add("result = new " + referenceResolveResultClassName + "<ReferenceType>(false);");
 		sc.addComment("set an initial default error message");
 		sc.add("result.setErrorMessage(getStdErrorMessage());");
 		sc.addLineBreak();

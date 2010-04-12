@@ -25,15 +25,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 
-	private String iReferenceMappingClassName;
-
 	public IReferenceResolveResultGenerator() {
 		super();
 	}
 
 	private IReferenceResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.I_REFERENCE_RESOLVE_RESULT);
-		iReferenceMappingClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

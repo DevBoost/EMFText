@@ -36,19 +36,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 
-	private String eClassUtilClassName;
-	private String stringUtilClassName;
-	private String listUtilClassName;
-
 	public MinimalModelHelperGenerator() {
 		super();
 	}
 
 	private MinimalModelHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.MINIMAL_MODEL_HELPER);
-		eClassUtilClassName = getContext().getQualifiedClassName(EArtifact.E_CLASS_UTIL);
-		stringUtilClassName = getContext().getQualifiedClassName(EArtifact.STRING_UTIL);
-		listUtilClassName = getContext().getQualifiedClassName(EArtifact.LIST_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

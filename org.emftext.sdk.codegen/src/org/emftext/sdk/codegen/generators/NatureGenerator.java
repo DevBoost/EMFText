@@ -14,15 +14,12 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class NatureGenerator extends JavaBaseGenerator {
 
-	private String builderAdapterClassName;
-
 	public NatureGenerator() {
 		super();
 	}
 
 	private NatureGenerator(GenerationContext context) {
 		super(context, EArtifact.NATURE);
-		builderAdapterClassName = getContext().getQualifiedClassName(EArtifact.BUILDER_ADAPTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

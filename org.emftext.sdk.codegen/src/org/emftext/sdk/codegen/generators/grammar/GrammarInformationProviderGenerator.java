@@ -53,17 +53,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
 
-	private String syntaxElementClassName;
-	private String keywordClassName;
-	private String placeholderClassName;
-	private String cardinalityClassName;
-	private String compoundClassName;
-	private String choiceClassName;
-	private String sequenceClassName;
-	private String containmentClassName;
-	private String lineBreakClassName;
-	private String whiteSpaceClassName;
-
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public GrammarInformationProviderGenerator() {
@@ -73,16 +62,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	private GrammarInformationProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.GRAMMAR_INFORMATION_PROVIDER);
 		concreteSyntax = context.getConcreteSyntax();
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		keywordClassName = context.getQualifiedClassName(EArtifact.KEYWORD);
-		placeholderClassName = context.getQualifiedClassName(EArtifact.PLACEHOLDER);
-		cardinalityClassName = context.getQualifiedClassName(EArtifact.CARDINALITY);
-		compoundClassName = context.getQualifiedClassName(EArtifact.COMPOUND);
-		choiceClassName = context.getQualifiedClassName(EArtifact.CHOICE);
-		sequenceClassName = context.getQualifiedClassName(EArtifact.SEQUENCE);
-		containmentClassName = context.getQualifiedClassName(EArtifact.CONTAINMENT);
-		lineBreakClassName = context.getQualifiedClassName(EArtifact.LINE_BREAK);
-		whiteSpaceClassName = context.getQualifiedClassName(EArtifact.WHITE_SPACE);
 	}
 
 	@Override

@@ -30,23 +30,12 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class MetaInformationGenerator extends JavaBaseGenerator {
 
-	private String colorManagerClassName;
-	private String tokenScannerClassName;
-	private String resourceFactoryClassName;
-	private String newFileContentProviderClassName;
-	private String codeCompletionHelperClassName;
-
 	public MetaInformationGenerator() {
 		super();
 	}
 
 	private MetaInformationGenerator(GenerationContext context) {
 		super(context, EArtifact.META_INFORMATION);
-    	colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-        tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
-        resourceFactoryClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
-        newFileContentProviderClassName = getContext().getQualifiedClassName(EArtifact.NEW_FILE_CONTENT_PROVIDER);
-        codeCompletionHelperClassName = getContext().getQualifiedClassName(EArtifact.CODE_COMPLETION_HELPER);
 	}
 	
 	@Override
@@ -123,42 +112,42 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 
 	private void addGetStartSymbolsMethod(StringComposite sc) {
 		sc.add("public " + E_CLASS + "[] getStartSymbols() {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SYNTAX_COVERAGE_INFORMATION_PROVIDER) + "().getStartSymbols();");
+		sc.add("return new " + syntaxCoverageInformationProviderClassName + "().getStartSymbols();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetFoldableClassesMethod(StringComposite sc) {
 		sc.add("public " + E_CLASS + "[] getFoldableClasses() {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.FOLDING_INFORMATION_PROVIDER) + "().getFoldableClasses();");
+		sc.add("return new " + foldingInformationProviderClassName + "().getFoldableClasses();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetBracketPairsMethod(StringComposite sc) {
 		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> getBracketPairs() {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.BRACKET_INFORMATION_PROVIDER) + "().getBracketPairs();");
+		sc.add("return new " + bracketInformationProviderClassName + "().getBracketPairs();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetDefaultStyleMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_TOKEN_STYLE() + " getDefaultTokenStyle(" + STRING + " tokenName) {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.TOKEN_STYLE_INFORMATION_PROVIDER) + "().getDefaultTokenStyle(tokenName);");
+		sc.add("return new " + tokenStyleInformationProviderClassName + "().getDefaultTokenStyle(tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
 		sc.add("public " + E_CLASS + "[] getClassesWithSyntax() {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SYNTAX_COVERAGE_INFORMATION_PROVIDER) + "().getClassesWithSyntax();");
+		sc.add("return new " + syntaxCoverageInformationProviderClassName + "().getClassesWithSyntax();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetHoverTextProviderMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " getHoverTextProvider() {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.HOVER_TEXT_PROVIDER)+"();");
+		sc.add("return new " + hoverTextProviderClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -166,11 +155,9 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	private void addCreateLexerMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_TEXT_SCANNER()+ " createLexer() {");
 		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
-			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SCANNERLESS_SCANNER) + "();");
+			sc.add("return new " + scannerlessScannerClassName + "();");
 		} else {
-			final String qualifiedAntlrScannerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_SCANNER);
-			final String qualifiedAntlrLexerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_LEXER);
-			sc.add("return new " + qualifiedAntlrScannerClassName + "(new " + qualifiedAntlrLexerClassName + "());");
+			sc.add("return new " + antlrScannerClassName + "(new " + antlrLexerClassName + "());");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -179,9 +166,9 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	private void addGetTokenNamesMethod(StringComposite sc) {
 		sc.add("public " + STRING +"[] getTokenNames() {");
 		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
-			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SCANNERLESS_PARSER) + "().getTokenNames();");
+			sc.add("return new " + scannerlessParserClassName + "().getTokenNames();");
 		} else {
-			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.ANTLR_PARSER) + "(null).getTokenNames();");
+			sc.add("return new " + antlrParserClassName + "(null).getTokenNames();");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -209,9 +196,9 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
-		String parserClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_PARSER);
+		String parserClassName = antlrParserClassName;
 	    if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
-	    	parserClassName = getContext().getQualifiedClassName(EArtifact.SCANNERLESS_PARSER);
+	    	parserClassName = scannerlessParserClassName;
 	    }
 		
 		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
@@ -221,33 +208,29 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreatePrinterMethod(StringComposite sc) {
-		String printerClassName;
+		String usedPrinterClassName;
 		boolean useClassicPrinter = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.USE_CLASSIC_PRINTER);
 
-		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("public " + iTextPrinterClassName + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
 		if (useClassicPrinter) {
-			printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER);
+			usedPrinterClassName = printerClassName;
 		} else {
-			printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER2);
+			usedPrinterClassName = printer2ClassName;
 		}
-		sc.add("return new " + printerClassName + "(outputStream, resource);");
+		sc.add("return new " + usedPrinterClassName + "(outputStream, resource);");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		String resolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
-
-		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " getReferenceResolverSwitch() {");
-		sc.add("return new " + resolverSwitchClassName + "();");
+		sc.add("public " + iReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
+		sc.add("return new " + referenceResolverSwitchClassName + "();");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
-		String tokenResolverFactoryClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-
-		sc.add("public " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " getTokenResolverFactory() {");
+		sc.add("public " + iTokenResolverFactoryClassName + " getTokenResolverFactory() {");
 		sc.add("return new " + tokenResolverFactoryClassName + "();");
 		sc.add("}");
         sc.addLineBreak();

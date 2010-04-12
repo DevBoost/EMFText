@@ -25,25 +25,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 
-	private String activatorClassName;
-	private String bracketSetClassName;
-	private String syntaxColoringHelperClassName;
-	private String preferenceConstantsClassName;
-	private String antlrTokenHelperClassName;
-	private String metaInformationClassName;
-
 	public PreferenceInitializerGenerator() {
 		super();
 	}
 
 	private PreferenceInitializerGenerator(GenerationContext context) {
 		super(context, EArtifact.PREFERENCE_INITIALIZER);
-		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
-		antlrTokenHelperClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_TOKEN_HELPER);
-		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
-		syntaxColoringHelperClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_COLORING_HELPER);
-		preferenceConstantsClassName = getContext().getQualifiedClassName(EArtifact.PREFERENCE_CONSTANTS);
-		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -66,7 +53,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("initializeDefaultSyntaxHighlighting();");
 		sc.add("initializeDefaultBrackets();");
 		sc.addLineBreak();
-		sc.add(I_PREFERENCE_STORE + " store = " + activatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE + " store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.addComment("Set default value for matching brackets");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR, \"192,192,192\");");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, true);");
@@ -81,13 +68,13 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("private void initializeDefaultBrackets() {");
-		sc.add(I_PREFERENCE_STORE + " store = " + activatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE + " store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultBrackets(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public void initializeDefaultSyntaxHighlighting() {");
-		sc.add(I_PREFERENCE_STORE + " store = " + activatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE + " store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultSyntaxHighlighting(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();

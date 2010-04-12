@@ -31,15 +31,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class MarkerHelperGenerator extends JavaBaseGenerator {
 
-	private String markeHelperClassName;
-
 	public MarkerHelperGenerator() {
 		super();
 	}
 
 	private MarkerHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.MARKER_HELPER);
-		markeHelperClassName = getContext().getQualifiedClassName(EArtifact.MARKER_HELPER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -68,7 +65,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("public static final String MARKER_TYPE = " + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID + \".problem\";");
+		sc.add("public static final String MARKER_TYPE = " + pluginActivatorClassName + ".PLUGIN_ID + \".problem\";");
 		sc.addLineBreak();
 	}
 
@@ -81,7 +78,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.add("public static void unmark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
 		sc.add("if (file != null) {");
-		sc.add("file.deleteMarkers(" + markeHelperClassName + ".MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO);");
+		sc.add("file.deleteMarkers(" + markerHelperClassName + ".MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO);");
 		sc.add("}");
 		sc.add("}");
 	}

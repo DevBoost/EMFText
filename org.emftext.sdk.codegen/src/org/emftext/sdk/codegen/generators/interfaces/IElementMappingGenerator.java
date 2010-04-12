@@ -21,15 +21,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IElementMappingGenerator extends JavaBaseGenerator {
 
-	private String iReferenceMappingClassName;
-
 	public IElementMappingGenerator() {
 		super();
 	}
 
 	private IElementMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.I_ELEMENT_MAPPING);
-		iReferenceMappingClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

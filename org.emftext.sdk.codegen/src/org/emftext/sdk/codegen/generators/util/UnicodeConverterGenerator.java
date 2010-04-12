@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class UnicodeConverterGenerator extends JavaBaseGenerator {
 
-	private String inputStreamProcessorName;
-
 	public UnicodeConverterGenerator() {
 		super();
 	}
 
 	private UnicodeConverterGenerator(GenerationContext context) {
 		super(context, EArtifact.UNICODE_CONVERTER);
-		inputStreamProcessorName = getContext().getQualifiedClassName(EArtifact.INPUT_STREAM_PROCESSOR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -54,7 +51,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		// TODO mseifert: information about replaced sequences must be
 		// passed to the LocationMap or parser to make sure that the
 		// positions of elements found in the stream are correct.
-		sc.add("public class " + getResourceClassName() + " extends " + inputStreamProcessorName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + inputStreamProcessorClassName + " {");
 		sc.addLineBreak();
 		sc.add("private int[] stack = new int[4];");
 		sc.add("private int stackPosition = -1;");

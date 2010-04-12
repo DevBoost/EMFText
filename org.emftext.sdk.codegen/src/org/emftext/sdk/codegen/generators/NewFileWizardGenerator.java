@@ -59,17 +59,12 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  */
 public class NewFileWizardGenerator extends JavaBaseGenerator {
 	
-	private String newFileWizardPageClassName;
-	private String metaInformationClassName;
-
 	public NewFileWizardGenerator() {
 		super();
 	}
 
 	private NewFileWizardGenerator(GenerationContext context) {
 		super(context, EArtifact.NEW_FILE_WIZARD);
-		newFileWizardPageClassName = getContext().getQualifiedClassName(EArtifact.NEW_FILE_WIZARD_PAGE);
-		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -110,8 +105,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 
 	private void addGetFileExtensionMethod(StringComposite sc) {
 		sc.add("public " + STRING + " getFileExtension() {");
-		String metaInformationName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
-		sc.add("return new " + metaInformationName + "().getSyntaxName();");
+		sc.add("return new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

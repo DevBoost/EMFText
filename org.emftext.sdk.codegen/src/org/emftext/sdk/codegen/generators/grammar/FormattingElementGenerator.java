@@ -9,17 +9,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class FormattingElementGenerator extends JavaBaseGenerator {
 
-	private String syntaxElementClassName;
-	private String cardinalityEnumName;
-
 	public FormattingElementGenerator() {
 		super();
 	}
 
 	private FormattingElementGenerator(GenerationContext context) {
 		super(context, EArtifact.FORMATTING_ELEMENT);
-		syntaxElementClassName = context.getQualifiedClassName(EArtifact.SYNTAX_ELEMENT);
-		cardinalityEnumName = context.getQualifiedClassName(EArtifact.CARDINALITY);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -39,7 +34,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + cardinalityEnumName + " cardinality) {"); 
+		sc.add("public " + getResourceClassName() + "(" + cardinalityClassName + " cardinality) {"); 
 		sc.add("super(cardinality, null);"); 
 		sc.add("}"); 
 		sc.addLineBreak();

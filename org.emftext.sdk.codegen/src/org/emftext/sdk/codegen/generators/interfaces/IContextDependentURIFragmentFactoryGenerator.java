@@ -24,15 +24,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerator {
 
-	private String iContextDependentURIFragmentClassName;
-
 	public IContextDependentURIFragmentFactoryGenerator() {
 		super();
 	}
 
 	private IContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		iContextDependentURIFragmentClassName = getContext().getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -45,7 +42,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"An interface for factories to create instances of " + iContextDependentURIFragmentClassName + ".",
+			"An interface for factories to create instances of " + iContextDependentUriFragmentClassName + ".",
 			"@param <ContainerType> the type of the class containing the reference to be resolved",
 			"@param <ReferenceType> the type of the reference to be resolved"
 		);
@@ -53,15 +50,15 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Create a new instance of the " + iContextDependentURIFragmentClassName + " interface.",
+			"Create a new instance of the " + iContextDependentUriFragmentClassName + " interface.",
 			"@param identifier the identifier that references an Object",
 			"@param container the object that contains the reference",
 			"@param reference the reference itself",
 			"@param positionInReference the position of the identifier (if the reference is multiple)",
 			"@param proxy the proxy that will be resolved later to the actual EObject",
-			"@return the new instance of " + iContextDependentURIFragmentClassName
+			"@return the new instance of " + iContextDependentUriFragmentClassName
 		);
-		sc.add("public " + iContextDependentURIFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
+		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
 		sc.add("}");
 		return true;
 	}

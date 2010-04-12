@@ -26,17 +26,12 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 public class IExpectedElementGenerator extends JavaBaseGenerator {
 
-	private String iExpectedElementClassName;
-	private String pairClassName;
-
 	public IExpectedElementGenerator() {
 		super();
 	}
 
 	private IExpectedElementGenerator(GenerationContext context) {
 		super(context, EArtifact.I_EXPECTED_ELEMENT);
-		iExpectedElementClassName = getContext().getQualifiedClassName(EArtifact.I_EXPECTED_ELEMENT);
-		pairClassName = getContext().getQualifiedClassName(EArtifact.PAIR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
