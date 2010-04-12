@@ -317,8 +317,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
 		Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
-
-		printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);
+		
+		printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);		
 		printImplicitChoiceRules(sc, eClassesWithSyntax, eClassesReferenced);
 	}
 
@@ -2053,40 +2053,58 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void printImplicitChoiceRules(StringComposite sc,
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
-
+		
 		for (GenClass referencedClass : eClassesReferenced.keySet()) {
 			if (!genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)) {
 				// rule not explicitly defined in CS: most likely a choice rule
 				// in the AS
 				//Expression slices are formed over a common abstract superclass
-				//TODO handle genclass prefixes too
+				//TODO handle genClass prefixes too
 				boolean isCommonExpressionMetaClass = !concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty(); 
-				Collection<GenClass> subClasses = csUtil
-						.getSubClassesWithSyntax(referencedClass,
-								concreteSyntax,true);
-
-				if (!subClasses.isEmpty()||isCommonExpressionMetaClass) {
-					sc.add(getRuleName(referencedClass));
-					sc.add(" returns ["
-							+ genClassCache
-									.getQualifiedInterfaceName(referencedClass)
-							+ " element = null]");
-					sc.add(":");
-					if (!isCommonExpressionMetaClass) {
-						printSubClassChoices(sc, subClasses);
-					} else {
-						List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
-						sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
-					}
-						
-					sc.addLineBreak();
-					sc.add(";");
-					sc.addLineBreak();
-
+				if(printImplicitChoiceRule(sc,referencedClass, isCommonExpressionMetaClass))
 					eClassesWithSyntax.add(referencedClass);
-				}
 			}
 		}
+		
+		//We check if there are startsymbols referencing an expression metaclass which has not 
+		//a grammar rule yet
+		for (GenClass referencedClass : concreteSyntax.getStartSymbols()){
+			boolean isCommonExpressionMetaClass = !concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty(); 
+			//TODO handle genClass prefixes too
+			if(isCommonExpressionMetaClass&&!genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)){
+				if(printImplicitChoiceRule(sc,referencedClass, isCommonExpressionMetaClass))
+					eClassesWithSyntax.add(referencedClass);
+			}
+		}
+	}
+	
+	private boolean printImplicitChoiceRule(StringComposite sc,
+			GenClass referencedClass, boolean isCommonExpressionMetaClass) {
+		Collection<GenClass> subClasses = csUtil
+				.getSubClassesWithSyntax(referencedClass,
+						concreteSyntax,true);
+
+		if (!subClasses.isEmpty()||isCommonExpressionMetaClass) {
+			sc.add(getRuleName(referencedClass));
+			sc.add(" returns ["
+					+ genClassCache
+							.getQualifiedInterfaceName(referencedClass)
+					+ " element = null]");
+			sc.add(":");
+			if (!isCommonExpressionMetaClass) {
+				printSubClassChoices(sc, subClasses);
+			} else {
+				List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
+				sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
+			}
+				
+			sc.addLineBreak();
+			sc.add(";");
+			sc.addLineBreak();
+
+			return true;
+		}
+		return false;
 	}
 
 	private void printSubClassChoices(StringComposite sc,
