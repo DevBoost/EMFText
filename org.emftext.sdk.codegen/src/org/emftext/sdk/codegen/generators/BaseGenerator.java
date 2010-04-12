@@ -69,8 +69,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	protected String bracketInformationProviderClassName;
 	protected String bracketPreferencePageClassName;
 	protected String bracketSetClassName;
-	// TODO mseifert: rename (EArtifact too)
-	protected String browerInformationControlClassName;
+	protected String browserInformationControlClassName;
 	protected String buildPropertiesClassName;
 	protected String builderAdapterClassName;
 	protected String builderClassName;
@@ -255,7 +254,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		bracketInformationProviderClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_INFORMATION_PROVIDER);
 		bracketPreferencePageClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_PREFERENCE_PAGE);
 		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
-		browerInformationControlClassName = getContext().getQualifiedClassName(EArtifact.BROWER_INFORMATION_CONTROL);
+		browserInformationControlClassName = getContext().getQualifiedClassName(EArtifact.BROWSER_INFORMATION_CONTROL);
 		buildPropertiesClassName = getContext().getQualifiedClassName(EArtifact.BUILD_PROPERTIES);
 		builderAdapterClassName = getContext().getQualifiedClassName(EArtifact.BUILDER_ADAPTER);
 		builderClassName = getContext().getQualifiedClassName(EArtifact.BUILDER);

@@ -129,8 +129,8 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		
 		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
 		sc.add("String tooltipAffordanceString = " + EDITORS_UI + ".getTooltipAffordanceString();");
-		sc.add("if (" + browerInformationControlClassName + ".isAvailable(parent)) {");
-		sc.add(browerInformationControlClassName + " iControl = new " + browerInformationControlClassName + "(parent, FONT, tooltipAffordanceString) {");
+		sc.add("if (" + browserInformationControlClassName + ".isAvailable(parent)) {");
+		sc.add(browserInformationControlClassName + " iControl = new " + browserInformationControlClassName + "(parent, FONT, tooltipAffordanceString) {");
 		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getInformationPresenterControlCreator() {");
 		sc.add("return fInformationPresenterControlCreator;");
 		sc.add("}");
@@ -351,9 +351,9 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("public static final class PresenterControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
 		sc.addLineBreak();
 		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
-		sc.add("if (" + browerInformationControlClassName + ".isAvailable(parent)) {");
+		sc.add("if (" + browserInformationControlClassName + ".isAvailable(parent)) {");
 		sc.add(TOOL_BAR_MANAGER + " tbm = new " + TOOL_BAR_MANAGER + "(" + SWT + ".FLAT);");
-		sc.add(browerInformationControlClassName + " iControl = new " + browerInformationControlClassName + "(parent, FONT, tbm);");
+		sc.add(browserInformationControlClassName + " iControl = new " + browserInformationControlClassName + "(parent, FONT, tbm);");
 		sc.add("final OpenDeclarationAction openDeclarationAction = new OpenDeclarationAction(iControl);");
 		sc.add("tbm.add(openDeclarationAction);");
 		sc.add("final SimpleSelectionProvider selectionProvider = new SimpleSelectionProvider();");
@@ -401,13 +401,13 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		);
 		sc.add("public static class OpenDeclarationAction extends " + ACTION + " {");
 		sc.addLineBreak();
-		sc.add("private final " + browerInformationControlClassName + " infoControl;");
+		sc.add("private final " + browserInformationControlClassName + " infoControl;");
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Creates the action to jump to the declaration.",
 			"@param infoControl the info control holds the hover information and the target element"
 		);
-		sc.add("public OpenDeclarationAction(" + browerInformationControlClassName + " infoControl) {");
+		sc.add("public OpenDeclarationAction(" + browserInformationControlClassName + " infoControl) {");
 		sc.add("this.infoControl = infoControl;");
 		sc.add("setText(\"Open Declaration\");");
 		sc.add(I_SHARED_IMAGES + " images = " + PLATFORM_UI + ".getWorkbench().getSharedImages();");

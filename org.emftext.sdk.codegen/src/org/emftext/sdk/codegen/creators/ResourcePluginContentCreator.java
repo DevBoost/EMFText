@@ -136,7 +136,7 @@ public class ResourcePluginContentCreator {
 	    // add UI generators
 	    creators.add(new GenericArtifactCreator(EArtifact.ANTLR_TOKEN_HELPER));
 	    creators.add(new GenericArtifactCreator(EArtifact.BRACKET_SET));
-	    creators.add(new GenericArtifactCreator(EArtifact.BROWER_INFORMATION_CONTROL));
+	    creators.add(new GenericArtifactCreator(EArtifact.BROWSER_INFORMATION_CONTROL));
 	    creators.add(new GenericArtifactCreator(EArtifact.CODE_FOLDING_MANAGER));
 	    creators.add(new GenericArtifactCreator(EArtifact.COLOR_MANAGER));
 	    creators.add(new GenericArtifactCreator(EArtifact.COMPLETION_PROCESSOR));

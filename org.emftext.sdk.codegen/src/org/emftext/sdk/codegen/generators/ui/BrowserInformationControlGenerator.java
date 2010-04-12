@@ -62,7 +62,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 	}
 
 	private BrowserInformationControlGenerator(GenerationContext context) {
-		super(context, EArtifact.BROWER_INFORMATION_CONTROL);
+		super(context, EArtifact.BROWSER_INFORMATION_CONTROL);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

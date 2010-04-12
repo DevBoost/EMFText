@@ -266,7 +266,7 @@ public enum EArtifact {
 	EDITOR_CONFIGURATION(RESOURCE_PLUGIN, UI_PACKAGE, "", "EditorConfiguration", new EditorConfigurationGenerator(), OptionTypes.OVERRIDE_EDITOR_CONFIGURATION),
 	DOC_BROWSER_INFORMATION_CONTROL_INPUT(RESOURCE_PLUGIN, UI_PACKAGE, "", "DocBrowserInformationControlInput", new DocBrowserInformationControlInputGenerator(), OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT),
 	COMPLETION_PROCESSOR(RESOURCE_PLUGIN, UI_PACKAGE, "", "CompletionProcessor", new CompletionProcessorGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROCESSOR),
-	BROWER_INFORMATION_CONTROL(RESOURCE_PLUGIN, UI_PACKAGE, "", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL),
+	BROWSER_INFORMATION_CONTROL(RESOURCE_PLUGIN, UI_PACKAGE, "", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL),
 	// preference pages
 	PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferencePage", new PreferencePageGenerator(), OptionTypes.OVERRIDE_PREFERENCE_PAGE),
 	BRACKET_PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE),
