@@ -37,9 +37,9 @@ public class TextTokenGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_TOKEN() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextTokenClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation = new " + getClassNameHelper().getMETA_INFORMATION() + "();");
+		sc.add("private final " + iMetaInformationClassName + " metaInformation = new " +metaInformationClassName + "();");
 		sc.add("private final " + TOKEN + " antlrToken;");
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "(" + TOKEN + " antlrToken) {");

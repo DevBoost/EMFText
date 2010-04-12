@@ -37,7 +37,7 @@ public class ProblemClassGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_PROBLEM() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iProblemClassName + " {");
 		sc.addLineBreak();
 		
 		addFields(sc);
@@ -55,12 +55,12 @@ public class ProblemClassGenerator extends JavaBaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STRING + " message;");
-		sc.add("private " + getClassNameHelper().getE_PROBLEM_TYPE() + " type;");
+		sc.add("private " + eProblemTypeClassName + " type;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " message, " + getClassNameHelper().getE_PROBLEM_TYPE() + " type) {");
+		sc.add("public " + getResourceClassName() + "(" + STRING + " message, " + eProblemTypeClassName + " type) {");
 		sc.add("super();");
 		sc.add("this.message = message;");
 		sc.add("this.type = type;");
@@ -76,7 +76,7 @@ public class ProblemClassGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetTypeMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getE_PROBLEM_TYPE() + " getType() {");
+		sc.add("public " + eProblemTypeClassName + " getType() {");
 		sc.add("return type;");
 		sc.add("}");
 		sc.addLineBreak();

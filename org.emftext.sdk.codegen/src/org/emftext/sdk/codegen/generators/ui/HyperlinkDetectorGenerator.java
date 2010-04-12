@@ -62,13 +62,13 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");
+		sc.add("private " + iTextResourceClassName + " textResource;");
 		sc.addLineBreak();
 	}
 
 	private void addDetectHyperlinksMethod(StringComposite sc) {
 		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
 		sc.add(E_OBJECT + " resolvedEObject = null;");
 		sc.add("for (" + E_OBJECT + " eObject : elementsAtOffset) {");
@@ -99,7 +99,7 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 			"@param resource the resource to use for calculating the locations."
 		);
 		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");
-		sc.add("textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
+		sc.add("textResource = (" + iTextResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

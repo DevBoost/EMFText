@@ -99,7 +99,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
     	sc.add("}");
      	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
-    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + getClassNameHelper().getPLUGIN_ACTIVATOR() + ".EP_ADDITIONAL_EXTENSION_PARSER_ID);");
+    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + pluginActivatorClassName + ".EP_ADDITIONAL_EXTENSION_PARSER_ID);");
     	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
     	sc.add("try {");
     	sc.add("String type = element.getAttribute(\"type\");");
@@ -122,7 +122,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 		sc.add("factories.put(type, factory);");
 		sc.add("}");
     	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-    	sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while getting default options.\", ce);");
+    	sc.add(pluginActivatorClassName + ".logError(\"Exception while getting default options.\", ce);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");

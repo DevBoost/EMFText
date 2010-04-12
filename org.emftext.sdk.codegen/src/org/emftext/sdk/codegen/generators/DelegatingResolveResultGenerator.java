@@ -41,11 +41,11 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 			"this class to easily create custom ResolveResults.",
 			"@param <ReferenceType> the type of the references that can be contained in this result"
 		);
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");
 		sc.addLineBreak();
-		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> delegate;");
+		sc.add("private " + iReferenceResolveResultClassName + "<ReferenceType> delegate;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> delegate) {");
+		sc.add("public " + getResourceClassName() + "(" + iReferenceResolveResultClassName + "<ReferenceType> delegate) {");
 		sc.add("this.delegate = delegate;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -53,7 +53,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("return delegate.getErrorMessage();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return delegate.getMappings();");
 		sc.add("}");
 		sc.addLineBreak();

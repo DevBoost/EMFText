@@ -40,7 +40,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_SCANNER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextScannerClassName + " {");
 		sc.addLineBreak();
 
 		sc.add("private " + LEXER + " antlrLexer;");
@@ -51,12 +51,12 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public " + getClassNameHelper().getI_TEXT_TOKEN() + " getNextToken() {");
+		sc.add("public " + iTextTokenClassName + " getNextToken() {");
 		sc.add("if (antlrLexer.getCharStream() == null) {");
 		sc.add("return null;");
 		sc.add("}");
         sc.add("final " + TOKEN + " current = antlrLexer.nextToken();");
-		sc.add(getClassNameHelper().getI_TEXT_TOKEN() + " result = new " + getClassNameHelper().getTEXT_TOKEN() + "(current);");
+		sc.add(iTextTokenClassName + " result = new " + textTokenClassName + "(current);");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();

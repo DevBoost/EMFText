@@ -45,7 +45,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Helper class to add markers to text files based on EMF's <code>" + DIAGNOSTIC + "</code>. " +
-			"If a resource contains <code>" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + "</code>s it uses the more precise information of " +
+			"If a resource contains <code>" + iTextDiagnosticClassName + "</code>s it uses the more precise information of " +
 			"this extended diagnostic type."
 		);
 		sc.add("public class " + getResourceClassName() + " {");
@@ -91,8 +91,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, markerSeverity);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, diagnostic.getMessage());");
-		sc.add("if (diagnostic instanceof " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") {");
-		sc.add(getClassNameHelper().getI_TEXT_DIAGNOSTIC() + " textDiagnostic = (" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") diagnostic;");
+		sc.add("if (diagnostic instanceof " + iTextDiagnosticClassName + ") {");
+		sc.add(iTextDiagnosticClassName + " textDiagnostic = (" + iTextDiagnosticClassName + ") diagnostic;");
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, textDiagnostic.getCharStart());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");

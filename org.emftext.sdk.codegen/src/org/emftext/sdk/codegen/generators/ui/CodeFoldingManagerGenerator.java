@@ -153,7 +153,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
 	private void addCalculatePositionsMethod(StringComposite sc) {
 		sc.add("protected void calculatePositions() {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") editor.getResource();");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") editor.getResource();");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("if (textResource == null || document == null) {");
 		sc.add("return;");
@@ -163,7 +163,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("final " + LIST + "<" + POSITION + "> positions = new " + ARRAY_LIST + "<" + POSITION + ">();");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(E_CLASS + "[] foldableClasses = textResource.getMetaInformation().getFoldableClasses();");
 		sc.add("if (foldableClasses == null) {");
 		sc.add("return;");
@@ -217,7 +217,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.add("md = " + MESSAGE_DIGEST + ".getInstance(\"MD5\");");
 		sc.add("encryptMsg = md.digest(text.getBytes());");
 		sc.add("} catch (" + NO_SUCH_ALGORITHM_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"NoSuchAlgorithmException while creating MD5 checksum.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"NoSuchAlgorithmException while creating MD5 checksum.\", e);");
 		sc.add("}");
 		sc.add("String swap = \"\";");
 		sc.add("String byteStr = \"\";");
@@ -525,7 +525,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFoldingUpdateListenerClass(StringComposite sc) {
-		sc.add("private class FoldingUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
+		sc.add("private class FoldingUpdateListener implements " + iBackgroundParsingListenerClassName + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
 		sc.add("calculatePositions();");
 		sc.add("}");

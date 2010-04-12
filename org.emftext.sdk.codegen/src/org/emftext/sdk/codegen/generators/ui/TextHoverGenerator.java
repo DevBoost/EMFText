@@ -179,7 +179,7 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 	private void addFields(JavaComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
 		sc.add("private " + editorClassName + " editor;");
-		sc.add("private " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " hoverTextProvider;");
+		sc.add("private " + iHoverTextProviderClassName + " hoverTextProvider;");
 		
 		sc.addJavadoc("The style sheet (css).");
 		sc.add("private static String styleSheet;");
@@ -224,8 +224,8 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 
 	private void addInternalGetHoverInfoMethod(StringComposite sc) {
 		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iTextResourceClassName + " textResource = editor.getResource();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() == 0) {");
 		sc.add("return null;");
@@ -250,8 +250,8 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.addComment("get the token text, which is hovered. It is needed to jump to the declaration.");
 		sc.add("String tokenText = \"\";");
 		sc.add("if (proxyObject != null) {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iTextResourceClassName + " textResource = editor.getResource();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("int offset = locationMap.getCharStart(proxyObject);");
 		sc.add("int length = locationMap.getCharEnd(proxyObject) + 1 - offset;");
 		sc.add("try {");

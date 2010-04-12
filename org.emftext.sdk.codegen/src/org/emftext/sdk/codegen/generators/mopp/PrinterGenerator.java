@@ -186,7 +186,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_PRINTER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
 		sc.addLineBreak();
 		
 		addFields(sc);
@@ -254,7 +254,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+				+ "(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
 		sc.add("super();");
 		sc.add("this.outputStream = outputStream;");
 		sc.add("this.resource = resource;");
@@ -263,11 +263,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("protected " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new "
+		sc.add("protected " + iTokenResolverFactoryClassName + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
-		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
+		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 	}
@@ -444,7 +444,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 							String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
 							if (feature instanceof EReference) {
-								printStatements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
@@ -456,7 +456,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 										+ featureConstant
 										+ "), element));");
 							} else {
-								printStatements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");

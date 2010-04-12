@@ -97,7 +97,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " getMetaInformation() {");
+		sc.add("public " + iMetaInformationClassName + " getMetaInformation() {");
 		sc.add("return new " + metaInformationClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -206,7 +206,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.add("try {");
 		sc.add("file = getFile(fileName, containerName);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e1) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " while initializing new file\", e1);");
+		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while initializing new file\", e1);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -240,7 +240,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION + " e) {");
 		sc.add("Throwable realException = e.getTargetException();");
 		sc.add(MESSAGE_DIALOG + ".openError(getShell(), \"Error\", realException.getMessage());");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " while initializing new file\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while initializing new file\", e);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");

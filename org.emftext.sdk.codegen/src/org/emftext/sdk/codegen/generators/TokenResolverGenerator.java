@@ -67,7 +67,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-		sc.add("public class " + csUtil.getTokenResolverClassName(syntax, definition) + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
+		sc.add("public class " + csUtil.getTokenResolverClassName(syntax, definition) + " implements " + iTokenResolverClassName + " {");
 		sc.addLineBreak();
 		
 		// do not generate a resolver for imported tokens
@@ -128,7 +128,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private void generateResolveMethod1(StringComposite sc) {
-		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
+		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
 
 		String suffix = getSuffix();
 		String prefix = getPrefix();
@@ -157,7 +157,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	private void generateResolveMethod2(StringComposite sc) {
 		ConcreteSyntax containingSyntax = csUtil.getContainingSyntax(getContext().getConcreteSyntax(), definition);
 		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVE_RESULT, containingSyntax);
-		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
+		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
 		sc.add("importedResolver.resolve(lexem, feature, new " + importedTokenResolveResultClassName + "() {");
 		sc.add("public String getErrorMessage() {");
 		sc.add("return result.getErrorMessage();");

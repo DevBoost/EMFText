@@ -102,13 +102,15 @@ public class GeneratorUtil {
 		sc.add("completedElement(" + expressionToBeSet + ", " + isContainment + ");");
 	}
 
-	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, ClassNameHelper classNameHelper) {
+	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, GenerationContext context) {
+		String mapUtil = context.getQualifiedClassName(EArtifact.MAP_UTIL);
+
 		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + qualifiedDummyEObjectClassName + " dummy) {");
 		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
 		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
 		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
 		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + classNameHelper.getMAP_UTIL() + ".castToEMap(value);");
+		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + mapUtil  + ".castToEMap(value);");
 		sc.add("if (mapKey != null && mapValue != null) {");
 		sc.add("valueMap.put(mapKey, mapValue);");
 		sc.add("}");
@@ -134,7 +136,10 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(JavaComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, ClassNameHelper classNameHelper) {
+	public void addRegisterContextDependentProxyMethod(JavaComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, GenerationContext context) {
+		String iCommand = context.getQualifiedClassName(EArtifact.I_COMMAND);
+		String iTextResource = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
+
 		String typeParameters = "";
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
@@ -142,8 +147,8 @@ public class GeneratorUtil {
 		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
 				+ " proxy) {");
 
-		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
-		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("postParseCommands.add(new " + iCommand + "<" + iTextResource + ">() {");
+		sc.add("public boolean execute(" + iTextResource + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
@@ -164,18 +169,23 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addAddErrorToResourceMethod(JavaComposite sc, ClassNameHelper classNameHelper) {
+	public void addAddErrorToResourceMethod(JavaComposite sc, GenerationContext context) {
+		String iCommand = context.getQualifiedClassName(EArtifact.I_COMMAND);
+		String iTextResource = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
+		String iProblem = context.getQualifiedClassName(EArtifact.I_PROBLEM);
+		String eProblemType = context.getQualifiedClassName(EArtifact.E_PROBLEM_TYPE);
+
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 
-		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
-		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("postParseCommands.add(new " + iCommand + "<" + iTextResource + ">() {");
+		sc.add("public boolean execute(" + iTextResource + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("resource.addProblem(new " + classNameHelper.getI_PROBLEM() + "() {");
-		sc.add("public " + classNameHelper.getE_PROBLEM_TYPE() + " getType() {");
-		sc.add("return " + classNameHelper.getE_PROBLEM_TYPE() + ".ERROR;");
+		sc.add("resource.addProblem(new " + iProblem + "() {");
+		sc.add("public " + eProblemType + " getType() {");
+		sc.add("return " + eProblemType + ".ERROR;");
 		sc.add("}");
 		sc.add("public " + STRING + " getMessage() {");
 		sc.add("return errorMessage;");

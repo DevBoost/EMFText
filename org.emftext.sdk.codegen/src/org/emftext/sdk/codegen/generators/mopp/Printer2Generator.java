@@ -214,7 +214,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private " + PRINTER_WRITER + " writer;");
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
+		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean startedPrintingElement = false;");
 		sc.addLineBreak();
 	}
@@ -291,7 +291,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 					"The parameter eObject is the container of the reference to be printed."
 				);
 				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + genClassCache.getQualifiedInterfaceName(genClass) + " eObject, " + OBJECT + " value) {");
-				sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
+				sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
 						+ tokenName
 						+ "\");");
 				sc.add("resolver.setOptions(getOptions());");
@@ -308,7 +308,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 						"The parameter eObject is the container of the attribute to be printed."
 					);
 				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + E_OBJECT + " eObject, " + OBJECT + " value) {");
-				sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
+				sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
 						+ tokenName
 						+ "\");");
 				sc.add("resolver.setOptions(getOptions());");

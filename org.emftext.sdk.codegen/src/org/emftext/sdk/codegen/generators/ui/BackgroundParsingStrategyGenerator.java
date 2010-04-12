@@ -75,7 +75,7 @@ public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 			"Schedules a task for background parsing that will be started after " +
 			"a delay."
 		);
-		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, final " + editorClassName + " editor) {");
+		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");

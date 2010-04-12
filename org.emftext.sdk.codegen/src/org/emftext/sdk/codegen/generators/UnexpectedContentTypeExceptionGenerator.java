@@ -41,7 +41,7 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"An Excpetion to represent invalid content types for parser instances.",
-			"@see " + getClassNameHelper().getI_OPTIONS() + ".RESOURCE_CONTENT_TYPE"
+			"@see " + iOptionsClassName + ".RESOURCE_CONTENT_TYPE"
 		);
 		sc.add("public class " + getResourceClassName() + " extends " + RECOGNITION_EXCEPTION + "{");
 		sc.addLineBreak();

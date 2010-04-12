@@ -59,7 +59,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> mappings;");
+		sc.add("private " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> mappings;");
 		sc.add("private String errorMessage;");
 		sc.add("private boolean resolveFuzzy;");
 		sc.addLineBreak();
@@ -81,7 +81,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetMappingsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return mappings;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -128,7 +128,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 	private void addAddMappingMethod2(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>();");
 		sc.add("}");
 		sc.add("mappings.add(new " + elementMappingClassName + "<ReferenceType>(identifier, target, warning));");
 		sc.add("errorMessage = null;");
@@ -146,7 +146,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 	private void addAddMappingMethod4(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>();");
 		sc.add("}");
 		sc.add("mappings.add(new " + uriMappingClassName + "<ReferenceType>(identifier, uri, warning));");
 		sc.add("}");

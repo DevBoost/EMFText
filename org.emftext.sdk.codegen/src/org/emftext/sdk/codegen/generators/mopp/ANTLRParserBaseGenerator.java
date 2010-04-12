@@ -38,7 +38,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER + " implements " + getClassNameHelper().getI_TEXT_PARSER() + " {");
+		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER + " implements " + iTextParserClassName + " {");
 		sc.addLineBreak();
 		
 		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM +" input) {");

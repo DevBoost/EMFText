@@ -100,9 +100,9 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("if (selectedElement instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " selectedEObject = (" + E_OBJECT + ") selectedElement;");
 		sc.add(RESOURCE + " resource = selectedEObject.eResource();");
-		sc.add("if (resource instanceof " + getClassNameHelper().getI_TEXT_RESOURCE() + ") {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add("if (resource instanceof " + iTextResourceClassName + ") {");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("int elementCharStart = locationMap.getCharStart(selectedEObject);");
 		sc.add("int elementCharEnd = locationMap.getCharEnd(selectedEObject);");
 		sc.add(TEXT_SELECTION + " textEditorSelection = new " + TEXT_SELECTION + "(elementCharStart, elementCharEnd - elementCharStart + 1);");
@@ -211,11 +211,11 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 	private void addResetValuesMethod(JavaComposite sc) {
 		sc.addJavadoc("Resets the changed values after setting the preference pages.");
 		sc.add("public void resetValues() {");
-		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
-		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_OCCURRENCE_CHECKBOX);");
-		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_COLOR));");
-		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_DEFINITION_COLOR));");
-		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_PROXY_COLOR));");
+		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
+		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX);");
+		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
+		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR));");
+		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR));");
 		sc.add("bracketSet.resetBrackets();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -368,7 +368,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 			"@param colorManager the color manager provides highlighting colors",
 			"@param editor"
 		);
-		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
 		sc.add("sourceviewer.getSelectionProvider();");
 		sc.add("preferenceStore = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
@@ -378,11 +378,11 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 		sc.add("occurrence = new " + occurenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(sourceviewer, \"" + getContext().getConcreteSyntax().getName() + "\");");
 		sc.add("this.colorManager = colorManager;");
-		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
-		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_OCCURRENCE_CHECKBOX);");
-		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_DEFINITION_COLOR));");
-		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_PROXY_COLOR));");
-		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_COLOR));");
+		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
+		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX);");
+		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR));");
+		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR));");
+		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
 		sc.add("black = colorManager.getColor(new " + RGB + "(0, 0, 0));");
 		sc.addLineBreak();
 		sc.add("addListeners(editor);");
@@ -397,7 +397,7 @@ public class HighlightingGenerator extends JavaBaseGenerator {
 			"document changes to increase the performance. Occurrences are not searched " +
 			"if the caret is still in the same token to increase the performance."
 		);
-		sc.add("private final class UpdateHighlightingListener implements " + KEY_LISTENER + ", " + VERIFY_LISTENER + ", " + MOUSE_LISTENER + ", " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
+		sc.add("private final class UpdateHighlightingListener implements " + KEY_LISTENER + ", " + VERIFY_LISTENER + ", " + MOUSE_LISTENER + ", " + iBackgroundParsingListenerClassName + " {");
 		sc.addLineBreak();
 		sc.add("private boolean changed = false;");
 		sc.add("private int caret = -1;");

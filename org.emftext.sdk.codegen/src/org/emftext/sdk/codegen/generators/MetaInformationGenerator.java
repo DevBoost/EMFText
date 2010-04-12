@@ -44,7 +44,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
+        sc.add("public class " + getResourceClassName() + " implements " + iMetaInformationClassName + " {");
         sc.addLineBreak();
     	addMethods(sc);
         sc.add("}");
@@ -125,14 +125,14 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetBracketPairsMethod(StringComposite sc) {
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> getBracketPairs() {");
+		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs() {");
 		sc.add("return new " + bracketInformationProviderClassName + "().getBracketPairs();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetDefaultStyleMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TOKEN_STYLE() + " getDefaultTokenStyle(" + STRING + " tokenName) {");
+		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		sc.add("return new " + tokenStyleInformationProviderClassName + "().getDefaultTokenStyle(tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -146,14 +146,14 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetHoverTextProviderMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " getHoverTextProvider() {");
+		sc.add("public " + iHoverTextProviderClassName + " getHoverTextProvider() {");
 		sc.add("return new " + hoverTextProviderClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateLexerMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_SCANNER()+ " createLexer() {");
+		sc.add("public " + iTextScannerClassName+ " createLexer() {");
 		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
 			sc.add("return new " + scannerlessScannerClassName + "();");
 		} else {
@@ -201,7 +201,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	    	parserClassName = scannerlessParserClassName;
 	    }
 		
-		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
+		sc.add("public " + iTextParserClassName + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
 		sc.add("}");
         sc.addLineBreak();

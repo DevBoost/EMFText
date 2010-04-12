@@ -28,7 +28,7 @@ public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
 		sc.add("if (object == null) {");

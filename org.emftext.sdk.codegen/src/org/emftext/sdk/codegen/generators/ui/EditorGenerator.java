@@ -143,7 +143,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 
 	private void addNotifyBackgroundParsingFinishedMethod(StringComposite sc) {
 		sc.add("public void notifyBackgroundParsingFinished() {");
-		sc.add("for (" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " listener : bgParsingListeners) {");
+		sc.add("for (" + iBackgroundParsingListenerClassName + " listener : bgParsingListeners) {");
 		sc.add("listener.parsingCompleted(getResource());");
 		sc.add("}");
 		sc.add("}");
@@ -151,7 +151,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addAddBackgroundParsingListenerMethod(StringComposite sc) {
-		sc.add("public void addBackgroundParsingListener(" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " listener) {");
+		sc.add("public void addBackgroundParsingListener(" + iBackgroundParsingListenerClassName + " listener) {");
 		sc.add("bgParsingListeners.add(listener);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -179,15 +179,15 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add(I_SOURCE_VIEWER + " viewer = getSourceViewer();");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") element.eResource();");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("int destination = locationMap.getCharStart(element);");
 		sc.add("int length = locationMap.getCharEnd(element) + 1 - destination;");
 		sc.addLineBreak();
-		sc.add(getClassNameHelper().getI_TEXT_SCANNER() + " lexer = getResource().getMetaInformation().createLexer();");
+		sc.add(iTextScannerClassName + " lexer = getResource().getMetaInformation().createLexer();");
 		sc.add("try {");
 		sc.add("lexer.setText(viewer.getDocument().get(destination, length));");
-		sc.add(getClassNameHelper().getI_TEXT_TOKEN() + " token = lexer.getNextToken();");
+		sc.add(iTextTokenClassName + " token = lexer.getNextToken();");
 		sc.add("String tokenText = token.getText();");
 		sc.add("while (tokenText != null) {");
 		sc.add("if (token.getText().equals(text)) {");
@@ -205,7 +205,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("viewer.getTextWidget().setSelection(destination);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -294,7 +294,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addSetResourceMethod(StringComposite sc) {
-		sc.add("private void setResource(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("private void setResource(" + iTextResourceClassName + " resource) {");
 		sc.add("assert resource != null;");
 		sc.add("this.resource = resource;");
 		sc.add("if (this.resource.getErrors().isEmpty()) {");
@@ -306,7 +306,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
+		sc.add("public " + iTextResourceClassName + " getResource() {");
 		sc.add("assert resource != null;");
 		sc.add("return resource;");
 		sc.add("}");
@@ -417,20 +417,20 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("String path = inputFile.getFullPath().toString();");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " loadedResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resourceSet.getResource(uri, false);");
+		sc.add(iTextResourceClassName + " loadedResource = (" + iTextResourceClassName + ") resourceSet.getResource(uri, false);");
 		sc.add("if (loadedResource == null) {");
 		sc.add("try {");
 		sc.add(RESOURCE  + " demandLoadedResource = null;");
 		sc.addComment("here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = this.resource;");
+		sc.add(iTextResourceClassName + " currentResource = this.resource;");
 		sc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
 		sc.addComment("do not attempt to load if file extension has changed in a 'save as' operation	");
 		sc.add("}");
 		sc.add("else {");
 		sc.add("demandLoadedResource = resourceSet.getResource(uri, true);");
 		sc.add("}");
-		sc.add("if (demandLoadedResource instanceof " + getClassNameHelper().getI_TEXT_RESOURCE() + ") {");
-		sc.add("setResource((" + getClassNameHelper().getI_TEXT_RESOURCE() + ") demandLoadedResource);");
+		sc.add("if (demandLoadedResource instanceof " + iTextResourceClassName + ") {");
+		sc.add("setResource((" + iTextResourceClassName + ") demandLoadedResource);");
 		sc.add("} else {");
 		sc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
 		sc.add(pluginActivatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
@@ -438,7 +438,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("close(false);");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("setResource(loadedResource);");
@@ -529,7 +529,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add(RESOURCE + " changedResource = resourceSet.getResource(" + URI + ".createURI(delta.getFullPath().toString()), false);");
 		sc.add("if (changedResource != null) {");
 		sc.add("changedResource.unload();");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = getResource();");
+		sc.add(iTextResourceClassName + " currentResource = getResource();");
 		sc.add("if (changedResource.equals(currentResource)) {");
 		sc.addComment("reload the resource displayed in the editor");
 		sc.add("resourceSet.getResource(currentResource.getURI(), true);");
@@ -554,7 +554,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();");
 		sc.add("delta.accept(visitor);");
 		sc.add("} catch (" + CORE_EXCEPTION + " exception) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Unexpected Error: \", exception);");
+		sc.add(pluginActivatorClassName + ".logError(\"Unexpected Error: \", exception);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -576,7 +576,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addMarkerUpdateListenerClass(StringComposite sc) {
-		sc.add("private final class MarkerUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
+		sc.add("private final class MarkerUpdateListener implements " + iBackgroundParsingListenerClassName + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " parsedResource) {");
 		// TODO again: this is the same code as in setResource()?
 		sc.add("if (parsedResource != null && parsedResource.getErrors().isEmpty()) {");
@@ -597,10 +597,10 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("display.asyncExec(new " + RUNNABLE + "() {");
 		sc.add("public void run() {");
 		sc.add("try {");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resourceToRefresh);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resourceToRefresh);");
+		sc.add(markerHelperClassName + ".unmark(resourceToRefresh);");
+		sc.add(markerHelperClassName + ".mark(resourceToRefresh);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while updating markers on resource\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while updating markers on resource\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("});");
@@ -613,10 +613,10 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.add("private " + PROJECTION_SUPPORT + " projectionSupport;");
 		sc.add("private " + codeFoldingManagerClassName + " codeFoldingManager;");
 		sc.add("private " + backgroundParsingStrategyClassName + " bgParsingStrategy = new " + backgroundParsingStrategyClassName + "();");
-		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + "> bgParsingListeners = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + ">();");
+		sc.add("private " + COLLECTION + "<" + iBackgroundParsingListenerClassName + "> bgParsingListeners = new " + ARRAY_LIST + "<" + iBackgroundParsingListenerClassName + ">();");
 		sc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
 		sc.add("private " + outlinePageClassName + " outlinePage;");
-		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
+		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
 		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");

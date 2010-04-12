@@ -76,13 +76,13 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	protected void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("protected " + referenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add("return (" + referenceResolverSwitchClassName + ") new " + getClassNameHelper().getMETA_INFORMATION() + "().getReferenceResolverSwitch();");
+        sc.add("return (" + referenceResolverSwitchClassName + ") new " + metaInformationClassName + "().getReferenceResolverSwitch();");
         sc.add("}");
 		sc.addLineBreak();
 	}
 
 	protected void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
+		sc.add("public " + iTextResourceClassName + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();

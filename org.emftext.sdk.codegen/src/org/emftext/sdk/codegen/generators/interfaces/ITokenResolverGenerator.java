@@ -46,7 +46,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator {
 			"A basic interface to convert parsed tokens to the attribute type in the meta model. " +
 			"All generated TokenResolvers per default delegate requests to an instance of " + getContext().getClassName(EArtifact.DEFAULT_TOKEN_RESOLVER) + " which performs " +
 			"a standard conversion based on the EMF type conversion. This includes conversion of registered EDataTypes.",
-			"@see " + getClassNameHelper().getDEFAULT_TOKEN_RESOLVER()
+			"@see " + defaultTokenResolverClassName
 		);
 		sc.add("public interface " + getResourceClassName() + " extends " + iConfigurableClassName + " {");
 		sc.addLineBreak();

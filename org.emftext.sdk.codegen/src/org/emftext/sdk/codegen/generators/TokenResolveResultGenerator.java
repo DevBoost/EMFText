@@ -33,7 +33,7 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc("A basic implementation of the ITokenResolveResult interface.");
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolveResultClassName + " {");
 		sc.addLineBreak();
 		sc.add("private String errorMessage;");
 		sc.add("private Object resolvedToken;");

@@ -39,7 +39,7 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addGetHoverTestMethod(sc);

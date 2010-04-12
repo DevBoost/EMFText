@@ -44,7 +44,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc("A default implementation for token resolvers. It tries to resolve lexems using Java methods.");
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolverClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
@@ -74,7 +74,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private void addResolveMethod(StringComposite sc) {
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
 		sc.addLineBreak();
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("if (feature.getEType() instanceof " + E_ENUM + ") {");

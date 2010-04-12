@@ -58,7 +58,7 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 			"Start:  The lowest of all sources is used for target<br>",
 			"End:    The highest of all sources is used for target<br>"
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_LOCATION_MAP() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iLocationMapClassName + " {");
 		sc.addLineBreak();
 		addInnerClassISelector(sc);
 		addFields(sc);

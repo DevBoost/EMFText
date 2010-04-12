@@ -185,7 +185,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("boolean isClosingInside = true;");
 		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
 		sc.add("for (int index : itemIndices) {");
-		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(index);");
+		sc.add(iBracketPairClassName + " bracketPair = bracketsTmp.getBracketPair(index);");
 		sc.add("if (bracketPair != null");
 		sc.add("&& !bracketPair.isClosingEnabledInside()) {");
 		sc.add("isClosingInside = false;");
@@ -206,7 +206,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("boolean isClosingInside = enableClosingInside.getSelection();");
 		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
 		sc.add("for (int idx : itemIndices) {");
-		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(idx);");
+		sc.add(iBracketPairClassName + " bracketPair = bracketsTmp.getBracketPair(idx);");
 		sc.add("if (bracketPair != null)");
 		sc.add("bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);");
 		sc.add("}");
@@ -374,7 +374,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation = new " + metaInformationClassName + "();");
+		sc.add(iMetaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("languageIDs.add(languageId);");
 		sc.add("}");

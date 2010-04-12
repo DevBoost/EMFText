@@ -108,9 +108,9 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.addLineBreak();
 		sc.add(RESOURCE + " resource = editor.getResource();");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
 		sc.add("String content = viewer.getDocument().get();");
-		sc.add(getClassNameHelper().getCODE_COMPLETION_HELPER() + " helper = new " + getClassNameHelper().getCODE_COMPLETION_HELPER() + "();");
+		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] proposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.length];");

@@ -85,6 +85,8 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addNextTokenMethod(StringComposite sc) {
+		String styleProperty = syntaxColoringHelperClassName + ".StyleProperty";
+
 		sc.add("public " + I_TOKEN + " nextToken() {");
 		sc.add("currentToken = lexer.getNextToken();");
 		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
@@ -93,21 +95,21 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.add(TEXT_ATTRIBUTE + " ta = null;");
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("if (tokenName != null) {");
-		sc.add("String enableKey = " + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".ENABLE);");
+		sc.add("String enableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ENABLE);");
 		sc.add("if (store.getBoolean(enableKey)) {");
-		sc.add("String colorKey = " + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".COLOR);");
+		sc.add("String colorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".COLOR);");
 		sc.add(COLOR + " color = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(store, colorKey));");
 		sc.add("int style = " + SWT + ".NORMAL;");
-		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".BOLD))) {");
+		sc.add("if (store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".BOLD))) {");
 		sc.add("style = style | " + SWT + ".BOLD;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".ITALIC))) {");
+		sc.add("if (store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC))) {");
 		sc.add("style = style | " + SWT + ".ITALIC;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".STRIKETHROUGH))) {");
+		sc.add("if (store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH))) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".STRIKETHROUGH;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".UNDERLINE))) {");
+		sc.add("if (store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".UNDERLINE))) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".UNDERLINE;");
 		sc.add("}");
 		sc.add("ta = new " + TEXT_ATTRIBUTE + "(color, null, style);");
@@ -146,8 +148,8 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + getClassNameHelper().getI_TEXT_SCANNER() + " lexer;");
-		sc.add("private " + getClassNameHelper().getI_TEXT_TOKEN() + " currentToken;");
+		sc.add("private " + iTextScannerClassName + " lexer;");
+		sc.add("private " + iTextTokenClassName + " currentToken;");
 		sc.add("private int offset;");
 		sc.add("private String languageId;");
 		sc.add("private " + I_PREFERENCE_STORE + " store;");

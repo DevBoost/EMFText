@@ -120,7 +120,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 	private void addSetHighlightingPositionsMethod(StringComposite sc) {
 		sc.add("private void setHighlightingPositions(" + E_OBJECT + " definitionElement, " + LIST + "<" + E_OBJECT + "> elementsAtDefinition) {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(I_TOKEN + " token;");
 		sc.add("int defPosition = -1;");
 		sc.add("boolean isNull = definitionElement == null;");
@@ -186,7 +186,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("tokenRegion = new " + REGION + "(-1,0);");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() < 1) {");
@@ -237,7 +237,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 
 	private void addGetLengthMethod(StringComposite sc) {
 		sc.add("private int getLength(" + E_OBJECT + " eObject) {");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -263,7 +263,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
 		sc.add("caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.isEmpty()) {");
@@ -340,7 +340,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.add("private " + tokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
-		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");
+		sc.add("private " + iTextResourceClassName + " textResource;");
 		sc.add("private String tokenText = \"\";");
 		sc.add("private " + REGION + " tokenRegion;");
 		sc.add("private boolean isPositionsChanged = true;");

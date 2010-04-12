@@ -39,12 +39,12 @@ public class ScannerlessScannerGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_SCANNER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextScannerClassName + " {");
 		sc.addLineBreak();
-		sc.add("private " + LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> tokens;");
+		sc.add("private " + LIST + "<" + iTextTokenClassName + "> tokens;");
 		sc.addLineBreak();
 		
-		sc.add("public " + getClassNameHelper().getI_TEXT_TOKEN() + " getNextToken() {");
+		sc.add("public " + iTextTokenClassName + " getNextToken() {");
 		sc.add("if (tokens == null || tokens.isEmpty()) {");
 		sc.add("return null;");
 		sc.add("} else {");

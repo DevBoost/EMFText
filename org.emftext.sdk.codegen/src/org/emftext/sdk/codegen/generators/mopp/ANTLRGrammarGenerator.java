@@ -285,9 +285,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addMethods(String lexerName, String parserName,
 			ANTLRGrammarComposite sc) {
-		generatorUtil.addAddErrorToResourceMethod(sc, getClassNameHelper());
+		generatorUtil.addAddErrorToResourceMethod(sc, getContext());
 		addAddExpectedElementMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getClassNameHelper());
+		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getContext());
 		generatorUtil.addAddObjectToListMethod(sc);
 		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
@@ -310,7 +310,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc,
-				contextDependentUriFragmentFactoryClassName, true, getClassNameHelper());
+				contextDependentUriFragmentFactoryClassName, true, getContext());
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -379,7 +379,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("tokenName = \"EOF\";");
 		sc.add("} else {");
 		sc.add("tokenName = getTokenNames()[mte.expecting];");
-		sc.add("tokenName = " + getClassNameHelper().getSTRING_UTIL() + ".formatTokenName(tokenName);");
+		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
 		sc.add("}");
 		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
 		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
@@ -429,9 +429,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addParseMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Implementation that calls {@link #doParse()} and handles the thrown RecognitionExceptions.");
-		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
+		sc.add("public " + iParseResultClassName + " parse() {");
 		sc.add("terminateParsing = false;");
-		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
+		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add("try {");
 		sc.add(E_OBJECT + " result =  doParse();");
@@ -518,7 +518,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add(MAP + "<?,?> options = getOptions();");
 		sc.add("if (options != null) {");
-		sc.add("typeObject = options.get(" + getClassNameHelper().getI_OPTIONS() + ".RESOURCE_CONTENT_TYPE);");
+		sc.add("typeObject = options.get(" + iOptionsClassName + ".RESOURCE_CONTENT_TYPE);");
 		sc.add("}");
 		sc.add("return typeObject;");
 		sc.add("}");
@@ -548,7 +548,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		sc.add("}");
-		sc.add("throw new " + getClassNameHelper().getUNEXPECTED_CONTENT_TYPE_EXCEPTION() + "(typeObject);");
+		sc.add("throw new " + unexpectedContentTypeExceptionClassName + "(typeObject);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -596,13 +596,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				String resolveResultIdentifier = identifierPrefix + "Result";
 
 				sc
-						.add(getClassNameHelper().getI_TOKEN_RESOLVER()
+						.add(iTokenResolverClassName
 								+ " "
 								+ resolverIdentifier
 								+ " = tokenResolverFactory.createCollectInTokenResolver(\""
 								+ attributeName + "\");");
 				sc.add(resolverIdentifier + ".setOptions(getOptions());");
-				sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " "
+				sc.add(iTokenResolveResultClassName + " "
 						+ resolveResultIdentifier
 						+ " = getFreshTokenResolveResult();");
 				sc.add(resolverIdentifier
@@ -683,7 +683,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private void addCreateInstanceMethod(String lexerName, String parserName,
 			StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createInstance("
+		sc.add("public " + iTextParserClassName + " createInstance("
 				+ INPUT_STREAM + " actualInputStream, "
 				+ STRING + " encoding) {");
 		sc.add("try {");
@@ -699,7 +699,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "(actualInputStream, encoding))));");
 		sc.add("}");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Error while creating parser.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
@@ -750,7 +750,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addFields(ANTLRGrammarComposite sc) {
-		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY()
+		sc.add("private " + iTokenResolverFactoryClassName
 				+ " tokenResolverFactory = new "
 				+ tokenResolverFactoryClassName + "();");
 		sc.addLineBreak();
@@ -825,7 +825,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			"This collection is cleared before parsing starts and returned as part of " +
 			"the parse result object."
 		);
-		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
+		sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -949,9 +949,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod1(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
-		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
-		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
+		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
@@ -972,7 +972,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("protected void setLocalizationEnd(" + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT + " object, final int endChar, final int endLine) {");
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
@@ -989,9 +989,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod2(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
 				+ " source, final " + E_OBJECT + " target) {");
-		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
-		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
-		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
+		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
 		sc.add("return true;");
@@ -1853,12 +1853,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				String resolvedIdent = "resolved";
 				String preResolved = resolvedIdent + "Object";
 				String resolverIdent = "tokenResolver";
-				resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " "
+				resolvements.add(iTokenResolverClassName + " "
 						+ resolverIdent
 						+ " = tokenResolverFactory.createTokenResolver(\""
 						+ tokenName + "\");");
 				resolvements.add(resolverIdent + ".setOptions(getOptions());");
-				resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT()
+				resolvements.add(iTokenResolveResultClassName
 						+ " result = getFreshTokenResolveResult();");
 				resolvements.add(resolverIdent + ".resolve(" + ident
 						+ ".getText(), element.eClass().getEStructuralFeature("
@@ -1979,7 +1979,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 		sc.add("{");
 		sc.add("if (terminateParsing) {");
-		sc.add("throw new " + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + "();");
+		sc.add("throw new " + terminateParsingExceptionClassName + "();");
 		sc.add("}");
 		sc.add("if (element == null) {");
 		sc.add("element = "

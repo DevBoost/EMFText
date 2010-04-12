@@ -22,7 +22,6 @@ import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.sdk.codegen.ClassNameHelper;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -56,7 +55,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 	private ReferenceResolverGenerator(GenerationContext context) {
 		this.context = context;
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
-		this.classNameHelper = new ClassNameHelper(context);
 		this.defaultResolverDelegateName = context
 				.getQualifiedDefaultResolverDelegateName();
 	}
@@ -73,7 +71,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		sc.add("public class "
 				+ csUtil.getReferenceResolverClassName(proxyReference)
 				+ " implements "
-				+ getClassNameHelper().getI_REFERENCE_RESOLVER()
+				+ iReferenceResolverClassName
 				+ "<"
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass())
@@ -92,10 +90,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		sc.add("}");
 
 		return true;
-	}
-
-	public ClassNameHelper getClassNameHelper() {
-		return classNameHelper;
 	}
 
 	private void addFields(StringComposite sc) {
@@ -151,7 +145,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 						.getGenClass()) + " container, "
 				+ EReference.class.getName()
 				+ " reference, int position, boolean resolveFuzzy, final "
-				+ getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<"
+				+ iReferenceResolveResultClassName + "<"
 				+ typeClassName + "> result) {");
 
 		final boolean isImportedReference = context

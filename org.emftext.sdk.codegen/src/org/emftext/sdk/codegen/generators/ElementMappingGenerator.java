@@ -29,8 +29,6 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
-		String iElementMappingClassName = getClassNameHelper().getI_ELEMENT_MAPPING();
-		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(

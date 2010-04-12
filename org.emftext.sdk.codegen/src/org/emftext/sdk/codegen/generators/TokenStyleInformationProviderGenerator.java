@@ -56,7 +56,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 	private void addGetDefaultStyleMethod(StringComposite sc) {
 		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
 		
-		sc.add("public " + getClassNameHelper().getI_TOKEN_STYLE() + " getDefaultTokenStyle(" + STRING + " tokenName) {");
+		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		for (TokenStyle nextStyle : styles) {
 			String name = nextStyle.getTokenName();
 			sc.add("if (\"" + name + "\".equals(tokenName)) {");
@@ -75,7 +75,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addTokenStyleImplClass(StringComposite sc) {
-		sc.add("public class TokenStyleImpl implements " + getClassNameHelper().getI_TOKEN_STYLE() + " {");
+		sc.add("public class TokenStyleImpl implements " + iTokenStyleClassName + " {");
         sc.addLineBreak();
         sc.add("private int[] color;");
         sc.add("private boolean bold;");

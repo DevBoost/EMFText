@@ -121,7 +121,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_PARSER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTextParserClassName + " {");
 		sc.addLineBreak();
 		addInnerClasses(sc);
 		addFields(sc);
@@ -181,7 +181,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
+		sc.add(iTextResourceClassName + " resource = getResource();");
 		sc.add("if (resource != null) {");
 		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add(E_OBJECT + " currentContainer = context.getCurrentContainer();");
@@ -204,10 +204,10 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(INTEGER + "[] lineAndPosition = " + getClassNameHelper().getSTRING_UTIL() + ".getLineAndCharPosition(content, start);");
+		sc.add(INTEGER + "[] lineAndPosition = " + stringUtilClassName + ".getLineAndCharPosition(content, start);");
 		sc.add("int line = lineAndPosition[0];");
 		sc.add("int column = lineAndPosition[1];");
-		sc.add("final " + getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
+		sc.add("final " + iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add("locationMap.setCharStart(object, start);");
 		sc.add("locationMap.setCharEnd(object, end);");
 		sc.add("locationMap.setLine(object, line);");
@@ -232,10 +232,10 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("private int end;");
 		sc.add("private " + STRING + " tokenName;");
 		sc.add("private " + E_CLASS + " proxyClass;");
-		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> referenceResolver;");
+		sc.add("private " + iReferenceResolverClassName + "<ContainerType, ReferenceType> referenceResolver;");
 		sc.addLineBreak();
 
-		sc.add("public AddProxyCommand(int start, int end, String tokenName, int featureID, " + E_CLASS + " proxyClass, " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> referenceResolver) {");
+		sc.add("public AddProxyCommand(int start, int end, String tokenName, int featureID, " + E_CLASS + " proxyClass, " + iReferenceResolverClassName + "<ContainerType, ReferenceType> referenceResolver) {");
 		sc.add("this.start = start;");
 		sc.add("this.end = end;");
 		sc.add("this.tokenName = tokenName;");
@@ -248,9 +248,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
 		sc.addComment("call token resolver");
-		sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
-		sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result = getFreshTokenResolveResult();");
+		sc.add(iTokenResolveResultClassName + " result = getFreshTokenResolveResult();");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
@@ -272,7 +272,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentUriFragmentFactoryClassName, false, getClassNameHelper());
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentUriFragmentFactoryClassName, false, getContext());
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -297,9 +297,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
 		sc.addComment("call token resolver");
-		sc.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
-		sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result = getFreshTokenResolveResult();");
+		sc.add(iTokenResolveResultClassName + " result = getFreshTokenResolveResult();");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
@@ -366,10 +366,10 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 		sc.add("private final int offset;");
 		sc.add("private final " + LINKED_LIST + "<ICommand> commands;");
-		sc.add("private final " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> tokens;");
+		sc.add("private final " + LINKED_LIST + "<" + iTextTokenClassName + "> tokens;");
 		sc.add("private final String methodName;");
 		sc.addLineBreak();
-		sc.add("public ParsePosition(int offset, " + LINKED_LIST + "<ICommand> commands, " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> tokens, String methodName) {");
+		sc.add("public ParsePosition(int offset, " + LINKED_LIST + "<ICommand> commands, " + LINKED_LIST + "<" + iTextTokenClassName + "> tokens, String methodName) {");
 		sc.add("this.offset = offset;");
 		sc.add("this.commands = commands;");
 		sc.add("this.tokens = tokens;");
@@ -384,7 +384,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("return commands;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">  getTokens() {");
+		sc.add("public " + LINKED_LIST + "<" + iTextTokenClassName + ">  getTokens() {");
 		sc.add("return tokens;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -466,7 +466,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		addDiscardTokensMethod(sc);
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getClassNameHelper());
+		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getContext());
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
@@ -474,7 +474,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		// this is the two parameter version
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
-		generatorUtil.addAddErrorToResourceMethod(sc, getClassNameHelper());
+		generatorUtil.addAddErrorToResourceMethod(sc, getContext());
 		addAddParseErrorToResourceMethod(sc);
 		addSetLocalizationInfoMethod(sc);
 		addSetScanModeMethod(sc);
@@ -508,7 +508,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public void addToken(final " + STRING + " tokenName, final " + STRING + " text, final int offset, final int length) {");
 		sc.addComment("only if the parser is in scan mode the tokens are collected");
 		sc.add("if (scanMode) {");
-		sc.add("tokens.add(new " + getClassNameHelper().getI_TEXT_TOKEN() + "() {");
+		sc.add("tokens.add(new " + iTextTokenClassName + "() {");
 		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
 		sc.add("return true;");
 		sc.add("}");
@@ -542,7 +542,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetTokensMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> getTokens() {");
+		sc.add("public " + LIST + "<" + iTextTokenClassName + "> getTokens() {");
 		sc.add("return tokens;");
 		sc.add("}");
 	}
@@ -566,8 +566,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 
 	private void addAddErrorToResourceMethod(StringComposite sc) {
 		sc.add("public void addErrorToResource(" + STRING + " message, int start, int end) {");
-		sc.add("int line = " + getClassNameHelper().getSTRING_UTIL() + ".getLine(content, start);");
-		sc.add("int charPositionInLine  = " + getClassNameHelper().getSTRING_UTIL() + ".getCharPositionInLine(content, start);");
+		sc.add("int line = " + stringUtilClassName + ".getLine(content, start);");
+		sc.add("int charPositionInLine  = " + stringUtilClassName + ".getCharPositionInLine(content, start);");
 		sc.add("addErrorToResource(message, line, charPositionInLine, start, end);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -721,14 +721,14 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addSetResourceMethod(StringComposite sc) {
-		sc.add("public void setResource(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("public void setResource(" + iTextResourceClassName + " resource) {");
 		sc.add("this.resource = resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " resource) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -776,12 +776,12 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addParseMethod(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 
-		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
+		sc.add("public " + iParseResultClassName + " parse() {");
 		sc.add("restoreStackMode = false;");
 		sc.add("parseError = null;");
 		sc.add("parseTrials = new " + STACK + "<ParsePosition>();");
 		sc.add("offsetIgnoringUnusedTokens = 0;");
-		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
+		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
 		//sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
 		//sc.add("tokens = new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">();");
 		//sc.add("boolean tryOtherStartSymbols = true;");
@@ -791,7 +791,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.addComment("try start symbol: " + startSymbol.getName());
 			//sc.add("if (tryOtherStartSymbols) {");
 			//sc.add("offset = 0;");
-			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">(), \"" + getMethodName(startSymbol) + "\"));");
+			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(), \"" + getMethodName(startSymbol) + "\"));");
 			//sc.add("}");
 		}
 		sc.add("boolean success = processParseTrialStack();");
@@ -900,7 +900,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
+		sc.add("public " + iTextResourceClassName + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -914,7 +914,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreateInstanceMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createInstance(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
+		sc.add("public " + iTextParserClassName + " createInstance(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + getResourceClassName() + "(inputStream, encoding);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -950,13 +950,13 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
 		sc.add("private " + LINKED_LIST + "<ICommand> commands;");
-		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
+		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private " + tokenResolveResultClassName + " tokenResolveResult = new " + tokenResolveResultClassName + "();");
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
+		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private ParseError parseError;");
-		sc.add("private " + LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> tokens;");
-		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
+		sc.add("private " + LIST + "<" + iTextTokenClassName + "> tokens;");
+		sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
 		sc.addLineBreak();
 		
 		addTokensField(sc);
@@ -1194,7 +1194,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			String methodName = getNext(definition);
 			if (methodName != null) {
 				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
-				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">(tokens), \"" + methodName + "\"));");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(tokens), \"" + methodName + "\"));");
 				sc.add("}");
 			}
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
@@ -1211,7 +1211,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			String methodName = getNext(definition);
 			if (methodName != null) {
 				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
-				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">(tokens), \"" + methodName + "\"));");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(tokens), \"" + methodName + "\"));");
 				sc.add("}");
 			}
 			sc.add("}");
@@ -1223,7 +1223,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			String methodName = getNext(definition);
 			if (methodName != null) {
 				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
-				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + ">(tokens), \"" + methodName + "\"));");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(tokens), \"" + methodName + "\"));");
 				sc.add("}");
 			}
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);

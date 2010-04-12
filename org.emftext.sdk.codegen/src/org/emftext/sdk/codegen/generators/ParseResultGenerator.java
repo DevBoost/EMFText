@@ -38,11 +38,11 @@ public class ParseResultGenerator extends JavaBaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " implements " + getClassNameHelper().getI_PARSE_RESULT() + " {");
+        sc.add("public class " + getResourceClassName()+ " implements " + iParseResultClassName + " {");
         sc.addLineBreak();
 
         sc.add("private " + E_OBJECT + " root;");
-        sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> commands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
+        sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
         sc.addLineBreak();
         
 		sc.add("public " + getResourceClassName() + "() {");
@@ -60,7 +60,7 @@ public class ParseResultGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> getPostParseCommands() {");
+		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands() {");
 		sc.add("return commands;");
 		sc.add("}");
 		sc.addLineBreak();

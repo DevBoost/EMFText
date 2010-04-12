@@ -70,7 +70,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
     	
         sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iReferenceResolverSwitchClassName + " {");
         sc.addLineBreak();
 		
 		generateFields(sc);
@@ -85,7 +85,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private void generateResolveFuzzyMethod(StringComposite sc) {
 		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
 		
-		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> result) {");
+		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result) {");
 		// this was a temporary workaround to avoid NPEs when this switch is called
 		// and no container was available during code completion. New code completion
 		// helpers do create containers on demand, but still checking for null doesn't

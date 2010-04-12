@@ -79,13 +79,13 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("private void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation) {");
+		sc.add("private void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.addComment("set default brackets for ITextResource bracket set");
 		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "(null, languageId);");
-		sc.add("final " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> bracketPairs = metaInformation.getBracketPairs();");
+		sc.add("final " + COLLECTION + "<" + iBracketPairClassName + "> bracketPairs = metaInformation.getBracketPairs();");
 		sc.add("if (bracketPairs != null) {");
-		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
+		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
 		sc.add("bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside());");
 		sc.add("}");
 		sc.add("}");
@@ -93,7 +93,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("private void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation) {");
+		sc.add("private void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("String[] tokenNames = metaInformation.getTokenNames();");
 		sc.add("if (tokenNames == null) {");
@@ -108,7 +108,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		sc.add("if (tokenName == null) {");
 		sc.add("continue;");
 		sc.add("}");
-		sc.add(getClassNameHelper().getI_TOKEN_STYLE() + " style = metaInformation.getDefaultTokenStyle(tokenName);");
+		sc.add(iTokenStyleClassName + " style = metaInformation.getDefaultTokenStyle(tokenName);");
 		sc.add("if (style != null) {");
 		sc.add("String color = getColorString(style.getColorAsRGB());");
 		sc.add("setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());");

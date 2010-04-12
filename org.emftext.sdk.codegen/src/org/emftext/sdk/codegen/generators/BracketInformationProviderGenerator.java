@@ -120,7 +120,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addBracketPairClass(StringComposite sc) {
-		sc.add("public class BracketPair implements " + getClassNameHelper().getI_BRACKET_PAIR() + " {");
+		sc.add("public class BracketPair implements " + iBracketPairClassName + " {");
         sc.addLineBreak();
         sc.add("private String opening;");
         sc.add("private String closing;");
@@ -162,8 +162,8 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 		findBracketPairsInCsStrings(defaultPairs, foundPairs);
 		findBracketPairsInQuotedPlaceholders(defaultPairs, foundPairs);
 
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> getBracketPairs() {");
-		sc.add(COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> result = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + ">();");
+		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs() {");
+		sc.add(COLLECTION + "<" + iBracketPairClassName + "> result = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
 		for (BracketPair foundPair : foundPairs) {
 			final String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
 			final String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());

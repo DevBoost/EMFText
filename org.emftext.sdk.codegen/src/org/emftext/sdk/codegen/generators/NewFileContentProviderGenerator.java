@@ -4,11 +4,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -58,14 +58,14 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetPrinterMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
+		sc.add("public " + iTextPrinterClassName + " getPrinter(" + OUTPUT_STREAM + " outputStream) {");
 		sc.add("return getMetaInformation().createPrinter(outputStream, new " + textResourceClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " getMetaInformation() {");
+		sc.add("public " + iMetaInformationClassName + " getMetaInformation() {");
 		sc.add("return new " + metaInformationClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -90,11 +90,11 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 		sc.add(E_OBJECT + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
 		sc.addComment("use printer to get text for model");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
-		sc.add(getClassNameHelper().getI_TEXT_PRINTER() + " printer = getPrinter(buffer);");
+		sc.add(iTextPrinterClassName + " printer = getPrinter(buffer);");
 		sc.add("try {");
 		sc.add("printer.print(root);");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while generating example content.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while generating example content.\", e);");
 		sc.add("}");
 		sc.add("return buffer.toString();");
 		sc.add("}");

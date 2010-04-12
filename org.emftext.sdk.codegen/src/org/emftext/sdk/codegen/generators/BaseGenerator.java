@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.emftext.sdk.codegen.ClassNameHelper;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -215,8 +214,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
 
-	protected ClassNameHelper classNameHelper;
-
 	public BaseGenerator() {
 		super();
 	}
@@ -232,7 +229,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		warnings = new LinkedList<GenerationProblem>();
 
 		this.context = context;
-		this.classNameHelper = new ClassNameHelper(context);
 		this.resourcePackageName = context.getPackageName(artifact);
 		this.resourceClassName = context.getClassName(artifact);
 		
@@ -399,10 +395,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		unicodeConverterClassName = getContext().getQualifiedClassName(EArtifact.UNICODE_CONVERTER);
 		uriMappingClassName = getContext().getQualifiedClassName(EArtifact.URI_MAPPING);
 		whiteSpaceClassName = getContext().getQualifiedClassName(EArtifact.WHITE_SPACE);
-	}
-
-	public ClassNameHelper getClassNameHelper() {
-		return classNameHelper;
 	}
 
 	/**

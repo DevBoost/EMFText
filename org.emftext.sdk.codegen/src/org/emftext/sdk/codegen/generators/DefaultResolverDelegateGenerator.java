@@ -118,7 +118,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
 	private void addGetCacheMethod(StringComposite sc) {
 		sc.add("private " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
-		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(object);");
+		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(object);");
 		sc.add(LIST + "<" + ADAPTER + "> eAdapters = root.eAdapters();");
 		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
 		sc.add("if (adapter instanceof ReferenceCache) {");
@@ -170,8 +170,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if(element.eIsProxy()) {");
 		sc.add(STRING + " fragment = ((" + INTERNAL_E_OBJECT + ") element).eProxyURI().fragment();");
-		sc.add("if (fragment != null && fragment.startsWith(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
-		sc.add("fragment = fragment.substring(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
+		sc.add("if (fragment != null && fragment.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
+		sc.add("fragment = fragment.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
 		sc.add("fragment = fragment.substring(fragment.indexOf(\"_\") + 1);");
 		sc.add("}");
 		sc.add("return fragment;");
@@ -188,7 +188,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
-		sc.add(STRING + " result = (" + STRING + ") " + getClassNameHelper().getE_OBJECT_UTIL() + ".invokeOperation(element, o);");
+		sc.add(STRING + " result = (" + STRING + ") " + eObjectUtilClassName + ".invokeOperation(element, o);");
 		sc.add("if (result != null) {");
 		sc.add("return result;");
 		sc.add("}");
@@ -253,7 +253,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
-		sc.add(STRING + " result = (" + STRING + ") " + getClassNameHelper().getE_OBJECT_UTIL() + ".invokeOperation(element, o);");
+		sc.add(STRING + " result = (" + STRING + ") " + eObjectUtilClassName + ".invokeOperation(element, o);");
 		sc.add(STRING + " match = matches(identifier, result, matchFuzzy);");
 		sc.add("if (match != null) {");
 		sc.add("return match;");
@@ -274,7 +274,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 	}
 
 	private void addProduceDeResolveErrorMessage(StringComposite sc) {
-		sc.add("protected " + STRING + " produceDeResolveErrorMessage(" + E_OBJECT + " refObject, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("protected " + STRING + " produceDeResolveErrorMessage(" + E_OBJECT + " refObject, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + iTextResourceClassName + " resource) {");
 		sc.add(STRING + " msg = getClass().getSimpleName() + \": \" + reference.getEType().getName() + \" \\\"\" + refObject.toString() + \"\\\" not de-resolveable\";");
 		sc.add("return msg;");
 		sc.add("}");
@@ -297,7 +297,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCheckElementMethod(JavaComposite sc) {
-		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, boolean checkStringWise, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
+		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, boolean checkStringWise, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("if (element.eIsProxy()) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -338,10 +338,10 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 			"This standard implementation searches the tree for objects of the " +
 			"correct type with a name attribute matching the identifier."
 		);
-		sc.add("protected void resolve(" + STRING + " identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
+		sc.add("protected void resolve(" + STRING + " identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("try {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
-		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(container);");
+		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(container);");
 		sc.addComment("first check whether the root element matches");
 		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");

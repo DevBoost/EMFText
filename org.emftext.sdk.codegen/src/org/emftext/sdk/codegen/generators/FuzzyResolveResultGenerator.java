@@ -135,7 +135,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetMappingsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
