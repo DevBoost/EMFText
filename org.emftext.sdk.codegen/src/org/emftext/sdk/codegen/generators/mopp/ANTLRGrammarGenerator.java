@@ -474,7 +474,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addCompletedElementMethod(StringComposite sc) {
-		// TODO instead of passing isContainment, we can call this method only
+		// TODO mseifert: instead of passing isContainment, we can call this method only
 		// for contained objects
 		sc.add("protected void completedElement(" + OBJECT + " object, boolean isContainment) {");
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
@@ -1011,11 +1011,16 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addAddExpectedElementMethod(StringComposite sc) {
-		// TODO potential memory consumption improvement:
+		// potential memory consumption improvement:
+		//
 		// we can throw away expected elements that are not important
-		// for the current parse run. the concrete set of element that
+		// for the current parse run. the concrete set of elements that
 		// can be thrown away is determined by the cursor index where
-		// code completion is requested
+		// code completion is requested.
+		//
+		// however, unless there is no serious performance problems I'd
+		// stick with keeping all the expected elements. they will be 
+		// garbage collected right afterwards anyway
 		sc.add("public void addExpectedElement(" + expectedTerminalClassName
 				+ " expectedElement) {");
 		sc.add("if (!this.rememberExpectedElements) {");
@@ -1116,7 +1121,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			List<String> ruleNames = new LinkedList<String>();		
 			//first check if this startsymbol is a common expression metaclass, if so
 			//only add a reference to it but not to its supclasses
-			//TODO sven: we should also check for genclass prefixes or use full qualified names
+			//TODO skarol: we should also check for genclass prefixes or use full qualified names
 			if(!syntax.getOperatorRuleSubset(startSymbol.getName()).isEmpty()){
 				ruleNames.add(getRuleName(startSymbol));
 			}
@@ -1429,7 +1434,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		ListIterator<Rule> sliceIterator = slice.listIterator();
 		
 		while (sliceIterator.hasNext()) {
-			//TODO: Add a check that all equal weight rules are equally structured
+			// TODO skarol: add a check that all equal weight rules are equally structured
 			Rule firstRule = sliceIterator.next();
 			int weight = firstRule.getOperatorWeight();
 			List<Rule> rulesWithEqualWeight = new LinkedList<Rule>();
@@ -1570,9 +1575,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			assert operator instanceof CsString || operator instanceof Placeholder;
 			assert left instanceof Containment;
 			
-			// TODO mirko: cwende added support for placeholders. However, isn't it 
+			// TODO mseifert: cwende added support for placeholders. However, isn't it 
 			// necessary to print containment action before operator action?
-			// this does also apply to other types of operator rules!
+			// this does also apply to other types of operator rules! we need a test
+			// that uses all kinds of operators to make sure this works
 			if (operator instanceof CsString) {
 				CsString csString = (CsString) operator;
 				printCsString(csString, rule, sc, 0, eClassesReferenced);									
@@ -2027,7 +2033,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		
-		//We check if there are startsymbols referencing an expression metaclass which has not 
+		//We check if there are start symbols referencing an expression meta class which has not 
 		//a grammar rule yet
 		for (GenClass referencedClass : concreteSyntax.getStartSymbols()){
 			boolean isCommonExpressionMetaClass = !concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty(); 

@@ -19,6 +19,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.J_FACE_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_ATTRIBUTE;
@@ -90,7 +91,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.add("public " + I_TOKEN + " nextToken() {");
 		sc.add("currentToken = lexer.getNextToken();");
 		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
-		sc.add("return " + org.eclipse.jface.text.rules.Token.class.getName() + ".EOF;");
+		sc.add("return " + J_FACE_TOKEN + ".EOF;");
 		sc.add("}");
 		sc.add(TEXT_ATTRIBUTE + " ta = null;");
 		sc.add("String tokenName = currentToken.getName();");
@@ -115,9 +116,9 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.add("ta = new " + TEXT_ATTRIBUTE + "(color, null, style);");
 		sc.add("}");
 		sc.add("}");
-		//TODO potential performance improvement for large files in the future:
-		//build a map of tokens and reuse them instead of creating new ones
-		sc.add("return new " + org.eclipse.jface.text.rules.Token.class.getName() + "(ta);");
+		// potential performance improvement for large files in the future:
+		// build a map of tokens and reuse them instead of creating new ones
+		sc.add("return new " + J_FACE_TOKEN + "(ta);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

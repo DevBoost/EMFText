@@ -228,8 +228,8 @@ public abstract class GenerationContext {
 	 */
 	public abstract String getProjectRelativePathToSyntaxFile();
 
-	// TODO we should delete these artifact specific methods and use the generic methods
-	// for EArtifact instead.
+	// TODO mseifert: delete these artifact specific methods and use the generic methods
+	// for EArtifact instead. Maybe we need to add folders as distinct artifacts.
 	public File getIconsDir() {
 		return new File(getProjectFolder(EPlugins.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
 	}

@@ -676,7 +676,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		sc.add("}");
         sc.addLineBreak();
         
-		sc.add("public " + getResourceClassName() + "(" + org.eclipse.emf.common.util.URI.class.getName() + " uri) {");
+		sc.add("public " + getResourceClassName() + "(" + URI + " uri) {");
 		sc.add("super(uri);");
     	sc.add("resetLocationMap();");
 		sc.add("}");

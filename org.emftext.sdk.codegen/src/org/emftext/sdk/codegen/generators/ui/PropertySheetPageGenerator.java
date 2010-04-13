@@ -14,6 +14,9 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GEN_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GEN_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GEN_PACKAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
@@ -22,9 +25,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROPERTY_SHEET_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -129,9 +129,9 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 
 	private void addIsGenProxyMethod(StringComposite sc) {
 		sc.add("private boolean isGenProxy(" + E_OBJECT + " selectedObject) {");
-		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GenClass.class.getName() + "\", selectedObject);");
-		sc.add("isGenMetaclass |= isInstanceOf(\"" + GenFeature.class.getName() + "\", selectedObject);");
-		sc.add("isGenMetaclass |= isInstanceOf(\"" + GenPackage.class.getName() + "\", selectedObject);");
+		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GEN_CLASS + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_FEATURE + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_PACKAGE + "\", selectedObject);");
 		sc.add("boolean isProxy = selectedObject.eIsProxy();");
 		sc.add("return isGenMetaclass && isProxy;");
 		sc.add("}");

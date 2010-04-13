@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OU
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
@@ -316,7 +317,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
-				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
+				sc.add(E_STRUCTURAL_FEATURE + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add(OBJECT + " value = element.eGet(feature);");
 				sc.add("if (value instanceof " + LIST + ") {");
 				sc.add("for (" + OBJECT + " next : (" + LIST + "<?>) value) {");
@@ -769,7 +770,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 					+ ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
-			String featureSize = isMultiple ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
+			String featureSize = isMultiple ? "((" + COLLECTION + "<?>) temp).size()"
 					: "1";
 			sc.add("printCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");

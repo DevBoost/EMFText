@@ -353,16 +353,13 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		// TODO check whether the parameter 'extension' is really needed
-		// this might be a left-over from the ancient times when EMFText had
-		// a runtime
 		sc.addJavadoc(
 			"Creates a bracket set to manage the bracket pairs.",
 			"@param sourceViewer the source viewer for matching brackets",
 			"@param extension the file extension of the DSL"
 		);
-		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer, String extension) {");
-		sc.add("languageID = extension;");
+		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer) {");
+		sc.add("languageID = new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
 		sc.add("if (sourceViewer != null) {");
 		sc.add("viewer = sourceViewer;");

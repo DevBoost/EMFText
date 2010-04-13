@@ -361,7 +361,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
 		sc.addLineBreak();
-		sc.add("bracketsTmp = new " + bracketSetClassName + "(null, null);");
+		sc.add("bracketsTmp = new " + bracketSetClassName + "(null);");
 		sc.add("for (String languageID : languageIDs) {");
 		sc.add("bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
 		sc.add("}");

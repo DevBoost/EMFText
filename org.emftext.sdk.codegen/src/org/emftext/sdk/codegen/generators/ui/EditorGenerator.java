@@ -123,7 +123,6 @@ public class EditorGenerator extends JavaBaseGenerator {
 		addSetResourceMethod(sc);
 		addGetOutlinePageMethod(sc);
 		addGetPropertySheetPageMethod(sc);
-		addCreateActionsMethod(sc);
 		addGetEditingDomainMethod(sc);
 		addInitializeEditingDomainMethod(sc);
 		addSetCaretMethod(sc);
@@ -229,24 +228,6 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private void addGetEditingDomainMethod(StringComposite sc) {
 		sc.add("public " + EDITING_DOMAIN + " getEditingDomain() {");
 		sc.add("return editingDomain;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addCreateActionsMethod(StringComposite sc) {
-		sc.add("protected void createActions() {");
-		sc.add("super.createActions();");
-		sc.addLineBreak();
-		// TODO figure out what this code was for
-		/*
-		sc.add(RESOURCE_BUNDLE + " aResourceBundle = " + RESOURCE_BUNDLE + ".getBundle(\"org.emftext.runtime.ui.EMFTextEditorMessages\");");
-		sc.add("String actionId = \"ConAssActionId\";");
-		sc.addLineBreak();
-		sc.add(I_ACTION + " action = new " + CONTENT_ASSIST_ACTION + "(aResourceBundle, \"ContentAssistProposal.\", this);");
-		sc.add("action.setActionDefinitionId(" + I_TEXT_EDITOR_ACTION_DEFINITION_IDS + ".CONTENT_ASSIST_PROPOSALS);");
-		sc.add("setAction(actionId, action);");
-		sc.add("markAsStateDependentAction(actionId, true);");
-		*/
 		sc.add("}");
 		sc.addLineBreak();
 	}

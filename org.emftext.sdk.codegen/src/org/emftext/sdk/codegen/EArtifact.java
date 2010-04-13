@@ -217,8 +217,9 @@ public enum EArtifact {
 	TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
 	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION),
-	// TODO the hover text provider should actually to the UI package, but moving it requires
-	// to remove the old generated class from existing DSL plug-ins
+	// TODO the hover text provider should actually go to the UI package, but moving it requires
+	// to remove the old generated class from existing DSL plug-ins. If bug #1296 is resolved 
+	// this task is probably obsolete
 	HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
 	DEFAULT_HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, UI_PACKAGE, "", "DefaultHoverTextProvider", new DefaultHoverTextProviderGenerator(), OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER),
 	NEW_FILE_CONTENT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "NewFileContentProvider", new NewFileContentProviderGenerator(), OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER),

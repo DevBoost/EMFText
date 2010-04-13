@@ -182,7 +182,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addComment("try any other string attribute found");
 		sc.add("for (" + E_ATTRIBUTE + " strAttribute : element.eClass().getEAllAttributes()) {");
 		sc.add("if (!strAttribute.isMany() &&");
-		sc.add("strAttribute.getEType().getInstanceClassName().equals(" + STRING + ".class.getName())) {");
+		sc.add("strAttribute.getEType().getInstanceClassName().equals(\"" + STRING + "\")) {");
 		sc.add("return (" + STRING + ") element.eGet(strAttribute);");
 		sc.add("}");
 		sc.add("}");
@@ -241,7 +241,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
 		sc.addComment("try any other string attribute found");
 		sc.add("for (" + E_ATTRIBUTE + " stringAttribute : element.eClass().getEAllAttributes()) {");
-		sc.add("if (stringAttribute.getEType().getInstanceClassName().equals(" + STRING + ".class.getName())) {");
+		sc.add("if (stringAttribute.getEType().getInstanceClassName().equals(\"" + STRING + "\")) {");
 		sc.add(OBJECT + " attributeValue = element.eGet(stringAttribute);");
 		sc.add(STRING + " match = matches(identifier, attributeValue, matchFuzzy);");
 		sc.add("if (match != null) {");

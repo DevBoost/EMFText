@@ -411,7 +411,6 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("this.infoControl = infoControl;");
 		sc.add("setText(\"Open Declaration\");");
 		sc.add(I_SHARED_IMAGES + " images = " + PLATFORM_UI + ".getWorkbench().getSharedImages();");
-		// TODO use better image
 		sc.add("setImageDescriptor(images.getImageDescriptor(" + I_SHARED_IMAGES + ".IMG_ETOOL_HOME_NAV));");
 		sc.add("}");
 		sc.addLineBreak();

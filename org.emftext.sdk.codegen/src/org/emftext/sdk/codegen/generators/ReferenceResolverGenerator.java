@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
@@ -21,7 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -129,7 +129,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 				+ " element, "
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
-				+ EReference.class.getName() + " reference) {");
+				+ E_REFERENCE + " reference) {");
 		sc.add("return delegate.deResolve(element, container, reference);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -143,7 +143,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 				+ " identifier, "
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
-				+ EReference.class.getName()
+				+ E_REFERENCE
 				+ " reference, int position, boolean resolveFuzzy, final "
 				+ iReferenceResolveResultClassName + "<"
 				+ typeClassName + "> result) {");

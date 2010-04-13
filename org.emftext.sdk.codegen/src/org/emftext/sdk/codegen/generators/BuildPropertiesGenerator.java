@@ -37,27 +37,14 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		// TODO replace the (duplicate) code below with calls to GenerationContext
-		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
-		String sourceFolder;
-		if (sourceOptionValue == null) {
-			sourceFolder = "src";
-		} else {
-			sourceFolder = sourceOptionValue;
-		}
+		String sourceFolder = getFolder(OptionTypes.SOURCE_FOLDER, "src");
+		String sourceGenFolder = getFolder(OptionTypes.SOURCE_GEN_FOLDER, "src-gen");
 		
-		String genSourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
-		String genSourceFolder;
-		if (sourceOptionValue == null) {
-			genSourceFolder = "src-gen";
-		} else {
-			genSourceFolder = genSourceOptionValue;
-		}
 		Set<String> sourceFolders = new LinkedHashSet<String>();
 		sourceFolders.add(sourceFolder + "/");
 		// only the resource plug-in has a 'src-gen' folder
 		if (plugin == EPlugins.RESOURCE_PLUGIN) {
-			sourceFolders.add(genSourceFolder + "/");
+			sourceFolders.add(sourceGenFolder + "/");
 		}
 
 		StringBuilder sc = new StringBuilder();
@@ -72,6 +59,15 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		return true;
 	}
 
+	private String getFolder(OptionTypes option, String defaultValue) {
+		String folderOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), option);
+		String folder = defaultValue;
+		if (folderOptionValue != null) {
+			folder = folderOptionValue;
+		}
+		return folder;
+	}
+	
 	private Collection<String> getBinIncludes() {
 		Collection<String> binIncludes = new LinkedHashSet<String>();
 		binIncludes.add("META-INF/");

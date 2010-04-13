@@ -180,7 +180,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addGetDecoratorTreeMethod(JavaComposite sc) {
-		// TODO this trees can be reused
+		// these trees could be reused, but unless there are not serious
+		// performance problems with the new printers I'd not change the
+		// code that is currently generated
 		sc.addJavadoc(
 			"creates a tree of decorator objects which reflects the syntax tree that is " +
 			"attached to the given syntax element"

@@ -47,16 +47,6 @@ public class IOptionProviderGenerator extends JavaBaseGenerator {
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		// TODO is this still needed? option providers are registered
-		// to individual extension points since the Runtime is gone. 
-		sc.addJavadoc(
-			"The name of the attribute of the default_load_options " +
-			"extension point that specifies to which resources an " +
-			"option provider applies."
-		);
-		sc.add("public static final String CS_NAME = \"csName\";");
-		sc.addLineBreak();
-		
 		sc.addJavadoc(
 			"Returns a map of options. The keys are the names of the " +
 			"options, the values are arbitrary objects that provide " +

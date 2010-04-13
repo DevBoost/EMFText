@@ -102,6 +102,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Adapter;
@@ -319,9 +322,6 @@ import org.osgi.framework.BundleContext;
 
 /**
  * Constants for class names used in the generated code.
- * 
- * TODO find all other occurrences of class names in the generator package
- * and use constants instead. 
  */
 public class IClassNameConstants {
 	
@@ -330,10 +330,10 @@ public class IClassNameConstants {
 	public static String ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR = AbstractReusableInformationControlCreator.class.getName();
 	public static String ABSTRACT_UI_PLUGIN = AbstractUIPlugin.class.getName();
 	public static String ACTION = Action.class.getName();
+	public static String ADAPTER = Adapter.class.getName();
 	public static String ADAPTER_FACTORY_CONTENT_PROVIDER = AdapterFactoryContentProvider.class.getName();
 	public static String ADAPTER_FACTORY_EDITING_DOMAIN = AdapterFactoryEditingDomain.class.getName();
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER = AdapterFactoryLabelProvider.class.getName();
-	public static String ADAPTER = Adapter.class.getName();
 	public static String ADAPTER_IMPL = AdapterImpl.class.getName();
 	public static String ANNOTATION = Annotation.class.getName();
 	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
@@ -387,6 +387,7 @@ public class IClassNameConstants {
 	public static String DOCUMENT_EVENT = DocumentEvent.class.getName();
 	public static String DOCUMENT_LISTENER = DocumentListener.class.getName();
 	public static String EARLY_EXIT_EXCEPTION = EarlyExitException.class.getName();
+	public static String ECORE_FACTORY = EcoreFactory.class.getName();
 	public static String ECORE_ITEM_PROVIDER_ADAPTER_FACTORY = EcoreItemProviderAdapterFactory.class.getName();
 	public static String ECORE_UTIL = EcoreUtil.class.getName();
 	public static String EDITING_DOMAIN = EditingDomain.class.getName();
@@ -408,7 +409,6 @@ public class IClassNameConstants {
 	public static String E_PACKAGE = EPackage.class.getName();
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
-	public static String ECORE_FACTORY = EcoreFactory.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_DOCUMENT_PROVIDER = FileDocumentProvider.class.getName();
@@ -419,10 +419,16 @@ public class IClassNameConstants {
 	public static String FONT_DATA = FontData.class.getName();
 	public static String FONT_METRICS = FontMetrics.class.getName();
 	public static String GC = GC.class.getName();
+	public static String GEN_CLASS = GenClass.class.getName();
+	public static String GEN_FEATURE = GenFeature.class.getName();
+	public static String GEN_PACKAGE = GenPackage.class.getName();
 	public static String GRID_DATA = GridData.class.getName();
 	public static String GRID_LAYOUT = GridLayout.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
+	public static String IMAGE = org.eclipse.swt.graphics.Image.class.getName();
+	public static String IMAGE_DATA = ImageData.class.getName();
+	public static String IMAGE_LOADER = ImageLoader.class.getName();
 	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
 	public static String INPUT_STREAM_READER = InputStreamReader.class.getName();
@@ -463,6 +469,7 @@ public class IClassNameConstants {
 	public static String I_INFORMATION_CONTROL_EXTENSION2 = IInformationControlExtension2.class.getName();
 	public static String I_INFORMATION_CONTROL_EXTENSION4 = IInformationControlExtension4.class.getName();
 	public static String I_INPUT_CHANGED_LISTENER = IInputChangedListener.class.getName();
+	public static String I_ITEM_LABEL_PROVIDER = IItemLabelProvider.class.getName();
 	public static String I_ITEM_PROPERTY_DESCRIPTOR = IItemPropertyDescriptor.class.getName();
 	public static String I_ITEM_PROPERTY_SOURCE = IItemPropertySource.class.getName();
 	public static String I_MARKER = IMarker.class.getName();
@@ -513,10 +520,10 @@ public class IClassNameConstants {
 	public static String I_WORKBENCH_PREFERENCE_PAGE = IWorkbenchPreferencePage.class.getName();
 	public static String I_WORKSPACE = IWorkspace.class.getName();
 	public static String I_WORKSPACE_ROOT = IWorkspaceRoot.class.getName();
-	public static String IMAGE = org.eclipse.swt.graphics.Image.class.getName();
 	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
 	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
 	public static String J_FACE_RESOURCES = JFaceResources.class.getName();
+	public static String J_FACE_TOKEN = org.eclipse.jface.text.rules.Token.class.getName();
 	public static String KEY_EVENT = KeyEvent.class.getName();
 	public static String KEY_LISTENER = KeyListener.class.getName();
 	public static String LABEL = Label.class.getName();
@@ -533,6 +540,7 @@ public class IClassNameConstants {
 	public static String LOCATION_LISTENER = LocationListener.class.getName();
 	public static String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getCanonicalName();
 	public static String MAP = Map.class.getName();
+	public static String MAP_ENTRY = Map.Entry.class.getCanonicalName();
 	public static String MATCHER = Matcher.class.getName();
 	public static String MATH = Math.class.getName();
 	public static String MENU = Menu.class.getName();
@@ -549,9 +557,9 @@ public class IClassNameConstants {
 	public static String MODIFY_LISTENER = ModifyListener.class.getName();
 	public static String MOUSE_EVENT = MouseEvent.class.getName();
 	public static String MOUSE_LISTENER = MouseListener.class.getName();
-	public static String NOTIFIER = Notifier.class.getName();
 	public static String NOTIFICATION = Notification.class.getName();
 	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
+	public static String NOTIFIER = Notifier.class.getName();
 	public static String NO_SUCH_ALGORITHM_EXCEPTION = NoSuchAlgorithmException.class.getName();
 	public static String NO_VIABLE_ALT_EXCEPTION = NoViableAltException.class.getName();
 	public static String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
@@ -654,8 +662,4 @@ public class IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
-	
-	public static String IMAGE_LOADER = ImageLoader.class.getName();
-	public static String IMAGE_DATA = ImageData.class.getName();
-	public static String I_ITEM_LABEL_PROVIDER = IItemLabelProvider.class.getName();
 }

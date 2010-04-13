@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_ENTRY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATCHER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
@@ -95,7 +96,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
-// TODO enable backtracking for the postParseCommands lists
+// TODO mseifert: enable backtracking for the postParseCommands lists
 public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
@@ -603,13 +604,13 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public void addObjectToFeature(" + E_OBJECT + " container, " + OBJECT + " object, int featureConstant) {");
 		sc.add(E_STRUCTURAL_FEATURE + " eFeature = container.eClass().getEStructuralFeature(featureConstant);");
 		sc.add("if (eFeature.getUpperBound() == 1) {");
-		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
+		sc.add("if (" + MAP_ENTRY + ".class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
 		sc.add("addMapEntry(container, eFeature, (" + dummyEObjectClassName +") object);");
 		sc.add("} else {");
 		sc.add("container.eSet(eFeature, object);");
 		sc.add("}");
 		sc.add("} else {");
-		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
+		sc.add("if (" + MAP_ENTRY + ".class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
 		sc.add("addMapEntry(container, eFeature, (" + dummyEObjectClassName +") object);");
 		sc.add("} else {");
 		sc.add("addObjectToList(container, featureConstant, object);");
@@ -741,8 +742,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
 			sc.addComment("try start symbol: " + startSymbol.getName());
 			sc.add("restoreStackMode = true;");
-			sc.add("matches = " + getMethodName(startSymbol) + "();");
-			sc.add("if (isStackReady(\"" + getMethodName(startSymbol) + "\")) {");
+			sc.add("matches = " + getMethodName(syntax.getGenClassCache(), startSymbol) + "();");
+			sc.add("if (isStackReady(\"" + getMethodName(syntax.getGenClassCache(), startSymbol) + "\")) {");
 			sc.add("if (matches) {");
 			sc.add("return true;");
 			sc.add("}");
@@ -791,7 +792,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.addComment("try start symbol: " + startSymbol.getName());
 			//sc.add("if (tryOtherStartSymbols) {");
 			//sc.add("offset = 0;");
-			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(), \"" + getMethodName(startSymbol) + "\"));");
+			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + iTextTokenClassName + ">(), \"" + getMethodName(syntax.getGenClassCache(), startSymbol) + "\"));");
 			//sc.add("}");
 		}
 		sc.add("boolean success = processParseTrialStack();");
@@ -832,8 +833,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private String getMethodName(GenClass metaClass) {
-		String name = getMethodName_(metaClass);
+	private String getMethodName(GenClassCache genClassCache, GenClass genClass) {
+		String name = getMethodName_(genClassCache, genClass);
 		parseMethods.add(name);
 		return name;
 	}
@@ -1033,20 +1034,20 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	private void addMethodForRule(JavaComposite sc, ConcreteSyntax syntax, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
 
-		sc.add("public boolean " + getMethodName(metaclass) + "() {");
+		sc.add("public boolean " + getMethodName(syntax.getGenClassCache(), metaclass) + "() {");
 		Choice choice = rule.getDefinition();
 		sc.add("int commandIndexBackup = commands.size();");
 		sc.add("int tokenIndexBackup = tokens.size();");
 		sc.add("int startOffset = offset;");
 
-		sc.add("if (isStackReady(\"" + getMethodName(metaclass) + "\")) {");
+		sc.add("if (isStackReady(\"" + getMethodName(syntax.getGenClassCache(), metaclass) + "\")) {");
 		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("addCommand(new CreateObjectCommand(eClass));");
 		sc.add("}");
 		
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		
-		sc.add("if (isStackReady(\"" + getMethodName(metaclass) + "\")) {");
+		sc.add("if (isStackReady(\"" + getMethodName(syntax.getGenClassCache(), metaclass) + "\")) {");
 		sc.add("if (success) {");
 		sc.add("addCommand(new ObjectCompletedCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
 		sc.add("return true;");
@@ -1313,7 +1314,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		sc.add("public boolean " + getMethodName(containment) + "() {");
 		sc.add("int offsetCopy = this.offset;");
 		
-		// TODO I'm not quite sure whether this is the expected behavior.
+		// TODO mseifert: I'm not quite sure whether this is the expected behavior.
 		// Do we add all subclasses as alternative even if the type of the
 		// reference is not abstract?
 		Collection<GenClass> alternatives = csUtil.getSubClassesWithSyntax(featureType, syntax, false);
@@ -1326,7 +1327,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			sc.add("{");
 			sc.addComment("restore old offset");
 			sc.add("this.offset = offsetCopy;");
-			sc.add("boolean success = " + getMethodName(genClass) + "();");
+			sc.add("boolean success = " + getMethodName(syntax.getGenClassCache(), genClass) + "();");
 			sc.add("if (success) {");
 			sc.addComment("add command to add element to the containment reference");
 			sc.add("addCommand(new AddContainedObjectCommand(" + generatorUtil.getFeatureConstant(ruleMetaClass, genFeature) + "));");
@@ -1413,9 +1414,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return null;
 	}
 
-	private String getMethodName_(GenClass metaClass) {
-		// TODO use fully qualified name
-		return "parse_" + metaClass.getName();
+	private String getMethodName_(GenClassCache genClassCache, GenClass genClass) {
+		return "parse_" + genClassCache.getEscapedTypeName(genClass);
 	}
 
 	private String getMethodName_(CardinalityDefinition cd) {
@@ -1473,7 +1473,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		EObject parent = (EObject) choice.eContainer();
 		if (parent instanceof Rule) {
 			Rule rule = (Rule) parent;
-			return getMethodName_(rule.getMetaclass()) + "_choice";
+			return getMethodName_(rule.getSyntax().getGenClassCache(), rule.getMetaclass()) + "_choice";
 		} else if (parent instanceof Sequence) {
 			int index = getIndex(choice, parent);
 			return getMethodName_((Sequence) parent) + "_choice" + index;
