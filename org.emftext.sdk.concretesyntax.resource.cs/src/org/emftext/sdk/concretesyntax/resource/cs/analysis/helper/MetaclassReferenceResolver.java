@@ -87,7 +87,7 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
-	private ConcreteSyntax getConcreteSyntax(EObject container) {
+	public ConcreteSyntax getConcreteSyntax(EObject container) {
 		while(!(container instanceof ConcreteSyntax)) {
 			container = container.eContainer();
 			//was before: Assert.isNotNull(container);
@@ -99,13 +99,17 @@ public class MetaclassReferenceResolver {
 		return (ConcreteSyntax) container;
 	}
 
-	public void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result, CustomMatchCondition matchCondition) {
+	public void doResolve(
+			String identifier, 
+			ConcreteSyntax syntax,
+			boolean resolveFuzzy, 
+			ICsReferenceResolveResult<GenClass> result, 
+			CustomMatchCondition matchCondition) {
 		
 		if (resolveFuzzy) {
-			doResolveFuzzy(getConcreteSyntax(container), identifier, result, matchCondition);
+			doResolveFuzzy(syntax, identifier, result, matchCondition);
 		} else {
-			doResolveStrict(getConcreteSyntax(container), identifier, result, matchCondition);
+			doResolveStrict(syntax, identifier, result, matchCondition);
 		}
 	}
 

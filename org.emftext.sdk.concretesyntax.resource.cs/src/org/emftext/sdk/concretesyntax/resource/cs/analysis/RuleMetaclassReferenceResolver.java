@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EReference;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
@@ -30,7 +31,8 @@ public class RuleMetaclassReferenceResolver implements ICsReferenceResolver<Rule
 	public void resolve(final String identifier, Rule container,
 			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result,new CustomMatchCondition(){
+		ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
+		resolver.doResolve(identifier, syntax, resolveFuzzy, result,new CustomMatchCondition(){
 
 			public boolean matches(GenClass genClass) {
 				if(!getGenClassUtil().isNotConcrete(genClass)){

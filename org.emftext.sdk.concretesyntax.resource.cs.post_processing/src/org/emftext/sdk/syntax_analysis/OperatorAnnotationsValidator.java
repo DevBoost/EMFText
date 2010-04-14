@@ -88,14 +88,15 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			
 			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
 			//TODO: sven: we should also check for genclass prefixes or use full qualified names
-			if(expressionMetaClass==null||(!expressionMetaClass.isAbstract()&&!expressionMetaClass.isInterface())){
+			if (expressionMetaClass==null ||
+				(!expressionMetaClass.isAbstract() && !expressionMetaClass.isInterface())){
 				resource.addError("Expression idenfitier must map to a common abstract metaclass or interface.",annotation);
 			}
 			else{
 				EClassUtil eUtil = syntax.getEClassUtil();
 				if(!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
 					resource.addError("Operator rule must be associated with a subclass of "+identifier,operatorRule);
-				}		
+				}
 			}
 			
 			OperatorAnnotationType type = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
@@ -284,12 +285,14 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 * @param syntax
 	 * @param identifier
 	 */
-	private GenClass mapIdentifierToGenClass(ConcreteSyntax syntax, String identifier){
-		//This is stupid because a resolver should do it
+	private GenClass mapIdentifierToGenClass(ConcreteSyntax syntax, String identifier) {
+		// TODO use MetaclassReferenceResolver here, look for other code
+		// that resolves meta class identifiers in operation rules and
+		// replace it with a call to this method
 		GenClassFinder finder = new GenClassFinder();
 		Set<GenClass> genClasses = finder.findAllGenClasses(syntax,true,true);
-		for(GenClass genClass:genClasses){
-			if(genClass.getName().equals(identifier)){
+		for (GenClass genClass : genClasses) {
+			if (genClass.getName().equals(identifier)) {
 				return genClass;
 			}
 		}

@@ -18,6 +18,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
@@ -31,14 +32,14 @@ public class ContainmentTypesReferenceResolver implements ICsReferenceResolver<C
 	public void resolve(String identifier, Containment container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		final GenFeature feature = container.getFeature();
 		final GenClass superType = (feature != null && feature.getEcoreFeature() != null)?feature.getTypeGenClass():null;
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, new CustomMatchCondition(){
+		ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
+		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition(){
 
 			@Override
 			public boolean matches(GenClass genClass) {
-				if(superType==null||getGenClassUtil().hasSupertype(genClass,superType)){
+				if (superType==null || getGenClassUtil().hasSupertype(genClass,superType)) {
 					return true;
-				}
-				else{
+				} else {
 					String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is not a subtype of \"" + superType.getName() + "\".";					
 					setMessage(message);
 				}

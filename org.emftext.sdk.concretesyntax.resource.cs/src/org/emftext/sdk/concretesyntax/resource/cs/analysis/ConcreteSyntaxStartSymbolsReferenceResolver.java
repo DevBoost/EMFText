@@ -31,7 +31,9 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 	
 	public void resolve(String identifier, final ConcreteSyntax container,
 			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, new CustomMatchCondition(){
+		
+		ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
+		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition(){
 
 			@Override
 			public boolean matches(GenClass genClass) {
