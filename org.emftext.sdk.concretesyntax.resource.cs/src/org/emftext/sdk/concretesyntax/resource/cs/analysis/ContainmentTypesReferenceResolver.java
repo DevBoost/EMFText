@@ -31,18 +31,28 @@ public class ContainmentTypesReferenceResolver implements ICsReferenceResolver<C
 	
 	public void resolve(String identifier, Containment container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		final GenFeature feature = container.getFeature();
-		final GenClass superType = (feature != null && feature.getEcoreFeature() != null)?feature.getTypeGenClass():null;
-		ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
-		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition(){
+		final GenClass featureType = (feature != null && feature.getEcoreFeature() != null)?feature.getTypeGenClass():null;
+		final ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
+		
+		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition() {
 
 			@Override
 			public boolean matches(GenClass genClass) {
-				if (superType==null || getGenClassUtil().hasSupertype(genClass,superType)) {
+				if (featureType == null) {
 					return true;
-				} else {
-					String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is not a subtype of \"" + superType.getName() + "\".";					
-					setMessage(message);
 				}
+				// using the type of the feature as containment restriction
+				// doesn't make sense since this does not restrict the type
+				// any further, but is allowed
+				if (genClass.getQualifiedClassName().equals(featureType.getQualifiedClassName())) {
+					return true;
+				}
+				if (getGenClassUtil().isSuperClass(featureType, genClass, syntax.getGenClassCache())) {
+					return true;
+				}
+				
+				String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is not a subtype of \"" + featureType.getName() + "\".";					
+				setMessage(message);
 				return false;
 			}
 			

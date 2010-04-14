@@ -19,7 +19,6 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 
 /**
@@ -68,40 +67,4 @@ public class GenClassUtil {
 	    	return genPackage.getQualifiedFactoryInterfaceName() + ".eINSTANCE.create" + genClass.getName() + "()";
 	    }
 	}
-	
-	//TODO sven: Original method from MetaclassReferenceResolver. Check if this is equal to isSuperClass() above, if yes remove this method if 
-	//not document the difference.
-	@Deprecated
-	public boolean hasSupertype(GenClass genClass,
-			GenClass requiredSuperType) {
-		if (requiredSuperType == null) {
-			return true;
-		}
-		if (genClass.equals(requiredSuperType)) {
-			return true;
-		}
-		for (EClass superTypeCand : genClass.getEcoreClass().getEAllSuperTypes()) {
-			if (namesAndPackageURIsAreEqual(requiredSuperType.getEcoreClass(), superTypeCand)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private boolean namesAndPackageURIsAreEqual(EClass classA,
-			EClass classB) {
-		return namesAreEqual(classA, classB) && 
-			packageURIsAreEqual(classA, classB);
-	}
-
-	private boolean packageURIsAreEqual(EClass classA,
-			EClass classB) {
-		return classA.getEPackage().getNsURI().equals(
-				classB.getEPackage().getNsURI());
-	}
-
-	private boolean namesAreEqual(EClass classA, EClass classB) {
-		return classA.getName().equals(classB.getName());
-	}
-
 }
