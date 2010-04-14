@@ -216,8 +216,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		initCaches();
 
 		String csName = getResourceClassName();
-		String lexerName = getLexerName(csName);
-		String parserName = getParserName(csName);
+		String lexerName = context.getLexerName();
+		String parserName = context.getParserName();
 		boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.ANTLR_BACKTRACKING);
 		boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(
@@ -1082,14 +1082,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 		}
 		return collectList;
-	}
-
-	private String getLexerName(String csName) {
-		return csName + "Lexer";
-	}
-
-	private String getParserName(String csName) {
-		return csName + "Parser";
 	}
 
 	private void printStartRule(ANTLRGrammarComposite sc) {

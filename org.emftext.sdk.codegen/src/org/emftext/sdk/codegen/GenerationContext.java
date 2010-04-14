@@ -168,6 +168,14 @@ public abstract class GenerationContext {
 		return true;
 	}
 
+	public String getLexerName() {
+		return getCapitalizedConcreteSyntaxName() + "Lexer";
+	}
+
+	public String getParserName() {
+		return getCapitalizedConcreteSyntaxName() + "Parser";
+	}
+
 	/**
 	 * Returns the qualified class name of the reference resolver for the given reference. If
 	 * inImportedSyntax is set to true, the name of the resolver in the imported resource plug-in

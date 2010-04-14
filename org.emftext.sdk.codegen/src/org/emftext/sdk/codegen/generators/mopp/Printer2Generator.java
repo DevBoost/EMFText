@@ -1,7 +1,11 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
@@ -21,11 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -33,38 +32,13 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.concretesyntax.Choice;
-import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.GenClassCache;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.WhiteSpaces;
-import org.emftext.sdk.util.StringUtil;
 
 /**
  * A generator for a new experimental printing algorithm that tries
  * to preserve layout information that was gathered during parsing.
  * 
- * TODO implement smart whitespace printing:
- * 
- * (1) write output to a token stream instead of printing the raw token
- *     text to a PrintWriter. Tokens in this stream must hold both text
- *     and the type of the token (probably its name).
- *
- * (2) form sequences of successive tokens that can be printed without
- *     separating whitespace. to determine such groups start with two
- *     successive non-whitespace tokens, concatenate their text and use 
- *     the generated ANTLR lexer to split the text. If the resulting 
- *     token sequence of the concatenated text is exactly the same as 
- *     the one that is to be printed, no whitespace is needed. The tokens 
- *     in the sequence must be checked both regarding their type AND their 
- *     text. If two tokens successfully form a group a third one should 
- *     be added and so on.
- *     
  * TODO use two separate classes to store layout information. One class for
  *      keywords and NC-reference, another one for attributes. The former
  *      do not need the field 'object' and 'visibleTokenText' as these are
@@ -77,6 +51,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private ConcreteSyntax syntax;
+	private String lexerName;
 	
 	public Printer2Generator() {
 		super();
@@ -85,6 +60,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private Printer2Generator(GenerationContext context) {
 		super(context, EArtifact.PRINTER2);
 		syntax = context.getConcreteSyntax();
+		lexerName = context.getLexerName();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -97,12 +73,35 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
 		sc.addLineBreak();
+		addInnerClassPrintToken(sc);
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
 		
 		return true;
+	}
+
+	private void addInnerClassPrintToken(JavaComposite sc) {
+		sc.add("private class PrintToken {");
+		sc.addLineBreak();
+		sc.add("private String text;");
+		sc.add("private String tokenName;");
+		sc.addLineBreak();
+		sc.add("public PrintToken(String text, String tokenName) {");
+		sc.add("this.text = text;");
+		sc.add("this.tokenName = tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getText() {");
+		sc.add("return text;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getTokenName() {");
+		sc.add("return tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
 	}
 
 	private void addMethods(JavaComposite sc) { 
@@ -175,7 +174,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (element == null) {");
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
 		sc.add("}");
-		sc.add("if (writer == null) {");
+		sc.add("if (outputStream == null) {");
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
 		sc.add("}");
 		sc.addLineBreak();
@@ -225,7 +224,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
 		sc.add("super();");
-		sc.add("this.writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("this.outputStream = outputStream;");
 		sc.add("this.resource = resource;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -236,8 +235,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		// TODO we should probably wrap all these members in a context class
 		sc.addJavadoc("Holds the resource that is associated with this printer. May be null if the printer is used stand alone.");
 		sc.add("private " + iTextResourceClassName + " resource;");
-		sc.add("private " + PRINTER_WRITER + " writer;");
 		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private " + OUTPUT_STREAM + " outputStream;");
+		sc.add("private " + LIST + "<PrintToken> tokenOutputStream;");
 		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean startedPrintingElement = false;");
 		sc.addLineBreak();
@@ -247,102 +247,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		List<Rule> allRules = syntax.getAllRules();
 		for (Rule rule : allRules) {
 			addPrintRuleMethod(sc, rule);
-			//addPrintSyntaxElementMethod(sc, rule.getDefinition());
-		}
-	}
-
-	private void addPrintSyntaxElementMethod(JavaComposite sc, Choice definition) {
-		addPrintSyntaxElementMethodBasic(sc, definition);
-		List<Sequence> options = definition.getOptions();
-		for (Sequence sequence : options) {
-			addPrintSyntaxElementMethod(sc, sequence);
-		}
-	}
-
-	private void addPrintSyntaxElementMethod(JavaComposite sc, Sequence sequence) {
-		addPrintSyntaxElementMethodBasic(sc, sequence);
-		List<Definition> parts = sequence.getParts();
-		for (Definition part : parts) {
-			addPrintSyntaxElementMethod(sc, part);
-		}
-	}
-
-	private void addPrintSyntaxElementMethod(JavaComposite sc, Definition definition) {
-		addPrintSyntaxElementMethodBasic(sc, definition);
-		if (definition instanceof CompoundDefinition) {
-			CompoundDefinition cd = (CompoundDefinition) definition;
-			addPrintRuleMethod(sc, cd);
-		}
-	}
-
-	private void addPrintRuleMethod(JavaComposite sc, CompoundDefinition cd) {
-		addPrintSyntaxElementMethodBasic(sc, cd);
-		Choice definitions = cd.getDefinition();
-		addPrintSyntaxElementMethod(sc, definitions);
-	}
-
-	private void addPrintSyntaxElementMethodBasic(JavaComposite sc, EObject syntaxElement) {
-		if (syntaxElement instanceof CsString) {
-			CsString csString = (CsString) syntaxElement;
-			sc.add("public void print_" + csUtil.getFieldName(csString) + "() {");
-			String value = csString.getValue();
-			sc.add("writer.write(\"" + StringUtil.escapeToJavaString(value) + "\");");
-			sc.add("}");
-			sc.addLineBreak();
-		} else if (syntaxElement instanceof WhiteSpaces) {
-			WhiteSpaces whiteSpace = (WhiteSpaces) syntaxElement;
-			sc.add("public void print_" + csUtil.getFieldName(whiteSpace) + "() {");
-			int count = whiteSpace.getAmount();
-			if (count > 0) {
-				String spaces = getWhiteSpaceString(count);
-				sc.add("writer.write(\"" + spaces + "\");");
-			}
-			sc.add("}");
-			sc.addLineBreak();
-		} else if (syntaxElement instanceof Placeholder) {
-			Placeholder placeholder = (Placeholder) syntaxElement;
-			GenClassCache genClassCache = syntax.getGenClassCache();
-			Rule rule = placeholder.getContainingRule();
-			GenClass genClass = rule.getMetaclass();
-			GenFeature genFeature = placeholder.getFeature();
-			EStructuralFeature feature = genFeature.getEcoreFeature();
-			String tokenName = placeholder.getToken().getName();
-
-			String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
-			if (feature instanceof EReference) {
-				sc.addJavadoc(
-					"Prints the given reference value. " + 
-					"The parameter eObject is the container of the reference to be printed."
-				);
-				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + genClassCache.getQualifiedInterfaceName(genClass) + " eObject, " + OBJECT + " value) {");
-				sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
-						+ tokenName
-						+ "\");");
-				sc.add("resolver.setOptions(getOptions());");
-				sc.add(STRING + " deResolveResult = resolver.deResolve(" 
-						+ getContext().getReferenceResolverAccessor(genFeature)
-						+ ".deResolve((" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") value, eObject, (" + E_REFERENCE + ") eObject.eClass().getEStructuralFeature("
-						+ featureConstant
-						+ ")), eObject.eClass().getEStructuralFeature("
-						+ featureConstant
-						+ "), eObject);");
-			} else {
-				sc.addJavadoc(
-						"Prints the given attribute value. " + 
-						"The parameter eObject is the container of the attribute to be printed."
-					);
-				sc.add("public void print_" + csUtil.getFieldName(placeholder) + "(" + E_OBJECT + " eObject, " + OBJECT + " value) {");
-				sc.add(iTokenResolverClassName + " resolver = tokenResolverFactory.createTokenResolver(\""
-						+ tokenName
-						+ "\");");
-				sc.add("resolver.setOptions(getOptions());");
-				sc.add(STRING + " deResolveResult = resolver.deResolve(value, eObject.eClass().getEStructuralFeature("
-						+ featureConstant
-						+ "), eObject);");
-			}
-			sc.add("writer.write(deResolveResult);");
-			sc.add("}");
-			sc.addLineBreak();
 		}
 	}
 
@@ -522,7 +426,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
-		sc.add("writer.write(keyword.getValue());");
+		sc.add("String value = keyword.getValue();");
+		// using single quotes to obtain the token name here is ANTLR specific
+		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + value + \"'\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -559,7 +465,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("}");
 		sc.addComment("write result to the output stream");
-		sc.add("writer.write(result);");
+		sc.add("tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -575,7 +481,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"usually depends on attribute values of the referenced object instead of the " +
 			"object itself."
 		);
-		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
+		sc.add("String tokenName = placeholder.getTokenName();");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
@@ -583,7 +490,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(STRING + " deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") referencedObject, eObject, reference);");
 		sc.add(STRING + " deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.addComment("write result to output stream");
-		sc.add("writer.write(deresolvedToken);");
+		sc.add("tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -605,38 +512,41 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (hiddenTokenText != null) {");
 		sc.addComment("removed used information");
 		sc.add("layoutInformations.remove(layoutInformation);");
-		sc.add("writer.write(hiddenTokenText);");
+		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingElement = false;");
 		sc.add("return;");
 		sc.add("}");
-		// (b) if Whitespace of LineBreak elements were found, print those
+		// (b) if Whitespace or LineBreak elements were found, print those
 		sc.add("if (foundFormattingElements.size() > 0) {");
 		sc.add("for (" + formattingElementClassName + " foundFormattingElement : foundFormattingElements) {");
 		sc.add("if (foundFormattingElement instanceof " + whiteSpaceClassName + ") {");
 		sc.add("int amount = ((" + whiteSpaceClassName + ") foundFormattingElement).getAmount();");
 		sc.add("for (int i = 0; i < amount; i++) {");
-		sc.add("writer.write(\" \");");
+		sc.add("tokenOutputStream.add(new PrintToken(\" \", null));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (foundFormattingElement instanceof " + lineBreakClassName + ") {");
 		sc.add("int tabs = ((" + lineBreakClassName + ") foundFormattingElement).getTabs();");
-		sc.add("writer.write(NEW_LINE);");
+		sc.add("tokenOutputStream.add(new PrintToken(NEW_LINE, null));");
 		sc.add("for (int i = 0; i < tabs; i++) {");
-		sc.add("writer.write(\"\\t\");");
+		sc.add("tokenOutputStream.add(new PrintToken(\"\\t\", null));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
+		// this hopefully handled soon by post processing the tokenOutputStream
+		/*
 		// (c) if not, print default token space
 		sc.add("if (startedPrintingElement) {");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
 		String tokenSpace = getWhiteSpaceString(getTokenSpace());
-		sc.add("writer.write(\"" + tokenSpace + "\");");
+		sc.add("tokenOutputStream.add(new PrintToken(\"" + tokenSpace + "\"));");
 		sc.add("}");
+		*/
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -657,9 +567,90 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintMethod(JavaComposite sc) {
-		sc.addJavadoc("Prints the given elements to the output stream writer.");
+		sc.addJavadoc(
+			"Prints the given elements to the output stream writer.",
+			"",
+			"This methods implements smart whitespace printing. It does so by " +
+			"writing output to a token stream instead of printing the raw token " +
+			"text to a PrintWriter. Tokens in this stream hold both the text " +
+			"and the type of the token (i.e., its name).",
+			"",
+			"To decide where whitespace is needed, sequences of successive tokens " +
+			"are searched that can be printed without separating whitespace. " +
+			"To determine such groups we start with two successive non-whitespace tokens, " +
+			"concatenate their text and use the generated ANTLR lexer to split the text. " +
+			"If the resulting token sequence of the concatenated text is exactly the same as " + 
+			"the one that is to be printed, no whitespace is needed. The tokens " + 
+			"in the sequence are checked both regarding their type and their " + 
+			"text. If two tokens successfully form a group a third one is " + 
+			"added and so on."
+		);
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
+		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
 		sc.add("doPrint(element);");
+		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("StringBuilder currentBlock = new StringBuilder();");
+		sc.add("int currentBlockStart = 0;");
+		sc.add("String validBlock = \"\";");
+		sc.add("for (int i = 0; i < tokenOutputStream.size(); i++) {");
+		
+		sc.add("PrintToken tokenI = tokenOutputStream.get(i);");
+		sc.add("currentBlock.append(tokenI.getText());");
+		
+		sc.add("if (tokenI.getTokenName() == null) {");
+		sc.addComment("found declared or preserved whitespace - print block");
+		sc.add("writer.write(currentBlock.toString());");
+		sc.add("currentBlock = new StringBuilder();");
+		sc.add("currentBlockStart = i + 1;");
+		sc.add("validBlock = \"\";");
+		sc.add("continue;");
+		sc.add("}");
+		
+		sc.add("String currentBlockText = currentBlock.toString();");
+		sc.addComment("now check whether the current block is still scannable");
+		
+		sc.add(COMMON_TOKEN_STREAM + " tempTokenStream = new "
+				+ COMMON_TOKEN_STREAM + "(new " + lexerName
+				+ "(new " + ANTLR_INPUT_STREAM + "(new " + BYTE_ARRAY_INPUT_STREAM+ "(currentBlockText.getBytes()))));");
+		
+		sc.add(LIST + "<?> tempTokens = tempTokenStream.getTokens();");
+		sc.add("boolean sequenceIsValid = true;");
+		sc.addComment("check whether the current block was scanned to the same token sequence");
+		sc.add("for (int t = 0; t < tempTokens.size(); t++) {");
+		sc.add("PrintToken printTokenT = tokenOutputStream.get(currentBlockStart + t);");
+		sc.add("Object tempToken = tempTokens.get(t);");
+		sc.add("if (tempToken instanceof " + COMMON_TOKEN + ") {");
+		sc.add(COMMON_TOKEN + " commonToken = (" + COMMON_TOKEN + ") tempToken;");
+		sc.add("if (!commonToken.getText().equals(printTokenT.getText())) {");
+		sc.add("sequenceIsValid = false;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("String commonTokenName = new " + metaInformationClassName + "().getTokenNames()[commonToken.getType()];");
+		sc.add("if (!commonTokenName.equals(printTokenT.getTokenName())) {");
+		sc.add("sequenceIsValid = false;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("sequenceIsValid = false;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (sequenceIsValid) {");
+		sc.addComment("sequence is still valid, try adding one more token");
+		sc.add("validBlock += tokenI.getText();");
+		sc.add("} else {");
+		sc.addComment("sequence is not valid, must print whitespace to separate tokens");
+		sc.add("writer.write(validBlock);");
+		sc.addComment("print separating whitespace");
+		String tokenSpace = getWhiteSpaceString(getTokenSpace());
+		sc.add("writer.write(\"" + tokenSpace + "\");");
+		sc.add("currentBlock = new StringBuilder(tokenI.getText());");
+		sc.add("currentBlockStart = i;");
+		sc.add("validBlock = tokenI.getText();");
+		sc.add("}");
+		
+		sc.add("}");
+		sc.add("writer.write(validBlock);");
 		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
