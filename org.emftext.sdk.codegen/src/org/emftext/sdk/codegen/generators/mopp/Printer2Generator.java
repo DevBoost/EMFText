@@ -102,6 +102,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) { 
@@ -231,9 +232,12 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addFields(JavaComposite sc) {
 		sc.add("public final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
+		sc.addLineBreak();
 		// TODO we should probably wrap all these members in a context class
 		sc.addJavadoc("Holds the resource that is associated with this printer. May be null if the printer is used stand alone.");
 		sc.add("private " + iTextResourceClassName + " resource;");
+		sc.addLineBreak();
+		
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + OUTPUT_STREAM + " outputStream;");
 		sc.add("private " + LIST + "<PrintToken> tokenOutputStream;");
