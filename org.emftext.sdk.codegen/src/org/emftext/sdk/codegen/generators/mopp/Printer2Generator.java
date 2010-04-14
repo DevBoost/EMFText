@@ -48,6 +48,22 @@ import org.emftext.sdk.util.StringUtil;
 /**
  * A generator for a new experimental printing algorithm that tries
  * to preserve layout information that was gathered during parsing.
+ * 
+ * TODO implement smart whitespace printing:
+ * 
+ * (1) write output to a token stream instead of printing the raw token
+ *     text to a PrintWriter. Tokens in this stream must hold both text
+ *     and the type of the token (probably its name).
+ *
+ * (2) form sequences of successive tokens that can be printed without
+ *     separating whitespace. to determine such groups start with two
+ *     successive non-whitespace tokens, concatenate their text and use 
+ *     the generated ANTLR lexer to split the text. If the resulting 
+ *     token sequence of the concatenated text is exactly the same as 
+ *     the one that is to be printed, no whitespace is needed. The tokens 
+ *     in the sequence must be checked both regarding their type AND their 
+ *     text. If two tokens successfully form a group a third one should 
+ *     be added and so on.
  */
 public class Printer2Generator extends AbstractPrinterGenerator {
 
