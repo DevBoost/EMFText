@@ -107,7 +107,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addMethods(JavaComposite sc) { 
 		addPrintMethod(sc);
 		addDoPrintMethod(sc, syntax.getAllRules());
-		addPrintRuleMethods(sc);
+		addPrintInternalMethod(sc);
 		addGetDecoratorTreeMethod(sc);
 		addDecorateTreeMethod(sc);
 		addDecorateTreeBasicMethod(sc);
@@ -188,8 +188,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 				ruleQueue.add(rule);
 			} else {
 				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
-				sc.add(getMethodName(rule) + "((" + getMetaClassName(rule)
-						+ ") element);");
+				sc.add("printInternal(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
 				sc.add("return;");
 				sc.add("}");
 			}
@@ -243,15 +242,17 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
+	/*
 	private void addPrintRuleMethods(JavaComposite sc) {
 		List<Rule> allRules = syntax.getAllRules();
 		for (Rule rule : allRules) {
 			addPrintRuleMethod(sc, rule);
 		}
 	}
+	*/
 
-	private void addPrintRuleMethod(JavaComposite sc, Rule rule) {
-		sc.add("public void " + getMethodName(rule) + "(" + getMetaClassName(rule) + " eObject) {");
+	private void addPrintInternalMethod(JavaComposite sc) {
+		sc.add("public void printInternal(" + E_OBJECT + " eObject, " + syntaxElementClassName + " ruleElement) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
 		sc.add(LIST + "<" + layoutInformationClassName + "> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();");
 		sc.addComment(
@@ -260,7 +261,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		);
 		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST + "<" + layoutInformationClassName+ ">(originalLayoutInformations.size());");
 		sc.add("layoutInformations.addAll(originalLayoutInformations);");
-		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
+		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(ruleElement);");
 		sc.add("decorateTree(decoratorTree, eObject);");
 		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">(), layoutInformations);");
 		sc.add("}");
