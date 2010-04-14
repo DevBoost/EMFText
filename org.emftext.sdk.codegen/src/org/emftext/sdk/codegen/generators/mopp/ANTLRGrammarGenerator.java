@@ -1950,8 +1950,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 									+ generatorUtil.getFeatureConstant(genClass,
 											genFeature) + "), " + resolvedIdent
 									+ ", " + proxyIdent + ");");
-					// remember that we must resolve proxy objects for this feature
-					getContext().addNonContainmentReference(genFeature);
 				} else {
 					// the feature is an EAttribute
 					targetTypeName = genFeature.getQualifiedListItemType(null);

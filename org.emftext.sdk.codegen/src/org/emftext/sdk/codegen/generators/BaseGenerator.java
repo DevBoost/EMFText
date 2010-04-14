@@ -229,8 +229,10 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		warnings = new LinkedList<GenerationProblem>();
 
 		this.context = context;
-		this.resourcePackageName = context.getPackageName(artifact);
-		this.resourceClassName = context.getClassName(artifact);
+		if (artifact != null) {
+			this.resourcePackageName = context.getPackageName(artifact);
+			this.resourceClassName = context.getClassName(artifact);
+		}
 		
 		initilizeClassNames();
 	}

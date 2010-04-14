@@ -14,9 +14,7 @@
 package org.emftext.sdk.codegen;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -68,8 +66,6 @@ public abstract class GenerationContext {
 	private final IProblemCollector problemCollector;
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
-
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String licenceText;
@@ -161,16 +157,6 @@ public abstract class GenerationContext {
 		return getCapitalizedConcreteSyntaxName(getConcreteSyntax());
 	}
 	
-    // TODO remove this method. the nc-references should not be added
-    // by the parser generators
-	public void addNonContainmentReference(GenFeature proxyReference) {
-		nonContainmentReferences.add(proxyReference);
-	}
-
-	public Collection<GenFeature> getNonContainmentReferences() {
-		return nonContainmentReferences;
-	}
-
 	public boolean isImportedWithSyntaxReference(GenFeature genFeature) {
 		ConcreteSyntax containingSyntax = genClassFinder.getContainingSyntax(concreteSyntax, genFeature.getGenClass());
 		if (containingSyntax == null) {

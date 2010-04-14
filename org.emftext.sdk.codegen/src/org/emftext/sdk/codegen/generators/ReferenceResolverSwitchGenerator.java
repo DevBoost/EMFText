@@ -20,6 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -31,6 +32,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.StringUtil;
 
@@ -44,7 +46,9 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	
 	private GenClassCache genClassCache;
+	private Collection<GenFeature> nonContainmentReferencesNeedingResolvers;
 
 	public ReferenceResolverSwitchGenerator() {
 		super();
@@ -52,7 +56,9 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 
 	private ReferenceResolverSwitchGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
-		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		this.genClassCache = syntax.getGenClassCache();
+		this.nonContainmentReferencesNeedingResolvers = csUtil.getNonContainmentFeaturesNeedingResolver(syntax);
 	}
 	
 	@Override
@@ -93,7 +99,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		sc.add("if (container == null) {");
 		sc.add("return;");
 		sc.add("}");
-		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
+		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
@@ -114,7 +120,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 
 	private void generateSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
-		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
+		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			sc.add(StringUtil.low(generatedClassName) + ".setOptions(options);");			
 		}
@@ -124,7 +130,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 
 	private void addGetResolverMethod(StringComposite sc) {
 		sc.add("public " + iReferenceResolverClassName + " getResolver(" + E_STRUCTURAL_FEATURE + " reference) {");
-		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
+		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			sc.add("if (reference == " + proxyReference.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + proxyReference.getFeatureAccessorName() + "()) {");
 			sc.add("return " + StringUtil.low(generatedClassName) + ";");
@@ -138,7 +144,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private void generateFields(StringComposite sc) {
     	List<String> generatedResolvers = new ArrayList<String>();
 
-		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
+		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
@@ -152,7 +158,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	private void generateGetMethods(StringComposite sc) {
     	List<String> generatedResolvers = new ArrayList<String>();
 
-		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
+		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);

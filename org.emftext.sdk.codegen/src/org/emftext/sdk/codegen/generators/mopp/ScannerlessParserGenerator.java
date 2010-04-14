@@ -1383,7 +1383,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 			    	}
 					String proxyResolver = getContext().getReferenceResolverAccessor(genFeature);
 					sc.add("addCommand(new AddProxyCommand<" + genClassCache.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassCache.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
-					getContext().addNonContainmentReference(genFeature);
 				} else {
 					throw new RuntimeException("Found unknown feature type for terminal.");
 				}

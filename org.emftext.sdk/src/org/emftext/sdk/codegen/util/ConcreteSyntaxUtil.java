@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
@@ -231,6 +232,11 @@ public class ConcreteSyntaxUtil {
 			Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
 				GenFeature feature = placeholder.getFeature();
+				EStructuralFeature ecoreFeature = feature.getEcoreFeature();
+				// ignore attribute, only references must be collected
+				if (ecoreFeature instanceof EAttribute) {
+					continue;
+				}
 				// anonymous features do not need an resolver
 				if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
 					continue;

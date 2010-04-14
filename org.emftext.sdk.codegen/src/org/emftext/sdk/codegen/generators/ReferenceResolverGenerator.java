@@ -53,6 +53,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private ReferenceResolverGenerator(GenerationContext context) {
+		super(context, null);
 		this.context = context;
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 		this.defaultResolverDelegateName = context
