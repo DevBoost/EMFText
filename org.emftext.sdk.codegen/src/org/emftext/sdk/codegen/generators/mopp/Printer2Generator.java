@@ -64,6 +64,12 @@ import org.emftext.sdk.util.StringUtil;
  *     in the sequence must be checked both regarding their type AND their 
  *     text. If two tokens successfully form a group a third one should 
  *     be added and so on.
+ *     
+ * TODO use two separate classes to store layout information. One class for
+ *      keywords and NC-reference, another one for attributes. The former
+ *      do not need the field 'object' and 'visibleTokenText' as these are
+ *      never used. The latter can use the current generator for the class
+ *      LayoutInformation.
  */
 public class Printer2Generator extends AbstractPrinterGenerator {
 
