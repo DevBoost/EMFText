@@ -589,17 +589,29 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
 		sc.add("doPrint(element);");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.addComment(
+			"stores the text of the current group of tokens. " +
+			"this text is given to the lexer to check whether it can be correctly scanned."
+		);
 		sc.add("StringBuilder currentBlock = new StringBuilder();");
+		sc.addComment(
+			"stores the index of the first token of the current group."
+		);
 		sc.add("int currentBlockStart = 0;");
+		sc.addComment(
+			"stores the text that was already successfully checked (i.e., is can be scanned correctly and can thus be printed)."
+		);
 		sc.add("String validBlock = \"\";");
+
 		sc.add("for (int i = 0; i < tokenOutputStream.size(); i++) {");
 		
 		sc.add("PrintToken tokenI = tokenOutputStream.get(i);");
 		sc.add("currentBlock.append(tokenI.getText());");
 		
+		sc.addComment("if declared or preserved whitespace is found - print block");
 		sc.add("if (tokenI.getTokenName() == null) {");
-		sc.addComment("found declared or preserved whitespace - print block");
 		sc.add("writer.write(currentBlock.toString());");
+		sc.addComment("reset all values");
 		sc.add("currentBlock = new StringBuilder();");
 		sc.add("currentBlockStart = i + 1;");
 		sc.add("validBlock = \"\";");
@@ -607,7 +619,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		
 		sc.add("String currentBlockText = currentBlock.toString();");
-		sc.addComment("now check whether the current block is still scannable");
+		sc.addComment("now check whether the current block can be scanned");
 		
 		sc.add(COMMON_TOKEN_STREAM + " tempTokenStream = new "
 				+ COMMON_TOKEN_STREAM + "(new " + lexerName
@@ -636,20 +648,23 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (sequenceIsValid) {");
-		sc.addComment("sequence is still valid, try adding one more token");
+		sc.addComment("sequence is still valid, try adding one more token in the next iteration of the loop");
 		sc.add("validBlock += tokenI.getText();");
 		sc.add("} else {");
 		sc.addComment("sequence is not valid, must print whitespace to separate tokens");
+		sc.addComment("print text that is valid so far");
 		sc.add("writer.write(validBlock);");
 		sc.addComment("print separating whitespace");
 		String tokenSpace = getWhiteSpaceString(getTokenSpace());
 		sc.add("writer.write(\"" + tokenSpace + "\");");
+		sc.addComment("add current token as initial value for next iteration");
 		sc.add("currentBlock = new StringBuilder(tokenI.getText());");
 		sc.add("currentBlockStart = i;");
 		sc.add("validBlock = tokenI.getText();");
 		sc.add("}");
 		
 		sc.add("}");
+		sc.addComment("flush remaining valid text to writer");
 		sc.add("writer.write(validBlock);");
 		sc.add("writer.flush();");
 		sc.add("}");
