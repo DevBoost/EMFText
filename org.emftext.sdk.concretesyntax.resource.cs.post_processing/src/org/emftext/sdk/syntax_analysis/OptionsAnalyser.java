@@ -30,6 +30,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  */
 public class OptionsAnalyser extends AbstractPostProcessor {
 
+	public static final String TOKEN_SPACE_VALUE_AUTOMATIC = "automatic";
+
+	private static final String TOKEN_SPACE_VALUE_ERROR_MESSAGE = "Value must be positive integers or '" + TOKEN_SPACE_VALUE_AUTOMATIC + "'.";
+	
 	private final List<OptionTypes> BOOLEAN_OPTIONS;
 	private final List<OptionTypes> STRING_OPTIONS;
 	private final List<OptionTypes> NON_STANDARD_OPTIONS;
@@ -75,9 +79,36 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+		// first analyze options individually
 		List<Option> options = syntax.getOptions();
 		for (Option option : options) {
 			analyseOption(resource, option);
+		}
+		// second, analyze option conflicts
+		analyseOptionConflicts(resource, syntax, options);
+	}
+
+	/**
+	 * Checks whether the grammar contains conflicting options.
+	 */
+	private void analyseOptionConflicts(CsResource resource, ConcreteSyntax syntax, List<Option> options) {
+		checkForClassicPrinterAutomaticTokenSpaceConflict(resource, syntax, options);
+	}
+
+	private void checkForClassicPrinterAutomaticTokenSpaceConflict(
+			CsResource resource, ConcreteSyntax syntax, List<Option> options) {
+		OptionManager optionManager = OptionManager.INSTANCE;
+		boolean useClassicPrinter = optionManager.getBooleanOptionValue(syntax, OptionTypes.USE_CLASSIC_PRINTER);
+		if (useClassicPrinter) {
+			String tokenSpace = optionManager.getStringOptionValue(syntax, OptionTypes.TOKENSPACE);
+			if (TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpace)) {
+				addProblem(
+						resource, 
+						ECsProblemType.AUTOMATIC_TOKEN_SPACE_CONFLICT_WITH_CLASSIC_PRINTER, 
+						"Value '" + TOKEN_SPACE_VALUE_AUTOMATIC + "' is not compatible with the classic printer.", 
+						optionManager.findOptionByType(options, OptionTypes.TOKENSPACE)
+				);
+			}
 		}
 	}
 
@@ -127,13 +158,16 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 
 	private void checkTokenspaceValue(CsResource resource, Option option,
 			String value) {
+		if (TOKEN_SPACE_VALUE_AUTOMATIC.equals(value)) {
+			return;
+		}
 		try {
 			int v = Integer.parseInt(value);
 			if (v < 0) {
-				addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_POSITIVE_INTEGER, "Only positive integers are allowed.", option);
+				addProblem(resource, ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_POSITIVE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
 			}
 		} catch (NumberFormatException e) {
-			addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_INTEGER, "Only integers are allowed.", option);
+			addProblem(resource, ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
 		}
 	}
 

@@ -125,7 +125,16 @@ public class OptionManager {
 		return -1;
 	}
 
-	private Option findOptionByType(List<Option> options,
+	/**
+	 * Searches in 'options' for an option of type 'type'.
+	 * If one is found, it is returned. If not, <code>null</code>
+	 * is returned. 
+	 * 
+	 * @param options the list of options to search in
+	 * @param type the type to search for
+	 * @return the found option, or null if none was found
+	 */
+	public Option findOptionByType(List<Option> options,
 			OptionTypes type) {
 		for (Option option : options) {
 			if (type == option.getType()) {
