@@ -1,11 +1,7 @@
 package org.emftext.sdk.codegen.generators.mopp;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
@@ -664,31 +660,29 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("continue;");
 		sc.add("}");
 		
-		sc.add("String currentBlockText = currentBlock.toString();");
 		sc.addComment("now check whether the current block can be scanned");
 		
-		sc.add(COMMON_TOKEN_STREAM + " tempTokenStream = new "
-				+ COMMON_TOKEN_STREAM + "(new " + lexerName
-				+ "(new " + ANTLR_INPUT_STREAM + "(new " + BYTE_ARRAY_INPUT_STREAM+ "(currentBlockText.getBytes()))));");
+		sc.add(iTextScannerClassName + " scanner = new " + metaInformationClassName + "().createLexer();");
+		sc.add("scanner.setText(currentBlock.toString());");
 		
-		sc.add(LIST + "<?> tempTokens = tempTokenStream.getTokens();");
+		sc.addComment("retrieve all tokens from scanner and add them to list 'tempTokens'");
+		sc.add(LIST + "<" + iTextTokenClassName + "> tempTokens = new " + ARRAY_LIST + "<" + iTextTokenClassName + ">();");
+		sc.add(iTextTokenClassName  + " nextToken = scanner.getNextToken();");
+		sc.add("while (nextToken != null) {");
+		sc.add("tempTokens.add(nextToken);");
+		sc.add("}");
+		
 		sc.add("boolean sequenceIsValid = true;");
 		sc.addComment("check whether the current block was scanned to the same token sequence");
 		sc.add("for (int t = 0; t < tempTokens.size(); t++) {");
 		sc.add("PrintToken printTokenT = tokenOutputStream.get(currentBlockStart + t);");
-		sc.add("Object tempToken = tempTokens.get(t);");
-		sc.add("if (tempToken instanceof " + COMMON_TOKEN + ") {");
-		sc.add(COMMON_TOKEN + " commonToken = (" + COMMON_TOKEN + ") tempToken;");
-		sc.add("if (!commonToken.getText().equals(printTokenT.getText())) {");
+		sc.add(iTextTokenClassName + " tempToken = tempTokens.get(t);");
+		sc.add("if (!tempToken.getText().equals(printTokenT.getText())) {");
 		sc.add("sequenceIsValid = false;");
 		sc.add("break;");
 		sc.add("}");
-		sc.add("String commonTokenName = new " + metaInformationClassName + "().getTokenNames()[commonToken.getType()];");
+		sc.add("String commonTokenName = tempToken.getName();");
 		sc.add("if (!commonTokenName.equals(printTokenT.getTokenName())) {");
-		sc.add("sequenceIsValid = false;");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("} else {");
 		sc.add("sequenceIsValid = false;");
 		sc.add("break;");
 		sc.add("}");
