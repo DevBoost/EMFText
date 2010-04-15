@@ -271,15 +271,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	/*
-	private void addPrintRuleMethods(JavaComposite sc) {
-		List<Rule> allRules = syntax.getAllRules();
-		for (Rule rule : allRules) {
-			addPrintRuleMethod(sc, rule);
-		}
-	}
-	*/
-
 	private void addPrintInternalMethod(JavaComposite sc) {
 		sc.add("public void printInternal(" + E_OBJECT + " eObject, " + syntaxElementClassName + " ruleElement) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
