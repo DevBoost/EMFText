@@ -29,10 +29,12 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 
 /**
@@ -130,6 +132,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetLayoutInformationMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
 		addGetVisibleTokenTextMethod(sc);
+		addGetWhiteSpaceStringMethod(sc);
+		addGetRepeatingStringMethod(sc);
+		addSetAutomaticTokenSpaceHandlingMethod(sc);
+		addSetTokenSpaceMethod(sc);
+	}
+
+	private void addSetTokenSpaceMethod(JavaComposite sc) {
+		sc.add("public void setTokenSpace(int tokenSpace) {");
+		sc.add("this.tokenSpace = tokenSpace;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetAutomaticTokenSpaceHandlingMethod(JavaComposite sc) {
+		sc.add("public void setHandleTokenSpaceAutomatically(boolean handleTokenSpaceAutomatically) {");
+		sc.add("this.handleTokenSpaceAutomatically = handleTokenSpaceAutomatically;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetLayoutInformationMethod(StringComposite sc) {
@@ -231,6 +251,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addFields(JavaComposite sc) {
+		String tokenSpaceValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.TOKENSPACE);
+		boolean handleTokenSpaceAutomatically = OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
+		
 		sc.add("public final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.addLineBreak();
 		// TODO we should probably wrap all these members in a context class
@@ -242,6 +265,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + OUTPUT_STREAM + " outputStream;");
 		sc.add("private " + LIST + "<PrintToken> tokenOutputStream;");
 		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
+		sc.add("private boolean handleTokenSpaceAutomatically = " + handleTokenSpaceAutomatically + ";");
+		sc.add("private int tokenSpace = " + getTokenSpace() + ";");
 		sc.add("private boolean startedPrintingElement = false;");
 		sc.addLineBreak();
 	}
@@ -542,16 +567,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
-		// this hopefully handled soon by post processing the tokenOutputStream
-		/*
-		// (c) if not, print default token space
+		// (c) if not, print default token space, but only if automatic token
+		//     space handling is disabled
+		sc.add("if (!handleTokenSpaceAutomatically) {");
 		sc.add("if (startedPrintingElement) {");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
-		String tokenSpace = getWhiteSpaceString(getTokenSpace());
-		sc.add("tokenOutputStream.add(new PrintToken(\"" + tokenSpace + "\"));");
+		sc.add("tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));");
 		sc.add("}");
-		*/
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -660,8 +684,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addComment("print text that is valid so far");
 		sc.add("writer.write(validBlock);");
 		sc.addComment("print separating whitespace");
-		String tokenSpace = getWhiteSpaceString(getTokenSpace());
-		sc.add("writer.write(\"" + tokenSpace + "\");");
+		// TODO we need some way to specify the string that is used for
+		// automatic whitespace handling
+		sc.add("writer.write(\" \");");
 		sc.addComment("add current token as initial value for next iteration");
 		sc.add("currentBlock = new StringBuilder(tokenI.getText());");
 		sc.add("currentBlockStart = i;");

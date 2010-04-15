@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import static org.emftext.sdk.codegen.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +31,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  * options are valid.
  */
 public class OptionsAnalyser extends AbstractPostProcessor {
-
-	public static final String TOKEN_SPACE_VALUE_AUTOMATIC = "automatic";
 
 	private static final String TOKEN_SPACE_VALUE_ERROR_MESSAGE = "Value must be positive integers or '" + TOKEN_SPACE_VALUE_AUTOMATIC + "'.";
 	

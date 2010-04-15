@@ -24,8 +24,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 
 	private GenClassCache genClassCache;
 	
-	private int tokenSpace;
-
 	public AbstractPrinterGenerator() {
 		super();
 	}
@@ -33,7 +31,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	public AbstractPrinterGenerator(GenerationContext context, EArtifact artifact) {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
-		initializeTokenSpace();
 	}
 
 	protected String getMetaClassName(Rule rule) {
@@ -100,29 +97,43 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	protected String getTabString(int count) {
-		return getRepeatingString(count, '\t');
+		return StringUtil.getRepeatingString(count, '\t');
 	}
 
 	protected String getWhiteSpaceString(int count) {
-		return getRepeatingString(count, ' ');
+		return StringUtil.getRepeatingString(count, ' ');
+	}
+
+	protected void addGetWhiteSpaceStringMethod(StringComposite sc) {
+		sc.add("protected String getWhiteSpaceString(int count) {");
+		sc.add("return getRepeatingString(count, ' ');");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 	
-	private String getRepeatingString(int count, char character) {
-		StringBuffer spaces = new StringBuffer();
-		for (int i = 0; i < count; i++) {
-			spaces.append(character);
-		}
-		return spaces.toString();
+	protected void addGetRepeatingStringMethod(StringComposite sc) {
+		sc.add("private String getRepeatingString(int count, char character) {");
+		sc.add("StringBuffer result = new StringBuffer();");
+		sc.add("for (int i = 0; i < count; i++) {");
+		sc.add("result.append(character);");
+		sc.add("}");
+		sc.add("return result.toString();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	protected int getTokenSpace() {
-		return tokenSpace;
-	}
-		
-	private void initializeTokenSpace() {
-		tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(getContext().getConcreteSyntax(), OptionTypes.TOKENSPACE, true, this);
-		if (tokenSpace < 0) {
-			tokenSpace = 1;
+		String tokenSpaceString = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.TOKENSPACE);
+		try {
+			int tokenSpace = Integer.parseInt(tokenSpaceString);
+			if (tokenSpace < 0) {
+				tokenSpace = 1;
+			}
+			return tokenSpace;
+		} catch (NumberFormatException nfe) {
+			assert OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceString);
+			// token space handling is set to automatic
+			return 0;
 		}
 	}
 }

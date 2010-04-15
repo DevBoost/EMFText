@@ -30,6 +30,7 @@ public class OptionManager {
 
 	public static final String ANTLR = "antlr";
 	public static final String SCALES = "scales";
+	public static final String TOKEN_SPACE_VALUE_AUTOMATIC = "automatic";
 	
 	private OptionManager() {
 		super();

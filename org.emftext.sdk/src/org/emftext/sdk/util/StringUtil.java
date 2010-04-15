@@ -425,4 +425,12 @@ public class StringUtil {
 		}
 		return false;
 	}
+
+    public static String getRepeatingString(int count, char character) {
+		StringBuffer result = new StringBuffer();
+		for (int i = 0; i < count; i++) {
+			result.append(character);
+		}
+		return result.toString();
+	}
 }
