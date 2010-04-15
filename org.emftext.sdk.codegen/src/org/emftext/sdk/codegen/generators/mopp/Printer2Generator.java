@@ -136,6 +136,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetRepeatingStringMethod(sc);
 		addSetAutomaticTokenSpaceHandlingMethod(sc);
 		addSetTokenSpaceMethod(sc);
+		addPrintBasicMethod(sc);
+		addPrintSmartMethod(sc);
 	}
 
 	private void addSetTokenSpaceMethod(JavaComposite sc) {
@@ -560,10 +562,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("} else {");
 		// (c) if not, print default token space, but only if automatic token
 		//     space handling is disabled
-		sc.add("if (!handleTokenSpaceAutomatically) {");
 		sc.add("if (startedPrintingElement) {");
 		sc.add("startedPrintingElement = false;");
 		sc.add("} else {");
+		sc.add("if (!handleTokenSpaceAutomatically) {");
 		sc.add("tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));");
 		sc.add("}");
 		sc.add("}");
@@ -587,8 +589,35 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintMethod(JavaComposite sc) {
+		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
+		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
+		sc.add("doPrint(element);");
+		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("if (handleTokenSpaceAutomatically) {");
+		sc.add("printSmart(writer);");
+		sc.add("} else {");
+		sc.add("printBasic(writer);");
+		sc.add("}");
+		sc.add("writer.flush();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintBasicMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Prints the given elements to the output stream writer.",
+			"Prints the current tokenOutputStream to the given writer (as it is)."
+		);
+		sc.add("public void printBasic(" + PRINTER_WRITER + " writer) throws " + IO_EXCEPTION + " {");
+		sc.add("for (PrintToken nextToken : tokenOutputStream) {");
+		sc.add("writer.write(nextToken.getText());");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintSmartMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Prints the current tokenOutputStream to the given writer.",
 			"",
 			"This methods implements smart whitespace printing. It does so by " +
 			"writing output to a token stream instead of printing the raw token " +
@@ -605,10 +634,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"text. If two tokens successfully form a group a third one is " + 
 			"added and so on."
 		);
-		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
-		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
-		sc.add("doPrint(element);");
-		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("public void printSmart(" + PRINTER_WRITER + " writer) throws " + IO_EXCEPTION + " {");
 		sc.addComment(
 			"stores the text of the current group of tokens. " +
 			"this text is given to the lexer to check whether it can be correctly scanned."
@@ -687,7 +713,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addComment("flush remaining valid text to writer");
 		sc.add("writer.write(validBlock);");
-		sc.add("writer.flush();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -131,9 +131,12 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 			}
 			return tokenSpace;
 		} catch (NumberFormatException nfe) {
-			assert OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceString);
-			// token space handling is set to automatic
-			return 0;
+			assert 
+				tokenSpaceString == null ||
+				OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceString);
+			// token space handling is either not set (default is 1) or set to automatic
+			// (actual value does not matter in this case)
+			return 1;
 		}
 	}
 }
