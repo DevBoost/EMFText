@@ -30,7 +30,6 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 
 /**
@@ -49,7 +48,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private ConcreteSyntax syntax;
-	private String lexerName;
 	
 	public Printer2Generator() {
 		super();
@@ -58,7 +56,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private Printer2Generator(GenerationContext context) {
 		super(context, EArtifact.PRINTER2);
 		syntax = context.getConcreteSyntax();
-		lexerName = context.getLexerName();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -249,8 +246,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addFields(JavaComposite sc) {
-		String tokenSpaceValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.TOKENSPACE);
-		boolean handleTokenSpaceAutomatically = OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
+		boolean handleTokenSpaceAutomatically = OptionManager.INSTANCE.handleTokenSpaceAutomatically(getContext().getConcreteSyntax());
 		
 		sc.add("public final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.addLineBreak();
@@ -490,6 +486,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintReferenceMethod(JavaComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(OBJECT + " referencedObject = getValue(eObject, reference, count);");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");

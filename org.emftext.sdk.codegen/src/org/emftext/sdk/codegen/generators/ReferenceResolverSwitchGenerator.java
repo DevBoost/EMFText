@@ -129,7 +129,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetResolverMethod(StringComposite sc) {
-		sc.add("public " + iReferenceResolverClassName + " getResolver(" + E_STRUCTURAL_FEATURE + " reference) {");
+		sc.add("public " + iReferenceResolverClassName + "<? extends " + E_OBJECT + ", ? extends " + E_OBJECT + "> getResolver(" + E_STRUCTURAL_FEATURE + " reference) {");
 		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			sc.add("if (reference == " + proxyReference.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + proxyReference.getFeatureAccessorName() + "()) {");

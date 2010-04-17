@@ -113,13 +113,13 @@ public class OptionManager {
 			return -1;
 		}
 		try {
-			int tempSpace = Integer.parseInt(option.getValue());
-			if (expectPositiveValue && tempSpace < 0) {
+			int value = Integer.parseInt(option.getValue());
+			if (expectPositiveValue && value < 0) {
 				problemCollector.addProblem(new GenerationProblem(
 								"Only positive values are allowed for this option.",
 								option));
 			}
-			return tempSpace;
+			return value;
 		} catch (NumberFormatException e) {
 			problemCollector.addProblem(new GenerationProblem("No valid integer in option.", option));
 		}
@@ -154,5 +154,15 @@ public class OptionManager {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean handleTokenSpaceAutomatically(ConcreteSyntax syntax) {
+		String tokenSpaceValue = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.TOKENSPACE);
+		if (tokenSpaceValue == null) {
+			// options is not set, use default
+			return true;
+		} else {
+			return OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
+		}
 	}
 }
