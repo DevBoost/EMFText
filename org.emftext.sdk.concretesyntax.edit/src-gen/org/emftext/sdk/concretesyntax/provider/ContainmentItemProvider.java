@@ -116,7 +116,11 @@ public class ContainmentItemProvider
 		if(containment != null && !containment.eIsProxy()) {
 			GenFeature genFeature = containment.getFeature();
 			if (genFeature != null && !genFeature.eIsProxy()) {
-				label = genFeature.getName();
+				try {
+					label = genFeature.getName();
+				} catch (Exception e) {
+					// stay <unknown>
+				}
 			}
 		}
 		return label;
