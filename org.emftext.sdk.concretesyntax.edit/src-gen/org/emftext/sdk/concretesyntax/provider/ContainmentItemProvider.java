@@ -20,6 +20,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -116,10 +117,9 @@ public class ContainmentItemProvider
 		if(containment != null && !containment.eIsProxy()) {
 			GenFeature genFeature = containment.getFeature();
 			if (genFeature != null && !genFeature.eIsProxy()) {
-				try {
+				EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+				if (ecoreFeature != null && !ecoreFeature.eIsProxy()) {
 					label = genFeature.getName();
-				} catch (Exception e) {
-					// stay <unknown>
 				}
 			}
 		}
