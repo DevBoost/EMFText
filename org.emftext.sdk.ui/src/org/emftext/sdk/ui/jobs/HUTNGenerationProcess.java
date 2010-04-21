@@ -226,7 +226,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		newRule.getChildren().clear();
 		newRule.getChildren().add(newChoice);
 		Sequence ruleSequence = concretesyntaxFactory.createSequence();
-		newChoice.getOptions().add(ruleSequence);
+		newChoice.getChildren().add(ruleSequence);
 		
 		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
 		
@@ -239,11 +239,11 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		CsString newDefinition = concretesyntaxFactory.createCsString();
 		newDefinition.setValue(genClass.getName());
 		
-		ruleSequence.getParts().add(newDefinition);
+		ruleSequence.getChildren().add(newDefinition);
 		
 		CsString openBracket = concretesyntaxFactory.createCsString();
 		openBracket.setValue("{");
-		ruleSequence.getParts().add(openBracket);
+		ruleSequence.getChildren().add(openBracket);
 		
 		Choice featureSyntaxChoice = concretesyntaxFactory.createChoice();
 		for (GenFeature genFeature : allGenFeatures) {
@@ -256,13 +256,14 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			CompoundDefinition innerCompound = concretesyntaxFactory.createCompoundDefinition();
 			innerCompound.getChildren().clear();
 			innerCompound.getChildren().add(featureSyntaxChoice);
-			ruleSequence.getParts().add(innerCompound);
+		
+			ruleSequence.getChildren().add(innerCompound);
 			innerCompound.setCardinality(concretesyntaxFactory.createSTAR());
 		}
 		
 		CsString closeBracket = concretesyntaxFactory.createCsString();
 		closeBracket.setValue("}");
-		ruleSequence.getParts().add(closeBracket);
+		ruleSequence.getChildren().add(closeBracket);
 		
 	}
 
@@ -307,10 +308,10 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		String name = genFeature.getEcoreFeature().getName();
 		nameKeyword.setValue(name);
 		
-		innerSequence.getParts().add(nameKeyword);
+		innerSequence.getChildren().add(nameKeyword);
 		CsString colon = concretesyntaxFactory.createCsString();
 		colon.setValue(":");
-		innerSequence.getParts().add(colon);
+		innerSequence.getChildren().add(colon);
 		
 		Terminal content = null;
 		if (genFeature.getEcoreFeature() instanceof EReference && ((EReference)genFeature.getEcoreFeature()).isContainment() ) {
@@ -353,15 +354,15 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		}									
 		content.setFeature(genFeature);
 		
-		innerSequence.getParts().add(content);
-		featureSyntaxChoice.getOptions().add(innerSequence);
+		innerSequence.getChildren().add(content);
+		featureSyntaxChoice.getChildren().add(innerSequence);
 	}
 
 	private void addBooleanModifier(Sequence ruleSequence, GenFeature genFeature) {
 		PlaceholderUsingSpecifiedToken adjective = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 		adjective.setCardinality(concretesyntaxFactory.createQUESTIONMARK());
 		adjective.setFeature(genFeature);
-		ruleSequence.getParts().add(adjective);
+		ruleSequence.getChildren().add(adjective);
 	}
 
 	private boolean containsSelfOfSuper(Set<EClassifier> containedClasses, EClass ecoreClass) {
