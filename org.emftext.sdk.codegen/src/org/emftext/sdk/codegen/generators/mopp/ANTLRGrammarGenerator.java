@@ -1459,7 +1459,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		
 			printGrammarRulePrefix(returnGenClass, ruleName, sc);
 			
-			boolean wasPrimitiveOperatorRule = false;
 			if (!isLast) { 
 				//we assume all arguments to be typed by the same class
 				final String nextRuleName = getExpressionSliceRuleName(sliceIterator.next());
@@ -1489,6 +1488,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 							rulesWithEqualWeight, ruleName, nextRuleName);
 				}
 			}
+			
+			boolean wasPrimitiveOperatorRule = false;
+
 			if (operatorType == OperatorAnnotationType.PRIMITIVE) {
 				printPrimitiveOperatorRule(sc, eClassesWithSyntax,
 						eClassesReferenced, rulesWithEqualWeight);
@@ -1519,7 +1521,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 	}
 
-	private void printUnaryRightRecursiveRule(StringComposite sc,
+	private void printUnaryRightRecursiveRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			Rule firstRule, List<Rule> equalWeightOPs, final String nextRuleName) {
 		for (Rule rule : equalWeightOPs) {
@@ -1551,7 +1553,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("arg = " + nextRuleName + "{ element = arg; }");
 	}
 
-	private void printUnaryLeftRecursiveRule(StringComposite sc,
+	private void printUnaryLeftRecursiveRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, Sequence firstSequence,
 			final String nextRuleName) {
@@ -1591,7 +1593,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(")");
 	}
 
-	private void printBinaryLeftAssociativeRule(StringComposite sc,
+	private void printBinaryLeftAssociativeRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, final String nextRuleName) {
 		sc.add("leftArg = " + nextRuleName);
@@ -1600,27 +1602,30 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		while (ruleIterator.hasNext()) {
 			Rule rule = ruleIterator.next();
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			assert definitions.size() == 3;
+			assert definitions.size() >= 2;
 			
 			Definition left = definitions.get(0);
-			Definition operator = definitions.get(1);
-			Definition right = definitions.get(2);
-			
+			definitions.remove(0);
+			Definition right = definitions.get(definitions.size()-1);
+			definitions.remove(definitions.size()-1);
+		
 			assert left instanceof Containment;
-			assert operator instanceof CsString || operator instanceof Placeholder;
 			assert right instanceof Containment;
 			
 			Containment leftContainment = (Containment) left;
 			Containment rightContainment = (Containment) right;
 			sc.add("{ element = null; }");
-			if (operator instanceof CsString) {
+			
+			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
+			
+			/*if (operator instanceof CsString) {
 				CsString csString = (CsString) operator;
 				printCsString(csString, rule, sc, 0, eClassesReferenced);									
 			} else {
 				assert operator instanceof Placeholder;
 				Placeholder placeholder = (Placeholder) operator;
 				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
-			}
+			}*/
 			sc.add("rightArg = " + nextRuleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
 			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null", true);
@@ -1636,7 +1641,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(")");
 	}
 
-	private void printBinaryRightAssociativeRule(StringComposite sc,
+	private void printBinaryRightAssociativeRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, String ruleName,
 			final String nextRuleName) {
@@ -1646,27 +1651,29 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		while (ruleIterator.hasNext()) {
 			Rule rule = ruleIterator.next();
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			assert definitions.size() == 3;
+			assert definitions.size() >= 2;
 			
 			Definition left = definitions.get(0);
-			Definition operator = definitions.get(1);
-			Definition right = definitions.get(2);
+			definitions.remove(0);
+			Definition right = definitions.get(definitions.size()-1);
+			definitions.remove(definitions.size()-1);
 			
 			assert left instanceof Containment;
-			assert operator instanceof CsString || operator instanceof Placeholder;
 			assert right instanceof Containment;
 			
 			Containment leftContainment = (Containment) left;
 			Containment rightContainment = (Containment) right;
 			
-			if (operator instanceof CsString) {
-				CsString csString = (CsString) operator;
-				printCsString(csString, rule, sc, 0, eClassesReferenced);									
-			} else {
-				assert operator instanceof Placeholder;
-				Placeholder placeholder = (Placeholder) operator;
-				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
-			}
+			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");		
+			
+			//if (operator instanceof CsString) {
+			//	CsString csString = (CsString) operator;
+			//	printCsString(csString, rule, sc, 0, eClassesReferenced);									
+			//} else {
+			//	assert operator instanceof Placeholder;
+			//	Placeholder placeholder = (Placeholder) operator;
+			//	printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
+			//}
 			
 			sc.add("rightArg = " + ruleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
@@ -1710,9 +1717,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private int printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
-
+		return printDefinitions(sequence.getParts(),rule,sc,count,eClassesReferenced,scopeID);
+	}
+	
+	private int printDefinitions(List<Definition> definitions, Rule rule, ANTLRGrammarComposite sc,
+			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID){
 		int i = 0;
-		for (Definition definition : sequence.getParts()) {
+		for (Definition definition : definitions) {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}

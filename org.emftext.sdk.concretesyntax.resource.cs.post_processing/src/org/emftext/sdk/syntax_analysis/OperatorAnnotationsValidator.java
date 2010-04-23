@@ -308,13 +308,12 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 */
 	private void checkBinaryOperatorRule(CsResource resource, ConcreteSyntax syntax,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
-		if (definitions.size() != 3
+		if (definitions.size() < 2 
 				|| !(definitions.get(0) instanceof Containment)
-				|| !isKeywordOrTerminal(definitions.get(1))
-				|| !(definitions.get(2) instanceof Containment)) {
+				|| !(definitions.get(definitions.size()-1) instanceof Containment)) {
 			resource
 					.addError(
-							"Rules for binary operators require exactly three arguments (containment terminal containment).",
+							"Rules for binary operators must be structured as follows : containment [arbitrary sequence] containment.",
 							annotation);
 			return;
 		}
