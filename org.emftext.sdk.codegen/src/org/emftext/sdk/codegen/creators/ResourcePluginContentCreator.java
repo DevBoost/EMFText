@@ -236,6 +236,8 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_BUILDER));
 	    creators.add(new GenericArtifactCreator(EArtifact.NATURE));
 	    creators.add(new GenericArtifactCreator(EArtifact.ABSTRACT_INTERPRETER));
+	    // TODO implement extension mechanism to allow code generator plug-ins
+	    // to add more creators
 
 	    for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

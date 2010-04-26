@@ -77,7 +77,9 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 		imports.add("org.eclipse.ui.editors");
 		imports.add("org.eclipse.ui.ide");
 		imports.add("org.eclipse.ui.views");
-		
+		// TODO implement extension mechanism to allow code generation plug-ins to add
+		// more imports here 
+
 		String qualifiedBasePluginName = 
 			OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_RESOURCE_PLUGIN);
 		if (qualifiedBasePluginName != null) {
