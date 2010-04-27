@@ -1464,18 +1464,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				final String nextRuleName = getExpressionSliceRuleName(sliceIterator.next());
 				sliceIterator.previous();
 				//we do unary operators first
-				if (operatorType == OperatorAnnotationType.UNARY) {
-					 //1st case: unary operator starts with keyword
-					
-					if (firstSequence.getParts().get(0) instanceof CsString || firstSequence.getParts().get(0) instanceof Placeholder) {
-						printUnaryRightRecursiveRule(sc, eClassesReferenced,
+				if (operatorType == OperatorAnnotationType.UNARY_PREFIX) {
+			    //1st case: unary operator starts with keyword (prefix)
+					printUnaryPrefixOperatorRule(sc, eClassesReferenced,
 								firstRule, rulesWithEqualWeight, nextRuleName);	
-					}
-					//2nd case: unary operator starts with argument (this means left recursion)
-					else {
-						printUnaryLeftRecursiveRule(sc, eClassesReferenced,
-								rulesWithEqualWeight, firstSequence, nextRuleName);
-					}
+				}
+				//2nd case: unary operator starts with argument (postfix, this means left recursion)
+				else if (operatorType == OperatorAnnotationType.UNARY_POSTFIX) {
+						printUnaryPostfixOperatorRule(sc, eClassesReferenced,
+								rulesWithEqualWeight, firstSequence, nextRuleName);		
 				}
 				// now we do binary infix operators
 				else if (operatorType == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE) {
@@ -1520,28 +1517,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			printGrammarRule(rule, sc, eClassesWithSyntax, eClassesReferenced);	
 		}
 	}
-
-	private void printUnaryRightRecursiveRule(ANTLRGrammarComposite sc,
+	
+	private void printUnaryPrefixOperatorRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			Rule firstRule, List<Rule> equalWeightOPs, final String nextRuleName) {
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			assert definitions.size() == 2;
+			assert definitions.size() > 2;
 			
-			Definition operator = definitions.get(0);
-			Definition right = definitions.get(1);
+			Definition right = definitions.remove(definitions.size()-1);
 			
 			assert right instanceof Containment;
-			assert operator instanceof CsString || operator instanceof Placeholder;
 			
-			if (operator instanceof CsString) {
-				CsString csString = (CsString) operator;
-				printCsString(csString, rule, sc, 0, eClassesReferenced);									
-			} else {
-				assert operator instanceof Placeholder;
-				Placeholder placeholder = (Placeholder) operator;
-				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
-			}
+			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
 			
 			sc.add("arg = " + nextRuleName);
 			Containment containment = (Containment) right;
@@ -1553,7 +1541,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("arg = " + nextRuleName + "{ element = arg; }");
 	}
 
-	private void printUnaryLeftRecursiveRule(ANTLRGrammarComposite sc,
+	private void printUnaryPostfixOperatorRule(ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, Sequence firstSequence,
 			final String nextRuleName) {
@@ -1561,26 +1549,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("(");
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			assert definitions.size() == 2;
+			assert definitions.size() > 2;
 			
-			Definition left = definitions.get(0);
-			Definition operator = definitions.get(1);
-			
-			assert operator instanceof CsString || operator instanceof Placeholder;
+			Definition left = definitions.remove(0);
 			assert left instanceof Containment;
-			
-			// TODO mseifert: cwende added support for placeholders. However, isn't it 
-			// necessary to print containment action before operator action?
-			// this does also apply to other types of operator rules! we need a test
-			// that uses all kinds of operators to make sure this works
-			if (operator instanceof CsString) {
-				CsString csString = (CsString) operator;
-				printCsString(csString, rule, sc, 0, eClassesReferenced);									
-			} else {
-				assert operator instanceof Placeholder;
-				Placeholder placeholder = (Placeholder) operator;
-				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);
-			}
+						
+			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
 			
 			Containment containment = (Containment) left;
 			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null", true);
@@ -1618,14 +1592,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			
 			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
 			
-			/*if (operator instanceof CsString) {
-				CsString csString = (CsString) operator;
-				printCsString(csString, rule, sc, 0, eClassesReferenced);									
-			} else {
-				assert operator instanceof Placeholder;
-				Placeholder placeholder = (Placeholder) operator;
-				printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
-			}*/
 			sc.add("rightArg = " + nextRuleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
 			printTerminalAction(rightContainment, rule, sc, "rightArg", "", "rightArg", null, "null", true);

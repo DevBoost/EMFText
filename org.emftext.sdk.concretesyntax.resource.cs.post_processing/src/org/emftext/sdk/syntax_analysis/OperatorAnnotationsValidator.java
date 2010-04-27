@@ -29,12 +29,10 @@ import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
-import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -87,7 +85,6 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			checkWeightParameter(resource, annotation, weight);
 			
 			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
-			//TODO: sven: we should also check for genclass prefixes or use full qualified names
 			if (expressionMetaClass==null ||
 				(!expressionMetaClass.isAbstract() && !expressionMetaClass.isInterface())){
 				resource.addError("Expression idenfitier must map to a common abstract metaclass or interface.",annotation);
@@ -324,7 +321,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	}
 
 	/**
-	 * Checks the right side of a unary operator rule for correctness.
+	 * Checks the right side of a unary operator rule for syntactical correctness.
 	 * 
 	 * @param resource
 	 * @param annotation
@@ -332,20 +329,30 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 */
 	private void checkUnaryOperatorRule(CsResource resource, ConcreteSyntax syntax,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
-		assert ConcreteSyntaxUtil.isOperatorType(annotation, OperatorAnnotationType.UNARY);
-		if (definitions.size() != 2
-				|| !(isKeywordOrTerminal(definitions.get(0)) && definitions
-						.get(1) instanceof Containment)
-				&& !(definitions.get(0) instanceof Containment && isKeywordOrTerminal(definitions
-						.get(1)))) {
+		OperatorAnnotationType annotationType = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
+		
+		int containmentIndex = -1;
+		if(annotationType == OperatorAnnotationType.UNARY_PREFIX){
+			containmentIndex = definitions.size()-1;
+		}
+		else{
+			assert annotationType == OperatorAnnotationType.UNARY_POSTFIX;
+			containmentIndex = 0;
+		}
+		
+		if (definitions.size() < 2
+				|| !(definitions.get(containmentIndex) instanceof Containment)) {
 			resource
 					.addError(
-							"Rules for unary operators require exactly two arguments (terminal containment, or containment terminal).",
+							"Rules for unary operators require no less than two arguments: " +
+							"[arbitrary sequence] containment for prefix " +
+							"or containment [arbitrary sequence] " +
+							"for postfix (left recursive) operators.",
 							annotation);
 			return;
 		}
 		if(commonMetaClass!=null){
-			if(definitions.get(0) instanceof Containment){
+			if(definitions.get(containmentIndex) instanceof Containment){
 				checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(0));
 			}
 			else{
@@ -377,8 +384,4 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		}
 	}
 	
-	private boolean isKeywordOrTerminal(Definition definition) {
-		return definition instanceof CsString
-				|| definition instanceof Placeholder;
-	}
 }
