@@ -208,7 +208,8 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationType">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/binary_left_associative"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/binary_right_associative"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/unary"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/unary_prefix"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/unary_postfix"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationType/primitive"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationProperty">

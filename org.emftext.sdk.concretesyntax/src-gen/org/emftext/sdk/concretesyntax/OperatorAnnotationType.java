@@ -53,16 +53,22 @@ public enum OperatorAnnotationType implements Enumerator {
 	BINARY_RIGHT_ASSOCIATIVE(1, "binary_right_associative", "binary_right_associative"),
 
 	/**
-	 * The '<em><b>Unary</b></em>' literal object.
+	 * The '<em><b>Unary prefix</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #UNARY_VALUE
+	 * @see #UNARY_PREFIX_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	UNARY(2, "unary", "unary"),
-
-	/**
+	UNARY_PREFIX(2, "unary_prefix", "unary_prefix"), /**
+	 * The '<em><b>Unary postfix</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UNARY_POSTFIX_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UNARY_POSTFIX(3, "unary_postfix", "unary_postfix"), /**
 	 * The '<em><b>Primitive</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -70,7 +76,7 @@ public enum OperatorAnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PRIMITIVE(3, "primitive", "primitive");
+	PRIMITIVE(4, "primitive", "primitive");
 
 	/**
 	 * The '<em><b>Binary left associative</b></em>' literal value.
@@ -103,19 +109,34 @@ public enum OperatorAnnotationType implements Enumerator {
 	public static final int BINARY_RIGHT_ASSOCIATIVE_VALUE = 1;
 
 	/**
-	 * The '<em><b>Unary</b></em>' literal value.
+	 * The '<em><b>Unary prefix</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Unary</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Unary prefix</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #UNARY
-	 * @model name="unary"
+	 * @see #UNARY_PREFIX
+	 * @model name="unary_prefix"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int UNARY_VALUE = 2;
+	public static final int UNARY_PREFIX_VALUE = 2;
+
+	/**
+	 * The '<em><b>Unary postfix</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Unary postfix</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UNARY_POSTFIX
+	 * @model name="unary_postfix"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UNARY_POSTFIX_VALUE = 3;
 
 	/**
 	 * The '<em><b>Primitive</b></em>' literal value.
@@ -130,7 +151,7 @@ public enum OperatorAnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PRIMITIVE_VALUE = 3;
+	public static final int PRIMITIVE_VALUE = 4;
 
 	/**
 	 * An array of all the '<em><b>Operator Annotation Type</b></em>' enumerators.
@@ -142,7 +163,8 @@ public enum OperatorAnnotationType implements Enumerator {
 		new OperatorAnnotationType[] {
 			BINARY_LEFT_ASSOCIATIVE,
 			BINARY_RIGHT_ASSOCIATIVE,
-			UNARY,
+			UNARY_PREFIX,
+			UNARY_POSTFIX,
 			PRIMITIVE,
 		};
 
@@ -196,7 +218,8 @@ public enum OperatorAnnotationType implements Enumerator {
 		switch (value) {
 			case BINARY_LEFT_ASSOCIATIVE_VALUE: return BINARY_LEFT_ASSOCIATIVE;
 			case BINARY_RIGHT_ASSOCIATIVE_VALUE: return BINARY_RIGHT_ASSOCIATIVE;
-			case UNARY_VALUE: return UNARY;
+			case UNARY_PREFIX_VALUE: return UNARY_PREFIX;
+			case UNARY_POSTFIX_VALUE: return UNARY_POSTFIX;
 			case PRIMITIVE_VALUE: return PRIMITIVE;
 		}
 		return null;

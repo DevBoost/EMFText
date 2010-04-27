@@ -2220,7 +2220,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEEnum(operatorAnnotationTypeEEnum, OperatorAnnotationType.class, "OperatorAnnotationType");
 		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE);
 		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE);
-		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.UNARY);
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.UNARY_PREFIX);
+		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.UNARY_POSTFIX);
 		addEEnumLiteral(operatorAnnotationTypeEEnum, OperatorAnnotationType.PRIMITIVE);
 
 		initEEnum(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.class, "OperatorAnnotationProperty");

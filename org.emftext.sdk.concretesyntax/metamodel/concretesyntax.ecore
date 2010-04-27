@@ -621,8 +621,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationType">
     <eLiterals name="binary_left_associative"/>
     <eLiterals name="binary_right_associative" value="1"/>
-    <eLiterals name="unary" value="2"/>
-    <eLiterals name="primitive" value="3"/>
+    <eLiterals name="unary_prefix" value="2"/>
+    <eLiterals name="unary_postfix" value="3" literal="unary_postfix"/>
+    <eLiterals name="primitive" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationProperty">
     <eLiterals name="type"/>
