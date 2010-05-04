@@ -173,7 +173,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private void addMatchesMethod(StringComposite sc) {
 		sc.add("private boolean matches(" + STRING + " proposal, " + STRING + " prefix) {");
-		sc.add("return (proposal.startsWith(prefix) || " + stringUtilClassName + ".matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);");
+		sc.add("return (proposal.toLowerCase().startsWith(prefix.toLowerCase()) || " + stringUtilClassName + ".matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
