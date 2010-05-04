@@ -147,22 +147,69 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	addGetWarningsMethod(sc);
     	addGetErrorsMethod(sc);
     	addRunValidatorsMethods(sc);
-		addAddDiagnosticMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
+		boolean disableEValidators = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_EVALIDATORS);
+		boolean disableEMFValidationConstraints = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+		
 		sc.add("private void runValidators(" + E_OBJECT + " root) {");
-		sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
-		sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
-		sc.add("validator.setIncludeLiveConstraints(true);");
-		sc.add(I_STATUS + " status = validator.validate(root);");
-		sc.add("addDiagnostic(status, root);");
+		if (!disableEValidators) {
+			sc.addComment("check EMF validation constraints");
+			sc.add(DIAGNOSTIC + " diagnostics = " + DIAGNOSTICIAN + ".INSTANCE.validate(root);");
+			sc.add("addDiagnostics(diagnostics, root);");
+		} else {
+			sc.addComment("checking EMF validation constraints was disabled");
+		}
+		if (!disableEMFValidationConstraints) {
+			sc.addComment("check EMF validation constraints");
+			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
+			sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
+			sc.add("validator.setIncludeLiveConstraints(true);");
+			sc.add(I_STATUS + " status = validator.validate(root);");
+			sc.add("addStatus(status, root);");
+		} else {
+			sc.addComment("checking EMF validation constraints was disabled");
+		}
+		sc.add("}");
+		sc.addLineBreak();
+
+		if (!disableEValidators) {
+			addAddDiagnosticsMethod(sc);
+		}
+		if (!disableEMFValidationConstraints) {
+			addAddStatusMethod(sc);
+		}
+	}
+
+	private void addAddDiagnosticsMethod(JavaComposite sc) {
+		sc.add("private void addDiagnostics(" + DIAGNOSTIC + " diagnostics, " + E_OBJECT + " root) {");
+		sc.add(E_OBJECT + " cause = root;");
+		sc.add(LIST + "<?> data = diagnostics.getData();");
+		sc.add("if (data != null && data.size() > 0) {");
+		sc.add(OBJECT + " causeObject = data.get(0);");
+		sc.add("if (causeObject instanceof " + E_OBJECT + ") {");
+		sc.add("cause = (" + E_OBJECT + ") causeObject;");
+		sc.add("}");
+		sc.add("}");
+		sc.add(LIST + "<" + DIAGNOSTIC + "> children = diagnostics.getChildren();");
+		sc.add("if (children.size() == 0) {");
+		sc.add("if (diagnostics.getSeverity() == " + I_STATUS + ".ERROR) {");
+		sc.add("addError(diagnostics.getMessage(), cause);");
+		sc.add("}");
+		sc.add("if (diagnostics.getSeverity() == " + I_STATUS + ".WARNING) {");
+		sc.add("addWarning(diagnostics.getMessage(), cause);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + DIAGNOSTIC + " diagnostic : children) {");
+		sc.add("addDiagnostics(diagnostic, root);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddDiagnosticMethod(JavaComposite sc) {
-		sc.add("private void addDiagnostic(" + I_STATUS + " status, " + E_OBJECT + " root) {");
+	private void addAddStatusMethod(JavaComposite sc) {
+		sc.add("private void addStatus(" + I_STATUS + " status, " + E_OBJECT + " root) {");
 		sc.add(LIST + "<" + E_OBJECT + "> causes = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.add("causes.add(root);");
 		sc.add("if (status instanceof " + CONSTRAINT_STATUS + ") {");
@@ -182,7 +229,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + I_STATUS + " child : status.getChildren()) {");
-		sc.add("addDiagnostic(child, root);");
+		sc.add("addStatus(child, root);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

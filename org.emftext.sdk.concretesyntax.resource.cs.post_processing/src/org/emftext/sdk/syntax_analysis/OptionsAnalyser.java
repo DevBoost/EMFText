@@ -51,6 +51,8 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		BOOLEAN_OPTIONS.add(OptionTypes.ANTLR_MEMOIZE);
 		BOOLEAN_OPTIONS.add(OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_BUILDER);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EVALIDATORS);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
 		
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {

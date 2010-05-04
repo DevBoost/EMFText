@@ -102,6 +102,12 @@ public class OptionManager {
 		if (option == OptionTypes.DISABLE_BUILDER) {
 			return false;
 		}
+		if (option == OptionTypes.DISABLE_EVALIDATORS) {
+			return false;
+		}
+		if (option == OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS) {
+			return false;
+		}
 		return true;
 	}
 

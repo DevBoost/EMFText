@@ -1820,7 +1820,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	USE_CLASSIC_PRINTER(183, "USE_CLASSIC_PRINTER", "useClassicPrinter");
+	USE_CLASSIC_PRINTER(183, "USE_CLASSIC_PRINTER", "useClassicPrinter"), /**
+	 * The '<em><b>DISABLE EVALIDATORS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_EVALIDATORS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_EVALIDATORS(184, "DISABLE_E_VALIDATORS", "disableEValidators"), /**
+	 * The '<em><b>DISABLE EMF VALIDATION CONSTRAINTS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_EMF_VALIDATION_CONSTRAINTS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_EMF_VALIDATION_CONSTRAINTS(185, "DISABLE_EMF_VALIDATION_CONSTRAINTS", "disableEMFValidationConstraints");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4553,6 +4569,36 @@ public enum OptionTypes implements Enumerator {
 	public static final int USE_CLASSIC_PRINTER_VALUE = 183;
 
 	/**
+	 * The '<em><b>DISABLE EVALIDATORS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE EVALIDATORS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_EVALIDATORS
+	 * @model name="DISABLE_E_VALIDATORS" literal="disableEValidators"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_EVALIDATORS_VALUE = 184;
+
+	/**
+	 * The '<em><b>DISABLE EMF VALIDATION CONSTRAINTS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE EMF VALIDATION CONSTRAINTS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_EMF_VALIDATION_CONSTRAINTS
+	 * @model literal="disableEMFValidationConstraints"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_EMF_VALIDATION_CONSTRAINTS_VALUE = 185;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4742,6 +4788,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LAYOUT_INFORMATION_ADAPTER,
 			OVERRIDE_LAYOUT_INFORMATION,
 			USE_CLASSIC_PRINTER,
+			DISABLE_EVALIDATORS,
+			DISABLE_EMF_VALIDATION_CONSTRAINTS,
 		};
 
 	/**
@@ -4973,6 +5021,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LAYOUT_INFORMATION_ADAPTER_VALUE: return OVERRIDE_LAYOUT_INFORMATION_ADAPTER;
 			case OVERRIDE_LAYOUT_INFORMATION_VALUE: return OVERRIDE_LAYOUT_INFORMATION;
 			case USE_CLASSIC_PRINTER_VALUE: return USE_CLASSIC_PRINTER;
+			case DISABLE_EVALIDATORS_VALUE: return DISABLE_EVALIDATORS;
+			case DISABLE_EMF_VALIDATION_CONSTRAINTS_VALUE: return DISABLE_EMF_VALIDATION_CONSTRAINTS;
 		}
 		return null;
 	}
