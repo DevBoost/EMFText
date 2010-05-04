@@ -11,11 +11,20 @@ Export-Package: org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.generators.code_completion.helpers,
  org.emftext.sdk.codegen.generators.mopp,
  org.emftext.sdk.codegen.generators.ui
-Require-Bundle: org.eclipse.core.resources,org.eclipse.core.runtime,or
- g.eclipse.jface,org.eclipse.jface.text,org.eclipse.ui,org.eclipse.ui.
- views,org.emftext.sdk,org.eclipse.emf,org.eclipse.emf.edit.ui,org.ecl
- ipse.emf.ecore.edit,org.emftext.sdk.antlr3_2_0,org.eclipse.ui.editors,org.
- eclipse.ui.ide
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jface,
+ org.eclipse.jface.text,
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.emftext.sdk,
+ org.eclipse.emf,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.emf.ecore.edit,
+ org.eclipse.emf.validation,
+ org.emftext.sdk.antlr3_2_0,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 

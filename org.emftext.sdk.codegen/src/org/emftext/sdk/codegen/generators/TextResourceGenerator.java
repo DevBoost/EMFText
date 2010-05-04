@@ -19,7 +19,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIS
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
@@ -43,6 +43,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOLVER_SW
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -145,6 +146,46 @@ public class TextResourceGenerator extends JavaBaseGenerator {
     	addGetContentsMethod(sc);
     	addGetWarningsMethod(sc);
     	addGetErrorsMethod(sc);
+    	addRunValidatorsMethods(sc);
+		addAddDiagnosticMethod(sc);
+	}
+
+	private void addRunValidatorsMethods(JavaComposite sc) {
+		sc.add("private void runValidators(" + E_OBJECT + " root) {");
+		sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
+		sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
+		sc.add("validator.setIncludeLiveConstraints(true);");
+		sc.add(I_STATUS + " status = validator.validate(root);");
+		sc.add("addDiagnostic(status, root);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddDiagnosticMethod(JavaComposite sc) {
+		sc.add("private void addDiagnostic(" + I_STATUS + " status, " + E_OBJECT + " root) {");
+		sc.add(LIST + "<" + E_OBJECT + "> causes = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add("causes.add(root);");
+		sc.add("if (status instanceof " + CONSTRAINT_STATUS + ") {");
+		sc.add(CONSTRAINT_STATUS + " constraintStatus = (" + CONSTRAINT_STATUS + ") status;");
+		sc.add(SET + "<" + E_OBJECT + "> resultLocus = constraintStatus.getResultLocus();");
+		sc.add("causes.clear();");
+		sc.add("causes.addAll(resultLocus);");
+		sc.add("}");
+		sc.add("if (status.getSeverity() == " + I_STATUS + ".ERROR) {");
+		sc.add("for (" + E_OBJECT + " cause : causes) {");
+		sc.add("addError(status.getMessage(), cause);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (status.getSeverity() == " + I_STATUS + ".WARNING) {");
+		sc.add("for (" + E_OBJECT + " cause : causes) {");
+		sc.add("addWarning(status.getMessage(), cause);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + I_STATUS + " child : status.getChildren()) {");
+		sc.add("addDiagnostic(child, root);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
@@ -353,7 +394,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetDiagnosticsMethod(StringComposite sc) {
-		sc.add("private " + LIST + "<" + DIAGNOSTIC + "> getDiagnostics(" + eProblemTypeClassName + " type) {");
+		sc.add("private " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> getDiagnostics(" + eProblemTypeClassName + " type) {");
 		sc.add("if (type == " + eProblemTypeClassName + ".ERROR) {");
 		sc.add("return getErrors();");
 		sc.add("} else {");
@@ -474,9 +515,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + DIAGNOSTIC + "> diagnostics) {");
+		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
     	sc.addComment("remove all errors/warnings this resource");
-    	sc.add("for (" + DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(diagnostics)) {");
+    	sc.add("for (" + RESOURCE_DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + RESOURCE_DIAGNOSTIC + ">(diagnostics)) {");
     	sc.add("if (errorCand instanceof " + iTextDiagnosticClassName + ") {");
     	sc.add("if (((" + iTextDiagnosticClassName + ") errorCand).wasCausedBy(proxy)) {");
     	sc.add("diagnostics.remove(errorCand);");
@@ -708,8 +749,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
         sc.add(iParseResultClassName + " result = parser.parse();");
         sc.add("clearState();");
     	sc.add("getContents().clear();");
+        sc.add(E_OBJECT + " root = null;");
         sc.add("if (result != null) {");
-        sc.add(E_OBJECT + " root = result.getRoot();");
+        sc.add("root = result.getRoot();");
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
         sc.add("}");
@@ -723,6 +765,9 @@ public class TextResourceGenerator extends JavaBaseGenerator {
         sc.add("getReferenceResolverSwitch().setOptions(options);");
         sc.add("if (getErrors().isEmpty()) {");
         sc.add("runPostProcessors(options);");
+        sc.add("if (root != null) {");
+        sc.add("runValidators(root);");
+        sc.add("}");
         sc.add("}");
         if(saveChangedResourcesOnly) {
         	sc.add("textPrintAfterLoading = getPrint(options);");
@@ -761,15 +806,15 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private void addGetWarningsMethod(StringComposite sc) {
-		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getWarnings() {");
-        sc.add("return new " + copiedEListClassName + "<" + DIAGNOSTIC + ">(super.getWarnings());");
+		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC + "> getWarnings() {");
+        sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC + ">(super.getWarnings());");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetErrorsMethod(StringComposite sc) {
-		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getErrors() {");
-        sc.add("return new " + copiedEListClassName + "<" + DIAGNOSTIC + ">(super.getErrors());");
+		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC + "> getErrors() {");
+        sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC + ">(super.getErrors());");
         sc.add("}");
         sc.addLineBreak();
 	}

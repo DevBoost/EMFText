@@ -154,6 +154,10 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
+import org.eclipse.emf.validation.model.ConstraintStatus;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ToolBarManager;
@@ -371,6 +375,7 @@ public class IClassNameConstants {
 	public static String COMPLETION_PROPOSAL = CompletionProposal.class.getName();
 	public static String COMPOSED_ADAPTER_FACTORY = ComposedAdapterFactory.class.getName();
 	public static String COMPOSITE = Composite.class.getName();
+	public static String CONSTRAINT_STATUS = ConstraintStatus.class.getName();
 	public static String CONTAINER_SELECTION_DIALOG = ContainerSelectionDialog.class.getName();
 	public static String CONTENT_ASSISTANT = ContentAssistant.class.getName();
 	public static String CONTENT_ASSIST_ACTION = ContentAssistAction.class.getName();
@@ -380,7 +385,8 @@ public class IClassNameConstants {
 	public static String DEFAULT_ANNOTATION_HOVER = DefaultAnnotationHover.class.getName();
 	public static String DEFAULT_DAMAGER_REPAIRER = DefaultDamagerRepairer.class.getName();
 	public static String DEFAULT_INFORMATION_CONTROL = DefaultInformationControl.class.getName();
-	public static String DIAGNOSTIC = Diagnostic.class.getCanonicalName();
+	public static String DIAGNOSTIC = org.eclipse.emf.common.util.Diagnostic.class.getName();
+	public static String DIAGNOSTICIAN = org.eclipse.emf.ecore.util.Diagnostician.class.getName();
 	public static String DIALOG = Dialog.class.getName();
 	public static String DISPLAY = Display.class.getName();
 	public static String DOCUMENT = Document.class.getName();
@@ -394,6 +400,7 @@ public class IClassNameConstants {
 	public static String EDITOR = Editor.class.getName();
 	public static String EDITORS_UI = EditorsUI.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String EXCEPTION = Exception.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
@@ -443,6 +450,7 @@ public class IClassNameConstants {
 	public static String I_ACTION = IAction.class.getName();
 	public static String I_ADAPTABLE = org.eclipse.core.runtime.IAdaptable.class.getName();
 	public static String I_ANNOTATION_HOVER = IAnnotationHover.class.getName();
+	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
 	public static String I_COMMAND = ICommand.class.getName();
 	public static String I_COMPLETION_PROPOSAL = ICompletionProposal.class.getName();
 	public static String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
@@ -553,6 +561,7 @@ public class IClassNameConstants {
 	public static String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
 	public static String MISMATCHED_TOKEN_EXCEPTION = MismatchedTokenException.class.getName();
 	public static String MISMATCHED_TREE_NODE_EXCEPTION = MismatchedTreeNodeException.class.getName();
+	public static String MODEL_VALIDATION_SERVICE = ModelValidationService.class.getName();
 	public static String MODIFY_EVENT = ModifyEvent.class.getName();
 	public static String MODIFY_LISTENER = ModifyListener.class.getName();
 	public static String MOUSE_EVENT = MouseEvent.class.getName();
@@ -602,6 +611,7 @@ public class IClassNameConstants {
 	public static String RESOURCE = org.eclipse.emf.ecore.resource.Resource.class.getName();
 	public static String RESOURCES_PLUGIN = ResourcesPlugin.class.getName();
 	public static String RESOURCE_BUNDLE = ResourceBundle.class.getName();
+	public static String RESOURCE_DIAGNOSTIC = Diagnostic.class.getCanonicalName();
 	public static String RESOURCE_FACTORY = Resource.Factory.class.getCanonicalName();
 	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY = ResourceItemProviderAdapterFactory.class.getName();

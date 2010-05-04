@@ -14,7 +14,7 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
@@ -44,7 +44,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Helper class to add markers to text files based on EMF's <code>" + DIAGNOSTIC + "</code>. " +
+			"Helper class to add markers to text files based on EMF's <code>" + RESOURCE_DIAGNOSTIC + "</code>. " +
 			"If a resource contains <code>" + iTextDiagnosticClassName + "</code>s it uses the more precise information of " +
 			"this extended diagnostic type."
 		);
@@ -84,9 +84,9 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
+		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
 		sc.addLineBreak();
-		sc.add("for (" + DIAGNOSTIC + " diagnostic : diagnostics) {");
+		sc.add("for (" + RESOURCE_DIAGNOSTIC + " diagnostic : diagnostics) {");
 		sc.add("try {");
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, markerSeverity);");
