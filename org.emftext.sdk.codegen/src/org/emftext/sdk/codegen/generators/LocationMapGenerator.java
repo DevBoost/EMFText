@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
@@ -133,6 +134,20 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		sc.add(LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
 		sc.add("public boolean accept(int start, int end) {");
 		sc.add("return start <= documentOffset && end >= documentOffset;");
+		sc.add("}");
+		sc.add("});");
+		sc.addComment("sort elements according to containment hierarchy");
+		sc.add(COLLECTIONS + ".sort(result, new " + COMPARATOR + "<" + E_OBJECT + ">() {");
+		sc.add("public int compare(" + E_OBJECT + " objectA, " + E_OBJECT + " objectB) {");
+		sc.add("if (" + ECORE_UTIL + ".isAncestor(objectA, objectB)) {");
+		sc.add("return 1;");
+		sc.add("} else {");
+		sc.add("if (" + ECORE_UTIL + ".isAncestor(objectB, objectA)) {");
+		sc.add("return -1;");
+		sc.add("} else {");
+		sc.add("return 0;");
+		sc.add("}");
+		sc.add("}");
 		sc.add("}");
 		sc.add("});");
 		sc.add("return result;");

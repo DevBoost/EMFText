@@ -86,7 +86,8 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 			"Returns all EObjects that are located at the given " +
 			"offset in the text document. This method can return " +
 			"multiple elements, because containers include their " +
-			"children in the textual representation.",
+			"children in the textual representation. The child " +
+			"elements are returned at the head of the result list.",
 			"@param documentOffset\n the offset where to search for elements",
 			"@return a list of elements located at the given offset"
 		);
