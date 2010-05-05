@@ -14,17 +14,17 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;

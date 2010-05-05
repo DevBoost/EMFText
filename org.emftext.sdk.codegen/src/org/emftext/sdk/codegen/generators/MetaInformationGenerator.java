@@ -20,10 +20,10 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STRE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.OptionTypes;

@@ -16,7 +16,8 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.PluginDescriptor;
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
@@ -24,9 +25,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BuildPropertiesCreator extends AbstractArtifactCreator {
 
-	private PluginDescriptor plugin;
+	private IPluginDescriptor plugin;
 
-	public BuildPropertiesCreator(PluginDescriptor plugin) {
+	public BuildPropertiesCreator(IPluginDescriptor plugin) {
 		super("build properties");
 		this.plugin = plugin;
 	}
@@ -47,7 +48,7 @@ public class BuildPropertiesCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		if (plugin == PluginDescriptor.RESOURCE_PLUGIN) {
+		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_BUILD_PROPERTIES;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

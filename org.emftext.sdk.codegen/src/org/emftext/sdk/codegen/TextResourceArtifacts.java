@@ -24,8 +24,8 @@ import static org.emftext.sdk.Constants.MOPP_PACKAGE;
 import static org.emftext.sdk.Constants.ROOT_PACKAGE;
 import static org.emftext.sdk.Constants.UI_PACKAGE;
 import static org.emftext.sdk.Constants.UTIL_PACKAGE;
-import static org.emftext.sdk.PluginDescriptor.ANTLR_PLUGIN;
-import static org.emftext.sdk.PluginDescriptor.RESOURCE_PLUGIN;
+import static org.emftext.sdk.TextResourcePlugins.ANTLR_PLUGIN;
+import static org.emftext.sdk.TextResourcePlugins.RESOURCE_PLUGIN;
 
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.generators.AbstractInterpreterGenerator;

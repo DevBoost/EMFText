@@ -27,9 +27,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRESENTATION_RECONCILER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;

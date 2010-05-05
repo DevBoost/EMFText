@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;

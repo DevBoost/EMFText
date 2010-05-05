@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.PluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -102,9 +103,9 @@ public abstract class PluginsCreator {
 		}
 		
 		// create the project for the plug-ins
-		createProject(context, progress, PluginDescriptor.RESOURCE_PLUGIN);
+		createProject(context, progress, TextResourcePlugins.RESOURCE_PLUGIN);
 		if (context.getGenerateANTLRPlugin()) {
-			createProject(context, progress, PluginDescriptor.ANTLR_PLUGIN);
+			createProject(context, progress, TextResourcePlugins.ANTLR_PLUGIN);
 		}
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 

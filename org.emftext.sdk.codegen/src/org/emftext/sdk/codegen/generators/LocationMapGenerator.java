@@ -15,17 +15,17 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
 public class LocationMapGenerator extends JavaBaseGenerator {

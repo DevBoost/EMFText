@@ -19,9 +19,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_C
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;

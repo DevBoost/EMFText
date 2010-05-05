@@ -21,10 +21,11 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.sdk.PluginDescriptor;
-import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -96,7 +97,7 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 		
 		// remove the current plug-in, because we do not
 		// need to import it
-		imports.remove(PluginDescriptor.RESOURCE_PLUGIN.getName(syntax));
+		imports.remove(TextResourcePlugins.RESOURCE_PLUGIN.getName(syntax));
 		
 		return imports;
 	}
@@ -116,9 +117,9 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 			ConcreteSyntax syntax) {
 
 		// first add the syntax itself
-		String syntaxPluginID = PluginDescriptor.RESOURCE_PLUGIN.getName(syntax);
+		String syntaxPluginID = TextResourcePlugins.RESOURCE_PLUGIN.getName(syntax);
 		requiredBundles.add(syntaxPluginID);
-		String antlrPluginID = PluginDescriptor.ANTLR_PLUGIN.getName(syntax);
+		String antlrPluginID = TextResourcePlugins.ANTLR_PLUGIN.getName(syntax);
 		requiredBundles.add(antlrPluginID);
 		
 		// second add the main generator package
@@ -172,8 +173,8 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 
 
 	@Override
-	protected PluginDescriptor getPlugin() {
-		return PluginDescriptor.RESOURCE_PLUGIN;
+	protected IPluginDescriptor getPlugin() {
+		return TextResourcePlugins.RESOURCE_PLUGIN;
 	}
 
 	@Override

@@ -18,9 +18,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT_METRIC
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.GC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.JFACE_DIALOG;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 

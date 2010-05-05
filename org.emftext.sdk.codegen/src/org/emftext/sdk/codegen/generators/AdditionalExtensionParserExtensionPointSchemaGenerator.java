@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.PluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -37,7 +37,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator implements I
 	}
 
 	public boolean generate(PrintWriter out) {
-		String resourcePluginName = PluginDescriptor.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+		String resourcePluginName = TextResourcePlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
 
 		StringComposite sc = new XMLComposite();
 		

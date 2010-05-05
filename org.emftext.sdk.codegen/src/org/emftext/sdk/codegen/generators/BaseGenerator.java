@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 
 /**
  * A basic implementation for generators which generate Java or ANTLR code. 

@@ -43,9 +43,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_SELECT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;

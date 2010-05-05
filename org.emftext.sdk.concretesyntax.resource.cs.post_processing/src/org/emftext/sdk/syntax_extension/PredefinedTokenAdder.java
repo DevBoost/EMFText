@@ -19,11 +19,11 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.EPredefinedTokens;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 /**

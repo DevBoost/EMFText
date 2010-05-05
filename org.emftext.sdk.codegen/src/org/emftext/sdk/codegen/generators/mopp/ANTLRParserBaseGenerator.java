@@ -17,9 +17,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_PARSE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_STREAM;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 

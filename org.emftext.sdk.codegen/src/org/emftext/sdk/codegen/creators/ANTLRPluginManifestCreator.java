@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.PluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.AntlrPluginManifestGenerator;
@@ -30,7 +30,7 @@ public class ANTLRPluginManifestCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		final File project = context.getProjectFolder(PluginDescriptor.ANTLR_PLUGIN);
+		final File project = context.getProjectFolder(TextResourcePlugins.ANTLR_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
 		IGenerator<GenerationContext> generator = new AntlrPluginManifestGenerator(context);

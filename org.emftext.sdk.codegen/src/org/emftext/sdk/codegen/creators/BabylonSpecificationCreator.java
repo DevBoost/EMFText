@@ -16,8 +16,8 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.generators.mopp.BabylonSpecificationGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 

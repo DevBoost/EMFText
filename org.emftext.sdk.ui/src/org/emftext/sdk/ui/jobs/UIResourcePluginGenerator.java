@@ -22,7 +22,9 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.PluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.creators.PluginsCreator;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -42,13 +44,13 @@ public class UIResourcePluginGenerator extends PluginsCreator {
 		Result result = super.run(concreteSyntax, context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		refresh(monitor, uiContext, PluginDescriptor.RESOURCE_PLUGIN);
-		refresh(monitor, uiContext, PluginDescriptor.ANTLR_PLUGIN);
+		refresh(monitor, uiContext, TextResourcePlugins.RESOURCE_PLUGIN);
+		refresh(monitor, uiContext, TextResourcePlugins.ANTLR_PLUGIN);
 
 		return result;
 	}
 
-	private void refresh(IProgressMonitor monitor, UIGenerationContext uiContext, PluginDescriptor plugin)
+	private void refresh(IProgressMonitor monitor, UIGenerationContext uiContext, IPluginDescriptor plugin)
 			throws CoreException {
 		IProject project = uiContext.getProject(plugin);
 		if (project != null) {

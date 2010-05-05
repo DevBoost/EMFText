@@ -68,11 +68,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_EDITOR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.PluginDescriptor;
-import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
@@ -135,7 +135,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	private void addInitializeEditorMethod(StringComposite sc) {
 		sc.add("public void initializeEditor() {");
 		sc.add("super.initializeEditor();");
-		sc.add("setEditorContextMenuId(\"" + context.getPluginName(PluginDescriptor.RESOURCE_PLUGIN) + ".EditorContext\");");
+		sc.add("setEditorContextMenuId(\"" + context.getPluginName(TextResourcePlugins.RESOURCE_PLUGIN) + ".EditorContext\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

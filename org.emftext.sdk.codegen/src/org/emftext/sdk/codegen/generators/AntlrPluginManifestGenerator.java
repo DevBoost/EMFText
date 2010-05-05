@@ -18,9 +18,10 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.emftext.sdk.PluginDescriptor;
-import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 
 public class AntlrPluginManifestGenerator extends ManifestGenerator {
 
@@ -46,8 +47,8 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 	}
 
 	@Override
-	protected PluginDescriptor getPlugin() {
-		return PluginDescriptor.ANTLR_PLUGIN;
+	protected IPluginDescriptor getPlugin() {
+		return TextResourcePlugins.ANTLR_PLUGIN;
 	}
 
 	@Override
