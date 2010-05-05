@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 	}
 
 	private PreferenceConstantsGenerator(GenerationContext context) {
-		super(context, EArtifact.PREFERENCE_CONSTANTS);
+		super(context, TextResourceArtifacts.PREFERENCE_CONSTANTS);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

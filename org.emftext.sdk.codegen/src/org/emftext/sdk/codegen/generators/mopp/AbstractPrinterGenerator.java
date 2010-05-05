@@ -6,7 +6,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.OptionManager;
@@ -28,7 +28,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		super();
 	}
 
-	public AbstractPrinterGenerator(GenerationContext context, EArtifact artifact) {
+	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor artifact) {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}

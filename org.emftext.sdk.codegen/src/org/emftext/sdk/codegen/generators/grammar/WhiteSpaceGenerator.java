@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -13,7 +13,7 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator {
 	}
 
 	private WhiteSpaceGenerator(GenerationContext context) {
-		super(context, EArtifact.WHITE_SPACE);
+		super(context, TextResourceArtifacts.WHITE_SPACE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

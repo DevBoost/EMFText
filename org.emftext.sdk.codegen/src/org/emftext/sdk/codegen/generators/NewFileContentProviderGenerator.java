@@ -14,7 +14,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -33,7 +33,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 	}
 	
 	private NewFileContentProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.NEW_FILE_CONTENT_PROVIDER);
+		super(context, TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
 	}
 
 	@Override

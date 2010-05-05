@@ -5,7 +5,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -19,7 +19,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private LayoutInformationGenerator(GenerationContext context) {
-		super(context, EArtifact.LAYOUT_INFORMATION);
+		super(context, TextResourceArtifacts.LAYOUT_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

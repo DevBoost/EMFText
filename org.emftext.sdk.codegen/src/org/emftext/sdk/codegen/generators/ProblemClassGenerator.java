@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class ProblemClassGenerator extends JavaBaseGenerator {
 	}
 
 	private ProblemClassGenerator(GenerationContext context) {
-		super(context, EArtifact.PROBLEM);
+		super(context, TextResourceArtifacts.PROBLEM);
 	}
 
 	@Override

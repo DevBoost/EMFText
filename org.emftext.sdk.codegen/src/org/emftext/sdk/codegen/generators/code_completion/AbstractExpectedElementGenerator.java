@@ -19,7 +19,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -33,7 +33,7 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 	}
 
 	private AbstractExpectedElementGenerator(GenerationContext context) {
-		super(context, EArtifact.ABSTRACT_EXPECTED_ELEMENT);
+		super(context, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

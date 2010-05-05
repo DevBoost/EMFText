@@ -52,7 +52,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -112,7 +112,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	}
 
 	private ScannerlessParserGenerator(GenerationContext context) {
-		super(context, EArtifact.SCANNERLESS_PARSER);
+		super(context, TextResourceArtifacts.SCANNERLESS_PARSER);
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}
 

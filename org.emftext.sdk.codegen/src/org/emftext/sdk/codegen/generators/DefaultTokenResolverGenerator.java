@@ -23,7 +23,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -36,7 +36,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private DefaultTokenResolverGenerator(GenerationContext context) {
-		super(context, EArtifact.DEFAULT_TOKEN_RESOLVER);
+		super(context, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -80,7 +80,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.sdk.LeftRecursionDetector;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -185,7 +185,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private ANTLRGrammarGenerator(GenerationContext context) {
-		super(context, EArtifact.ANTLR_GRAMMAR);
+		super(context, TextResourceArtifacts.ANTLR_GRAMMAR);
 		concreteSyntax = context.getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
 	}
@@ -229,7 +229,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 
 		sc.add("options {");
-		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
+		sc.add("superClass = " + getContext().getClassName(TextResourceArtifacts.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
 		sc.add("}");

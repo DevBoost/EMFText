@@ -129,11 +129,11 @@ public abstract class GenerationContext {
 		return plugin.getName(concreteSyntax);
 	}
 
-	public String getPackageName(EArtifact artifact) {
+	public String getPackageName(ArtifactDescriptor artifact) {
 		return getPackageName(artifact, concreteSyntax);
 	}
 
-	public String getPackageName(EArtifact artifact, ConcreteSyntax syntax) {
+	public String getPackageName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
 		return nameUtil.getPackageName(syntax, artifact);
 	}
 
@@ -202,8 +202,8 @@ public abstract class GenerationContext {
 	}
 
 	public void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + getQualifiedClassName(EArtifact.META_INFORMATION) + " getMetaInformation() {");
-		sc.add("return new " + getQualifiedClassName(EArtifact.META_INFORMATION) + "();");
+		sc.add("public " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + " getMetaInformation() {");
+		sc.add("return new " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -258,7 +258,7 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getPackagePath(EArtifact artifact) {
+	public String getPackagePath(ArtifactDescriptor artifact) {
 		OptionTypes overrideOption = artifact.getOverrideOption();
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
 		File targetFolder = getSourceFolder(artifact.getPlugin(), doOverride);
@@ -291,7 +291,7 @@ public abstract class GenerationContext {
 
 	public File getANTLRGrammarFile() {
 		String antlrName = getCapitalizedConcreteSyntaxName();
-		String packagePath = getPackagePath(EArtifact.ANTLR_GRAMMAR);
+		String packagePath = getPackagePath(TextResourceArtifacts.ANTLR_GRAMMAR);
   		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
 		return antlrFile;
 	}
@@ -304,23 +304,23 @@ public abstract class GenerationContext {
 		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
 	}
 
-	public String getClassName(EArtifact artifact) {
+	public String getClassName(ArtifactDescriptor artifact) {
 		return getClassName(artifact, getConcreteSyntax());
 	}
 
-	public String getClassName(EArtifact artifact, ConcreteSyntax syntax) {
+	public String getClassName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
 		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName(syntax) + artifact.getClassNameSuffix();
 	}
 
-	public String getQualifiedClassName(EArtifact artifact) {
+	public String getQualifiedClassName(ArtifactDescriptor artifact) {
 		return getPackageName(artifact) + "." + getClassName(artifact);
 	}
 
-	public String getQualifiedClassName(EArtifact artifact, ConcreteSyntax syntax) {
+	public String getQualifiedClassName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
 		return getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
 	}
 
-	public File getFile(EArtifact artifact) {
+	public File getFile(ArtifactDescriptor artifact) {
 		return new File(getPackagePath(artifact) + getClassName(artifact) + Constants.JAVA_FILE_EXTENSION);
 	}
 

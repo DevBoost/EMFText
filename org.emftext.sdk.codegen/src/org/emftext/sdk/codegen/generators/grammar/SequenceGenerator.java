@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -13,7 +13,7 @@ public class SequenceGenerator extends JavaBaseGenerator {
 	}
 
 	private SequenceGenerator(GenerationContext context) {
-		super(context, EArtifact.SEQUENCE);
+		super(context, TextResourceArtifacts.SEQUENCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

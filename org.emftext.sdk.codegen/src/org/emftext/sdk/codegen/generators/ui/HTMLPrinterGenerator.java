@@ -26,7 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_PRESENTATION;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -39,7 +39,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 	}
 
 	private HTMLPrinterGenerator(GenerationContext context) {
-		super(context, EArtifact.HTML_PRINTER);
+		super(context, TextResourceArtifacts.HTML_PRINTER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -13,7 +13,7 @@ public class ChoiceGenerator extends JavaBaseGenerator {
 	}
 
 	private ChoiceGenerator(GenerationContext context) {
-		super(context, EArtifact.CHOICE);
+		super(context, TextResourceArtifacts.CHOICE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

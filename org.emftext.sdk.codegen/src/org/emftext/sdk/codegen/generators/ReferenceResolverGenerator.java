@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -157,10 +157,10 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 							proxyReference.getGenClass());
 			String iReferenceResolveResultClassName = context
 					.getQualifiedClassName(
-							EArtifact.I_REFERENCE_RESOLVE_RESULT,
+							TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT,
 							containingSyntax);
 			String iReferenceMappingClassName = context.getQualifiedClassName(
-					EArtifact.I_REFERENCE_MAPPING, containingSyntax);
+					TextResourceArtifacts.I_REFERENCE_MAPPING, containingSyntax);
 			sc
 					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new "
 							+ iReferenceResolveResultClassName

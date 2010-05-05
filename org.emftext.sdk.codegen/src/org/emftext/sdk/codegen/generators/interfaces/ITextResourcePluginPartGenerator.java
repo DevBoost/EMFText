@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
 	}
 
 	private ITextResourcePluginPartGenerator(GenerationContext context) {
-		super(context, EArtifact.I_TEXT_RESOURCE_PLUGIN_PART);
+		super(context, TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

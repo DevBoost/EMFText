@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.NameUtil;
@@ -44,7 +44,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 	}
 
 	private TokenResolverFactoryGenerator(GenerationContext context) {
-		super(context, EArtifact.TOKEN_RESOLVER_FACTORY);
+		super(context, TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
 	}
 	
 	@Override

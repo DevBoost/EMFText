@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 	}
 
 	private PositionCategoryGenerator(GenerationContext context) {
-		super(context, EArtifact.POSITION_CATEGORY);
+		super(context, TextResourceArtifacts.POSITION_CATEGORY);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

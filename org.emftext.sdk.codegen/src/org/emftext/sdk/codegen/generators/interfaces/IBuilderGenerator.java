@@ -4,7 +4,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -17,7 +17,7 @@ public class IBuilderGenerator extends JavaBaseGenerator {
 	}
 
 	private IBuilderGenerator(GenerationContext context) {
-		super(context, EArtifact.I_BUILDER);
+		super(context, TextResourceArtifacts.I_BUILDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

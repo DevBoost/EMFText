@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -26,9 +26,9 @@ public class EmptyClassCreator extends AbstractArtifactCreator {
 	private File file;
 	private String className;
 	private OptionTypes overrideOption;
-	private EArtifact targetPackage;
+	private ArtifactDescriptor targetPackage;
 
-	public EmptyClassCreator(File file, EArtifact targetPackage, String className, OptionTypes overrideOption) {
+	public EmptyClassCreator(File file, ArtifactDescriptor targetPackage, String className, OptionTypes overrideOption) {
 		super("empty " + className);
 		this.file = file;
 		this.className = className;

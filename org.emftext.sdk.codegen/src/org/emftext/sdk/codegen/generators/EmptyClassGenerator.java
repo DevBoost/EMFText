@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 public class EmptyClassGenerator extends JavaBaseGenerator {
 
 	private String className;
-	private EArtifact targetPackage;
+	private ArtifactDescriptor targetPackage;
 
 	public EmptyClassGenerator() {
 		super();
@@ -40,7 +40,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		this.className = className;
 	}
 
-	public void setTargetPackage(EArtifact targetPackage) {
+	public void setTargetPackage(ArtifactDescriptor targetPackage) {
 		this.targetPackage = targetPackage;
 	}
 

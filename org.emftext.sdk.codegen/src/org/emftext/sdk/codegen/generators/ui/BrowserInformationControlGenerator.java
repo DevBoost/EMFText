@@ -49,7 +49,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WINDOW_EVENT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -62,7 +62,7 @@ public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 	}
 
 	private BrowserInformationControlGenerator(GenerationContext context) {
-		super(context, EArtifact.BROWSER_INFORMATION_CONTROL);
+		super(context, TextResourceArtifacts.BROWSER_INFORMATION_CONTROL);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

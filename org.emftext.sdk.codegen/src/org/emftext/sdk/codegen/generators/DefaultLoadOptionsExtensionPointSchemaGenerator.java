@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -111,7 +111,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 		sc.addLineBreak();
 		sc.add("</documentation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.attribute kind=\"java\" basedOn=\":" + context.getQualifiedClassName(EArtifact.I_OPTION_PROVIDER) + "\"/>");
+		sc.add("<meta.attribute kind=\"java\" basedOn=\":" + context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER) + "\"/>");
 		sc.add("</appinfo>");
 		sc.add("</annotation>");
 		sc.add("</attribute>");

@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -29,7 +29,7 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 	}
 
 	private IParseResultGenerator(GenerationContext context) {
-		super(context, EArtifact.I_PARSE_RESULT);
+		super(context, TextResourceArtifacts.I_PARSE_RESULT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

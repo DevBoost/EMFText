@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private IHoverTextProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.I_HOVER_TEXT_PROVIDER);
+		super(context, TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

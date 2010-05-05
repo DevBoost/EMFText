@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.util;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -14,7 +14,7 @@ public class PairGenerator extends JavaBaseGenerator {
 	}
 
 	private PairGenerator(GenerationContext context) {
-		super(context, EArtifact.PAIR);
+		super(context, TextResourceArtifacts.PAIR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

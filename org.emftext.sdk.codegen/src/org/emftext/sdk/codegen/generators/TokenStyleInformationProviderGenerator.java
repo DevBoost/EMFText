@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.util.List;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -36,7 +36,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	public TokenStyleInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.TOKEN_STYLE_INFORMATION_PROVIDER);
+		super(context, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
 	}
 
 	@Override

@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class IResourcePostProcessorGenerator extends JavaBaseGenerator {
 	}
 
 	private IResourcePostProcessorGenerator(GenerationContext context) {
-		super(context, EArtifact.I_RESOURCE_POST_PROCESSOR);
+		super(context, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

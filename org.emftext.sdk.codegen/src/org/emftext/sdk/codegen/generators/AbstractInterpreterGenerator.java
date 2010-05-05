@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -45,7 +45,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 	}
 
 	private AbstractInterpreterGenerator(GenerationContext context) {
-		super(context, EArtifact.ABSTRACT_INTERPRETER);
+		super(context, TextResourceArtifacts.ABSTRACT_INTERPRETER);
 		concreteSyntax = context.getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
 	}

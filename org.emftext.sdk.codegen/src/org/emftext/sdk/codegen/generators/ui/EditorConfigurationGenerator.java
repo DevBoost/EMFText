@@ -27,7 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRESENTATION_RECONCILER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -41,7 +41,7 @@ public class EditorConfigurationGenerator extends JavaBaseGenerator {
 	}
 
 	private EditorConfigurationGenerator(GenerationContext context) {
-		super(context, EArtifact.EDITOR_CONFIGURATION);
+		super(context, TextResourceArtifacts.EDITOR_CONFIGURATION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

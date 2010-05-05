@@ -19,7 +19,7 @@ import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -66,10 +66,10 @@ public class PluginXMLGenerator implements IGenerator {
 		final String secondaryConcreteSyntaxName = getSecondarySyntaxName(concreteSyntax);
 		final String qualifiedResourceFactoryClassName;
 		if (secondaryConcreteSyntaxName == null) {
-			qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY_DELEGATOR);
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 		}
 		else {
-			qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
 		}
 
 		StringComposite sc = new XMLComposite();
@@ -78,14 +78,14 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<plugin>");
 
 		// register the syntax meta information
-		String metaInformationClass = context.getQualifiedClassName(EArtifact.META_INFORMATION);
+		String metaInformationClass = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
 		sc.add("<extension point=\"org.emftext.access.syntax\">");
 		sc.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
 		sc.add("</metaInformationProvider>");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
-		String editorName = context.getQualifiedClassName(EArtifact.EDITOR);
+		String editorName = context.getQualifiedClassName(TextResourceArtifacts.EDITOR);
 
 		// registers the editor itself
 		sc.add("<extension point=\"org.eclipse.ui.editors\">");
@@ -100,7 +100,7 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.addLineBreak();
 		
 		sc.add("<extension point=\"org.eclipse.core.runtime.preferences\">");
-		sc.add("<initializer class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_INITIALIZER) + "\">");
+		sc.add("<initializer class=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_INITIALIZER) + "\">");
 		sc.add("</initializer>");
 		sc.add("</extension>");
 		sc.addLineBreak();
@@ -108,25 +108,25 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<extension point=\"org.eclipse.ui.preferencePages\">");
 		//main page
 		sc.add("<page name=\"" + context.getCapitalizedConcreteSyntaxName() + " Text Editor\" " + 
-				"id=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\" " +
-				"class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\" " +
+				"id=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_PAGE) + "\" " +
+				"class=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_PAGE) + "\" " +
 				"category=\"org.eclipse.ui.preferencePages.GeneralTextEditor\">");
 		sc.add("</page>");
 		//sub pages
 		sc.add("<page name=\"Syntax Coloring\" " + 
-				"id=\"" + context.getQualifiedClassName(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE)  + "\" " +
-				"class=\"" + context.getQualifiedClassName(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE) + "\" " + 
-				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+				"id=\"" + context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE)  + "\" " +
+				"class=\"" + context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_PAGE) + "\">");
 		sc.add("</page>");
 		sc.add("<page name=\"Brackets\" " + 
-				"id=\"" + context.getQualifiedClassName(EArtifact.BRACKET_PREFERENCE_PAGE) + "\" " +
-				"class=\"" + context.getQualifiedClassName(EArtifact.BRACKET_PREFERENCE_PAGE) + "\" " + 
-				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+				"id=\"" + context.getQualifiedClassName(TextResourceArtifacts.BRACKET_PREFERENCE_PAGE) + "\" " +
+				"class=\"" + context.getQualifiedClassName(TextResourceArtifacts.BRACKET_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_PAGE) + "\">");
 		sc.add("</page>");
 		sc.add("<page name=\"Occurrence\" " + 
-				"id=\"" + context.getQualifiedClassName(EArtifact.OCCURRENCE_PREFERENCE_PAGE)  + "\" " +
-				"class=\"" + context.getQualifiedClassName(EArtifact.OCCURRENCE_PREFERENCE_PAGE) + "\" " + 
-				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+				"id=\"" + context.getQualifiedClassName(TextResourceArtifacts.OCCURRENCE_PREFERENCE_PAGE)  + "\" " +
+				"class=\"" + context.getQualifiedClassName(TextResourceArtifacts.OCCURRENCE_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(TextResourceArtifacts.PREFERENCE_PAGE) + "\">");
 		sc.add("</page>");
 		sc.add("</extension>");
 		sc.addLineBreak();
@@ -134,7 +134,7 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<extension point=\"org.eclipse.ui.newWizards\">");
 		sc.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
 		sc.add("</category>");
-		String newFileWizard = context.getQualifiedClassName(EArtifact.NEW_FILE_WIZARD);
+		String newFileWizard = context.getQualifiedClassName(TextResourceArtifacts.NEW_FILE_WIZARD);
 		sc.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
 		sc.add("</wizard>");
 		sc.add("</extension>");
@@ -152,7 +152,7 @@ public class PluginXMLGenerator implements IGenerator {
 		
 		sc.add("<extension id=\"" + context.getNatureID() + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
 		sc.add("<runtime>");
-		sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.NATURE)+ "\" />"); 
+		sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
 		sc.add("</runtime>");
 		sc.add("<builder id=\"" + builderID + "\" />"); 
 		sc.add("</extension>");
@@ -162,7 +162,7 @@ public class PluginXMLGenerator implements IGenerator {
 		if (!disableBuilder) {
 			sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
 			sc.add("<builder hasNature=\"true\">");
-			sc.add("<run class=\"" + context.getQualifiedClassName(EArtifact.BUILDER_ADAPTER)+ "\" />");
+			sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER)+ "\" />");
 			sc.add("</builder>");
 			sc.add("</extension>");
 			sc.addLineBreak();

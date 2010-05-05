@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.mopp.BabylonSpecificationGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -34,7 +34,7 @@ public class BabylonSpecificationCreator extends AbstractArtifactCreator {
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
 		String specificationName = context.getCapitalizedConcreteSyntaxName();
-		String packagePath = context.getPackagePath(EArtifact.BABYLON_SPECIFICATION);
+		String packagePath = context.getPackagePath(TextResourceArtifacts.BABYLON_SPECIFICATION);
   		File specificationFile = new File(packagePath + specificationName + ".babylon");
 		
 	    return createArtifact(

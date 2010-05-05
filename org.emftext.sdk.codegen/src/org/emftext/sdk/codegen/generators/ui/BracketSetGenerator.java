@@ -29,7 +29,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVEN
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_KEY_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -43,7 +43,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 	}
 
 	private BracketSetGenerator(GenerationContext context) {
-		super(context, EArtifact.BRACKET_SET);
+		super(context, TextResourceArtifacts.BRACKET_SET);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -23,7 +23,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERAT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATION_CHAIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -36,7 +36,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 	}
 
 	private CopiedEObjectInternalEListGenerator(GenerationContext context) {
-		super(context, EArtifact.COPIED_E_OBJECT_INTERNAL_E_LIST);
+		super(context, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

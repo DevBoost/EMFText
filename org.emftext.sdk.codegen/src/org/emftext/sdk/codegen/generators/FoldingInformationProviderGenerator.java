@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -39,7 +39,7 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	public FoldingInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.FOLDING_INFORMATION_PROVIDER);
+		super(context, TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
 	}
 
 	@Override

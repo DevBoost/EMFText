@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen.generators.code_completion;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -17,7 +17,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private AttributeValueProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.ATTRIBUTE_VALUE_PROVIDER);
+		super(context, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

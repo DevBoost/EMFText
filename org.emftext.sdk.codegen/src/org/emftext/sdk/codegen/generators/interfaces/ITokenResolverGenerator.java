@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -30,7 +30,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator {
 	}
 
 	private ITokenResolverGenerator(GenerationContext context) {
-		super(context, EArtifact.I_TOKEN_RESOLVER);
+		super(context, TextResourceArtifacts.I_TOKEN_RESOLVER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -44,7 +44,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator {
 		
 		sc.addJavadoc(
 			"A basic interface to convert parsed tokens to the attribute type in the meta model. " +
-			"All generated TokenResolvers per default delegate requests to an instance of " + getContext().getClassName(EArtifact.DEFAULT_TOKEN_RESOLVER) + " which performs " +
+			"All generated TokenResolvers per default delegate requests to an instance of " + getContext().getClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER) + " which performs " +
 			"a standard conversion based on the EMF type conversion. This includes conversion of registered EDataTypes.",
 			"@see " + defaultTokenResolverClassName
 		);

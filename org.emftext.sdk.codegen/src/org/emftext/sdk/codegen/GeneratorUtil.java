@@ -103,7 +103,7 @@ public class GeneratorUtil {
 	}
 
 	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, GenerationContext context) {
-		String mapUtil = context.getQualifiedClassName(EArtifact.MAP_UTIL);
+		String mapUtil = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
 
 		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + qualifiedDummyEObjectClassName + " dummy) {");
 		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
@@ -137,8 +137,8 @@ public class GeneratorUtil {
 	}
 
 	public void addRegisterContextDependentProxyMethod(JavaComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, GenerationContext context) {
-		String iCommand = context.getQualifiedClassName(EArtifact.I_COMMAND);
-		String iTextResource = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
+		String iCommand = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
+		String iTextResource = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
 
 		String typeParameters = "";
 		if (addTypeParameters) {
@@ -162,7 +162,7 @@ public class GeneratorUtil {
 	}
 
 	public void addGetReferenceResolverSwitchMethod(GenerationContext context, StringComposite sc) {
-		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
         sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
@@ -170,10 +170,10 @@ public class GeneratorUtil {
 	}
 
 	public void addAddErrorToResourceMethod(JavaComposite sc, GenerationContext context) {
-		String iCommand = context.getQualifiedClassName(EArtifact.I_COMMAND);
-		String iTextResource = context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE);
-		String iProblem = context.getQualifiedClassName(EArtifact.I_PROBLEM);
-		String eProblemType = context.getQualifiedClassName(EArtifact.E_PROBLEM_TYPE);
+		String iCommand = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
+		String iTextResource = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
+		String iProblem = context.getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
+		String eProblemType = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 

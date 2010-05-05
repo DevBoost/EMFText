@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private HoverTextProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.HOVER_TEXT_PROVIDER);
+		super(context, TextResourceArtifacts.HOVER_TEXT_PROVIDER);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -18,7 +18,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 	}
 
 	private CompletionProposalGenerator(GenerationContext context) {
-		super(context, EArtifact.COMPLETION_PROPOSAL);
+		super(context, TextResourceArtifacts.COMPLETION_PROPOSAL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

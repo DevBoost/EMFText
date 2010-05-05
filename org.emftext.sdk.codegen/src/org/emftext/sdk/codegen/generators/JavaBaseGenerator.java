@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -20,7 +20,7 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 		super();
 	}
 
-	public JavaBaseGenerator(GenerationContext context, EArtifact artifact) {
+	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor artifact) {
 		super(context, artifact);
 	}
 

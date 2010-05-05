@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -13,7 +13,7 @@ public class LineBreakGenerator extends JavaBaseGenerator {
 	}
 
 	private LineBreakGenerator(GenerationContext context) {
-		super(context, EArtifact.LINE_BREAK);
+		super(context, TextResourceArtifacts.LINE_BREAK);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

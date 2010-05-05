@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.generators.grammar;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -15,7 +15,7 @@ public class TerminalGenerator extends JavaBaseGenerator {
 	}
 
 	private TerminalGenerator(GenerationContext context) {
-		super(context, EArtifact.TERMINAL);
+		super(context, TextResourceArtifacts.TERMINAL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

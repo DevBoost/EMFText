@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -34,7 +34,7 @@ public class DotClasspathGenerator extends BaseGenerator {
 	private EPlugins plugin;
 
 	public DotClasspathGenerator(GenerationContext context, EPlugins plugin) {
-		super(context, EArtifact.DOT_CLASSPATH);
+		super(context, TextResourceArtifacts.DOT_CLASSPATH);
 		this.plugin = plugin;
 	}
 

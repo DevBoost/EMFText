@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators.util;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -29,7 +29,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 	}
 
 	private UnicodeConverterGenerator(GenerationContext context) {
-		super(context, EArtifact.UNICODE_CONVERTER);
+		super(context, TextResourceArtifacts.UNICODE_CONVERTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

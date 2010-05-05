@@ -21,7 +21,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -33,7 +33,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 	}
 	
 	private ContextDependentURIFragmentGenerator(GenerationContext context) {
-		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
+		super(context, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

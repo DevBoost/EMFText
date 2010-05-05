@@ -46,7 +46,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -64,7 +64,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 	}
 
 	private NewFileWizardGenerator(GenerationContext context) {
-		super(context, EArtifact.NEW_FILE_WIZARD);
+		super(context, TextResourceArtifacts.NEW_FILE_WIZARD);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

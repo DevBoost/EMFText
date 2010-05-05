@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -29,7 +29,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private FollowSetProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.FOLLOW_SET_PROVIDER);
+		super(context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

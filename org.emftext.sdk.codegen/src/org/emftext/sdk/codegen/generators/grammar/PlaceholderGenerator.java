@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen.generators.grammar;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -17,7 +17,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 	}
 
 	private PlaceholderGenerator(GenerationContext context) {
-		super(context, EArtifact.PLACEHOLDER);
+		super(context, TextResourceArtifacts.PLACEHOLDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

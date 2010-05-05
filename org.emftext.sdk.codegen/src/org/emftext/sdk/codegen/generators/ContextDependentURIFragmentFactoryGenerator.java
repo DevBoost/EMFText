@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 	}
 
 	private ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
-		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		super(context, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

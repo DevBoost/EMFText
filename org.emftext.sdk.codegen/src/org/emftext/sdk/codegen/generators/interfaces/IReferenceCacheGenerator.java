@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -16,7 +16,7 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator {
 	}
 
 	private IReferenceCacheGenerator(GenerationContext context) {
-		super(context, EArtifact.I_REFERENCE_CACHE);
+		super(context, TextResourceArtifacts.I_REFERENCE_CACHE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -54,7 +54,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private Printer2Generator(GenerationContext context) {
-		super(context, EArtifact.PRINTER2);
+		super(context, TextResourceArtifacts.PRINTER2);
 		syntax = context.getConcreteSyntax();
 	}
 

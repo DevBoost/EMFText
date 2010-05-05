@@ -48,7 +48,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.CollectInFeatureHelper;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -107,7 +107,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	private PrinterGenerator(GenerationContext context) {
-		super(context, EArtifact.PRINTER);
+		super(context, TextResourceArtifacts.PRINTER);
 
 		this.concretSyntax = context.getConcreteSyntax();
 		this.genClassCache = concretSyntax.getGenClassCache();

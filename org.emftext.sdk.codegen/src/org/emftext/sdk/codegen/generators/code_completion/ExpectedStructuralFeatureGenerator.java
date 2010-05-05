@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 	}
 
 	private ExpectedStructuralFeatureGenerator(GenerationContext context) {
-		super(context, EArtifact.EXPECTED_STRUCTURAL_FEATURE);
+		super(context, TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

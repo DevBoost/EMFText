@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -37,7 +37,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 	}
 
 	public SyntaxCoverageInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
+		super(context, TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
 	}
 
 	@Override

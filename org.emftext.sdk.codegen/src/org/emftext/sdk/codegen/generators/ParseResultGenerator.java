@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -29,7 +29,7 @@ public class ParseResultGenerator extends JavaBaseGenerator {
 	}
 
 	private ParseResultGenerator(GenerationContext context) {
-		super(context, EArtifact.PARSE_RESULT);
+		super(context, TextResourceArtifacts.PARSE_RESULT);
 	}
 
 	@Override

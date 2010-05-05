@@ -36,7 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXC
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -49,7 +49,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 	}
 
 	private DefaultResolverDelegateGenerator(GenerationContext context) {
-		super(context, EArtifact.DEFAULT_RESOLVER_DELEGATE);
+		super(context, TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private IMetaInformationGenerator(GenerationContext context) {
-		super(context, EArtifact.I_META_INFORMATION);
+		super(context, TextResourceArtifacts.I_META_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

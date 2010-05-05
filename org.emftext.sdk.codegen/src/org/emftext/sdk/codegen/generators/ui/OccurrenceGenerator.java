@@ -24,7 +24,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.REGION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLED_TEXT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,7 +38,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 	}
 
 	private OccurrenceGenerator(GenerationContext context) {
-		super(context, EArtifact.OCCURENCE);
+		super(context, TextResourceArtifacts.OCCURENCE);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

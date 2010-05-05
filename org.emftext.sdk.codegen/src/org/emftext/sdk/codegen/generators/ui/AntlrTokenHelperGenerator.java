@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -29,7 +29,7 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private AntlrTokenHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.ANTLR_TOKEN_HELPER);
+		super(context, TextResourceArtifacts.ANTLR_TOKEN_HELPER);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -34,7 +34,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private ITextResourceGenerator(GenerationContext context) {
-		super(context, EArtifact.I_TEXT_RESOURCE);
+		super(context, TextResourceArtifacts.I_TEXT_RESOURCE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

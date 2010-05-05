@@ -24,7 +24,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_VIEW
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,7 +38,7 @@ public class CompletionProcessorGenerator extends JavaBaseGenerator {
 	}
 
 	private CompletionProcessorGenerator(GenerationContext context) {
-		super(context, EArtifact.COMPLETION_PROCESSOR);
+		super(context, TextResourceArtifacts.COMPLETION_PROCESSOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

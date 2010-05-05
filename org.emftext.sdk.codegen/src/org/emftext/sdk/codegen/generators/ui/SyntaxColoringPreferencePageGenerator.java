@@ -49,7 +49,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VIEWER;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -63,7 +63,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 	}
 
 	private SyntaxColoringPreferencePageGenerator(GenerationContext context) {
-		super(context, EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE);
+		super(context, TextResourceArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

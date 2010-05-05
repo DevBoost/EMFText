@@ -12,7 +12,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -60,7 +60,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private GrammarInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.GRAMMAR_INFORMATION_PROVIDER);
+		super(context, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
 		concreteSyntax = context.getConcreteSyntax();
 	}
 

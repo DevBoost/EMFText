@@ -21,7 +21,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -34,7 +34,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 	}
 
 	private DummyEObjectGenerator(GenerationContext context) {
-		super(context, EArtifact.DUMMY_E_OBJECT);
+		super(context, TextResourceArtifacts.DUMMY_E_OBJECT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

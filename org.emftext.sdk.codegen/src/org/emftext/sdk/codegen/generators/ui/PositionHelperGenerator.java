@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_POSITIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private PositionHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.POSITION_HELPER);
+		super(context, TextResourceArtifacts.POSITION_HELPER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

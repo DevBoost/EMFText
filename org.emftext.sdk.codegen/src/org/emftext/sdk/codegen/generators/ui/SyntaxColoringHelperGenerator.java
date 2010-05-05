@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private SyntaxColoringHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.SYNTAX_COLORING_HELPER);
+		super(context, TextResourceArtifacts.SYNTAX_COLORING_HELPER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -24,7 +24,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.REGION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,7 +38,7 @@ public class HyperlinkDetectorGenerator extends JavaBaseGenerator {
 	}
 
 	private HyperlinkDetectorGenerator(GenerationContext context) {
-		super(context, EArtifact.HYPERLINK_DETECTOR);
+		super(context, TextResourceArtifacts.HYPERLINK_DETECTOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

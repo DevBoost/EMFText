@@ -69,7 +69,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_VIEWER
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -85,7 +85,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 	}
 
 	private EditorGenerator(GenerationContext context) {
-		super(context, EArtifact.EDITOR);
+		super(context, TextResourceArtifacts.EDITOR);
 	}
 
 	@Override

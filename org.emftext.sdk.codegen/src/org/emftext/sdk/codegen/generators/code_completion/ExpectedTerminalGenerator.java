@@ -4,7 +4,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -18,7 +18,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 	}
 
 	private ExpectedTerminalGenerator(GenerationContext context) {
-		super(context, EArtifact.EXPECTED_TERMINAL);
+		super(context, TextResourceArtifacts.EXPECTED_TERMINAL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

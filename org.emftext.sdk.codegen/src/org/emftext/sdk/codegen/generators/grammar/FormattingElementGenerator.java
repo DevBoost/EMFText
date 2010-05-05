@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -14,7 +14,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator {
 	}
 
 	private FormattingElementGenerator(GenerationContext context) {
-		super(context, EArtifact.FORMATTING_ELEMENT);
+		super(context, TextResourceArtifacts.FORMATTING_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

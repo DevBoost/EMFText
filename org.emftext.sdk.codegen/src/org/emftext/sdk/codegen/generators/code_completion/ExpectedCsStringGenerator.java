@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -27,7 +27,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 	}
 
 	private ExpectedCsStringGenerator(GenerationContext context) {
-		super(context, EArtifact.EXPECTED_CS_STRING);
+		super(context, TextResourceArtifacts.EXPECTED_CS_STRING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

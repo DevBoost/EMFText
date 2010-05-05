@@ -20,7 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STRE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -35,7 +35,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	}
 
 	private MetaInformationGenerator(GenerationContext context) {
-		super(context, EArtifact.META_INFORMATION);
+		super(context, TextResourceArtifacts.META_INFORMATION);
 	}
 	
 	@Override

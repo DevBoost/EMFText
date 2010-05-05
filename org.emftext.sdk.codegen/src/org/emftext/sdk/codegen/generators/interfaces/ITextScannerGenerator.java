@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class ITextScannerGenerator extends JavaBaseGenerator {
 	}
 
 	private ITextScannerGenerator(GenerationContext context) {
-		super(context, EArtifact.I_TEXT_SCANNER);
+		super(context, TextResourceArtifacts.I_TEXT_SCANNER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

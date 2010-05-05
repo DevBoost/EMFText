@@ -24,7 +24,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -37,7 +37,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 	}
 
 	private PluginActivatorGenerator(GenerationContext context) {
-		super(context, EArtifact.PLUGIN_ACTIVATOR);
+		super(context, TextResourceArtifacts.PLUGIN_ACTIVATOR);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

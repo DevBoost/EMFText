@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -30,7 +30,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 	}
 
 	private IReferenceResolveResultGenerator(GenerationContext context) {
-		super(context, EArtifact.I_REFERENCE_RESOLVE_RESULT);
+		super(context, TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

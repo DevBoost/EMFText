@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -101,7 +101,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 	}
 
 	public BracketInformationProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.BRACKET_INFORMATION_PROVIDER);
+		super(context, TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 	}
 
 	@Override

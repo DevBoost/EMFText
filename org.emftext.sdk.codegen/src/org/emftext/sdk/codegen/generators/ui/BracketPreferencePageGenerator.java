@@ -36,7 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT_LIST;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -50,7 +50,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 	}
 
 	private BracketPreferencePageGenerator(GenerationContext context) {
-		super(context, EArtifact.BRACKET_PREFERENCE_PAGE);
+		super(context, TextResourceArtifacts.BRACKET_PREFERENCE_PAGE);
 	}
 
 	@Override

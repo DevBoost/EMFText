@@ -30,7 +30,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_E
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -44,7 +44,7 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 	}
 
 	private OccurrencePreferencePageGenerator(GenerationContext context) {
-		super(context, EArtifact.OCCURRENCE_PREFERENCE_PAGE);
+		super(context, TextResourceArtifacts.OCCURRENCE_PREFERENCE_PAGE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

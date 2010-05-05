@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class IBracketPairGenerator extends JavaBaseGenerator {
 	}
 
 	private IBracketPairGenerator(GenerationContext context) {
-		super(context, EArtifact.I_BRACKET_PAIR);
+		super(context, TextResourceArtifacts.I_BRACKET_PAIR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

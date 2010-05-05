@@ -16,16 +16,16 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class GenericArtifactCreator extends AbstractArtifactCreator {
 
-	private EArtifact artifact;
+	private ArtifactDescriptor artifact;
 
-	public GenericArtifactCreator(EArtifact artifact) {
+	public GenericArtifactCreator(ArtifactDescriptor artifact) {
 		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix());
 		this.artifact = artifact;
 	}

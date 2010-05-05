@@ -22,7 +22,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -45,7 +45,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
 	 * @param context the generation context
 	 */
 	private ResourceFactoryDelegatorGenerator(GenerationContext context) {
-		super(context, EArtifact.RESOURCE_FACTORY_DELEGATOR);
+		super(context, TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 	}
 
 	@Override

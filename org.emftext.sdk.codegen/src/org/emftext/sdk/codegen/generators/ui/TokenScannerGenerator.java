@@ -24,7 +24,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_ATTRIBUTE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,7 +38,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 	}
 
 	private TokenScannerGenerator(GenerationContext context) {
-		super(context, EArtifact.TOKEN_SCANNER);
+		super(context, TextResourceArtifacts.TOKEN_SCANNER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

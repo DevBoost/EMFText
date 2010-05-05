@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class IOptionProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private IOptionProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.I_OPTION_PROVIDER);
+		super(context, TextResourceArtifacts.I_OPTION_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -12,7 +12,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -25,7 +25,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 	}
 
 	private BuilderAdapterGenerator(GenerationContext context) {
-		super(context, EArtifact.BUILDER_ADAPTER);
+		super(context, TextResourceArtifacts.BUILDER_ADAPTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

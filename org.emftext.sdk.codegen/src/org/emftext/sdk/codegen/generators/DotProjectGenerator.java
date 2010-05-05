@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -31,7 +31,7 @@ public class DotProjectGenerator extends BaseGenerator {
 	private EPlugins plugin;
 
 	public DotProjectGenerator(GenerationContext context, EPlugins plugin) {
-		super(context, EArtifact.DOT_PROJECT);
+		super(context, TextResourceArtifacts.DOT_PROJECT);
 		this.plugin = plugin;
 	}
 

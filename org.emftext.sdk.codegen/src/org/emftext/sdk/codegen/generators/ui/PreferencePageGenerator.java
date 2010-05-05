@@ -26,7 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_E
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_LISTENER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -39,7 +39,7 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
 	}
 
 	private PreferencePageGenerator(GenerationContext context) {
-		super(context, EArtifact.PREFERENCE_PAGE);
+		super(context, TextResourceArtifacts.PREFERENCE_PAGE);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private IInputStreamProcessorProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.I_INPUT_STREAM_PROCESSOR_PROVIDER);
+		super(context, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

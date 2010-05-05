@@ -5,7 +5,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -18,7 +18,7 @@ public class BuilderGenerator extends JavaBaseGenerator {
 	}
 
 	private BuilderGenerator(GenerationContext context) {
-		super(context, EArtifact.BUILDER);
+		super(context, TextResourceArtifacts.BUILDER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

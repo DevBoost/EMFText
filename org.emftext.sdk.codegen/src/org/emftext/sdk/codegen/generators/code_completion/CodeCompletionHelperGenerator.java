@@ -37,7 +37,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -61,7 +61,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private CodeCompletionHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.CODE_COMPLETION_HELPER);
+		super(context, TextResourceArtifacts.CODE_COMPLETION_HELPER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

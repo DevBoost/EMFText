@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -25,7 +25,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 	}
 
 	private ElementMappingGenerator(GenerationContext context) {
-		super(context, EArtifact.ELEMENT_MAPPING);
+		super(context, TextResourceArtifacts.ELEMENT_MAPPING);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

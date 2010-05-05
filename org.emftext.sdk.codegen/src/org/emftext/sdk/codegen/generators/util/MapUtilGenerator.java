@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 	}
 
 	private MapUtilGenerator(GenerationContext context) {
-		super(context, EArtifact.MAP_UTIL);
+		super(context, TextResourceArtifacts.MAP_UTIL);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

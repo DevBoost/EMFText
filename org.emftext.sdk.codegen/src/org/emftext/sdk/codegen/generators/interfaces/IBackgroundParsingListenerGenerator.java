@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 	}
 
 	private IBackgroundParsingListenerGenerator(GenerationContext context) {
-		super(context, EArtifact.I_BACKGROUND_PARSING_LISTENER);
+		super(context, TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

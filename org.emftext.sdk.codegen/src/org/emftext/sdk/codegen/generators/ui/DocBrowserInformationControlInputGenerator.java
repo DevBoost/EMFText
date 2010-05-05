@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 	}
 
 	private DocBrowserInformationControlInputGenerator(GenerationContext context) {
-		super(context, EArtifact.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
+		super(context, TextResourceArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

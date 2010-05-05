@@ -22,7 +22,7 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -45,14 +45,14 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 		Set<String> exports = new LinkedHashSet<String>();
 		
 		// export the generated packages
-		exports.add(context.getPackageName(EArtifact.PACKAGE_ROOT));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_CC));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_MOPP));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_UI));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_UTIL));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ROOT));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_CC));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_MOPP));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_UI));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_UTIL));
 		// do not export the analysis package if the are no resolvers
 		if (csUtil.getResolverFileNames(syntax).size() > 0) {
-			exports.add(context.getPackageName(EArtifact.PACKAGE_ANALYSIS));
+			exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANALYSIS));
 		}
 		exports.addAll(getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_EXPORTS));
 		return exports;
@@ -178,7 +178,7 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 
 	@Override
 	protected String getActivatorClass(GenerationContext context) {
-		return context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
+		return context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.grammar;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -14,7 +14,7 @@ public class KeywordGenerator extends JavaBaseGenerator {
 	}
 
 	private KeywordGenerator(GenerationContext context) {
-		super(context, EArtifact.KEYWORD);
+		super(context, TextResourceArtifacts.KEYWORD);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

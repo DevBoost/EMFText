@@ -4,7 +4,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -23,7 +23,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 	}
 
 	private SyntaxElementDecoratorGenerator(GenerationContext context) {
-		super(context, EArtifact.SYNTAX_ELEMENT_DECORATOR);
+		super(context, TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

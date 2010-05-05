@@ -27,7 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -41,7 +41,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private MinimalModelHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.MINIMAL_MODEL_HELPER);
+		super(context, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

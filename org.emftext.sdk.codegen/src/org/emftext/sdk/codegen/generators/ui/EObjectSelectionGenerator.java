@@ -20,7 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -34,7 +34,7 @@ public class EObjectSelectionGenerator extends JavaBaseGenerator {
 	}
 
 	private EObjectSelectionGenerator(GenerationContext context) {
-		super(context, EArtifact.E_OBJECT_SELECTION);
+		super(context, TextResourceArtifacts.E_OBJECT_SELECTION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

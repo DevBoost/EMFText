@@ -7,7 +7,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -20,7 +20,7 @@ public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator {
 	}
 
 	private DefaultHoverTextProviderGenerator(GenerationContext context) {
-		super(context, EArtifact.DEFAULT_HOVER_TEXT_PROVIDER);
+		super(context, TextResourceArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 	}
 
 	@Override

@@ -35,7 +35,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD_PAGE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -49,7 +49,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 	}
 
 	private NewFileWizardPageGenerator(GenerationContext context) {
-		super(context, EArtifact.NEW_FILE_WIZARD_PAGE);
+		super(context, TextResourceArtifacts.NEW_FILE_WIZARD_PAGE);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

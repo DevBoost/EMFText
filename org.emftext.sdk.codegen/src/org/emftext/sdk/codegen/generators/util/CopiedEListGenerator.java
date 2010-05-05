@@ -20,7 +20,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -33,7 +33,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 	}
 
 	private CopiedEListGenerator(GenerationContext context) {
-		super(context, EArtifact.COPIED_E_LIST);
+		super(context, TextResourceArtifacts.COPIED_E_LIST);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

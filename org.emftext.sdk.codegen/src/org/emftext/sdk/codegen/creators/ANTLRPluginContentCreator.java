@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -123,10 +123,10 @@ public class ANTLRPluginContentCreator {
 		
 	    creators.add(new FoldersCreator(new File[] {
 	    		sourceFolder,
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + EArtifact.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + EArtifact.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + EArtifact.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + EArtifact.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
 	    creators.add(new DotClasspathCreator(EPlugins.ANTLR_PLUGIN));
 	    creators.add(new DotProjectCreator(EPlugins.ANTLR_PLUGIN));

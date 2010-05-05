@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -30,7 +30,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator {
 	}
 
 	private EClassUtilGenerator(GenerationContext context) {
-		super(context, EArtifact.E_CLASS_UTIL);
+		super(context, TextResourceArtifacts.E_CLASS_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

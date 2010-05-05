@@ -55,7 +55,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.XML_MEMENTO;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -69,7 +69,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 	}
 
 	private CodeFoldingManagerGenerator(GenerationContext context) {
-		super(context, EArtifact.CODE_FOLDING_MANAGER);
+		super(context, TextResourceArtifacts.CODE_FOLDING_MANAGER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

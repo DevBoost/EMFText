@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -26,7 +26,7 @@ public class CastUtilGenerator extends JavaBaseGenerator {
 	}
 
 	private CastUtilGenerator(GenerationContext context) {
-		super(context, EArtifact.CAST_UTIL);
+		super(context, TextResourceArtifacts.CAST_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

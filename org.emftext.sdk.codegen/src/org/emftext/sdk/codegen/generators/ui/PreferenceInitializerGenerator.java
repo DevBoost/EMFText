@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -30,7 +30,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 	}
 
 	private PreferenceInitializerGenerator(GenerationContext context) {
-		super(context, EArtifact.PREFERENCE_INITIALIZER);
+		super(context, TextResourceArtifacts.PREFERENCE_INITIALIZER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -27,7 +27,7 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator {
 	}
 
 	private UnexpectedContentTypeExceptionGenerator(GenerationContext context) {
-		super(context, EArtifact.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
+		super(context, TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

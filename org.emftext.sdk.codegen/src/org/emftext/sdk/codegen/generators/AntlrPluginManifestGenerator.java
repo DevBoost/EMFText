@@ -19,7 +19,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 
 public class AntlrPluginManifestGenerator extends ManifestGenerator {
@@ -33,10 +33,10 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 		Set<String> exports = new LinkedHashSet<String>();
 		
 		// export the generated packages
-		exports.add(context.getPackageName(EArtifact.PACKAGE_ANTLR_RUNTIME));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_ANTLR_RUNTIME_DEBUG));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_ANTLR_RUNTIME_MISC));
-		exports.add(context.getPackageName(EArtifact.PACKAGE_ANTLR_RUNTIME_TREE));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_MISC));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_TREE));
 		return exports;
 	}
 

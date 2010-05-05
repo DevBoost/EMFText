@@ -45,7 +45,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -73,7 +73,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 	}
 
 	private TextResourceGenerator(GenerationContext context) {
-		super(context, EArtifact.RESOURCE);
+		super(context, TextResourceArtifacts.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
 		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(

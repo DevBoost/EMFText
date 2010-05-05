@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -55,7 +55,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 	}
 
 	private ReferenceResolverSwitchGenerator(GenerationContext context) {
-		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
+		super(context, TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		this.genClassCache = syntax.getGenClassCache();
 		this.nonContainmentReferencesNeedingResolvers = csUtil.getNonContainmentFeaturesNeedingResolver(syntax);
@@ -89,7 +89,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
     }
 
 	private void generateResolveFuzzyMethod(StringComposite sc) {
-		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
+		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 		
 		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result) {");
 		// this was a temporary workaround to avoid NPEs when this switch is called

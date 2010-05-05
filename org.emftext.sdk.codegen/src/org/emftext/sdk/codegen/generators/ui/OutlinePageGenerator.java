@@ -32,7 +32,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.IGenerator;
@@ -49,7 +49,7 @@ public class OutlinePageGenerator extends JavaBaseGenerator {
 	}
 
 	private OutlinePageGenerator(GenerationContext context) {
-		super(context, EArtifact.OUTLINE_PAGE);
+		super(context, TextResourceArtifacts.OUTLINE_PAGE);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

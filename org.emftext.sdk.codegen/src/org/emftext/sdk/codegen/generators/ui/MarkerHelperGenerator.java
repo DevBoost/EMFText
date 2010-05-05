@@ -22,7 +22,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -36,7 +36,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private MarkerHelperGenerator(GenerationContext context) {
-		super(context, EArtifact.MARKER_HELPER);
+		super(context, TextResourceArtifacts.MARKER_HELPER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.generators.interfaces;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -28,7 +28,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 	}
 
 	private IURIMappingGenerator(GenerationContext context) {
-		super(context, EArtifact.I_URI_MAPPING);
+		super(context, TextResourceArtifacts.I_URI_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.generators.grammar;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -16,7 +16,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 	}
 
 	private SyntaxElementGenerator(GenerationContext context) {
-		super(context, EArtifact.SYNTAX_ELEMENT);
+		super(context, TextResourceArtifacts.SYNTAX_ELEMENT);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

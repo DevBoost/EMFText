@@ -21,7 +21,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -59,7 +59,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	}
 	
 	private TokenResolverGenerator(GenerationContext context) {
-		super(context, EArtifact.TOKEN_RESOLVER);
+		super(context, TextResourceArtifacts.TOKEN_RESOLVER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -156,7 +156,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 	
 	private void generateResolveMethod2(StringComposite sc) {
 		ConcreteSyntax containingSyntax = csUtil.getContainingSyntax(getContext().getConcreteSyntax(), definition);
-		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(EArtifact.I_TOKEN_RESOLVE_RESULT, containingSyntax);
+		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT, containingSyntax);
 		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
 		sc.add("importedResolver.resolve(lexem, feature, new " + importedTokenResolveResultClassName + "() {");
 		sc.add("public String getErrorMessage() {");

@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -25,7 +25,7 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator {
 	}
 
 	private TokenResolveResultGenerator(GenerationContext context) {
-		super(context, EArtifact.TOKEN_RESOLVE_RESULT);
+		super(context, TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

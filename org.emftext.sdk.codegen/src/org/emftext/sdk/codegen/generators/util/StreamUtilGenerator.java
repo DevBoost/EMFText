@@ -18,7 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +31,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator {
 	}
 
 	private StreamUtilGenerator(GenerationContext context) {
-		super(context, EArtifact.STREAM_UTIL);
+		super(context, TextResourceArtifacts.STREAM_UTIL);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

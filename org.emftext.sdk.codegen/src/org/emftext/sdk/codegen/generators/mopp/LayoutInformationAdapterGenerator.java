@@ -8,7 +8,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFIER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -22,7 +22,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 	}
 
 	private LayoutInformationAdapterGenerator(GenerationContext context) {
-		super(context, EArtifact.LAYOUT_INFORMATION_ADAPTER);
+		super(context, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
