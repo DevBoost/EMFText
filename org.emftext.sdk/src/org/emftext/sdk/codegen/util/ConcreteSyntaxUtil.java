@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -277,7 +277,7 @@ public class ConcreteSyntaxUtil {
 		return getCapitalizedConcreteSyntaxName(syntax) + Constants.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
 	}
 
-	public String getPackageName(ConcreteSyntax syntax, EPlugins plugin, String packageSuffix) {
+	public String getPackageName(ConcreteSyntax syntax, PluginDescriptor plugin, String packageSuffix) {
 		if (plugin == null) {
 			// this is the case for artifacts that are generated for
 			// multiple plug-ins
@@ -317,7 +317,7 @@ public class ConcreteSyntaxUtil {
 	 * must go to depending on the given syntax.
 	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, EPlugins.RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE);
+		String csPackageName = getPackageName(syntax, PluginDescriptor.RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE);
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
