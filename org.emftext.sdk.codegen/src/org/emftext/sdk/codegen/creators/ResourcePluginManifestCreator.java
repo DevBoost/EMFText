@@ -38,7 +38,7 @@ public class ResourcePluginManifestCreator extends AbstractArtifactCreator {
 		final File project = context.getProjectFolder(EPlugins.RESOURCE_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator generator = new ResourcePluginManifestGenerator(context);
+		IGenerator<GenerationContext> generator = new ResourcePluginManifestGenerator(context);
 		
 	    return createArtifact(
 	    		context,

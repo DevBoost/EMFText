@@ -33,7 +33,7 @@ public class ANTLRPluginManifestCreator extends AbstractArtifactCreator {
 		final File project = context.getProjectFolder(EPlugins.ANTLR_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator generator = new AntlrPluginManifestGenerator(context);
+		IGenerator<GenerationContext> generator = new AntlrPluginManifestGenerator(context);
 		
 	    return createArtifact(
 	    		context,

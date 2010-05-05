@@ -31,7 +31,7 @@ public class DefaultLoadOptionsExtensionPointSchemaCreator extends AbstractArtif
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
 		File pluginXMLFile = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "default_load_options.exsd");
-		IGenerator generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(
 	    		context,

@@ -90,7 +90,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	public abstract OptionTypes getOverrideOption();
 
 	protected Collection<IArtifact> createArtifact(GenerationContext context,
-			IGenerator generator, File targetFile, String errorMessage) {
+			IGenerator<GenerationContext> generator, File targetFile, String errorMessage) {
 
 		InputStream stream = invokeGeneration(generator, context.getProblemCollector());
 	    if (stream == null) {
@@ -101,7 +101,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	    return toList(artifact);
 	}
 
-	private InputStream invokeGeneration(IGenerator generator, IProblemCollector collector) {
+	private InputStream invokeGeneration(IGenerator<GenerationContext> generator, IProblemCollector collector) {
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {

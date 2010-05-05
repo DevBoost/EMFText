@@ -9,10 +9,10 @@ public class ArtifactDescriptor {
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
-	private IGenerator generator;
+	private IGenerator<GenerationContext> generator;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(EPlugins plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator generator, OptionTypes overrideOption) {
+	public ArtifactDescriptor(EPlugins plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<GenerationContext> generator, OptionTypes overrideOption) {
 		this.plugin = plugin;
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
@@ -37,7 +37,7 @@ public class ArtifactDescriptor {
 		return classNameSuffix;
 	}
 
-	public IGenerator createGenerator(GenerationContext context) {
+	public IGenerator<GenerationContext> createGenerator(GenerationContext context) {
 		return generator.newInstance(context);
 	}
 

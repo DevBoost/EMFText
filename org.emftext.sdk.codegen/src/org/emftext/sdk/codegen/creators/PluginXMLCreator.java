@@ -38,7 +38,7 @@ public class PluginXMLCreator extends AbstractArtifactCreator {
 		File project = context.getProjectFolder(EPlugins.RESOURCE_PLUGIN);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 
-		IGenerator generator = new PluginXMLGenerator().newInstance(context);
+		IGenerator<GenerationContext> generator = new PluginXMLGenerator().newInstance(context);
 
 	    return createArtifact(
 	    		context,

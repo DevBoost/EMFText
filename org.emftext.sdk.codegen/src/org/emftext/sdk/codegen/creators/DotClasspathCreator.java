@@ -40,7 +40,7 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 		
 		File dotClasspathFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + ".classpath");
 
-		IGenerator dotClasspathGenerator = new DotClasspathGenerator(context, plugin);
+		IGenerator<GenerationContext> dotClasspathGenerator = new DotClasspathGenerator(context, plugin);
 		
 	    return createArtifact(
 	    		context,

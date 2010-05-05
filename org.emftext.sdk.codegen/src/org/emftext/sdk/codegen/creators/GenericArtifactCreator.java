@@ -33,7 +33,7 @@ public class GenericArtifactCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 	    File file = context.getFile(artifact);
-		IGenerator generator = artifact.createGenerator(context);
+		IGenerator<GenerationContext> generator = artifact.createGenerator(context);
 		
 	    return createArtifact(
 	    		context,

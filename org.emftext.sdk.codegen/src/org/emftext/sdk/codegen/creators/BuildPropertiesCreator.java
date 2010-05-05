@@ -36,7 +36,7 @@ public class BuildPropertiesCreator extends AbstractArtifactCreator {
 		
 		File buildPropertiesFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + "build.properties");
 
-		IGenerator generator = new BuildPropertiesGenerator(context, plugin);
+		IGenerator<GenerationContext> generator = new BuildPropertiesGenerator(context, plugin);
 		
 	    return createArtifact(
 	    		context,

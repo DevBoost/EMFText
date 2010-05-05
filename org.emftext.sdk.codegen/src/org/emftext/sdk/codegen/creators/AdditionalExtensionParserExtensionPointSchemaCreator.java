@@ -31,7 +31,7 @@ public class AdditionalExtensionParserExtensionPointSchemaCreator extends Abstra
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
 		File file = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "additional_extension_parser.exsd");
-		IGenerator generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(
 	    		context,
