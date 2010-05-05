@@ -97,7 +97,9 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		sc.addJavadoc(
 			"Returns all EObjects that are located between the given " +
 			"offsets in the text document. The method can return " +
-			"multiple elements.",
+			"multiple elements. This no guarantee about the order of " +
+			"the elements returned by this method. Even parsing the same " +
+			"document twice may yield a different order of elements.",
 			"@param startOffset",
 			"@param endOffset",
 			"@return a list of elements located between the given offsets"
