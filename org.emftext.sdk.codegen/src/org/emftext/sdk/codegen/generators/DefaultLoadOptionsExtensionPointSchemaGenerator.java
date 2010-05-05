@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -36,7 +36,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 	}
 
 	public boolean generate(PrintWriter out) {
-		String resourcePluginName = EPlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+		String resourcePluginName = PluginDescriptor.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
 
 		StringComposite sc = new XMLComposite();
 		

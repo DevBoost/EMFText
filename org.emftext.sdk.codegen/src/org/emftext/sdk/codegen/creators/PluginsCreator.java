@@ -25,7 +25,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -68,7 +68,7 @@ public abstract class PluginsCreator {
 	protected static final int TICKS_GENERATE_ANTLR_PLUGIN = 20;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 	
-	public abstract void createProject(GenerationContext context, SubMonitor progress, EPlugins plugin) throws Exception;
+	public abstract void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin) throws Exception;
 
 	public Result run(
 			ConcreteSyntax concreteSyntax, 
@@ -102,9 +102,9 @@ public abstract class PluginsCreator {
 		}
 		
 		// create the project for the plug-ins
-		createProject(context, progress, EPlugins.RESOURCE_PLUGIN);
+		createProject(context, progress, PluginDescriptor.RESOURCE_PLUGIN);
 		if (context.getGenerateANTLRPlugin()) {
-			createProject(context, progress, EPlugins.ANTLR_PLUGIN);
+			createProject(context, progress, PluginDescriptor.ANTLR_PLUGIN);
 		}
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 

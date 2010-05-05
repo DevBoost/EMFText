@@ -23,7 +23,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -136,7 +136,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		String resourcePluginName = EPlugins.RESOURCE_PLUGIN.getName(getContext().getConcreteSyntax());
+		String resourcePluginName = PluginDescriptor.RESOURCE_PLUGIN.getName(getContext().getConcreteSyntax());
 
 		sc.add("public static final String PLUGIN_ID = \"" + resourcePluginName + "\";");
 		sc.add("public static final String EMFTEXT_SDK_VERSION = \"" + EMFTextSDKPlugin.VERSION + "\";");

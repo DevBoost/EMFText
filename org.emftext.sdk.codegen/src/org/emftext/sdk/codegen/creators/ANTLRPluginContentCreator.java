@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -119,7 +119,7 @@ public class ANTLRPluginContentCreator {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
 		
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
-	    File sourceFolder = context.getSourceFolder(EPlugins.ANTLR_PLUGIN, false);
+	    File sourceFolder = context.getSourceFolder(PluginDescriptor.ANTLR_PLUGIN, false);
 		
 	    creators.add(new FoldersCreator(new File[] {
 	    		sourceFolder,
@@ -128,9 +128,9 @@ public class ANTLRPluginContentCreator {
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
-	    creators.add(new DotClasspathCreator(EPlugins.ANTLR_PLUGIN));
-	    creators.add(new DotProjectCreator(EPlugins.ANTLR_PLUGIN));
-	    creators.add(new BuildPropertiesCreator(EPlugins.ANTLR_PLUGIN));
+	    creators.add(new DotClasspathCreator(PluginDescriptor.ANTLR_PLUGIN));
+	    creators.add(new DotProjectCreator(PluginDescriptor.ANTLR_PLUGIN));
+	    creators.add(new BuildPropertiesCreator(PluginDescriptor.ANTLR_PLUGIN));
 	    creators.add(new ANTLRPluginManifestCreator());
 
 	    // add copiers for ANTLR source files

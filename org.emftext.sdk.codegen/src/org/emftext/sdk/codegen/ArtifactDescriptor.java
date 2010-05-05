@@ -1,18 +1,18 @@
 package org.emftext.sdk.codegen;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ArtifactDescriptor {
 
-	private EPlugins plugin;
+	private PluginDescriptor plugin;
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
 	private IGenerator<GenerationContext> generator;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(EPlugins plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<GenerationContext> generator, OptionTypes overrideOption) {
+	public ArtifactDescriptor(PluginDescriptor plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<GenerationContext> generator, OptionTypes overrideOption) {
 		this.plugin = plugin;
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
@@ -21,7 +21,7 @@ public class ArtifactDescriptor {
 		this.overrideOption = overrideOption;
 	}
 
-	public EPlugins getPlugin() {
+	public PluginDescriptor getPlugin() {
 		return plugin;
 	}
 

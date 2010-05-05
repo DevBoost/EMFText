@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -41,14 +41,14 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator {
 
 		List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
 	    creators.add(new FoldersCreator(new File[] {
-	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, false),
-	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, true),
+	    		context.getSourceFolder(PluginDescriptor.RESOURCE_PLUGIN, false),
+	    		context.getSourceFolder(PluginDescriptor.RESOURCE_PLUGIN, true),
 	    		context.getSchemaFolder(),
 	    		context.getCSSDir()
 	    }));
-	    creators.add(new DotClasspathCreator(EPlugins.RESOURCE_PLUGIN));
-	    creators.add(new DotProjectCreator(EPlugins.RESOURCE_PLUGIN));
-	    creators.add(new BuildPropertiesCreator(EPlugins.RESOURCE_PLUGIN));
+	    creators.add(new DotClasspathCreator(PluginDescriptor.RESOURCE_PLUGIN));
+	    creators.add(new DotProjectCreator(PluginDescriptor.RESOURCE_PLUGIN));
+	    creators.add(new BuildPropertiesCreator(PluginDescriptor.RESOURCE_PLUGIN));
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new GenericArtifactCreator(TextResourceArtifacts.SCANNERLESS_SCANNER));
 	    	creators.add(new GenericArtifactCreator(TextResourceArtifacts.SCANNERLESS_PARSER));

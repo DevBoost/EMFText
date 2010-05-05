@@ -20,7 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -49,7 +49,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		Collection<String> resolverFileNames = csUtil.getResolverFileNames(syntax);
 		String workspaceRootFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
 		
-		String pluginProjectFolder = workspaceRootFolder + File.separator + EPlugins.RESOURCE_PLUGIN.getName(syntax);
+		String pluginProjectFolder = workspaceRootFolder + File.separator + PluginDescriptor.RESOURCE_PLUGIN.getName(syntax);
 		
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);

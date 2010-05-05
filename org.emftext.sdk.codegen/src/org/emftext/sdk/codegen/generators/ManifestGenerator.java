@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -91,7 +91,7 @@ public abstract class ManifestGenerator implements IGenerator<GenerationContext>
 
 	protected abstract String getActivatorClass(GenerationContext context);
 
-	protected abstract EPlugins getPlugin();
+	protected abstract PluginDescriptor getPlugin();
 
 	protected abstract Collection<String> getRequiredBundles(GenerationContext context);
 

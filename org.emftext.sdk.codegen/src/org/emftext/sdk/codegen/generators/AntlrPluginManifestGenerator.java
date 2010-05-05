@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
 
@@ -46,8 +46,8 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 	}
 
 	@Override
-	protected EPlugins getPlugin() {
-		return EPlugins.ANTLR_PLUGIN;
+	protected PluginDescriptor getPlugin() {
+		return PluginDescriptor.ANTLR_PLUGIN;
 	}
 
 	@Override

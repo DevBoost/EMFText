@@ -25,7 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -109,7 +109,7 @@ public abstract class GenerationContext {
 		return concreteSyntax;
 	}
 	
-	public abstract File getProjectFolder(EPlugins plugin);
+	public abstract File getProjectFolder(PluginDescriptor plugin);
 
 	/**
 	 * Returns the actual file which contains the CS specification.
@@ -121,11 +121,11 @@ public abstract class GenerationContext {
 		return file;
 	}
 	
-	public File getOutputFolder(EPlugins plugin) {
+	public File getOutputFolder(PluginDescriptor plugin) {
 		return new File(getProjectFolder(plugin).getAbsolutePath() + File.separator + "bin");
 	}
 
-	public String getPluginName(EPlugins plugin) {
+	public String getPluginName(PluginDescriptor plugin) {
 		return plugin.getName(concreteSyntax);
 	}
 
@@ -225,15 +225,15 @@ public abstract class GenerationContext {
 	// TODO mseifert: delete these artifact specific methods and use the generic methods
 	// for EArtifact instead. Maybe we need to add folders as distinct artifacts.
 	public File getIconsDir() {
-		return new File(getProjectFolder(EPlugins.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
+		return new File(getProjectFolder(PluginDescriptor.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
 	}
 
 	public File getCSSDir() {
-		return new File(getProjectFolder(EPlugins.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + DEFAULT_CSS_DIR);
+		return new File(getProjectFolder(PluginDescriptor.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + DEFAULT_CSS_DIR);
 	}
 
 	public File getSchemaFolder() {
-		return new File(getProjectFolder(EPlugins.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + SCHEMA_DIR);
+		return new File(getProjectFolder(PluginDescriptor.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + SCHEMA_DIR);
 	}
 	
 	public File getNewIconFile() {
@@ -268,14 +268,14 @@ public abstract class GenerationContext {
 		return packagePath;
 	}
 
-	public File getSourceFolder(EPlugins plugin, boolean doOverride) {
+	public File getSourceFolder(PluginDescriptor plugin, boolean doOverride) {
 		return csUtil.getSourceFolder(getConcreteSyntax(), doOverride, getProjectFolder(plugin).getAbsolutePath());
 	}
 
 	public File getResolverFile(GenFeature proxyReference) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
-		File resolverFile = new File(getSourceFolder(EPlugins.RESOURCE_PLUGIN, doOverride) + File.separator + getResolverPackagePath() + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
+		File resolverFile = new File(getSourceFolder(PluginDescriptor.RESOURCE_PLUGIN, doOverride) + File.separator + getResolverPackagePath() + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
 		return resolverFile;
 	}
 
@@ -286,7 +286,7 @@ public abstract class GenerationContext {
 	public File getTokenResolverFile(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_TOKEN_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
-		return new File(getSourceFolder(EPlugins.RESOURCE_PLUGIN, doOverride).getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
+		return new File(getSourceFolder(PluginDescriptor.RESOURCE_PLUGIN, doOverride).getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 	}
 
 	public File getANTLRGrammarFile() {
@@ -334,13 +334,13 @@ public abstract class GenerationContext {
 
 	// TODO mseifert: this does not belong here
 	public String getBuilderID() {
-		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		String pluginID = PluginDescriptor.RESOURCE_PLUGIN.getName(getConcreteSyntax());
 		return pluginID + ".builder";
 	}
 
 	// TODO mseifert: this does not belong here
 	public String getNatureID() {
-		String pluginID = EPlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		String pluginID = PluginDescriptor.RESOURCE_PLUGIN.getName(getConcreteSyntax());
 		return pluginID + ".nature";
 	}
 

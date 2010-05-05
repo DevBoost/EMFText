@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -27,9 +27,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotProjectCreator extends AbstractArtifactCreator {
 
-	private EPlugins plugin;
+	private PluginDescriptor plugin;
 
-	public DotProjectCreator(EPlugins plugin) {
+	public DotProjectCreator(PluginDescriptor plugin) {
 		super(".project file");
 		this.plugin = plugin;
 	}
@@ -47,7 +47,7 @@ public class DotProjectCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+		if (plugin == PluginDescriptor.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_DOT_PROJECT;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

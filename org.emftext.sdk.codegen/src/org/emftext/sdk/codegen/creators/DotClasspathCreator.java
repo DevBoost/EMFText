@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
@@ -28,9 +28,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotClasspathCreator extends AbstractArtifactCreator {
 
-	private EPlugins plugin;
+	private PluginDescriptor plugin;
 
-	public DotClasspathCreator(EPlugins plugin) {
+	public DotClasspathCreator(PluginDescriptor plugin) {
 		super(".classpath file");
 		this.plugin = plugin;
 	}
@@ -51,7 +51,7 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+		if (plugin == PluginDescriptor.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_DOT_CLASSPATH;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

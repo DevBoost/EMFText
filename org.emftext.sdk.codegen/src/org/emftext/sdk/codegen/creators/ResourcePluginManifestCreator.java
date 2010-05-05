@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.EPlugins;
+import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ResourcePluginManifestGenerator;
@@ -35,7 +35,7 @@ public class ResourcePluginManifestCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		final File project = context.getProjectFolder(EPlugins.RESOURCE_PLUGIN);
+		final File project = context.getProjectFolder(PluginDescriptor.RESOURCE_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
 		IGenerator<GenerationContext> generator = new ResourcePluginManifestGenerator(context);
