@@ -16,7 +16,7 @@ public class SequenceGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SEQUENCE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SequenceGenerator(context);
 	}
 

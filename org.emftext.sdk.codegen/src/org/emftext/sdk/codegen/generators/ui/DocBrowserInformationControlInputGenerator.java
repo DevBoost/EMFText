@@ -169,7 +169,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new DocBrowserInformationControlInputGenerator(context);
 	}
 }

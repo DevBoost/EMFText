@@ -606,7 +606,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new EditorGenerator(context);
 	}
 }

@@ -34,7 +34,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ExpectedStructuralFeatureGenerator(context);
 	}
 

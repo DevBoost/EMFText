@@ -32,7 +32,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IReferenceResolverSwitchGenerator(context);
 	}
 

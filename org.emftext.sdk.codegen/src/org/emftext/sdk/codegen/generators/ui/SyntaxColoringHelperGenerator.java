@@ -29,7 +29,7 @@ public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_COLORING_HELPER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SyntaxColoringHelperGenerator(context);
 	}
 

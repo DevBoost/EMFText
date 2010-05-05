@@ -80,7 +80,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		return binIncludes;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		throw new UnsupportedOperationException();
 	}
 }

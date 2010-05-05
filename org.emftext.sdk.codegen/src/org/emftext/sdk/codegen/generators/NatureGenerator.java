@@ -22,7 +22,7 @@ public class NatureGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.NATURE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new NatureGenerator(context);
 	}
 

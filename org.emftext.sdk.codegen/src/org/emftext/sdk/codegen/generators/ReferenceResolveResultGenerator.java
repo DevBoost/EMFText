@@ -152,7 +152,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ReferenceResolveResultGenerator(context);
 	}
 }

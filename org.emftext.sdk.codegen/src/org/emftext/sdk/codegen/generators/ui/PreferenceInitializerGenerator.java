@@ -33,7 +33,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PREFERENCE_INITIALIZER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PreferenceInitializerGenerator(context);
 	}
 

@@ -16,7 +16,7 @@ public class CompoundGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COMPOUND);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CompoundGenerator(context);
 	}
 

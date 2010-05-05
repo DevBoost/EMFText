@@ -44,7 +44,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new MinimalModelHelperGenerator(context);
 	}
 

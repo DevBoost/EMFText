@@ -149,7 +149,7 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 	
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PropertySheetPageGenerator(context);
 	}
 }

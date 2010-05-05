@@ -43,7 +43,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.E_OBJECT_UTIL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new EObjectUtilGenerator(context);
 	}
 

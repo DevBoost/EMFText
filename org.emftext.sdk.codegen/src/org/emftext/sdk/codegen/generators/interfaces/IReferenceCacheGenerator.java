@@ -19,7 +19,7 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_CACHE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IReferenceCacheGenerator(context);
 	}
 

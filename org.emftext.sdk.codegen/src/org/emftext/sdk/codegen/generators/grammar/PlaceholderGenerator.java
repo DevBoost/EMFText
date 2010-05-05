@@ -20,7 +20,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PLACEHOLDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PlaceholderGenerator(context);
 	}
 

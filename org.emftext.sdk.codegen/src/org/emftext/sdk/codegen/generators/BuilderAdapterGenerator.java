@@ -28,7 +28,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.BUILDER_ADAPTER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new BuilderAdapterGenerator(context);
 	}
 

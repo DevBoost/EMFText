@@ -66,7 +66,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SyntaxColoringPreferencePageGenerator(context);
 	}
 

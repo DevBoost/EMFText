@@ -16,7 +16,7 @@ public class ChoiceGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CHOICE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ChoiceGenerator(context);
 	}
 

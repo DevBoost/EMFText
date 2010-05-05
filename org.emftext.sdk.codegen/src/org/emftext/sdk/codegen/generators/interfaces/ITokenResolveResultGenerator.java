@@ -29,7 +29,7 @@ public class ITokenResolveResultGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITokenResolveResultGenerator(context);
 	}
 

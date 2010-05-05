@@ -39,7 +39,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CopiedEObjectInternalEListGenerator(context);
 	}
 

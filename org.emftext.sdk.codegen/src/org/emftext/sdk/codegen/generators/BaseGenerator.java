@@ -32,7 +32,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class BaseGenerator implements IGenerator, IProblemCollector {
+public abstract class BaseGenerator implements IGenerator<GenerationContext>, IProblemCollector {
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {

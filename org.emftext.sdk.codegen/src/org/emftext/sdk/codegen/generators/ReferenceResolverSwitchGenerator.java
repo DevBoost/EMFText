@@ -171,7 +171,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ReferenceResolverSwitchGenerator(context);
 	}
 }

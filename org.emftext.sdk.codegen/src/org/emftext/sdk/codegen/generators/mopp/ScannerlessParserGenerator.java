@@ -1488,7 +1488,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return ((List<?>) parent.eGet(feature)).indexOf(object);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ScannerlessParserGenerator(context);
 	}
 }

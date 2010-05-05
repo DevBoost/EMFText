@@ -32,7 +32,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IContextDependentURIFragmentGenerator(context);
 	}
 

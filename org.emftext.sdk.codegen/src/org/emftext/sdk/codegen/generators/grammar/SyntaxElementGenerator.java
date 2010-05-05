@@ -19,7 +19,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_ELEMENT);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SyntaxElementGenerator(context);
 	}
 

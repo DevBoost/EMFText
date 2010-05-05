@@ -64,7 +64,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CODE_COMPLETION_HELPER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CodeCompletionHelperGenerator(context);
 	}
 

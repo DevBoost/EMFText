@@ -29,7 +29,7 @@ public class CastUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CAST_UTIL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CastUtilGenerator(context);
 	}
 

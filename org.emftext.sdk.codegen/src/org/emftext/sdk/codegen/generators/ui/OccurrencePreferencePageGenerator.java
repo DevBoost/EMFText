@@ -47,7 +47,7 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.OCCURRENCE_PREFERENCE_PAGE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new OccurrencePreferencePageGenerator(context);
 	}
 

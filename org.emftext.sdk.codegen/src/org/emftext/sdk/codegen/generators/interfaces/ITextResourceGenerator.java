@@ -37,7 +37,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_RESOURCE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextResourceGenerator(context);
 	}
 

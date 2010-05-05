@@ -16,7 +16,7 @@ public class LineBreakGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LINE_BREAK);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new LineBreakGenerator(context);
 	}
 

@@ -31,7 +31,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_URI_MAPPING);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IURIMappingGenerator(context);
 	}
 

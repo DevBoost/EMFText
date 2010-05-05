@@ -16,7 +16,7 @@ public class CardinalityGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CARDINALITY);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CardinalityGenerator(context);
 	}
 

@@ -17,7 +17,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.FORMATTING_ELEMENT);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new FormattingElementGenerator(context);
 	}
 

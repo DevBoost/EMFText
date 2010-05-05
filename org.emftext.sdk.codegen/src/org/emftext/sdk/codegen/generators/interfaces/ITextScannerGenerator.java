@@ -29,7 +29,7 @@ public class ITextScannerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_SCANNER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextScannerGenerator(context);
 	}
 

@@ -20,7 +20,7 @@ public class IBuilderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_BUILDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IBuilderGenerator(context);
 	}
 

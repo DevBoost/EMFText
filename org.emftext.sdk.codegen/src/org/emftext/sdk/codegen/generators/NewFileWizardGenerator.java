@@ -295,7 +295,7 @@ public class NewFileWizardGenerator extends JavaBaseGenerator {
 		return new ArrayList<GenerationProblem>();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new NewFileWizardGenerator(context);
 	}
 }

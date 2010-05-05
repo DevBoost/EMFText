@@ -17,7 +17,7 @@ public class PairGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PAIR);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PairGenerator(context);
 	}
 

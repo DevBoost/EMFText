@@ -41,7 +41,7 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PositionCategoryGenerator(context);
 	}
 }

@@ -32,7 +32,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_PARSER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextParserGenerator(context);
 	}
 

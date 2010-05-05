@@ -29,7 +29,7 @@ public class IProblemGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_PROBLEM);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IProblemGenerator(context);
 	}
 

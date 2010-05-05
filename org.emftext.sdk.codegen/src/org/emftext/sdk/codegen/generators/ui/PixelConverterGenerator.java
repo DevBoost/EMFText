@@ -34,7 +34,7 @@ public class PixelConverterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PIXEL_CONVERTER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PixelConverterGenerator(context);
 	}
 

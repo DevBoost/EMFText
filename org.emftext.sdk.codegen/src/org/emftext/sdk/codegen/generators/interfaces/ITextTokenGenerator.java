@@ -29,7 +29,7 @@ public class ITextTokenGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_TOKEN);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextTokenGenerator(context);
 	}
 

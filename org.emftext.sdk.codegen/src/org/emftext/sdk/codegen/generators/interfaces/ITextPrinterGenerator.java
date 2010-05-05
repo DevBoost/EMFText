@@ -32,7 +32,7 @@ public class ITextPrinterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_PRINTER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextPrinterGenerator(context);
 	}
 

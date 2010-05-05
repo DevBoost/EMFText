@@ -22,7 +22,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LAYOUT_INFORMATION);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new LayoutInformationGenerator(context);
 	}
 

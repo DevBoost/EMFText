@@ -52,7 +52,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.NEW_FILE_WIZARD_PAGE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new NewFileWizardPageGenerator(context);
 	}
 

@@ -24,12 +24,12 @@ import java.util.Collection;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public interface IGenerator {
+public interface IGenerator<GeneraionContextType> {
 	
 	public boolean generate(PrintWriter out);
 	
 	public Collection<GenerationProblem> getCollectedProblems();
 	public Collection<GenerationProblem> getCollectedErrors();
 
-	public IGenerator newInstance(GenerationContext context);
+	public IGenerator<GeneraionContextType> newInstance(GeneraionContextType context);
 }

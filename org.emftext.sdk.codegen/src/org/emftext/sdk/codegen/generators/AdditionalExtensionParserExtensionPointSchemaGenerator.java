@@ -26,7 +26,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
-public class AdditionalExtensionParserExtensionPointSchemaGenerator implements IGenerator {
+public class AdditionalExtensionParserExtensionPointSchemaGenerator implements IGenerator<GenerationContext> {
 
 	private GenerationContext context;
 
@@ -161,7 +161,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator implements I
 		return true;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
 	}
 

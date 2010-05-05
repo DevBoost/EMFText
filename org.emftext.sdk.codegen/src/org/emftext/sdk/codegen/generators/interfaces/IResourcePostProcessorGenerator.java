@@ -29,7 +29,7 @@ public class IResourcePostProcessorGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IResourcePostProcessorGenerator(context);
 	}
 

@@ -212,7 +212,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 		return Collections.emptySet();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new TokenResolverGenerator(context);
 	}
 

@@ -29,7 +29,7 @@ import org.emftext.sdk.util.StringUtil;
  * A generator that creates the manifest file for the resource
  * plug-in.
  */
-public abstract class ManifestGenerator implements IGenerator {
+public abstract class ManifestGenerator implements IGenerator<GenerationContext> {
 
 	private GenerationContext context;
 
@@ -105,7 +105,7 @@ public abstract class ManifestGenerator implements IGenerator {
 		return Collections.emptyList();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		throw new UnsupportedOperationException();
 	}
 }

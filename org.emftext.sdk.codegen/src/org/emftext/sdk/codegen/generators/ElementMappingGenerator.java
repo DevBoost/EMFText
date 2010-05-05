@@ -63,7 +63,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ElementMappingGenerator(context);
 	}
 }

@@ -2087,7 +2087,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return contains;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ANTLRGrammarGenerator(context);
 	}
 }

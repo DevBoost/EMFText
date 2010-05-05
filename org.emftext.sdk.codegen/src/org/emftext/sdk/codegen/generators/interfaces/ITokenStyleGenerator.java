@@ -29,7 +29,7 @@ public class ITokenStyleGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TOKEN_STYLE);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITokenStyleGenerator(context);
 	}
 

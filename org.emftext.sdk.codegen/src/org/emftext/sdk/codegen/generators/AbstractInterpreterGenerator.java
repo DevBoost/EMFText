@@ -50,7 +50,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		genClassCache = concreteSyntax.getGenClassCache();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new AbstractInterpreterGenerator(context);
 	}
 

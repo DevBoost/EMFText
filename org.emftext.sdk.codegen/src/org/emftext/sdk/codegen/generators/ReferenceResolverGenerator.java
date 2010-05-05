@@ -230,7 +230,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		return Collections.emptySet();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ReferenceResolverGenerator(context);
 	}
 }

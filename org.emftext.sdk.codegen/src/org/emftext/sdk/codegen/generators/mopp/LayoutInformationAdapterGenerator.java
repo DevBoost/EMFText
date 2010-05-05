@@ -25,7 +25,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new LayoutInformationAdapterGenerator(context);
 	}
 

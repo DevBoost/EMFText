@@ -31,7 +31,7 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IHoverTextProviderGenerator(context);
 	}
 

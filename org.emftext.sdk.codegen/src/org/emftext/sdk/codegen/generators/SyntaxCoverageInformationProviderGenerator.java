@@ -82,7 +82,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
         sc.addLineBreak();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SyntaxCoverageInformationProviderGenerator(context);
 	}
 }

@@ -21,7 +21,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COMPLETION_PROPOSAL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new CompletionProposalGenerator(context);
 	}
 

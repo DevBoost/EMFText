@@ -20,7 +20,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new AttributeValueProviderGenerator(context);
 	}
 

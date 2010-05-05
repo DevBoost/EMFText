@@ -29,7 +29,7 @@ public class IOptionsGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_OPTIONS);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IOptionsGenerator(context);
 	}
 

@@ -17,7 +17,7 @@ public class KeywordGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.KEYWORD);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new KeywordGenerator(context);
 	}
 

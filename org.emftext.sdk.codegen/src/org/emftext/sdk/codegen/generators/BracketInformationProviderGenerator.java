@@ -215,7 +215,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new BracketInformationProviderGenerator(context);
 	}
 }

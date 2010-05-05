@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
-public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerator {
+public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerator<GenerationContext> {
 
 	private GenerationContext context;
 
@@ -167,7 +167,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 		return true;
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 	}
 

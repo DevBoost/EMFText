@@ -32,7 +32,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 /**
  * A generator for the plugin.xml file.
  */
-public class PluginXMLGenerator implements IGenerator {
+public class PluginXMLGenerator implements IGenerator<GenerationContext> {
 
 	private GenerationContext context;
 	private String pluginID;
@@ -246,7 +246,7 @@ public class PluginXMLGenerator implements IGenerator {
 		return Collections.emptyList();
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new PluginXMLGenerator(context);
 	}
 }

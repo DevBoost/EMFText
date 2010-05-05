@@ -29,7 +29,7 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextResourcePluginPartGenerator(context);
 	}
 

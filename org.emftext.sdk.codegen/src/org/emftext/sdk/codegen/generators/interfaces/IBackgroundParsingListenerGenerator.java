@@ -31,7 +31,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IBackgroundParsingListenerGenerator(context);
 	}
 

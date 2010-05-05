@@ -29,7 +29,7 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_MAPPING);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IReferenceMappingGenerator(context);
 	}
 

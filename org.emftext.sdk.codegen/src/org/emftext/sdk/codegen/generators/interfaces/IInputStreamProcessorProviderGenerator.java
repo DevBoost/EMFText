@@ -31,7 +31,7 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IInputStreamProcessorProviderGenerator(context);
 	}
 

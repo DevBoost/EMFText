@@ -33,7 +33,7 @@ public class ListUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LIST_UTIL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ListUtilGenerator(context);
 	}
 

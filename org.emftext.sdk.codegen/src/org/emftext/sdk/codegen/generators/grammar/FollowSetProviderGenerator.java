@@ -32,7 +32,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new FollowSetProviderGenerator(context);
 	}
 

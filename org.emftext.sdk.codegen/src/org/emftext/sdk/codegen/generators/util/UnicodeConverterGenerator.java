@@ -32,7 +32,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.UNICODE_CONVERTER);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new UnicodeConverterGenerator(context);
 	}
 

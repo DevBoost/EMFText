@@ -18,7 +18,7 @@ public class TerminalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.TERMINAL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new TerminalGenerator(context);
 	}
 

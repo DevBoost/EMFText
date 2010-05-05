@@ -34,7 +34,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_META_INFORMATION);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IMetaInformationGenerator(context);
 	}
 

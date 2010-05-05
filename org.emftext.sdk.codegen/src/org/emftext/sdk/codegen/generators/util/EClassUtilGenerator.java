@@ -33,7 +33,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.E_CLASS_UTIL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new EClassUtilGenerator(context);
 	}
 

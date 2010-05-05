@@ -32,7 +32,7 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ITextDiagnosticGenerator(context);
 	}
 

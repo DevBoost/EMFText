@@ -21,7 +21,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.EXPECTED_TERMINAL);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new ExpectedTerminalGenerator(context);
 	}
 

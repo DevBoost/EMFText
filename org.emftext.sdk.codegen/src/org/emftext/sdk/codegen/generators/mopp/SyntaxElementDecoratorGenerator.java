@@ -26,7 +26,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new SyntaxElementDecoratorGenerator(context);
 	}
 

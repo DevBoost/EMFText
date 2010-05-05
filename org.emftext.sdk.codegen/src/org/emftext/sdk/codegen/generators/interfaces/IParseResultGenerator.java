@@ -32,7 +32,7 @@ public class IParseResultGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_PARSE_RESULT);
 	}
 
-	public IGenerator newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
 		return new IParseResultGenerator(context);
 	}
 
