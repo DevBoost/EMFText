@@ -184,196 +184,196 @@ import org.emftext.sdk.codegen.generators.util.TextResourceUtilGenerator;
 import org.emftext.sdk.codegen.generators.util.UnicodeConverterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public enum EArtifact {
+public class EArtifact {
 	
-	BUILD_PROPERTIES(null, null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES), 
-	DOT_CLASSPATH(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH), 
-	DOT_PROJECT(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT), 
+	public final static EArtifact BUILD_PROPERTIES = new EArtifact(null, null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
+	public final static EArtifact DOT_CLASSPATH = new EArtifact(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
+	public final static EArtifact DOT_PROJECT = new EArtifact(null, null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
 
 	// the classes
-	ANTLR_LEXER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER),
-	ANTLR_SCANNER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "AntlrScanner", new ANTLRScannerGenerator(), OptionTypes.OVERRIDE_SCANNER),
-	ANTLR_PARSER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Parser", null, OptionTypes.OVERRIDE_PARSER),
-	ANTLR_PARSER_BASE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ANTLRParserBase", new ANTLRParserBaseGenerator(), OptionTypes.OVERRIDE_PARSER),
-	CONTEXT_DEPENDENT_URI_FRAGMENT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ContextDependentURIFragment", new ContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT),
-	CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ContextDependentURIFragmentFactory", new ContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY),
-	DELEGATING_RESOLVE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "DelegatingResolveResult", new DelegatingResolveResultGenerator(), OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT),
-	DUMMY_E_OBJECT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "DummyEObject", new DummyEObjectGenerator(), OptionTypes.OVERRIDE_DUMMY_EOBJECT),
-	ELEMENT_MAPPING(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ElementMapping", new ElementMappingGenerator(), OptionTypes.OVERRIDE_ELEMENT_MAPPING),
-	FUZZY_RESOLVE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FuzzyResolveResult", new FuzzyResolveResultGenerator(), OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT),
-	LOCATION_MAP(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LocationMap", new LocationMapGenerator(), OptionTypes.OVERRIDE_LOCATION_MAP),
-	REFERENCE_RESOLVE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolveResult", new ReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVE_RESULT),
-	TOKEN_RESOLVE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolveResult", new TokenResolveResultGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT),
-	URI_MAPPING(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "URIMapping", new URIMappingGenerator(), OptionTypes.OVERRIDE_URI_MAPPING),
-	SCANNERLESS_SCANNER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessScanner", new ScannerlessScannerGenerator(), OptionTypes.OVERRIDE_PARSER),
-	SCANNERLESS_PARSER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessParser", new ScannerlessParserGenerator(), OptionTypes.OVERRIDE_PARSER),
-	PROBLEM(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Problem", new ProblemClassGenerator(), OptionTypes.OVERRIDE_PROBLEM_CLASS),
-	PRINTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", new PrinterGenerator(), OptionTypes.OVERRIDE_PRINTER),
-	PRINTER2(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer2", new Printer2Generator(), OptionTypes.OVERRIDE_PRINTER2),
-	SYNTAX_ELEMENT_DECORATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxElementDecorator", new SyntaxElementDecoratorGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR), 
-	RESOURCE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
-	RESOURCE_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
-	RESOURCE_FACTORY_DELEGATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),
-	TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
-	REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
-	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION),
+	public final static EArtifact ANTLR_LEXER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER);
+	public final static EArtifact ANTLR_SCANNER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "AntlrScanner", new ANTLRScannerGenerator(), OptionTypes.OVERRIDE_SCANNER);
+	public final static EArtifact ANTLR_PARSER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Parser", null, OptionTypes.OVERRIDE_PARSER);
+	public final static EArtifact ANTLR_PARSER_BASE = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ANTLRParserBase", new ANTLRParserBaseGenerator(), OptionTypes.OVERRIDE_PARSER);
+	public final static EArtifact CONTEXT_DEPENDENT_URI_FRAGMENT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ContextDependentURIFragment", new ContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT);
+	public final static EArtifact CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ContextDependentURIFragmentFactory", new ContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+	public final static EArtifact DELEGATING_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "DelegatingResolveResult", new DelegatingResolveResultGenerator(), OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT);
+	public final static EArtifact DUMMY_E_OBJECT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "DummyEObject", new DummyEObjectGenerator(), OptionTypes.OVERRIDE_DUMMY_EOBJECT);
+	public final static EArtifact ELEMENT_MAPPING = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ElementMapping", new ElementMappingGenerator(), OptionTypes.OVERRIDE_ELEMENT_MAPPING);
+	public final static EArtifact FUZZY_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FuzzyResolveResult", new FuzzyResolveResultGenerator(), OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT);
+	public final static EArtifact LOCATION_MAP = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LocationMap", new LocationMapGenerator(), OptionTypes.OVERRIDE_LOCATION_MAP);
+	public final static EArtifact REFERENCE_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolveResult", new ReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVE_RESULT);
+	public final static EArtifact TOKEN_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolveResult", new TokenResolveResultGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT);
+	public final static EArtifact URI_MAPPING = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "URIMapping", new URIMappingGenerator(), OptionTypes.OVERRIDE_URI_MAPPING);
+	public final static EArtifact SCANNERLESS_SCANNER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessScanner", new ScannerlessScannerGenerator(), OptionTypes.OVERRIDE_PARSER);
+	public final static EArtifact SCANNERLESS_PARSER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessParser", new ScannerlessParserGenerator(), OptionTypes.OVERRIDE_PARSER);
+	public final static EArtifact PROBLEM = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Problem", new ProblemClassGenerator(), OptionTypes.OVERRIDE_PROBLEM_CLASS);
+	public final static EArtifact PRINTER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", new PrinterGenerator(), OptionTypes.OVERRIDE_PRINTER);
+	public final static EArtifact PRINTER2 = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer2", new Printer2Generator(), OptionTypes.OVERRIDE_PRINTER2);
+	public final static EArtifact SYNTAX_ELEMENT_DECORATOR = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxElementDecorator", new SyntaxElementDecoratorGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR);
+	public final static EArtifact RESOURCE = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE);
+	public final static EArtifact RESOURCE_FACTORY = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY);
+	public final static EArtifact RESOURCE_FACTORY_DELEGATOR = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR);
+	public final static EArtifact TOKEN_RESOLVER_FACTORY = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY);
+	public final static EArtifact REFERENCE_RESOLVER_SWITCH = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH);
+	public final static EArtifact META_INFORMATION = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION);
+	
 	// TODO the hover text provider should actually go to the UI package, but moving it requires
 	// to remove the old generated class from existing DSL plug-ins. If bug #1296 is resolved 
 	// this task is probably obsolete
-	HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
-	DEFAULT_HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, UI_PACKAGE, "", "DefaultHoverTextProvider", new DefaultHoverTextProviderGenerator(), OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER),
-	NEW_FILE_CONTENT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "NewFileContentProvider", new NewFileContentProviderGenerator(), OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER),
-	PARSE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
-	PLUGIN_ACTIVATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
-	TEXT_TOKEN(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),
-	TERMINATE_PARSING_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
-	UNEXPECTED_CONTENT_TYPE_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
-	TOKEN_STYLE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenStyleInformationProvider", new TokenStyleInformationProviderGenerator(), OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER),
-	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),
-	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
-	SYNTAX_COVERAGE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER),
-	LAYOUT_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LayoutInformation", new LayoutInformationGenerator(), OptionTypes.OVERRIDE_LAYOUT_INFORMATION), 
-	LAYOUT_INFORMATION_ADAPTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LayoutInformationAdapter", new LayoutInformationAdapterGenerator(), OptionTypes.OVERRIDE_LAYOUT_INFORMATION_ADAPTER),
+	public final static EArtifact HOVER_TEXT_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
+	public final static EArtifact DEFAULT_HOVER_TEXT_PROVIDER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "DefaultHoverTextProvider", new DefaultHoverTextProviderGenerator(), OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER);
+	public final static EArtifact NEW_FILE_CONTENT_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "NewFileContentProvider", new NewFileContentProviderGenerator(), OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER);
+	public final static EArtifact PARSE_RESULT = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT);
+	public final static EArtifact PLUGIN_ACTIVATOR = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR);
+	public final static EArtifact TEXT_TOKEN = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN);
+	public final static EArtifact TERMINATE_PARSING_EXCEPTION = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION);
+	public final static EArtifact UNEXPECTED_CONTENT_TYPE_EXCEPTION = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION);
+	public final static EArtifact TOKEN_STYLE_INFORMATION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenStyleInformationProvider", new TokenStyleInformationProviderGenerator(), OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER);
+	public final static EArtifact FOLDING_INFORMATION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER);
+	public final static EArtifact BRACKET_INFORMATION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER);
+	public final static EArtifact SYNTAX_COVERAGE_INFORMATION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER);
+	public final static EArtifact LAYOUT_INFORMATION = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LayoutInformation", new LayoutInformationGenerator(), OptionTypes.OVERRIDE_LAYOUT_INFORMATION); 
+	public final static EArtifact LAYOUT_INFORMATION_ADAPTER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "LayoutInformationAdapter", new LayoutInformationAdapterGenerator(), OptionTypes.OVERRIDE_LAYOUT_INFORMATION_ADAPTER);
 
-	NATURE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Nature", new NatureGenerator(), OptionTypes.OVERRIDE_NATURE),
-	BUILDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Builder", new BuilderGenerator(), OptionTypes.OVERRIDE_BUILDER),
-	BUILDER_ADAPTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BuilderAdapter", new BuilderAdapterGenerator(), OptionTypes.OVERRIDE_BUILDER_ADAPTER),
-	I_BUILDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Builder", new IBuilderGenerator(), OptionTypes.OVERRIDE_IBUILDER),
+	public final static EArtifact NATURE = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Nature", new NatureGenerator(), OptionTypes.OVERRIDE_NATURE);
+	public final static EArtifact BUILDER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Builder", new BuilderGenerator(), OptionTypes.OVERRIDE_BUILDER);
+	public final static EArtifact BUILDER_ADAPTER = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BuilderAdapter", new BuilderAdapterGenerator(), OptionTypes.OVERRIDE_BUILDER_ADAPTER);
+	public final static EArtifact I_BUILDER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Builder", new IBuilderGenerator(), OptionTypes.OVERRIDE_IBUILDER);
 	
-	DEFAULT_TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", new DefaultTokenResolverGenerator(), OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER),
-	DEFAULT_RESOLVER_DELEGATE(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE), 
-	TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS), 
+	public final static EArtifact DEFAULT_TOKEN_RESOLVER = new EArtifact(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", new DefaultTokenResolverGenerator(), OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
+	public final static EArtifact DEFAULT_RESOLVER_DELEGATE = new EArtifact(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 
+	public final static EArtifact TOKEN_RESOLVER = new EArtifact(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 
-	ANTLR_TOKEN_HELPER(RESOURCE_PLUGIN, UI_PACKAGE, "", "AntlrTokenHelper", new AntlrTokenHelperGenerator(), OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER), 
-	BRACKET_SET(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketSet", new BracketSetGenerator(), OptionTypes.OVERRIDE_BRACKET_SET),
-	POSITION_HELPER(RESOURCE_PLUGIN, UI_PACKAGE, "", "PositionHelper", new PositionHelperGenerator(), OptionTypes.OVERRIDE_POSITION_HELPER),
-	CODE_FOLDING_MANAGER(RESOURCE_PLUGIN, UI_PACKAGE, "", "CodeFoldingManager", new CodeFoldingManagerGenerator(), OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER),
-	EDITOR(RESOURCE_PLUGIN, UI_PACKAGE, "", "Editor", new EditorGenerator(), OptionTypes.OVERRIDE_EDITOR),
-	COLOR_MANAGER(RESOURCE_PLUGIN, UI_PACKAGE, "", "ColorManager", new ColorManagerGenerator(), OptionTypes.OVERRIDE_COLOR_MANAGER),
-	BACKGROUND_PARSING_STRATEGY(RESOURCE_PLUGIN, UI_PACKAGE, "", "BackgroundParsingStrategy", new BackgroundParsingStrategyGenerator(), OptionTypes.OVERRIDE_PARSING_STRATEGY),
-	TEXT_HOVER(RESOURCE_PLUGIN, UI_PACKAGE, "", "TextHover", new TextHoverGenerator(), OptionTypes.OVERRIDE_TEXT_HOVER),
-	HTML_PRINTER(RESOURCE_PLUGIN, UI_PACKAGE, "", "HTMLPrinter", new HTMLPrinterGenerator(), OptionTypes.OVERRIDE_HTML_PRINTER),
-	POSITION_CATEGORY(RESOURCE_PLUGIN, UI_PACKAGE, "", "PositionCategory", new PositionCategoryGenerator(), OptionTypes.OVERRIDE_POSITION_CATEGORY),
-	OCCURENCE(RESOURCE_PLUGIN, UI_PACKAGE, "", "Occurrence", new OccurrenceGenerator(), OptionTypes.OVERRIDE_OCCURENCE),
-	TOKEN_SCANNER(RESOURCE_PLUGIN, UI_PACKAGE, "", "TokenScanner", new TokenScannerGenerator(), OptionTypes.OVERRIDE_TOKEN_SCANNER),
-	MARKER_HELPER(RESOURCE_PLUGIN, UI_PACKAGE, "", "MarkerHelper", new MarkerHelperGenerator(), OptionTypes.OVERRIDE_MARKER_HELPER),
-	HYPERLINK(RESOURCE_PLUGIN, UI_PACKAGE, "", "Hyperlink", new HyperlinkGenerator(), OptionTypes.OVERRIDE_HYPERLINK),
-	HYPERLINK_DETECTOR(RESOURCE_PLUGIN, UI_PACKAGE, "", "HyperlinkDetector", new HyperlinkDetectorGenerator(), OptionTypes.OVERRIDE_HYPERLINK_DETECTOR), 
-	E_OBJECT_SELECTION(RESOURCE_PLUGIN, UI_PACKAGE, "", "EObjectSelection", new EObjectSelectionGenerator(), OptionTypes.OVERRIDE_EOBJECT_SELECTION),
-	HIGHLIGHTING(RESOURCE_PLUGIN, UI_PACKAGE, "", "Highlighting", new HighlightingGenerator(), OptionTypes.OVERRIDE_HIGHLIGHTING),
-	PROPERTY_SHEET_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "PropertySheetPage", new PropertySheetPageGenerator(), OptionTypes.OVERRIDE_PROPERTY_SHEET_PAGE),
-	OUTLINE_PAGE_TREE_VIEWER(RESOURCE_PLUGIN, UI_PACKAGE, "", "OutlinePageTreeViewer", new OutlinePageTreeViewerGenerator(), OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER), 
-	OUTLINE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "OutlinePage", new OutlinePageGenerator(), OptionTypes.OVERRIDE_OUTLINE_PAGE),
-	EDITOR_CONFIGURATION(RESOURCE_PLUGIN, UI_PACKAGE, "", "EditorConfiguration", new EditorConfigurationGenerator(), OptionTypes.OVERRIDE_EDITOR_CONFIGURATION),
-	DOC_BROWSER_INFORMATION_CONTROL_INPUT(RESOURCE_PLUGIN, UI_PACKAGE, "", "DocBrowserInformationControlInput", new DocBrowserInformationControlInputGenerator(), OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT),
-	COMPLETION_PROCESSOR(RESOURCE_PLUGIN, UI_PACKAGE, "", "CompletionProcessor", new CompletionProcessorGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROCESSOR),
-	BROWSER_INFORMATION_CONTROL(RESOURCE_PLUGIN, UI_PACKAGE, "", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL),
+	public final static EArtifact ANTLR_TOKEN_HELPER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "AntlrTokenHelper", new AntlrTokenHelperGenerator(), OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER); 
+	public final static EArtifact BRACKET_SET = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketSet", new BracketSetGenerator(), OptionTypes.OVERRIDE_BRACKET_SET);
+	public final static EArtifact POSITION_HELPER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PositionHelper", new PositionHelperGenerator(), OptionTypes.OVERRIDE_POSITION_HELPER);
+	public final static EArtifact CODE_FOLDING_MANAGER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "CodeFoldingManager", new CodeFoldingManagerGenerator(), OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER);
+	public final static EArtifact EDITOR = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "Editor", new EditorGenerator(), OptionTypes.OVERRIDE_EDITOR);
+	public final static EArtifact COLOR_MANAGER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "ColorManager", new ColorManagerGenerator(), OptionTypes.OVERRIDE_COLOR_MANAGER);
+	public final static EArtifact BACKGROUND_PARSING_STRATEGY = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "BackgroundParsingStrategy", new BackgroundParsingStrategyGenerator(), OptionTypes.OVERRIDE_PARSING_STRATEGY);
+	public final static EArtifact TEXT_HOVER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "TextHover", new TextHoverGenerator(), OptionTypes.OVERRIDE_TEXT_HOVER);
+	public final static EArtifact HTML_PRINTER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "HTMLPrinter", new HTMLPrinterGenerator(), OptionTypes.OVERRIDE_HTML_PRINTER);
+	public final static EArtifact POSITION_CATEGORY = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PositionCategory", new PositionCategoryGenerator(), OptionTypes.OVERRIDE_POSITION_CATEGORY);
+	public final static EArtifact OCCURENCE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "Occurrence", new OccurrenceGenerator(), OptionTypes.OVERRIDE_OCCURENCE);
+	public final static EArtifact TOKEN_SCANNER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "TokenScanner", new TokenScannerGenerator(), OptionTypes.OVERRIDE_TOKEN_SCANNER);
+	public final static EArtifact MARKER_HELPER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "MarkerHelper", new MarkerHelperGenerator(), OptionTypes.OVERRIDE_MARKER_HELPER);
+	public final static EArtifact HYPERLINK = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "Hyperlink", new HyperlinkGenerator(), OptionTypes.OVERRIDE_HYPERLINK);
+	public final static EArtifact HYPERLINK_DETECTOR = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "HyperlinkDetector", new HyperlinkDetectorGenerator(), OptionTypes.OVERRIDE_HYPERLINK_DETECTOR); 
+	public final static EArtifact E_OBJECT_SELECTION = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "EObjectSelection", new EObjectSelectionGenerator(), OptionTypes.OVERRIDE_EOBJECT_SELECTION);
+	public final static EArtifact HIGHLIGHTING = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "Highlighting", new HighlightingGenerator(), OptionTypes.OVERRIDE_HIGHLIGHTING);
+	public final static EArtifact PROPERTY_SHEET_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PropertySheetPage", new PropertySheetPageGenerator(), OptionTypes.OVERRIDE_PROPERTY_SHEET_PAGE);
+	public final static EArtifact OUTLINE_PAGE_TREE_VIEWER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "OutlinePageTreeViewer", new OutlinePageTreeViewerGenerator(), OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER); 
+	public final static EArtifact OUTLINE_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "OutlinePage", new OutlinePageGenerator(), OptionTypes.OVERRIDE_OUTLINE_PAGE);
+	public final static EArtifact EDITOR_CONFIGURATION = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "EditorConfiguration", new EditorConfigurationGenerator(), OptionTypes.OVERRIDE_EDITOR_CONFIGURATION);
+	public final static EArtifact DOC_BROWSER_INFORMATION_CONTROL_INPUT = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "DocBrowserInformationControlInput", new DocBrowserInformationControlInputGenerator(), OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT);
+	public final static EArtifact COMPLETION_PROCESSOR = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "CompletionProcessor", new CompletionProcessorGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
+	public final static EArtifact BROWSER_INFORMATION_CONTROL = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL);
 	// preference pages
-	PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferencePage", new PreferencePageGenerator(), OptionTypes.OVERRIDE_PREFERENCE_PAGE),
-	BRACKET_PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE),
-	PREFERENCE_CONSTANTS(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferenceConstants", new PreferenceConstantsGenerator(), OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS),
-	OCCURRENCE_PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "OccurrencePreferencePage", new OccurrencePreferencePageGenerator(), OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE),
-	PIXEL_CONVERTER(RESOURCE_PLUGIN, UI_PACKAGE, "", "PixelConverter", new PixelConverterGenerator(), OptionTypes.OVERRIDE_PIXEL_CONVERTER),
-	PREFERENCE_INITIALIZER(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferenceInitializer", new PreferenceInitializerGenerator(), OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER),
-	SYNTAX_COLORING_HELPER(RESOURCE_PLUGIN, UI_PACKAGE, "", "SyntaxColoringHelper", new SyntaxColoringHelperGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER),
-	SYNTAX_COLORING_PREFERENCE_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "SyntaxColoringPreferencePage", new SyntaxColoringPreferencePageGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE),
-	NEW_FILE_WIZARD(RESOURCE_PLUGIN, UI_PACKAGE, "", "NewFileWizard", new NewFileWizardGenerator(), OptionTypes.OVERRIDE_NEW_FILE_WIZARD),
-	NEW_FILE_WIZARD_PAGE(RESOURCE_PLUGIN, UI_PACKAGE, "", "NewFileWizardPage", new NewFileWizardPageGenerator(), OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE),
+	public final static EArtifact PREFERENCE_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferencePage", new PreferencePageGenerator(), OptionTypes.OVERRIDE_PREFERENCE_PAGE);
+	public final static EArtifact BRACKET_PREFERENCE_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE);
+	public final static EArtifact PREFERENCE_CONSTANTS = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferenceConstants", new PreferenceConstantsGenerator(), OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS);
+	public final static EArtifact OCCURRENCE_PREFERENCE_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "OccurrencePreferencePage", new OccurrencePreferencePageGenerator(), OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE);
+	public final static EArtifact PIXEL_CONVERTER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PixelConverter", new PixelConverterGenerator(), OptionTypes.OVERRIDE_PIXEL_CONVERTER);
+	public final static EArtifact PREFERENCE_INITIALIZER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "PreferenceInitializer", new PreferenceInitializerGenerator(), OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER);
+	public final static EArtifact SYNTAX_COLORING_HELPER = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "SyntaxColoringHelper", new SyntaxColoringHelperGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER);
+	public final static EArtifact SYNTAX_COLORING_PREFERENCE_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "SyntaxColoringPreferencePage", new SyntaxColoringPreferencePageGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE);
+	public final static EArtifact NEW_FILE_WIZARD = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "NewFileWizard", new NewFileWizardGenerator(), OptionTypes.OVERRIDE_NEW_FILE_WIZARD);
+	public final static EArtifact NEW_FILE_WIZARD_PAGE = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "NewFileWizardPage", new NewFileWizardPageGenerator(), OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE);
 	
-	I_INPUT_STREAM_PROCESSOR_PROVIDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "InputStreamProcessorProvider", new IInputStreamProcessorProviderGenerator(), OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER),
-	INPUT_STREAM_PROCESSOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "InputStreamProcessor", new InputStreamProcessorGenerator(), OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR),
-	I_OPTION_PROVIDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "OptionProvider", new IOptionProviderGenerator(), OptionTypes.OVERRIDE_IOPTION_PROVIDER),
-	I_OPTIONS(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Options", new IOptionsGenerator(), OptionTypes.OVERRIDE_IOPTIONS),
-	I_RESOURCE_POST_PROCESSOR(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ResourcePostProcessor", new IResourcePostProcessorGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR),
-	I_RESOURCE_POST_PROCESSOR_PROVIDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ResourcePostProcessorProvider", new IResourcePostProcessorProviderGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER),
-	I_BACKGROUND_PARSING_LISTENER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "BackgroundParsingListener", new IBackgroundParsingListenerGenerator(), OptionTypes.OVERRIDE_IBACKGROUND_PARSING_LISTENER),
-	I_BRACKET_PAIR(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "BracketPair", new IBracketPairGenerator(), OptionTypes.OVERRIDE_IBRACKET_PAIR),
-	I_COMMAND(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Command", new ICommandGenerator(), OptionTypes.OVERRIDE_ICOMMAND),
-	I_CONFIGURABLE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Configurable", new IConfigurableGenerator(), OptionTypes.OVERRIDE_ICONFIGURABLE),
-	I_CONTEXT_DEPENDENT_URI_FRAGMENT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ContextDependentURIFragment", new IContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT),
-	I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ContextDependentURIFragmentFactory", new IContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY),
-	I_ELEMENT_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ElementMapping", new IElementMappingGenerator(), OptionTypes.OVERRIDE_IELEMENT_MAPPING),
-	I_EXPECTED_ELEMENT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ExpectedElement", new IExpectedElementGenerator(), OptionTypes.OVERRIDE_IEXPECTED_ELEMENT),
-	I_HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "HoverTextProvider", new IHoverTextProviderGenerator(), OptionTypes.OVERRIDE_IHOVER_TEXT_PROVIDER),
-	I_LOCATION_MAP(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "LocationMap", new ILocationMapGenerator(), OptionTypes.OVERRIDE_ILOCATION_MAP),
-	I_PARSE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ParseResult", new IParseResultGenerator(), OptionTypes.OVERRIDE_IPARSE_RESULT),
-	I_PROBLEM(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Problem", new IProblemGenerator(), OptionTypes.OVERRIDE_IPROBLEM),
-	I_REFERENCE_CACHE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceCache", new IReferenceCacheGenerator(), OptionTypes.OVERRIDE_IREFERENCE_CACHE),
-	I_REFERENCE_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceMapping", new IReferenceMappingGenerator(), OptionTypes.OVERRIDE_IREFERENCE_MAPPING),
-	I_REFERENCE_RESOLVER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolver", new IReferenceResolverGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER),
-	I_REFERENCE_RESOLVE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolveResult", new IReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT),
-	I_REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolverSwitch", new IReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER_SWITCH),
-	I_TEXT_DIAGNOSTIC(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextDiagnostic", new ITextDiagnosticGenerator(), OptionTypes.OVERRIDE_ITEXT_DIAGNOSTIC),
-	I_TEXT_PARSER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextParser", new ITextParserGenerator(), OptionTypes.OVERRIDE_ITEXT_PARSER),
-	I_TEXT_PRINTER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextPrinter", new ITextPrinterGenerator(), OptionTypes.OVERRIDE_ITEXT_PRINTER),
-	I_TEXT_RESOURCE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextResource", new ITextResourceGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE),
-	I_META_INFORMATION(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "MetaInformation", new IMetaInformationGenerator(), OptionTypes.OVERRIDE_IMETA_INFORMATION),
-	I_TEXT_RESOURCE_PLUGIN_PART(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextResourcePluginPart", new ITextResourcePluginPartGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART),
-	I_TEXT_SCANNER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextScanner", new ITextScannerGenerator(), OptionTypes.OVERRIDE_ITEXT_SCANNER),
-	I_TEXT_TOKEN(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextToken", new ITextTokenGenerator(), OptionTypes.OVERRIDE_ITEXT_TOKEN),
-	I_TOKEN_RESOLVER(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolver", new ITokenResolverGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER),
-	I_TOKEN_RESOLVE_RESULT(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolveResult", new ITokenResolveResultGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVE_RESULT),
-	I_TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolverFactory", new ITokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER_FACTORY),
-	I_TOKEN_STYLE(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenStyle", new ITokenStyleGenerator(), OptionTypes.OVERRIDE_ITOKEN_STYLE),
-	I_URI_MAPPING(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "URIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING),
-	E_PROBLEM_TYPE(RESOURCE_PLUGIN, ROOT_PACKAGE, "", "EProblemType", new EProblemTypeGenerator(), OptionTypes.OVERRIDE_EPROBLEM_TYPE),
+	public final static EArtifact I_INPUT_STREAM_PROCESSOR_PROVIDER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "InputStreamProcessorProvider", new IInputStreamProcessorProviderGenerator(), OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER);
+	public final static EArtifact INPUT_STREAM_PROCESSOR = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "InputStreamProcessor", new InputStreamProcessorGenerator(), OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR);
+	public final static EArtifact I_OPTION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "OptionProvider", new IOptionProviderGenerator(), OptionTypes.OVERRIDE_IOPTION_PROVIDER);
+	public final static EArtifact I_OPTIONS = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Options", new IOptionsGenerator(), OptionTypes.OVERRIDE_IOPTIONS);
+	public final static EArtifact I_RESOURCE_POST_PROCESSOR = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ResourcePostProcessor", new IResourcePostProcessorGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR);
+	public final static EArtifact I_RESOURCE_POST_PROCESSOR_PROVIDER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ResourcePostProcessorProvider", new IResourcePostProcessorProviderGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER);
+	public final static EArtifact I_BACKGROUND_PARSING_LISTENER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "BackgroundParsingListener", new IBackgroundParsingListenerGenerator(), OptionTypes.OVERRIDE_IBACKGROUND_PARSING_LISTENER);
+	public final static EArtifact I_BRACKET_PAIR = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "BracketPair", new IBracketPairGenerator(), OptionTypes.OVERRIDE_IBRACKET_PAIR);
+	public final static EArtifact I_COMMAND = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Command", new ICommandGenerator(), OptionTypes.OVERRIDE_ICOMMAND);
+	public final static EArtifact I_CONFIGURABLE = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Configurable", new IConfigurableGenerator(), OptionTypes.OVERRIDE_ICONFIGURABLE);
+	public final static EArtifact I_CONTEXT_DEPENDENT_URI_FRAGMENT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ContextDependentURIFragment", new IContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT);
+	public final static EArtifact I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ContextDependentURIFragmentFactory", new IContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+	public final static EArtifact I_ELEMENT_MAPPING = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ElementMapping", new IElementMappingGenerator(), OptionTypes.OVERRIDE_IELEMENT_MAPPING);
+	public final static EArtifact I_EXPECTED_ELEMENT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ExpectedElement", new IExpectedElementGenerator(), OptionTypes.OVERRIDE_IEXPECTED_ELEMENT);
+	public final static EArtifact I_HOVER_TEXT_PROVIDER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "HoverTextProvider", new IHoverTextProviderGenerator(), OptionTypes.OVERRIDE_IHOVER_TEXT_PROVIDER);
+	public final static EArtifact I_LOCATION_MAP = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "LocationMap", new ILocationMapGenerator(), OptionTypes.OVERRIDE_ILOCATION_MAP);
+	public final static EArtifact I_PARSE_RESULT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ParseResult", new IParseResultGenerator(), OptionTypes.OVERRIDE_IPARSE_RESULT);
+	public final static EArtifact I_PROBLEM = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "Problem", new IProblemGenerator(), OptionTypes.OVERRIDE_IPROBLEM);
+	public final static EArtifact I_REFERENCE_CACHE = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceCache", new IReferenceCacheGenerator(), OptionTypes.OVERRIDE_IREFERENCE_CACHE);
+	public final static EArtifact I_REFERENCE_MAPPING = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceMapping", new IReferenceMappingGenerator(), OptionTypes.OVERRIDE_IREFERENCE_MAPPING);
+	public final static EArtifact I_REFERENCE_RESOLVER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolver", new IReferenceResolverGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER);
+	public final static EArtifact I_REFERENCE_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolveResult", new IReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT);
+	public final static EArtifact I_REFERENCE_RESOLVER_SWITCH = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "ReferenceResolverSwitch", new IReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER_SWITCH);
+	public final static EArtifact I_TEXT_DIAGNOSTIC = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextDiagnostic", new ITextDiagnosticGenerator(), OptionTypes.OVERRIDE_ITEXT_DIAGNOSTIC);
+	public final static EArtifact I_TEXT_PARSER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextParser", new ITextParserGenerator(), OptionTypes.OVERRIDE_ITEXT_PARSER);
+	public final static EArtifact I_TEXT_PRINTER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextPrinter", new ITextPrinterGenerator(), OptionTypes.OVERRIDE_ITEXT_PRINTER);
+	public final static EArtifact I_TEXT_RESOURCE = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextResource", new ITextResourceGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE);
+	public final static EArtifact I_META_INFORMATION = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "MetaInformation", new IMetaInformationGenerator(), OptionTypes.OVERRIDE_IMETA_INFORMATION);
+	public final static EArtifact I_TEXT_RESOURCE_PLUGIN_PART = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextResourcePluginPart", new ITextResourcePluginPartGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART);
+	public final static EArtifact I_TEXT_SCANNER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextScanner", new ITextScannerGenerator(), OptionTypes.OVERRIDE_ITEXT_SCANNER);
+	public final static EArtifact I_TEXT_TOKEN = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TextToken", new ITextTokenGenerator(), OptionTypes.OVERRIDE_ITEXT_TOKEN);
+	public final static EArtifact I_TOKEN_RESOLVER = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolver", new ITokenResolverGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER);
+	public final static EArtifact I_TOKEN_RESOLVE_RESULT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolveResult", new ITokenResolveResultGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVE_RESULT);
+	public final static EArtifact I_TOKEN_RESOLVER_FACTORY = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenResolverFactory", new ITokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER_FACTORY);
+	public final static EArtifact I_TOKEN_STYLE = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "TokenStyle", new ITokenStyleGenerator(), OptionTypes.OVERRIDE_ITOKEN_STYLE);
+	public final static EArtifact I_URI_MAPPING = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "I", "URIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING);
+	public final static EArtifact E_PROBLEM_TYPE = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "", "EProblemType", new EProblemTypeGenerator(), OptionTypes.OVERRIDE_EPROBLEM_TYPE);
 	
-	CODE_COMPLETION_HELPER(RESOURCE_PLUGIN, CC_PACKAGE, "", "CodeCompletionHelper", new CodeCompletionHelperGenerator(), OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER),
-	EXPECTED_CS_STRING(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedCsString", new ExpectedCsStringGenerator(), OptionTypes.OVERRIDE_EXPECTED_CS_STRING),
-	EXPECTED_STRUCTURAL_FEATURE(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedStructuralFeature", new ExpectedStructuralFeatureGenerator(), OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE),
-	ABSTRACT_EXPECTED_ELEMENT(RESOURCE_PLUGIN, CC_PACKAGE, "", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT),
-	EXPECTED_TERMINAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL),
-	COMPLETION_PROPOSAL(RESOURCE_PLUGIN, CC_PACKAGE, "", "CompletionProposal", new CompletionProposalGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROPOSAL), 
-	ATTRIBUTE_VALUE_PROVIDER(RESOURCE_PLUGIN, CC_PACKAGE, "", "AttributeValueProvider", new AttributeValueProviderGenerator(), OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER),
+	public final static EArtifact CODE_COMPLETION_HELPER = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "CodeCompletionHelper", new CodeCompletionHelperGenerator(), OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
+	public final static EArtifact EXPECTED_CS_STRING = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedCsString", new ExpectedCsStringGenerator(), OptionTypes.OVERRIDE_EXPECTED_CS_STRING);
+	public final static EArtifact EXPECTED_STRUCTURAL_FEATURE = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedStructuralFeature", new ExpectedStructuralFeatureGenerator(), OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE);
+	public final static EArtifact ABSTRACT_EXPECTED_ELEMENT = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT);
+	public final static EArtifact EXPECTED_TERMINAL = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "ExpectedTerminal", new ExpectedTerminalGenerator(), OptionTypes.OVERRIDE_EXPECTED_TERMINAL);
+	public final static EArtifact COMPLETION_PROPOSAL = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "CompletionProposal", new CompletionProposalGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROPOSAL); 
+	public final static EArtifact ATTRIBUTE_VALUE_PROVIDER = new EArtifact(RESOURCE_PLUGIN, CC_PACKAGE, "", "AttributeValueProvider", new AttributeValueProviderGenerator(), OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER);
 
 	// the grammar package
-	CARDINALITY(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Cardinality", new CardinalityGenerator(), OptionTypes.OVERRIDE_CARDINALITY),
-	SYNTAX_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "SyntaxElement", new SyntaxElementGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT),
-	KEYWORD(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Keyword", new KeywordGenerator(), OptionTypes.OVERRIDE_KEYWORD),
-	TERMINAL(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Terminal", new TerminalGenerator(), OptionTypes.OVERRIDE_TERMINAL),
-	PLACEHOLDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Placeholder", new PlaceholderGenerator(), OptionTypes.OVERRIDE_PLACEHOLDER),
-	CHOICE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Choice", new ChoiceGenerator(), OptionTypes.OVERRIDE_CHOICE),
-	COMPOUND(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Compound", new CompoundGenerator(), OptionTypes.OVERRIDE_COMPOUND),
-	CONTAINMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Containment", new ContainmentGenerator(), OptionTypes.OVERRIDE_CONTAINMENT),
-	LINE_BREAK(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "LineBreak", new LineBreakGenerator(), OptionTypes.OVERRIDE_LINE_BREAK),
-	SEQUENCE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Sequence", new SequenceGenerator(), OptionTypes.OVERRIDE_SEQUENCE),
-	WHITE_SPACE(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "WhiteSpace", new WhiteSpaceGenerator(), OptionTypes.OVERRIDE_WHITE_SPACE),
-	FORMATTING_ELEMENT(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FormattingElement", new FormattingElementGenerator(), OptionTypes.OVERRIDE_FORMATTING_ELEMENT),
+	public final static EArtifact CARDINALITY = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Cardinality", new CardinalityGenerator(), OptionTypes.OVERRIDE_CARDINALITY);
+	public final static EArtifact SYNTAX_ELEMENT = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "SyntaxElement", new SyntaxElementGenerator(), OptionTypes.OVERRIDE_SYNTAX_ELEMENT);
+	public final static EArtifact KEYWORD = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Keyword", new KeywordGenerator(), OptionTypes.OVERRIDE_KEYWORD);
+	public final static EArtifact TERMINAL = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Terminal", new TerminalGenerator(), OptionTypes.OVERRIDE_TERMINAL);
+	public final static EArtifact PLACEHOLDER = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Placeholder", new PlaceholderGenerator(), OptionTypes.OVERRIDE_PLACEHOLDER);
+	public final static EArtifact CHOICE = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Choice", new ChoiceGenerator(), OptionTypes.OVERRIDE_CHOICE);
+	public final static EArtifact COMPOUND = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Compound", new CompoundGenerator(), OptionTypes.OVERRIDE_COMPOUND);
+	public final static EArtifact CONTAINMENT = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Containment", new ContainmentGenerator(), OptionTypes.OVERRIDE_CONTAINMENT);
+	public final static EArtifact LINE_BREAK = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "LineBreak", new LineBreakGenerator(), OptionTypes.OVERRIDE_LINE_BREAK);
+	public final static EArtifact SEQUENCE = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "Sequence", new SequenceGenerator(), OptionTypes.OVERRIDE_SEQUENCE);
+	public final static EArtifact WHITE_SPACE = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "WhiteSpace", new WhiteSpaceGenerator(), OptionTypes.OVERRIDE_WHITE_SPACE);
+	public final static EArtifact FORMATTING_ELEMENT = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FormattingElement", new FormattingElementGenerator(), OptionTypes.OVERRIDE_FORMATTING_ELEMENT);
 
-	GRAMMAR_INFORMATION_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER),
-	FOLLOW_SET_PROVIDER(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FollowSetProvider", new FollowSetProviderGenerator(), OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER),
+	public final static EArtifact GRAMMAR_INFORMATION_PROVIDER = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "GrammarInformationProvider", new GrammarInformationProviderGenerator(), OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER);
+	public final static EArtifact FOLLOW_SET_PROVIDER = new EArtifact(RESOURCE_PLUGIN, GRAMMAR_PACKAGE, "", "FollowSetProvider", new FollowSetProviderGenerator(), OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER);
 	
-	CAST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
-	COPIED_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),
-	COPIED_E_OBJECT_INTERNAL_E_LIST(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEObjectInternalEList", new CopiedEObjectInternalEListGenerator(), OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST),
-	E_CLASS_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "EClassUtil", new EClassUtilGenerator(), OptionTypes.OVERRIDE_ECLASS_UTIL),
-	E_OBJECT_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "EObjectUtil", new EObjectUtilGenerator(), OptionTypes.OVERRIDE_EOBJECT_UTIL),
-	LIST_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ListUtil", new ListUtilGenerator(), OptionTypes.OVERRIDE_LIST_UTIL),
-	MAP_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MapUtil", new MapUtilGenerator(), OptionTypes.OVERRIDE_MAP_UTIL),
-	PAIR(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "Pair", new PairGenerator(), OptionTypes.OVERRIDE_PAIR),
-	MINIMAL_MODEL_HELPER(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MinimalModelHelper", new MinimalModelHelperGenerator(), OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER),
-	RESOURCE_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ResourceUtil", new ResourceUtilGenerator(), OptionTypes.OVERRIDE_RESOURCE_UTIL),
-	STREAM_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StreamUtil", new StreamUtilGenerator(), OptionTypes.OVERRIDE_STREAM_UTIL),
-	STRING_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StringUtil", new StringUtilGenerator(), OptionTypes.OVERRIDE_STRING_UTIL),
-	TEXT_RESOURCE_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "TextResourceUtil", new TextResourceUtilGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL),
-	UNICODE_CONVERTER(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "UnicodeConverter", new UnicodeConverterGenerator(), OptionTypes.OVERRIDE_UNICODE_CONVERTER),
-	ABSTRACT_INTERPRETER(RESOURCE_PLUGIN, UTIL_PACKAGE, "Abstract", "Interpreter", new AbstractInterpreterGenerator(), OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER),
+	public final static EArtifact CAST_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL);
+	public final static EArtifact COPIED_E_LIST = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST);
+	public final static EArtifact COPIED_E_OBJECT_INTERNAL_E_LIST = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "CopiedEObjectInternalEList", new CopiedEObjectInternalEListGenerator(), OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST);
+	public final static EArtifact E_CLASS_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "EClassUtil", new EClassUtilGenerator(), OptionTypes.OVERRIDE_ECLASS_UTIL);
+	public final static EArtifact E_OBJECT_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "EObjectUtil", new EObjectUtilGenerator(), OptionTypes.OVERRIDE_EOBJECT_UTIL);
+	public final static EArtifact LIST_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ListUtil", new ListUtilGenerator(), OptionTypes.OVERRIDE_LIST_UTIL);
+	public final static EArtifact MAP_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MapUtil", new MapUtilGenerator(), OptionTypes.OVERRIDE_MAP_UTIL);
+	public final static EArtifact PAIR = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "Pair", new PairGenerator(), OptionTypes.OVERRIDE_PAIR);
+	public final static EArtifact MINIMAL_MODEL_HELPER = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "MinimalModelHelper", new MinimalModelHelperGenerator(), OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER);
+	public final static EArtifact RESOURCE_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "ResourceUtil", new ResourceUtilGenerator(), OptionTypes.OVERRIDE_RESOURCE_UTIL);
+	public final static EArtifact STREAM_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StreamUtil", new StreamUtilGenerator(), OptionTypes.OVERRIDE_STREAM_UTIL);
+	public final static EArtifact STRING_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "StringUtil", new StringUtilGenerator(), OptionTypes.OVERRIDE_STRING_UTIL);
+	public final static EArtifact TEXT_RESOURCE_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "TextResourceUtil", new TextResourceUtilGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL);
+	public final static EArtifact UNICODE_CONVERTER = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "UnicodeConverter", new UnicodeConverterGenerator(), OptionTypes.OVERRIDE_UNICODE_CONVERTER);
+	public final static EArtifact ABSTRACT_INTERPRETER = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "Abstract", "Interpreter", new AbstractInterpreterGenerator(), OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER);
 
-	ANTLR_GRAMMAR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
-	BABYLON_SPECIFICATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
+	public final static EArtifact ANTLR_GRAMMAR = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER); 
+	public final static EArtifact BABYLON_SPECIFICATION = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER);
 	
-	PACKAGE_ROOT(RESOURCE_PLUGIN, ROOT_PACKAGE, "", "", null, null),
-	PACKAGE_MOPP(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", null, null),
-	PACKAGE_ANALYSIS(RESOURCE_PLUGIN, ANALYSIS_PACKAGE, "analysis", "analysis", null, null),      
-	PACKAGE_CC(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", null, null),
-	PACKAGE_UI(RESOURCE_PLUGIN, UI_PACKAGE, "", "", null, null),
-	PACKAGE_UTIL(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "", null, null),
+	public final static EArtifact PACKAGE_ROOT = new EArtifact(RESOURCE_PLUGIN, ROOT_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_MOPP = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_ANALYSIS = new EArtifact(RESOURCE_PLUGIN, ANALYSIS_PACKAGE, "analysis", "analysis", null, null);      
+	public final static EArtifact PACKAGE_CC = new EArtifact(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_UI = new EArtifact(RESOURCE_PLUGIN, UI_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_UTIL = new EArtifact(RESOURCE_PLUGIN, UTIL_PACKAGE, "", "", null, null);
 	
-	PACKAGE_ANTLR_RUNTIME(ANTLR_PLUGIN, ANTLR_RUNTIME_PACKAGE, "", "", null, null),
-	PACKAGE_ANTLR_RUNTIME_DEBUG(ANTLR_PLUGIN, ANTLR_RUNTIME_DEBUG_PACKAGE, "", "", null, null),
-	PACKAGE_ANTLR_RUNTIME_MISC(ANTLR_PLUGIN, ANTLR_RUNTIME_MISC_PACKAGE, "", "", null, null),
-	PACKAGE_ANTLR_RUNTIME_TREE(ANTLR_PLUGIN, ANTLR_RUNTIME_TREE_PACKAGE, "", "", null, null), 
-	;
+	public final static EArtifact PACKAGE_ANTLR_RUNTIME = new EArtifact(ANTLR_PLUGIN, ANTLR_RUNTIME_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_ANTLR_RUNTIME_DEBUG = new EArtifact(ANTLR_PLUGIN, ANTLR_RUNTIME_DEBUG_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_ANTLR_RUNTIME_MISC = new EArtifact(ANTLR_PLUGIN, ANTLR_RUNTIME_MISC_PACKAGE, "", "", null, null);
+	public final static EArtifact PACKAGE_ANTLR_RUNTIME_TREE = new EArtifact(ANTLR_PLUGIN, ANTLR_RUNTIME_TREE_PACKAGE, "", "", null, null); 
 	
 	private EPlugins plugin;
 	private String packageName;
