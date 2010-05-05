@@ -14,14 +14,9 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -35,16 +30,16 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * a resource plug-in from a CS specification and a meta 
  * model.
  */
-public class ResourcePluginContentCreator {
+public class ResourcePluginContentCreator extends AbstractPluginCreator {
 	
-	public void generate(GenerationContext context, IProgressMonitor monitor) throws IOException {
-		SubMonitor progress = SubMonitor.convert(monitor, "generating resource plug-in...", 100);
-	    
+	public String getPluginName() {
+		return "resource";
+	}
+
+	public List<IArtifactCreator> getCreators(GenerationContext context) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		Resource csResource = syntax.eResource();
-		EcoreUtil.resolveAll(csResource);
-	    
-	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
+
+		List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
 	    creators.add(new FoldersCreator(new File[] {
 	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, false),
 	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, true),
@@ -236,13 +231,6 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(TextResourceArtifacts.I_BUILDER));
 	    creators.add(new GenericArtifactCreator(TextResourceArtifacts.NATURE));
 	    creators.add(new GenericArtifactCreator(TextResourceArtifacts.ABSTRACT_INTERPRETER));
-	    // TODO implement extension mechanism to allow code generator plug-ins
-	    // to add more creators
-
-	    for (IArtifactCreator creator : creators) {
-			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
-			creator.createArtifacts(context);
-		    progress.worked(100 / creators.size());
-	    }
+		return creators;
 	}
 }

@@ -109,7 +109,7 @@ public abstract class PluginsCreator {
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
-		ResourcePluginContentCreator pluginGenerator = new ResourcePluginContentCreator();
+		AbstractPluginCreator pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
 
 		if (context.getGenerateANTLRPlugin()) {
