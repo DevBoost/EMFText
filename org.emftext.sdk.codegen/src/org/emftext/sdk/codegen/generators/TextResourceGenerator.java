@@ -170,11 +170,14 @@ public class TextResourceGenerator extends JavaBaseGenerator {
 		}
 		if (!disableEMFValidationConstraints) {
 			sc.addComment("check EMF validation constraints");
+			sc.add("if (" + PLATFORM + ".isRunning()) {");
+			sc.addComment("EMF validation does not work is OSGi is not running");
 			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
 			sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
 			sc.add("validator.setIncludeLiveConstraints(true);");
 			sc.add(I_STATUS + " status = validator.validate(root);");
 			sc.add("addStatus(status, root);");
+			sc.add("}");
 		} else {
 			sc.addComment("checking EMF validation constraints was disabled");
 		}
