@@ -27,7 +27,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
  */
-public class ResourcePluginManifestCreator extends AbstractArtifactCreator {
+public class ResourcePluginManifestCreator extends TextResourceArtifactCreator {
 
 	public ResourcePluginManifestCreator() {
 		super("manifest");

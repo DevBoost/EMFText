@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StreamUtil;
 
@@ -37,7 +36,7 @@ import org.emftext.sdk.util.StreamUtil;
  * An abstract superclass for all creators that handles overriding
  * of existing artifacts.
  */
-public abstract class AbstractArtifactCreator implements IArtifactCreator {
+public abstract class AbstractArtifactCreator<ContextType extends IGenerationContext<ContextType>> implements IArtifactCreator<ContextType> {
 	
 	private String artifactName;
 
@@ -50,9 +49,8 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 		return artifactName;
 	}
 
-	public void createArtifacts(GenerationContext context) {
-		OptionTypes overrideOption = getOverrideOption();
-		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
+	public void createArtifacts(ContextType context) {
+		boolean doOverride = doOverride(context);
 		
 		Collection<IArtifact> artifacts = getArtifactsToCreate(context);
 		for (IArtifact artifact : artifacts) {
@@ -72,11 +70,13 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 		}
 	}
 
-	public void notifyArtifactChanged(GenerationContext context) {
+	protected abstract boolean doOverride(ContextType context);
+
+	public void notifyArtifactChanged(ContextType context) {
 		// do nothing. sub classes override this method.
 	}
 
-	public abstract Collection<IArtifact> getArtifactsToCreate(GenerationContext context);
+	public abstract Collection<IArtifact> getArtifactsToCreate(ContextType context);
 
 	/**
 	 * Returns the option that enables/disables this
@@ -89,8 +89,8 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	 */
 	public abstract OptionTypes getOverrideOption();
 
-	protected Collection<IArtifact> createArtifact(GenerationContext context,
-			IGenerator<GenerationContext> generator, File targetFile, String errorMessage) {
+	protected Collection<IArtifact> createArtifact(ContextType context,
+			IGenerator<ContextType> generator, File targetFile, String errorMessage) {
 
 		InputStream stream = invokeGeneration(generator, context.getProblemCollector());
 	    if (stream == null) {
@@ -101,7 +101,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	    return toList(artifact);
 	}
 
-	private InputStream invokeGeneration(IGenerator<GenerationContext> generator, IProblemCollector collector) {
+	private InputStream invokeGeneration(IGenerator<ContextType> generator, IProblemCollector collector) {
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {

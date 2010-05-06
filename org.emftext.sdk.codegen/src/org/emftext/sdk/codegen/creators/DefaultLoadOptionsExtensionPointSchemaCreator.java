@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DefaultLoadOptionsExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class DefaultLoadOptionsExtensionPointSchemaCreator extends AbstractArtifactCreator {
+public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator {
 
 	public DefaultLoadOptionsExtensionPointSchemaCreator() {
 		super("default_load_options.exsd");

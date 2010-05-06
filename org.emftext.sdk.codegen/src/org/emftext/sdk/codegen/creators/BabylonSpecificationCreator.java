@@ -25,7 +25,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * An experimental (not yet implemented) creator for the Babylon compiler
  * framework.
  */
-public class BabylonSpecificationCreator extends AbstractArtifactCreator {
+public class BabylonSpecificationCreator extends TextResourceArtifactCreator {
 
 	public BabylonSpecificationCreator() {
 		super("Babylon specification");

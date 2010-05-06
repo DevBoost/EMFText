@@ -25,7 +25,7 @@ public class NameUtil {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
-	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor artifact) {
+	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<?> artifact) {
 		return csUtil.getPackageName(syntax, artifact.getPlugin(), artifact.getPackage());
 	}
 	

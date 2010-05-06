@@ -50,7 +50,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class GenerationContext {
+public abstract class GenerationContext extends AbstractGenerationContext<GenerationContext> {
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 
@@ -64,7 +64,6 @@ public abstract class GenerationContext {
 	private final NameUtil nameUtil = new NameUtil();
 
 	private final ConcreteSyntax concreteSyntax;
-	private final IProblemCollector problemCollector;
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
@@ -95,11 +94,11 @@ public abstract class GenerationContext {
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
 
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
+		super(problemCollector);
 		if (concreteSyntax == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}
 		this.concreteSyntax = concreteSyntax;
-		this.problemCollector = problemCollector;
 	}
 
 	/**
@@ -130,11 +129,11 @@ public abstract class GenerationContext {
 		return plugin.getName(concreteSyntax);
 	}
 
-	public String getPackageName(ArtifactDescriptor artifact) {
+	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact) {
 		return getPackageName(artifact, concreteSyntax);
 	}
 
-	public String getPackageName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
+	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
 		return nameUtil.getPackageName(syntax, artifact);
 	}
 
@@ -144,10 +143,6 @@ public abstract class GenerationContext {
 	 */
 	public String getResolverPackageName() {
 		return csUtil.getResolverPackageName(concreteSyntax);
-	}
-	
-	public IProblemCollector getProblemCollector() {
-		return problemCollector;
 	}
 	
 	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
@@ -259,7 +254,7 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getPackagePath(ArtifactDescriptor artifact) {
+	public String getPackagePath(ArtifactDescriptor<GenerationContext> artifact) {
 		OptionTypes overrideOption = artifact.getOverrideOption();
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
 		File targetFolder = getSourceFolder(artifact.getPlugin(), doOverride);
@@ -305,23 +300,23 @@ public abstract class GenerationContext {
 		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
 	}
 
-	public String getClassName(ArtifactDescriptor artifact) {
+	public String getClassName(ArtifactDescriptor<GenerationContext> artifact) {
 		return getClassName(artifact, getConcreteSyntax());
 	}
 
-	public String getClassName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
+	public String getClassName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
 		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName(syntax) + artifact.getClassNameSuffix();
 	}
 
-	public String getQualifiedClassName(ArtifactDescriptor artifact) {
+	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext> artifact) {
 		return getPackageName(artifact) + "." + getClassName(artifact);
 	}
 
-	public String getQualifiedClassName(ArtifactDescriptor artifact, ConcreteSyntax syntax) {
+	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
 		return getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
 	}
 
-	public File getFile(ArtifactDescriptor artifact) {
+	public File getFile(ArtifactDescriptor<GenerationContext> artifact) {
 		return new File(getPackagePath(artifact) + getClassName(artifact) + Constants.JAVA_FILE_EXTENSION);
 	}
 

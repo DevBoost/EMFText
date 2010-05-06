@@ -29,7 +29,7 @@ import org.emftext.sdk.util.StreamUtil;
  * generated text resources by copying the default_icon.gif and
  * hover_style.css contained in this package.
  */
-public class FileCopier implements IArtifactCreator {
+public class FileCopier implements IArtifactCreator<GenerationContext> {
 
 	private InputStream inputStream;
 	private File targetFile;

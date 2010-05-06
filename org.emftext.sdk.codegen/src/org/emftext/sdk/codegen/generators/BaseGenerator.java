@@ -14,25 +14,20 @@
 package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
+import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 
 /**
- * A basic implementation for generators which generate Java or ANTLR code. 
+ * A basic implementation for generators which generate Java or ANTLR code.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class BaseGenerator implements IGenerator<GenerationContext>, IProblemCollector {
+public abstract class BaseGenerator extends AbstractGenerator<GenerationContext> {
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {
@@ -49,8 +44,6 @@ public abstract class BaseGenerator implements IGenerator<GenerationContext>, IP
 	}
 
 	
-	private List<GenerationProblem> errors;
-	private List<GenerationProblem> warnings;
 	protected GenerationContext context;
 	private String resourceClassName;
 	private String resourcePackageName;
@@ -225,9 +218,8 @@ public abstract class BaseGenerator implements IGenerator<GenerationContext>, IP
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public BaseGenerator(GenerationContext context, ArtifactDescriptor artifact) {
-		errors = new LinkedList<GenerationProblem>();
-		warnings = new LinkedList<GenerationProblem>();
+	public BaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
+		super();
 
 		this.context = context;
 		if (artifact != null) {
@@ -414,30 +406,6 @@ public abstract class BaseGenerator implements IGenerator<GenerationContext>, IP
 		return context;
 	}
 
-	/**
-	 * Can be used by base classes to collect problems.
-	 * 
-	 * @param problem
-	 */
-	public void addProblem(GenerationProblem problem){
-		if (problem.getSeverity().equals(GenerationProblem.Severity.ERROR)) {
-			errors.add(problem);
-		} else {
-			warnings.add(problem);
-		}
-	}
-	
-	
-	public Collection<GenerationProblem> getCollectedErrors(){
-		return errors;
-	}
-	
-	public Collection<GenerationProblem> getCollectedProblems(){
-		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
-		allProblems.addAll(warnings);
-		return allProblems;
-	}
-	
 	protected String getResourceClassName() {
     	return resourceClassName;
     }

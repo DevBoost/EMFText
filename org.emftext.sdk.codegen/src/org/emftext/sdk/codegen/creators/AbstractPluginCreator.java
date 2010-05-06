@@ -9,9 +9,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICreator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public abstract class AbstractPluginCreator {
+public abstract class AbstractPluginCreator implements ICreator<GenerationContext> {
 
 	public void generate(GenerationContext context, IProgressMonitor monitor) throws IOException {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating " + getPluginName() + " plug-in...", 100);
@@ -20,11 +21,11 @@ public abstract class AbstractPluginCreator {
 		Resource csResource = syntax.eResource();
 		EcoreUtil.resolveAll(csResource);
 	    
-	    List<IArtifactCreator> creators = getCreators(context);
+	    List<IArtifactCreator<GenerationContext>> creators = getCreators(context);
 	    // TODO implement extension mechanism to allow code generator plug-ins
 	    // to add more creators
 	
-	    for (IArtifactCreator creator : creators) {
+	    for (IArtifactCreator<GenerationContext> creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
 			creator.createArtifacts(context);
 		    progress.worked(100 / creators.size());
@@ -33,6 +34,6 @@ public abstract class AbstractPluginCreator {
 
 	public abstract String getPluginName();
 
-	public abstract List<IArtifactCreator> getCreators(GenerationContext context);
+	public abstract List<IArtifactCreator<GenerationContext>> getCreators(GenerationContext context);
 
 }

@@ -24,7 +24,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates an ANTLR .g file using the ANTLRGrammarGenerator, which
  * creates the content for the file.
  */
-public class ANTLRGrammarCreator extends AbstractArtifactCreator {
+public class ANTLRGrammarCreator extends TextResourceArtifactCreator {
 
 	public ANTLRGrammarCreator() {
 		super("ANTLR grammar");

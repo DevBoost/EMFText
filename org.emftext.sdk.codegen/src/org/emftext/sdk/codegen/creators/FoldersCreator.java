@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * @see org.emftext.sdk.concretesyntax.OptionTypes
  */
-public class FoldersCreator implements IArtifactCreator {
+public class FoldersCreator implements IArtifactCreator<GenerationContext> {
 
 	private File[] folders;
 

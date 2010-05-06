@@ -21,14 +21,14 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class EmptyClassCreator extends AbstractArtifactCreator {
+public class EmptyClassCreator extends TextResourceArtifactCreator {
 
 	private File file;
 	private String className;
 	private OptionTypes overrideOption;
-	private ArtifactDescriptor targetPackage;
+	private ArtifactDescriptor<GenerationContext> targetPackage;
 
-	public EmptyClassCreator(File file, ArtifactDescriptor targetPackage, String className, OptionTypes overrideOption) {
+	public EmptyClassCreator(File file, ArtifactDescriptor<GenerationContext> targetPackage, String className, OptionTypes overrideOption) {
 		super("empty " + className);
 		this.file = file;
 		this.className = className;

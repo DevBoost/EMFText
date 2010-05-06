@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class BuildPropertiesCreator extends AbstractArtifactCreator {
+public class BuildPropertiesCreator extends TextResourceArtifactCreator {
 
 	private IPluginDescriptor plugin;
 

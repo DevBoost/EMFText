@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emftext.sdk.SDKOptionProvider;
-import org.emftext.sdk.codegen.creators.PluginsCreator.Result;
+import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
@@ -75,7 +75,6 @@ public class GenerateTextResourceTask extends Task {
 			performPreprocessing(syntax);
 			
 			Result result = new AntResourcePluginGenerator().run(
-					syntax, 
 					new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this), generateANTLRPlugin), 
 					new AntLogMarker(this), 
 					new AntDelegateProgressMonitor(this)

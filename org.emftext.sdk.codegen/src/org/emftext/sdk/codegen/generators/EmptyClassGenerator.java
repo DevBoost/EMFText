@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 public class EmptyClassGenerator extends JavaBaseGenerator {
 
 	private String className;
-	private ArtifactDescriptor targetPackage;
+	private ArtifactDescriptor<GenerationContext> targetPackage;
 
 	public EmptyClassGenerator() {
 		super();
@@ -40,7 +40,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		this.className = className;
 	}
 
-	public void setTargetPackage(ArtifactDescriptor targetPackage) {
+	public void setTargetPackage(ArtifactDescriptor<GenerationContext> targetPackage) {
 		this.targetPackage = targetPackage;
 	}
 

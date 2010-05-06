@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
  * Runs ANTLR on a .g file to generate Java classes for the parser and
  * the lexer from the ANTLR grammar specification.
  */
-public class ANTLRParserCreator implements IArtifactCreator {
+public class ANTLRParserCreator implements IArtifactCreator<GenerationContext> {
 
 	public void createArtifacts(GenerationContext context) {
 		if (context.getANTLRGrammarHasChanged()) {

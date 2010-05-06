@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.TextResourcePlugins;
+import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -36,10 +37,13 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.ResourceUtil;
 
 /**
- * The ResourcePluginCreator creates all plug-ins.
+ * The CreateTextResourcePluginsJob creates all plug-ins for a
+ * text resource (i.e., the resource plug-in, the resource UI
+ * plug-in and the ANTLR common runtime plug-in).
+ * 
  * It delegates tasks to the other creators.
  */
-public abstract class PluginsCreator {
+public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJob {
 	
 	/**
 	 * An enumeration of all possible results of the generation
@@ -72,11 +76,12 @@ public abstract class PluginsCreator {
 	public abstract void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin) throws Exception;
 
 	public Result run(
-			ConcreteSyntax concreteSyntax, 
 			GenerationContext context,
 			IResourceMarker marker, 
 			IProgressMonitor monitor) throws Exception {
-		
+
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax(); 
+
 		SubMonitor progress = SubMonitor.convert(monitor, 100);
 
 		Resource csResource = concreteSyntax.eResource();

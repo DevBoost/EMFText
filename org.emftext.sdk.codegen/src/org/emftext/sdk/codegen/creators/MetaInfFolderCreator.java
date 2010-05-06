@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 /**
  * Creates the folder META-INF in generated text resource plug-ins.
  */
-public class MetaInfFolderCreator implements IArtifactCreator {
+public class MetaInfFolderCreator implements IArtifactCreator<GenerationContext> {
 
 	public void createArtifacts(GenerationContext context) {
 		File project = context.getProjectFolder(TextResourcePlugins.RESOURCE_PLUGIN);

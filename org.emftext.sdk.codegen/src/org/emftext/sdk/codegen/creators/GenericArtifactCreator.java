@@ -17,23 +17,27 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class GenericArtifactCreator extends AbstractArtifactCreator {
+public class GenericArtifactCreator<ContextType extends IGenerationContext<ContextType>> extends AbstractArtifactCreator<ContextType> {
 
-	private ArtifactDescriptor artifact;
+	private ArtifactDescriptor<ContextType> artifact;
 
-	public GenericArtifactCreator(ArtifactDescriptor artifact) {
+	public GenericArtifactCreator(String artifactName) {
+		super(artifactName);
+	}
+
+	public GenericArtifactCreator(ArtifactDescriptor<ContextType> artifact) {
 		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix());
 		this.artifact = artifact;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(ContextType context) {
 	    File file = context.getFile(artifact);
-		IGenerator<GenerationContext> generator = artifact.createGenerator(context);
+		IGenerator<ContextType> generator = artifact.createGenerator(context);
 		
 	    return createArtifact(
 	    		context,
@@ -46,5 +50,10 @@ public class GenericArtifactCreator extends AbstractArtifactCreator {
 	@Override
 	public OptionTypes getOverrideOption() {
 		return artifact.getOverrideOption();
+	}
+
+	@Override
+	protected boolean doOverride(ContextType context) {
+		return true;
 	}
 }

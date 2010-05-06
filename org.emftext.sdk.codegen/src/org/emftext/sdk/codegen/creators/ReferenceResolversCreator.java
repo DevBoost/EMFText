@@ -29,7 +29,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * for each non-containment reference in the CS specification that is not
  * imported.
  */
-public class ReferenceResolversCreator extends AbstractArtifactCreator {
+public class ReferenceResolversCreator extends TextResourceArtifactCreator {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	

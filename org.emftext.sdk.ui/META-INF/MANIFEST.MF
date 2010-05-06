@@ -9,10 +9,15 @@ Bundle-Activator: org.emftext.sdk.ui.EMFTextSDKUIPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.co
- re.resources,org.eclipse.jdt.core,org.eclipse.jdt.launching,org.emfte
- xt.sdk,org.emftext.sdk.codegen,org.emftext.sdk.concretesyntax.resourc
- e.cs
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.emftext.sdk,
+ org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.newproject,
+ org.emftext.sdk.concretesyntax.resource.cs
 Export-Package: org.emftext.sdk.ui,org.emftext.sdk.ui.actions,org.emft
  ext.sdk.ui.jobs
 

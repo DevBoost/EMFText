@@ -20,7 +20,7 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 		super();
 	}
 
-	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor artifact) {
+	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
 		super(context, artifact);
 	}
 

@@ -3,16 +3,16 @@ package org.emftext.sdk.codegen;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class ArtifactDescriptor {
+public class ArtifactDescriptor<ContextType> {
 
 	private IPluginDescriptor plugin;
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
-	private IGenerator<GenerationContext> generator;
+	private IGenerator<ContextType> generator;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(IPluginDescriptor plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<GenerationContext> generator, OptionTypes overrideOption) {
+	public ArtifactDescriptor(IPluginDescriptor plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<ContextType> generator, OptionTypes overrideOption) {
 		this.plugin = plugin;
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
@@ -37,7 +37,7 @@ public class ArtifactDescriptor {
 		return classNameSuffix;
 	}
 
-	public IGenerator<GenerationContext> createGenerator(GenerationContext context) {
+	public IGenerator<ContextType> createGenerator(ContextType context) {
 		return generator.newInstance(context);
 	}
 

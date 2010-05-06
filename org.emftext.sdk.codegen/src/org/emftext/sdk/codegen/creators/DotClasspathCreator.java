@@ -27,7 +27,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates a .classpath file, which is used by Eclipse to determine the
  * classes used by generated text resource plug-ins.
  */
-public class DotClasspathCreator extends AbstractArtifactCreator {
+public class DotClasspathCreator extends TextResourceArtifactCreator {
 
 	private IPluginDescriptor plugin;
 

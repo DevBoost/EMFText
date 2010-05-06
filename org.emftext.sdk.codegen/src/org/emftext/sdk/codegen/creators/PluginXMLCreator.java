@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates a plugin.xml file using the content provided by the 
  * PluginXMLGenerator class.
  */
-public class PluginXMLCreator extends AbstractArtifactCreator {
+public class PluginXMLCreator extends TextResourceArtifactCreator {
 
 	public PluginXMLCreator() {
 		super("plugin.xml");

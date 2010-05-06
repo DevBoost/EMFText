@@ -28,7 +28,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * provided by TokenResolverGenerator. A token resolver is generated
  * for all tokens that are used and that are not imported.
  */
-public class TokenResolversCreator extends AbstractArtifactCreator {
+public class TokenResolversCreator extends TextResourceArtifactCreator {
 
 	public TokenResolversCreator() {
 		super("token resolvers");

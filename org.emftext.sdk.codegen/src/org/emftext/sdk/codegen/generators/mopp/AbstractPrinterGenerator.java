@@ -28,7 +28,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		super();
 	}
 
-	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor artifact) {
+	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}

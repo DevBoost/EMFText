@@ -118,7 +118,7 @@ public class ANTLRPluginContentCreator {
 	public void generate(GenerationContext context, IProgressMonitor monitor) throws IOException {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
 		
-	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
+	    List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
 	    File sourceFolder = context.getSourceFolder(TextResourcePlugins.ANTLR_PLUGIN, false);
 		
 	    creators.add(new FoldersCreator(new File[] {
@@ -150,7 +150,7 @@ public class ANTLRPluginContentCreator {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
 
-		for (IArtifactCreator creator : creators) {
+		for (IArtifactCreator<GenerationContext> creator : creators) {
 			if (doOverride) {
 				progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
 				creator.createArtifacts(context);

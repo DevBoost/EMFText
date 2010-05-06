@@ -22,40 +22,30 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.creators.PluginsCreator;
+import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * A custom generator that creates adds a new project to the current
  * Eclipse workspace before generating the test resource plug-in.
  */
-public class UIResourcePluginGenerator extends PluginsCreator {
+public class UIResourcePluginGenerator extends CreateTextResourcePluginsJob {
 
 	@Override
-	public Result run(ConcreteSyntax concreteSyntax, GenerationContext context,
+	public Result run(GenerationContext context,
 			IResourceMarker marker, IProgressMonitor monitor)
 			throws Exception {
 		
-		Result result = super.run(concreteSyntax, context, marker, monitor);
+		Result result = super.run(context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		refresh(monitor, uiContext, TextResourcePlugins.RESOURCE_PLUGIN);
-		refresh(monitor, uiContext, TextResourcePlugins.ANTLR_PLUGIN);
+		refresh(monitor, uiContext.getProject(TextResourcePlugins.RESOURCE_PLUGIN));
+		refresh(monitor, uiContext.getProject(TextResourcePlugins.ANTLR_PLUGIN));
 
 		return result;
-	}
-
-	private void refresh(IProgressMonitor monitor, UIGenerationContext uiContext, IPluginDescriptor plugin)
-			throws CoreException {
-		IProject project = uiContext.getProject(plugin);
-		if (project != null) {
-			project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
-		}
 	}
 
 	public void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin)

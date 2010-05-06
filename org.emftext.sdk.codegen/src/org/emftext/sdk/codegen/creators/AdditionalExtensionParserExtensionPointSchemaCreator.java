@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.AdditionalExtensionParserExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class AdditionalExtensionParserExtensionPointSchemaCreator extends AbstractArtifactCreator {
+public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextResourceArtifactCreator {
 
 	public AdditionalExtensionParserExtensionPointSchemaCreator() {
 		super("additional_extension_parser.exsd");

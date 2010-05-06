@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates a .project file, which is used by Eclipse to read meta data
  * about plug-ins.
  */
-public class DotProjectCreator extends AbstractArtifactCreator {
+public class DotProjectCreator extends TextResourceArtifactCreator {
 
 	private IPluginDescriptor plugin;
 

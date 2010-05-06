@@ -24,7 +24,7 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.creators.PluginsCreator.Result;
+import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
@@ -59,7 +59,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
 			GenerationContext context = new UIGenerationContext(concreteSyntax, collector);
 			
-			Result result = new UIResourcePluginGenerator().run(concreteSyntax, context, new WorkspaceMarker(), monitor);
+			Result result = new UIResourcePluginGenerator().run(context, new WorkspaceMarker(), monitor);
 			switch (result) {
 			case ERROR_ABSTRACT_SYNTAX :  {
 				// show error message, because we can not generate plug-ins for

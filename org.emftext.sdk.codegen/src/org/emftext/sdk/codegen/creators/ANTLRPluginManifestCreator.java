@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.AntlrPluginManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class ANTLRPluginManifestCreator extends AbstractArtifactCreator {
+public class ANTLRPluginManifestCreator extends TextResourceArtifactCreator {
 
 	public ANTLRPluginManifestCreator() {
 		super("manifest");
