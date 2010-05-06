@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Newproject
+Bundle-SymbolicName: org.emftext.sdk.codegen.newproject
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.sdk.codegen.newproject,
+ org.emftext.sdk.codegen.newproject.creators,
+ org.emftext.sdk.codegen.newproject.generators
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.core.runtime,
+ org.emftext.sdk,
+ org.emftext.sdk.codegen
