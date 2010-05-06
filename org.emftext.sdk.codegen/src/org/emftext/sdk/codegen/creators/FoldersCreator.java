@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 
-import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -26,7 +25,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * @see org.emftext.sdk.concretesyntax.OptionTypes
  */
-public class FoldersCreator implements IArtifactCreator<GenerationContext> {
+public class FoldersCreator<ContextType> implements IArtifactCreator<ContextType> {
 
 	private File[] folders;
 
@@ -34,7 +33,7 @@ public class FoldersCreator implements IArtifactCreator<GenerationContext> {
 		this.folders = folders;
 	}
 
-	public void createArtifacts(GenerationContext context) {
+	public void createArtifacts(ContextType context) {
 		for (File folder : folders) {
 			createIfNeeded(folder);
 		}

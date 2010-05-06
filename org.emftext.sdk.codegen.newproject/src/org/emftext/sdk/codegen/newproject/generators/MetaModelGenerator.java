@@ -14,6 +14,7 @@ import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectGenerationContext;
+import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
 
 public class MetaModelGenerator extends AbstractGenerator<NewProjectGenerationContext> {
 
@@ -28,6 +29,8 @@ public class MetaModelGenerator extends AbstractGenerator<NewProjectGenerationCo
 	}
 
 	public boolean generate(OutputStream outputStream) {
+		NewProjectParameters parameters = context.getParameters();
+
 		EClass shapeClass = ECORE_FACTORY.createEClass();
 		shapeClass.setName("Shape");
 		shapeClass.setAbstract(true);
@@ -44,14 +47,19 @@ public class MetaModelGenerator extends AbstractGenerator<NewProjectGenerationCo
 		ePackage.getEClassifiers().add(shapeClass);
 		ePackage.getEClassifiers().add(rectangleClass);
 		ePackage.getEClassifiers().add(circleClass);
+		
+		ePackage.setName(parameters.getName());
+		ePackage.setNsPrefix(parameters.getNamespacePrefix());
+		ePackage.setNsURI(parameters.getNamespaceUri());
 
-		String projectName = context.getParameters().getProjectName();
-		String metaModelFolder = context.getParameters().getMetamodelFolder();
-		String metaModelFileName = context.getParameters().getName();
+		String projectName = parameters.getProjectName();
+		String metaModelFolder = parameters.getMetamodelFolder();
+		String metaModelFileName = parameters.getName();
 		String pathToMetaModel = projectName + "/" + metaModelFolder + "/" + metaModelFileName;
 		
 		ResourceSet rs = new ResourceSetImpl();
 		Resource r = rs.createResource(URI.createPlatformResourceURI(pathToMetaModel, true));
+		r.getContents().add(ePackage);
 		try {
 			r.save(outputStream, null);
 			return true;

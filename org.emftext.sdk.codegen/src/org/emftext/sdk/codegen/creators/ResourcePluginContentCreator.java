@@ -40,7 +40,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 
 		List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
-	    creators.add(new FoldersCreator(new File[] {
+	    creators.add(new FoldersCreator<GenerationContext>(new File[] {
 	    		context.getSourceFolder(TextResourcePlugins.RESOURCE_PLUGIN, false),
 	    		context.getSourceFolder(TextResourcePlugins.RESOURCE_PLUGIN, true),
 	    		context.getSchemaFolder(),

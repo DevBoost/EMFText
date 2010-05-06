@@ -121,7 +121,7 @@ public class ANTLRPluginContentCreator {
 	    List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
 	    File sourceFolder = context.getSourceFolder(TextResourcePlugins.ANTLR_PLUGIN, false);
 		
-	    creators.add(new FoldersCreator(new File[] {
+	    creators.add(new FoldersCreator<GenerationContext>(new File[] {
 	    		sourceFolder,
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),

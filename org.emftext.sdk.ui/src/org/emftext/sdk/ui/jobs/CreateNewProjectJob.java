@@ -1,5 +1,8 @@
 package org.emftext.sdk.ui.jobs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -9,7 +12,6 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.newproject.NewProjectConstants;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
@@ -24,21 +26,33 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 	}
 
 	public void run(IProgressMonitor monitor) throws Exception {
+		final List<GenerationProblem> problems = new ArrayList<GenerationProblem>();
 		IProblemCollector problemConnector = new IProblemCollector() {
 			
 			public void addProblem(GenerationProblem problem) {
-				// TODO handle problem 
+				problems.add(problem);
 			}
 		};
-		NewProjectGenerationContext context = new NewProjectGenerationContext(parameters, problemConnector);
-		IProject project = createProject(monitor, NewProjectConstants.NEW_PROJECT_PLUGIN);
+		IPluginDescriptor<NewProjectGenerationContext> newProjectPlugin = new IPluginDescriptor<NewProjectGenerationContext>() {
+
+			public String getName(NewProjectGenerationContext context) {
+				return context.getParameters().getProjectName();
+			}
+		};
+		IProject project = createProject(monitor, newProjectPlugin, parameters.getProjectName());
+		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters, problemConnector);
 		new NewProjectContentsCreator().generate(context, monitor);
 		refresh(monitor, project);
+		
+		// TODO expose problems to user
+		for (GenerationProblem problem : problems) {
+			System.out.println("CreateNewProjectJob.run() " + problem);
+		}
 	}
 
-	public IProject createProject(IProgressMonitor progress, IPluginDescriptor<NewProjectGenerationContext> plugin) throws Exception {
+	public IProject createProject(IProgressMonitor progress, IPluginDescriptor<NewProjectGenerationContext> plugin, String pluginName) throws Exception {
 		
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(plugin.getName(null));
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginName);
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());
 		}
