@@ -12,6 +12,7 @@ import org.emftext.sdk.codegen.ICreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.newproject.NewProjectConstants;
+import org.emftext.sdk.codegen.newproject.generators.GenModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.MetaModelGenerator;
 
 public class NewProjectContentsCreator implements ICreator<NewProjectGenerationContext> {
@@ -34,10 +35,21 @@ public class NewProjectContentsCreator implements ICreator<NewProjectGenerationC
 					new MetaModelGenerator(), 
 					null);
 
+		ArtifactDescriptor<NewProjectGenerationContext> genModel  = 
+			new ArtifactDescriptor<NewProjectGenerationContext>(
+					context.getPluginDescriptor(), 
+					NewProjectConstants.META_MODEL_PACKAGE, 
+					"", 
+					context.getParameters().
+					getGenmodelFile(), 
+					new GenModelGenerator(), 
+					null);
+
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
 		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder() + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
     	creators.add(new GenericArtifactCreator<NewProjectGenerationContext>(metamodel));
+    	creators.add(new GenericArtifactCreator<NewProjectGenerationContext>(genModel));
 		return creators;
 	}
 }

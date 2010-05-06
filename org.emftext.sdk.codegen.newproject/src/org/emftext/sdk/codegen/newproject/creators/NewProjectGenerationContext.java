@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.newproject.creators;
 import java.io.File;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
@@ -13,6 +14,7 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 	private IPluginDescriptor<NewProjectGenerationContext> pluginDescriptor;
 	private NewProjectParameters parameters;
 	private IProject project;
+	private EPackage ePackage;
 
 	public NewProjectGenerationContext(
 			IProject project,
@@ -46,5 +48,13 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 
 	public IPluginDescriptor<NewProjectGenerationContext> getPluginDescriptor() {
 		return pluginDescriptor;
+	}
+
+	public EPackage getEPackage() {
+		return ePackage;
+	}
+
+	public void setEPackage(EPackage ePackage) {
+		this.ePackage = ePackage;
 	}
 }

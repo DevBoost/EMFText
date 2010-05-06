@@ -54,7 +54,7 @@ public class MetaModelGenerator extends AbstractGenerator<NewProjectGenerationCo
 
 		String projectName = parameters.getProjectName();
 		String metaModelFolder = parameters.getMetamodelFolder();
-		String metaModelFileName = parameters.getName();
+		String metaModelFileName = parameters.getEcoreFile();
 		String pathToMetaModel = projectName + "/" + metaModelFolder + "/" + metaModelFileName;
 		
 		ResourceSet rs = new ResourceSetImpl();
@@ -62,6 +62,7 @@ public class MetaModelGenerator extends AbstractGenerator<NewProjectGenerationCo
 		r.getContents().add(ePackage);
 		try {
 			r.save(outputStream, null);
+			context.setEPackage(ePackage);
 			return true;
 		} catch (IOException e) {
 			addProblem(new GenerationProblem(e.getMessage(), null));
