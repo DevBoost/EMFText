@@ -24,15 +24,12 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class NameUtil {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private final GeneratorUtil genUtil = new GeneratorUtil();
 
-	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<?> artifact) {
-		return csUtil.getPackageName(syntax, artifact.getPlugin(), artifact.getPackage());
-	}
-	
 	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition definition, boolean inImportedSyntax) {
 		if (inImportedSyntax) {
 			syntax = csUtil.getContainingSyntax(syntax, definition);
 		}
-		return csUtil.getResolverPackageName(syntax) + "." + csUtil.getTokenResolverClassName(syntax, definition);
+		return genUtil.getResolverPackageName(syntax) + "." + csUtil.getTokenResolverClassName(syntax, definition);
 	}
 }

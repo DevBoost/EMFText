@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.util.Collection;
 
 /**
@@ -26,7 +26,7 @@ import java.util.Collection;
  */
 public interface IGenerator<GeneraionContextType> {
 	
-	public boolean generate(PrintWriter out);
+	public boolean generate(OutputStream out);
 	
 	public Collection<GenerationProblem> getCollectedProblems();
 	public Collection<GenerationProblem> getCollectedErrors();

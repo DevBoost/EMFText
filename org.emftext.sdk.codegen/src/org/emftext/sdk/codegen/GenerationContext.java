@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -61,8 +60,6 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	private static final String SCHEMA_DIR = "schema";
 	public static final String HOVER_STYLE_FILENAME = "hover_style.css";
 	
-	private final NameUtil nameUtil = new NameUtil();
-
 	private final ConcreteSyntax concreteSyntax;
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
@@ -93,6 +90,8 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	private int featureCounter = 0;
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
 
+	private final GeneratorUtil genUtil = new GeneratorUtil();
+
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		super(problemCollector);
 		if (concreteSyntax == null) {
@@ -109,7 +108,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return concreteSyntax;
 	}
 	
-	public abstract File getProjectFolder(IPluginDescriptor plugin);
+	public abstract File getProjectFolder(IPluginDescriptor<GenerationContext> plugin);
 
 	/**
 	 * Returns the actual file which contains the CS specification.
@@ -121,20 +120,29 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return file;
 	}
 	
-	public File getOutputFolder(IPluginDescriptor plugin) {
+	public File getOutputFolder(IPluginDescriptor<GenerationContext> plugin) {
 		return new File(getProjectFolder(plugin).getAbsolutePath() + File.separator + "bin");
 	}
 
-	public String getPluginName(IPluginDescriptor plugin) {
-		return plugin.getName(concreteSyntax);
+	public String getPluginName(IPluginDescriptor<GenerationContext> plugin) {
+		return plugin.getName(this);
 	}
 
 	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact) {
-		return getPackageName(artifact, concreteSyntax);
+		return genUtil.getPackageName(artifact, concreteSyntax);
 	}
 
-	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
-		return nameUtil.getPackageName(syntax, artifact);
+	/**
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to. Depending on the given generator feature this package
+	 * might be part of a resource plug-in that belongs to an imported
+	 * syntax.
+	 */
+	public String getResolverPackageName(ConcreteSyntax syntax, GenFeature genFeature, boolean inImportedSyntax) {
+		if (inImportedSyntax) {
+			syntax = csUtil.getConcreteSyntax(syntax, genFeature);
+		}
+		return genUtil.getResolverPackageName(syntax);
 	}
 
 	/**
@@ -142,7 +150,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	 * must go to.
 	 */
 	public String getResolverPackageName() {
-		return csUtil.getResolverPackageName(concreteSyntax);
+		return genUtil.getResolverPackageName(concreteSyntax);
 	}
 	
 	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
@@ -189,7 +197,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	}
 
 	private String getResolverPackageName(GenFeature proxyReference, boolean inImportedSyntax) {
-		return csUtil.getResolverPackageName(getConcreteSyntax(), proxyReference, inImportedSyntax);
+		return getResolverPackageName(getConcreteSyntax(), proxyReference, inImportedSyntax);
 	}
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
@@ -264,25 +272,14 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return packagePath;
 	}
 
-	public File getSourceFolder(IPluginDescriptor plugin, boolean doOverride) {
+	public File getSourceFolder(IPluginDescriptor<GenerationContext> plugin, boolean doOverride) {
 		return csUtil.getSourceFolder(getConcreteSyntax(), doOverride, getProjectFolder(plugin).getAbsolutePath());
-	}
-
-	public File getResolverFile(GenFeature proxyReference) {
-		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
-		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
-		File resolverFile = new File(getSourceFolder(TextResourcePlugins.RESOURCE_PLUGIN, doOverride) + File.separator + getResolverPackagePath() + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
-		return resolverFile;
-	}
-
-	private IPath getResolverPackagePath() {
-		return csUtil.getResolverPackagePath(getConcreteSyntax());
 	}
 
 	public File getTokenResolverFile(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_TOKEN_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
-		return new File(getSourceFolder(TextResourcePlugins.RESOURCE_PLUGIN, doOverride).getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
+		return new File(getSourceFolder(TextResourcePlugins.RESOURCE_PLUGIN, doOverride).getAbsolutePath() + File.separator + genUtil.getResolverPackagePath(syntax) + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 	}
 
 	public File getANTLRGrammarFile() {
@@ -313,7 +310,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	}
 
 	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
-		return getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
+		return genUtil.getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
 	}
 
 	public File getFile(ArtifactDescriptor<GenerationContext> artifact) {
@@ -330,13 +327,13 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 
 	// TODO mseifert: this does not belong here
 	public String getBuilderID() {
-		String pluginID = TextResourcePlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		String pluginID = TextResourcePlugins.RESOURCE_PLUGIN.getName(this);
 		return pluginID + ".builder";
 	}
 
 	// TODO mseifert: this does not belong here
 	public String getNatureID() {
-		String pluginID = TextResourcePlugins.RESOURCE_PLUGIN.getName(getConcreteSyntax());
+		String pluginID = TextResourcePlugins.RESOURCE_PLUGIN.getName(this);
 		return pluginID + ".nature";
 	}
 

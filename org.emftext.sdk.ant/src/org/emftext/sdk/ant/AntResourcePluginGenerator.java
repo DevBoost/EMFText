@@ -14,8 +14,8 @@
 package org.emftext.sdk.ant;
 
 import org.eclipse.core.runtime.SubMonitor;
-import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.PluginDescriptor;
 import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
 
 /**

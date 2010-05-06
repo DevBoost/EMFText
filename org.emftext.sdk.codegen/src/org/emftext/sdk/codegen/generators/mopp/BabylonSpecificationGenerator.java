@@ -19,13 +19,14 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 /**
  * An experimental (not yet implemented) generator for the Babylon compiler
  * framework.
  */
 // TODO cbuerger: implement this class
-public class BabylonSpecificationGenerator implements IGenerator<GenerationContext> {
+public class BabylonSpecificationGenerator extends BaseGenerator {
 
 	public BabylonSpecificationGenerator() {
 		super();

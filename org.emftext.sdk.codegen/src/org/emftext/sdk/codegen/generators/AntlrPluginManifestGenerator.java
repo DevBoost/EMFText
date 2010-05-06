@@ -19,14 +19,14 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 
 public class AntlrPluginManifestGenerator extends ManifestGenerator {
 
 	public AntlrPluginManifestGenerator(GenerationContext context) {
-		super(context);
+		super(context, null);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 	}
 
 	@Override
-	protected IPluginDescriptor getPlugin() {
+	protected IPluginDescriptor<GenerationContext> getPlugin() {
 		return TextResourcePlugins.ANTLR_PLUGIN;
 	}
 

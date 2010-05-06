@@ -17,15 +17,15 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
-public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerator<GenerationContext> {
+public class DefaultLoadOptionsExtensionPointSchemaGenerator extends BaseGenerator {
 
 	private GenerationContext context;
 
@@ -36,7 +36,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 	}
 
 	public boolean generate(PrintWriter out) {
-		String resourcePluginName = TextResourcePlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+		String resourcePluginName = TextResourcePlugins.RESOURCE_PLUGIN.getName(context);
 
 		StringComposite sc = new XMLComposite();
 		

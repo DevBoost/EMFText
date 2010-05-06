@@ -16,10 +16,10 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -32,9 +32,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class DotClasspathGenerator extends BaseGenerator {
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<GenerationContext> plugin;
 
-	public DotClasspathGenerator(GenerationContext context, IPluginDescriptor plugin) {
+	public DotClasspathGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
 		super(context, TextResourceArtifacts.DOT_CLASSPATH);
 		this.plugin = plugin;
 	}

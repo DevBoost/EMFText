@@ -19,19 +19,19 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StringUtil;
 
 public class BuildPropertiesGenerator extends BaseGenerator {
 
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<GenerationContext> plugin;
 
-	public BuildPropertiesGenerator(GenerationContext context, IPluginDescriptor plugin) {
+	public BuildPropertiesGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
 		super(context, TextResourceArtifacts.BUILD_PROPERTIES);
 		this.plugin = plugin;
 	}

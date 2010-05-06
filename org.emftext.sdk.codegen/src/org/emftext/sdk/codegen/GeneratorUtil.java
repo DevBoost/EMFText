@@ -27,19 +27,28 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.REFLECTIVE_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
+import java.io.File;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * A utility class used by all generators.
  */
 public class GeneratorUtil {
+	
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public String createGetFeatureCall(GenClass genClass, GenFeature genFeature) {
 		return "getEStructuralFeature(" + getFeatureConstant(genClass, genFeature) + ")";
@@ -226,4 +235,55 @@ public class GeneratorUtil {
 		sc.add("}");
 		sc.addLineBreak();
 	}
+
+	public File getResolverFile(ConcreteSyntax syntax, GenFeature proxyReference, String projectFolder) {
+		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
+		File resolverFile = new File(csUtil.getSourceFolder(syntax, doOverride, projectFolder) + File.separator + getResolverPackagePath(syntax) + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
+		return resolverFile;
+	}
+
+	public File getResolverPackageFile(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
+		return new File(csUtil.getSourceFolder(syntax, doOverride, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
+	}
+
+	public IPath getResolverPackagePath(ConcreteSyntax syntax) {
+		return new Path(getResolverPackageName(syntax).replaceAll("\\.","/"));
+	}
+
+	/**
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to depending on the given syntax.
+	 */
+	public String getResolverPackageName(ConcreteSyntax syntax) {
+		String csPackageName = getPackageName(syntax, TextResourcePlugins.RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE);
+		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
+	}
+
+	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
+		return getPackageName(syntax, artifact);
+	}
+
+	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<GenerationContext> artifact) {
+		return getPackageName(syntax, (PluginDescriptor) artifact.getPlugin(), artifact.getPackage());
+	}
+	
+	public String getPackageName(ConcreteSyntax syntax, PluginDescriptor plugin, String packageSuffix) {
+		if (plugin == null) {
+			// this is the case for artifacts that are generated for
+			// multiple plug-ins
+			return null;
+		}
+		String basePackage = plugin.getBasePackage(syntax);
+		if (basePackage == null || "".equals(basePackage)) {
+			return packageSuffix;
+		} else {
+			if ("".equals(packageSuffix)) {
+				return basePackage;
+			} else {
+				return basePackage + "." + packageSuffix;
+			}
+		}
+	}
+
 }

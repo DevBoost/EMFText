@@ -22,9 +22,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.PluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.PluginDescriptor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -40,7 +40,7 @@ public class UIGenerationContext extends GenerationContext {
 
 	private Map<PluginDescriptor, IJavaProject> javaProjects = new LinkedHashMap<PluginDescriptor, IJavaProject>();
 
-	public IProject getProject(IPluginDescriptor plugin) {
+	public IProject getProject(IPluginDescriptor<GenerationContext> plugin) {
 		if (!javaProjects.containsKey(plugin)) {
 			return null;
 		}
@@ -52,7 +52,7 @@ public class UIGenerationContext extends GenerationContext {
 		}
 	}
 
-	public IJavaProject getJavaProject(IPluginDescriptor plugin) {
+	public IJavaProject getJavaProject(IPluginDescriptor<GenerationContext> plugin) {
 		if (!javaProjects.containsKey(plugin)) {
 			return null;
 		}
@@ -63,7 +63,7 @@ public class UIGenerationContext extends GenerationContext {
 		javaProjects.put(plugin, project);
 	}
 
-	public File getProjectFolder(IPluginDescriptor plugin) {
+	public File getProjectFolder(IPluginDescriptor<GenerationContext> plugin) {
 		return getProject(plugin).getLocation().toFile().getAbsoluteFile();
 	}
 

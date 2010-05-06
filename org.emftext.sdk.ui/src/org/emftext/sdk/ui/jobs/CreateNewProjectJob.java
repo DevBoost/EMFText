@@ -12,8 +12,16 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.newproject.NewProjectConstants;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectGenerationContext;
+import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
 
 public class CreateNewProjectJob extends AbstractCreatePluginJob {
+
+	private NewProjectParameters parameters;
+	
+	public CreateNewProjectJob(NewProjectParameters parameters) {
+		super();
+		this.parameters = parameters;
+	}
 
 	public void run(IProgressMonitor monitor) throws Exception {
 		IProblemCollector problemConnector = new IProblemCollector() {
@@ -22,13 +30,13 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 				// TODO handle problem 
 			}
 		};
-		NewProjectGenerationContext context = new NewProjectGenerationContext(problemConnector);
+		NewProjectGenerationContext context = new NewProjectGenerationContext(parameters, problemConnector);
 		IProject project = createProject(monitor, NewProjectConstants.NEW_PROJECT_PLUGIN);
 		new NewProjectContentsCreator().generate(context, monitor);
 		refresh(monitor, project);
 	}
 
-	public IProject createProject(IProgressMonitor progress, IPluginDescriptor plugin) throws Exception {
+	public IProject createProject(IProgressMonitor progress, IPluginDescriptor<NewProjectGenerationContext> plugin) throws Exception {
 		
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(plugin.getName(null));
 		if (!project.exists()) {

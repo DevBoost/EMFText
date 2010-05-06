@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -29,12 +30,10 @@ import org.emftext.sdk.util.StringUtil;
  * A generator that creates the manifest file for the resource
  * plug-in.
  */
-public abstract class ManifestGenerator implements IGenerator<GenerationContext> {
+public abstract class ManifestGenerator extends BaseGenerator {
 
-	private GenerationContext context;
-
-	public ManifestGenerator(GenerationContext context) {
-		this.context = context;
+	public ManifestGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
+		super(context, artifact);
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -84,14 +83,14 @@ public abstract class ManifestGenerator implements IGenerator<GenerationContext>
 
 
 	protected String getBundleID(GenerationContext context) {
-		return getPlugin().getName(context.getConcreteSyntax());
+		return getPlugin().getName(context);
 	}
 
 	protected abstract String getBundleName(GenerationContext context);
 
 	protected abstract String getActivatorClass(GenerationContext context);
 
-	protected abstract IPluginDescriptor getPlugin();
+	protected abstract IPluginDescriptor<GenerationContext> getPlugin();
 
 	protected abstract Collection<String> getRequiredBundles(GenerationContext context);
 

@@ -43,7 +43,7 @@ public class AntGenerationContext extends GenerationContext {
 		this.generateANTLRPlugin = generateANTLRPlugin;
 	}
 
-	public File getProjectFolder(IPluginDescriptor plugin) {
+	public File getProjectFolder(IPluginDescriptor<GenerationContext> plugin) {
 		return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName(plugin));
 	}
 

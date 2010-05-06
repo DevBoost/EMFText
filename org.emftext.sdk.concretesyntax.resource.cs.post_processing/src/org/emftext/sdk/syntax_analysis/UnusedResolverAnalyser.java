@@ -20,8 +20,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.TextResourcePlugins;
+import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -37,6 +38,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class UnusedResolverAnalyser extends AbstractPostProcessor {
 	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private GeneratorUtil genUtil = new GeneratorUtil();
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
@@ -53,7 +55,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
-		File resolverPackageFolder = csUtil.getResolverPackageFile(syntax, doOverride, pluginProjectFolder);
+		File resolverPackageFolder = genUtil.getResolverPackageFile(syntax, doOverride, pluginProjectFolder);
 		if (!resolverPackageFolder.exists()) {
 			return;
 		}

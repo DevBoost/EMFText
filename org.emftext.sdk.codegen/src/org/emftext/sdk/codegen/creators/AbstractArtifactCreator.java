@@ -13,13 +13,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.creators;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -103,10 +101,8 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 
 	private InputStream invokeGeneration(IGenerator<ContextType> generator, IProblemCollector collector) {
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {
-    	   if (generator.generate(out)) {
-    		   out.flush();
+    	   if (generator.generate(stream)) {
     		   return new ByteArrayInputStream(stream.toByteArray());
        	   }
 		} catch (Exception e) {
@@ -116,7 +112,6 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 			// to the problem collector
 			EMFTextSDKPlugin.logError("Exception while invoking code generator.", e);
 		} finally {
-			out.close();
 			Collection<GenerationProblem> collectedProblems = generator.getCollectedProblems();
 			if (collectedProblems != null) {
 				for (GenerationProblem problem : collectedProblems) {

@@ -28,16 +28,16 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
  */
 public class DotProjectGenerator extends BaseGenerator {
 
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<GenerationContext> plugin;
 
-	public DotProjectGenerator(GenerationContext context, IPluginDescriptor plugin) {
+	public DotProjectGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
 		super(context, TextResourceArtifacts.DOT_PROJECT);
 		this.plugin = plugin;
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		String resourcePluginName = plugin.getName(getContext().getConcreteSyntax());
+		String resourcePluginName = plugin.getName(getContext());
 
 		StringComposite sc = new XMLComposite();
 		

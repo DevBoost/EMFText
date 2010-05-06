@@ -17,9 +17,9 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -29,9 +29,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotClasspathCreator extends TextResourceArtifactCreator {
 
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<GenerationContext> plugin;
 
-	public DotClasspathCreator(IPluginDescriptor plugin) {
+	public DotClasspathCreator(IPluginDescriptor<GenerationContext> plugin) {
 		super(".classpath file");
 		this.plugin = plugin;
 	}

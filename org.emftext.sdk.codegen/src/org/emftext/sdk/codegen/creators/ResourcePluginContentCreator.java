@@ -17,11 +17,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 

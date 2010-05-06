@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.codegen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.OptionManager;
@@ -9,12 +9,17 @@ public class TextResourcePlugins {
 
 	public final static PluginDescriptor RESOURCE_PLUGIN = new PluginDescriptor(OptionTypes.RESOURCE_PLUGIN_ID) {
 
-		@Override
-		public String getPluginName(ConcreteSyntax syntax) {
-			return getBasePackage(syntax);
+		public String getName(ConcreteSyntax syntax) {
+			String pluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, getOption());
+			if (pluginID != null) {
+				// use package plug-in from option
+				return pluginID;
+			} else {
+				// use default plug-in name
+				return getBasePackage(syntax);
+			}
 		}
 
-		@Override
 		public String getBasePackage(ConcreteSyntax syntax) {
 			String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
 			if (basePackage != null) {
@@ -37,15 +42,13 @@ public class TextResourcePlugins {
 	
 	public final static PluginDescriptor ANTLR_PLUGIN = new PluginDescriptor(OptionTypes.ANTLR_PLUGIN_ID) {
 		
-		@Override
-		public String getPluginName(ConcreteSyntax syntax) {
+		public String getName(ConcreteSyntax syntax) {
 			return "org.emftext.commons.antlr3_2_0";
 		}
 
 		@Override
 		public String getBasePackage(ConcreteSyntax syntax) {
-			return "";
+			return null;
 		}
 	};
-	
 }

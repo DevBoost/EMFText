@@ -20,8 +20,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
@@ -34,8 +32,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -278,24 +274,6 @@ public class ConcreteSyntaxUtil {
 		return getCapitalizedConcreteSyntaxName(syntax) + Constants.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
 	}
 
-	public String getPackageName(ConcreteSyntax syntax, IPluginDescriptor plugin, String packageSuffix) {
-		if (plugin == null) {
-			// this is the case for artifacts that are generated for
-			// multiple plug-ins
-			return null;
-		}
-		String basePackage = plugin.getBasePackage(syntax);
-		if ("".equals(basePackage)) {
-			return packageSuffix;
-		} else {
-			if ("".equals(packageSuffix)) {
-				return basePackage;
-			} else {
-				return basePackage + "." + packageSuffix;
-			}
-		}
-	}
-
 	// feature may be contained in imported rules and thus belong to a different
 	// CS specification
 	public ConcreteSyntax getConcreteSyntax(ConcreteSyntax syntax, GenFeature genFeature) {
@@ -311,36 +289,6 @@ public class ConcreteSyntaxUtil {
 			}
 		}
 		return syntax;
-	}
-
-	/**
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to depending on the given syntax.
-	 */
-	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, TextResourcePlugins.RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE);
-		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
-	}
-
-	/**
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to. Depending on the given generator feature this package
-	 * might be part of a resource plug-in that belongs to an imported
-	 * syntax.
-	 */
-	public String getResolverPackageName(ConcreteSyntax syntax, GenFeature genFeature, boolean inImportedSyntax) {
-		if (inImportedSyntax) {
-			syntax = getConcreteSyntax(syntax, genFeature);
-		}
-		return getResolverPackageName(syntax);
-	}
-
-	public IPath getResolverPackagePath(ConcreteSyntax syntax) {
-		return new Path(getResolverPackageName(syntax).replaceAll("\\.","/"));
-	}
-
-	public File getResolverPackageFile(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
-		return new File(getSourceFolder(syntax, doOverride, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
 	}
 
 	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {

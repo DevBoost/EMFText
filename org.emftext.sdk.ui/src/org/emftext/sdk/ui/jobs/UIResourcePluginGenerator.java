@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.emftext.sdk.PluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.PluginDescriptor;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
 
@@ -53,7 +53,7 @@ public class UIResourcePluginGenerator extends CreateTextResourcePluginsJob {
 		
 		UIGenerationContext uiContext = (UIGenerationContext) context;
 		
-		String projectName = plugin.getName(context.getConcreteSyntax());
+		String projectName = plugin.getName(context);
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());

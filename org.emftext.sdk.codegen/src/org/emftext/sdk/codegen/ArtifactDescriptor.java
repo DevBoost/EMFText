@@ -5,14 +5,14 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ArtifactDescriptor<ContextType> {
 
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<ContextType> plugin;
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
 	private IGenerator<ContextType> generator;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(IPluginDescriptor plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<ContextType> generator, OptionTypes overrideOption) {
+	public ArtifactDescriptor(IPluginDescriptor<ContextType> plugin, String packageName, String classNamePrefix, String classNameSuffix, IGenerator<ContextType> generator, OptionTypes overrideOption) {
 		this.plugin = plugin;
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
@@ -21,7 +21,7 @@ public class ArtifactDescriptor<ContextType> {
 		this.overrideOption = overrideOption;
 	}
 
-	public IPluginDescriptor getPlugin() {
+	public IPluginDescriptor<ContextType> getPlugin() {
 		return plugin;
 	}
 

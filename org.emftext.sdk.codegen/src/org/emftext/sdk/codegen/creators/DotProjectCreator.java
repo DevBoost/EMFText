@@ -17,8 +17,8 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -28,9 +28,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotProjectCreator extends TextResourceArtifactCreator {
 
-	private IPluginDescriptor plugin;
+	private IPluginDescriptor<GenerationContext> plugin;
 
-	public DotProjectCreator(IPluginDescriptor plugin) {
+	public DotProjectCreator(IPluginDescriptor<GenerationContext> plugin) {
 		super(".project file");
 		this.plugin = plugin;
 	}

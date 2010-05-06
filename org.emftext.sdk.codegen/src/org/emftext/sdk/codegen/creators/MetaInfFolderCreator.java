@@ -15,9 +15,9 @@ package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 
-import org.emftext.sdk.TextResourcePlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 
 /**
  * Creates the folder META-INF in generated text resource plug-ins.

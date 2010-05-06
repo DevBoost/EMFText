@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
 import org.emftext.sdk.ui.jobs.CreateNewProjectJob;
 
 public class NewProjectWizard extends Wizard implements INewWizard {
@@ -23,10 +24,11 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
+		final NewProjectParameters parameters = page.getParameters();
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(monitor);
+					doFinish(parameters, monitor);
 				} finally {
 					monitor.done();
 				}
@@ -44,9 +46,9 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
-	private void doFinish(IProgressMonitor monitor) {
+	private void doFinish(NewProjectParameters parameters, IProgressMonitor monitor) {
 		try {
-			new CreateNewProjectJob().run(monitor);
+			new CreateNewProjectJob(parameters).run(monitor);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
