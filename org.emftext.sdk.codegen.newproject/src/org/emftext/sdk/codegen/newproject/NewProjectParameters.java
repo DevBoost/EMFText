@@ -1,4 +1,5 @@
-package org.emftext.sdk.codegen.newproject.creators;
+package org.emftext.sdk.codegen.newproject;
+
 
 public class NewProjectParameters {
 	

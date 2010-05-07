@@ -12,17 +12,20 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
+import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
-import org.emftext.sdk.codegen.newproject.creators.NewProjectGenerationContext;
-import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
 
 public class CreateNewProjectJob extends AbstractCreatePluginJob {
 
 	private NewProjectParameters parameters;
+	private IResourceMarker resourceMarker;
 	
-	public CreateNewProjectJob(NewProjectParameters parameters) {
+	public CreateNewProjectJob(NewProjectParameters parameters, IResourceMarker resourceMarker) {
 		super();
 		this.parameters = parameters;
+		this.resourceMarker = resourceMarker;
 	}
 
 	public void run(IProgressMonitor monitor) throws Exception {
@@ -41,6 +44,8 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		};
 		IProject project = createProject(monitor, newProjectPlugin, parameters.getProjectName());
 		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters, problemConnector);
+		context.setMonitor(monitor);
+		context.setResourceMarker(resourceMarker);
 		new NewProjectContentsCreator().generate(context, monitor);
 		refresh(monitor, project);
 		

@@ -1,13 +1,16 @@
-package org.emftext.sdk.codegen.newproject.creators;
+package org.emftext.sdk.codegen.newproject;
 
 import java.io.File;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.generators.IResourceMarker;
 
 public class NewProjectGenerationContext extends AbstractGenerationContext<NewProjectGenerationContext> {
 
@@ -15,6 +18,9 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 	private NewProjectParameters parameters;
 	private IProject project;
 	private EPackage ePackage;
+	private GenPackage genPackage;
+	private IProgressMonitor monitor;
+	private IResourceMarker resourceMarker;
 
 	public NewProjectGenerationContext(
 			IProject project,
@@ -56,5 +62,29 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 
 	public void setEPackage(EPackage ePackage) {
 		this.ePackage = ePackage;
+	}
+
+	public GenPackage getGenPackage() {
+		return genPackage;
+	}
+
+	public void setGenPackage(GenPackage genPackage) {
+		this.genPackage = genPackage;
+	}
+
+	public IProgressMonitor getMonitor() {
+		return monitor;
+	}
+
+	public void setMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
+	}
+
+	public IResourceMarker getResourceMarker() {
+		return resourceMarker;
+	}
+
+	public void setResourceMarker(IResourceMarker resourceMarker) {
+		this.resourceMarker = resourceMarker;
 	}
 }

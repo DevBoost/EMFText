@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
+import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
 public class NewProjectWizardPage extends WizardPage {
 	
@@ -95,7 +95,10 @@ public class NewProjectWizardPage extends WizardPage {
 		createTextInput(container, genmodelFileText);
 		
 		deriveModelFileNames = new Button(container, SWT.CHECK);
-		deriveModelFileNames.setText("derive file names from metamodel name");
+		GridData layoutData = new GridData();
+		layoutData.horizontalSpan = 2;
+		deriveModelFileNames.setLayoutData(layoutData);
+		deriveModelFileNames.setText("derive values from metamodel name");
 		deriveModelFileNames.addSelectionListener(new SelectionListener() {
 			
 			public void widgetSelected(SelectionEvent e) {

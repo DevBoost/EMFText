@@ -9,8 +9,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.emftext.sdk.codegen.newproject.creators.NewProjectParameters;
+import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.ui.jobs.CreateNewProjectJob;
+import org.emftext.sdk.ui.jobs.WorkspaceMarker;
 
 public class NewProjectWizard extends Wizard implements INewWizard {
 
@@ -48,7 +49,7 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 
 	private void doFinish(NewProjectParameters parameters, IProgressMonitor monitor) {
 		try {
-			new CreateNewProjectJob(parameters).run(monitor);
+			new CreateNewProjectJob(parameters, new WorkspaceMarker()).run(monitor);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -18,11 +18,7 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.codegen.ecore.generator.Generator;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
-import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
@@ -31,6 +27,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginDescriptor;
 import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.codegen.util.GenModelUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -136,22 +133,6 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		return Result.SUCCESS;
 	}
 
-	private void generateMetaModelCode(GenPackage genPackage,
-			IProgressMonitor monitor) {
-		monitor.setTaskName("generating metamodel code...");
-		
-	
-		GenModel genModel = genPackage.getGenModel();
-		genModel.setCanGenerate(true);
-
-		// generate the code
-		Generator generator = new Generator();
-		generator.setInput(genModel);
-		generator.generate(genModel,
-				GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE,
-				new BasicMonitor.EclipseSubProgress(monitor, 100));
-	}
-
 	private void createMetaModelCode(GenerationContext context, SubMonitor progress) {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
@@ -163,7 +144,7 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		
 		// call EMF code generator if specified
 		if (OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
-			generateMetaModelCode(cSyntax.getPackage(), progress
+			new GenModelUtil().generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
 			progress.internalWorked(TICKS_GENERATE_METAMODEL_CODE);
