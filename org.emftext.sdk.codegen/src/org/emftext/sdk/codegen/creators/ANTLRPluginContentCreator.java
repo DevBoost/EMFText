@@ -23,6 +23,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
+import org.emftext.sdk.codegen.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -137,7 +138,13 @@ public class ANTLRPluginContentCreator {
 		creators.add(new DotClasspathCreator<GenerationContext>(cpp));
 		
 	    creators.add(new DotProjectCreator<GenerationContext>(TextResourcePlugins.ANTLR_PLUGIN));
-	    creators.add(new BuildPropertiesCreator(TextResourcePlugins.ANTLR_PLUGIN));
+	    
+	    BuildPropertiesParameters<GenerationContext> bpp = new BuildPropertiesParameters<GenerationContext>(TextResourcePlugins.ANTLR_PLUGIN);
+	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
+		bpp.getBinIncludes().add("META-INF/");
+		bpp.getBinIncludes().add(".");
+
+		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp));
 	    
 	    ManifestParameters<GenerationContext> manifestParameters = new ManifestParameters<GenerationContext>();
 		// export the generated packages

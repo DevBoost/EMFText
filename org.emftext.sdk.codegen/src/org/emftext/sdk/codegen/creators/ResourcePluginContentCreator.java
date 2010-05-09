@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.codegen.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -69,7 +70,17 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		cpp.getSourceFolders().add(sourceGenFolderName);
 	    creators.add(new DotClasspathCreator<GenerationContext>(cpp));
 	    creators.add(new DotProjectCreator<GenerationContext>(TextResourcePlugins.RESOURCE_PLUGIN));
-	    creators.add(new BuildPropertiesCreator(TextResourcePlugins.RESOURCE_PLUGIN));
+	    
+	    BuildPropertiesParameters<GenerationContext> bpp = new BuildPropertiesParameters<GenerationContext>(TextResourcePlugins.RESOURCE_PLUGIN);
+	    bpp.getSourceFolders().add(sourceFolderName + "/");
+		bpp.getSourceFolders().add(sourceGenFolderName + "/");
+		bpp.getBinIncludes().add("META-INF/");
+		bpp.getBinIncludes().add(".");
+		bpp.getBinIncludes().add("icons/");
+		bpp.getBinIncludes().add("css/");
+		bpp.getBinIncludes().add("plugin.xml");
+		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp));
+		
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SCANNERLESS_SCANNER));
 	    	creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SCANNERLESS_PARSER));
