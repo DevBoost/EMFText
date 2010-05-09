@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class StringUtilGenerator extends JavaBaseGenerator {
+public class StringUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public StringUtilGenerator() {
 		super();
@@ -35,7 +35,7 @@ public class StringUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.STRING_UTIL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new StringUtilGenerator(context);
 	}
 

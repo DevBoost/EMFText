@@ -11,6 +11,7 @@ import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class NewProjectGenerationContext extends AbstractGenerationContext<NewProjectGenerationContext> {
 
@@ -21,6 +22,7 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 	private GenPackage genPackage;
 	private IProgressMonitor monitor;
 	private IResourceMarker resourceMarker;
+	private ConcreteSyntax concreteSyntax;
 
 	public NewProjectGenerationContext(
 			IProject project,
@@ -33,18 +35,18 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 		this.parameters = parameters;
 	}
 
-	public File getFile(ArtifactDescriptor<NewProjectGenerationContext> artifact) {
+	public File getFile(ArtifactDescriptor<NewProjectGenerationContext, ?> artifact) {
 		return new File(getPackagePath(artifact) + File.separator + artifact.getClassNameSuffix());
 	}
 
-	public String getPackagePath(ArtifactDescriptor<NewProjectGenerationContext> artifact) {
-		File targetFolder = getProjectFolder();
+	public String getPackagePath(ArtifactDescriptor<NewProjectGenerationContext, ?> artifact) {
+		File targetFolder = getProjectFolder(null);
 		String targetFolderPath = targetFolder.getAbsolutePath();
 		String packagePath = targetFolderPath + File.separator + artifact.getPackage() + File.separator;
 		return packagePath;
 	}
 
-	public File getProjectFolder() {
+	public File getProjectFolder(IPluginDescriptor<NewProjectGenerationContext> plugin) {
 		return project.getLocation().toFile().getAbsoluteFile();
 	}
 
@@ -86,5 +88,13 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 
 	public void setResourceMarker(IResourceMarker resourceMarker) {
 		this.resourceMarker = resourceMarker;
+	}
+
+	public ConcreteSyntax getConcreteSyntax() {
+		return concreteSyntax;
+	}
+
+	public void setConcreteSyntax(ConcreteSyntax concreteSyntax) {
+		this.concreteSyntax = concreteSyntax;
 	}
 }

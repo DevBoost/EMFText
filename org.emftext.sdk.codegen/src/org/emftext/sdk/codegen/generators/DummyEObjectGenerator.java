@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class DummyEObjectGenerator extends JavaBaseGenerator {
+public class DummyEObjectGenerator extends JavaBaseGenerator<Object> {
 
 	public DummyEObjectGenerator() {
 		super();
@@ -134,7 +134,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DummyEObjectGenerator(context);
 	}
 }

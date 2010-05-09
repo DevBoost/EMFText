@@ -31,7 +31,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class TokenScannerGenerator extends JavaBaseGenerator {
+public class TokenScannerGenerator extends JavaBaseGenerator<Object> {
 
 	public TokenScannerGenerator() {
 		super();
@@ -158,7 +158,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TokenScannerGenerator(context);
 	}
 }

@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ANTLRScannerGenerator extends JavaBaseGenerator {
+public class ANTLRScannerGenerator extends JavaBaseGenerator<Object> {
 
 	public ANTLRScannerGenerator() {
 		super();
@@ -68,7 +68,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object object) {
 		return new ANTLRScannerGenerator(context);
 	}
 }

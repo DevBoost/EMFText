@@ -46,8 +46,8 @@ public class GenModelGenerator extends ModelGenerator {
         return genModel;
 	}
 
-	public IGenerator<NewProjectGenerationContext> newInstance(
-			NewProjectGenerationContext context) {
+	public IGenerator<NewProjectGenerationContext, Object> newInstance(
+			NewProjectGenerationContext context, Object parameters) {
 		return new GenModelGenerator(context);
 	}
 

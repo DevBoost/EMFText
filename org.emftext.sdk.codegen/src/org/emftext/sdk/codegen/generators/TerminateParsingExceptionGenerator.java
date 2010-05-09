@@ -20,7 +20,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
+public class TerminateParsingExceptionGenerator extends JavaBaseGenerator<Object> {
 
 	public TerminateParsingExceptionGenerator() {
 		super();
@@ -30,7 +30,7 @@ public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TerminateParsingExceptionGenerator(context);
 	}
 

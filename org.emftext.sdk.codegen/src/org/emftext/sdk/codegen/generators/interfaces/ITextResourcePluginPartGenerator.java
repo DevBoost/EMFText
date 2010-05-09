@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
+public class ITextResourcePluginPartGenerator extends JavaBaseGenerator<Object> {
 
 	public ITextResourcePluginPartGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ITextResourcePluginPartGenerator(context);
 	}
 

@@ -7,7 +7,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class KeywordGenerator extends JavaBaseGenerator {
+public class KeywordGenerator extends JavaBaseGenerator<Object> {
 
 	public KeywordGenerator() {
 		super();
@@ -17,7 +17,7 @@ public class KeywordGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.KEYWORD);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new KeywordGenerator(context);
 	}
 

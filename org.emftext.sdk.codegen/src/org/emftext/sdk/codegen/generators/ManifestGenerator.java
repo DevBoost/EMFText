@@ -17,23 +17,21 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.util.StringUtil;
 
 /**
- * A generator that creates the manifest file for the resource
- * plug-in.
+ * A generator that creates manifest files.
  */
-public abstract class ManifestGenerator extends BaseGenerator {
+public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextType, ManifestParameters<ContextType>> {
 
-	public ManifestGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
-		super(context, artifact);
+	public ManifestGenerator(ContextType context, ManifestParameters<ContextType> parameters) {
+		super(context, parameters);
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -45,24 +43,18 @@ public abstract class ManifestGenerator extends BaseGenerator {
 	/**
 	 * Generates the contents of the MANIFEST.MF file for the plug-in.
 	 * 
-	 * @param cSyntax
-	 *            Concrete syntax model.
-	 * @param packageName
-	 *            Name of the Java package.
-	 * @param resourcePackage
-	 * 
 	 * @return generated content
 	 */
 	private String getManifestContent() {
 		StringComposite sc = new ManifestComposite();
 		
-		Collection<String> requiredBundles = getRequiredBundles(context);
-		Collection<String> exportedPackages = getExportedPackages(context);
+		Collection<String> requiredBundles = parameters.getRequiredBundles();
+		Collection<String> exportedPackages = parameters.getExportedPackages();
 
 		sc.add("Manifest-Version: 1.0");
 		sc.add("Bundle-ManifestVersion: 2");
-		sc.add("Bundle-Name: " + getBundleName(context));
-		sc.add("Bundle-SymbolicName: " + getBundleID(context) + ";singleton:=true");
+		sc.add("Bundle-Name: " + parameters.getBundleName());
+		sc.add("Bundle-SymbolicName: " + parameters.getPlugin().getName(context) + ";singleton:=true");
 		sc.add("Bundle-Version: 1.0.0");
 		sc.add("Bundle-Vendor: Software Technology Group - TU Dresden Germany");
 		if (requiredBundles.size() > 0) {
@@ -73,7 +65,7 @@ public abstract class ManifestGenerator extends BaseGenerator {
 		if (exportedPackages.size() > 0) {
 			sc.add("Export-Package: " + StringUtil.explode(exportedPackages, ",\n  "));
 		}
-		String activatorClass = getActivatorClass(context);
+		String activatorClass = parameters.getActivatorClass();
 		if (activatorClass != null) {
 			sc.add("Bundle-Activator: " + activatorClass);
 		}
@@ -81,20 +73,6 @@ public abstract class ManifestGenerator extends BaseGenerator {
 		return sc.toString();
 	}
 
-
-	protected String getBundleID(GenerationContext context) {
-		return getPlugin().getName(context);
-	}
-
-	protected abstract String getBundleName(GenerationContext context);
-
-	protected abstract String getActivatorClass(GenerationContext context);
-
-	protected abstract IPluginDescriptor<GenerationContext> getPlugin();
-
-	protected abstract Collection<String> getRequiredBundles(GenerationContext context);
-
-	protected abstract Collection<String> getExportedPackages(GenerationContext context);
 
 	public Collection<GenerationProblem> getCollectedErrors() {
 		return Collections.emptyList();
@@ -104,7 +82,7 @@ public abstract class ManifestGenerator extends BaseGenerator {
 		return Collections.emptyList();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
-		throw new UnsupportedOperationException();
+	public IGenerator<ContextType, ManifestParameters<ContextType>> newInstance(ContextType context, ManifestParameters<ContextType> parameters) {
+		return new ManifestGenerator<ContextType>(context, parameters);
 	}
 }

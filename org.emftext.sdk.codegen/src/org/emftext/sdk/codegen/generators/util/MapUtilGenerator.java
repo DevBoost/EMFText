@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class MapUtilGenerator extends JavaBaseGenerator {
+public class MapUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public MapUtilGenerator() {
 		super();
@@ -92,7 +92,7 @@ public class MapUtilGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new MapUtilGenerator(context);
 	}
 }

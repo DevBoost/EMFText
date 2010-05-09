@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CompletionProposalGenerator extends JavaBaseGenerator {
+public class CompletionProposalGenerator extends JavaBaseGenerator<Object> {
 
 	public CompletionProposalGenerator() {
 		super();
@@ -21,7 +21,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COMPLETION_PROPOSAL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CompletionProposalGenerator(context);
 	}
 

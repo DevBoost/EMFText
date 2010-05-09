@@ -15,7 +15,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
+public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Object> {
 
 	public LayoutInformationAdapterGenerator() {
 		super();
@@ -25,7 +25,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new LayoutInformationAdapterGenerator(context);
 	}
 

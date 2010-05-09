@@ -32,7 +32,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class HTMLPrinterGenerator extends JavaBaseGenerator {
+public class HTMLPrinterGenerator extends JavaBaseGenerator<Object> {
 
 	public HTMLPrinterGenerator() {
 		super();
@@ -590,7 +590,7 @@ public class HTMLPrinterGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new HTMLPrinterGenerator(context);
 	}
 }

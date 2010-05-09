@@ -21,17 +21,17 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.AdditionalExtensionParserExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextResourceArtifactCreator {
+public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
 	public AdditionalExtensionParserExtensionPointSchemaCreator() {
-		super("additional_extension_parser.exsd");
+		super("additional_extension_parser.exsd", null);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
 		
 		File file = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "additional_extension_parser.exsd");
-		IGenerator<GenerationContext> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext, Object> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(
 	    		context,

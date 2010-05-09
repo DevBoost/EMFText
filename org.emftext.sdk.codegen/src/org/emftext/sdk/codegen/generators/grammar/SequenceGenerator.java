@@ -6,7 +6,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class SequenceGenerator extends JavaBaseGenerator {
+public class SequenceGenerator extends JavaBaseGenerator<Object> {
 
 	public SequenceGenerator() {
 		super();
@@ -16,7 +16,7 @@ public class SequenceGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SEQUENCE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SequenceGenerator(context);
 	}
 

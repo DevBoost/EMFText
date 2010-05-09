@@ -18,7 +18,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class TokenResolveResultGenerator extends JavaBaseGenerator {
+public class TokenResolveResultGenerator extends JavaBaseGenerator<Object> {
 
 	public TokenResolveResultGenerator() {
 		super();
@@ -67,7 +67,7 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TokenResolveResultGenerator(context);
 	}
 }

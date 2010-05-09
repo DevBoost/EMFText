@@ -20,7 +20,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class URIMappingGenerator extends JavaBaseGenerator {
+public class URIMappingGenerator extends JavaBaseGenerator<Object> {
 
 	public URIMappingGenerator() {
 		super();
@@ -88,7 +88,7 @@ public class URIMappingGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new URIMappingGenerator(context);
 	}
 }

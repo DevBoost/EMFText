@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class UnicodeConverterGenerator extends JavaBaseGenerator {
+public class UnicodeConverterGenerator extends JavaBaseGenerator<Object> {
 
 	public UnicodeConverterGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.UNICODE_CONVERTER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new UnicodeConverterGenerator(context);
 	}
 

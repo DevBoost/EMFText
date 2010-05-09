@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class BuilderGenerator extends JavaBaseGenerator {
+public class BuilderGenerator extends JavaBaseGenerator<Object> {
 
 	public BuilderGenerator() {
 		super();
@@ -21,7 +21,7 @@ public class BuilderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.BUILDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BuilderGenerator(context);
 	}
 

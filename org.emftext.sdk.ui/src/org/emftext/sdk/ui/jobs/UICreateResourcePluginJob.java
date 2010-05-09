@@ -32,7 +32,7 @@ import org.emftext.sdk.codegen.generators.IResourceMarker;
  * A custom generator that creates adds a new project to the current
  * Eclipse workspace before generating the test resource plug-in.
  */
-public class UIResourcePluginGenerator extends CreateTextResourcePluginsJob {
+public class UICreateResourcePluginJob extends CreateTextResourcePluginsJob {
 
 	@Override
 	public Result run(GenerationContext context,

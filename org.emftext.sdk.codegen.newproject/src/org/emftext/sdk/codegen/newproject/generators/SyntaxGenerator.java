@@ -81,8 +81,8 @@ public class SyntaxGenerator extends ModelGenerator {
 		return getFileInMetaModelFolder(context.getParameters().getSyntaxFile());
 	}
 
-	public IGenerator<NewProjectGenerationContext> newInstance(
-			NewProjectGenerationContext context) {
+	public IGenerator<NewProjectGenerationContext, Object> newInstance(
+			NewProjectGenerationContext context, Object parameters) {
 		return new SyntaxGenerator(context);
 	}
 }

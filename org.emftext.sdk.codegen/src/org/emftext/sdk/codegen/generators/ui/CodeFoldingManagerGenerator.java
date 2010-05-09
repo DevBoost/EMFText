@@ -62,7 +62,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
+public class CodeFoldingManagerGenerator extends JavaBaseGenerator<Object> {
 
 	public CodeFoldingManagerGenerator() {
 		super();
@@ -568,7 +568,7 @@ public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CodeFoldingManagerGenerator(context);
 	}
 }

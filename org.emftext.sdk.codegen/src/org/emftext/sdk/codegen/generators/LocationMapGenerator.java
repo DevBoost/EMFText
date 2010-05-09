@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class LocationMapGenerator extends JavaBaseGenerator {
+public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 
 	private static final String SYNCHRONISATION_COMMENT = 
 		"We need to synchronize the write access, because other threads may iterate over the map concurrently.";
@@ -263,7 +263,7 @@ public class LocationMapGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new LocationMapGenerator(context);
 	}
 }

@@ -4,10 +4,10 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public abstract class TextResourceArtifactCreator extends GenericArtifactCreator<GenerationContext> {
+public abstract class TextResourceArtifactCreator<ParameterType> extends GenericArtifactCreator<GenerationContext, ParameterType> {
 
-	public TextResourceArtifactCreator(String artifactName) {
-		super(artifactName);
+	public TextResourceArtifactCreator(String artifactName, ParameterType parameters) {
+		super(artifactName, parameters);
 	}
 
 	protected boolean doOverride(GenerationContext context) {

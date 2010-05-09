@@ -128,7 +128,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return plugin.getName(this);
 	}
 
-	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact) {
+	public String getPackageName(ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return genUtil.getPackageName(artifact, concreteSyntax);
 	}
 
@@ -262,7 +262,7 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getPackagePath(ArtifactDescriptor<GenerationContext> artifact) {
+	public String getPackagePath(ArtifactDescriptor<GenerationContext, ?> artifact) {
 		OptionTypes overrideOption = artifact.getOverrideOption();
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
 		File targetFolder = getSourceFolder(artifact.getPlugin(), doOverride);
@@ -297,23 +297,23 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
 	}
 
-	public String getClassName(ArtifactDescriptor<GenerationContext> artifact) {
+	public String getClassName(ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return getClassName(artifact, getConcreteSyntax());
 	}
 
-	public String getClassName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
+	public String getClassName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
 		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName(syntax) + artifact.getClassNameSuffix();
 	}
 
-	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext> artifact) {
+	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return getPackageName(artifact) + "." + getClassName(artifact);
 	}
 
-	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
+	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
 		return genUtil.getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
 	}
 
-	public File getFile(ArtifactDescriptor<GenerationContext> artifact) {
+	public File getFile(ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return new File(getPackagePath(artifact) + getClassName(artifact) + Constants.JAVA_FILE_EXTENSION);
 	}
 

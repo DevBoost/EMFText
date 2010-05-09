@@ -7,7 +7,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PairGenerator extends JavaBaseGenerator {
+public class PairGenerator extends JavaBaseGenerator<Object> {
 
 	public PairGenerator() {
 		super();
@@ -17,7 +17,7 @@ public class PairGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PAIR);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PairGenerator(context);
 	}
 

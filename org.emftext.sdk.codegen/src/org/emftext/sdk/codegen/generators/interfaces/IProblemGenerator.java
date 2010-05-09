@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IProblemGenerator extends JavaBaseGenerator {
+public class IProblemGenerator extends JavaBaseGenerator<Object> {
 
 	public IProblemGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class IProblemGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_PROBLEM);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IProblemGenerator(context);
 	}
 

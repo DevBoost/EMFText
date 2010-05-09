@@ -31,7 +31,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class OccurrenceGenerator extends JavaBaseGenerator {
+public class OccurrenceGenerator extends JavaBaseGenerator<Object> {
 
 	public OccurrenceGenerator() {
 		super();
@@ -347,7 +347,7 @@ public class OccurrenceGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new OccurrenceGenerator(context);
 	}
 }

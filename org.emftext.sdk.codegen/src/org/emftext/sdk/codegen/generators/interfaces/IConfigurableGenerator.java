@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IConfigurableGenerator extends JavaBaseGenerator {
+public class IConfigurableGenerator extends JavaBaseGenerator<Object> {
 
 	public IConfigurableGenerator() {
 		super();
@@ -31,7 +31,7 @@ public class IConfigurableGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_CONFIGURABLE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IConfigurableGenerator(context);
 	}
 

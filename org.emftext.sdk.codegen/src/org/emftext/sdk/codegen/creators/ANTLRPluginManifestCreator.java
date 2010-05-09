@@ -18,22 +18,23 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.TextResourcePlugins;
-import org.emftext.sdk.codegen.generators.AntlrPluginManifestGenerator;
+import org.emftext.sdk.codegen.generators.ManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class ANTLRPluginManifestCreator extends TextResourceArtifactCreator {
+public class ANTLRPluginManifestCreator extends TextResourceArtifactCreator<ManifestParameters<GenerationContext>> {
 
-	public ANTLRPluginManifestCreator() {
-		super("manifest");
+	public ANTLRPluginManifestCreator(ManifestParameters<GenerationContext> parameters) {
+		super("manifest", parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, ManifestParameters<GenerationContext> parameters) {
 		final File project = context.getProjectFolder(TextResourcePlugins.ANTLR_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator<GenerationContext> generator = new AntlrPluginManifestGenerator(context);
+		IGenerator<GenerationContext, ManifestParameters<GenerationContext>> generator = new ManifestGenerator<GenerationContext>(context, parameters);
 		
 	    return createArtifact(
 	    		context,

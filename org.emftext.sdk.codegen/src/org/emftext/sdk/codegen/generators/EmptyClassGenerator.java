@@ -22,10 +22,10 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class EmptyClassGenerator extends JavaBaseGenerator {
+public class EmptyClassGenerator extends JavaBaseGenerator<Object> {
 
 	private String className;
-	private ArtifactDescriptor<GenerationContext> targetPackage;
+	private ArtifactDescriptor<GenerationContext, ?> targetPackage;
 
 	public EmptyClassGenerator() {
 		super();
@@ -40,7 +40,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		this.className = className;
 	}
 
-	public void setTargetPackage(ArtifactDescriptor<GenerationContext> targetPackage) {
+	public void setTargetPackage(ArtifactDescriptor<GenerationContext, ?> targetPackage) {
 		this.targetPackage = targetPackage;
 	}
 
@@ -64,7 +64,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator {
 		return Collections.emptySet();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new EmptyClassGenerator(context);
 	}
 }

@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
+public class SyntaxColoringHelperGenerator extends JavaBaseGenerator<Object> {
 
 	public SyntaxColoringHelperGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class SyntaxColoringHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_COLORING_HELPER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SyntaxColoringHelperGenerator(context);
 	}
 

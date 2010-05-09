@@ -21,15 +21,15 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class EmptyClassCreator extends TextResourceArtifactCreator {
+public class EmptyClassCreator extends TextResourceArtifactCreator<Object> {
 
 	private File file;
 	private String className;
 	private OptionTypes overrideOption;
-	private ArtifactDescriptor<GenerationContext> targetPackage;
+	private ArtifactDescriptor<GenerationContext, Object> targetPackage;
 
-	public EmptyClassCreator(File file, ArtifactDescriptor<GenerationContext> targetPackage, String className, OptionTypes overrideOption) {
-		super("empty " + className);
+	public EmptyClassCreator(File file, ArtifactDescriptor<GenerationContext, Object> targetPackage, String className, OptionTypes overrideOption) {
+		super("empty " + className, null);
 		this.file = file;
 		this.className = className;
 		this.targetPackage = targetPackage;
@@ -37,9 +37,9 @@ public class EmptyClassCreator extends TextResourceArtifactCreator {
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
 		
-		EmptyClassGenerator generator = (EmptyClassGenerator) new EmptyClassGenerator().newInstance(context);
+		EmptyClassGenerator generator = (EmptyClassGenerator) new EmptyClassGenerator().newInstance(context, parameters);
 		generator.setClassName(className);
 		generator.setTargetPackage(targetPackage);
 		

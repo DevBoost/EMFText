@@ -43,7 +43,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class BracketPreferencePageGenerator extends JavaBaseGenerator {
+public class BracketPreferencePageGenerator extends JavaBaseGenerator<Object> {
 
 	public BracketPreferencePageGenerator() {
 		super();
@@ -407,7 +407,7 @@ public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BracketPreferencePageGenerator(context);
 	}
 }

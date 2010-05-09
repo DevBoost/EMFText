@@ -16,8 +16,8 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.ClassPathParameters;
+import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
@@ -27,21 +27,18 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates a .classpath file, which is used by Eclipse to determine the
  * classes used by generated text resource plug-ins.
  */
-public class DotClasspathCreator extends TextResourceArtifactCreator {
+public class DotClasspathCreator<ContextType extends IGenerationContext<ContextType>> extends GenericArtifactCreator<ContextType, ClassPathParameters<ContextType>> {
 
-	private IPluginDescriptor<GenerationContext> plugin;
-
-	public DotClasspathCreator(IPluginDescriptor<GenerationContext> plugin) {
-		super(".classpath file");
-		this.plugin = plugin;
+	public DotClasspathCreator(ClassPathParameters<ContextType> parameters) {
+		super(".classpath file", parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(ContextType context, ClassPathParameters<ContextType> parameters) {
 		
-		File dotClasspathFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + ".classpath");
+		File dotClasspathFile = new File(context.getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + ".classpath");
 
-		IGenerator<GenerationContext> dotClasspathGenerator = new DotClasspathGenerator(context, plugin);
+		IGenerator<ContextType, ClassPathParameters<ContextType>> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(context, parameters);
 		
 	    return createArtifact(
 	    		context,
@@ -52,7 +49,7 @@ public class DotClasspathCreator extends TextResourceArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
+		if (parameters.getPlugin() == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_DOT_CLASSPATH;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class HoverTextProviderGenerator extends JavaBaseGenerator {
+public class HoverTextProviderGenerator extends JavaBaseGenerator<Object> {
 	
 	public HoverTextProviderGenerator() {
 		super();
@@ -64,7 +64,7 @@ public class HoverTextProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new HoverTextProviderGenerator(context);
 	}
 

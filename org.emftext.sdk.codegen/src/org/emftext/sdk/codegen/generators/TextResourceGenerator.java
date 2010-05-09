@@ -68,7 +68,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class TextResourceGenerator extends JavaBaseGenerator {
+public class TextResourceGenerator extends JavaBaseGenerator<Object> {
 
 	private ConcreteSyntax concreteSyntax;
 	private String csSyntaxName;
@@ -876,7 +876,7 @@ public class TextResourceGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TextResourceGenerator(context);
 	}
 }

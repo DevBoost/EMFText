@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ICommandGenerator extends JavaBaseGenerator {
+public class ICommandGenerator extends JavaBaseGenerator<Object> {
 
 	public ICommandGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class ICommandGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_COMMAND);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ICommandGenerator(context);
 	}
 

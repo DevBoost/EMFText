@@ -38,7 +38,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class HyperlinkGenerator extends JavaBaseGenerator {
+public class HyperlinkGenerator extends JavaBaseGenerator<Object> {
 
 	public HyperlinkGenerator() {
 		super();
@@ -176,7 +176,7 @@ public class HyperlinkGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new HyperlinkGenerator(context);
 	}
 }

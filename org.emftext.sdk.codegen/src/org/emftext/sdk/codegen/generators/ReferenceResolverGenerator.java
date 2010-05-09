@@ -37,7 +37,7 @@ import org.emftext.sdk.finders.GenClassFinder;
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
-public class ReferenceResolverGenerator extends JavaBaseGenerator {
+public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
@@ -229,7 +229,9 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator {
 		return Collections.emptySet();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
-		return new ReferenceResolverGenerator(context);
+	public IGenerator<GenerationContext, GenFeature> newInstance(GenerationContext context, GenFeature parameters) {
+		ReferenceResolverGenerator instance = new ReferenceResolverGenerator(context);
+		instance.setProxyReference(parameters);
+		return instance;
 	}
 }

@@ -35,7 +35,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
+public class TokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 	
 	private final NameUtil nameUtil = new NameUtil();
 	
@@ -159,7 +159,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TokenResolverFactoryGenerator(context);
 	}
 }

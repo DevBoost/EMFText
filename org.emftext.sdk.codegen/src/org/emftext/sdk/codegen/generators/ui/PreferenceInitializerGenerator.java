@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PreferenceInitializerGenerator extends JavaBaseGenerator {
+public class PreferenceInitializerGenerator extends JavaBaseGenerator<Object> {
 
 	public PreferenceInitializerGenerator() {
 		super();
@@ -33,7 +33,7 @@ public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PREFERENCE_INITIALIZER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PreferenceInitializerGenerator(context);
 	}
 

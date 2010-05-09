@@ -144,7 +144,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class ANTLRGrammarGenerator extends BaseGenerator {
+public class ANTLRGrammarGenerator extends BaseGenerator<Object> {
 	
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
@@ -185,7 +185,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private ANTLRGrammarGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.ANTLR_GRAMMAR);
+		super(context, null, TextResourceArtifacts.ANTLR_GRAMMAR);
 		concreteSyntax = context.getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
 	}
@@ -2087,7 +2087,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return contains;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ANTLRGrammarGenerator(context);
 	}
 }

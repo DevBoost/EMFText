@@ -6,7 +6,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class LineBreakGenerator extends JavaBaseGenerator {
+public class LineBreakGenerator extends JavaBaseGenerator<Object> {
 
 	public LineBreakGenerator() {
 		super();
@@ -16,7 +16,7 @@ public class LineBreakGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LINE_BREAK);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new LineBreakGenerator(context);
 	}
 

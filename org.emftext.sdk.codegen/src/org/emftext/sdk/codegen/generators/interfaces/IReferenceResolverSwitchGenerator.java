@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
+public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> {
 
 	public IReferenceResolverSwitchGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IReferenceResolverSwitchGenerator(context);
 	}
 

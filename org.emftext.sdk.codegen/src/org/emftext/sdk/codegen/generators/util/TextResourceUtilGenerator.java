@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class TextResourceUtilGenerator extends JavaBaseGenerator {
+public class TextResourceUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public TextResourceUtilGenerator() {
 		super();
@@ -37,7 +37,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.TEXT_RESOURCE_UTIL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TextResourceUtilGenerator(context);
 	}
 

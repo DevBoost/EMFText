@@ -21,17 +21,17 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DefaultLoadOptionsExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator {
+public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
 	public DefaultLoadOptionsExtensionPointSchemaCreator() {
-		super("default_load_options.exsd");
+		super("default_load_options.exsd", null);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameter) {
 		
 		File pluginXMLFile = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "default_load_options.exsd");
-		IGenerator<GenerationContext> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext, Object> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(
 	    		context,

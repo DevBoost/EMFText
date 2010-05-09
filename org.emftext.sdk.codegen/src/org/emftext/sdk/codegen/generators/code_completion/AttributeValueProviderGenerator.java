@@ -10,7 +10,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class AttributeValueProviderGenerator extends JavaBaseGenerator {
+public class AttributeValueProviderGenerator extends JavaBaseGenerator<Object> {
 
 	public AttributeValueProviderGenerator() {
 		super();
@@ -20,7 +20,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new AttributeValueProviderGenerator(context);
 	}
 

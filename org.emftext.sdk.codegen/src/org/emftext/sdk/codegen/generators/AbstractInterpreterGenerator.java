@@ -21,7 +21,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 
-public class AbstractInterpreterGenerator extends JavaBaseGenerator {
+public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 
 	private ConcreteSyntax concreteSyntax;
 	private Set<GenClass> allGenClasses;
@@ -50,7 +50,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator {
 		genClassCache = concreteSyntax.getGenClassCache();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new AbstractInterpreterGenerator(context);
 	}
 

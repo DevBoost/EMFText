@@ -18,8 +18,9 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.TextResourcePlugins;
-import org.emftext.sdk.codegen.generators.ResourcePluginManifestGenerator;
+import org.emftext.sdk.codegen.generators.ManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -27,18 +28,18 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
  */
-public class ResourcePluginManifestCreator extends TextResourceArtifactCreator {
+public class ResourcePluginManifestCreator extends TextResourceArtifactCreator<ManifestParameters<GenerationContext>> {
 
-	public ResourcePluginManifestCreator() {
-		super("manifest");
+	public ResourcePluginManifestCreator(ManifestParameters<GenerationContext> parameters) {
+		super("manifest", parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, ManifestParameters<GenerationContext> parameters) {
 		final File project = context.getProjectFolder(TextResourcePlugins.RESOURCE_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator<GenerationContext> generator = new ResourcePluginManifestGenerator(context);
+		IGenerator<GenerationContext, ManifestParameters<GenerationContext>> generator = new ManifestGenerator<GenerationContext>(context, parameters);
 		
 	    return createArtifact(
 	    		context,

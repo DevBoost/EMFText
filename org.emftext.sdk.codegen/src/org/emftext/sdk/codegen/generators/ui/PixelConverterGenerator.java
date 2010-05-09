@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PixelConverterGenerator extends JavaBaseGenerator {
+public class PixelConverterGenerator extends JavaBaseGenerator<Object> {
 
 	public PixelConverterGenerator() {
 		super();
@@ -34,7 +34,7 @@ public class PixelConverterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PIXEL_CONVERTER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PixelConverterGenerator(context);
 	}
 

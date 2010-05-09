@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
+public class FuzzyResolveResultGenerator extends JavaBaseGenerator<Object> {
 
 	public FuzzyResolveResultGenerator() {
 		super();
@@ -148,7 +148,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new FuzzyResolveResultGenerator(context);
 	}
 }

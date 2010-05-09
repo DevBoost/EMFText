@@ -26,7 +26,7 @@ import org.emftext.sdk.codegen.generators.BaseGenerator;
  * framework.
  */
 // TODO cbuerger: implement this class
-public class BabylonSpecificationGenerator extends BaseGenerator {
+public class BabylonSpecificationGenerator extends BaseGenerator<Object> {
 
 	public BabylonSpecificationGenerator() {
 		super();
@@ -47,7 +47,7 @@ public class BabylonSpecificationGenerator extends BaseGenerator {
 		return null;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BabylonSpecificationGenerator(context);
 	}
 }

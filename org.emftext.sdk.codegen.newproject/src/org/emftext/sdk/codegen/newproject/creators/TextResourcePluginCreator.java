@@ -10,7 +10,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -40,6 +39,7 @@ public class TextResourcePluginCreator implements
 		};
 		
 		ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
+		context.setConcreteSyntax(concreteSyntax);
 		GenerationContext genContext = new GenerationContext(concreteSyntax, collector) {
 
 			@Override
@@ -49,7 +49,7 @@ public class TextResourcePluginCreator implements
 
 			@Override
 			public File getProjectFolder(IPluginDescriptor<GenerationContext> plugin) {
-				String projectName = context.getParameters().getProjectName();
+				String projectName = plugin.getName(this);
 				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 				return project.getLocation().toFile().getAbsoluteFile();
 			}
@@ -79,7 +79,7 @@ public class TextResourcePluginCreator implements
 						project.create(new NullProgressMonitor());
 					}
 					project.open(new NullProgressMonitor());
-					IJavaProject javaProject = JavaCore.create(project);
+					JavaCore.create(project);
 				}
 			}.run(genContext, context.getResourceMarker(), context.getMonitor());
 		} catch (Exception e) {

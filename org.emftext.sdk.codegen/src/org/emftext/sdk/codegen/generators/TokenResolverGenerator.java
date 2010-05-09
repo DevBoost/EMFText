@@ -46,7 +46,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverGenerator extends JavaBaseGenerator {
+public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefinition> {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
@@ -212,8 +212,10 @@ public class TokenResolverGenerator extends JavaBaseGenerator {
 		return Collections.emptySet();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
-		return new TokenResolverGenerator(context);
+	public IGenerator<GenerationContext, CompleteTokenDefinition> newInstance(GenerationContext context, CompleteTokenDefinition parameters) {
+		TokenResolverGenerator instance = new TokenResolverGenerator(context);
+		instance.setTokenDefinition(parameters);
+		return instance;
 	}
 
 	public void setTokenDefinition(CompleteTokenDefinition tokenDefinition) {

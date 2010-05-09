@@ -97,7 +97,7 @@ import org.emftext.sdk.util.StringUtil;
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 // TODO mseifert: enable backtracking for the postParseCommands lists
-public class ScannerlessParserGenerator extends JavaBaseGenerator {
+public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -1488,7 +1488,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator {
 		return ((List<?>) parent.eGet(feature)).indexOf(object);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ScannerlessParserGenerator(context);
 	}
 }

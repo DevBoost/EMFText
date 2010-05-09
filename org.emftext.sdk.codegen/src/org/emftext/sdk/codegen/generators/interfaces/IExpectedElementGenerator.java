@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IExpectedElementGenerator extends JavaBaseGenerator {
+public class IExpectedElementGenerator extends JavaBaseGenerator<Object> {
 
 	public IExpectedElementGenerator() {
 		super();
@@ -34,7 +34,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_EXPECTED_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IExpectedElementGenerator(context);
 	}
 

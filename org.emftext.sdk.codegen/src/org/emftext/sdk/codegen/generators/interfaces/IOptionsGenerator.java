@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IOptionsGenerator extends JavaBaseGenerator {
+public class IOptionsGenerator extends JavaBaseGenerator<Object> {
 
 	public IOptionsGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class IOptionsGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_OPTIONS);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IOptionsGenerator(context);
 	}
 

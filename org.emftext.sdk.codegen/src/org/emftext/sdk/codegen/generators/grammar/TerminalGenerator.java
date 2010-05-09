@@ -8,7 +8,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class TerminalGenerator extends JavaBaseGenerator {
+public class TerminalGenerator extends JavaBaseGenerator<Object> {
 
 	public TerminalGenerator() {
 		super();
@@ -18,7 +18,7 @@ public class TerminalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.TERMINAL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TerminalGenerator(context);
 	}
 

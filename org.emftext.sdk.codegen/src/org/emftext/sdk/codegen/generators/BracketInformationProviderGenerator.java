@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
 
-public class BracketInformationProviderGenerator extends JavaBaseGenerator {
+public class BracketInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private static class BracketPair {
 		private final String openingBracket;
@@ -215,7 +215,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BracketInformationProviderGenerator(context);
 	}
 }

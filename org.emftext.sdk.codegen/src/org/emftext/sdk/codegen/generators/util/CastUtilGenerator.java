@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CastUtilGenerator extends JavaBaseGenerator {
+public class CastUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public CastUtilGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class CastUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CAST_UTIL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CastUtilGenerator(context);
 	}
 

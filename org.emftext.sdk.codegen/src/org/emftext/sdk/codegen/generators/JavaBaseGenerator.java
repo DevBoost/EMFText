@@ -9,7 +9,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.LicenceHeaderUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public abstract class JavaBaseGenerator extends BaseGenerator {
+public abstract class JavaBaseGenerator<ParameterType> extends BaseGenerator<ParameterType> {
 
 	private static final String DEFAULT_LICENCE_HEADER_TEXT = "/**\n" + " * <copyright>\n" + " * </copyright>\n"
 	+ " *\n" + " * \n" + " */";
@@ -20,8 +20,8 @@ public abstract class JavaBaseGenerator extends BaseGenerator {
 		super();
 	}
 
-	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
-		super(context, artifact);
+	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super(context, null, artifact);
 	}
 
 	final public boolean generate(PrintWriter out) {

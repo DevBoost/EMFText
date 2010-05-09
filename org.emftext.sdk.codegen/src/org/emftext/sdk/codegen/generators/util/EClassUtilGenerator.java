@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class EClassUtilGenerator extends JavaBaseGenerator {
+public class EClassUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public EClassUtilGenerator() {
 		super();
@@ -33,7 +33,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.E_CLASS_UTIL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new EClassUtilGenerator(context);
 	}
 

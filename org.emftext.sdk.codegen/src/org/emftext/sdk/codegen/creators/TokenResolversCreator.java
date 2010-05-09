@@ -28,33 +28,27 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * provided by TokenResolverGenerator. A token resolver is generated
  * for all tokens that are used and that are not imported.
  */
-public class TokenResolversCreator extends TextResourceArtifactCreator {
+public class TokenResolversCreator extends TextResourceArtifactCreator<CompleteTokenDefinition> {
 
-	public TokenResolversCreator() {
-		super("token resolvers");
+	public TokenResolversCreator(CompleteTokenDefinition parameters) {
+		super("token resolvers", parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, CompleteTokenDefinition parameters) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
 		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
-		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			if (!tokenDefinition.isUsed()) {
-				continue;
-			}
-			File resolverFile = context.getTokenResolverFile(syntax, tokenDefinition);
-			TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) new TokenResolverGenerator().newInstance(context);
-			resolverGenerator.setTokenDefinition(tokenDefinition);
+		File resolverFile = context.getTokenResolverFile(syntax, parameters);
+		TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) new TokenResolverGenerator().newInstance(context, parameters);
 
-			artifacts.addAll(createArtifact(
-		    		context,
-		    		resolverGenerator,
-		    		resolverFile,
-		    		"Exception while generating token resolver."
-		    ));
-		}
+		artifacts.addAll(createArtifact(
+	    		context,
+	    		resolverGenerator,
+	    		resolverFile,
+	    		"Exception while generating token resolver."
+	    ));
 
 		return artifacts;
 	}

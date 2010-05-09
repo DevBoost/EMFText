@@ -13,7 +13,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator {
+public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator<Object> {
 	
 	public DefaultHoverTextProviderGenerator() {
 		super();
@@ -54,7 +54,7 @@ public class DefaultHoverTextProviderGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DefaultHoverTextProviderGenerator(context);
 	}
 }

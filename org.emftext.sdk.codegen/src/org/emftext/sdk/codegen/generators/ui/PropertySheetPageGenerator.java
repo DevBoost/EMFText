@@ -32,7 +32,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PropertySheetPageGenerator extends JavaBaseGenerator {
+public class PropertySheetPageGenerator extends JavaBaseGenerator<Object> {
 	
 	public PropertySheetPageGenerator() {
 		super();
@@ -149,7 +149,7 @@ public class PropertySheetPageGenerator extends JavaBaseGenerator {
 		sc.add("}");
 	}
 	
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PropertySheetPageGenerator(context);
 	}
 }

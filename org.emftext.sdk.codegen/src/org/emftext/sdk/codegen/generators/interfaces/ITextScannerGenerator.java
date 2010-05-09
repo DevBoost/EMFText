@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITextScannerGenerator extends JavaBaseGenerator {
+public class ITextScannerGenerator extends JavaBaseGenerator<Object> {
 
 	public ITextScannerGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class ITextScannerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_SCANNER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ITextScannerGenerator(context);
 	}
 

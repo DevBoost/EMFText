@@ -42,7 +42,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
+public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Object> {
 
 	public DefaultResolverDelegateGenerator() {
 		super();
@@ -385,7 +385,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DefaultResolverDelegateGenerator(context);
 	}
 }

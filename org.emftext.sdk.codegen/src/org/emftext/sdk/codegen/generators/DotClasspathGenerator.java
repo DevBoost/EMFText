@@ -15,43 +15,31 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
-import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.ClassPathParameters;
+import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.TextResourceArtifacts;
-import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Creates the content for .classpath files, which are used by Eclipse to determine the
  * classes used by generated text resource plug-ins.
  */
-public class DotClasspathGenerator extends BaseGenerator {
+public class DotClasspathGenerator<ContextType extends IGenerationContext<ContextType>> extends AbstractGenerator<ContextType, ClassPathParameters<ContextType>> {
 
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-	private IPluginDescriptor<GenerationContext> plugin;
-
-	public DotClasspathGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
-		super(context, TextResourceArtifacts.DOT_CLASSPATH);
-		this.plugin = plugin;
+	public DotClasspathGenerator(ContextType context, ClassPathParameters<ContextType> parameters) {
+		super(context, parameters);
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		String sourceFolderName = csUtil.getSourceFolderName(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
-		String sourceGenFolderName = csUtil.getSourceFolderName(getContext().getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
-		
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<classpath>");
-		sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolderName + "\"/>");
-		// only the resource plug-in has a 'src-gen' folder
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
-			sc.add("<classpathentry kind=\"src\" path=\"" + sourceGenFolderName + "\"/>");
+		for (String sourceFolder : parameters.getSourceFolders()) {
+			sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolder + "\"/>");
 		}
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5\"/>");
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.pde.core.requiredPlugins\"/>");
@@ -62,7 +50,7 @@ public class DotClasspathGenerator extends BaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
-		throw new UnsupportedOperationException();
+	public IGenerator<ContextType, ClassPathParameters<ContextType>> newInstance(ContextType context, ClassPathParameters<ContextType> parameters) {
+		return new DotClasspathGenerator<ContextType>(context, parameters);
 	}
 }

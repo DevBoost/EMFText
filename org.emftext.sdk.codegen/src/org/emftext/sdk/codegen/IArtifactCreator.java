@@ -19,7 +19,7 @@ package org.emftext.sdk.codegen;
  * on the value of code generation options the artifacts 
  * may be created, overridden or left alone.
  */
-public interface IArtifactCreator<GenerationContextType> {
+public interface IArtifactCreator<ContextType> {
 	
 	/**
 	 * Returns the name of the artifact(s) that is
@@ -34,5 +34,5 @@ public interface IArtifactCreator<GenerationContextType> {
 	 * 
 	 * @param context
 	 */
-	public void createArtifacts(GenerationContextType context);
+	public void createArtifacts(ContextType context);
 }

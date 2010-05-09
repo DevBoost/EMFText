@@ -18,7 +18,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class ElementMappingGenerator extends JavaBaseGenerator {
+public class ElementMappingGenerator extends JavaBaseGenerator<Object> {
 
 	public ElementMappingGenerator() {
 		super();
@@ -63,7 +63,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ElementMappingGenerator(context);
 	}
 }

@@ -42,7 +42,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class NewFileWizardPageGenerator extends JavaBaseGenerator {
+public class NewFileWizardPageGenerator extends JavaBaseGenerator<Object> {
 
 	public NewFileWizardPageGenerator() {
 		super();
@@ -52,7 +52,7 @@ public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.NEW_FILE_WIZARD_PAGE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new NewFileWizardPageGenerator(context);
 	}
 

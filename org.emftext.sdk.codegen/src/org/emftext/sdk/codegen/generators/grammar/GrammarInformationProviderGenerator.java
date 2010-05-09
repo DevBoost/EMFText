@@ -45,7 +45,7 @@ import org.emftext.sdk.util.StringUtil;
  * A generator that creates a class that contains the syntax structure given
  * in the CS specification.
  */
-public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
+public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
@@ -275,7 +275,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new GrammarInformationProviderGenerator(context);
 	}
 }

@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
-public class DefaultLoadOptionsExtensionPointSchemaGenerator extends BaseGenerator {
+public class DefaultLoadOptionsExtensionPointSchemaGenerator extends BaseGenerator<Object> {
 
 	private GenerationContext context;
 
@@ -167,7 +167,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends BaseGenerat
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 	}
 

@@ -35,7 +35,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  * @see org.emftext.sdk.codegen.generators.TextResourceFactoryGenerator
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
+public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Object> {
 	
 	public ResourceFactoryDelegatorGenerator() {
 		super();
@@ -133,7 +133,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator {
     	sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ResourceFactoryDelegatorGenerator(context);
 	}
 }

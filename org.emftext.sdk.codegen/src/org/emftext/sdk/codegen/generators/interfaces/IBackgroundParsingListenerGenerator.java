@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
+public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator<Object> {
 
 	public IBackgroundParsingListenerGenerator() {
 		super();
@@ -31,7 +31,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IBackgroundParsingListenerGenerator(context);
 	}
 

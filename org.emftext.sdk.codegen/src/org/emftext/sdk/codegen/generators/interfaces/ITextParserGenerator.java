@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITextParserGenerator extends JavaBaseGenerator {
+public class ITextParserGenerator extends JavaBaseGenerator<Object> {
 
 	public ITextParserGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class ITextParserGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_PARSER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ITextParserGenerator(context);
 	}
 

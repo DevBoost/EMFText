@@ -25,20 +25,22 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 /**
  * Creates a plugin.xml file using the content provided by the 
  * PluginXMLGenerator class.
+ * 
+ * TODO mseifert: make this creator reusable
  */
-public class PluginXMLCreator extends TextResourceArtifactCreator {
+public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 
 	public PluginXMLCreator() {
-		super("plugin.xml");
+		super("plugin.xml", null);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
 		
 		File project = context.getProjectFolder(TextResourcePlugins.RESOURCE_PLUGIN);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 
-		IGenerator<GenerationContext> generator = new PluginXMLGenerator().newInstance(context);
+		IGenerator<GenerationContext, Object> generator = new PluginXMLGenerator().newInstance(context, parameters);
 
 	    return createArtifact(
 	    		context,

@@ -29,7 +29,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
+public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Object> {
 
 	public CopiedEObjectInternalEListGenerator() {
 		super();
@@ -39,7 +39,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CopiedEObjectInternalEListGenerator(context);
 	}
 

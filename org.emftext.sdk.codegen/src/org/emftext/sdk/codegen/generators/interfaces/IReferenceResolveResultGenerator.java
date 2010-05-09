@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
+public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Object> {
 
 	public IReferenceResolveResultGenerator() {
 		super();
@@ -33,7 +33,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IReferenceResolveResultGenerator(context);
 	}
 

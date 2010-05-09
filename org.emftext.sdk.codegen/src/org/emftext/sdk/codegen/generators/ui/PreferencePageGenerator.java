@@ -32,7 +32,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PreferencePageGenerator extends JavaBaseGenerator {
+public class PreferencePageGenerator extends JavaBaseGenerator<Object> {
 
 	public PreferencePageGenerator() {
 		super();
@@ -94,7 +94,7 @@ public class PreferencePageGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PreferencePageGenerator(context);
 	}
 }

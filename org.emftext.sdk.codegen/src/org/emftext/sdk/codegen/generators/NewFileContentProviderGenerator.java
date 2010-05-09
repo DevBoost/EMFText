@@ -24,7 +24,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.StreamUtil;
 import org.emftext.sdk.util.StringUtil;
 
-public class NewFileContentProviderGenerator extends JavaBaseGenerator {
+public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
 
@@ -135,7 +135,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new NewFileContentProviderGenerator(context);
 	}
 }

@@ -58,7 +58,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		syntax = context.getConcreteSyntax();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new Printer2Generator(context);
 	}
 

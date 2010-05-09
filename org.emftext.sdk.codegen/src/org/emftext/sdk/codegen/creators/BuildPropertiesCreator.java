@@ -23,21 +23,18 @@ import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class BuildPropertiesCreator extends TextResourceArtifactCreator {
-
-	private IPluginDescriptor<GenerationContext> plugin;
+public class BuildPropertiesCreator extends TextResourceArtifactCreator<IPluginDescriptor<GenerationContext>> {
 
 	public BuildPropertiesCreator(IPluginDescriptor<GenerationContext> plugin) {
-		super("build properties");
-		this.plugin = plugin;
+		super("build properties", plugin);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, IPluginDescriptor<GenerationContext> parameters) {
 		
-		File buildPropertiesFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + "build.properties");
+		File buildPropertiesFile = new File(context.getProjectFolder(parameters).getAbsolutePath() + File.separator + "build.properties");
 
-		IGenerator<GenerationContext> generator = new BuildPropertiesGenerator(context, plugin);
+		IGenerator<GenerationContext, IPluginDescriptor<GenerationContext>> generator = new BuildPropertiesGenerator(context, parameters);
 		
 	    return createArtifact(
 	    		context,
@@ -48,7 +45,7 @@ public class BuildPropertiesCreator extends TextResourceArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
+		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_BUILD_PROPERTIES;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

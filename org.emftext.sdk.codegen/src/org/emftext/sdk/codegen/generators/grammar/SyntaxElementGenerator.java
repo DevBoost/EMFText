@@ -9,7 +9,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class SyntaxElementGenerator extends JavaBaseGenerator {
+public class SyntaxElementGenerator extends JavaBaseGenerator<Object> {
 
 	public SyntaxElementGenerator() {
 		super();
@@ -19,7 +19,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SyntaxElementGenerator(context);
 	}
 

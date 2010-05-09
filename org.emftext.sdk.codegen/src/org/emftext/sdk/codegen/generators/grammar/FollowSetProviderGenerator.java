@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Placeholder;
 
-public class FollowSetProviderGenerator extends JavaBaseGenerator {
+public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -32,7 +32,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new FollowSetProviderGenerator(context);
 	}
 

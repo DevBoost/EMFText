@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -26,29 +26,27 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates a .project file, which is used by Eclipse to read meta data
  * about plug-ins.
  */
-public class DotProjectCreator extends TextResourceArtifactCreator {
+public class DotProjectCreator<ContextType extends IGenerationContext<ContextType>> extends GenericArtifactCreator<ContextType, IPluginDescriptor<ContextType>> {
 
-	private IPluginDescriptor<GenerationContext> plugin;
-
-	public DotProjectCreator(IPluginDescriptor<GenerationContext> plugin) {
-		super(".project file");
-		this.plugin = plugin;
+	public DotProjectCreator(IPluginDescriptor<ContextType> plugin) {
+		super(".project file", plugin);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		File dotProjectFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + ".project");
+	public Collection<IArtifact> getArtifactsToCreate(ContextType context, IPluginDescriptor<ContextType> parameters) {
+		File dotProjectFile = new File(context.getProjectFolder(parameters).getAbsolutePath() + File.separator + ".project");
 		
 	    return createArtifact(
 	    		context,
-	    		new DotProjectGenerator(context, plugin),
+	    		new DotProjectGenerator<ContextType>(context, parameters),
 	    		dotProjectFile,
 	    		"Exception while generating .project file."
 	    );
 	}
 
+	@Override
 	public OptionTypes getOverrideOption() {
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
+		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_DOT_PROJECT;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;

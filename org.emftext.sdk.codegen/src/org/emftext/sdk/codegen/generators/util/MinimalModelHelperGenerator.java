@@ -34,7 +34,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class MinimalModelHelperGenerator extends JavaBaseGenerator {
+public class MinimalModelHelperGenerator extends JavaBaseGenerator<Object> {
 
 	public MinimalModelHelperGenerator() {
 		super();
@@ -44,7 +44,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new MinimalModelHelperGenerator(context);
 	}
 

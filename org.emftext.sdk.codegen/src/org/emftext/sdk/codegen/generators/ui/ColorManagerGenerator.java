@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ColorManagerGenerator extends JavaBaseGenerator {
+public class ColorManagerGenerator extends JavaBaseGenerator<Object> {
 
 	public ColorManagerGenerator() {
 		super();
@@ -89,7 +89,7 @@ public class ColorManagerGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ColorManagerGenerator(context);
 	}
 }

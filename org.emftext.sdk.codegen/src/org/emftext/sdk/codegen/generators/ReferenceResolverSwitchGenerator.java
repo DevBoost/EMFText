@@ -42,7 +42,7 @@ import org.emftext.sdk.util.StringUtil;
  * the generated class delegates the resolve call to the appropriate
  * reference resolver.
  */
-public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
+public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
@@ -171,7 +171,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		}
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ReferenceResolverSwitchGenerator(context);
 	}
 }

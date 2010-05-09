@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PositionCategoryGenerator extends JavaBaseGenerator {
+public class PositionCategoryGenerator extends JavaBaseGenerator<Object> {
 
 	public PositionCategoryGenerator() {
 		super();
@@ -41,7 +41,7 @@ public class PositionCategoryGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PositionCategoryGenerator(context);
 	}
 }

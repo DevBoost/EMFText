@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerator {
+public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerator<Object> {
 
 	public DocBrowserInformationControlInputGenerator() {
 		super();
@@ -169,7 +169,7 @@ public class DocBrowserInformationControlInputGenerator extends JavaBaseGenerato
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DocBrowserInformationControlInputGenerator(context);
 	}
 }

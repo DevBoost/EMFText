@@ -20,7 +20,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator {
+public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator<Object> {
 
 	public UnexpectedContentTypeExceptionGenerator() {
 		super();
@@ -30,7 +30,7 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new UnexpectedContentTypeExceptionGenerator(context);
 	}
 

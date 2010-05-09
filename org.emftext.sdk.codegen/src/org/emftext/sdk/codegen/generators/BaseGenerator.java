@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class BaseGenerator extends AbstractGenerator<GenerationContext> {
+public abstract class BaseGenerator<ParameterType> extends AbstractGenerator<GenerationContext, ParameterType> {
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {
@@ -218,8 +218,8 @@ public abstract class BaseGenerator extends AbstractGenerator<GenerationContext>
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public BaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
-		super();
+	public BaseGenerator(GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super(context, parameters);
 
 		this.context = context;
 		if (artifact != null) {

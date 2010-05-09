@@ -30,7 +30,7 @@ import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class PluginActivatorGenerator extends JavaBaseGenerator {
+public class PluginActivatorGenerator extends JavaBaseGenerator<Object> {
 
 	public PluginActivatorGenerator() {
 		super();
@@ -147,7 +147,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PluginActivatorGenerator(context);
 	}
 

@@ -36,7 +36,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class BracketSetGenerator extends JavaBaseGenerator {
+public class BracketSetGenerator extends JavaBaseGenerator<Object> {
 
 	public BracketSetGenerator() {
 		super();
@@ -498,7 +498,7 @@ public class BracketSetGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BracketSetGenerator(context);
 	}
 }

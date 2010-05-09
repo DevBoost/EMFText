@@ -18,7 +18,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.StringUtil;
 
-public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
+public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Object> {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
@@ -28,7 +28,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator {
 		super();
 	}
 
-	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext> artifact) {
+	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext, Object> artifact) {
 		super(context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}

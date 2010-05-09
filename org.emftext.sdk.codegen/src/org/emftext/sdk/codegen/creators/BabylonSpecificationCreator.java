@@ -25,13 +25,13 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * An experimental (not yet implemented) creator for the Babylon compiler
  * framework.
  */
-public class BabylonSpecificationCreator extends TextResourceArtifactCreator {
+public class BabylonSpecificationCreator extends TextResourceArtifactCreator<Object> {
 
 	public BabylonSpecificationCreator() {
-		super("Babylon specification");
+		super("Babylon specification", null);
 	}
 
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
 		
 		String specificationName = context.getCapitalizedConcreteSyntaxName();
 		String packagePath = context.getPackagePath(TextResourceArtifacts.BABYLON_SPECIFICATION);
@@ -39,7 +39,7 @@ public class BabylonSpecificationCreator extends TextResourceArtifactCreator {
 		
 	    return createArtifact(
 	    		context,
-	    		new BabylonSpecificationGenerator().newInstance(context),
+	    		new BabylonSpecificationGenerator().newInstance(context, parameters),
 	    		specificationFile,
 	    		"Exception while generating Babylon specification."
 	    );

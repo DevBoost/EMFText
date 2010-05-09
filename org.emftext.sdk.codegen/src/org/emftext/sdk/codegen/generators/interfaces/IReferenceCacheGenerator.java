@@ -9,7 +9,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IReferenceCacheGenerator extends JavaBaseGenerator {
+public class IReferenceCacheGenerator extends JavaBaseGenerator<Object> {
 
 	public IReferenceCacheGenerator() {
 		super();
@@ -19,7 +19,7 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_CACHE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IReferenceCacheGenerator(context);
 	}
 

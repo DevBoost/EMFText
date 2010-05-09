@@ -13,14 +13,14 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
-public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerationContext> {
+public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerationContext, Object> {
 
 	public ModelGenerator() {
 		super();
 	}
 
 	public ModelGenerator(NewProjectGenerationContext context) {
-		super(context);
+		super(context, null);
 	}
 	
 	public boolean generate(OutputStream outputStream) {

@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class StreamUtilGenerator extends JavaBaseGenerator {
+public class StreamUtilGenerator extends JavaBaseGenerator<Object> {
 
 	public StreamUtilGenerator() {
 		super();
@@ -34,7 +34,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.STREAM_UTIL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new StreamUtilGenerator(context);
 	}
 

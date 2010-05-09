@@ -45,7 +45,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
+public class CodeCompletionHelperGenerator extends JavaBaseGenerator<Object> {
 
 	/**
 	 * This is a temporary flag which can be used to enable the
@@ -64,7 +64,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CODE_COMPLETION_HELPER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CodeCompletionHelperGenerator(context);
 	}
 

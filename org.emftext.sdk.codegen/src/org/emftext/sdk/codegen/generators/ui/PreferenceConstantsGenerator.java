@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PreferenceConstantsGenerator extends JavaBaseGenerator {
+public class PreferenceConstantsGenerator extends JavaBaseGenerator<Object> {
 
 	public PreferenceConstantsGenerator() {
 		super();
@@ -62,7 +62,7 @@ public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PreferenceConstantsGenerator(context);
 	}
 }

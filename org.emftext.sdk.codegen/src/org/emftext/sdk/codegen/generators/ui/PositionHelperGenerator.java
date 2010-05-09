@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PositionHelperGenerator extends JavaBaseGenerator {
+public class PositionHelperGenerator extends JavaBaseGenerator<Object> {
 
 	public PositionHelperGenerator() {
 		super();
@@ -126,7 +126,7 @@ public class PositionHelperGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PositionHelperGenerator(context);
 	}
 }

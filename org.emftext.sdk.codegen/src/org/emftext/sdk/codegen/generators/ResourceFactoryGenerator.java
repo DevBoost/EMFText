@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
  * @see org.emftext.sdk.codegen.generators.TextResourceGenerator
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class ResourceFactoryGenerator extends JavaBaseGenerator {
+public class ResourceFactoryGenerator extends JavaBaseGenerator<Object> {
 	
 	public ResourceFactoryGenerator() {
 		super();
@@ -66,7 +66,7 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator {
     	return true;	
     }
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ResourceFactoryGenerator(context);
 	}
 }

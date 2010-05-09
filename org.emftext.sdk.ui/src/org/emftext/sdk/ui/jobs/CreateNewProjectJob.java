@@ -12,6 +12,7 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
@@ -46,8 +47,10 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters, problemConnector);
 		context.setMonitor(monitor);
 		context.setResourceMarker(resourceMarker);
-		new NewProjectContentsCreator().generate(context, monitor);
+		new NewProjectContentsCreator().generate(context, null, monitor);
 		refresh(monitor, project);
+		refresh(monitor, getProject(TextResourcePlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax())));
+		refresh(monitor, getProject(TextResourcePlugins.ANTLR_PLUGIN.getName(null)));
 		
 		// TODO expose problems to user
 		for (GenerationProblem problem : problems) {
@@ -57,12 +60,17 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 
 	public IProject createProject(IProgressMonitor progress, IPluginDescriptor<NewProjectGenerationContext> plugin, String pluginName) throws Exception {
 		
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginName);
+		IProject getProject = getProject(pluginName);
+		IProject project = getProject;
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());
 		}
 		project.open(new NullProgressMonitor());
 		JavaCore.create(project);
 		return project;
+	}
+
+	private IProject getProject(String pluginName) {
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(pluginName);
 	}
 }

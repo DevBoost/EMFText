@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
+public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Object> {
 
 	public DelegatingResolveResultGenerator() {
 		super();
@@ -92,7 +92,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new DelegatingResolveResultGenerator(context);
 	}
 }

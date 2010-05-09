@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IBracketPairGenerator extends JavaBaseGenerator {
+public class IBracketPairGenerator extends JavaBaseGenerator<Object> {
 
 	public IBracketPairGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class IBracketPairGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_BRACKET_PAIR);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IBracketPairGenerator(context);
 	}
 

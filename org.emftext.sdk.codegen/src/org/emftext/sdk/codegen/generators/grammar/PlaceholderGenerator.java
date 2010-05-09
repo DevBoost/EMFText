@@ -10,7 +10,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PlaceholderGenerator extends JavaBaseGenerator {
+public class PlaceholderGenerator extends JavaBaseGenerator<Object> {
 
 	public PlaceholderGenerator() {
 		super();
@@ -20,7 +20,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.PLACEHOLDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PlaceholderGenerator(context);
 	}
 

@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IMetaInformationGenerator extends JavaBaseGenerator {
+public class IMetaInformationGenerator extends JavaBaseGenerator<Object> {
 
 	public IMetaInformationGenerator() {
 		super();
@@ -34,7 +34,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_META_INFORMATION);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IMetaInformationGenerator(context);
 	}
 

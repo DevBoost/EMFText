@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
+public class AntlrTokenHelperGenerator extends JavaBaseGenerator<Object> {
 
 	public AntlrTokenHelperGenerator() {
 		super();
@@ -83,7 +83,7 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new AntlrTokenHelperGenerator(context);
 	}
 }

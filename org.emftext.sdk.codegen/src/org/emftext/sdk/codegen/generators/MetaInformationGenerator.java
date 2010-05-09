@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class MetaInformationGenerator extends JavaBaseGenerator {
+public class MetaInformationGenerator extends JavaBaseGenerator<Object> {
 
 	public MetaInformationGenerator() {
 		super();
@@ -236,7 +236,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new MetaInformationGenerator(context);
 	}
 }

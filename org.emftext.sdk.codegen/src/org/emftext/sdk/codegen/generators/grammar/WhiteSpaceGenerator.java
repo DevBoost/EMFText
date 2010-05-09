@@ -6,7 +6,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class WhiteSpaceGenerator extends JavaBaseGenerator {
+public class WhiteSpaceGenerator extends JavaBaseGenerator<Object> {
 
 	public WhiteSpaceGenerator() {
 		super();
@@ -16,7 +16,7 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.WHITE_SPACE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new WhiteSpaceGenerator(context);
 	}
 

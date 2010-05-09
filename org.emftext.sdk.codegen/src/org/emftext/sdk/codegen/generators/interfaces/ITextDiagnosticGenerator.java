@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITextDiagnosticGenerator extends JavaBaseGenerator {
+public class ITextDiagnosticGenerator extends JavaBaseGenerator<Object> {
 
 	public ITextDiagnosticGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ITextDiagnosticGenerator(context);
 	}
 

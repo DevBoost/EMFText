@@ -12,7 +12,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class LayoutInformationGenerator extends JavaBaseGenerator {
+public class LayoutInformationGenerator extends JavaBaseGenerator<Object> {
 
 	public LayoutInformationGenerator() {
 		super();
@@ -22,7 +22,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.LAYOUT_INFORMATION);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new LayoutInformationGenerator(context);
 	}
 

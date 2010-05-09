@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator {
+public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
@@ -82,7 +82,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SyntaxCoverageInformationProviderGenerator(context);
 	}
 }

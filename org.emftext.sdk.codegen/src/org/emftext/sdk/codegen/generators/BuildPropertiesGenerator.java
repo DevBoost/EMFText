@@ -27,13 +27,12 @@ import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StringUtil;
 
-public class BuildPropertiesGenerator extends BaseGenerator {
+public class BuildPropertiesGenerator extends BaseGenerator<IPluginDescriptor<GenerationContext>> {
 
 	private IPluginDescriptor<GenerationContext> plugin;
 
 	public BuildPropertiesGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
-		super(context, TextResourceArtifacts.BUILD_PROPERTIES);
-		this.plugin = plugin;
+		super(context, plugin, TextResourceArtifacts.BUILD_PROPERTIES);
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		return binIncludes;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
-		throw new UnsupportedOperationException();
+	public IGenerator<GenerationContext, IPluginDescriptor<GenerationContext>> newInstance(GenerationContext context, IPluginDescriptor<GenerationContext> parameters) {
+		return new BuildPropertiesGenerator(context, parameters);
 	}
 }

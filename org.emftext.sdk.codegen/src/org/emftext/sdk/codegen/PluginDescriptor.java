@@ -33,8 +33,12 @@ public abstract class PluginDescriptor implements IPluginDescriptor<GenerationCo
 	}
 
 	public String getName(GenerationContext context) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
-		return getName(syntax);
+		if (context == null) {
+			return getName((ConcreteSyntax) null);
+		} else {
+			ConcreteSyntax syntax = context.getConcreteSyntax();
+			return getName(syntax);
+		}
 	}
 
 	public abstract String getName(ConcreteSyntax syntax);

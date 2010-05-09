@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
+public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Object> {
 
 	public IContextDependentURIFragmentGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IContextDependentURIFragmentGenerator(context);
 	}
 

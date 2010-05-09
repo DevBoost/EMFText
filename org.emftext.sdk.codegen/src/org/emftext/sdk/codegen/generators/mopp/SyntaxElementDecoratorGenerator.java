@@ -16,7 +16,7 @@ import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
  * SyntaxElementDecorator can be used to attach information to 
  * elements of syntax rules.
  */
-public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
+public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<Object> {
 
 	public SyntaxElementDecoratorGenerator() {
 		super();
@@ -26,7 +26,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SyntaxElementDecoratorGenerator(context);
 	}
 

@@ -78,7 +78,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class EditorGenerator extends JavaBaseGenerator {
+public class EditorGenerator extends JavaBaseGenerator<Object> {
 
 	public EditorGenerator() {
 		super();
@@ -606,7 +606,7 @@ public class EditorGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new EditorGenerator(context);
 	}
 }

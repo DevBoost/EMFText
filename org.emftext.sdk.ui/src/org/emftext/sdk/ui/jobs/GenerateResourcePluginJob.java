@@ -59,7 +59,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
 			GenerationContext context = new UIGenerationContext(concreteSyntax, collector);
 			
-			Result result = new UIResourcePluginGenerator().run(context, new WorkspaceMarker(), monitor);
+			Result result = new UICreateResourcePluginJob().run(context, new WorkspaceMarker(), monitor);
 			switch (result) {
 			case ERROR_ABSTRACT_SYNTAX :  {
 				// show error message, because we can not generate plug-ins for

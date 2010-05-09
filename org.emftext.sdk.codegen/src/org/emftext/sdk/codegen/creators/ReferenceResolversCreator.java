@@ -20,6 +20,7 @@ import java.util.Collection;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.ReferenceResolverGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -32,17 +33,17 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * for each non-containment reference in the CS specification that is not
  * imported.
  */
-public class ReferenceResolversCreator extends TextResourceArtifactCreator {
+public class ReferenceResolversCreator extends TextResourceArtifactCreator<GenFeature> {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil genUtil = new GeneratorUtil();
 	
 	public ReferenceResolversCreator() {
-		super("reference resolvers");
+		super("reference resolvers", null);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, GenFeature param) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
 		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
@@ -52,8 +53,7 @@ public class ReferenceResolversCreator extends TextResourceArtifactCreator {
 					proxyReference,
 					context.getProjectFolder(TextResourcePlugins.RESOURCE_PLUGIN).getAbsolutePath()
 			);
-			ReferenceResolverGenerator generator = (ReferenceResolverGenerator) new ReferenceResolverGenerator().newInstance(context);
-			generator.setProxyReference(proxyReference);
+			IGenerator<GenerationContext, GenFeature> generator = new ReferenceResolverGenerator().newInstance(context, proxyReference);
 			
 			artifacts.addAll(createArtifact(
 		    		context,

@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ExpectedTerminalGenerator extends JavaBaseGenerator {
+public class ExpectedTerminalGenerator extends JavaBaseGenerator<Object> {
 
 	public ExpectedTerminalGenerator() {
 		super();
@@ -21,7 +21,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.EXPECTED_TERMINAL);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ExpectedTerminalGenerator(context);
 	}
 

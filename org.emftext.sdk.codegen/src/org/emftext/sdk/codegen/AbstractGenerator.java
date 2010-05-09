@@ -7,20 +7,22 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractGenerator<ContextType> implements IGenerator<ContextType>, IProblemCollector {
+public abstract class AbstractGenerator<ContextType, ParameterType> implements IGenerator<ContextType, ParameterType>, IProblemCollector {
 
 	protected ContextType context;
-
+	protected ParameterType parameters;
+	
 	private List<GenerationProblem> errors;
 	private List<GenerationProblem> warnings;
-	
+
 	public AbstractGenerator() {
-		this(null);
+		this(null, null);
 	}
 
-	public AbstractGenerator(ContextType context) {
+	public AbstractGenerator(ContextType context, ParameterType parameters) {
 		super();
 		this.context = context;
+		this.parameters = parameters;
 		errors = new LinkedList<GenerationProblem>();
 		warnings = new LinkedList<GenerationProblem>();
 	}

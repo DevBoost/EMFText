@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IHoverTextProviderGenerator extends JavaBaseGenerator {
+public class IHoverTextProviderGenerator extends JavaBaseGenerator<Object> {
 
 	public IHoverTextProviderGenerator() {
 		super();
@@ -31,7 +31,7 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IHoverTextProviderGenerator(context);
 	}
 

@@ -17,13 +17,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
+import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.TextResourcePlugins;
@@ -128,10 +131,25 @@ public class ANTLRPluginContentCreator {
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
-	    creators.add(new DotClasspathCreator(TextResourcePlugins.ANTLR_PLUGIN));
-	    creators.add(new DotProjectCreator(TextResourcePlugins.ANTLR_PLUGIN));
+	    
+	    ClassPathParameters<GenerationContext> cpp = new ClassPathParameters<GenerationContext>(TextResourcePlugins.ANTLR_PLUGIN);
+	    cpp.getSourceFolders().add("src");
+		creators.add(new DotClasspathCreator<GenerationContext>(cpp));
+		
+	    creators.add(new DotProjectCreator<GenerationContext>(TextResourcePlugins.ANTLR_PLUGIN));
 	    creators.add(new BuildPropertiesCreator(TextResourcePlugins.ANTLR_PLUGIN));
-	    creators.add(new ANTLRPluginManifestCreator());
+	    
+	    ManifestParameters<GenerationContext> manifestParameters = new ManifestParameters<GenerationContext>();
+		// export the generated packages
+		Collection<String> exports = manifestParameters.getExportedPackages();
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_MISC));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANTLR_RUNTIME_TREE));
+
+		manifestParameters.setPlugin(TextResourcePlugins.ANTLR_PLUGIN);
+		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");
+		creators.add(new ANTLRPluginManifestCreator(manifestParameters));
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {

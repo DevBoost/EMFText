@@ -12,9 +12,9 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.ICreator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public abstract class AbstractPluginCreator implements ICreator<GenerationContext> {
+public abstract class AbstractPluginCreator<ParameterType> implements ICreator<GenerationContext, ParameterType> {
 
-	public void generate(GenerationContext context, IProgressMonitor monitor) throws IOException {
+	public void generate(GenerationContext context, ParameterType parameters, IProgressMonitor monitor) throws IOException {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating " + getPluginName() + " plug-in...", 100);
 	    
 		ConcreteSyntax syntax = context.getConcreteSyntax();

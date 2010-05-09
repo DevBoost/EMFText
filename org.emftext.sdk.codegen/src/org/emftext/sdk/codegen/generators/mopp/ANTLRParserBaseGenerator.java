@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
+public class ANTLRParserBaseGenerator extends JavaBaseGenerator<Object> {
 
 	public ANTLRParserBaseGenerator() {
 		super();
@@ -55,7 +55,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ANTLRParserBaseGenerator(context);
 	}
 }

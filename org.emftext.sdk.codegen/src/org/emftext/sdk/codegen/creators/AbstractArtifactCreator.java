@@ -34,13 +34,15 @@ import org.emftext.sdk.util.StreamUtil;
  * An abstract superclass for all creators that handles overriding
  * of existing artifacts.
  */
-public abstract class AbstractArtifactCreator<ContextType extends IGenerationContext<ContextType>> implements IArtifactCreator<ContextType> {
+public abstract class AbstractArtifactCreator<ContextType extends IGenerationContext<ContextType>, ParameterType> implements IArtifactCreator<ContextType> {
 	
 	private String artifactName;
+	protected ParameterType parameters;
 
-	public AbstractArtifactCreator(String artifactName) {
+	public AbstractArtifactCreator(String artifactName, ParameterType parameters) {
 		super();
 		this.artifactName = artifactName;
+		this.parameters = parameters;
 	}
 	
 	public String getArtifactDescription() {
@@ -50,7 +52,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 	public void createArtifacts(ContextType context) {
 		boolean doOverride = doOverride(context);
 		
-		Collection<IArtifact> artifacts = getArtifactsToCreate(context);
+		Collection<IArtifact> artifacts = getArtifactsToCreate(context, parameters);
 		for (IArtifact artifact : artifacts) {
 			File targetFile = artifact.getTargetFile();
 			boolean exists = targetFile.exists();
@@ -74,7 +76,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 		// do nothing. sub classes override this method.
 	}
 
-	public abstract Collection<IArtifact> getArtifactsToCreate(ContextType context);
+	public abstract Collection<IArtifact> getArtifactsToCreate(ContextType context, ParameterType parameter);
 
 	/**
 	 * Returns the option that enables/disables this
@@ -88,7 +90,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 	public abstract OptionTypes getOverrideOption();
 
 	protected Collection<IArtifact> createArtifact(ContextType context,
-			IGenerator<ContextType> generator, File targetFile, String errorMessage) {
+			IGenerator<ContextType, ParameterType> generator, File targetFile, String errorMessage) {
 
 		InputStream stream = invokeGeneration(generator, context.getProblemCollector());
 	    if (stream == null) {
@@ -99,7 +101,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 	    return toList(artifact);
 	}
 
-	private InputStream invokeGeneration(IGenerator<ContextType> generator, IProblemCollector collector) {
+	private InputStream invokeGeneration(IGenerator<ContextType, ParameterType> generator, IProblemCollector collector) {
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
        try {
     	   if (generator.generate(stream)) {

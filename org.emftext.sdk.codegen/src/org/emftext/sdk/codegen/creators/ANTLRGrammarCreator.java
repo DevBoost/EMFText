@@ -24,18 +24,18 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates an ANTLR .g file using the ANTLRGrammarGenerator, which
  * creates the content for the file.
  */
-public class ANTLRGrammarCreator extends TextResourceArtifactCreator {
+public class ANTLRGrammarCreator extends TextResourceArtifactCreator<Object> {
 
 	public ANTLRGrammarCreator() {
-		super("ANTLR grammar");
+		super("ANTLR grammar", null);
 	}
 
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object paramters) {
 		
 	    File antlrFile = context.getANTLRGrammarFile();
 	    return createArtifact(
 	    		context,
-	    		new ANTLRGrammarGenerator().newInstance(context),
+	    		new ANTLRGrammarGenerator().newInstance(context, paramters),
 	    		antlrFile,
 	    		"Exception while generating ANTLR grammar."
 	    );

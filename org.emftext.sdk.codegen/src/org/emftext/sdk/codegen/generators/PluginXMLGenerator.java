@@ -31,8 +31,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * A generator for the plugin.xml file.
+ * 
+ * TODO mseifert: make this generator reusable
  */
-public class PluginXMLGenerator extends BaseGenerator {
+public class PluginXMLGenerator extends BaseGenerator<Object> {
 
 	private GenerationContext context;
 	private String pluginID;
@@ -246,7 +248,7 @@ public class PluginXMLGenerator extends BaseGenerator {
 		return Collections.emptyList();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PluginXMLGenerator(context);
 	}
 }

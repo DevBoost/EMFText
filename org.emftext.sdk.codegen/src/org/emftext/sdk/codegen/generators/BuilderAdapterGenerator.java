@@ -18,7 +18,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class BuilderAdapterGenerator extends JavaBaseGenerator {
+public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
 
 	public BuilderAdapterGenerator() {
 		super();
@@ -28,7 +28,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.BUILDER_ADAPTER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new BuilderAdapterGenerator(context);
 	}
 

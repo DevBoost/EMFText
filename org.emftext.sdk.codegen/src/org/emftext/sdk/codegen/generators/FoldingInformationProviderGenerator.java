@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 
-public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
+public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 
@@ -78,7 +78,7 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new FoldingInformationProviderGenerator(context);
 	}
 }

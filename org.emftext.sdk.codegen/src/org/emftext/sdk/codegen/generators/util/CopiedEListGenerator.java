@@ -26,7 +26,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CopiedEListGenerator extends JavaBaseGenerator {
+public class CopiedEListGenerator extends JavaBaseGenerator<Object> {
 
 	public CopiedEListGenerator() {
 		super();
@@ -36,7 +36,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.COPIED_E_LIST);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new CopiedEListGenerator(context);
 	}
 

@@ -777,7 +777,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new PrinterGenerator(context);
 	}
 }

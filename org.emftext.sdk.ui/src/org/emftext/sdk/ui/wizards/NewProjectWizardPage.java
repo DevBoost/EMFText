@@ -134,6 +134,7 @@ public class NewProjectWizardPage extends WizardPage {
 		deriveModelFileNames.setSelection(true);
 		metamodelFolderText.setText("metamodel");
 		srcFolderText.setText("src-gen");
+		basePackageText.setText("org.emftext.language");
 	}
 
 	private synchronized void dialogChanged() {
@@ -150,8 +151,7 @@ public class NewProjectWizardPage extends WizardPage {
 			ecoreFileText.setText(metaModelName + ".ecore");
 			genmodelFileText.setText(metaModelName + ".genmodel");
 			syntaxFileText.setText(metaModelName + ".cs");
-			pluginNameText.setText("org.emftext.language." + metaModelName);
-			basePackageText.setText("org.emftext.language." + metaModelName);
+			pluginNameText.setText(basePackageText.getText() + "." + metaModelName);
 		}
 		setEnabled(
 				!enabled,
@@ -161,7 +161,6 @@ public class NewProjectWizardPage extends WizardPage {
 				ecoreFileText,
 				genmodelFileText,
 				syntaxFileText,
-				basePackageText,
 				pluginNameText
 			);
 		checkNotEmpty(syntaxNameText, "Syntax name must be specified");

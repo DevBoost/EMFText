@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 
-public class ParseResultGenerator extends JavaBaseGenerator {
+public class ParseResultGenerator extends JavaBaseGenerator<Object> {
 	
 	public ParseResultGenerator() {
 		super();
@@ -69,7 +69,7 @@ public class ParseResultGenerator extends JavaBaseGenerator {
     	return true;	
     }
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ParseResultGenerator(context);
 	}
 }

@@ -8,7 +8,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ContainmentGenerator extends JavaBaseGenerator {
+public class ContainmentGenerator extends JavaBaseGenerator<Object> {
 
 	public ContainmentGenerator() {
 		super();
@@ -18,7 +18,7 @@ public class ContainmentGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.CONTAINMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ContainmentGenerator(context);
 	}
 

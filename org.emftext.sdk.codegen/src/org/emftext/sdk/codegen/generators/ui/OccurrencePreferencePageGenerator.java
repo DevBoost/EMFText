@@ -37,7 +37,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
+public class OccurrencePreferencePageGenerator extends JavaBaseGenerator<Object> {
 
 	public OccurrencePreferencePageGenerator() {
 		super();
@@ -47,7 +47,7 @@ public class OccurrencePreferencePageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.OCCURRENCE_PREFERENCE_PAGE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new OccurrencePreferencePageGenerator(context);
 	}
 

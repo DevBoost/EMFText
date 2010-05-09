@@ -56,7 +56,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
+public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator<Object> {
 
 	public SyntaxColoringPreferencePageGenerator() {
 		super();
@@ -66,7 +66,7 @@ public class SyntaxColoringPreferencePageGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new SyntaxColoringPreferencePageGenerator(context);
 	}
 

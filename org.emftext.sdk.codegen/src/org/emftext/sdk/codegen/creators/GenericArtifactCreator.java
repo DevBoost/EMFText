@@ -21,23 +21,23 @@ import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class GenericArtifactCreator<ContextType extends IGenerationContext<ContextType>> extends AbstractArtifactCreator<ContextType> {
+public class GenericArtifactCreator<ContextType extends IGenerationContext<ContextType>, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
-	private ArtifactDescriptor<ContextType> artifact;
+	private ArtifactDescriptor<ContextType, ParameterType> artifact;
 
-	public GenericArtifactCreator(String artifactName) {
-		super(artifactName);
+	public GenericArtifactCreator(String artifactName, ParameterType parameters) {
+		super(artifactName, parameters);
 	}
 
-	public GenericArtifactCreator(ArtifactDescriptor<ContextType> artifact) {
-		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix());
+	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact) {
+		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), null);
 		this.artifact = artifact;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(ContextType context) {
+	public Collection<IArtifact> getArtifactsToCreate(ContextType context, ParameterType parameters) {
 	    File file = context.getFile(artifact);
-		IGenerator<ContextType> generator = artifact.createGenerator(context);
+		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator(context, parameters);
 		
 	    return createArtifact(
 	    		context,

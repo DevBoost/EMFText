@@ -260,11 +260,11 @@ public class GeneratorUtil {
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
-	public String getPackageName(ArtifactDescriptor<GenerationContext> artifact, ConcreteSyntax syntax) {
+	public String getPackageName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
 		return getPackageName(syntax, artifact);
 	}
 
-	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<GenerationContext> artifact) {
+	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return getPackageName(syntax, (PluginDescriptor) artifact.getPlugin(), artifact.getPackage());
 	}
 	

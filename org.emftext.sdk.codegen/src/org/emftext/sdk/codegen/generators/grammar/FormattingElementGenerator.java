@@ -7,7 +7,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class FormattingElementGenerator extends JavaBaseGenerator {
+public class FormattingElementGenerator extends JavaBaseGenerator<Object> {
 
 	public FormattingElementGenerator() {
 		super();
@@ -17,7 +17,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.FORMATTING_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new FormattingElementGenerator(context);
 	}
 

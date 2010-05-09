@@ -112,8 +112,8 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
-		AbstractPluginCreator pluginGenerator = new ResourcePluginContentCreator();
-		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
+		AbstractPluginCreator<Object> pluginGenerator = new ResourcePluginContentCreator();
+		pluginGenerator.generate(context, null, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
 
 		if (context.getGenerateANTLRPlugin()) {
 			// generate the ANTLR commons plug-in

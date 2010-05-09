@@ -29,7 +29,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * This generator composes a provider class that can be used to access the 
  * token styles of a syntax.
  */
-public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
+public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
 	public TokenStyleInformationProviderGenerator() {
 		super();
@@ -115,7 +115,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new TokenStyleInformationProviderGenerator(context);
 	}
 }

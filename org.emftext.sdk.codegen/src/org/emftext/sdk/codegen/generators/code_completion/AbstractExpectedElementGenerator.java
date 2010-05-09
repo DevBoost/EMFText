@@ -26,7 +26,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
+public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Object> {
 
 	public AbstractExpectedElementGenerator() {
 		super();
@@ -36,7 +36,7 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new AbstractExpectedElementGenerator(context);
 	}
 

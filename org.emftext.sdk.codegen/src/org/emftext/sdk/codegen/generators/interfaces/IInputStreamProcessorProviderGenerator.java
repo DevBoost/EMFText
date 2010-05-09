@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
+public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator<Object> {
 
 	public IInputStreamProcessorProviderGenerator() {
 		super();
@@ -31,7 +31,7 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IInputStreamProcessorProviderGenerator(context);
 	}
 

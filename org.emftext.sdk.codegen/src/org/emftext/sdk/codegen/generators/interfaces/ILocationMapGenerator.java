@@ -22,7 +22,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ILocationMapGenerator extends JavaBaseGenerator {
+public class ILocationMapGenerator extends JavaBaseGenerator<Object> {
 
 	public ILocationMapGenerator() {
 		super();
@@ -32,7 +32,7 @@ public class ILocationMapGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_LOCATION_MAP);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ILocationMapGenerator(context);
 	}
 

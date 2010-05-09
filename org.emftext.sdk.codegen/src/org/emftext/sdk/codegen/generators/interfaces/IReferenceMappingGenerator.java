@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IReferenceMappingGenerator extends JavaBaseGenerator {
+public class IReferenceMappingGenerator extends JavaBaseGenerator<Object> {
 
 	public IReferenceMappingGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_REFERENCE_MAPPING);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new IReferenceMappingGenerator(context);
 	}
 

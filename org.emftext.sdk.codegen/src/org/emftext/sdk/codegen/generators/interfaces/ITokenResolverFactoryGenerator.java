@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.TextResourceArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITokenResolverFactoryGenerator extends JavaBaseGenerator {
+public class ITokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 
 	public ITokenResolverFactoryGenerator() {
 		super();
@@ -29,7 +29,7 @@ public class ITokenResolverFactoryGenerator extends JavaBaseGenerator {
 		super(context, TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY);
 	}
 
-	public IGenerator<GenerationContext> newInstance(GenerationContext context) {
+	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
 		return new ITokenResolverFactoryGenerator(context);
 	}
 
