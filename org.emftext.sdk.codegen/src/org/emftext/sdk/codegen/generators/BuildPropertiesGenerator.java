@@ -29,8 +29,6 @@ import org.emftext.sdk.util.StringUtil;
 
 public class BuildPropertiesGenerator extends BaseGenerator<IPluginDescriptor<GenerationContext>> {
 
-	private IPluginDescriptor<GenerationContext> plugin;
-
 	public BuildPropertiesGenerator(GenerationContext context, IPluginDescriptor<GenerationContext> plugin) {
 		super(context, plugin, TextResourceArtifacts.BUILD_PROPERTIES);
 	}
@@ -43,7 +41,7 @@ public class BuildPropertiesGenerator extends BaseGenerator<IPluginDescriptor<Ge
 		Set<String> sourceFolders = new LinkedHashSet<String>();
 		sourceFolders.add(sourceFolder + "/");
 		// only the resource plug-in has a 'src-gen' folder
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
+		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
 			sourceFolders.add(sourceGenFolder + "/");
 		}
 
@@ -72,7 +70,7 @@ public class BuildPropertiesGenerator extends BaseGenerator<IPluginDescriptor<Ge
 		Collection<String> binIncludes = new LinkedHashSet<String>();
 		binIncludes.add("META-INF/");
 		binIncludes.add(".");
-		if (plugin == TextResourcePlugins.RESOURCE_PLUGIN) {
+		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
 			binIncludes.add("icons/");
 			binIncludes.add("css/");
 			binIncludes.add("plugin.xml");
