@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
@@ -29,7 +30,9 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		this.resourceMarker = resourceMarker;
 	}
 
-	public void run(IProgressMonitor monitor) throws Exception {
+	public void run(IProgressMonitor monitor2) throws Exception {
+		SubMonitor progress = SubMonitor.convert(monitor2, 100);
+
 		final List<GenerationProblem> problems = new ArrayList<GenerationProblem>();
 		IProblemCollector problemConnector = new IProblemCollector() {
 			
@@ -43,14 +46,14 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 				return context.getParameters().getProjectName();
 			}
 		};
-		IProject project = createProject(monitor, newProjectPlugin, parameters.getProjectName());
+		IProject project = createProject(progress.newChild(2), newProjectPlugin, parameters.getProjectName());
 		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters, problemConnector);
-		context.setMonitor(monitor);
+		context.setMonitor(progress.newChild(92));
 		context.setResourceMarker(resourceMarker);
-		new NewProjectContentsCreator().generate(context, null, monitor);
-		refresh(monitor, project);
-		refresh(monitor, getProject(TextResourcePlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax())));
-		refresh(monitor, getProject(TextResourcePlugins.ANTLR_PLUGIN.getName(null)));
+		new NewProjectContentsCreator().generate(context, null, null);
+		refresh(progress.newChild(2), project);
+		refresh(progress.newChild(2), getProject(TextResourcePlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax())));
+		refresh(progress.newChild(2), getProject(TextResourcePlugins.ANTLR_PLUGIN.getName(null)));
 		
 		// TODO expose problems to user
 		for (GenerationProblem problem : problems) {
@@ -59,14 +62,16 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 	}
 
 	public IProject createProject(IProgressMonitor progress, IPluginDescriptor<NewProjectGenerationContext> plugin, String pluginName) throws Exception {
-		
+		progress.beginTask("Creating project", 2);
 		IProject getProject = getProject(pluginName);
 		IProject project = getProject;
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());
 		}
 		project.open(new NullProgressMonitor());
+		progress.worked(1);
 		JavaCore.create(project);
+		progress.worked(1);
 		return project;
 	}
 

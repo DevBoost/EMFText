@@ -23,9 +23,14 @@ import org.emftext.sdk.codegen.newproject.generators.SyntaxGenerator;
 public class NewProjectContentsCreator implements ICreator<NewProjectGenerationContext, Object> {
 
 	public void generate(NewProjectGenerationContext context, Object parameters,
-			IProgressMonitor monitor) throws IOException {
-		for (IArtifactCreator<NewProjectGenerationContext> creator : getCreators(context)) {
+			IProgressMonitor unusedMonitor) throws IOException {
+
+		IProgressMonitor monitor = context.getMonitor();
+		List<IArtifactCreator<NewProjectGenerationContext>> creators = getCreators(context);
+		monitor.beginTask("Creating new project", creators.size());
+		for (IArtifactCreator<NewProjectGenerationContext> creator : creators) {
 			creator.createArtifacts(context);
+			monitor.worked(1);
 		}
 	}
 	
