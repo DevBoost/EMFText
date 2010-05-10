@@ -74,8 +74,10 @@ public class GenerateTextResourceTask extends Task {
 			ConcreteSyntax syntax = (ConcreteSyntax) contents.get(0);
 			performPreprocessing(syntax);
 			
-			Result result = new AntResourcePluginGenerator().run(
-					new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this), generateANTLRPlugin), 
+			AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
+			AntGenerationContext context = new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this), generateANTLRPlugin);
+			Result result = generator.run(
+					context, 
 					new AntLogMarker(this), 
 					new AntDelegateProgressMonitor(this)
 			);

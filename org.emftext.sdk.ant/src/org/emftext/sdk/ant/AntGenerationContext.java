@@ -16,6 +16,7 @@ package org.emftext.sdk.ant;
 import java.io.File;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -27,13 +28,13 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class AntGenerationContext extends GenerationContext {
 
-	private File workspaceRootFolder;
+	private final File workspaceRootFolder;
 	private String syntaxProjectName;
 	private boolean generateANTLRPlugin;
 
 	public AntGenerationContext(
 			ConcreteSyntax concreteSyntax,
-			File workspaceRootFolder,
+			final File workspaceRootFolder,
 			String syntaxProjectName,
 			IProblemCollector problemCollector,
 			boolean generateANTLRPlugin) {
@@ -41,10 +42,12 @@ public class AntGenerationContext extends GenerationContext {
 		this.workspaceRootFolder = workspaceRootFolder;
 		this.syntaxProjectName = syntaxProjectName;
 		this.generateANTLRPlugin = generateANTLRPlugin;
-	}
-
-	public File getProjectFolder(IPluginDescriptor plugin) {
-		return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName(plugin));
+		setFileSystemConnector(new IFileSystemConnector() {
+			
+			public File getProjectFolder(IPluginDescriptor plugin) {
+				return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName(plugin));
+			}
+		});
 	}
 
 	@Override
