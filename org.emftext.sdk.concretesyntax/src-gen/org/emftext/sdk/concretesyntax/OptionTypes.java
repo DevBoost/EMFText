@@ -1860,7 +1860,39 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_PLUGIN_ACTIVATOR(188, "OVERRIDE_UI_PLUGIN_ACTIVATOR", "overrideUIPluginActivator");
+	OVERRIDE_UI_PLUGIN_ACTIVATOR(188, "OVERRIDE_UI_PLUGIN_ACTIVATOR", "overrideUIPluginActivator"), /**
+	 * The '<em><b>UI BASE PACKAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UI_BASE_PACKAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UI_BASE_PACKAGE(189, "UI_BASE_PACKAGE", "uiBasePackage"), /**
+	 * The '<em><b>ADDITIONAL UI DEPENDENCIES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_UI_DEPENDENCIES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_UI_DEPENDENCIES(190, "ADDITIONAL_UI_DEPENDENCIES", "additionalUIDependencies"), /**
+	 * The '<em><b>ADDITIONAL UI EXPORTS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_UI_EXPORTS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_UI_EXPORTS(191, "ADDITIONAL_UI_EXPORTS", "additionalUIExports"), /**
+	 * The '<em><b>OVERRIDE UI MANIFEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_MANIFEST_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_MANIFEST(192, "OVERRIDE_UI_MANIFEST", "overrideUIManifest");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4668,6 +4700,66 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_UI_PLUGIN_ACTIVATOR_VALUE = 188;
 
 	/**
+	 * The '<em><b>UI BASE PACKAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>UI BASE PACKAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UI_BASE_PACKAGE
+	 * @model literal="uiBasePackage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UI_BASE_PACKAGE_VALUE = 189;
+
+	/**
+	 * The '<em><b>ADDITIONAL UI DEPENDENCIES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL UI DEPENDENCIES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_UI_DEPENDENCIES
+	 * @model literal="additionalUIDependencies"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_UI_DEPENDENCIES_VALUE = 190;
+
+	/**
+	 * The '<em><b>ADDITIONAL UI EXPORTS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL UI EXPORTS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_UI_EXPORTS
+	 * @model literal="additionalUIExports"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_UI_EXPORTS_VALUE = 191;
+
+	/**
+	 * The '<em><b>OVERRIDE UI MANIFEST</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI MANIFEST</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_MANIFEST
+	 * @model literal="overrideUIManifest"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_MANIFEST_VALUE = 192;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4862,6 +4954,10 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UI_META_INFORMATION,
 			RESOURCE_UI_PLUGIN_ID,
 			OVERRIDE_UI_PLUGIN_ACTIVATOR,
+			UI_BASE_PACKAGE,
+			ADDITIONAL_UI_DEPENDENCIES,
+			ADDITIONAL_UI_EXPORTS,
+			OVERRIDE_UI_MANIFEST,
 		};
 
 	/**
@@ -5098,6 +5194,10 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UI_META_INFORMATION_VALUE: return OVERRIDE_UI_META_INFORMATION;
 			case RESOURCE_UI_PLUGIN_ID_VALUE: return RESOURCE_UI_PLUGIN_ID;
 			case OVERRIDE_UI_PLUGIN_ACTIVATOR_VALUE: return OVERRIDE_UI_PLUGIN_ACTIVATOR;
+			case UI_BASE_PACKAGE_VALUE: return UI_BASE_PACKAGE;
+			case ADDITIONAL_UI_DEPENDENCIES_VALUE: return ADDITIONAL_UI_DEPENDENCIES;
+			case ADDITIONAL_UI_EXPORTS_VALUE: return ADDITIONAL_UI_EXPORTS;
+			case OVERRIDE_UI_MANIFEST_VALUE: return OVERRIDE_UI_MANIFEST;
 		}
 		return null;
 	}

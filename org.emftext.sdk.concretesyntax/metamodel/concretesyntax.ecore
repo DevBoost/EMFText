@@ -586,6 +586,10 @@
     <eLiterals name="OVERRIDE_UI_META_INFORMATION" value="186" literal="overrideUIMetaInformation"/>
     <eLiterals name="RESOURCE_UI_PLUGIN_ID" value="187" literal="resourceUIPluginID"/>
     <eLiterals name="OVERRIDE_UI_PLUGIN_ACTIVATOR" value="188" literal="overrideUIPluginActivator"/>
+    <eLiterals name="UI_BASE_PACKAGE" value="189" literal="uiBasePackage"/>
+    <eLiterals name="ADDITIONAL_UI_DEPENDENCIES" value="190" literal="additionalUIDependencies"/>
+    <eLiterals name="ADDITIONAL_UI_EXPORTS" value="191" literal="additionalUIExports"/>
+    <eLiterals name="OVERRIDE_UI_MANIFEST" value="192" literal="overrideUIManifest"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

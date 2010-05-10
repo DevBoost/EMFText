@@ -267,7 +267,7 @@ public class GeneratorUtil {
 	}
 	
 	public IPluginDescriptor getResourcePluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX);
+		final String pluginName = getName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, OptionTypes.BASE_PACKAGE);
 		
 		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
 
@@ -279,7 +279,7 @@ public class GeneratorUtil {
 	}
 
 	public IPluginDescriptor getResourceUIPluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, RESOURCE_UI_PLUGIN_SUFFIX);
+		final String pluginName = getName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
 		
 		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
 
@@ -298,7 +298,7 @@ public class GeneratorUtil {
 			return null;
 		}
 		*/
-		String basePackage = getBasePackage(syntax, RESOURCE_PLUGIN_SUFFIX);
+		String basePackage = getBasePackage(syntax, RESOURCE_PLUGIN_SUFFIX, OptionTypes.BASE_PACKAGE);
 		if (basePackage == null || "".equals(basePackage)) {
 			return packageSuffix;
 		} else {
@@ -310,8 +310,8 @@ public class GeneratorUtil {
 		}
 	}
 
-	public String getBasePackage(ConcreteSyntax syntax, String suffix) {
-		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
+	public String getBasePackage(ConcreteSyntax syntax, String suffix, OptionTypes basePackageOption) {
+		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, basePackageOption);
 		if (basePackage != null) {
 			// use package name from option
 			return basePackage;
@@ -330,14 +330,14 @@ public class GeneratorUtil {
 	}
 
 
-	public String getName(ConcreteSyntax syntax, OptionTypes option, String suffix) {
-		String pluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+	public String getName(ConcreteSyntax syntax, OptionTypes pluginIDOption, String suffix, OptionTypes basePackageOption) {
+		String pluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, pluginIDOption);
 		if (pluginID != null) {
 			// use package plug-in from option
 			return pluginID;
 		} else {
 			// use default plug-in name
-			return getBasePackage(syntax, suffix);
+			return getBasePackage(syntax, suffix, basePackageOption);
 		}
 	}
 

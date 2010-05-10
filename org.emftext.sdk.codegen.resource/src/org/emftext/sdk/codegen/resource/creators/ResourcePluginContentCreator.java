@@ -142,7 +142,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		manifestParameters.setPlugin(resourcePlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText Parser Plugin: " + context.getConcreteSyntax().getName());
-		creators.add(new ResourcePluginManifestCreator(manifestParameters));
+		creators.add(new ManifestCreator<GenerationContext>(TextResourceArtifacts.MANIFEST, manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_MANIFEST)));
 		
 	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.META_INFORMATION));
 	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER));

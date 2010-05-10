@@ -4,7 +4,9 @@ import static org.emftext.sdk.Constants.UI_PACKAGE;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BackgroundParsingStrategyGenerator;
@@ -52,9 +54,10 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, Object> PACKAGE_UI = new ArtifactDescriptor<GenerationContext, Object>(UI_PACKAGE, "", "", null, null);
 
+	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
 	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
-
+	public static final ArtifactDescriptor<GenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters>(null, "", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, Object> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
 
 	public final static ArtifactDescriptor<GenerationContext, Object> CODE_COMPLETION_HELPER = new ArtifactDescriptor<GenerationContext, Object>(UI_PACKAGE, "", "CodeCompletionHelper", new CodeCompletionHelperGenerator(), OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);

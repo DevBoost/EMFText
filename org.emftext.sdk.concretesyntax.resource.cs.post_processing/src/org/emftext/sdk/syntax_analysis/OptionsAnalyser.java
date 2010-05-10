@@ -63,7 +63,9 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 
 		STRING_OPTIONS = new ArrayList<OptionTypes>();
 		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);
+		STRING_OPTIONS.add(OptionTypes.UI_BASE_PACKAGE);
 		STRING_OPTIONS.add(OptionTypes.RESOURCE_PLUGIN_ID);
+		STRING_OPTIONS.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
 		STRING_OPTIONS.add(OptionTypes.SOURCE_FOLDER);
 		STRING_OPTIONS.add(OptionTypes.SOURCE_GEN_FOLDER);
 		STRING_OPTIONS.add(OptionTypes.PARSER_GENERATOR);

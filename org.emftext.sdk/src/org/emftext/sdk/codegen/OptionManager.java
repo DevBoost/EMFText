@@ -171,4 +171,10 @@ public class OptionManager {
 			return OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
 		}
 	}
+
+	public boolean doOverride(ConcreteSyntax concreteSyntax,
+			OptionTypes overrideOption) {
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, overrideOption);
+		return doOverride;
+	}
 }

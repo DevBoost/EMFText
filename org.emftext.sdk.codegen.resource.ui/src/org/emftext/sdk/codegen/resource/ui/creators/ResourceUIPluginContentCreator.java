@@ -21,9 +21,8 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
-import org.emftext.sdk.codegen.resource.creators.ResourcePluginManifestCreator;
+import org.emftext.sdk.codegen.resource.creators.ManifestCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -69,23 +68,19 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		bpp.getBinIncludes().add("icons/");
 		bpp.getBinIncludes().add("css/");
 		bpp.getBinIncludes().add("plugin.xml");
-		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceArtifacts.BUILD_PROPERTIES, bpp));
+		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceUIArtifacts.BUILD_PROPERTIES, bpp));
 
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 	    ManifestParameters manifestParameters = new ManifestParameters();
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
 		exports.add(context.getPackageName(TextResourceUIArtifacts.PACKAGE_UI));
-		// do not export the analysis package if the are no resolvers
-		if (csUtil.getResolverFileNames(syntax).size() > 0) {
-			exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANALYSIS));
-		}
-		exports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_EXPORTS));
+		exports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_UI_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
 		manifestParameters.setPlugin(resourceUIPlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText UI Plugin: " + context.getConcreteSyntax().getName());
-		creators.add(new ResourcePluginManifestCreator(manifestParameters));
+		creators.add(new ManifestCreator<GenerationContext>(TextResourceUIArtifacts.MANIFEST, manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_UI_MANIFEST)));
 		
 	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceUIArtifacts.NEW_FILE_WIZARD));
 	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE));
@@ -168,7 +163,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 			imports.add(qualifiedBasePluginName);
 		}
 		
-		imports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES));
+		imports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_UI_DEPENDENCIES));
 
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");
