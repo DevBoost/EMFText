@@ -14,9 +14,9 @@
 package org.emftext.sdk.ant;
 
 import org.eclipse.core.runtime.SubMonitor;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.PluginDescriptor;
-import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
 
 /**
  * This class implements an ResourcePluginGenerator that does NOT create
@@ -28,6 +28,6 @@ import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
 public class AntResourcePluginGenerator extends CreateTextResourcePluginsJob {
 
 	@Override
-	public void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin) {
+	public void createProject(IPluginDescriptor plugin, GenerationContext context, SubMonitor progress) {
 	}
 }

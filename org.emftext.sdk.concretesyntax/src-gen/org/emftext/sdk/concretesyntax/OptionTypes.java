@@ -1836,7 +1836,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_EMF_VALIDATION_CONSTRAINTS(185, "DISABLE_EMF_VALIDATION_CONSTRAINTS", "disableEMFValidationConstraints");
+	DISABLE_EMF_VALIDATION_CONSTRAINTS(185, "DISABLE_EMF_VALIDATION_CONSTRAINTS", "disableEMFValidationConstraints"), /**
+	 * The '<em><b>OVERRIDE UI META INFORMATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_META_INFORMATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_META_INFORMATION(186, "OVERRIDE_UI_META_INFORMATION", "overrideUIMetaInformation"), /**
+	 * The '<em><b>RESOURCE UI PLUGIN ID</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESOURCE_UI_PLUGIN_ID_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESOURCE_UI_PLUGIN_ID(187, "RESOURCE_UI_PLUGIN_ID", "resourceUIPluginID"), /**
+	 * The '<em><b>OVERRIDE UI PLUGIN ACTIVATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_PLUGIN_ACTIVATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_PLUGIN_ACTIVATOR(188, "OVERRIDE_UI_PLUGIN_ACTIVATOR", "overrideUIPluginActivator");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4599,6 +4623,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int DISABLE_EMF_VALIDATION_CONSTRAINTS_VALUE = 185;
 
 	/**
+	 * The '<em><b>OVERRIDE UI META INFORMATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI META INFORMATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_META_INFORMATION
+	 * @model literal="overrideUIMetaInformation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_META_INFORMATION_VALUE = 186;
+
+	/**
+	 * The '<em><b>RESOURCE UI PLUGIN ID</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>RESOURCE UI PLUGIN ID</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #RESOURCE_UI_PLUGIN_ID
+	 * @model literal="resourceUIPluginID"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESOURCE_UI_PLUGIN_ID_VALUE = 187;
+
+	/**
+	 * The '<em><b>OVERRIDE UI PLUGIN ACTIVATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI PLUGIN ACTIVATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_PLUGIN_ACTIVATOR
+	 * @model literal="overrideUIPluginActivator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_PLUGIN_ACTIVATOR_VALUE = 188;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4790,6 +4859,9 @@ public enum OptionTypes implements Enumerator {
 			USE_CLASSIC_PRINTER,
 			DISABLE_EVALIDATORS,
 			DISABLE_EMF_VALIDATION_CONSTRAINTS,
+			OVERRIDE_UI_META_INFORMATION,
+			RESOURCE_UI_PLUGIN_ID,
+			OVERRIDE_UI_PLUGIN_ACTIVATOR,
 		};
 
 	/**
@@ -5023,6 +5095,9 @@ public enum OptionTypes implements Enumerator {
 			case USE_CLASSIC_PRINTER_VALUE: return USE_CLASSIC_PRINTER;
 			case DISABLE_EVALIDATORS_VALUE: return DISABLE_EVALIDATORS;
 			case DISABLE_EMF_VALIDATION_CONSTRAINTS_VALUE: return DISABLE_EMF_VALIDATION_CONSTRAINTS;
+			case OVERRIDE_UI_META_INFORMATION_VALUE: return OVERRIDE_UI_META_INFORMATION;
+			case RESOURCE_UI_PLUGIN_ID_VALUE: return RESOURCE_UI_PLUGIN_ID;
+			case OVERRIDE_UI_PLUGIN_ACTIVATOR_VALUE: return OVERRIDE_UI_PLUGIN_ACTIVATOR;
 		}
 		return null;
 	}

@@ -583,6 +583,9 @@
     <eLiterals name="USE_CLASSIC_PRINTER" value="183" literal="useClassicPrinter"/>
     <eLiterals name="DISABLE_E_VALIDATORS" value="184" literal="disableEValidators"/>
     <eLiterals name="DISABLE_EMF_VALIDATION_CONSTRAINTS" value="185" literal="disableEMFValidationConstraints"/>
+    <eLiterals name="OVERRIDE_UI_META_INFORMATION" value="186" literal="overrideUIMetaInformation"/>
+    <eLiterals name="RESOURCE_UI_PLUGIN_ID" value="187" literal="resourceUIPluginID"/>
+    <eLiterals name="OVERRIDE_UI_PLUGIN_ACTIVATOR" value="188" literal="overrideUIPluginActivator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

@@ -1,16 +1,11 @@
 package org.emftext.sdk.codegen;
 
-// TODO move this class to codegen/common
-public abstract class AbstractGenerationContext<ContextType> implements IGenerationContext<ContextType> {
+import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 
-	private final IProblemCollector problemCollector;
+// TODO mseifert: remove this?
+public abstract class AbstractGenerationContext extends AbstractGenerationComponent {
 
-	public AbstractGenerationContext(IProblemCollector problemCollector) {
+	public AbstractGenerationContext() {
 		super();
-		this.problemCollector = problemCollector;
-	}
-
-	public IProblemCollector getProblemCollector() {
-		return problemCollector;
 	}
 }

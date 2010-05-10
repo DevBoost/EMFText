@@ -15,7 +15,9 @@ package org.emftext.sdk.codegen.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -421,5 +423,16 @@ public class ConcreteSyntaxUtil {
 		ConcreteSyntax syntax = syntaxElement.getContainingRule().getSyntax();
 		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
 		return getFieldName(escapedSyntaxName + "_", syntaxElement);
+	}
+
+	public Collection<String> getAdditionalPackages(ConcreteSyntax syntax, OptionTypes option) {
+		String additionalPackagesString = 
+			OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+		if (additionalPackagesString != null) {
+			String[] additionalPackages = additionalPackagesString.split(",");
+			return Arrays.asList(additionalPackages);
+		} else {
+			return Collections.emptySet();
+		}
 	}
 }

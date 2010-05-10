@@ -22,11 +22,11 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.PluginDescriptor;
-import org.emftext.sdk.codegen.TextResourcePlugins;
-import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob;
-import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
+import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
 
 /**
  * A custom generator that creates adds a new project to the current
@@ -42,25 +42,28 @@ public class UICreateResourcePluginJob extends CreateTextResourcePluginsJob {
 		Result result = super.run(context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		refresh(monitor, uiContext.getProject(TextResourcePlugins.RESOURCE_PLUGIN));
-		refresh(monitor, uiContext.getProject(TextResourcePlugins.ANTLR_PLUGIN));
+		refresh(monitor, uiContext.getProject(context.getResourcePlugin()));
+		refresh(monitor, uiContext.getProject(context.getResourceUIPlugin()));
+		refresh(monitor, uiContext.getProject(ANTLRPluginArtifacts.ANTLR_PLUGIN));
 
 		return result;
 	}
 
-	public void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin)
+	public void createProject(IPluginDescriptor plugin, GenerationContext context, SubMonitor progress)
+	//public void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin)
 		throws CoreException, JavaModelException {
 		
-		UIGenerationContext uiContext = (UIGenerationContext) context;
-		
-		String projectName = plugin.getName(context);
+		String projectName = plugin.getName();
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());
 		}
 		project.open(new NullProgressMonitor());
 		IJavaProject javaProject = JavaCore.create(project);
-		
-		uiContext.setJavaProject(plugin, javaProject);
+
+		if (context instanceof UIGenerationContext) {
+			UIGenerationContext uiContext = (UIGenerationContext) context;
+			uiContext.setJavaProject(plugin, javaProject);
+		}
 	}
 }

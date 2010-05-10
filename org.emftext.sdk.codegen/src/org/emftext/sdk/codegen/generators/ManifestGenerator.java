@@ -54,7 +54,7 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 		sc.add("Manifest-Version: 1.0");
 		sc.add("Bundle-ManifestVersion: 2");
 		sc.add("Bundle-Name: " + parameters.getBundleName());
-		sc.add("Bundle-SymbolicName: " + parameters.getPlugin().getName(context) + ";singleton:=true");
+		sc.add("Bundle-SymbolicName: " + parameters.getPlugin().getName() + ";singleton:=true");
 		sc.add("Bundle-Version: 1.0.0");
 		sc.add("Bundle-Vendor: Software Technology Group - TU Dresden Germany");
 		if (requiredBundles.size() > 0) {

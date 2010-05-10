@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.ui.jobs;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,9 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.PluginDescriptor;
+import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -33,14 +30,13 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class UIGenerationContext extends GenerationContext {
 
-	public UIGenerationContext(ConcreteSyntax concreteSyntax,
-			IProblemCollector problemCollector) {
-		super(concreteSyntax, problemCollector);
+	public UIGenerationContext(ConcreteSyntax concreteSyntax) {
+		super(concreteSyntax);
 	}
 
-	private Map<PluginDescriptor, IJavaProject> javaProjects = new LinkedHashMap<PluginDescriptor, IJavaProject>();
+	private Map<IPluginDescriptor, IJavaProject> javaProjects = new LinkedHashMap<IPluginDescriptor, IJavaProject>();
 
-	public IProject getProject(IPluginDescriptor<GenerationContext> plugin) {
+	public IProject getProject(IPluginDescriptor plugin) {
 		if (!javaProjects.containsKey(plugin)) {
 			return null;
 		}
@@ -52,19 +48,15 @@ public class UIGenerationContext extends GenerationContext {
 		}
 	}
 
-	public IJavaProject getJavaProject(IPluginDescriptor<GenerationContext> plugin) {
+	public IJavaProject getJavaProject(IPluginDescriptor plugin) {
 		if (!javaProjects.containsKey(plugin)) {
 			return null;
 		}
 		return javaProjects.get(plugin);
 	}
 
-	public void setJavaProject(PluginDescriptor plugin, IJavaProject project) {
+	public void setJavaProject(IPluginDescriptor plugin, IJavaProject project) {
 		javaProjects.put(plugin, project);
-	}
-
-	public File getProjectFolder(IPluginDescriptor<GenerationContext> plugin) {
-		return getProject(plugin).getLocation().toFile().getAbsoluteFile();
 	}
 
 	@Override

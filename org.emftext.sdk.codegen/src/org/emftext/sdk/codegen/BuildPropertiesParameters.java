@@ -9,9 +9,9 @@ public class BuildPropertiesParameters<ContextType> {
 	
 	private Collection<String> sourceFolders = new LinkedHashSet<String>();
 	private Collection<String> binIncludes = new LinkedHashSet<String>();
-	private IPluginDescriptor<ContextType> plugin;
+	private IPluginDescriptor plugin;
 
-	public BuildPropertiesParameters(IPluginDescriptor<ContextType> plugin) {
+	public BuildPropertiesParameters(IPluginDescriptor plugin) {
 		super();
 		this.plugin = plugin;
 	}
@@ -24,7 +24,7 @@ public class BuildPropertiesParameters<ContextType> {
 		return binIncludes;
 	}
 
-	public IPluginDescriptor<ContextType> getProject() {
+	public IPluginDescriptor getProject() {
 		return plugin;
 	}
 }

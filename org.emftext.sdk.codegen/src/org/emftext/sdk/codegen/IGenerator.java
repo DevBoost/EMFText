@@ -24,7 +24,7 @@ import java.util.Collection;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public interface IGenerator<ContextType, ParameterType> {
+public interface IGenerator<ContextType, ParameterType> extends IConfigurableGenerationComponent {
 	
 	public boolean generate(OutputStream out);
 	

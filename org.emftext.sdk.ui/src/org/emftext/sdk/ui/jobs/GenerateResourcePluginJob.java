@@ -21,10 +21,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.creators.CreateTextResourcePluginsJob.Result;
+import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
@@ -51,13 +51,15 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
 		try {
 			final CsResource csResource = CsTextResourceUtil.getResource(csFile);
-			IProblemCollector collector = new IProblemCollector() {
+			IProblemCollector problemCollector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {
 					addGenerationProblem(csResource, problem);
 				}
 			};
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
-			GenerationContext context = new UIGenerationContext(concreteSyntax, collector);
+			GenerationContext context = new UIGenerationContext(concreteSyntax);
+			context.setFileSystemConnector(new UIFileSystemConnector());
+			context.setProblemCollector(problemCollector);
 			
 			Result result = new UICreateResourcePluginJob().run(context, new WorkspaceMarker(), monitor);
 			switch (result) {

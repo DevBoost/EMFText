@@ -9,13 +9,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.codegen.IContext;
+import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class NewProjectGenerationContext extends AbstractGenerationContext<NewProjectGenerationContext> {
+public class NewProjectGenerationContext extends AbstractGenerationContext implements IContext {
 
-	private IPluginDescriptor<NewProjectGenerationContext> pluginDescriptor;
+	private IPluginDescriptor pluginDescriptor;
 	private NewProjectParameters parameters;
 	private IProject project;
 	private EPackage ePackage;
@@ -23,30 +24,30 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 	private IProgressMonitor monitor;
 	private IResourceMarker resourceMarker;
 	private ConcreteSyntax concreteSyntax;
+	private GenerationContext generationContext;
 
 	public NewProjectGenerationContext(
 			IProject project,
-			IPluginDescriptor<NewProjectGenerationContext> pluginDescriptor,
-			NewProjectParameters parameters, 
-			IProblemCollector problemCollector) {
-		super(problemCollector);
+			IPluginDescriptor pluginDescriptor,
+			NewProjectParameters parameters) {
+		super();
 		this.project = project;
 		this.pluginDescriptor = pluginDescriptor;
 		this.parameters = parameters;
 	}
 
-	public File getFile(ArtifactDescriptor<NewProjectGenerationContext, ?> artifact) {
+	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
 		return new File(getPackagePath(artifact) + File.separator + artifact.getClassNameSuffix());
 	}
 
-	public String getPackagePath(ArtifactDescriptor<NewProjectGenerationContext, ?> artifact) {
+	public String getPackagePath(ArtifactDescriptor<?, ?> artifact) {
 		File targetFolder = getProjectFolder(null);
 		String targetFolderPath = targetFolder.getAbsolutePath();
 		String packagePath = targetFolderPath + File.separator + artifact.getPackage() + File.separator;
 		return packagePath;
 	}
 
-	public File getProjectFolder(IPluginDescriptor<NewProjectGenerationContext> plugin) {
+	public File getProjectFolder(IPluginDescriptor plugin) {
 		return project.getLocation().toFile().getAbsoluteFile();
 	}
 
@@ -54,7 +55,7 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 		return parameters;
 	}
 
-	public IPluginDescriptor<NewProjectGenerationContext> getPluginDescriptor() {
+	public IPluginDescriptor getPluginDescriptor() {
 		return pluginDescriptor;
 	}
 
@@ -96,5 +97,13 @@ public class NewProjectGenerationContext extends AbstractGenerationContext<NewPr
 
 	public void setConcreteSyntax(ConcreteSyntax concreteSyntax) {
 		this.concreteSyntax = concreteSyntax;
+	}
+
+	public GenerationContext getGenerationContext() {
+		return generationContext;
+	}
+
+	public void setGenerationContext(GenerationContext generationContext) {
+		this.generationContext = generationContext;
 	}
 }

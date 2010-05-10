@@ -16,27 +16,27 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.IGenerationContext;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class GenericArtifactCreator<ContextType extends IGenerationContext<ContextType>, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
+public class GenericArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
 	private ArtifactDescriptor<ContextType, ParameterType> artifact;
 
-	public GenericArtifactCreator(String artifactName, ParameterType parameters) {
-		super(artifactName, parameters);
+	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact) {
+		this(artifact, null);
 	}
 
-	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact) {
-		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), null);
+	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact, ParameterType parameters) {
+		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), parameters);
 		this.artifact = artifact;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(ContextType context, ParameterType parameters) {
-	    File file = context.getFile(artifact);
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameters) {
+	    File file = context.getFile(plugin, artifact);
 		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator(context, parameters);
 		
 	    return createArtifact(
@@ -46,10 +46,9 @@ public class GenericArtifactCreator<ContextType extends IGenerationContext<Conte
 	    		"Exception while generating " + getArtifactDescription() + "."
 	    );
 	}
-
-	@Override
-	public OptionTypes getOverrideOption() {
-		return artifact.getOverrideOption();
+	
+	public ArtifactDescriptor<ContextType, ParameterType> getArtifact() {
+		return artifact;
 	}
 
 	@Override

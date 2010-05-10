@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.util.StreamUtil;
@@ -29,7 +29,7 @@ import org.emftext.sdk.util.StreamUtil;
  * generated text resources by copying the default_icon.gif and
  * hover_style.css contained in this package.
  */
-public class FileCopier implements IArtifactCreator<GenerationContext> {
+public class FileCopier<ContextType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
 
 	private InputStream inputStream;
 	private File targetFile;
@@ -39,10 +39,11 @@ public class FileCopier implements IArtifactCreator<GenerationContext> {
 		this.targetFile = targetFile;
 	}
 
-	public void createArtifacts(GenerationContext context) {
+	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
 		// TODO mseifert: this does not belong here
-		File iconsDir = context.getIconsDir();
-		iconsDir.mkdir();
+		// create separate directory creator for this
+		//File iconsDir = context.getIconsDir();
+		//iconsDir.mkdir();
 		
 		try {
 			StreamUtil.setContentIfChanged(targetFile, inputStream);
@@ -53,8 +54,8 @@ public class FileCopier implements IArtifactCreator<GenerationContext> {
 		}
 	}
 
-	private void addError(GenerationContext context, Exception e) {
-		context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + targetFile.getName() + ".", null, GenerationProblem.Severity.ERROR, e));
+	private void addError(ContextType context, Exception e) {
+		getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + targetFile.getName() + ".", null, GenerationProblem.Severity.ERROR, e));
 		EMFTextSDKPlugin.logError("Error while copying " + targetFile.getName() + ".", e);
 	}
 

@@ -22,19 +22,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.IGenerationContext;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
  * An abstract superclass for all creators that handles overriding
  * of existing artifacts.
  */
-public abstract class AbstractArtifactCreator<ContextType extends IGenerationContext<ContextType>, ParameterType> implements IArtifactCreator<ContextType> {
+public abstract class AbstractArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
 	
 	private String artifactName;
 	protected ParameterType parameters;
@@ -44,15 +44,16 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 		this.artifactName = artifactName;
 		this.parameters = parameters;
 	}
-	
+
 	public String getArtifactDescription() {
 		return artifactName;
 	}
 
-	public void createArtifacts(ContextType context) {
+	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
+		setFileSystemConnector(context.getFileSystemConnector());
 		boolean doOverride = doOverride(context);
 		
-		Collection<IArtifact> artifacts = getArtifactsToCreate(context, parameters);
+		Collection<IArtifact> artifacts = getArtifactsToCreate(plugin, context, parameters);
 		for (IArtifact artifact : artifacts) {
 			File targetFile = artifact.getTargetFile();
 			boolean exists = targetFile.exists();
@@ -64,7 +65,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 						notifyArtifactChanged(context);
 					}
 				} catch (IOException e) {
-					context.getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
+					getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
 				}
 		    }
 		}
@@ -76,25 +77,14 @@ public abstract class AbstractArtifactCreator<ContextType extends IGenerationCon
 		// do nothing. sub classes override this method.
 	}
 
-	public abstract Collection<IArtifact> getArtifactsToCreate(ContextType context, ParameterType parameter);
-
-	/**
-	 * Returns the option that enables/disables this
-	 * creator. If the option is set to true the creator
-	 * should create or override the artifact. Otherwise
-	 * the artifact should be created only in case it does
-	 * not exist yet.
-	 * 
-	 * @return the option to enabled this creator
-	 */
-	public abstract OptionTypes getOverrideOption();
+	public abstract Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameter);
 
 	protected Collection<IArtifact> createArtifact(ContextType context,
 			IGenerator<ContextType, ParameterType> generator, File targetFile, String errorMessage) {
 
-		InputStream stream = invokeGeneration(generator, context.getProblemCollector());
+		InputStream stream = invokeGeneration(generator, getProblemCollector());
 	    if (stream == null) {
-			context.getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
+			getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
 	    	return new ArrayList<IArtifact>();
 	    }
 	    Artifact artifact = new Artifact(targetFile, stream);

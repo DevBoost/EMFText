@@ -17,24 +17,23 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.IGenerationContext;
-import org.emftext.sdk.codegen.TextResourcePlugins;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Creates a .project file, which is used by Eclipse to read meta data
  * about plug-ins.
  */
-public class DotProjectCreator<ContextType extends IGenerationContext<ContextType>> extends GenericArtifactCreator<ContextType, IPluginDescriptor<ContextType>> {
+public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, IPluginDescriptor> {
 
-	public DotProjectCreator(IPluginDescriptor<ContextType> plugin) {
-		super(".project file", plugin);
+	public DotProjectCreator(ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin) {
+		super(artifact, plugin);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(ContextType context, IPluginDescriptor<ContextType> parameters) {
-		File dotProjectFile = new File(context.getProjectFolder(parameters).getAbsolutePath() + File.separator + ".project");
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, IPluginDescriptor parameters) {
+		File dotProjectFile = new File(getFileSystemConnector().getProjectFolder(parameters).getAbsolutePath() + File.separator + ".project");
 		
 	    return createArtifact(
 	    		context,
@@ -45,11 +44,16 @@ public class DotProjectCreator<ContextType extends IGenerationContext<ContextTyp
 	}
 
 	@Override
-	public OptionTypes getOverrideOption() {
+	protected boolean doOverride(ContextType context) {
+		return true;
+		// TODO mseifert: disable this creator in the content creators if 
+		// override option is set to false
+		/*
 		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_DOT_PROJECT;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 		}
+		*/
 	}
 }

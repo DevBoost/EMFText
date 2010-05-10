@@ -9,7 +9,7 @@ public class ManifestParameters<ContextType> {
 
 	private String bundleName;
 	private String activatorClass;
-	private IPluginDescriptor<ContextType> plugin;
+	private IPluginDescriptor plugin;
 	private Collection<String> requiredBundles = new LinkedHashSet<String>();
 	private Collection<String> exportedPackages = new LinkedHashSet<String>();
 
@@ -21,7 +21,7 @@ public class ManifestParameters<ContextType> {
 		this.activatorClass = activatorClass;
 	}
 
-	public void setPlugin(IPluginDescriptor<ContextType> plugin) {
+	public void setPlugin(IPluginDescriptor plugin) {
 		this.plugin = plugin;
 	}
 
@@ -33,7 +33,7 @@ public class ManifestParameters<ContextType> {
 		return activatorClass;
 	}
 
-	public IPluginDescriptor<ContextType> getPlugin() {
+	public IPluginDescriptor getPlugin() {
 		return plugin;
 	}
 

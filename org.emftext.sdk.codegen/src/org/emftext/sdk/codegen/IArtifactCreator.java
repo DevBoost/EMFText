@@ -13,13 +13,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
+import org.emftext.sdk.IPluginDescriptor;
+
 /**
  * An IArtifactCreator uses one or more IGenerators and
  * creates IArtifact objects from their output. Depending
  * on the value of code generation options the artifacts 
  * may be created, overridden or left alone.
  */
-public interface IArtifactCreator<ContextType> {
+public interface IArtifactCreator<ContextType> extends IConfigurableGenerationComponent {
 	
 	/**
 	 * Returns the name of the artifact(s) that is
@@ -34,5 +36,5 @@ public interface IArtifactCreator<ContextType> {
 	 * 
 	 * @param context
 	 */
-	public void createArtifacts(ContextType context);
+	public void createArtifacts(IPluginDescriptor plugin, ContextType context);
 }

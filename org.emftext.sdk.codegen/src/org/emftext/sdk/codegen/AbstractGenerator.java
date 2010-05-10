@@ -7,7 +7,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractGenerator<ContextType, ParameterType> implements IGenerator<ContextType, ParameterType>, IProblemCollector {
+import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
+
+public abstract class AbstractGenerator<ContextType, ParameterType> extends AbstractGenerationComponent implements IGenerator<ContextType, ParameterType>, IProblemCollector {
 
 	protected ContextType context;
 	protected ParameterType parameters;

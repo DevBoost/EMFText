@@ -17,7 +17,6 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.IGenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -26,18 +25,18 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
  * Creates the content for .project files, which are used by Eclipse to store meta data
  * about plug-ins.
  */
-public class DotProjectGenerator<ContextType extends IGenerationContext<ContextType>> extends AbstractGenerator<ContextType, IPluginDescriptor<ContextType>> {
+public class DotProjectGenerator<ContextType> extends AbstractGenerator<ContextType, IPluginDescriptor> {
 
-	private IPluginDescriptor<ContextType> plugin;
+	private IPluginDescriptor plugin;
 
-	public DotProjectGenerator(ContextType context, IPluginDescriptor<ContextType> plugin) {
+	public DotProjectGenerator(ContextType context, IPluginDescriptor plugin) {
 		super(context, null);
 		this.plugin = plugin;
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		String resourcePluginName = plugin.getName(context);
+		String resourcePluginName = plugin.getName();
 
 		StringComposite sc = new XMLComposite();
 		
@@ -74,7 +73,7 @@ public class DotProjectGenerator<ContextType extends IGenerationContext<ContextT
 		return true;
 	}
 
-	public IGenerator<ContextType, IPluginDescriptor<ContextType>> newInstance(ContextType context, IPluginDescriptor<ContextType> plugin) {
+	public IGenerator<ContextType, IPluginDescriptor> newInstance(ContextType context, IPluginDescriptor plugin) {
 		return new DotProjectGenerator<ContextType>(context, plugin);
 	}
 }

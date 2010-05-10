@@ -8,9 +8,9 @@ import org.emftext.sdk.IPluginDescriptor;
 public class ClassPathParameters<ContextType> {
 
 	private Set<String> sourceFolders = new LinkedHashSet<String>();
-	private IPluginDescriptor<ContextType> plugin;
+	private IPluginDescriptor plugin;
 	
-	public ClassPathParameters(IPluginDescriptor<ContextType> plugin) {
+	public ClassPathParameters(IPluginDescriptor plugin) {
 		super();
 		this.plugin = plugin;
 	}
@@ -19,7 +19,7 @@ public class ClassPathParameters<ContextType> {
 		return sourceFolders;
 	}
 
-	public IPluginDescriptor<ContextType> getPlugin() {
+	public IPluginDescriptor getPlugin() {
 		return plugin;
 	}
 }

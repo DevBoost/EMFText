@@ -16,23 +16,23 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.IGenerationContext;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.TextResourcePlugins;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class BuildPropertiesCreator<ContextType extends IGenerationContext<ContextType>> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
+public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
 
-	public BuildPropertiesCreator(BuildPropertiesParameters<ContextType> parameters) {
-		super("build properties", parameters);
+	public BuildPropertiesCreator(ArtifactDescriptor<ContextType, BuildPropertiesParameters<ContextType>> artifact, BuildPropertiesParameters<ContextType> parameters) {
+		super(artifact, parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(ContextType context, BuildPropertiesParameters<ContextType> parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters<ContextType> parameters) {
 		
-		File buildPropertiesFile = new File(context.getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + "build.properties");
+		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + "build.properties");
 
 		IGenerator<ContextType, BuildPropertiesParameters<ContextType>> generator = new BuildPropertiesGenerator<ContextType>(context, parameters);
 		
@@ -43,12 +43,18 @@ public class BuildPropertiesCreator<ContextType extends IGenerationContext<Conte
 	    		"Exception while generating build.properties file."
 	    );
 	}
-
-	public OptionTypes getOverrideOption() {
+	
+	@Override
+	protected boolean doOverride(ContextType context) {
+		return true;
+		// TODO mseifert: disable this creator in the content creators if 
+		// override option is set to false
+		/*
 		if (parameters.getProject() == TextResourcePlugins.RESOURCE_PLUGIN) {
 			return OptionTypes.OVERRIDE_BUILD_PROPERTIES;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 		}
+		*/
 	}
 }

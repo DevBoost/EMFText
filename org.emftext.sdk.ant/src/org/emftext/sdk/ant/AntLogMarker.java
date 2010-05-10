@@ -16,7 +16,7 @@ package org.emftext.sdk.ant;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.codegen.IResourceMarker;
 
 /**
  * This class delegates calls to the IResourceMarker interface to
