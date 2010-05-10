@@ -58,7 +58,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			};
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
 			GenerationContext context = new UIGenerationContext(concreteSyntax);
-			context.setFileSystemConnector(new UIFileSystemConnector());
+			context.setFileSystemConnector(new WorkspaceConnector());
 			context.setProblemCollector(problemCollector);
 			
 			Result result = new UICreateResourcePluginJob().run(context, new WorkspaceMarker(), monitor);

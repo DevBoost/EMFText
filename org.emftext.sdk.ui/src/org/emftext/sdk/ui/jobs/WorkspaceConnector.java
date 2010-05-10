@@ -7,7 +7,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 
-public class UIFileSystemConnector implements IFileSystemConnector {
+/**
+ * An implementation of IFileSystemConnector that uses the Eclipse
+ * workspace to determine the location of plug-ins.
+ */
+public class WorkspaceConnector implements IFileSystemConnector {
 
 	public File getProjectFolder(IPluginDescriptor plugin) {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(plugin.getName());

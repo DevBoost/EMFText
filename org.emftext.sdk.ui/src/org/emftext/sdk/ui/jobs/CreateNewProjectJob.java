@@ -50,7 +50,7 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		};
 		IProject project = createProject(progress.newChild(2), newProjectPlugin, parameters.getProjectName());
 		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters);
-		context.setFileSystemConnector(new UIFileSystemConnector());
+		context.setFileSystemConnector(new WorkspaceConnector());
 		context.setMonitor(progress.newChild(92));
 		context.setResourceMarker(resourceMarker);
 		context.setProblemCollector(problemCollector);
