@@ -120,6 +120,9 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		init();
 		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
 		for (String nextNsURI : cache.keySet()) {
+			if (nextNsURI == null) {
+				continue;
+			}
 			if (nextNsURI.equals(nsURI) || resolveFuzzy) {
 				result.add(cache.get(nextNsURI));
 			}
