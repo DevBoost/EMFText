@@ -7,8 +7,46 @@ import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBaseGenerator<ParameterType> {
 
-	protected String uiPluginActivatorClassName;
+	protected String antlrTokenHelperClassName;
+	protected String backgroundParsingStrategyClassName;
+	protected String bracketPreferencePageClassName;
+	protected String bracketSetClassName;
+	protected String browserInformationControlClassName;
+	protected String codeCompletionHelperClassName;
+	protected String codeFoldingManagerClassName;
+	protected String colorManagerClassName;
+	protected String completionProcessorClassName;
+	protected String completionProposalClassName;
+	protected String defaultHoverTextProviderClassName;
+	protected String docBrowserInformationControlInputClassName;
+	protected String eObjectSelectionClassName;
+	protected String editorClassName;
+	protected String editorConfigurationClassName;
+	protected String highlightingClassName;
+	protected String hoverTextProviderClassName;
+	protected String htmlPrinterClassName;
+	protected String hyperlinkClassName;
+	protected String hyperlinkDetectorClassName;
+	protected String markerHelperClassName;
+	protected String newFileWizardClassName;
+	protected String newFileWizardPageClassName;
+	protected String occurenceClassName;
+	protected String occurrencePreferencePageClassName;
+	protected String outlinePageClassName;
+	protected String outlinePageTreeViewerClassName;
+	protected String pixelConverterClassName;
+	protected String positionCategoryClassName;
+	protected String positionHelperClassName;
+	protected String preferenceConstantsClassName;
+	protected String preferenceInitializerClassName;
+	protected String preferencePageClassName;
+	protected String propertySheetPageClassName;
+	protected String syntaxColoringHelperClassName;
+	protected String syntaxColoringPreferencePageClassName;
+	protected String textHoverClassName;
+	protected String tokenScannerClassName;
 	protected String uiMetaInformationClassName;
+	protected String uiPluginActivatorClassName;
 
 	public UIResourceBaseGenerator() {
 		super();
@@ -32,9 +70,11 @@ public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBas
 		bracketPreferencePageClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
 		bracketSetClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.BRACKET_SET);
 		browserInformationControlClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
+		codeCompletionHelperClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.CODE_COMPLETION_HELPER);
 		codeFoldingManagerClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.CODE_FOLDING_MANAGER);
 		colorManagerClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.COLOR_MANAGER);
 		completionProcessorClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.COMPLETION_PROCESSOR);
+		completionProposalClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.COMPLETION_PROPOSAL);
 		defaultHoverTextProviderClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 		docBrowserInformationControlInputClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 		eObjectSelectionClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.E_OBJECT_SELECTION);
@@ -63,9 +103,7 @@ public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBas
 		syntaxColoringPreferencePageClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 		textHoverClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.TEXT_HOVER);
 		tokenScannerClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.TOKEN_SCANNER);
-		codeCompletionHelperClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.CODE_COMPLETION_HELPER);
-		completionProposalClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.COMPLETION_PROPOSAL);
-		uiPluginActivatorClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
 		uiMetaInformationClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
+		uiPluginActivatorClassName = getContext().getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
 	}
 }
