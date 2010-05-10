@@ -6,8 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: org.emftext.sdk.codegen.resource,
  org.emftext.sdk.codegen.resource.creators,
  org.emftext.sdk.codegen.resource.generators,
+ org.emftext.sdk.codegen.resource.generators.code_completion,
  org.emftext.sdk.codegen.resource.generators.code_completion.helpers,
- org.emftext.sdk.codegen.resource.generators.mopp
+ org.emftext.sdk.codegen.resource.generators.grammar,
+ org.emftext.sdk.codegen.resource.generators.interfaces,
+ org.emftext.sdk.codegen.resource.generators.mopp,
+ org.emftext.sdk.codegen.resource.generators.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.emftext.sdk,
