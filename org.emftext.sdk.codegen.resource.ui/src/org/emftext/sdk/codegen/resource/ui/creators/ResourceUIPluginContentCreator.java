@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
@@ -19,6 +16,9 @@ import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FileCopier;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -51,7 +51,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    		context.getCSSDir()
 	    }));
 
-	    ClassPathParameters<GenerationContext> cpp = new ClassPathParameters<GenerationContext>(resourceUIPlugin);
+	    ClassPathParameters cpp = new ClassPathParameters(resourceUIPlugin);
 		String sourceFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceGenFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
@@ -61,7 +61,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceUIArtifacts.DOT_CLASSPATH, cpp));
 	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceUIArtifacts.DOT_PROJECT, resourceUIPlugin));
 
-	    BuildPropertiesParameters<GenerationContext> bpp = new BuildPropertiesParameters<GenerationContext>(resourceUIPlugin);
+	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourceUIPlugin);
 	    bpp.getSourceFolders().add(sourceFolderName + "/");
 		bpp.getSourceFolders().add(sourceGenFolderName + "/");
 		bpp.getBinIncludes().add("META-INF/");
@@ -72,7 +72,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceArtifacts.BUILD_PROPERTIES, bpp));
 
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-	    ManifestParameters<GenerationContext> manifestParameters = new ManifestParameters<GenerationContext>();
+	    ManifestParameters manifestParameters = new ManifestParameters();
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
 		exports.add(context.getPackageName(TextResourceUIArtifacts.PACKAGE_UI));

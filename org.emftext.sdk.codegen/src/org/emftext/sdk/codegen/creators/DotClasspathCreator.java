@@ -18,27 +18,27 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 
 /**
  * Creates a .classpath file, which is used by Eclipse to determine the
  * classes used by generated text resource plug-ins.
  */
-public class DotClasspathCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ClassPathParameters<ContextType>> {
+public class DotClasspathCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ClassPathParameters> {
 
-	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters<ContextType>> artifact, ClassPathParameters<ContextType> parameters) {
+	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters) {
 		super(artifact, parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ClassPathParameters<ContextType> parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ClassPathParameters parameters) {
 		
 		File dotClasspathFile = new File(getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + ".classpath");
 
-		IGenerator<ContextType, ClassPathParameters<ContextType>> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(context, parameters);
+		IGenerator<ContextType, ClassPathParameters> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(context, parameters);
 		
 	    return createArtifact(
 	    		context,
@@ -49,7 +49,7 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 	}
 
 	@Override
-	protected boolean doOverride(ContextType context) {
+	public boolean doOverride(ContextType context) {
 		return true;
 		// TODO mseifert: disable this creator in the content creators if 
 		// override option is set to false

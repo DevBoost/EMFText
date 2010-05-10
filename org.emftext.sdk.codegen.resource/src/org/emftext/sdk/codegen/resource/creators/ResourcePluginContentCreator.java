@@ -21,16 +21,16 @@ import java.util.List;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -63,7 +63,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    		context.getSourceFolder(resourcePlugin, true),
 	    		context.getSchemaFolder(resourcePlugin)
 	    }));
-	    ClassPathParameters<GenerationContext> cpp = new ClassPathParameters<GenerationContext>(resourcePlugin);
+	    ClassPathParameters cpp = new ClassPathParameters(resourcePlugin);
 		String sourceFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceGenFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
@@ -73,7 +73,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceArtifacts.DOT_CLASSPATH, cpp));
 	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceArtifacts.DOT_PROJECT, resourcePlugin));
 	    
-	    BuildPropertiesParameters<GenerationContext> bpp = new BuildPropertiesParameters<GenerationContext>(resourcePlugin);
+	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourcePlugin);
 	    bpp.getSourceFolders().add(sourceFolderName + "/");
 		bpp.getSourceFolders().add(sourceGenFolderName + "/");
 		bpp.getBinIncludes().add("META-INF/");
@@ -124,7 +124,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
 	    creators.add(new FoldersCreator<GenerationContext>(metaFolder));
 
-	    ManifestParameters<GenerationContext> manifestParameters = new ManifestParameters<GenerationContext>();
+	    ManifestParameters manifestParameters = new ManifestParameters();
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ROOT));

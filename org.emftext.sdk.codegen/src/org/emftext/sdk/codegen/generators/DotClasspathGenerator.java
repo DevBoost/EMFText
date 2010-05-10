@@ -16,18 +16,19 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 
 /**
  * Creates the content for .classpath files, which are used by Eclipse to determine the
- * classes used by generated text resource plug-ins.
+ * classes used by generated plug-ins. The content of the file is determined by
+ * the given parameters.
  */
-public class DotClasspathGenerator<ContextType> extends AbstractGenerator<ContextType, ClassPathParameters<ContextType>> {
+public class DotClasspathGenerator<ContextType> extends AbstractGenerator<ContextType, ClassPathParameters> {
 
-	public DotClasspathGenerator(ContextType context, ClassPathParameters<ContextType> parameters) {
+	public DotClasspathGenerator(ContextType context, ClassPathParameters parameters) {
 		super(context, parameters);
 	}
 
@@ -49,7 +50,7 @@ public class DotClasspathGenerator<ContextType> extends AbstractGenerator<Contex
 		return true;
 	}
 
-	public IGenerator<ContextType, ClassPathParameters<ContextType>> newInstance(ContextType context, ClassPathParameters<ContextType> parameters) {
+	public IGenerator<ContextType, ClassPathParameters> newInstance(ContextType context, ClassPathParameters parameters) {
 		return new DotClasspathGenerator<ContextType>(context, parameters);
 	}
 }

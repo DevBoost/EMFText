@@ -18,23 +18,28 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 
-public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
+/**
+ * Create build.properties files according to the given parameters.
+ *
+ * @param <ContextType>
+ */
+public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters> {
 
-	public BuildPropertiesCreator(ArtifactDescriptor<ContextType, BuildPropertiesParameters<ContextType>> artifact, BuildPropertiesParameters<ContextType> parameters) {
+	public BuildPropertiesCreator(ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, BuildPropertiesParameters parameters) {
 		super(artifact, parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters<ContextType> parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters parameters) {
 		
 		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + "build.properties");
 
-		IGenerator<ContextType, BuildPropertiesParameters<ContextType>> generator = new BuildPropertiesGenerator<ContextType>(context, parameters);
+		IGenerator<ContextType, BuildPropertiesParameters> generator = new BuildPropertiesGenerator<ContextType>(context, parameters);
 		
 	    return createArtifact(
 	    		context,
@@ -45,7 +50,7 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 	}
 	
 	@Override
-	protected boolean doOverride(ContextType context) {
+	public boolean doOverride(ContextType context) {
 		return true;
 		// TODO mseifert: disable this creator in the content creators if 
 		// override option is set to false

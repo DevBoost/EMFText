@@ -15,22 +15,20 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.Collections;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.util.StringUtil;
 
 /**
  * A generator that creates manifest files.
  */
-public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextType, ManifestParameters<ContextType>> {
+public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextType, ManifestParameters> {
 
-	public ManifestGenerator(ContextType context, ManifestParameters<ContextType> parameters) {
+	public ManifestGenerator(ContextType context, ManifestParameters parameters) {
 		super(context, parameters);
 	}
 
@@ -73,16 +71,7 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 		return sc.toString();
 	}
 
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptyList();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptyList();
-	}
-
-	public IGenerator<ContextType, ManifestParameters<ContextType>> newInstance(ContextType context, ManifestParameters<ContextType> parameters) {
+	public IGenerator<ContextType, ManifestParameters> newInstance(ContextType context, ManifestParameters parameters) {
 		return new ManifestGenerator<ContextType>(context, parameters);
 	}
 }

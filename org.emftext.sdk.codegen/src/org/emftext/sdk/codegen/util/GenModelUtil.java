@@ -9,6 +9,13 @@ import org.eclipse.emf.common.util.BasicMonitor;
 
 public class GenModelUtil {
 
+	/**
+	 * Runs the EMF code generation for the given generator
+	 * package.
+	 * 
+	 * @param genPackage the package to generate code for
+	 * @param monitor a progress monitor to track progress
+	 */
 	public void generateMetaModelCode(
 			GenPackage genPackage,
 			IProgressMonitor monitor) {

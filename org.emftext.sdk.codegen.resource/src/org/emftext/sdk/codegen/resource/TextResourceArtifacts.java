@@ -24,9 +24,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.ClassPathParameters;
-import org.emftext.sdk.codegen.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.generators.AbstractInterpreterGenerator;
 import org.emftext.sdk.codegen.resource.generators.BracketInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.BuilderAdapterGenerator;
@@ -147,8 +147,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class TextResourceArtifacts {
 	
-	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters<GenerationContext>> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters<GenerationContext>>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
-	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
+	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
+	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
 
 	// the classes
@@ -292,6 +292,6 @@ public class TextResourceArtifacts {
 	public static final ArtifactDescriptor<GenerationContext, Object> DEFAULT_LOAD_OPTIONS_EXSD = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, Object> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, GenFeature> REFERENCE_RESOLVERS = new ArtifactDescriptor<GenerationContext, GenFeature>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, "", "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters>(null, "", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, CompleteTokenDefinition> TOKEN_RESOLVERS = new ArtifactDescriptor<GenerationContext, CompleteTokenDefinition>(null, "", "", null, null);
 }

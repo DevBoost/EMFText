@@ -4,6 +4,11 @@ import org.emftext.sdk.codegen.IConfigurableGenerationComponent;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IProblemCollector;
 
+/**
+ * An abstract superclass for all participants of a code generation process.
+ * All components can by configured according to the IConfigurableGenerationComponent
+ * interface.
+ */
 public abstract class AbstractGenerationComponent implements IConfigurableGenerationComponent {
 
 	private IFileSystemConnector fileSystemConnector;

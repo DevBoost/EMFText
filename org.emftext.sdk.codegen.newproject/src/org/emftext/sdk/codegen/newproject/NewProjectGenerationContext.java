@@ -7,14 +7,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class NewProjectGenerationContext extends AbstractGenerationContext implements IContext {
+public class NewProjectGenerationContext extends AbstractGenerationComponent implements IContext {
 
 	private IPluginDescriptor pluginDescriptor;
 	private NewProjectParameters parameters;

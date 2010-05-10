@@ -18,9 +18,9 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -29,19 +29,22 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Create a MANIFEST.MF in the META-INF folder of generated text resource
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
+ * 
+ * TODO mseifert: replace two creators (ResourcePluginManifestCreator and
+ * ResourceUIPluginManifestCreator) with a single one.
  */
-public class ResourcePluginManifestCreator extends TextResourceArtifactCreator<ManifestParameters<GenerationContext>> {
+public class ResourcePluginManifestCreator extends TextResourceArtifactCreator<ManifestParameters> {
 
-	public ResourcePluginManifestCreator(ManifestParameters<GenerationContext> parameters) {
+	public ResourcePluginManifestCreator(ManifestParameters parameters) {
 		super(TextResourceArtifacts.MANIFEST, parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ManifestParameters<GenerationContext> parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ManifestParameters parameters) {
 		final File project = getFileSystemConnector().getProjectFolder(plugin);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator<GenerationContext, ManifestParameters<GenerationContext>> generator = new ManifestGenerator<GenerationContext>(context, parameters);
+		IGenerator<GenerationContext, ManifestParameters> generator = new ManifestGenerator<GenerationContext>(context, parameters);
 		
 	    return createArtifact(
 	    		context,

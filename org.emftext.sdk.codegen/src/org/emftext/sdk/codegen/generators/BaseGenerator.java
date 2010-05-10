@@ -56,8 +56,8 @@ public abstract class BaseGenerator<ContextType, ParameterType> extends Abstract
 	}
 	
 	/**
-	 * A ResourceGenerator generates its output on a PrintWriter. All its GenerationProblems should be reported
-	 * via addProblem(GenerationProblem).<br/> 
+	 * A BaseGenerator generates its output on a PrintWriter. All its GenerationProblems should be reported
+	 * via addProblem(GenerationProblem).<br/>
 	 * Important:  Even with valid output there might be problems.
 	 * 
 	 * @param out - the target stream to write on

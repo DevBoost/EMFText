@@ -17,13 +17,19 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.util.StringUtil;
 
-public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<ContextType, BuildPropertiesParameters<ContextType>> {
+/**
+ * A generator for build.properties files. The content of the file is determined by
+ * the given parameters.
+ *
+ * @param <ContextType>
+ */
+public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<ContextType, BuildPropertiesParameters> {
 
-	public BuildPropertiesGenerator(ContextType context, BuildPropertiesParameters<ContextType> parameters) {
+	public BuildPropertiesGenerator(ContextType context, BuildPropertiesParameters parameters) {
 		super(context, parameters);
 	}
 
@@ -42,7 +48,7 @@ public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<Con
 		return true;
 	}
 
-	public IGenerator<ContextType, BuildPropertiesParameters<ContextType>> newInstance(ContextType context, BuildPropertiesParameters<ContextType> parameters) {
+	public IGenerator<ContextType, BuildPropertiesParameters> newInstance(ContextType context, BuildPropertiesParameters parameters) {
 		return new BuildPropertiesGenerator<ContextType>(context, parameters);
 	}
 }

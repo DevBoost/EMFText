@@ -8,9 +8,8 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ICreator;
+import org.emftext.sdk.codegen.IPluginCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
@@ -22,10 +21,11 @@ import org.emftext.sdk.codegen.newproject.TextResourceCreator;
 import org.emftext.sdk.codegen.newproject.generators.GenModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.MetaModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.SyntaxGenerator;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 
-public class NewProjectContentsCreator implements ICreator<NewProjectGenerationContext, Object> {
+public class NewProjectContentsCreator implements IPluginCreator<NewProjectGenerationContext, Object> {
 
-	public void generate(IPluginDescriptor plugin, NewProjectGenerationContext context, Object parameters,
+	public void create(IPluginDescriptor plugin, NewProjectGenerationContext context, Object parameters,
 			IProgressMonitor unusedMonitor) throws IOException {
 
 		IProgressMonitor monitor = context.getMonitor();
@@ -71,7 +71,7 @@ public class NewProjectContentsCreator implements ICreator<NewProjectGenerationC
     	creators.add(new GenerateCodeCreator());
     	creators.add(new TextResourceCreator());
     	
-    	ClassPathParameters<NewProjectGenerationContext> cpp = new ClassPathParameters<NewProjectGenerationContext>(context.getPluginDescriptor());
+    	ClassPathParameters cpp = new ClassPathParameters(context.getPluginDescriptor());
     	cpp.getSourceFolders().add(context.getParameters().getSrcFolder());
 		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, cpp));
 		creators.add(new DotProjectCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor()));

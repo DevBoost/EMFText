@@ -7,9 +7,9 @@ import static org.emftext.sdk.Constants.ANTLR_RUNTIME_TREE_PACKAGE;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.ClassPathParameters;
-import org.emftext.sdk.codegen.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ANTLRPluginArtifacts {
@@ -21,10 +21,10 @@ public class ANTLRPluginArtifacts {
 		}
 	};
 
-	public final static ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters<ANTLRGenerationContext>> BUILD_PROPERTIES = new ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters<ANTLRGenerationContext>>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
-	public final static ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters<ANTLRGenerationContext>> DOT_CLASSPATH = new ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters<ANTLRGenerationContext>>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
+	public final static ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
+	public final static ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<ANTLRGenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<ANTLRGenerationContext, IPluginDescriptor>(null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
-	public final static ArtifactDescriptor<ANTLRGenerationContext, ManifestParameters<ANTLRGenerationContext>> MANIFEST = new ArtifactDescriptor<ANTLRGenerationContext, ManifestParameters<ANTLRGenerationContext>>(null, "", "", null, OptionTypes.OVERRIDE_MANIFEST);
+	public final static ArtifactDescriptor<ANTLRGenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<ANTLRGenerationContext, ManifestParameters>(null, "", "", null, OptionTypes.OVERRIDE_MANIFEST);
 
 	// TODO mseifert: convert to fields
 	public ArtifactDescriptor<ANTLRGenerationContext, Object> PACKAGE_ANTLR_RUNTIME = new ArtifactDescriptor<ANTLRGenerationContext, Object>(ANTLR_RUNTIME_PACKAGE, "", "", null, null);

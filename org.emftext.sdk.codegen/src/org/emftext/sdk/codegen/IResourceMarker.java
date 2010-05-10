@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * Implementation of this interface can process the warning and
+ * Implementations of this interface can process the warnings and
  * errors attached to the given resource.
  */
 public interface IResourceMarker {

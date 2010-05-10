@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -53,7 +53,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class GenerationContext extends AbstractGenerationContext implements IContext {
+public abstract class GenerationContext extends AbstractGenerationComponent implements IContext {
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	private static final String SCHEMA_DIR = "schema";

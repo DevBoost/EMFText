@@ -55,7 +55,7 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		context.setResourceMarker(resourceMarker);
 		context.setProblemCollector(problemCollector);
 		
-		new NewProjectContentsCreator().generate(newProjectPlugin, context, null, null);
+		new NewProjectContentsCreator().create(newProjectPlugin, context, null, null);
 		refresh(progress.newChild(2), project);
 		GenerationContext generationContext = context.getGenerationContext();
 		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()));

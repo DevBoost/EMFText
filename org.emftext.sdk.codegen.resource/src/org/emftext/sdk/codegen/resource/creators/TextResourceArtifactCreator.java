@@ -12,7 +12,7 @@ public abstract class TextResourceArtifactCreator<ParameterType> extends Generic
 		super(artifact, parameters);
 	}
 
-	protected boolean doOverride(GenerationContext context) {
+	public boolean doOverride(GenerationContext context) {
 		OptionTypes overrideOption = getOverrideOption();
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
 		return doOverride;

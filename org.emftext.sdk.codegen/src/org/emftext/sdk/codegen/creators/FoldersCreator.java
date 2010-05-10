@@ -20,11 +20,7 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * Creates the given folders.
- * The names of this folders may vary depending on the values set for
- * options OptionTypes.SOURCE_FOLDER and OptionTypes.SOURCE_GEN_FOLDER.
- * 
- * @see org.emftext.sdk.concretesyntax.OptionTypes
+ * Creates a set of given folders.
  */
 public class FoldersCreator<ContextType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
 

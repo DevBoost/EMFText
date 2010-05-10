@@ -24,10 +24,7 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
- * Creates default icons (for the editor and the NewFileWizard) 
- * and style sheets (for text hovers) of 
- * generated text resources by copying the default_icon.gif and
- * hover_style.css contained in this package.
+ * Copies files.
  */
 public class FileCopier<ContextType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
 
@@ -40,11 +37,6 @@ public class FileCopier<ContextType> extends AbstractGenerationComponent impleme
 	}
 
 	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
-		// TODO mseifert: this does not belong here
-		// create separate directory creator for this
-		//File iconsDir = context.getIconsDir();
-		//iconsDir.mkdir();
-		
 		try {
 			StreamUtil.setContentIfChanged(targetFile, inputStream);
 		} catch (IOException e) {

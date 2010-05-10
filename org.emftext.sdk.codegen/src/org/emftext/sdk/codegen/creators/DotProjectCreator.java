@@ -44,7 +44,7 @@ public class DotProjectCreator<ContextType extends IContext> extends GenericArti
 	}
 
 	@Override
-	protected boolean doOverride(ContextType context) {
+	public boolean doOverride(ContextType context) {
 		return true;
 		// TODO mseifert: disable this creator in the content creators if 
 		// override option is set to false

@@ -21,6 +21,14 @@ import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 
+/**
+ * A generic creator for artifacts. If uses the given ArtifactDescriptor to determine the name and the
+ * location of the artifact to generator. The actual code generator class is also obtained from the
+ * ArtifactDescriptor.
+ *
+ * @param <ContextType>
+ * @param <ParameterType>
+ */
 public class GenericArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
 	private ArtifactDescriptor<ContextType, ParameterType> artifact;
@@ -52,7 +60,7 @@ public class GenericArtifactCreator<ContextType extends IContext, ParameterType>
 	}
 
 	@Override
-	protected boolean doOverride(ContextType context) {
+	public boolean doOverride(ContextType context) {
 		return true;
 	}
 }

@@ -1,11 +1,15 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.parameters;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
 
-public class ClassPathParameters<ContextType> {
+/**
+ * A parameter class that can be used to specify the content of .classpath
+ * files.
+ */
+public class ClassPathParameters {
 
 	private Set<String> sourceFolders = new LinkedHashSet<String>();
 	private IPluginDescriptor plugin;

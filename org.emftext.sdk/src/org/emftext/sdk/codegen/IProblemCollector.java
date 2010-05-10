@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen;
 
 /**
  * An interface that is used to decouple problem handling 
- * from the generators that actually produce the problems.
+ * from the code generators that actually face the problems.
  */
 public interface IProblemCollector {
 	public void addProblem(GenerationProblem problem);

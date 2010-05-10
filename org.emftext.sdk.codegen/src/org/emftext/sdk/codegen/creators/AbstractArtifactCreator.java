@@ -31,7 +31,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
- * An abstract superclass for all creators that handles overriding
+ * An abstract superclass for all creators. It that handles overriding
  * of existing artifacts.
  */
 public abstract class AbstractArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
@@ -71,13 +71,15 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 		}
 	}
 
-	protected abstract boolean doOverride(ContextType context);
-
+	/**
+	 * Does nothing. Subclasses may override this method to react to changes made
+	 * to artifacts during code generation.
+	 * 
+	 * @param context
+	 */
 	public void notifyArtifactChanged(ContextType context) {
-		// do nothing. sub classes override this method.
+		// do nothing
 	}
-
-	public abstract Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameter);
 
 	protected Collection<IArtifact> createArtifact(ContextType context,
 			IGenerator<ContextType, ParameterType> generator, File targetFile, String errorMessage) {
@@ -119,4 +121,24 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 		list.add(artifact);
 		return list;
 	}
+
+	/**
+	 * Subclasses must override this method to signal whether the artifact must
+	 * be overridden or not.
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public abstract boolean doOverride(ContextType context);
+
+	/**
+	 * Subclasses must override this method and return all artifact that need to
+	 * be created.
+	 * 
+	 * @param plugin
+	 * @param context
+	 * @param parameter
+	 * @return a collection of artifacts which will be created
+	 */
+	public abstract Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameter);
 }

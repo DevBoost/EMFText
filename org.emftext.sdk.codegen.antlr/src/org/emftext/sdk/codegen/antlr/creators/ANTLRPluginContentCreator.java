@@ -23,10 +23,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
-import org.emftext.sdk.codegen.BuildPropertiesParameters;
-import org.emftext.sdk.codegen.ClassPathParameters;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ManifestParameters;
 import org.emftext.sdk.codegen.antlr.ANTLRGenerationContext;
 import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
@@ -34,6 +31,9 @@ import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FileCopier;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
+import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
+import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.ManifestParameters;
 
 public class ANTLRPluginContentCreator {
 
@@ -138,20 +138,20 @@ public class ANTLRPluginContentCreator {
 	    		new File(sourceFolder.getAbsolutePath() + File.separator + artifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
 	    
-	    ClassPathParameters<ANTLRGenerationContext> cpp = new ClassPathParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+	    ClassPathParameters cpp = new ClassPathParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
 	    cpp.getSourceFolders().add(SRC_FOLDER);
 		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, cpp));
 		
 	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, ANTLRPluginArtifacts.ANTLR_PLUGIN));
 	    
-	    BuildPropertiesParameters<ANTLRGenerationContext> bpp = new BuildPropertiesParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
 	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
 
 		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.BUILD_PROPERTIES, bpp));
 	    
-	    ManifestParameters<ANTLRGenerationContext> manifestParameters = new ManifestParameters<ANTLRGenerationContext>();
+	    ManifestParameters manifestParameters = new ManifestParameters();
 		// export the generated packages
 		Collection<String> exports = manifestParameters.getExportedPackages();
 		exports.add(artifacts.PACKAGE_ANTLR_RUNTIME.getPackage());
