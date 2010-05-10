@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -59,6 +60,8 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 	private String getContentOfPluginXML() {
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
+		IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
+		String uiPluginID = resourceUIPlugin.getName();
 
 		StringComposite sc = new XMLComposite();
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -76,6 +79,16 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 				"id=\"" + editorName + "\" " + 
 				"name=\"EMFText " + concreteSyntax.getName() + " Editor\">");
 		sc.add("</editor>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		sc.add("<extension id=\"" + uiPluginID + ".problem\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
+		sc.add("<persistent value=\"true\">");
+		sc.add("</persistent>");
+		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
+		sc.add("</super>");
+		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
+		sc.add("</super>");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
