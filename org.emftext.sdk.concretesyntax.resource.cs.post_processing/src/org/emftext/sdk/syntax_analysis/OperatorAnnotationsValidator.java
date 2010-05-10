@@ -80,8 +80,9 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 						.addError(
 								"Operator annotations require values for weigth, type and identifier.",
 								annotation);
-				return;
+				continue;
 			}
+			
 			checkWeightParameter(resource, annotation, weight);
 			
 			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
@@ -97,6 +98,11 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			}
 			
 			OperatorAnnotationType type = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
+			if(type==null){
+				resource.addError("Could not determine operator type.",annotation);
+				continue;
+			}
+				
 			if (type != OperatorAnnotationType.PRIMITIVE) {
 				List<Sequence> options = operatorRule.getDefinition()
 						.getOptions();
@@ -352,12 +358,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			return;
 		}
 		if(commonMetaClass!=null){
-			if(definitions.get(containmentIndex) instanceof Containment){
-				checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(0));
-			}
-			else{
-				checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(1));
-			}
+			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(containmentIndex));
 		}
 	}
 
