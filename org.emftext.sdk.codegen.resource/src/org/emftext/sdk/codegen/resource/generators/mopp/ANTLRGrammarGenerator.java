@@ -94,8 +94,6 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -116,7 +114,9 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
+import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StringUtil;
 
 /**

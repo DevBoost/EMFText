@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.util;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,9 +59,6 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.finders.GenClassFinder;
-import org.emftext.sdk.util.EObjectUtil;
-import org.emftext.sdk.util.StringUtil;
-import org.emftext.sdk.util.ToStringConverter;
 
 /**
  * A utility class that provides methods used by the code generators

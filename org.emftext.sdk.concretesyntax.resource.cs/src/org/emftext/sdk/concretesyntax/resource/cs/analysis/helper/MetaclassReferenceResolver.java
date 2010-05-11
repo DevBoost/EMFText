@@ -20,12 +20,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.sdk.codegen.util.GenClassUtil;
-import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.GenClassUtil;
+import org.emftext.sdk.util.Pair;
 
 /**
  * A resolver for EMF generator classes. The classes must be identified

@@ -26,11 +26,11 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
-import org.emftext.sdk.codegen.util.GenClassUtil;
-import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.util.GenClassUtil;
+import org.emftext.sdk.util.Pair;
 
 /**
  * A GenClassFinder can be used to look up all generator classes that are 

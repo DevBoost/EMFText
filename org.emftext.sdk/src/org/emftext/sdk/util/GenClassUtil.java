@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.util;
 
 import java.util.Collection;
 import java.util.List;

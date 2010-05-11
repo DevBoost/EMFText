@@ -16,7 +16,6 @@ package org.emftext.sdk.util;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.emftext.sdk.codegen.util.Pair;
 
 /**
  * A utility class that provides some common methods to work

@@ -21,7 +21,6 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 
 /**
  * Runs ANTLR on a .g file to generate Java classes for the parser and

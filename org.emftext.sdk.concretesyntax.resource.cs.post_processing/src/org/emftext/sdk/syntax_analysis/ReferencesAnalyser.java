@@ -21,8 +21,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -30,6 +28,8 @@ import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.util.GenClassUtil;
 
 /**
  * An analyser that checks that whether there is syntax for all the types 

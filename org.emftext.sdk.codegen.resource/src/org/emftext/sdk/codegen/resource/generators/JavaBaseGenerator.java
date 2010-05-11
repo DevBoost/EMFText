@@ -6,8 +6,8 @@ import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.util.LicenceHeaderUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.util.LicenceHeaderUtil;
 
 public abstract class JavaBaseGenerator<ParameterType> extends ResourceBaseGenerator<ParameterType> {
 

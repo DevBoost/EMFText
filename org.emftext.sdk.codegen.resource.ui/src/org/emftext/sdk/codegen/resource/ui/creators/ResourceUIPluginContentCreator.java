@@ -25,9 +25,9 @@ import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
 import org.emftext.sdk.codegen.resource.creators.SyntaxArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object> {
 

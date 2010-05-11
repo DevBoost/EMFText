@@ -2,12 +2,12 @@ package org.emftext.sdk.syntax_analysis;
 
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.util.LicenceHeaderUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.util.LicenceHeaderUtil;
 
 public class LicenceHeaderAnalyser extends AbstractPostProcessor {
 	

@@ -32,7 +32,6 @@ import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -40,6 +39,7 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * A GenerationContext provides all information that is needed by the 

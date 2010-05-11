@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.resource.creators;
 
 import org.antlr.tool.ANTLRErrorListener;
 import org.antlr.tool.Message;

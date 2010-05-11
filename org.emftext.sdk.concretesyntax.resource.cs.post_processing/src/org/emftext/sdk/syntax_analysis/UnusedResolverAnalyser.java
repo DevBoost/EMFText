@@ -22,11 +22,11 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * An analyser that checks whether the analysis package in generated

@@ -15,9 +15,9 @@ import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 

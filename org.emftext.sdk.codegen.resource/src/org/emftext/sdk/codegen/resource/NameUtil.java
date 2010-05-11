@@ -13,9 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * A utility class that can be used to derive names for different artifacts

@@ -41,10 +41,10 @@ import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * A utility class used by all generators to reuse code fragments that are

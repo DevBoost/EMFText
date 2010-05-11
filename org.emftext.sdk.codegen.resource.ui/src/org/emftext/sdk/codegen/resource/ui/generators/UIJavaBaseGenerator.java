@@ -7,8 +7,8 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
-import org.emftext.sdk.codegen.util.LicenceHeaderUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.util.LicenceHeaderUtil;
 
 // TODO mseifert: some of this code is copied from JavaBaseGenerator
 public abstract class UIJavaBaseGenerator extends UIResourceBaseGenerator<Object> {
