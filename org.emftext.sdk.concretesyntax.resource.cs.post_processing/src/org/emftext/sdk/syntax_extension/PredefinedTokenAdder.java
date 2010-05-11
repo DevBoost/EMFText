@@ -16,7 +16,7 @@ package org.emftext.sdk.syntax_extension;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.EPredefinedTokens;
+import org.emftext.sdk.EPredefinedTokens;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;

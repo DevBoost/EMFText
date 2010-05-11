@@ -111,27 +111,6 @@ public class OptionManager {
 		return true;
 	}
 
-	public int getIntegerOptionValue(ConcreteSyntax syntax,
-			OptionTypes type, boolean expectPositiveValue, IProblemCollector problemCollector) {
-		
-		Option option = findOptionByType(syntax.getOptions(), type);
-		if (option == null) {
-			return -1;
-		}
-		try {
-			int value = Integer.parseInt(option.getValue());
-			if (expectPositiveValue && value < 0) {
-				problemCollector.addProblem(new GenerationProblem(
-								"Only positive values are allowed for this option.",
-								option));
-			}
-			return value;
-		} catch (NumberFormatException e) {
-			problemCollector.addProblem(new GenerationProblem("No valid integer in option.", option));
-		}
-		return -1;
-	}
-
 	/**
 	 * Searches in 'options' for an option of type 'type'.
 	 * If one is found, it is returned. If not, <code>null</code>
