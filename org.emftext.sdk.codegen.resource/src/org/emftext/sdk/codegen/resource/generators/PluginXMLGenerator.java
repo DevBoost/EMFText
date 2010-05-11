@@ -18,9 +18,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;

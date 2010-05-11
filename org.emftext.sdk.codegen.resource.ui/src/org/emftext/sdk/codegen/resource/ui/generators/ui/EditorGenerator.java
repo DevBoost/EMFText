@@ -68,8 +68,8 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_EDI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;

@@ -14,9 +14,8 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
  .ecore,org.eclipse.emf.ecore.edit,org.eclipse.ui,org.eclipse.ui.views
  ,org.eclipse.ui.ide,org.eclipse.ui.editors,org.eclipse.jface,org.ecli
  pse.jface.text,org.eclipse.core.resources,org.eclipse.core.runtime
-Export-Package: org.emftext.sdk,org.emftext.sdk.codegen,org.emftext.sd
- k.codegen.util,org.emftext.sdk.finders,org.emftext.sdk.regex,org.emft
- ext.sdk.util
+Export-Package: org.emftext.sdk,org.emftext.sdk.codegen.util,org.emfte
+ xt.sdk.finders,org.emftext.sdk.regex,org.emftext.sdk.util
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.emftext.sdk.EMFTextSDKPlugin

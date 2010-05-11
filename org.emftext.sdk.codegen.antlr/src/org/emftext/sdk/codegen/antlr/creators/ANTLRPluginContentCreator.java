@@ -22,9 +22,9 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.antlr.ANTLRGenerationContext;
 import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;

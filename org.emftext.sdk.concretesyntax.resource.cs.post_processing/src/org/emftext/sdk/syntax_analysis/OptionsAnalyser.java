@@ -13,13 +13,13 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
-import static org.emftext.sdk.codegen.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
+import static org.emftext.sdk.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;

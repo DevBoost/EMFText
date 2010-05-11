@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StreamUtil;

@@ -20,8 +20,8 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OU
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;

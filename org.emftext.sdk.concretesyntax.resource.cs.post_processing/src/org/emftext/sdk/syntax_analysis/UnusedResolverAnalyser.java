@@ -20,7 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;

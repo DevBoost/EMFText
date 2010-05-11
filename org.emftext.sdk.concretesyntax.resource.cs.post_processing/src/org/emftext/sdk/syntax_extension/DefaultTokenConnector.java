@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.EPredefinedTokens;
-import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
