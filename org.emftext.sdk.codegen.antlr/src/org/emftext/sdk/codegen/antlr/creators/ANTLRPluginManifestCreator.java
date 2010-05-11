@@ -25,7 +25,6 @@ import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ANTLRPluginManifestCreator extends GenericArtifactCreator<ANTLRGenerationContext, ManifestParameters> {
 
@@ -48,7 +47,8 @@ public class ANTLRPluginManifestCreator extends GenericArtifactCreator<ANTLRGene
 	    );
 	}
 
-	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
+	@Override
+	public boolean doOverride(ANTLRGenerationContext context) {
+		return true;
 	}
 }

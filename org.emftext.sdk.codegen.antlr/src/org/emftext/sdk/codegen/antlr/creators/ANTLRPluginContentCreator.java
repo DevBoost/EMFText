@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.antlr.ANTLRGenerationContext;
 import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
@@ -34,6 +35,7 @@ import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ANTLRPluginContentCreator {
 
@@ -177,16 +179,15 @@ public class ANTLRPluginContentCreator {
 					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
 	    }
 	    
-	    // TODO mseifert: enable this option by invoking the creator only if override = true
-	    /*
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
-		*/
 
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {
-			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
-			creator.createArtifacts(ANTLRPluginArtifacts.ANTLR_PLUGIN, context);
-		    progress.worked(100 / creators.size());
-	    }
+			if (doOverride) {
+				progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
+				creator.createArtifacts(ANTLRPluginArtifacts.ANTLR_PLUGIN, context);
+			}
+			progress.worked(100 / creators.size());
+		}
 	}
 }

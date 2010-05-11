@@ -58,4 +58,9 @@ public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext,
 	public OptionTypes getOverrideOption() {
 		return overrideOption;
 	}
+
+	@Override
+	public boolean doOverride(GenerationContext context) {
+		return true;
+	}
 }

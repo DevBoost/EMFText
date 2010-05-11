@@ -52,7 +52,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class GeneratorUtil {
 	
 	private static final String RESOURCE_PLUGIN_SUFFIX = ".resource.";
-	private static final String RESOURCE_UI_PLUGIN_SUFFIX = RESOURCE_PLUGIN_SUFFIX + "ui.";
+	private static final String RESOURCE_UI_PLUGIN_SUFFIX = "." + Constants.UI_PACKAGE;
 	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -267,7 +267,7 @@ public class GeneratorUtil {
 	}
 	
 	public IPluginDescriptor getResourcePluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, OptionTypes.BASE_PACKAGE);
+		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
 		
 		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
 
@@ -279,8 +279,7 @@ public class GeneratorUtil {
 	}
 
 	public IPluginDescriptor getResourceUIPluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
-		
+		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
 		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
 
 			public String getName() {
@@ -298,7 +297,7 @@ public class GeneratorUtil {
 			return null;
 		}
 		*/
-		String basePackage = getBasePackage(syntax, RESOURCE_PLUGIN_SUFFIX, OptionTypes.BASE_PACKAGE);
+		String basePackage = getBasePackage(syntax, RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
 		if (basePackage == null || "".equals(basePackage)) {
 			return packageSuffix;
 		} else {
@@ -310,7 +309,7 @@ public class GeneratorUtil {
 		}
 	}
 
-	public String getBasePackage(ConcreteSyntax syntax, String suffix, OptionTypes basePackageOption) {
+	public String getBasePackage(ConcreteSyntax syntax, String suffix, String prefix, OptionTypes basePackageOption) {
 		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, basePackageOption);
 		if (basePackage != null) {
 			// use package name from option
@@ -324,20 +323,20 @@ public class GeneratorUtil {
 				packageName = concreteSyntaxPackage.getBasePackage() + ".";
 			}
 			packageName += concreteSyntaxPackage.getEcorePackage().getName();
-			packageName += suffix + syntax.getName();
+			packageName += suffix + syntax.getName() + prefix;
 			return packageName;
 		}
 	}
 
 
-	public String getName(ConcreteSyntax syntax, OptionTypes pluginIDOption, String suffix, OptionTypes basePackageOption) {
+	public String getPluginName(ConcreteSyntax syntax, OptionTypes pluginIDOption, String suffix, String prefix, OptionTypes basePackageOption) {
 		String pluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, pluginIDOption);
 		if (pluginID != null) {
 			// use package plug-in from option
 			return pluginID;
 		} else {
 			// use default plug-in name
-			return getBasePackage(syntax, suffix, basePackageOption);
+			return getBasePackage(syntax, suffix, prefix, basePackageOption);
 		}
 	}
 

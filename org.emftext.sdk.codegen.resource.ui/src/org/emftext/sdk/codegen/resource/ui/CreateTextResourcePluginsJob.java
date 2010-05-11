@@ -117,7 +117,7 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 			return result;
 		}
 		
-		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext();
+		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(concreteSyntax);
 		antlrGenContext.setFileSystemConnector(context.getFileSystemConnector());
 		
 		createProjects(context, progress);

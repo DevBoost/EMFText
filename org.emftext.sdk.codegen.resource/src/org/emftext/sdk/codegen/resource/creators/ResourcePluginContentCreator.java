@@ -27,7 +27,6 @@ import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
-import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
@@ -82,35 +81,35 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceArtifacts.BUILD_PROPERTIES, bpp));
 		
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
-	    	creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SCANNERLESS_SCANNER));
-	    	creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SCANNERLESS_PARSER));
+	    	creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SCANNERLESS_SCANNER));
+	    	creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SCANNERLESS_PARSER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_LEXER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER_BASE), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
 	    } else {
-	    	creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ANTLR_SCANNER));
+	    	creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ANTLR_SCANNER));
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
-		    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ANTLR_PARSER_BASE));
+		    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ANTLR_PARSER_BASE));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
 	    creators.add(new PluginXMLCreator());
 	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator());
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.RESOURCE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.RESOURCE_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.RESOURCE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.RESOURCE_FACTORY));
 	    if (!syntax.getName().contains(".")) {
 		    creators.add(new AdditionalExtensionParserExtensionPointSchemaCreator());
-		    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR));
+		    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR));
 	    }
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PRINTER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PRINTER2));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.LAYOUT_INFORMATION));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PRINTER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PRINTER2));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.LAYOUT_INFORMATION));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR));
 	    creators.add(new ReferenceResolversCreator());
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH));
 	    
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isUsed()) {
@@ -118,7 +117,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			}
 		}
 	    
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY));
 
 		File project = getFileSystemConnector().getProjectFolder(resourcePlugin);
 		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
@@ -144,112 +143,112 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		manifestParameters.setBundleName("EMFText Parser Plugin: " + context.getConcreteSyntax().getName());
 		creators.add(new ManifestCreator<GenerationContext>(TextResourceArtifacts.MANIFEST, manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_MANIFEST)));
 		
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.META_INFORMATION));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PROBLEM));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.DUMMY_E_OBJECT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ELEMENT_MAPPING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.FUZZY_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.LOCATION_MAP));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TOKEN_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.URI_MAPPING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PARSE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PLUGIN_ACTIVATOR));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.META_INFORMATION));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PROBLEM));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.DUMMY_E_OBJECT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ELEMENT_MAPPING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.FUZZY_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.LOCATION_MAP));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TOKEN_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.URI_MAPPING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PARSE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PLUGIN_ACTIVATOR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION));
 
 	    // add grammar information generators
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CARDINALITY));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SYNTAX_ELEMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.KEYWORD));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TERMINAL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PLACEHOLDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CHOICE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CONTAINMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.COMPOUND));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.SEQUENCE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.LINE_BREAK));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.WHITE_SPACE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.FORMATTING_ELEMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.FOLLOW_SET_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CARDINALITY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SYNTAX_ELEMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.KEYWORD));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TERMINAL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PLACEHOLDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CHOICE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CONTAINMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.COMPOUND));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SEQUENCE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.LINE_BREAK));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.WHITE_SPACE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.FORMATTING_ELEMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.FOLLOW_SET_PROVIDER));
 	    
 	    
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.INPUT_STREAM_PROCESSOR));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_OPTION_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_OPTIONS));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_BRACKET_PAIR));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_COMMAND));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_CONFIGURABLE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_ELEMENT_MAPPING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_EXPECTED_ELEMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_LOCATION_MAP));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_PARSE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_PROBLEM));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_REFERENCE_CACHE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_REFERENCE_MAPPING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_REFERENCE_RESOLVER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_DIAGNOSTIC));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_PARSER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_PRINTER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_RESOURCE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_META_INFORMATION));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_SCANNER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TEXT_TOKEN));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TOKEN_RESOLVER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_TOKEN_STYLE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_URI_MAPPING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.E_PROBLEM_TYPE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.INPUT_STREAM_PROCESSOR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_OPTION_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_OPTIONS));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_BRACKET_PAIR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_COMMAND));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_CONFIGURABLE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_ELEMENT_MAPPING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_EXPECTED_ELEMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_LOCATION_MAP));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_PARSE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_PROBLEM));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_REFERENCE_CACHE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_REFERENCE_MAPPING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_REFERENCE_RESOLVER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_DIAGNOSTIC));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_PARSER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_PRINTER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_RESOURCE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_META_INFORMATION));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_SCANNER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TEXT_TOKEN));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TOKEN_RESOLVER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_TOKEN_STYLE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_URI_MAPPING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.E_PROBLEM_TYPE));
 
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.EXPECTED_CS_STRING));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.EXPECTED_TERMINAL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.EXPECTED_CS_STRING));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.EXPECTED_TERMINAL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER));
 
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.CAST_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.COPIED_E_LIST));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.E_CLASS_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.E_OBJECT_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.LIST_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.MAP_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.PAIR));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.MINIMAL_MODEL_HELPER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.RESOURCE_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.STREAM_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.STRING_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TEXT_RESOURCE_UTIL));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.UNICODE_CONVERTER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.BUILDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.BUILDER_ADAPTER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.I_BUILDER));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.NATURE));
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.ABSTRACT_INTERPRETER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.CAST_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.COPIED_E_LIST));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.E_CLASS_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.E_OBJECT_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.LIST_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.MAP_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.PAIR));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.MINIMAL_MODEL_HELPER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.RESOURCE_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.STREAM_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.STRING_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TEXT_RESOURCE_UTIL));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.UNICODE_CONVERTER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.BUILDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.BUILDER_ADAPTER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.I_BUILDER));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.NATURE));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.ABSTRACT_INTERPRETER));
 	    
-	    creators.add(new GenericArtifactCreator<GenerationContext, Object>(TextResourceArtifacts.TEXT_TOKEN));
+	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TEXT_TOKEN));
 		return creators;
 	}
 
@@ -295,5 +294,4 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		return imports;
 	}
-
 }

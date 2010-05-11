@@ -26,10 +26,10 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
@@ -66,25 +66,25 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			case ERROR_ABSTRACT_SYNTAX :  {
 				// show error message, because we can not generate plug-ins for
 				// abstract syntaxes
-				CsPlugin.showErrorDialog("Abstract syntax", "Can't generate resource plug-in for abstract syntax definition.");
+				CsUIPlugin.showErrorDialog("Abstract syntax", "Can't generate resource plug-in for abstract syntax definition.");
 				break;
 			}
 			case ERROR_SYNTAX_HAS_ERRORS :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes with errors
-				CsPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains errors.");
+				CsUIPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains errors.");
 				break;
 			}
 			case ERROR_FOUND_UNRESOLVED_PROXIES :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes dangling references
-				CsPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains references that can not be resolved.");
+				CsUIPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains references that can not be resolved.");
 				break;
 			}
 			case ERROR_GEN_PACKAGE_NOT_FOUND :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes with missing generator packages
-				CsPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in. A generator package was not found.");
+				CsUIPlugin.showErrorDialog("Errors in syntax", "Can't generate resource plug-in. A generator package was not found.");
 				break;
 			}
 			case SUCCESS :  {

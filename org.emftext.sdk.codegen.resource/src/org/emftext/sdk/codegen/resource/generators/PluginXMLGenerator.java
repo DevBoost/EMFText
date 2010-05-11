@@ -73,6 +73,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		else {
 			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
 		}
+		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 
 		StringComposite sc = new XMLComposite();
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -91,11 +92,12 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		sc.add("<runtime>");
 		sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
 		sc.add("</runtime>");
-		sc.add("<builder id=\"" + builderID + "\" />"); 
+		if (!disableBuilder) {
+			sc.add("<builder id=\"" + builderID + "\" />");
+		}
 		sc.add("</extension>");
 		sc.addLineBreak();
 
-		boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 		if (!disableBuilder) {
 			sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
 			sc.add("<builder hasNature=\"true\">");

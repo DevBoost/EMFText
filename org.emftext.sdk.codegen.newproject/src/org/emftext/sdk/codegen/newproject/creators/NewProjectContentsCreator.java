@@ -13,7 +13,7 @@ import org.emftext.sdk.codegen.IPluginCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
-import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
+import org.emftext.sdk.codegen.creators.OverridingArtifactCreator;
 import org.emftext.sdk.codegen.newproject.NewProjectArtifacts;
 import org.emftext.sdk.codegen.newproject.NewProjectConstants;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
@@ -65,9 +65,9 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
 		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
-    	creators.add(new GenericArtifactCreator<NewProjectGenerationContext, Object>(metamodel));
-    	creators.add(new GenericArtifactCreator<NewProjectGenerationContext, Object>(genModel));
-    	creators.add(new GenericArtifactCreator<NewProjectGenerationContext, Object>(syntax));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(metamodel));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(genModel));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(syntax));
     	creators.add(new GenerateCodeCreator());
     	creators.add(new TextResourceCreator());
     	

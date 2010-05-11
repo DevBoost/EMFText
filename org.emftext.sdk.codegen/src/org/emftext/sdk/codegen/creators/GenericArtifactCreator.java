@@ -29,7 +29,7 @@ import org.emftext.sdk.codegen.IGenerator;
  * @param <ContextType>
  * @param <ParameterType>
  */
-public class GenericArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
+public abstract class GenericArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
 	private ArtifactDescriptor<ContextType, ParameterType> artifact;
 
@@ -57,10 +57,5 @@ public class GenericArtifactCreator<ContextType extends IContext, ParameterType>
 	
 	public ArtifactDescriptor<ContextType, ParameterType> getArtifact() {
 		return artifact;
-	}
-
-	@Override
-	public boolean doOverride(ContextType context) {
-		return true;
 	}
 }
