@@ -522,15 +522,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		// check EMF validation constraints
 		org.eclipse.emf.common.util.Diagnostic diagnostics = org.eclipse.emf.ecore.util.Diagnostician.INSTANCE.validate(root);
 		addDiagnostics(diagnostics, root);
-		// check EMF validation constraints
-		if (org.eclipse.core.runtime.Platform.isRunning()) {
-			// EMF validation does not work is OSGi is not running
-			org.eclipse.emf.validation.service.ModelValidationService service = org.eclipse.emf.validation.service.ModelValidationService.getInstance();
-			org.eclipse.emf.validation.service.IBatchValidator validator = (org.eclipse.emf.validation.service.IBatchValidator) service.newValidator(org.eclipse.emf.validation.model.EvaluationMode.BATCH);
-			validator.setIncludeLiveConstraints(true);
-			org.eclipse.core.runtime.IStatus status = validator.validate(root);
-			addStatus(status, root);
-		}
+		// checking EMF validation constraints was disabled
 	}
 	
 	private void addDiagnostics(org.eclipse.emf.common.util.Diagnostic diagnostics, org.eclipse.emf.ecore.EObject root) {
@@ -553,30 +545,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		for (org.eclipse.emf.common.util.Diagnostic diagnostic : children) {
 			addDiagnostics(diagnostic, root);
-		}
-	}
-	
-	private void addStatus(org.eclipse.core.runtime.IStatus status, org.eclipse.emf.ecore.EObject root) {
-		java.util.List<org.eclipse.emf.ecore.EObject> causes = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
-		causes.add(root);
-		if (status instanceof org.eclipse.emf.validation.model.ConstraintStatus) {
-			org.eclipse.emf.validation.model.ConstraintStatus constraintStatus = (org.eclipse.emf.validation.model.ConstraintStatus) status;
-			java.util.Set<org.eclipse.emf.ecore.EObject> resultLocus = constraintStatus.getResultLocus();
-			causes.clear();
-			causes.addAll(resultLocus);
-		}
-		if (status.getSeverity() == org.eclipse.core.runtime.IStatus.ERROR) {
-			for (org.eclipse.emf.ecore.EObject cause : causes) {
-				addError(status.getMessage(), cause);
-			}
-		}
-		if (status.getSeverity() == org.eclipse.core.runtime.IStatus.WARNING) {
-			for (org.eclipse.emf.ecore.EObject cause : causes) {
-				addWarning(status.getMessage(), cause);
-			}
-		}
-		for (org.eclipse.core.runtime.IStatus child : status.getChildren()) {
-			addStatus(child, root);
 		}
 	}
 	
