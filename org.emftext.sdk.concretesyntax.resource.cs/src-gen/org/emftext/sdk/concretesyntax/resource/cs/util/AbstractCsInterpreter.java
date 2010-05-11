@@ -14,6 +14,18 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+/**
+ * This class provides basic infrastructure to interpret models. To implement
+ * concrete interpreters, subclass this abstract interpreter and override the
+ * interprete_* methods. The interpretation can be customized by binding the two
+ * type parameters (ResultType, ContextType). The former is returned by all
+ * interprete_* methods, while the latter is passed from method to method while
+ * traversing the model. The concrete traversal strategy can also be exchanged.
+ * One can use a static traversal strategy by pushing all objects to interpret on
+ * the interpretation stack (using addObjectToInterprete()) before calling
+ * interprete(). Alternatively, the traversal strategy can be dynamic by pushing
+ * objects on the interpretation stack during interpretation.
+ */
 public class AbstractCsInterpreter<ResultType, ContextType> {
 	
 	private java.util.Stack<org.eclipse.emf.ecore.EObject> interpretationStack = new java.util.Stack<org.eclipse.emf.ecore.EObject>();
@@ -30,8 +42,10 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return result;
 	}
 	
-	// override this method to stop the overall interpretation depending on
-	// the result of the interpretation of a single model elements
+	/**
+	 * Override this method to stop the overall interpretation depending on the result
+	 * of the interpretation of a single model elements.
+	 */
 	public boolean continueInterpretation(ResultType result) {
 		return true;
 	}

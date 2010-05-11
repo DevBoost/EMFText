@@ -38,9 +38,9 @@ public class CsLayoutInformation {
 		if (wasResolved) {
 			return object;
 		}
-		// we need to try to resolve proxy objects again, because the proxy
-		// might have been resolve before this adapter existed, which means
-		// we missed the replaceProxy() notification
+		// we need to try to resolve proxy objects again, because the proxy might have
+		// been resolved before this adapter existed, which means we missed the
+		// replaceProxy() notification
 		if (object instanceof org.eclipse.emf.ecore.InternalEObject) {
 			org.eclipse.emf.ecore.InternalEObject internalObject = (org.eclipse.emf.ecore.InternalEObject) object;
 			if (internalObject.eIsProxy()) {

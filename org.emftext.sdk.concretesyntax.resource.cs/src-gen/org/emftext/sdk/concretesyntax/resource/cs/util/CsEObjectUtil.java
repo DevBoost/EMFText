@@ -14,11 +14,13 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-// A utility class that can be used to work with EObjects.
-// While many similar methods are provided by EMF's own
-// EcoreUtil class, the missing ones are collected here.
-//
-// @see org.eclipse.emf.ecore.util.EcoreUtil
+/**
+ * A utility class that can be used to work with EObjects. While many similar
+ * methods are provided by EMF's own EcoreUtil class, the missing ones are
+ * collected here.
+ * 
+ * @see org.eclipse.emf.ecore.util.EcoreUtil
+ */
 public class CsEObjectUtil {
 	
 	public static <T> java.util.Collection<T> getObjectsByType(java.util.Iterator<?> iterator,

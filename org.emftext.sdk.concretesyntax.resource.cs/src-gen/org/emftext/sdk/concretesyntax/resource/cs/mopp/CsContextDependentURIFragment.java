@@ -14,11 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// Standard implementation of <code>IContextDependentURIFragment</code>.
-//
-// @param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.
-// @param <ReferenceType> the type of the reference which shall be resolved by this fragment.
-//
+/**
+ * Standard implementation of <code>IContextDependentURIFragment</code>.
+ * 
+ * @param <ContainerType> the type of the object that contains the reference which
+ * shall be resolved by this fragment.
+ * @param <ReferenceType> the type of the reference which shall be resolved by
+ * this fragment.
+ */
 public abstract class CsContextDependentURIFragment<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> implements org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<ReferenceType> {
 	
 	protected String identifier;
@@ -49,15 +52,15 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 		resolving = true;
 		if (result == null || !result.wasResolved()) {
 			result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolveResult<ReferenceType>(false);
-			//set an initial default error message
+			// set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
 			
 			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<ContainerType, ReferenceType> resolver = getResolver();
-			//do the actual resolving
+			// do the actual resolving
 			resolver.resolve(getIdentifier(), getContainer(), getReference(), getPositionInReference(), false, result);
 			
-			//EMFText allows proxies to resolve to multiple objects
-			//the first is returned, the others are added here to the reference
+			// EMFText allows proxies to resolve to multiple objects. The first one is
+			// returned, the others are added here to the reference.
 			if(result.wasResolvedMultiple()) {
 				handleMultipleResults();
 			}
@@ -101,10 +104,9 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 			assert false;
 		}
 		try {
-			// if target is an another proxy and list is "unique"
-			// add() will try to resolve the new proxy to check for uniqueness.
-			// There seems to be no way to avoid that. Until now this does not
-			// cause any problems.
+			// if target is an another proxy and list is "unique" add() will try to resolve
+			// the new proxy to check for uniqueness. There seems to be no way to avoid that.
+			// Until now this does not cause any problems.
 			if (proxyPosition + 1 == list.size()) {
 				list.add(target);
 			} else {

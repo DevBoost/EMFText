@@ -14,14 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// The DummyEObject is used to build a stack of dummy objects when descending
-// by tail recursion into left recursive rules. They cache the setting
-// information for initializing concrete EObject instances.
-//
-// When the tail descent is finished this stack is reduced in reverse order. The
-// EObjects are created using the setting informations and a containment hierarchy
-// is build using the left recursive EStructuralFeature.
-//
+/**
+ * The DummyEObject is used to build a stack of dummy objects when descending by
+ * tail recursion into left recursive rules. They cache the setting information
+ * for initializing concrete EObject instances.
+ * When the tail descent is finished this stack is reduced in reverse order. The
+ * EObjects are created using the setting informations and a containment hierarchy
+ * is build using the left recursive EStructuralFeature.
+ */
 public class CsDummyEObject extends org.eclipse.emf.ecore.impl.EObjectImpl  {
 	
 	private java.util.Map<org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object> keyValueMap;
@@ -53,7 +53,9 @@ public class CsDummyEObject extends org.eclipse.emf.ecore.impl.EObjectImpl  {
 		return null;
 	}
 	
-	// proxy method
+	/**
+	 * proxy method
+	 */
 	public org.eclipse.emf.ecore.EClass eClass() {
 		return type;
 	}

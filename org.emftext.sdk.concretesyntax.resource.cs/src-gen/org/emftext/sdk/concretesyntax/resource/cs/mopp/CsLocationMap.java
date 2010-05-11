@@ -14,23 +14,26 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A basic implementation of the ILocationMap interface. Instances
-// store information about element locations using four maps.
-// <p>
-// The set-methods can be called multiple times by the parser that may visit
-// multiple children from which it copies the localization information for the parent
-// (i.e., the element for which set-method is called)
-// It implements the following behavior:
-// <p>
-// Line:   The lowest of all sources is used for target<br>
-// Column: The lowest of all sources is used for target<br>
-// Start:  The lowest of all sources is used for target<br>
-// End:    The highest of all sources is used for target<br>
-//
+/**
+ * A basic implementation of the ILocationMap interface. Instances store
+ * information about element locations using four maps.
+ * <p>
+ * The set-methods can be called multiple times by the parser that may visit
+ * multiple children from which it copies the localization information for the
+ * parent element (i.e., the element for which set-method is called). It
+ * implements the following behavior:
+ * <p>
+ * Line:   The lowest of all sources is used for target<br>
+ * Column: The lowest of all sources is used for target<br>
+ * Start:  The lowest of all sources is used for target<br>
+ * End:    The highest of all sources is used for target<br>
+ */
 public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap {
 	
-	// A basic interface that can be implemented to select
-	// EObjects based of their location in a text resource.
+	/**
+	 * A basic interface that can be implemented to select EObjects based of their
+	 * location in a text resource.
+	 */
 	public interface ISelector {
 		boolean accept(int startOffset, int endOffset);
 	}
@@ -79,8 +82,8 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 	}
 	
 	private void setMapValueToMin(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
-		// we need to synchronize the write access, because other threads may iterate
-		// over the map concurrently
+		// We need to synchronize the write access, because other threads may iterate over
+		// the map concurrently.
 		synchronized (this) {
 			if (element == null || value < 0) return;
 			if (map.containsKey(element) && map.get(element) < value) return;
@@ -89,8 +92,8 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 	}
 	
 	private void setMapValueToMax(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
-		// we need to synchronize the write access, because other threads may iterate
-		// over the map concurrently
+		// We need to synchronize the write access, because other threads may iterate over
+		// the map concurrently.
 		synchronized (this) {
 			if (element == null || value < 0) return;
 			if (map.containsKey(element) && map.get(element) > value) return;
@@ -102,6 +105,20 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		java.util.List<org.eclipse.emf.ecore.EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
 				return start <= documentOffset && end >= documentOffset;
+			}
+		});
+		// sort elements according to containment hierarchy
+		java.util.Collections.sort(result, new java.util.Comparator<org.eclipse.emf.ecore.EObject>() {
+			public int compare(org.eclipse.emf.ecore.EObject objectA, org.eclipse.emf.ecore.EObject objectB) {
+				if (org.eclipse.emf.ecore.util.EcoreUtil.isAncestor(objectA, objectB)) {
+					return 1;
+				} else {
+					if (org.eclipse.emf.ecore.util.EcoreUtil.isAncestor(objectB, objectA)) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
 			}
 		});
 		return result;
@@ -117,12 +134,12 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 	}
 	
 	private java.util.List<org.eclipse.emf.ecore.EObject> getElements(ISelector s) {
-		// there might be more than one element at the given offset
-		// thus, we collect all of them and sort them afterwards
+		// There might be more than one element at the given offset. Thus, we collect all
+		// of them and sort them afterwards.
 		java.util.List<org.eclipse.emf.ecore.EObject> result = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
 		
-		// we need to synchronize the iteration over the map, because
-		// other threads may write to the map concurrently
+		// We need to synchronize the write access, because other threads may iterate over
+		// the map concurrently.
 		synchronized (this) {
 			for (org.eclipse.emf.ecore.EObject next : charStartMap.keySet()) {
 				java.lang.Integer start = charStartMap.get(next);

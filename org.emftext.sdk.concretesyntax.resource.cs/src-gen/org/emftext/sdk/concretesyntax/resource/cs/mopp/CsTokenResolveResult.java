@@ -14,8 +14,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A basic implementation of the ITokenResolveResult interface.
-//
+/**
+ * A basic implementation of the ITokenResolveResult interface.
+ */
 public class CsTokenResolveResult implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult {
 	
 	private String errorMessage;

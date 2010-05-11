@@ -14,7 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-// A default implementation for token resolvers. It tries to resolve lexems using Java methods.
+/**
+ * A default implementation for token resolvers. It tries to resolve lexems using
+ * Java methods.
+ */
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
 	private java.util.Map<?, ?> options;

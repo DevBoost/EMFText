@@ -14,12 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// An implementation of the ResolveResult interface that delegates
-// all method calls to another ResolveResult. Client may subclass
-// this class to easily create custom ResolveResults.
-//
-// @param <ReferenceType> the type of the references that can be contained in this result
-//
+/**
+ * An implementation of the ResolveResult interface that delegates all method
+ * calls to another ResolveResult. Client may subclass this class to easily create
+ * custom ResolveResults.
+ * 
+ * @param <ReferenceType> the type of the references that can be contained in this
+ * result
+ */
 public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> delegate;

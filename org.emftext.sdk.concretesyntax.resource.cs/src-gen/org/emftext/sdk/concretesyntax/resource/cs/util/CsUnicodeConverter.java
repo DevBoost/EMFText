@@ -14,12 +14,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-// A UnicodeConverter can read an input stream and convert
-// unicode escape sequences (backslash + uXXXX) to actual
-// unicode characters. Each escaped unicode sequence (6 bytes)
-// is replaced by the respective UTF-8 byte sequence (1 to 4
-// bytes).
-//
+/**
+ * A UnicodeConverter can read an input stream and convert unicode escape
+ * sequences (backslash + uXXXX) to actual unicode characters. Each escaped
+ * unicode sequence (6 bytes) is replaced by the respective UTF-8 byte sequence (1
+ * to 4 bytes).
+ */
 public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor {
 	
 	private int[] stack = new int[4];
@@ -27,19 +27,24 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 	
 	private static final char BACKSLASH = '\\';
 	
-	// The original input stream.
+	/**
+	 * The original input stream.
+	 */
 	private java.io.InputStream inputStream;
 	
-	// Creates a new UnicodeConverter that reads from the given
-	// stream.
-	//
-	// @param inputStream the original stream to read from
+	/**
+	 * Creates a new UnicodeConverter that reads from the given stream.
+	 * 
+	 * @param inputStream the original stream to read from
+	 */
 	public CsUnicodeConverter(java.io.InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 	
-	// Reads one character from the stream. Escaped unicode characters are
-	// converted to UTF-8 byte sequences (i.e., up to four bytes).
+	/**
+	 * Reads one character from the stream. Escaped unicode characters are converted
+	 * to UTF-8 byte sequences (i.e., up to four bytes).
+	 */
 	@Override	public int read() throws java.io.IOException {
 		if (!stackIsEmpty()) {
 			int result = pop();
@@ -102,8 +107,7 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 							case 70: // 'F'
 							v = ((v << 4) + 10 + nextChar) - 65;
 							break;
-							default:							// this case can never happen if the unicode
-							// escape sequences are correct
+							default:							// this case can never happen if the unicode escape sequences are correct
 							v = 0; // clear the accumulator
 							break;
 						}
@@ -164,7 +168,7 @@ public static int unsignedByteToInt(byte b) {
 }
 
 public static byte[] encode(int ch) {
-	//return encode(new int[]{ch});
+	// return encode(new int[]{ch});
 	int bytesNeeded = 0;
 	if (ch < 0x80) {
 		++bytesNeeded;

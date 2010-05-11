@@ -160,8 +160,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parser.parse();
 		clearState();
 		getContents().clear();
+		org.eclipse.emf.ecore.EObject root = null;
 		if (result != null) {
-			org.eclipse.emf.ecore.EObject root = result.getRoot();
+			root = result.getRoot();
 			if (root != null) {
 				getContents().add(root);
 			}
@@ -175,6 +176,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		getReferenceResolverSwitch().setOptions(options);
 		if (getErrors().isEmpty()) {
 			runPostProcessors(options);
+			if (root != null) {
+				runValidators(root);
+			}
 		}
 	}
 	
@@ -244,7 +248,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			boolean wasResolvedBefore = uriFragment.isResolved();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<? extends org.eclipse.emf.ecore.EObject> result = uriFragment.resolve();
 			if (result == null) {
-				//the resolving did call itself
+				// the resolving did call itself
 				return null;
 			}
 			if (!wasResolvedBefore && !result.wasResolved()) {
@@ -254,9 +258,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				return null;
 			} else {
 				org.eclipse.emf.ecore.EObject proxy = uriFragment.getProxy();
-				//remove an error that might have been added by an earlier attempt
+				// remove an error that might have been added by an earlier attempt
 				removeDiagnostics(proxy, getErrors());
-				//remove old warnings and attach new
+				// remove old warnings and attach new
 				removeDiagnostics(proxy, getWarnings());
 				attachWarnings(result, proxy);
 				org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping = result.getMappings().iterator().next();
@@ -287,10 +291,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				try {
 					result = this.getResourceSet().getEObject(uri, true);
 				} catch (java.lang.Exception e) {
-					//we can catch exceptions here, because EMF will try to resolve again and handle the exception
+					// we can catch exceptions here, because EMF will try to resolve again and handle
+					// the exception
 				}
 				if (result == null || result.eIsProxy()) {
-					//unable to resolve: attach error
+					// unable to resolve: attach error
 					if (errorMessage == null) {
 						assert(false);
 					} else {
@@ -306,7 +311,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			org.eclipse.emf.ecore.EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
 				if (reference.isMany()) {
-					org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList.ManyInverse<org.eclipse.emf.ecore.EObject> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(element.eGet(oppositeReference, false));										//avoids duplicate entries in the reference caused by adding to the oppositeReference 
+					org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList.ManyInverse<org.eclipse.emf.ecore.EObject> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(element.eGet(oppositeReference, false));										// avoids duplicate entries in the reference caused by adding to the
+					// oppositeReference
 					list.basicAdd(uriFragment.getContainer(),null);
 				} else {
 					uriFragment.getContainer().eSet(uriFragment.getReference(), element);
@@ -320,7 +326,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private void removeDiagnostics(org.eclipse.emf.ecore.EObject proxy, java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics) {
-		// remove errors/warnings from resource
+		// remove all errors/warnings this resource
 		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic errorCand : new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(diagnostics)) {
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(proxy)) {
@@ -331,7 +337,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private void attachErrors(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<?> result, org.eclipse.emf.ecore.EObject proxy) {
-		// attach errors to resource
+		// attach errors to this resource
 		assert result != null;
 		final java.lang.String errorMessage = result.getErrorMessage();
 		if (errorMessage == null) {
@@ -355,7 +361,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	// Extends the super implementation by clearing all information about element positions.
+	/**
+	 * Extends the super implementation by clearing all information about element
+	 * positions.
+	 */
 	protected void doUnload() {
 		super.doUnload();
 		clearState();
@@ -392,9 +401,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	public void setURI(org.eclipse.emf.common.util.URI uri) {
-		//because of the context dependent proxy resolving it is 
-		//essential to resolve all proxies before the URI is changed
-		//which can cause loss of object identities
+		// because of the context dependent proxy resolving it is essential to resolve all
+		// proxies before the URI is changed which can cause loss of object identities
 		org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(this);
 		super.setURI(uri);
 	}
@@ -449,16 +457,16 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return loadOptionsCopy;
 	}
 	
-	// Adds a new key,value pair to the list of options. If there
-	// is already an option with the same key, the two values are 
-	// collected in a list.
+	/**
+	 * Adds a new key,value pair to the list of options. If there is already an option
+	 * with the same key, the two values are collected in a list.
+	 */
 	private void addLoadOption(java.util.Map<java.lang.Object, java.lang.Object> options,java.lang.Object key, java.lang.Object value) {
 		// check if there is already an option set
 		if (options.containsKey(key)) {
 			java.lang.Object currentValue = options.get(key);
 			if (currentValue instanceof java.util.List<?>) {
-				// if the current value is a list, we add the new value to
-				// this list
+				// if the current value is a list, we add the new value to this list
 				java.util.List<?> currentValueAsList = (java.util.List<?>) currentValue;
 				java.util.List<java.lang.Object> currentValueAsObjectList = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.copySafelyToObjectList(currentValueAsList);
 				if (value instanceof java.util.Collection<?>) {
@@ -468,8 +476,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				}
 				options.put(key, currentValueAsObjectList);
 			} else {
-				// if the current value is not a list, we create a fresh list
-				// and add both the old (current) and the new value to this list
+				// if the current value is not a list, we create a fresh list and add both the old
+				// (current) and the new value to this list
 				java.util.List<java.lang.Object> newValueList = new java.util.ArrayList<java.lang.Object>();
 				newValueList.add(currentValue);
 				if (value instanceof java.util.Collection<?>) {
@@ -484,9 +492,12 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	// Extends the super implementation by clearing all information about element positions.
+	/**
+	 * Extends the super implementation by clearing all information about element
+	 * positions.
+	 */
 	protected void clearState() {
-		//clear concrete syntax information
+		// clear concrete syntax information
 		resetLocationMap();
 		internalURIFragmentMap.clear();
 		getErrors().clear();
@@ -505,6 +516,68 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getErrors() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
+	}
+	
+	private void runValidators(org.eclipse.emf.ecore.EObject root) {
+		// check EMF validation constraints
+		org.eclipse.emf.common.util.Diagnostic diagnostics = org.eclipse.emf.ecore.util.Diagnostician.INSTANCE.validate(root);
+		addDiagnostics(diagnostics, root);
+		// check EMF validation constraints
+		if (org.eclipse.core.runtime.Platform.isRunning()) {
+			// EMF validation does not work is OSGi is not running
+			org.eclipse.emf.validation.service.ModelValidationService service = org.eclipse.emf.validation.service.ModelValidationService.getInstance();
+			org.eclipse.emf.validation.service.IBatchValidator validator = (org.eclipse.emf.validation.service.IBatchValidator) service.newValidator(org.eclipse.emf.validation.model.EvaluationMode.BATCH);
+			validator.setIncludeLiveConstraints(true);
+			org.eclipse.core.runtime.IStatus status = validator.validate(root);
+			addStatus(status, root);
+		}
+	}
+	
+	private void addDiagnostics(org.eclipse.emf.common.util.Diagnostic diagnostics, org.eclipse.emf.ecore.EObject root) {
+		org.eclipse.emf.ecore.EObject cause = root;
+		java.util.List<?> data = diagnostics.getData();
+		if (data != null && data.size() > 0) {
+			java.lang.Object causeObject = data.get(0);
+			if (causeObject instanceof org.eclipse.emf.ecore.EObject) {
+				cause = (org.eclipse.emf.ecore.EObject) causeObject;
+			}
+		}
+		java.util.List<org.eclipse.emf.common.util.Diagnostic> children = diagnostics.getChildren();
+		if (children.size() == 0) {
+			if (diagnostics.getSeverity() == org.eclipse.core.runtime.IStatus.ERROR) {
+				addError(diagnostics.getMessage(), cause);
+			}
+			if (diagnostics.getSeverity() == org.eclipse.core.runtime.IStatus.WARNING) {
+				addWarning(diagnostics.getMessage(), cause);
+			}
+		}
+		for (org.eclipse.emf.common.util.Diagnostic diagnostic : children) {
+			addDiagnostics(diagnostic, root);
+		}
+	}
+	
+	private void addStatus(org.eclipse.core.runtime.IStatus status, org.eclipse.emf.ecore.EObject root) {
+		java.util.List<org.eclipse.emf.ecore.EObject> causes = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
+		causes.add(root);
+		if (status instanceof org.eclipse.emf.validation.model.ConstraintStatus) {
+			org.eclipse.emf.validation.model.ConstraintStatus constraintStatus = (org.eclipse.emf.validation.model.ConstraintStatus) status;
+			java.util.Set<org.eclipse.emf.ecore.EObject> resultLocus = constraintStatus.getResultLocus();
+			causes.clear();
+			causes.addAll(resultLocus);
+		}
+		if (status.getSeverity() == org.eclipse.core.runtime.IStatus.ERROR) {
+			for (org.eclipse.emf.ecore.EObject cause : causes) {
+				addError(status.getMessage(), cause);
+			}
+		}
+		if (status.getSeverity() == org.eclipse.core.runtime.IStatus.WARNING) {
+			for (org.eclipse.emf.ecore.EObject cause : causes) {
+				addWarning(status.getMessage(), cause);
+			}
+		}
+		for (org.eclipse.core.runtime.IStatus child : status.getChildren()) {
+			addStatus(child, root);
+		}
 	}
 	
 }

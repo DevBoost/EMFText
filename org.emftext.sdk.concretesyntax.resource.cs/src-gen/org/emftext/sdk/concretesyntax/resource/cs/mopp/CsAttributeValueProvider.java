@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// This class provides sets of values for attributes.
-// It is used by the code completion processor.
+/**
+ * This class provides sets of values for attributes. It is used by the code
+ * completion processor.
+ */
 public class CsAttributeValueProvider {
 	
 	public java.lang.Object[] getDefaultValues(org.eclipse.emf.ecore.EAttribute attribute) {

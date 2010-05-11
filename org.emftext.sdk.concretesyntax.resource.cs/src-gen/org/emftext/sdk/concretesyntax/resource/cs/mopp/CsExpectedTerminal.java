@@ -14,11 +14,13 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A representation for a range in a document where a terminal (i.e.,
-// a placeholder or a keyword) is expected.
-// The range is expressed using two integers denoting the start of the range
-// including hidden tokens (e.g., whitespace) and excluding those token 
-// (i.e., the part of the document containing the relevant characters).
+/**
+ * A representation for a range in a document where a terminal (i.e., a
+ * placeholder or a keyword) is expected. The range is expressed using two
+ * integers denoting the start of the range including hidden tokens (e.g.,
+ * whitespace) and excluding those token (i.e., the part of the document
+ * containing the relevant characters).
+ */
 public class CsExpectedTerminal {
 	
 	private int followSetID;

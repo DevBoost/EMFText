@@ -14,8 +14,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-// An element that is expected at a given position in a resource
-// stream.
+/**
+ * An element that is expected at a given position in a resource stream.
+ */
 public interface ICsExpectedElement {
 	
 	public java.lang.String getTokenName();

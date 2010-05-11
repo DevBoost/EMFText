@@ -152,7 +152,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		}
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver getResolver(org.eclipse.emf.ecore.EStructuralFeature reference) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<? extends org.eclipse.emf.ecore.EObject, ? extends org.eclipse.emf.ecore.EObject> getResolver(org.eclipse.emf.ecore.EStructuralFeature reference) {
 		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getGenPackageDependentElement_Package()) {
 			return genPackageDependentElementPackageReferenceResolver;
 		}

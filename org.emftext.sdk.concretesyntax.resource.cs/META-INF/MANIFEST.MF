@@ -19,8 +19,7 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.concretesyntax.resource.cs, org.emftex
  t.sdk.concretesyntax.resource.cs.analysis, org.emftext.sdk.concretesy
  ntax.resource.cs.mopp, org.emftext.sdk.concretesyntax.resource.cs.mop
- p, org.emftext.sdk.concretesyntax.resource.cs.ui, org.emftext.sdk.con
- cretesyntax.resource.cs.util
+ p, org.emftext.sdk.concretesyntax.resource.cs.util
 Bundle-Activator: org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPl
  ugin
 

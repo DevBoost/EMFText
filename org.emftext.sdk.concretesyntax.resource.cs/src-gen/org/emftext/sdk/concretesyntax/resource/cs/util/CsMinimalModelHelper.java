@@ -14,9 +14,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-// A helper class that is able to create minimal model instances for Ecore
-// models.
-//
+/**
+ * A helper class that is able to create minimal model instances for Ecore models.
+ */
 public class CsMinimalModelHelper {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil eClassUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil();

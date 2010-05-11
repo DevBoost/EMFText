@@ -16,13 +16,20 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsSyntaxElementDecorator {
 	
-	// the syntax element to be decorated
+	/**
+	 * the syntax element to be decorated
+	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement decoratedElement;
 	
-	// an array of child decorators (one decorator per child of the decorated syntax element
+	/**
+	 * an array of child decorators (one decorator per child of the decorated syntax
+	 * element
+	 */
 	private CsSyntaxElementDecorator[] childDecorators;
 	
-	// a list of the indices that must be printed
+	/**
+	 * a list of the indices that must be printed
+	 */
 	private java.util.List<java.lang.Integer> indicesToPrint = new java.util.ArrayList<java.lang.Integer>();
 	
 	public CsSyntaxElementDecorator(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement decoratedElement, CsSyntaxElementDecorator[] childDecorators) {

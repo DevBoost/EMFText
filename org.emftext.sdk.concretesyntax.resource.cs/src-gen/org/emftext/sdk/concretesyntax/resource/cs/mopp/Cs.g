@@ -25,36 +25,85 @@ options {
 
 @members{
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
-	@SuppressWarnings("unused")
 	
-	// the index of the last token that was handled by collectHiddenTokens()
+	/**
+	 * the index of the last token that was handled by collectHiddenTokens()
+	 */
+	@SuppressWarnings("unused")
 	private int lastPosition;
-	// the index of the last token that was handled by retrieveLayoutInformation()
+	
+	/**
+	 * the index of the last token that was handled by retrieveLayoutInformation()
+	 */
 	private int lastPosition2;
+	
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult tokenResolveResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult();
+	
+	/**
+	 * A flag that indicateds whether the parser should remember all expected
+	 * elements. This flag is set to true when using the parse for code completion.
+	 * Otherwise it is set to false.
+	 */
 	private boolean rememberExpectedElements = false;
+	
 	private java.lang.Object parseToIndexTypeObject;
 	private int lastTokenIndex = 0;
+	
+	/**
+	 * A list of expected elements the were collected while parsing the input stream.
+	 * This list is only filled if <code>rememberExpectedElements</code> is set to
+	 * true.
+	 */
 	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>();
+	
 	private int mismatchedTokenRecoveryTries = 0;
 	private java.util.Map<?, ?> options;
-	//helper lists to allow a lexer to pass errors to its parser
+	/**
+	 * A helper list to allow a lexer to pass errors to its parser
+	 */
 	protected java.util.List<org.antlr.runtime3_2_0.RecognitionException> lexerExceptions = java.util.Collections.synchronizedList(new java.util.ArrayList<org.antlr.runtime3_2_0.RecognitionException>());
+	
+	/**
+	 * Another helper list to allow a lexer to pass positions of errors to its parser
+	 */
 	protected java.util.List<java.lang.Integer> lexerExceptionsPosition = java.util.Collections.synchronizedList(new java.util.ArrayList<java.lang.Integer>());
+	
+	/**
+	 * A stack for incomplete objects. This stack is used only when the parser is used
+	 * for code completion. Whenever the parser starts to read an object it is pushed
+	 * on the stack. Once the element was parser completely it is popped for the stack.
+	 */
 	protected java.util.Stack<org.eclipse.emf.ecore.EObject> incompleteObjects = new java.util.Stack<org.eclipse.emf.ecore.EObject>();
+	
 	private int stopIncludingHiddenTokens;
 	private int stopExcludingHiddenTokens;
+	/**
+	 * A collection that is filled with commands to be exectued after parsing. This
+	 * collection is cleared before parsing starts and returned as part of the parse
+	 * result object.
+	 */
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> postParseCommands;
+	
+	/**
+	 * A flag to indicate that the parser should stop parsing as soon as possible. The
+	 * flag is set to false before parsing starts. It can be set to true by invoking
+	 * the terminateParsing() method from another thread. This feature is used, when
+	 * documents are parsed in the background (i.e., while editing them). In order to
+	 * cancel running parsers, the parsing process can be terminated. This is done
+	 * whenever a document changes, because the previous content of the document is
+	 * not valid anymore and parsing the old content is not necessary any longer.
+	 */
 	private boolean terminateParsing;
+	
 	private int tokenIndexOfLastCompleteElement;
+	
 	private int expectedElementsIndexOfLastCompleteElement;
 	
 	protected void addErrorToResource(final java.lang.String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				if (resource == null) {
-					// the resource can be null if the parser is used for
-					// code completion
+					// the resource can be null if the parser is used for code completion
 					return true;
 				}
 				resource.addProblem(new org.emftext.sdk.concretesyntax.resource.cs.ICsProblem() {
@@ -115,8 +164,7 @@ options {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
 				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for
-					// code completion
+					// the locationMap can be null if the parser is used for code completion
 					return true;
 				}
 				locationMap.setCharStart(target, locationMap.getCharStart(source));
@@ -133,8 +181,7 @@ options {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
 				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for
-					// code completion
+					// the locationMap can be null if the parser is used for code completion
 					return true;
 				}
 				if (source == null) {
@@ -149,14 +196,16 @@ options {
 		});
 	}
 	
-	// set the end character index and the last line for the given object in the location map
+	/**
+	 * Sets the end character index and the last line for the given object in the
+	 * location map.
+	 */
 	protected void setLocalizationEnd(java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> postParseCommands , final org.eclipse.emf.ecore.EObject object, final int endChar, final int endLine) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
 				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for
-					// code completion
+					// the locationMap can be null if the parser is used for code completion
 					return true;
 				}
 				locationMap.setCharEnd(object, endChar);
@@ -179,7 +228,9 @@ options {
 		}
 	}
 	
-	// This default constructor is only used to call createInstance() on it
+	/**
+	 * This default constructor is only used to call createInstance() on it.
+	 */
 	public CsParser() {
 		super(null);
 	}
@@ -318,8 +369,10 @@ options {
 		return typeObject;
 	}
 	
-	// Implementation that calls {@link #doParse()}  and handles the thrown
-	// RecognitionExceptions.
+	/**
+	 * Implementation that calls {@link #doParse()} and handles the thrown
+	 * RecognitionExceptions.
+	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult parse() {
 		terminateParsing = false;
 		postParseCommands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
@@ -333,8 +386,8 @@ options {
 			reportError(re);
 		} catch (java.lang.IllegalArgumentException iae) {
 			if ("The 'no null' constraint is violated".equals(iae.getMessage())) {
-				//? can be caused if a null is set on EMF models where not allowed;
-				//? this will just happen if other errors occurred before
+				// can be caused if a null is set on EMF models where not allowed. this will just
+				// happen if other errors occurred before
 			} else {
 				iae.printStackTrace();
 			}
@@ -374,7 +427,6 @@ options {
 		for (int i = expectedElementsIndexOfLastCompleteElement; i >= 0; i--) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElementI = expectedElements.get(i);
 			if (expectedElementI.getFollowSetID() == lastFollowSetID) {
-				System.out.println("FOLLOW ELEMENT " + expectedElementI);
 				currentFollowSet.add(expectedElementI);
 			} else {
 				break;
@@ -384,23 +436,21 @@ options {
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			org.antlr.runtime3_2_0.CommonToken nextToken = (org.antlr.runtime3_2_0.CommonToken) tokenStream.get(i);
-			System.out.println("REMAINING TOKEN: " + nextToken);
 			if (nextToken.getChannel() == 99) {
 				// hidden tokens do not reduce the follow set
 			} else {
-				// now that we have found the next visible token the position for that expected terminals
-				// can be set
+				// now that we have found the next visible token the position for that expected
+				// terminals can be set
 				for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal nextFollow : newFollowSet) {
 					lastTokenIndex = 0;
 					setPosition(nextFollow, i);
 				}
 				newFollowSet.clear();
-				// normal tokens do reduce the follow set - only elements that match the token are kept
+				// normal tokens do reduce the follow set - only elements that match the token are
+				// kept
 				for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal nextFollow : currentFollowSet) {
-					System.out.println("CHECKING : " + nextFollow);
 					if (nextFollow.getTerminal().getTokenName().equals(getTokenNames()[nextToken.getType()])) {
 						// keep this one - it matches
-						System.out.println("MATCH! " + nextFollow);
 						java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>> newFollowers = nextFollow.getTerminal().getFollowers();
 						for (org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]> newFollowerPair : newFollowers) {
 							org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement newFollower = newFollowerPair.getLeft();
@@ -415,8 +465,8 @@ options {
 			}
 			followSetID++;
 		}
-		// after the last token in the stream we must set the position for the elements that were
-		// added during the last iteration of the loop
+		// after the last token in the stream we must set the position for the elements
+		// that were added during the last iteration of the loop
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal nextFollow : newFollowSet) {
 			lastTokenIndex = 0;
 			setPosition(nextFollow, i);
@@ -451,8 +501,7 @@ options {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				if (resource == null) {
-					// the resource can be null if the parser is used for
-					// code completion
+					// the resource can be null if the parser is used for code completion
 					return true;
 				}
 				resource.registerContextDependentProxy(factory, element, reference, id, proxy);
@@ -461,7 +510,9 @@ options {
 		});
 	}
 	
-	// Translates errors thrown by the parser into human readable messages.
+	/**
+	 * Translates errors thrown by the parser into human readable messages.
+	 */
 	public void reportError(final org.antlr.runtime3_2_0.RecognitionException e)  {
 		java.lang.String message = e.getMessage();
 		if (e instanceof org.antlr.runtime3_2_0.MismatchedTokenException) {
@@ -507,7 +558,9 @@ options {
 		}
 	}
 	
-	// Translates errors thrown by the lexer into human readable messages.
+	/**
+	 * Translates errors thrown by the lexer into human readable messages.
+	 */
 	public void reportLexicalError(final org.antlr.runtime3_2_0.RecognitionException e)  {
 		java.lang.String message = "";
 		if (e instanceof org.antlr.runtime3_2_0.MismatchedTokenException) {
@@ -552,8 +605,9 @@ options {
 		}
 	}
 	
-	// creates a dynamic Java proxy that mimics the interface
-	// of the given class.
+	/**
+	 * Creates a dynamic Java proxy that mimics the interface of the given class.
+	 */
 	@SuppressWarnings("unchecked")
 	
 	public <T> T createDynamicProxy(java.lang.Class<T> clazz) {

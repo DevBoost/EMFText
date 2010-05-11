@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cs" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
+		</editor>
+	</extension>
+	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.ui.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cs Text Editor" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketPreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrencePreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrencePreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" name="EMFText .cs file">
+		</wizard>
+	</extension>
+	
+</plugin>

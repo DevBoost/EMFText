@@ -16,7 +16,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProjectBuilder {
 	
-	// the ID of the default, generated builder
+	/**
+	 * the ID of the default, generated builder
+	 */
 	public final static String BUILDER_ID = "org.emftext.sdk.concretesyntax.resource.cs.builder";
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilder();

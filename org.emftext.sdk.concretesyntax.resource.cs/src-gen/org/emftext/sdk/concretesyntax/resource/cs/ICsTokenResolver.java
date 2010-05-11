@@ -14,28 +14,36 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-// Basic Interface to directly manipulate parsed tokens and convert them into the attribute type in the meta model.
-// All generated TokenResolvers per default delegate requests to an instance of JavaBasedTokenResolver which performs
-// a standard conversion to Java Types based on the type of the attribute.
-//
-// @see org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultTokenResolver
-// @see org.emftext.sdk.codegen.TokenResolverGenerator
-//
+/**
+ * A basic interface to convert parsed tokens to the attribute type in the meta
+ * model. All generated TokenResolvers per default delegate requests to an
+ * instance of CsDefaultTokenResolver which performs a standard conversion based
+ * on the EMF type conversion. This includes conversion of registered EDataTypes.
+ * 
+ * @see org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultTokenResolver
+ */
 public interface ICsTokenResolver extends org.emftext.sdk.concretesyntax.resource.cs.ICsConfigurable {
 	
-	// Converts a token into an java.lang.Object (the value of the attribute).
-	//
-	// @param lexem the parsed String
-	// @param feature the corresponding feature in the meta model
-	// @param result the result of resolving the lexem, can be used to add processing errors
+	/**
+	 * Converts a token into an java.lang.Object (the value of the attribute).
+	 * 
+	 * @param lexem the text of the parsed token
+	 * @param feature the corresponding feature in the meta model
+	 * @param result the result of resolving the lexem, can be used to add processing
+	 * errors
+	 */
 	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result);
 	
-	// Does the inverse mapping from an java.lang.Object (attribute value) to a lexem which can be printed.
-	//
-	// @param value the java.lang.Object to be printed as String
-	// @param feature the corresponding feature (attribute)
-	// @param container the container of the object
-	//
-	// @return the String representation or null if a problem occurred
+	/**
+	 * Converts an java.lang.Object (the value of an attribute) to a string which can
+	 * be printed. This is the inverse of resolving a token with a call to resolve().
+	 * 
+	 * @param value the java.lang.Object to be printed as String
+	 * @param feature the corresponding feature (EAttribute)
+	 * @param container the container of the object
+	 * 
+	 * @return the String representation or null if a problem occurred
+	 */
 	public String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container);
+	
 }

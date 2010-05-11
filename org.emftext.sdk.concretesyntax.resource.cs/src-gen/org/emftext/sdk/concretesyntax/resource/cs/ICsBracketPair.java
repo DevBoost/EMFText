@@ -14,24 +14,24 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-// A simple interface to access information about matching
-// brackets.
+/**
+ * A simple interface to access information about matching brackets.
+ */
 public interface ICsBracketPair {
 	
-	// Returns the opening bracket.
-	//
-	// @return
+	/**
+	 * Returns the opening bracket.
+	 */
 	public String getOpeningBracket();
 	
-	// Returns the closing bracket.
-	//
-	// @return
+	/**
+	 * Returns the closing bracket.
+	 */
 	public String getClosingBracket();
 	
-	// Returns whether other bracket pairs shall be
-	// automatically closed, when used inside of this
-	// bracket pair.
-	//
-	// @return
+	/**
+	 * Returns whether other bracket pairs shall be automatically closed, when used
+	 * inside of this bracket pair.
+	 */
 	public boolean isClosingEnabledInside();
 }

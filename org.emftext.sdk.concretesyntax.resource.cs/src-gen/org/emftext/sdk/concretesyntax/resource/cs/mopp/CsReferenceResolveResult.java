@@ -14,11 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A basic implementation of IResolveResult interface
-// that collects mappings in a list.
-//
-// @param <ReferenceType> the type of the references that can be contained in this result
-//
+/**
+ * A basic implementation of the
+ * org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult interface
+ * that collects mappings in a list.
+ * 
+ * @param <ReferenceType> the type of the references that can be contained in this
+ * result
+ */
 public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> {
 	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> mappings;

@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-// The abstract super class for all elements of a grammar.
-// This class provides methods to traverse the grammar rules.
+/**
+ * The abstract super class for all elements of a grammar. This class provides
+ * methods to traverse the grammar rules.
+ */
 public abstract class CsSyntaxElement {
 	
 	private CsSyntaxElement[] children;

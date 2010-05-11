@@ -14,10 +14,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A basic implementation of the IElementMapping interface.
-//
-// @param <ReferenceType> the type of the reference that can be mapped to
-//
+/**
+ * A basic implementation of the
+ * org.emftext.sdk.concretesyntax.resource.cs.ICsElementMapping interface.
+ * 
+ * @param <ReferenceType> the type of the reference that can be mapped to
+ */
 public class CsElementMapping<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsElementMapping<ReferenceType> {
 	
 	private final ReferenceType target;

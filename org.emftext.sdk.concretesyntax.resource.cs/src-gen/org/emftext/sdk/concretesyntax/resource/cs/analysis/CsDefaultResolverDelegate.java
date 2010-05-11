@@ -48,8 +48,10 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	
 	public final static java.lang.String NAME_FEATURE = "name";
 	
-	// This standard implementation searches the tree for objects of the 
-	// correct type with a name attribute matching the identifier.
+	/**
+	 * This standard implementation searches the tree for objects of the correct type
+	 * with a name attribute matching the identifier.
+	 */
 	protected void resolve(java.lang.String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		try {
 			org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
@@ -103,11 +105,10 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		if (match == null) {
 			return true;
 		}
-		// we can safely cast 'element' to 'ReferenceType' here,
-		// because we've checked the type of 'element' against
-		// the type of the reference. unfortunately the compiler
-		// does not know that this is sufficient, so we must call
-		// cast(), which is not type safe by itself.
+		// we can safely cast 'element' to 'ReferenceType' here, because we've checked the
+		// type of 'element' against the type of the reference. unfortunately the compiler
+		// does not know that this is sufficient, so we must call cast(), which is not
+		// type safe by itself.
 		result.addMapping(match, cast(element));
 		if (!resolveFuzzy) {
 			return false;
@@ -115,10 +116,11 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
-	// This method encapsulates an unchecked cast from EObject to
-	// ReferenceType. We can not do this cast strictly type safe,
-	// because type parameters are erased by compilation. Thus, an
-	// instanceof check can not be performed at runtime.
+	/**
+	 * This method encapsulates an unchecked cast from EObject to ReferenceType. We
+	 * cannot do this cast strictly type safe, because type parameters are erased by
+	 * compilation. Thus, an instanceof check cannot be performed at runtime.
+	 */
 	@SuppressWarnings("unchecked")	
 	private ReferenceType cast(org.eclipse.emf.ecore.EObject element) {
 		return (ReferenceType) element;
@@ -155,9 +157,9 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			java.lang.Object attributeValue = element.eGet(nameAttr);
 			return matches(identifier, attributeValue, matchFuzzy);
 		} else {
-			//try any other string attribute found
+			// try any other string attribute found
 			for (org.eclipse.emf.ecore.EAttribute stringAttribute : element.eClass().getEAllAttributes()) {
-				if (stringAttribute.getEType().getInstanceClassName().equals(java.lang.String.class.getName())) {
+				if (stringAttribute.getEType().getInstanceClassName().equals("java.lang.String")) {
 					java.lang.Object attributeValue = element.eGet(stringAttribute);
 					java.lang.String match = matches(identifier, attributeValue, matchFuzzy);
 					if (match != null) {
@@ -202,9 +204,9 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		else if (nameAttr instanceof org.eclipse.emf.ecore.EAttribute) {
 			return (java.lang.String) element.eGet(nameAttr);
 		} else {
-			//try any other string attribute found
+			// try any other string attribute found
 			for (org.eclipse.emf.ecore.EAttribute strAttribute : element.eClass().getEAllAttributes()) {
-				if (!strAttribute.isMany() &&				strAttribute.getEType().getInstanceClassName().equals(java.lang.String.class.getName())) {
+				if (!strAttribute.isMany() &&				strAttribute.getEType().getInstanceClassName().equals("java.lang.String")) {
 					return (java.lang.String) element.eGet(strAttribute);
 				}
 			}
@@ -233,7 +235,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				return contents.get(0);
 			}
 		} catch (java.lang.RuntimeException re) {
-			// do nothing here. if no resource can be loaded the uriString is probably not a valid resource URI
+			// do nothing here. if no resource can be loaded the uriString is probably not a
+			// valid resource URI
 		}
 		return null;
 	}

@@ -14,11 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A basic implementation of the IURIMapping interface that can
-// map identifiers to URIs.
-//
-// @param <ReferenceType> unused type parameter which is needed to implement IURIMapping.
-//
+/**
+ * A basic implementation of the
+ * org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping interface that can map
+ * identifiers to URIs.
+ * 
+ * @param <ReferenceType> unused type parameter which is needed to implement
+ * org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping.
+ */
 public class CsURIMapping<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping<ReferenceType> {
 	
 	private org.eclipse.emf.common.util.URI uri;

@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-// Class TextResourceUtil can be used to perform common tasks on text resources,
-// such as loading and saving resources, as well as, checking them for errors.
+/**
+ * Class TextResourceUtil can be used to perform common tasks on text resources,
+ * such as loading and saving resources, as well as, checking them for errors.
+ */
 public class CsTextResourceUtil {
 	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {

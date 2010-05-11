@@ -72,28 +72,12 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFoldingInformationProvider().getFoldableClasses();
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider getHoverTextProvider() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsHoverTextProvider();
-	}
-	
-	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager createColorManager() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
-	}
-	
-	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
-	}
-	
 	public org.eclipse.emf.ecore.resource.Resource.Factory createResourceFactory() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory();
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider getNewFileContentProvider() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider();
-	}
-	
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper createCodeCompletionHelper() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper();
 	}
 	
 }

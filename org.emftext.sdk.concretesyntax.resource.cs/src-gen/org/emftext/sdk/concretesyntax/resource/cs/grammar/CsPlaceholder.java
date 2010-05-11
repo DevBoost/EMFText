@@ -14,7 +14,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-// A class to represent placeholders in a grammar.
+/**
+ * A class to represent placeholders in a grammar.
+ */
 public class CsPlaceholder extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
 	
 	private final java.lang.String tokenName;

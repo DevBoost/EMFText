@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-// This class provides the follow sets for all terminals of
-// the grammar. These sets are used during code completion.
+/**
+ * This class provides the follow sets for all terminals of the grammar. These
+ * sets are used during code completion.
+ */
 public class CsFollowSetProvider {
 	
 	public final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINAL_0 = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_0);

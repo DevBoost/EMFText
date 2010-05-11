@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// Abstract super class for all expected elements. Provides methods to
-// add followers
+/**
+ * Abstract super class for all expected elements. Provides methods to add
+ * followers.
+ */
 public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement {
 	
 	private org.eclipse.emf.ecore.EClass ruleMetaclass;

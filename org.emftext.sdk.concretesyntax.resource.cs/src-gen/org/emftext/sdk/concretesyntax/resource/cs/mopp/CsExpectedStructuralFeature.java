@@ -14,8 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A representation for a range in a document where a structural feature (e.g.,
-// a reference) is expected.
+/**
+ * A representation for a range in a document where a structural feature (e.g., a
+ * reference) is expected.
+ */
 public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAbstractExpectedElement {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder;
