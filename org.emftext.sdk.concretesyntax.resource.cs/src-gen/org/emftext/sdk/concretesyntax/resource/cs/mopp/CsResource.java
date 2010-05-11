@@ -519,33 +519,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private void runValidators(org.eclipse.emf.ecore.EObject root) {
-		// check EMF validation constraints
-		org.eclipse.emf.common.util.Diagnostic diagnostics = org.eclipse.emf.ecore.util.Diagnostician.INSTANCE.validate(root);
-		addDiagnostics(diagnostics, root);
 		// checking EMF validation constraints was disabled
-	}
-	
-	private void addDiagnostics(org.eclipse.emf.common.util.Diagnostic diagnostics, org.eclipse.emf.ecore.EObject root) {
-		org.eclipse.emf.ecore.EObject cause = root;
-		java.util.List<?> data = diagnostics.getData();
-		if (data != null && data.size() > 0) {
-			java.lang.Object causeObject = data.get(0);
-			if (causeObject instanceof org.eclipse.emf.ecore.EObject) {
-				cause = (org.eclipse.emf.ecore.EObject) causeObject;
-			}
-		}
-		java.util.List<org.eclipse.emf.common.util.Diagnostic> children = diagnostics.getChildren();
-		if (children.size() == 0) {
-			if (diagnostics.getSeverity() == org.eclipse.core.runtime.IStatus.ERROR) {
-				addError(diagnostics.getMessage(), cause);
-			}
-			if (diagnostics.getSeverity() == org.eclipse.core.runtime.IStatus.WARNING) {
-				addWarning(diagnostics.getMessage(), cause);
-			}
-		}
-		for (org.eclipse.emf.common.util.Diagnostic diagnostic : children) {
-			addDiagnostics(diagnostic, root);
-		}
+		// checking EMF validation constraints was disabled
 	}
 	
 }

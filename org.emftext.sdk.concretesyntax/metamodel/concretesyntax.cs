@@ -15,6 +15,9 @@ OPTIONS {
 	// it does not run outside of Eclipse properly, which conflicts with
 	// the EMFText ANT task 
 	disableEMFValidationConstraints = "true";
+	// we also need to disable the EValidators since they do cause problems
+	// as well 
+	disableEValidators = "true";
 }
 
 TOKENS {
