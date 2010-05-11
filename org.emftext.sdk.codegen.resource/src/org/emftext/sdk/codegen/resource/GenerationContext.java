@@ -43,11 +43,10 @@ import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * A GenerationContext provides all information that is needed by the 
- * generators. This includes a resolved concrete syntax, 
- * a package name for parser and printer, a package name for resolvers 
- * (reference and token resolvers) and a resource target folder. Furthermore,
- * the context collects information about the generation process as it
- * is executed.
+ * text resource plug-in generators. This includes a resolved concrete syntax, 
+ * package names (e.g., for parsers, printers, and for reference and token 
+ * resolvers). Furthermore, the context collects information about the 
+ * generation process as it is executed.
  * 
  * @see org.emftext.sdk.codegen.resource.creators.ResourcePluginContentCreator
  * 
@@ -57,16 +56,12 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	private static final String SCHEMA_DIR = "schema";
-	public static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
-	private static final String DEFAULT_EDITOR_ICON_NAME = "editor_icon.gif";
-	public static final String DEFAULT_ICON_DIR = "icons";
-	public static final String DEFAULT_CSS_DIR = "css";
-	public static final String HOVER_STYLE_FILENAME = "hover_style.css";
 	
 	private final ConcreteSyntax concreteSyntax;
-	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private final GenClassFinder genClassFinder = new GenClassFinder();
+	private final GeneratorUtil genUtil = new GeneratorUtil();
+	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String licenceText;
 	private boolean antlrGrammarHasChanged;
@@ -93,8 +88,6 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	private int featureCounter = 0;
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
 
-	private final GeneratorUtil genUtil = new GeneratorUtil();
-
 	private IPluginDescriptor resourcePlugin;
 
 	private IPluginDescriptor resourceUIPlugin;
@@ -115,8 +108,6 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 		return concreteSyntax;
 	}
 	
-	//public abstract File getProjectFolder(IPluginDescriptor<GenerationContext> plugin);
-
 	/**
 	 * Returns the actual file which contains the CS specification.
 	 */
@@ -127,14 +118,6 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 		return file;
 	}
 	
-	public File getOutputFolder(IPluginDescriptor plugin) {
-		return new File(getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + "bin");
-	}
-
-	public String getPluginName(IPluginDescriptor plugin) {
-		return plugin.getName();
-	}
-
 	public String getPackageName(ArtifactDescriptor<?, ?> artifact) {
 		return genUtil.getPackageName(artifact, concreteSyntax);
 	}
@@ -179,14 +162,6 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 		return true;
 	}
 
-	public String getLexerName() {
-		return getCapitalizedConcreteSyntaxName() + "Lexer";
-	}
-
-	public String getParserName() {
-		return getCapitalizedConcreteSyntaxName() + "Parser";
-	}
-
 	/**
 	 * Returns the qualified class name of the reference resolver for the given reference. If
 	 * inImportedSyntax is set to true, the name of the resolver in the imported resource plug-in
@@ -212,6 +187,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 		return prefix + "getReferenceResolverSwitch().get" + csUtil.getReferenceResolverClassName(genFeature) + "()";
 	}
 
+	// TODO this does not belong here
 	public void addGetMetaInformationMethod(StringComposite sc) {
 		sc.add("public " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + " getMetaInformation() {");
 		sc.add("return new " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + "();");
@@ -293,7 +269,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	}
 
 	public String getLicenceText() {
-		return this.licenceText;
+		return licenceText;
 	}
 
 	public void setLicenceText(String text) {
@@ -358,7 +334,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	 * The result of this method indicates whether generating 
 	 * the ANTLR commons plug-in is required or not.
 	 * 
-	 * @return
+	 * @return true if the ANTLR commons plug-in must be created
 	 */
 	public abstract boolean getGenerateANTLRPlugin();
 
@@ -388,27 +364,5 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 
 	public File getSchemaFolder(IPluginDescriptor plugin) {
 		return new File(getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + SCHEMA_DIR);
-	}
-
-	// TODO mseifert: delete these artifact specific methods and use the generic methods
-	// for EArtifact instead. Maybe we need to add folders as distinct artifacts.
-	public File getIconsDir() {
-		return new File(getFileSystemConnector().getProjectFolder(getResourceUIPlugin()).getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
-	}
-
-	public File getCSSDir() {
-		return new File(getFileSystemConnector().getProjectFolder(getResourceUIPlugin()).getAbsolutePath() + File.separator + DEFAULT_CSS_DIR);
-	}
-
-	public File getNewIconFile() {
-		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_NEW_ICON_NAME);
-	}
-
-	public File getEditorIconFile() {
-		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_EDITOR_ICON_NAME);
-	}
-
-	public File getHoverStyleFile() {
-		return new File(getCSSDir().getAbsolutePath() + File.separator + HOVER_STYLE_FILENAME);
 	}
 }

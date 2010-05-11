@@ -15,15 +15,16 @@ import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FileCopier;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
+import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
-import org.emftext.sdk.codegen.resource.creators.ManifestCreator;
 import org.emftext.sdk.codegen.resource.creators.SyntaxArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
+import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -47,7 +48,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new FoldersCreator<GenerationContext>(new File[] {
 	    		context.getSourceFolder(resourceUIPlugin, false),
 	    		context.getSourceFolder(resourceUIPlugin, true),
-	    		context.getCSSDir()
+	    		getCSSDir(resourceUIPlugin)
 	    }));
 
 	    ClassPathParameters cpp = new ClassPathParameters(resourceUIPlugin);
@@ -84,9 +85,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		
 	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceUIArtifacts.NEW_FILE_WIZARD));
 	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), context.getNewIconFile()));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), context.getEditorIconFile()));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), context.getHoverStyleFile()));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin)));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin)));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin)));
 
 	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceUIArtifacts.HOVER_TEXT_PROVIDER));
 	    
@@ -176,5 +177,25 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		imports.remove(context.getResourceUIPlugin().getName());
 		
 		return imports;
+	}
+
+	private File getIconsDir(IPluginDescriptor plugin) {
+		return new File(getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_ICON_DIR);
+	}
+
+	private File getNewIconFile(IPluginDescriptor plugin) {
+		return new File(getIconsDir(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_NEW_ICON_NAME);
+	}
+
+	private File getEditorIconFile(IPluginDescriptor plugin) {
+		return new File(getIconsDir(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_EDITOR_ICON_NAME);
+	}
+
+	private File getCSSDir(IPluginDescriptor plugin) {
+		return new File(getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_CSS_DIR);
+	}
+
+	private File getHoverStyleFile(IPluginDescriptor plugin) {
+		return new File(getCSSDir(plugin).getAbsolutePath() + File.separator + UIConstants.HOVER_STYLE_FILENAME);
 	}
 }

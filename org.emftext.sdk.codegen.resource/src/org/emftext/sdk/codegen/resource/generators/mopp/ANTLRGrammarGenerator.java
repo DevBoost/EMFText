@@ -215,8 +215,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		initCaches();
 
 		String csName = getResourceClassName();
-		String lexerName = context.getLexerName();
-		String parserName = context.getParserName();
+		String lexerName = getLexerName();
+		String parserName = getParserName();
 		boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.ANTLR_BACKTRACKING);
 		boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(
@@ -2076,6 +2076,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length() - 1);
 		boolean contains = keywords.contains(assumeKeyword);
 		return contains;
+	}
+
+	private String getLexerName() {
+		return getContext().getCapitalizedConcreteSyntaxName() + "Lexer";
+	}
+
+	private String getParserName() {
+		return getContext().getCapitalizedConcreteSyntaxName() + "Parser";
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {

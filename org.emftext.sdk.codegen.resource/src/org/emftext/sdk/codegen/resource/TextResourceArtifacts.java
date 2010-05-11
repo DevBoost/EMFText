@@ -145,6 +145,10 @@ import org.emftext.sdk.codegen.resource.generators.util.UnicodeConverterGenerato
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * A collection of all artifacts that are created for the text resource plug-in
+ * (excluding the UI resource artifacts).
+ */
 public class TextResourceArtifacts {
 	
 	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 

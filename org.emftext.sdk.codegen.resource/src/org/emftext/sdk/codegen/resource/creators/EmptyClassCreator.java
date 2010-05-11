@@ -18,12 +18,17 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * A creator that produces empty Java classes. This is sometimes used to override
+ * existing classes which depend on other generated classes.
+ */
 public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext, Object> {
 
 	private File file;
@@ -55,12 +60,8 @@ public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext,
 	    );
 	}
 
-	public OptionTypes getOverrideOption() {
-		return overrideOption;
-	}
-
 	@Override
 	public boolean doOverride(GenerationContext context) {
-		return true;
+		return OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
 	}
 }

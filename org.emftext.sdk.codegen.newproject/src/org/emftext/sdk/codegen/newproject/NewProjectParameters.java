@@ -1,6 +1,9 @@
 package org.emftext.sdk.codegen.newproject;
 
-
+/**
+ * A set of parameters that can be picked by users when generating new EMFText 
+ * projects. Usually these parameters are obtained by the NewProjectWizard.
+ */
 public class NewProjectParameters {
 	
 	private String metamodelName;

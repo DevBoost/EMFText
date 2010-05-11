@@ -23,6 +23,12 @@ import org.emftext.sdk.codegen.newproject.generators.MetaModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.SyntaxGenerator;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 
+/**
+ * This class creates the content of new EMFText project. First it uses special
+ * generators to create a meta model, a concrete syntax and a generator model. 
+ * Afterwards the EMF code generation and the EMFText code generation is called
+ * to obtain runnable DSL plug-ins. 
+ */
 public class NewProjectContentsCreator implements IPluginCreator<NewProjectGenerationContext, Object> {
 
 	public void create(IPluginDescriptor plugin, NewProjectGenerationContext context, Object parameters,

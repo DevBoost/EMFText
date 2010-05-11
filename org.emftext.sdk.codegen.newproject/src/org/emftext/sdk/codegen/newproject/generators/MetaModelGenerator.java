@@ -9,6 +9,9 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
+/**
+ * Generates a simple Ecore model with some example meta classes.
+ */
 public class MetaModelGenerator extends ModelGenerator {
 
 	private static final EcoreFactory ECORE_FACTORY = EcoreFactory.eINSTANCE;

@@ -45,7 +45,7 @@ public class AntGenerationContext extends GenerationContext {
 		setFileSystemConnector(new IFileSystemConnector() {
 			
 			public File getProjectFolder(IPluginDescriptor plugin) {
-				return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName(plugin));
+				return new File(workspaceRootFolder.getAbsolutePath() + File.separator + plugin.getName());
 			}
 		});
 	}

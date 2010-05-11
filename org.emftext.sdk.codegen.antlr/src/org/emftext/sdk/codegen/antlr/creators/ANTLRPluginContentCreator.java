@@ -32,14 +32,25 @@ import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FileCopier;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
+import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * This class creates the contents of the org.emftext.commons.antlr_version plug-in 
+ * by copying the ANTLR runtime classes from the org.emftext.sdk.antlr_version
+ * plug-in. The creation of the commons plug-in can be disable using the syntax
+ * option OptionTypes.OVERRIDE_ANTLR_PLUGIN.
+ */
 public class ANTLRPluginContentCreator {
 
 	private static final String SRC_FOLDER = "src";
+	
+	/**
+	 * A list of all class to copy.
+	 */
 	private Class<?>[] antlrClassNames = new Class<?>[] {
 			org.antlr.runtime3_2_0.ANTLRFileStream.class,
 			org.antlr.runtime3_2_0.ANTLRInputStream.class,
@@ -126,18 +137,18 @@ public class ANTLRPluginContentCreator {
 
 	public void generate(ANTLRGenerationContext context, IProgressMonitor monitor) throws IOException {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
-		ANTLRPluginArtifacts artifacts = new ANTLRPluginArtifacts();
 		
 	    List<IArtifactCreator<ANTLRGenerationContext>> creators = new ArrayList<IArtifactCreator<ANTLRGenerationContext>>();
 	    File sourceFolder = 
 	    	new File(context.getProjectFolder(ANTLRPluginArtifacts.ANTLR_PLUGIN).getAbsolutePath() + File.separator + SRC_FOLDER);
 		
-	    creators.add(new FoldersCreator<ANTLRGenerationContext>(new File[] {
+	    String sourceFolderPath = sourceFolder.getAbsolutePath() + File.separator;
+		creators.add(new FoldersCreator<ANTLRGenerationContext>(new File[] {
 	    		sourceFolder,
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + artifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + artifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + artifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolder.getAbsolutePath() + File.separator + artifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
 	    
 	    ClassPathParameters cpp = new ClassPathParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
@@ -150,20 +161,19 @@ public class ANTLRPluginContentCreator {
 	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
-
 		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.BUILD_PROPERTIES, bpp));
 	    
 	    ManifestParameters manifestParameters = new ManifestParameters();
 		// export the generated packages
 		Collection<String> exports = manifestParameters.getExportedPackages();
-		exports.add(artifacts.PACKAGE_ANTLR_RUNTIME.getPackage());
-		exports.add(artifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage());
-		exports.add(artifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage());
-		exports.add(artifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage());
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage());
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage());
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage());
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage());
 
 		manifestParameters.setPlugin(ANTLRPluginArtifacts.ANTLR_PLUGIN);
 		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");
-		creators.add(new ANTLRPluginManifestCreator(ANTLRPluginArtifacts.MANIFEST, manifestParameters));
+		creators.add(new ManifestCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.MANIFEST, manifestParameters, true));
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
@@ -176,7 +186,7 @@ public class ANTLRPluginContentCreator {
 			urlString = urlString.replace(packagePath + "/", "");
 			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
 			creators.add(new FileCopier<ANTLRGenerationContext>(new URL(pathToSourceFile).openStream(), 
-					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
+					new File(sourceFolderPath + pathFile)));
 	    }
 	    
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_ANTLR_PLUGIN;

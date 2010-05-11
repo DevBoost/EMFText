@@ -13,6 +13,9 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
+/**
+ * Initializes a new generator model from the Ecore model generated before.
+ */
 public class GenModelGenerator extends ModelGenerator {
 
 	private static final GenModelFactory GEN_MODEL_FACTORY = GenModelFactory.eINSTANCE;

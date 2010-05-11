@@ -27,6 +27,7 @@ import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
+import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
@@ -281,10 +282,6 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		}
 		
 		imports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES));
-
-		if (context.isGenerateTestActionEnabled()) {
-			imports.add("org.emftext.sdk.ui");
-		}
 
 		genUtil.addImports(context, imports, syntax);
 		

@@ -14,6 +14,12 @@ import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * An abstract superclass for creator that produce Eclipse plug-ins.
+ * It takes care of tracking the creation progress.
+ *
+ * @param <ParameterType>
+ */
 public abstract class AbstractPluginCreator<ParameterType> extends AbstractGenerationComponent implements IPluginCreator<GenerationContext, ParameterType> {
 
 	public void create(IPluginDescriptor plugin, GenerationContext context, ParameterType parameters, IProgressMonitor monitor) throws IOException {

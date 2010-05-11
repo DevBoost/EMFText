@@ -24,6 +24,9 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.DefaultLoadOptionsExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * A creator for the schema of the default_load_options extension point.
+ */
 public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
 	private static final String DEFAULT_LOAD_OPTIONS_EXSD = "default_load_options.exsd";

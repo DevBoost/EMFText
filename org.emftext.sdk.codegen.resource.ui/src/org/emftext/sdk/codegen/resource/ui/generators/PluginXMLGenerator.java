@@ -26,6 +26,7 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
+import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -183,9 +184,9 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		return new PluginXMLGenerator(context);
 	}
 
-	public String getProjectRelativeNewIconPath() {
+	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
-		return "/" + GenerationContext.DEFAULT_ICON_DIR + "/" + GenerationContext.DEFAULT_NEW_ICON_NAME;
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_NEW_ICON_NAME;
 	}
 }

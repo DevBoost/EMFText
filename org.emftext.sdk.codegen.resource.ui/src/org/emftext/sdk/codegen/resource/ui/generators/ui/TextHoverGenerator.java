@@ -58,6 +58,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
+import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class TextHoverGenerator extends UIJavaBaseGenerator {
@@ -315,7 +316,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator {
 		);
 		sc.add("private static String loadStyleSheet() {");
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + uiPluginActivatorClassName + ".PLUGIN_ID);");
-		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + GenerationContext.DEFAULT_CSS_DIR + "/" + GenerationContext.HOVER_STYLE_FILENAME + "\");");
+		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + UIConstants.DEFAULT_CSS_DIR + "/" + UIConstants.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");
 		sc.add(BUFFERED_READER + " reader = null;");
 		sc.add("try {");

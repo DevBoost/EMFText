@@ -24,6 +24,9 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.AdditionalExtensionParserExtensionPointSchemaGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * A creator for the schema of the additional_extension_parser extension point.
+ */
 public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
 	private static final String ADDITIONAL_EXTENSION_PARSER_EXSD = "additional_extension_parser.exsd";

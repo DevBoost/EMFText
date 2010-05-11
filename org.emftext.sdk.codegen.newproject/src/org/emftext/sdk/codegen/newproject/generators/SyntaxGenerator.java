@@ -12,6 +12,9 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 
+/**
+ * Generates a simple concrete syntax for the meta model generated before.
+ */
 public class SyntaxGenerator extends ModelGenerator {
 
 	private static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;

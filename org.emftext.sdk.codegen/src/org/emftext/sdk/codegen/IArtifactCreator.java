@@ -20,6 +20,10 @@ import org.emftext.sdk.IPluginDescriptor;
  * creates IArtifact objects from their output. Depending
  * on the value of code generation options the artifacts 
  * may be created, overridden or left alone.
+ * 
+ * In contrast to a generator, which produces simply an 
+ * array of bytes in memory, a creator is responsible for
+ * storing created artifacts to disc.
  */
 public interface IArtifactCreator<ContextType> extends IConfigurableGenerationComponent {
 	

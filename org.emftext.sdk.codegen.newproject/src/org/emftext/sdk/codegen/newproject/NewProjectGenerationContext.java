@@ -14,6 +14,11 @@ import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * This context class is passed along the generators and creators that are used while
+ * creating a new EMFText project. It carries the parameters that were given by users
+ * for creating the new project.
+ */
 public class NewProjectGenerationContext extends AbstractGenerationComponent implements IContext {
 
 	private IPluginDescriptor pluginDescriptor;

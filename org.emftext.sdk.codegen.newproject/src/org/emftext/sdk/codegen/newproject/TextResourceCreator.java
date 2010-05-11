@@ -12,13 +12,16 @@ import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * This class can be used to create the text resource plug-ins for a new EMFText
+ * project. It calls the EMF code generation as well as the EMFText code generators.
+ */
 public class TextResourceCreator extends AbstractGenerationComponent implements
 		IArtifactCreator<NewProjectGenerationContext> {
 
@@ -28,11 +31,6 @@ public class TextResourceCreator extends AbstractGenerationComponent implements
 		String syntaxFile = parameters.getSyntaxFile();
 		String syntaxFilePath = parameters.getProjectName() + "/" + parameters.getMetamodelFolder() + "/" + syntaxFile;
 		Resource csResource = rs.getResource(URI.createPlatformResourceURI(syntaxFilePath, true), true);
-		IProblemCollector collector = new IProblemCollector() {
-			public void addProblem(GenerationProblem problem) {
-				// TODO something about this
-			}
-		};
 		
 		ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
 		context.setConcreteSyntax(concreteSyntax);
@@ -74,9 +72,11 @@ public class TextResourceCreator extends AbstractGenerationComponent implements
 					JavaCore.create(project);
 				}
 			}.run(genContext, context.getResourceMarker(), context.getMonitor());
+			if (result != Result.SUCCESS) {
+				getProblemCollector().addProblem(new GenerationProblem(result.toString(), concreteSyntax));
+			}
 		} catch (Exception e) {
-			// TODO do something about this
-			e.printStackTrace();
+			getProblemCollector().addProblem(new GenerationProblem("Exception while generating text resource plug-ins: " + e.getMessage(), concreteSyntax));
 		}
 	}
 

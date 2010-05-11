@@ -134,7 +134,7 @@ public class EditorGenerator extends UIJavaBaseGenerator {
 	private void addInitializeEditorMethod(StringComposite sc) {
 		sc.add("public void initializeEditor() {");
 		sc.add("super.initializeEditor();");
-		sc.add("setEditorContextMenuId(\"" + context.getPluginName(context.getResourcePlugin()) + ".EditorContext\");");
+		sc.add("setEditorContextMenuId(\"" + context.getResourcePlugin().getName() + ".EditorContext\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

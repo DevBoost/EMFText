@@ -6,6 +6,10 @@ import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.util.GenModelUtil;
 
+/**
+ * This creator call the EMF code generation to obtain the EMF model code using
+ * a generator model.
+ */
 public class GenerateCodeCreator extends AbstractGenerationComponent implements
 		IArtifactCreator<NewProjectGenerationContext> {
 

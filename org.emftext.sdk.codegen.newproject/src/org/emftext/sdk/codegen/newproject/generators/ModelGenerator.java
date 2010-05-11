@@ -13,6 +13,10 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
+/**
+ * An abstract superclass for all generators that produce models. This class
+ * takes care of serializing the generator models by saving them to EMF resources.
+ */
 public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerationContext, Object> {
 
 	public ModelGenerator() {
