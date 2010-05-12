@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 
 /**
  * An abstract super class for all post processors. It tries to resolve all 
- * proxy objects and if this succeeds analyse(ITextResource, ConcreteSyntax)
+ * proxy objects and if this succeeds analyse(CsResource, ConcreteSyntax)
  * is called.
  */
 public abstract class AbstractPostProcessor implements ICsResourcePostProcessorProvider, ICsResourcePostProcessor {
@@ -45,7 +45,13 @@ public abstract class AbstractPostProcessor implements ICsResourcePostProcessorP
 			return;
 		}
 		if (doResolveProxiesBeforeAnalysis()) {
-			// TODO it is sufficient to do this once (for the first post processor)
+			// it is actually sufficient to do this once (for the first post processor)
+			// but, since all post processors work in isolation, we cannot pass on the
+			// information that proxy objects have already been resolved. if this turns
+			// out to be a performance problem one can attach an adapter to the resource
+			// which carried the information. this adapter must also react to all changes
+			// made to the resource in order to trigger proxy resolution again after the
+			// resource has changed
 			if (!CsResourceUtil.resolveAll(resource)) {
 				return;
 			}
