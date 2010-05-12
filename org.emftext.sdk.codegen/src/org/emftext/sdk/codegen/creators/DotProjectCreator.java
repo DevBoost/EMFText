@@ -28,9 +28,12 @@ import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, IPluginDescriptor> {
 
 	public static final String FILENAME = ".project";
+	
+	private final boolean override;
 
-	public DotProjectCreator(ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin) {
+	public DotProjectCreator(ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin, boolean override) {
 		super(artifact, plugin);
+		this.override = override;
 	}
 
 	@Override
@@ -47,15 +50,6 @@ public class DotProjectCreator<ContextType extends IContext> extends GenericArti
 
 	@Override
 	public boolean doOverride(ContextType context) {
-		return true;
-		// TODO mseifert: disable this creator in the content creators if 
-		// override option is set to false
-		/*
-		if (parameters == TextResourcePlugins.RESOURCE_PLUGIN) {
-			return OptionTypes.OVERRIDE_DOT_PROJECT;
-		} else {
-			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
-		}
-		*/
+		return override;
 	}
 }

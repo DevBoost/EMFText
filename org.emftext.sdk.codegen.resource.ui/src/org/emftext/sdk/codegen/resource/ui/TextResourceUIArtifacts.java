@@ -59,9 +59,9 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, Object> PACKAGE_UI = new ArtifactDescriptor<GenerationContext, Object>(UI_PACKAGE, "", "", null, null);
 
-	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, BuildPropertiesCreator.FILENAME, "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
-	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
-	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
+	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, BuildPropertiesCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_BUILD_PROPERTIES); 
+	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_CLASSPATH);
+	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_PROJECT);
 	public static final ArtifactDescriptor<GenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters>(null, ManifestCreator.FILENAME, "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, Object> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, Object>(null, PluginXMLCreator.FILENAME, "", null, null);
 

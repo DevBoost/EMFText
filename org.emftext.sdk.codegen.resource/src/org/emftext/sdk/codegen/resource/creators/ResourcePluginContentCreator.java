@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
@@ -68,18 +69,19 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		String sourceGenFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
 		cpp.getSourceFolders().add(sourceFolderName);
-		// only the resource plug-in has a 'src-gen' folder
 		cpp.getSourceFolders().add(sourceGenFolderName);
-	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceArtifacts.DOT_CLASSPATH, cpp));
-	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceArtifacts.DOT_PROJECT, resourcePlugin));
+	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceArtifacts.DOT_CLASSPATH, cpp, doOverride(syntax, TextResourceArtifacts.DOT_CLASSPATH)));
+	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceArtifacts.DOT_PROJECT, resourcePlugin, doOverride(syntax, TextResourceArtifacts.DOT_PROJECT)));
 	    
-	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourcePlugin);
+		ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> buildProperties = TextResourceArtifacts.BUILD_PROPERTIES;
+
+		BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourcePlugin);
 	    bpp.getSourceFolders().add(sourceFolderName + "/");
 		bpp.getSourceFolders().add(sourceGenFolderName + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
 		bpp.getBinIncludes().add("plugin.xml");
-		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceArtifacts.BUILD_PROPERTIES, bpp));
+		creators.add(new BuildPropertiesCreator<GenerationContext>(buildProperties, bpp, doOverride(syntax, buildProperties)));
 		
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.SCANNERLESS_SCANNER));
@@ -251,6 +253,12 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    
 	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceArtifacts.TEXT_TOKEN));
 		return creators;
+	}
+
+	private boolean doOverride(
+			ConcreteSyntax syntax,
+			ArtifactDescriptor<GenerationContext, ?> artifact) {
+		return OptionManager.INSTANCE.getBooleanOptionValue(syntax, artifact.getOverrideOption());
 	}
 
 	private Collection<String> getRequiredBundles(GenerationContext context) {

@@ -79,8 +79,8 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
     	
     	ClassPathParameters cpp = new ClassPathParameters(context.getPluginDescriptor());
     	cpp.getSourceFolders().add(context.getParameters().getSrcFolder());
-		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, cpp));
-		creators.add(new DotProjectCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor()));
+		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, cpp, true));
+		creators.add(new DotProjectCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor(), true));
 		
 		return creators;
 	}

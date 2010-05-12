@@ -590,6 +590,9 @@
     <eLiterals name="ADDITIONAL_UI_DEPENDENCIES" value="190" literal="additionalUIDependencies"/>
     <eLiterals name="ADDITIONAL_UI_EXPORTS" value="191" literal="additionalUIExports"/>
     <eLiterals name="OVERRIDE_UI_MANIFEST" value="192" literal="overrideUIManifest"/>
+    <eLiterals name="OVERRIDE_UI_BUILD_PROPERTIES" value="193" literal="overrideUIBuildProperties"/>
+    <eLiterals name="OVERRIDE_UI_DOT_CLASSPATH" value="194" literal="overrideUIDotClasspath"/>
+    <eLiterals name="OVERRIDE_UI_DOT_PROJECT" value="195" literal="overrideUIDotProject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

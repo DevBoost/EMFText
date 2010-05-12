@@ -1892,7 +1892,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_MANIFEST(192, "OVERRIDE_UI_MANIFEST", "overrideUIManifest");
+	OVERRIDE_UI_MANIFEST(192, "OVERRIDE_UI_MANIFEST", "overrideUIManifest"), /**
+	 * The '<em><b>OVERRIDE UI BUILD PROPERTIES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_BUILD_PROPERTIES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_BUILD_PROPERTIES(193, "OVERRIDE_UI_BUILD_PROPERTIES", "overrideUIBuildProperties"), /**
+	 * The '<em><b>OVERRIDE UI DOT CLASSPATH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_DOT_CLASSPATH_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_DOT_CLASSPATH(194, "OVERRIDE_UI_DOT_CLASSPATH", "overrideUIDotClasspath"), /**
+	 * The '<em><b>OVERRIDE UI DOT PROJECT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_DOT_PROJECT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_DOT_PROJECT(195, "OVERRIDE_UI_DOT_PROJECT", "overrideUIDotProject");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4760,6 +4784,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_UI_MANIFEST_VALUE = 192;
 
 	/**
+	 * The '<em><b>OVERRIDE UI BUILD PROPERTIES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI BUILD PROPERTIES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_BUILD_PROPERTIES
+	 * @model literal="overrideUIBuildProperties"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_BUILD_PROPERTIES_VALUE = 193;
+
+	/**
+	 * The '<em><b>OVERRIDE UI DOT CLASSPATH</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI DOT CLASSPATH</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_DOT_CLASSPATH
+	 * @model literal="overrideUIDotClasspath"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_DOT_CLASSPATH_VALUE = 194;
+
+	/**
+	 * The '<em><b>OVERRIDE UI DOT PROJECT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI DOT PROJECT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_DOT_PROJECT
+	 * @model literal="overrideUIDotProject"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_DOT_PROJECT_VALUE = 195;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4958,6 +5027,9 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_UI_DEPENDENCIES,
 			ADDITIONAL_UI_EXPORTS,
 			OVERRIDE_UI_MANIFEST,
+			OVERRIDE_UI_BUILD_PROPERTIES,
+			OVERRIDE_UI_DOT_CLASSPATH,
+			OVERRIDE_UI_DOT_PROJECT,
 		};
 
 	/**
@@ -5198,6 +5270,9 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_UI_DEPENDENCIES_VALUE: return ADDITIONAL_UI_DEPENDENCIES;
 			case ADDITIONAL_UI_EXPORTS_VALUE: return ADDITIONAL_UI_EXPORTS;
 			case OVERRIDE_UI_MANIFEST_VALUE: return OVERRIDE_UI_MANIFEST;
+			case OVERRIDE_UI_BUILD_PROPERTIES_VALUE: return OVERRIDE_UI_BUILD_PROPERTIES;
+			case OVERRIDE_UI_DOT_CLASSPATH_VALUE: return OVERRIDE_UI_DOT_CLASSPATH;
+			case OVERRIDE_UI_DOT_PROJECT_VALUE: return OVERRIDE_UI_DOT_PROJECT;
 		}
 		return null;
 	}

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
@@ -43,6 +44,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	public List<IArtifactCreator<GenerationContext>> getCreators(
 			GenerationContext context) {
 		IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
+		final ConcreteSyntax syntax = context.getConcreteSyntax();
+		
 		List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
 
 	    creators.add(new FoldersCreator<GenerationContext>(new File[] {
@@ -56,12 +59,14 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		String sourceGenFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
 		cpp.getSourceFolders().add(sourceFolderName);
-		// only the resource plug-in has a 'src-gen' folder
 		cpp.getSourceFolders().add(sourceGenFolderName);
-	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceUIArtifacts.DOT_CLASSPATH, cpp));
-	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceUIArtifacts.DOT_PROJECT, resourceUIPlugin));
+	    creators.add(new DotClasspathCreator<GenerationContext>(TextResourceUIArtifacts.DOT_CLASSPATH, cpp, doOverride(syntax, TextResourceUIArtifacts.DOT_CLASSPATH)));
+	    
+	    creators.add(new DotProjectCreator<GenerationContext>(TextResourceUIArtifacts.DOT_PROJECT, resourceUIPlugin, doOverride(syntax, TextResourceUIArtifacts.DOT_PROJECT)));
 
-	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourceUIPlugin);
+		ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> buildProperties = TextResourceUIArtifacts.BUILD_PROPERTIES;
+
+		BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourceUIPlugin);
 	    bpp.getSourceFolders().add(sourceFolderName + "/");
 		bpp.getSourceFolders().add(sourceGenFolderName + "/");
 		bpp.getBinIncludes().add("META-INF/");
@@ -69,9 +74,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		bpp.getBinIncludes().add("icons/");
 		bpp.getBinIncludes().add("css/");
 		bpp.getBinIncludes().add("plugin.xml");
-		creators.add(new BuildPropertiesCreator<GenerationContext>(TextResourceUIArtifacts.BUILD_PROPERTIES, bpp));
+		creators.add(new BuildPropertiesCreator<GenerationContext>(buildProperties, bpp, doOverride(syntax, buildProperties)));
 
-		ConcreteSyntax syntax = context.getConcreteSyntax();
 	    ManifestParameters manifestParameters = new ManifestParameters();
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
@@ -133,6 +137,12 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new SyntaxArtifactCreator<Object>(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR));
 	    creators.add(new PluginXMLCreator());
 	    return creators;
+	}
+
+	private boolean doOverride(
+			final ConcreteSyntax syntax,
+			ArtifactDescriptor<GenerationContext, ?> artifact) {
+		return OptionManager.INSTANCE.getBooleanOptionValue(syntax, artifact.getOverrideOption());
 	}
 
 	private Collection<String> getRequiredBundles(GenerationContext context) {

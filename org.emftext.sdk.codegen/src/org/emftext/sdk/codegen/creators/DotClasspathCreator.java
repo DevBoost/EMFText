@@ -31,8 +31,11 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 
 	public static final String FILENAME = ".classpath";
 
-	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters) {
+	private final boolean override;
+
+	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters, boolean override) {
 		super(artifact, parameters);
+		this.override = override;
 	}
 
 	@Override
@@ -52,15 +55,6 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 
 	@Override
 	public boolean doOverride(ContextType context) {
-		return true;
-		// TODO mseifert: disable this creator in the content creators if 
-		// override option is set to false
-		/*
-		if (parameters.getPlugin() == TextResourcePlugins.RESOURCE_PLUGIN) {
-			return OptionTypes.OVERRIDE_DOT_CLASSPATH;
-		} else {
-			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
-		}
-		*/
+		return override;
 	}
 }

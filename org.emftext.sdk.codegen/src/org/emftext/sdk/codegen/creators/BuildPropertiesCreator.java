@@ -31,9 +31,15 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters> {
 
 	public static final String FILENAME = "build.properties";
+	
+	private final boolean override;
 
-	public BuildPropertiesCreator(ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, BuildPropertiesParameters parameters) {
+	public BuildPropertiesCreator(
+			ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, 
+			BuildPropertiesParameters parameters,
+			boolean override) {
 		super(artifact, parameters);
+		this.override = override;
 	}
 
 	@Override
@@ -53,15 +59,6 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 	
 	@Override
 	public boolean doOverride(ContextType context) {
-		return true;
-		// TODO mseifert: disable this creator in the content creators if 
-		// override option is set to false
-		/*
-		if (parameters.getProject() == TextResourcePlugins.RESOURCE_PLUGIN) {
-			return OptionTypes.OVERRIDE_BUILD_PROPERTIES;
-		} else {
-			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
-		}
-		*/
+		return override;
 	}
 }

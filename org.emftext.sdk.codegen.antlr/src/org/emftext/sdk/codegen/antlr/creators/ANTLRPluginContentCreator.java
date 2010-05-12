@@ -36,6 +36,7 @@ import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -138,7 +139,10 @@ public class ANTLRPluginContentCreator {
 	public void generate(ANTLRGenerationContext context, IProgressMonitor monitor) throws IOException {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
 		
-	    List<IArtifactCreator<ANTLRGenerationContext>> creators = new ArrayList<IArtifactCreator<ANTLRGenerationContext>>();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		boolean override = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.OVERRIDE_ANTLR_PLUGIN);
+
+		List<IArtifactCreator<ANTLRGenerationContext>> creators = new ArrayList<IArtifactCreator<ANTLRGenerationContext>>();
 	    File sourceFolder = 
 	    	new File(context.getProjectFolder(ANTLRPluginArtifacts.ANTLR_PLUGIN).getAbsolutePath() + File.separator + SRC_FOLDER);
 		
@@ -153,15 +157,15 @@ public class ANTLRPluginContentCreator {
 	    
 	    ClassPathParameters cpp = new ClassPathParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
 	    cpp.getSourceFolders().add(SRC_FOLDER);
-		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, cpp));
+		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, cpp, override));
 		
-	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, ANTLRPluginArtifacts.ANTLR_PLUGIN));
+	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, ANTLRPluginArtifacts.ANTLR_PLUGIN, override));
 	    
-	    BuildPropertiesParameters bpp = new BuildPropertiesParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+		BuildPropertiesParameters bpp = new BuildPropertiesParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
 	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
-		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.BUILD_PROPERTIES, bpp));
+		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.BUILD_PROPERTIES, bpp, override));
 	    
 	    ManifestParameters manifestParameters = new ManifestParameters();
 		// export the generated packages
