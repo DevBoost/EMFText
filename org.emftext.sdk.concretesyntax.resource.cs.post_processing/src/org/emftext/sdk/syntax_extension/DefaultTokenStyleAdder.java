@@ -30,7 +30,6 @@ public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 	 */
 	public static final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
 	public static final Pattern KEYWORD_PATTERN = Pattern.compile(KEYWORD_REGEX);
-	// TODO maybe this can be formulated in a more generic way?
 	private static final String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
 	private static final String ML_COMMENT = "'/*'.*'*/'";
 	
