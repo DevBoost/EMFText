@@ -17,9 +17,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
+
+	private final NameUtil nameUtil = new NameUtil();
 
 	public BuilderAdapterGenerator() {
 		super();
@@ -43,7 +46,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public class " + getResourceClassName() + " extends " + INCREMENTAL_PROJECT_BUILDER + " {");
 		sc.addLineBreak();
 		sc.addJavadoc("the ID of the default, generated builder");
-		sc.add("public final static String BUILDER_ID = \"" + getContext().getBuilderID(syntax) + "\";");
+		sc.add("public final static String BUILDER_ID = \"" + nameUtil.getBuilderID(syntax) + "\";");
 		sc.addLineBreak();
 		sc.add("private " + iBuilderClassName + " builder = new " + builderClassName + "();");
 		sc.addLineBreak();

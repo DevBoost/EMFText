@@ -37,9 +37,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -51,10 +51,8 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class GeneratorUtil {
 	
-	private static final String RESOURCE_PLUGIN_SUFFIX = ".resource.";
-	private static final String RESOURCE_UI_PLUGIN_SUFFIX = "." + Constants.UI_PACKAGE;
-	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private NameUtil nameUtil = new NameUtil();
 
 	public String createGetFeatureCall(GenClass genClass, GenFeature genFeature) {
 		return "getEStructuralFeature(" + getFeatureConstant(genClass, genFeature) + ")";
@@ -237,7 +235,7 @@ public class GeneratorUtil {
 	public File getResolverFile(ConcreteSyntax syntax, GenFeature proxyReference, String projectFolder) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
-		File resolverFile = new File(csUtil.getSourceFolder(syntax, doOverride, projectFolder) + File.separator + getResolverPackagePath(syntax) + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
+		File resolverFile = new File(csUtil.getSourceFolder(syntax, doOverride, projectFolder) + File.separator + getResolverPackagePath(syntax) + File.separator + nameUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
 		return resolverFile;
 	}
 
@@ -246,47 +244,7 @@ public class GeneratorUtil {
 	}
 
 	public IPath getResolverPackagePath(ConcreteSyntax syntax) {
-		return new Path(getResolverPackageName(syntax).replaceAll("\\.","/"));
-	}
-
-	/**
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to depending on the given syntax.
-	 */
-	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, Constants.ANALYSIS_PACKAGE);
-		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
-	}
-
-	public String getPackageName(ArtifactDescriptor<?, ?> artifact, ConcreteSyntax syntax) {
-		return getPackageName(syntax, artifact);
-	}
-
-	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<?, ?> artifact) {
-		return getPackageName(syntax, artifact.getPackage());
-	}
-	
-	public IPluginDescriptor getResourcePluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
-		
-		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
-
-			public String getName() {
-				return pluginName;
-			}
-		};
-		return resourcePlugin;
-	}
-
-	public IPluginDescriptor getResourceUIPluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, RESOURCE_PLUGIN_SUFFIX, RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
-		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
-
-			public String getName() {
-				return pluginName;
-			}
-		};
-		return resourcePlugin;
+		return new Path(nameUtil.getResolverPackageName(syntax).replaceAll("\\.","/"));
 	}
 
 	public IPluginDescriptor getAntlrPluginDescriptor(ConcreteSyntax syntax) {
@@ -300,57 +258,6 @@ public class GeneratorUtil {
 		return antlrPlugin;
 	}
 	
-	public String getPackageName(ConcreteSyntax syntax, String packageSuffix) {
-		/*
-		if (plugin == null) {
-			// this is the case for artifacts that are generated for
-			// multiple plug-ins
-			return null;
-		}
-		*/
-		String basePackage = getBasePackage(syntax, RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
-		if (basePackage == null || "".equals(basePackage)) {
-			return packageSuffix;
-		} else {
-			if ("".equals(packageSuffix)) {
-				return basePackage;
-			} else {
-				return basePackage + "." + packageSuffix;
-			}
-		}
-	}
-
-	public String getBasePackage(ConcreteSyntax syntax, String suffix, String prefix, OptionTypes basePackageOption) {
-		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, basePackageOption);
-		if (basePackage != null) {
-			// use package name from option
-			return basePackage;
-		} else {
-			String packageName = "";
-			// use default package name
-			GenPackage concreteSyntaxPackage = syntax.getPackage();
-			boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
-			if (hasBasePackage) {
-				packageName = concreteSyntaxPackage.getBasePackage() + ".";
-			}
-			packageName += concreteSyntaxPackage.getEcorePackage().getName();
-			packageName += suffix + syntax.getName() + prefix;
-			return packageName;
-		}
-	}
-
-
-	public String getPluginName(ConcreteSyntax syntax, OptionTypes pluginIDOption, String suffix, String prefix, OptionTypes basePackageOption) {
-		String pluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, pluginIDOption);
-		if (pluginID != null) {
-			// use package plug-in from option
-			return pluginID;
-		} else {
-			// use default plug-in name
-			return getBasePackage(syntax, suffix, prefix, basePackageOption);
-		}
-	}
-
 	public void addImports(GenerationContext context, Collection<String> requiredBundles, ConcreteSyntax syntax) {
 		// first add the syntax itself
 		String syntaxPluginID = context.getResourcePlugin().getName();

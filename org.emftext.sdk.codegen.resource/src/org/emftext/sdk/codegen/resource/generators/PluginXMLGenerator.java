@@ -25,6 +25,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -34,6 +35,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * TODO mseifert: make this generator reusable
  */
 public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
+
+	private final NameUtil nameUtil = new NameUtil();
 
 	private GenerationContext context;
 	private String pluginID;
@@ -48,7 +51,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		this.context = context;
 		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		pluginID = resourcePlugin.getName();
-		builderID = context.getBuilderID(context.getConcreteSyntax());
+		builderID = nameUtil.getBuilderID(context.getConcreteSyntax());
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -88,7 +91,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
-		sc.add("<extension id=\"" + context.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
+		sc.add("<extension id=\"" + nameUtil.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
 		sc.add("<runtime>");
 		sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
 		sc.add("</runtime>");

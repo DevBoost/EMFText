@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -31,7 +30,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.emftext.sdk.Constants;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -51,7 +49,6 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -177,58 +174,6 @@ public class ConcreteSyntaxUtil {
 	}
 
 	/**
-	 * Returns a collection that contains the names of all resolver
-	 * classes (both token and reference resolvers) that are needed.
-	 * Each resolver that is not part of an imported plug-in should 
-	 * be added to this list. 
-	 * 
-	 * @return the collection of already generated resolver classes
-	 */
-	public Collection<String> getResolverFileNames(ConcreteSyntax syntax) {
-		Collection<String> resolverFileNames = getReferenceResolverFileNames(syntax);
-		resolverFileNames.addAll(getTokenResolverFileNames(syntax));
-		return resolverFileNames;
-	}
-
-	/**
-	 * Returns a list that contains the names of all reference resolver classes 
-	 * that are needed. Some of them might be generated during the generation 
-	 * process, others may already exist. This list does not contain resolver 
-	 * classes that are contained in imported syntaxes and that are reused.
-	 */
-	public Collection<String> getReferenceResolverFileNames(ConcreteSyntax syntax) {
-		Collection<GenFeature> features = getNonContainmentFeaturesNeedingResolver(syntax);
-		Collection<String> resolverFileNames = new LinkedHashSet<String>(features.size());
-		for (GenFeature feature : features) {
-			resolverFileNames.add(getReferenceResolverClassName(feature) + Constants.JAVA_FILE_EXTENSION);
-		}
-		return resolverFileNames;
-	}
-
-	/**
-	 * Returns a collection of all token resolver classes that need to be generated
-	 * for a given syntax.
-	 * 
-	 * @param syntax the syntax containing the token definition
-	 * @return a collection of token resolver classes
-	 */
-	public Collection<String> getTokenResolverFileNames(ConcreteSyntax syntax) {
-		Collection<String> resolverFileNames = new LinkedHashSet<String>();
-		
-		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			if (!tokenDefinition.isUsed()) {
-				continue;
-			}
-			// do not generate a resolver for imported tokens
-			if (isImportedToken(syntax, tokenDefinition)) {
-				continue;
-			}
-			resolverFileNames.add(getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
-		}
-		return resolverFileNames;
-	}
-
-	/**
 	 * Returns all non-containment references that are used in the given syntax and which
 	 * need a reference resolver class. This excluded all anonymous features (denoted by
 	 * an underscore as name in the syntax rule).
@@ -256,68 +201,6 @@ public class ConcreteSyntaxUtil {
 			}
 		}
 		return features;
-	}
-
-	/**
-	 * Returns the unqualified name of the reference resolver class for the given
-	 * non-containment reference.
-	 * 
-	 * @param proxyReference
-	 * @return
-	 */
-	// TODO mseifert: move this to NameUtil.java
-	public String getReferenceResolverClassName(GenFeature proxyReference) {
-		return proxyReference.getGenClass().getName() + StringUtil.capitalize(proxyReference.getName()) + Constants.CLASS_SUFFIX_REFERENCE_RESOLVER;
-	}
-
-	/**
-	 * Returns the unqualified name of the token resolver class for the given
-	 * token definition.
-	 * 
-	 * @param proxyReference
-	 * @return
-	 */
-	// TODO mseifert: move this to NameUtil.java
-	public String getTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
-
-		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(syntax, tokenDefinition));
-		boolean isCollect = tokenDefinition.getAttributeName() != null;
-		if (isCollect) {
-			String attributeName = tokenDefinition.getAttributeName();
-			return syntaxName +  "COLLECT_" + attributeName + Constants.CLASS_SUFFIX_TOKEN_RESOLVER;
-		} else {
-			return syntaxName +  tokenDefinition.getName() + Constants.CLASS_SUFFIX_TOKEN_RESOLVER;
-		}
-	}
-
-	/**
-	 * Converts the first letter of the syntax name to upper case.
-	 * Composite syntax names (containing dot characters) are replaced
-	 * by a camel-case version (e.g., <code>text.ecore</code> is
-	 * converted to <code>TextEcore</code>.
-	 * 
-	 * @param syntax the syntax to obtain the name from
-	 * @return a capitalized camel-case version of the syntax name
-	 */
-	// TODO mseifert: move this to NameUtil.java
-	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
-		String csName = "";
-		String[] csNameParts = syntax.getName().split("\\.");
-		for(String part : csNameParts) {
-			csName = csName + StringUtil.capitalize(part);
-		}
-		return csName;
-	}
-
-	/**
-	 * Return the name of the default reference resolver class.
-	 * 
-	 * @param syntax
-	 * @return
-	 */
-	// TODO mseifert: move this to NameUtil.java
-	public String getDefaultResolverDelegateName(ConcreteSyntax syntax) {
-		return getCapitalizedConcreteSyntaxName(syntax) + Constants.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
 	}
 
 	/**
@@ -435,23 +318,5 @@ public class ConcreteSyntaxUtil {
 
 	public OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
-	}
-
-	// TODO move this to NameUtil.java
-	public String getFieldName(String prefix, EObject object) {
-		List<Integer> path = EObjectUtil.getPath(object);
-		return prefix + StringUtil.explode(path, "_", new ToStringConverter<Integer>() {
-
-			public String toString(Integer sourceObject) {
-				return sourceObject.toString();
-			}
-		});
-	}
-
-	// TODO move this to NameUtil.java
-	public String getFieldName(SyntaxElement syntaxElement) {
-		ConcreteSyntax syntax = syntaxElement.getContainingRule().getSyntax();
-		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
-		return getFieldName(escapedSyntaxName + "_", syntaxElement);
 	}
 }

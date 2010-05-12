@@ -29,23 +29,23 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.finders.GenClassFinder;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
 public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
+	private final NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenFeature proxyReference;
 	private String defaultResolverDelegateName;
 
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassCache genClassCache;
 
 	public ReferenceResolverGenerator() {
@@ -69,7 +69,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 		sc.addLineBreak();
 
 		sc.add("public class "
-				+ csUtil.getReferenceResolverClassName(proxyReference)
+				+ nameUtil.getReferenceResolverClassName(proxyReference)
 				+ " implements "
 				+ iReferenceResolverClassName
 				+ "<"

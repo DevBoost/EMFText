@@ -35,6 +35,7 @@ import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -47,6 +48,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> {
 
+	private final NameUtil nameUtil = new NameUtil();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil genUtil = new GeneratorUtil();
 	
@@ -136,7 +138,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_MOPP));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_UTIL));
 		// do not export the analysis package if the are no resolvers
-		if (csUtil.getResolverFileNames(syntax).size() > 0) {
+		if (nameUtil.getResolverFileNames(syntax).size() > 0) {
 			exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANALYSIS));
 		}
 		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_EXPORTS));

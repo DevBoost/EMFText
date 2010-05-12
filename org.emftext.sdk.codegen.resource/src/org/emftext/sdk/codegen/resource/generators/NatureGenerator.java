@@ -11,9 +11,12 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class NatureGenerator extends JavaBaseGenerator<Object> {
+
+	private final NameUtil nameUtil = new NameUtil();
 
 	public NatureGenerator() {
 		super();
@@ -41,7 +44,7 @@ public class NatureGenerator extends JavaBaseGenerator<Object> {
 
 	private void addFields(JavaComposite sc) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		sc.add("public static final String NATURE_ID = \"" + getContext().getNatureID(syntax) + "\";");
+		sc.add("public static final String NATURE_ID = \"" + nameUtil.getNatureID(syntax) + "\";");
 		sc.addLineBreak();
 		sc.add("private " + I_PROJECT + " project;");
 		sc.addLineBreak();

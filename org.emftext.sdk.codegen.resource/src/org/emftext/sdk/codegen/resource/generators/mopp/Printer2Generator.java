@@ -28,6 +28,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -46,6 +47,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final static NameUtil nameUtil = new NameUtil();
 	
 	private ConcreteSyntax syntax;
 	
@@ -204,7 +206,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 				ruleQueue.add(rule);
 			} else {
 				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
-				sc.add("printInternal(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ");");
+				sc.add("printInternal(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ");");
 				sc.add("return;");
 				sc.add("}");
 			}

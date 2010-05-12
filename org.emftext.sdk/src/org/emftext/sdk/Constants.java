@@ -37,4 +37,7 @@ public interface Constants {
 	public String ANTLR_RUNTIME_DEBUG_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".debug";
 	public String ANTLR_RUNTIME_MISC_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".misc";
 	public String ANTLR_RUNTIME_TREE_PACKAGE = ANTLR_RUNTIME_PACKAGE + ".tree";
+
+	public String RESOURCE_PLUGIN_SUFFIX = ".resource.";
+	public String RESOURCE_UI_PLUGIN_SUFFIX = "." + Constants.UI_PACKAGE;
 }

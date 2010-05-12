@@ -22,11 +22,11 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * An analyser that checks whether the analysis package in generated
@@ -36,9 +36,9 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class UnusedResolverAnalyser extends AbstractPostProcessor {
 	
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil genUtil = new GeneratorUtil();
-
+	private NameUtil nameUtil = new NameUtil();
+	
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		// this analyser does only work when the platform is running, because
@@ -47,10 +47,10 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		if (!Platform.isRunning()) {
 			return;
 		}
-		Collection<String> resolverFileNames = csUtil.getResolverFileNames(syntax);
+		Collection<String> resolverFileNames = nameUtil.getResolverFileNames(syntax);
 		String workspaceRootFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
 		
-		String pluginProjectFolder = workspaceRootFolder + File.separator + genUtil.getResourcePluginDescriptor(syntax).getName();
+		String pluginProjectFolder = workspaceRootFolder + File.separator + nameUtil.getResourcePluginDescriptor(syntax).getName();
 		
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
@@ -62,7 +62,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		for (File member : contents) {
 			if (!member.isDirectory()) {
 				String fileName = member.getName();
-				boolean isDefaultResolver = (csUtil.getDefaultResolverDelegateName(syntax) + Constants.JAVA_FILE_EXTENSION).equals(fileName);
+				boolean isDefaultResolver = (nameUtil.getDefaultResolverDelegateName(syntax) + Constants.JAVA_FILE_EXTENSION).equals(fileName);
 				if (!resolverFileNames.contains(fileName) &&!isDefaultResolver) {
 					// issue warning about unused resolver
 					final CsResource textResource = (CsResource) syntax.eResource();

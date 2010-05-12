@@ -15,13 +15,14 @@ import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 
-	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private NameUtil nameUtil = new NameUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	public FollowSetProviderGenerator() {
@@ -67,11 +68,11 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 				}
 
 				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedStructuralFeatureClassName + 
-						"(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(placeholder) + ");");
+						"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(placeholder) + ");");
 			} else if (expectedElement instanceof CsString) {
 				CsString expectedKeyword = (CsString) expectedElement;
 				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedCsStringClassName +  
-						"(" + grammarInformationProviderClassName + "." + csUtil.getFieldName(expectedKeyword) + ");");
+						"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(expectedKeyword) + ");");
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}

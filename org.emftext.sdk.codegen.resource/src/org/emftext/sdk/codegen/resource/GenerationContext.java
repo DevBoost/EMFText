@@ -32,6 +32,7 @@ import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -61,6 +62,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	private final GeneratorUtil genUtil = new GeneratorUtil();
+	private final NameUtil nameUtil = new NameUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String licenceText;
@@ -120,7 +122,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	}
 	
 	public String getPackageName(ArtifactDescriptor<?, ?> artifact) {
-		return genUtil.getPackageName(artifact, concreteSyntax);
+		return nameUtil.getPackageName(concreteSyntax, artifact);
 	}
 
 	/**
@@ -133,7 +135,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 		if (inImportedSyntax) {
 			syntax = csUtil.getConcreteSyntax(syntax, genFeature);
 		}
-		return genUtil.getResolverPackageName(syntax);
+		return nameUtil.getResolverPackageName(syntax);
 	}
 
 	/**
@@ -141,11 +143,11 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	 * must go to.
 	 */
 	public String getResolverPackageName() {
-		return genUtil.getResolverPackageName(concreteSyntax);
+		return nameUtil.getResolverPackageName(concreteSyntax);
 	}
 	
 	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
-		return csUtil.getCapitalizedConcreteSyntaxName(syntax);
+		return nameUtil.getCapitalizedConcreteSyntaxName(syntax);
 	}
 	
 	public String getCapitalizedConcreteSyntaxName() {
@@ -176,7 +178,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	 * @return the fully qualified reference resolver class name
 	 */
 	public String getQualifiedReferenceResolverClassName(GenFeature proxyReference, boolean inImportedSyntax) {
-		return getResolverPackageName(proxyReference, inImportedSyntax) + "." + csUtil.getReferenceResolverClassName(proxyReference);
+		return getResolverPackageName(proxyReference, inImportedSyntax) + "." + nameUtil.getReferenceResolverClassName(proxyReference);
 	}
 
 	private String getResolverPackageName(GenFeature proxyReference, boolean inImportedSyntax) {
@@ -185,7 +187,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
 		String prefix = "getReferenceResolverSwitch() == null ? null : ";
-		return prefix + "getReferenceResolverSwitch().get" + csUtil.getReferenceResolverClassName(genFeature) + "()";
+		return prefix + "getReferenceResolverSwitch().get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
 	}
 
 	// TODO this does not belong here
@@ -231,7 +233,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	public File getTokenResolverFile(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_TOKEN_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
-		return new File(getSourceFolder(genUtil.getResourcePluginDescriptor(syntax), doOverride).getAbsolutePath() + File.separator + genUtil.getResolverPackagePath(syntax) + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
+		return new File(getSourceFolder(nameUtil.getResourcePluginDescriptor(syntax), doOverride).getAbsolutePath() + File.separator + genUtil.getResolverPackagePath(syntax) + File.separator + nameUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 	}
 
 	public File getANTLRGrammarFile(IPluginDescriptor plugin) {
@@ -242,7 +244,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	}
 
 	public String getDefaultResolverDelegateName() {
-		return csUtil.getDefaultResolverDelegateName(getConcreteSyntax());
+		return nameUtil.getDefaultResolverDelegateName(getConcreteSyntax());
 	}
 	
 	public String getQualifiedDefaultResolverDelegateName() {
@@ -262,7 +264,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	}
 
 	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
-		return genUtil.getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
+		return nameUtil.getPackageName(syntax, artifact) + "." + getClassName(artifact, syntax);
 	}
 
 	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
@@ -275,18 +277,6 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 
 	public void setLicenceText(String text) {
 		this.licenceText = text;
-	}
-
-	// TODO mseifert: this does not belong here
-	public String getBuilderID(ConcreteSyntax syntax) {
-		String pluginID = genUtil.getResourcePluginDescriptor(syntax).getName();
-		return pluginID + ".builder";
-	}
-
-	// TODO mseifert: this does not belong here
-	public String getNatureID(ConcreteSyntax syntax) {
-		String pluginID = genUtil.getResourcePluginDescriptor(syntax).getName();
-		return pluginID + ".nature";
 	}
 
 	public String getID(EObject expectedElement) {

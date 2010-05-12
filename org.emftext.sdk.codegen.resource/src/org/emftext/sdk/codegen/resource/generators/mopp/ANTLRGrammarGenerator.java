@@ -94,6 +94,7 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -167,6 +168,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 	private GenClassCache genClassCache;
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private NameUtil nameUtil = new NameUtil();
 
 	private boolean forceEOFToken;
 
@@ -1153,7 +1155,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 					+ genClassUtil.getCreateObjectCall(recursiveType,
 							dummyEObjectClassName) + ";");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null);");
 			sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new "
 					+ ARRAY_LIST + "<" + E_OBJECT + ">();");
 			sc.add("}");
@@ -1267,7 +1269,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 							dummyEObjectClassName) + "()" + ", \""
 					+ recurseName + "\");");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null);");
 			sc.add("}");
 			sc.add(":");
 
@@ -1755,7 +1757,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		sc.add("incompleteObjects.push(element);");
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(csString) + ", null);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
@@ -1960,7 +1962,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + csUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
 		if (terminal instanceof Containment) {
 			sc.add("copyLocalizationInfos(" + ident + ", element); ");
 		} else {

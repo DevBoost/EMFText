@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
 import org.emftext.sdk.codegen.resource.creators.ResourcePluginContentCreator;
 import org.emftext.sdk.codegen.resource.ui.creators.ResourceUIPluginContentCreator;
 import org.emftext.sdk.codegen.util.GenModelUtil;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -77,6 +78,7 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 
 	private GeneratorUtil genUtil = new GeneratorUtil();
+	private final NameUtil nameUtil = new NameUtil();
 	
 	public abstract void createProject(IPluginDescriptor plugin, GenerationContext context, SubMonitor progress) throws Exception;
 
@@ -86,9 +88,9 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 			IProgressMonitor monitor) throws Exception {
 
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax(); 
-		IPluginDescriptor resourcePlugin = genUtil.getResourcePluginDescriptor(concreteSyntax);
+		IPluginDescriptor resourcePlugin = nameUtil.getResourcePluginDescriptor(concreteSyntax);
 		context.setResourcePlugin(resourcePlugin);
-		IPluginDescriptor resourceUIPlugin = genUtil.getResourceUIPluginDescriptor(concreteSyntax);
+		IPluginDescriptor resourceUIPlugin = nameUtil.getResourceUIPluginDescriptor(concreteSyntax);
 		context.setResourceUIPlugin(resourceUIPlugin);
 		IPluginDescriptor antlrPlugin = genUtil.getAntlrPluginDescriptor(concreteSyntax);
 		context.setAntlrPlugin(antlrPlugin);

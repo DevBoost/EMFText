@@ -27,8 +27,8 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.NameUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
@@ -67,7 +67,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 		sc.addLineBreak();
 
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-		sc.add("public class " + csUtil.getTokenResolverClassName(syntax, definition) + " implements " + iTokenResolverClassName + " {");
+		sc.add("public class " + nameUtil.getTokenResolverClassName(syntax, definition) + " implements " + iTokenResolverClassName + " {");
 		sc.addLineBreak();
 		
 		// do not generate a resolver for imported tokens
