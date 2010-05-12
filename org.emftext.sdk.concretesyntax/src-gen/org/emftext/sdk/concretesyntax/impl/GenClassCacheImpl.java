@@ -77,7 +77,6 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	public EMap<GenClass, String> get_qualifiedInterfaceNameCache() {
 		if (_qualifiedInterfaceNameCache == null) {
 			_qualifiedInterfaceNameCache = new EcoreEMap<GenClass,String>(ConcretesyntaxPackage.Literals.GEN_CLASS_CACHE_ENTRY, GenClassCacheEntryImpl.class, this, ConcretesyntaxPackage.GEN_CLASS_CACHE__QUALIFIED_INTERFACE_NAME_CACHE);
@@ -173,7 +172,6 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
