@@ -50,4 +50,22 @@ public interface Definition extends SyntaxElement {
 	 * @generated
 	 */
 	boolean hasNoOptionalPart();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Returns a string representation of the cardinality of the
+	 * ' or the
+	 *  empty string.
+	 *  
+	 *  @param definition
+	 *  @return
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.Cardinality cardinality = null ; \r\nif ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { \r\n\tcardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; \r\n} \r\nif ( cardinality == null ) { \r\n\treturn \"\" ; \r\n} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.PLUS ) { \r\n\treturn \"+\" ; \r\n} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK ) { \r\n\treturn \"?\" ; \r\n} else { \r\n\treturn \"*\" ; \r\n} \r\n'"
+	 * @generated
+	 */
+	String computeCardinalityString();
 } // Definition

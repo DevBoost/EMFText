@@ -9,4 +9,28 @@ eclass Definition {
 	hasNoOptionalPart() {
 		return false;
 	}
+
+	/**
+	 * Returns a string representation of the cardinality of the
+	 * given definition. This can be one of '+', '?', '*' or the
+	 * empty string.
+	 * 
+	 * @param definition
+	 * @return
+	 */
+	computeCardinalityString() {
+		Cardinality cardinality = null;
+		if (this instanceof CardinalityDefinition) {
+			cardinality = ((CardinalityDefinition) this).getCardinality();
+		}
+		if (cardinality == null) {
+			return "";
+		} else if (cardinality instanceof PLUS) {
+			return "+";
+		} else if (cardinality instanceof QUESTIONMARK) {
+			return "?";
+		} else {
+			return "*";
+		}
+	}
 }

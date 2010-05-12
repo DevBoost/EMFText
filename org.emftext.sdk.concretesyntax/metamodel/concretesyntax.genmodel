@@ -273,9 +273,6 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/superClass"/>
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/excludeOperatorRules"/>
       </genOperations>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getRulesByType">
-        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getRulesByType/genClass"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
@@ -311,6 +308,7 @@
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//Definition">
       <genOperations ecoreOperation="concretesyntax.ecore#//Definition/hasMinimalCardinalityOneOrHigher"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//Definition/hasNoOptionalPart"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Definition/computeCardinalityString"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//CardinalityDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CardinalityDefinition/cardinality"/>
@@ -392,6 +390,7 @@
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Containment">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Containment/types"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//Containment/getAllowedSubTypes"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//Placeholder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Placeholder/token"/>

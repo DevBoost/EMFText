@@ -69,4 +69,26 @@ public abstract class DefinitionImpl extends SyntaxElementImpl implements Defini
 		
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String computeCardinalityString() {
+		org.emftext.sdk.concretesyntax.Cardinality cardinality = null ; 
+		if ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { 
+			cardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; 
+		} 
+		if ( cardinality == null ) { 
+			return "" ; 
+		} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.PLUS ) { 
+			return "+" ; 
+		} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK ) { 
+			return "?" ; 
+		} else { 
+			return "*" ; 
+		} 
+		
+	}
+
 } //DefinitionImpl

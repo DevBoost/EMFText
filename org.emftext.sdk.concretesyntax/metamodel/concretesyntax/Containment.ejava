@@ -1,0 +1,32 @@
+epackage concretesyntax;
+
+import genmodel.GenClass;
+import genmodel.GenFeature;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+eclass Containment {
+
+	/**
+	 * Returns all types that are allowed for the given containment.
+	 * If type restrictions are specified in the syntax rule, this
+	 * list contains the allowed types. If no restriction are present
+	 * the type of the feature references by the containment is 
+	 * returned.
+	 * 
+	 * @param containment
+	 * @return
+	 */
+	getAllowedSubTypes() {
+		EList<GenClass> types = new BasicEList<GenClass>();
+		// is there an explicit type defined?
+		if (!getTypes().isEmpty()) {
+			types = getTypes();
+		} else {
+			types = new BasicEList<GenClass>();
+			types.add(getFeature().getTypeGenClass());
+		}
+		return types;
+	}
+}

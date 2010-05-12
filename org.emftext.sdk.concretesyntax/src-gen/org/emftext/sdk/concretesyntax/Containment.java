@@ -52,4 +52,12 @@ public interface Containment extends Terminal {
 	 */
 	EList<GenClass> getTypes();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<GenClass> getAllowedSubTypes();
+
 } // Containment
