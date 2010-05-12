@@ -58,8 +58,8 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof java.util.Map.Entry) {
-			result = interprete_java_util_Map_Entry((java.util.Map.Entry) object, context);
+		if (object instanceof java.util.Map.Entry<?,?>) {
+			result = interprete_java_util_Map_Entry((java.util.Map.Entry<?,?>) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -497,7 +497,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
-	public ResultType interprete_java_util_Map_Entry(java.util.Map.Entry object, ContextType context) {
+	public ResultType interprete_java_util_Map_Entry(java.util.Map.Entry<?,?> object, ContextType context) {
 		return null;
 	}
 	

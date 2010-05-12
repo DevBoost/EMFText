@@ -38,10 +38,10 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		boolean accept(int startOffset, int endOffset);
 	}
 	
-	protected org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> columnMap = new org.eclipse.emf.common.util.BasicEMap<org.eclipse.emf.ecore.EObject, Integer>();
-	protected org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> lineMap = new org.eclipse.emf.common.util.BasicEMap<org.eclipse.emf.ecore.EObject, Integer>();
-	protected org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> charStartMap = new org.eclipse.emf.common.util.BasicEMap<org.eclipse.emf.ecore.EObject, Integer>();
-	protected org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> charEndMap = new org.eclipse.emf.common.util.BasicEMap<org.eclipse.emf.ecore.EObject, Integer>();
+	protected java.util.Map<org.eclipse.emf.ecore.EObject, Integer> columnMap = new java.util.IdentityHashMap<org.eclipse.emf.ecore.EObject, Integer>();
+	protected java.util.Map<org.eclipse.emf.ecore.EObject, Integer> lineMap = new java.util.IdentityHashMap<org.eclipse.emf.ecore.EObject, Integer>();
+	protected java.util.Map<org.eclipse.emf.ecore.EObject, Integer> charStartMap = new java.util.IdentityHashMap<org.eclipse.emf.ecore.EObject, Integer>();
+	protected java.util.Map<org.eclipse.emf.ecore.EObject, Integer> charEndMap = new java.util.IdentityHashMap<org.eclipse.emf.ecore.EObject, Integer>();
 	
 	public void setLine(org.eclipse.emf.ecore.EObject element, int line) {
 		setMapValueToMin(lineMap, element, line);
@@ -75,13 +75,13 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		return getMapValue(charEndMap, element);
 	}
 	
-	private int getMapValue(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element) {
+	private int getMapValue(java.util.Map<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element) {
 		if (!map.containsKey(element)) return -1;
 		java.lang.Integer value = map.get(element);
 		return value == null ? -1 : value.intValue();
 	}
 	
-	private void setMapValueToMin(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
+	private void setMapValueToMin(java.util.Map<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
 		// We need to synchronize the write access, because other threads may iterate over
 		// the map concurrently.
 		synchronized (this) {
@@ -91,7 +91,7 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		}
 	}
 	
-	private void setMapValueToMax(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
+	private void setMapValueToMax(java.util.Map<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
 		// We need to synchronize the write access, because other threads may iterate over
 		// the map concurrently.
 		synchronized (this) {
