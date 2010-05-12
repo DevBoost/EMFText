@@ -74,6 +74,8 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		STRING_OPTIONS.add(OptionTypes.LICENCE_HEADER);
 		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
 		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_EXPORTS);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_DEPENDENCIES);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_EXPORTS);
 		
 		NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
 		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
