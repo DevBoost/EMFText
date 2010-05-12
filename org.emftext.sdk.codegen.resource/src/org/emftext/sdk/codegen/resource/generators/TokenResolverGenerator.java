@@ -32,7 +32,6 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -49,7 +48,6 @@ import org.emftext.sdk.util.StringUtil;
 public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefinition> {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final NameUtil nameUtil = new NameUtil();
 	
 	private CompleteTokenDefinition definition;
@@ -71,7 +69,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 		sc.addLineBreak();
 		
 		// do not generate a resolver for imported tokens
-		boolean isImportedToken = csUtil.isImportedToken(syntax, definition);
+		boolean isImportedToken = definition.isImported(syntax);
 
 		if (isImportedToken) {
 			String importedTokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(syntax, definition, true);
@@ -155,7 +153,8 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 	}
 	
 	private void generateResolveMethod2(StringComposite sc) {
-		ConcreteSyntax containingSyntax = csUtil.getContainingSyntax(getContext().getConcreteSyntax(), definition);
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		ConcreteSyntax containingSyntax = definition.getContainingSyntax(syntax);
 		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT, containingSyntax);
 		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
 		sc.add("importedResolver.resolve(lexem, feature, new " + importedTokenResolveResultClassName + "() {");

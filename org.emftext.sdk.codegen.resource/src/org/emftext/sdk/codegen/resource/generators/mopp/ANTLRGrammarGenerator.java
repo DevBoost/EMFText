@@ -1304,9 +1304,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 						printRightRecursion(sc, rule, eClassesWithSyntax,
 								eClassesReferenced);
 
-						Collection<GenClass> subClasses = csUtil
+						Collection<GenClass> subClasses = concreteSyntax
 								.getSubClassesWithSyntax(rule.getMetaclass(),
-										concreteSyntax,true);
+										true);
 						if (!subClasses.isEmpty()) {
 							sc.add("|//derived choice rules for sub-classes: ");
 							printSubClassChoices(sc, subClasses);
@@ -1394,8 +1394,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		
 		printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced, "0");
 
-		Collection<GenClass> subClasses = csUtil
-				.getSubClassesWithSyntax(genClass, concreteSyntax, true);
+		Collection<GenClass> subClasses = concreteSyntax
+				.getSubClassesWithSyntax(genClass, true);
 		if (!subClasses.isEmpty()) {
 			sc.add("|//derived choice rules for sub-classes: ");
 			sc.addLineBreak();
@@ -2007,9 +2007,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 	
 	private boolean printImplicitChoiceRule(StringComposite sc,
 			GenClass referencedClass, boolean isCommonExpressionMetaClass) {
-		Collection<GenClass> subClasses = csUtil
+		Collection<GenClass> subClasses = concreteSyntax
 				.getSubClassesWithSyntax(referencedClass,
-						concreteSyntax,true);
+						true);
 
 		if (!subClasses.isEmpty()||isCommonExpressionMetaClass) {
 			sc.add(getRuleName(referencedClass));

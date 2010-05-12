@@ -17,7 +17,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -27,14 +26,12 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -71,60 +68,10 @@ public class ConcreteSyntaxUtil {
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	// TODO mseifert: move this to CompleteTokenDefinition.ejava
-	public boolean isImportedToken(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
-		return !syntax.equals(getContainingSyntax(syntax, tokenDefinition));
-	}
-
-	// TODO mseifert: move this to CompleteTokenDefinition.ejava
-	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax, CompleteTokenDefinition baseDefinition) {
-		EObject container = baseDefinition.eContainer();
-		if (container instanceof ConcreteSyntax) {
-			return (ConcreteSyntax) container;
-		}
-		return syntax;
-	}
-
-	/**
-	 * Collects all the subclasses for which concrete syntax is defined.
-	 */
-	// TODO mseifert: move this to ConcreteSyntax.ejava
-	public Collection<GenClass> getSubClassesWithSyntax(GenClass genClass,
-			ConcreteSyntax syntax, boolean excludeOperatorRules) {
-		Collection<GenClass> subClasses = new LinkedList<GenClass>();
-
-		EClass ecoreClass = genClass.getEcoreClass();
-		EClassUtil eClassUtil = syntax.getEClassUtil();
-		for (GenClass subClassCand : getClassesWithSyntax(syntax,excludeOperatorRules)) {
-			if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
-				subClasses.add(subClassCand);
-			}
-		}
-		return subClasses;
-	}
-
 	public boolean hasSyntax(GenClass genClass,
 			ConcreteSyntax syntax, boolean excludeOperatorRules) {
 
-		return genClassUtil.contains(getClassesWithSyntax(syntax,excludeOperatorRules), genClass, syntax.getGenClassCache());
-	}
-
-	/**
-	 * Collects all the subclasses for which concrete syntax is defined.
-	 */
-	// TODO mseifert: move this to ConcreteSyntax.ejava
-	public Collection<GenClass> getClassesWithSyntax(ConcreteSyntax syntax, boolean excludeOperatorRules) {
-		Collection<Rule> rules = syntax.getAllRules();
-		Collection<GenClass> foundGenClasses = new LinkedList<GenClass>();
-
-		for (Rule rule : rules) {
-			if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
-				continue;
-			}
-			GenClass subClassCand = rule.getMetaclass();
-			foundGenClasses.add(subClassCand);
-		}
-		return foundGenClasses;
+		return genClassUtil.contains(syntax.getClassesWithSyntax(excludeOperatorRules), genClass, syntax.getGenClassCache());
 	}
 
 	/**
@@ -157,7 +104,8 @@ public class ConcreteSyntaxUtil {
 	 * 
 	 * @return a set of rules that reference 'genClass' or a sub type
 	 */
-	// TODO mseifert: move this to ConcreteSyntax.ejava
+	// this should be moved to ConcreteSyntax.ejava, but since 'genClassUtil'
+	// is not known there, it must stay here until this is resolved
 	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		GenClassCache genClassCache = concreteSyntax.getGenClassCache();
 		Collection<Rule> foundRules = new ArrayList<Rule>();

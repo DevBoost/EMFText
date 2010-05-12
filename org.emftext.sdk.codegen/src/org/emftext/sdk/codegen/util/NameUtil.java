@@ -43,7 +43,7 @@ public class NameUtil {
 
 	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition definition, boolean inImportedSyntax) {
 		if (inImportedSyntax) {
-			syntax = csUtil.getContainingSyntax(syntax, definition);
+			syntax = definition.getContainingSyntax(syntax);
 		}
 		return getResolverPackageName(syntax) + "." + getTokenResolverClassName(syntax, definition);
 	}
@@ -221,7 +221,7 @@ public class NameUtil {
 	 */
 	public String getTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 
-		String syntaxName = getCapitalizedConcreteSyntaxName(csUtil.getContainingSyntax(syntax, tokenDefinition));
+		String syntaxName = getCapitalizedConcreteSyntaxName(tokenDefinition.getContainingSyntax(syntax));
 		boolean isCollect = tokenDefinition.getAttributeName() != null;
 		if (isCollect) {
 			String attributeName = tokenDefinition.getAttributeName();
@@ -246,7 +246,7 @@ public class NameUtil {
 				continue;
 			}
 			// do not generate a resolver for imported tokens
-			if (csUtil.isImportedToken(syntax, tokenDefinition)) {
+			if (tokenDefinition.isImported(syntax)) {
 				continue;
 			}
 			resolverFileNames.add(getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
