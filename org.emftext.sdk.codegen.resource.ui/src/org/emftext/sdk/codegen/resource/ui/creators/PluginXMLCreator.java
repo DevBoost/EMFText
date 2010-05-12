@@ -33,6 +33,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 
+	public static final String FILENAME = "plugin.xml";
+
 	public PluginXMLCreator() {
 		super(TextResourceUIArtifacts.PLUGIN_XML, null);
 	}
@@ -40,7 +42,7 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
 		File project = getFileSystemConnector().getProjectFolder(plugin);
-		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
+		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + FILENAME);
 
 		IGenerator<GenerationContext, Object> generator = new PluginXMLGenerator().newInstance(context, parameters);
 
@@ -48,7 +50,7 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 	    		context,
 	    		generator,
 	    		pluginXMLFile,
-	    		"Exception while generating plugin.xml file."
+	    		"Exception while generating " + FILENAME + " file."
 	    );
 	}
 

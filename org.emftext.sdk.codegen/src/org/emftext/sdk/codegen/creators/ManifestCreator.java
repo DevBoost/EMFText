@@ -30,6 +30,7 @@ import org.emftext.sdk.codegen.parameters.ManifestParameters;
  */
 public class ManifestCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ManifestParameters> {
 
+	public static final String FILENAME = "MANIFEST.MF";
 	private boolean override;
 
 	public ManifestCreator(ArtifactDescriptor<ContextType, ManifestParameters> artifact, ManifestParameters parameters, boolean override) {
@@ -40,7 +41,7 @@ public class ManifestCreator<ContextType extends IContext> extends GenericArtifa
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ManifestParameters parameters) {
 		final File project = getFileSystemConnector().getProjectFolder(plugin);
-		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
+		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + FILENAME);
 
 		IGenerator<ContextType, ManifestParameters> generator = new ManifestGenerator<ContextType>(context, parameters);
 		

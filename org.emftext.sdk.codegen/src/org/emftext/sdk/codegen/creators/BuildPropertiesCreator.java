@@ -30,6 +30,8 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
  */
 public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters> {
 
+	public static final String FILENAME = "build.properties";
+
 	public BuildPropertiesCreator(ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, BuildPropertiesParameters parameters) {
 		super(artifact, parameters);
 	}
@@ -37,7 +39,7 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters parameters) {
 		
-		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + "build.properties");
+		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + FILENAME);
 
 		IGenerator<ContextType, BuildPropertiesParameters> generator = new BuildPropertiesGenerator<ContextType>(context, parameters);
 		
@@ -45,7 +47,7 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 	    		context,
 	    		generator,
 	    		buildPropertiesFile,
-	    		"Exception while generating build.properties file."
+	    		"Exception while generating " + FILENAME + " file."
 	    );
 	}
 	

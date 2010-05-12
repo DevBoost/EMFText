@@ -29,6 +29,8 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  */
 public class DotClasspathCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ClassPathParameters> {
 
+	public static final String FILENAME = ".classpath";
+
 	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters) {
 		super(artifact, parameters);
 	}
@@ -36,7 +38,7 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ClassPathParameters parameters) {
 		
-		File dotClasspathFile = new File(getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + ".classpath");
+		File dotClasspathFile = new File(getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + FILENAME);
 
 		IGenerator<ContextType, ClassPathParameters> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(context, parameters);
 		
@@ -44,7 +46,7 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 	    		context,
 	    		dotClasspathGenerator,
 	    		dotClasspathFile,
-	    		"Exception while generating .classpath file."
+	    		"Exception while generating " + FILENAME + " file."
 	    );
 	}
 

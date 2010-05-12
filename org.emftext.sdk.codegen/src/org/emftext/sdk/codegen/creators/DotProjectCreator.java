@@ -27,19 +27,21 @@ import org.emftext.sdk.codegen.generators.DotProjectGenerator;
  */
 public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, IPluginDescriptor> {
 
+	public static final String FILENAME = ".project";
+
 	public DotProjectCreator(ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin) {
 		super(artifact, plugin);
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, IPluginDescriptor parameters) {
-		File dotProjectFile = new File(getFileSystemConnector().getProjectFolder(parameters).getAbsolutePath() + File.separator + ".project");
+		File dotProjectFile = new File(getFileSystemConnector().getProjectFolder(parameters).getAbsolutePath() + File.separator + FILENAME);
 		
 	    return createArtifact(
 	    		context,
 	    		new DotProjectGenerator<ContextType>(context, parameters),
 	    		dotProjectFile,
-	    		"Exception while generating .project file."
+	    		"Exception while generating " + FILENAME + " file."
 	    );
 	}
 

@@ -29,7 +29,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
-	private static final String DEFAULT_LOAD_OPTIONS_EXSD = "default_load_options.exsd";
+	public static final String FILENAME = "default_load_options.exsd";
 
 	public DefaultLoadOptionsExtensionPointSchemaCreator() {
 		super(TextResourceArtifacts.DEFAULT_LOAD_OPTIONS_EXSD, null);
@@ -39,7 +39,7 @@ public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceA
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameter) {
 		
 		File schemaFolder = context.getSchemaFolder(context.getResourcePlugin());
-		File pluginXMLFile = new File(schemaFolder.getAbsolutePath() + File.separator + DEFAULT_LOAD_OPTIONS_EXSD);
+		File pluginXMLFile = new File(schemaFolder.getAbsolutePath() + File.separator + FILENAME);
 		IGenerator<GenerationContext, Object> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(

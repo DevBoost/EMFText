@@ -24,9 +24,16 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
+import org.emftext.sdk.codegen.creators.DotClasspathCreator;
+import org.emftext.sdk.codegen.creators.DotProjectCreator;
+import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.codegen.resource.creators.AdditionalExtensionParserExtensionPointSchemaCreator;
+import org.emftext.sdk.codegen.resource.creators.DefaultLoadOptionsExtensionPointSchemaCreator;
+import org.emftext.sdk.codegen.resource.creators.PluginXMLCreator;
 import org.emftext.sdk.codegen.resource.generators.AbstractInterpreterGenerator;
 import org.emftext.sdk.codegen.resource.generators.BracketInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.BuilderAdapterGenerator;
@@ -151,9 +158,12 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class TextResourceArtifacts {
 	
-	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, "", "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
-	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, "", "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
-	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, "", "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
+	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters>(null, BuildPropertiesCreator.FILENAME, "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
+	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
+	public final static ArtifactDescriptor<GenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, IPluginDescriptor>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
+
+	public static final ArtifactDescriptor<GenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters>(null, ManifestCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, Object> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, Object>(null, PluginXMLCreator.FILENAME, "", null, null);
 
 	// the classes
 	public final static ArtifactDescriptor<GenerationContext, Object> ANTLR_LEXER = new ArtifactDescriptor<GenerationContext, Object>(MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER);
@@ -282,7 +292,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, Object> UNICODE_CONVERTER = new ArtifactDescriptor<GenerationContext, Object>(UTIL_PACKAGE, "", "UnicodeConverter", new UnicodeConverterGenerator(), OptionTypes.OVERRIDE_UNICODE_CONVERTER);
 	public final static ArtifactDescriptor<GenerationContext, Object> ABSTRACT_INTERPRETER = new ArtifactDescriptor<GenerationContext, Object>(UTIL_PACKAGE, "Abstract", "Interpreter", new AbstractInterpreterGenerator(), OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER);
 
-	public final static ArtifactDescriptor<GenerationContext, Object> ANTLR_GRAMMAR = new ArtifactDescriptor<GenerationContext, Object>(MOPP_PACKAGE, "", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER); 
+	public final static ArtifactDescriptor<GenerationContext, Object> ANTLR_GRAMMAR = new ArtifactDescriptor<GenerationContext, Object>(MOPP_PACKAGE, "ANTLR grammar", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER); 
 	public final static ArtifactDescriptor<GenerationContext, Object> BABYLON_SPECIFICATION = new ArtifactDescriptor<GenerationContext, Object>(MOPP_PACKAGE, "", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER);
 	
 	public final static ArtifactDescriptor<GenerationContext, Object> PACKAGE_ROOT = new ArtifactDescriptor<GenerationContext, Object>(ROOT_PACKAGE, "", "", null, null);
@@ -292,10 +302,8 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, Object> PACKAGE_CC = new ArtifactDescriptor<GenerationContext, Object>(MOPP_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, Object> PACKAGE_UTIL = new ArtifactDescriptor<GenerationContext, Object>(UTIL_PACKAGE, "", "", null, null);
 	
-	public static final ArtifactDescriptor<GenerationContext, Object> ADDITIONAL_EXTENSION_PARSER_EXSD = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, Object> DEFAULT_LOAD_OPTIONS_EXSD = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, Object> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, Object>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, GenFeature> REFERENCE_RESOLVERS = new ArtifactDescriptor<GenerationContext, GenFeature>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, ManifestParameters> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters>(null, "", "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, CompleteTokenDefinition> TOKEN_RESOLVERS = new ArtifactDescriptor<GenerationContext, CompleteTokenDefinition>(null, "", "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, Object> ADDITIONAL_EXTENSION_PARSER_EXSD = new ArtifactDescriptor<GenerationContext, Object>(null, AdditionalExtensionParserExtensionPointSchemaCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, Object> DEFAULT_LOAD_OPTIONS_EXSD = new ArtifactDescriptor<GenerationContext, Object>(null, DefaultLoadOptionsExtensionPointSchemaCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, GenFeature> REFERENCE_RESOLVERS = new ArtifactDescriptor<GenerationContext, GenFeature>(null, "reference resolvers", "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, CompleteTokenDefinition> TOKEN_RESOLVERS = new ArtifactDescriptor<GenerationContext, CompleteTokenDefinition>(null, "token resolvers", "", null, null);
 }

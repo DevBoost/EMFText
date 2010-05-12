@@ -35,7 +35,8 @@ public abstract class AbstractPluginCreator<ParameterType> extends AbstractGener
 	    // to add more creators
 	
 	    for (IArtifactCreator<GenerationContext> creator : creators) {
-			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
+			String description = creator.getArtifactDescription();
+			progress.setTaskName("creating " + description + "...");
 			creator.createArtifacts(plugin, context);
 		    progress.worked(100 / creators.size());
 	    }

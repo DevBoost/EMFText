@@ -29,7 +29,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
 
-	private static final String ADDITIONAL_EXTENSION_PARSER_EXSD = "additional_extension_parser.exsd";
+	public static final String FILENAME = "additional_extension_parser.exsd";
 
 	public AdditionalExtensionParserExtensionPointSchemaCreator() {
 		super(TextResourceArtifacts.ADDITIONAL_EXTENSION_PARSER_EXSD, null);
@@ -39,7 +39,7 @@ public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextRe
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
 		
 		File schemaFolder = context.getSchemaFolder(context.getResourcePlugin());
-		File file = new File(schemaFolder.getAbsolutePath() + File.separator + ADDITIONAL_EXTENSION_PARSER_EXSD);
+		File file = new File(schemaFolder.getAbsolutePath() + File.separator + FILENAME);
 		IGenerator<GenerationContext, Object> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(

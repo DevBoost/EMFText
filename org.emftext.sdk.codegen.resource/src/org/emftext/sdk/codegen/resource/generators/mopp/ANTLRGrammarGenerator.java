@@ -214,7 +214,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		initOptions();
 		initCaches();
 
-		String csName = getResourceClassName();
+		String csName = context.getCapitalizedConcreteSyntaxName();
 		String lexerName = getLexerName();
 		String parserName = getParserName();
 		boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(
