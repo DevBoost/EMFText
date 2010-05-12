@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -153,11 +154,6 @@ import org.osgi.framework.BundleContext;
  */
 public class IClassNameConstants {
 	
-	public static String CONSTRAINT_STATUS = ConstraintStatus.class.getName();
-	public static String EVALUATION_MODE = EvaluationMode.class.getName();
-	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
-	public static String MODEL_VALIDATION_SERVICE = ModelValidationService.class.getName();
-	
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ADAPTER = Adapter.class.getName();
 	public static String ADAPTER_IMPL = AdapterImpl.class.getName();
@@ -185,6 +181,7 @@ public class IClassNameConstants {
 	public static String COMMON_TOKEN_STREAM = CommonTokenStream.class.getName();
 	public static String COMPARABLE = Comparable.class.getName();
 	public static String COMPARATOR = Comparator.class.getName();
+	public static String CONSTRAINT_STATUS = ConstraintStatus.class.getName();
 	public static String CORE_EXCEPTION = CoreException.class.getName();
 	public static String DIAGNOSTIC = org.eclipse.emf.common.util.Diagnostic.class.getName();
 	public static String DIAGNOSTICIAN = org.eclipse.emf.ecore.util.Diagnostician.class.getName();
@@ -194,6 +191,7 @@ public class IClassNameConstants {
 	public static String ECORE_UTIL = EcoreUtil.class.getName();
 	public static String EDITOR = Editor.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String EXCEPTION = Exception.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
@@ -216,6 +214,7 @@ public class IClassNameConstants {
 	public static String GEN_CLASS = GenClass.class.getName();
 	public static String GEN_FEATURE = GenFeature.class.getName();
 	public static String GEN_PACKAGE = GenPackage.class.getName();
+	public static String IDENTITY_HASH_MAP = IdentityHashMap.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
@@ -229,6 +228,7 @@ public class IClassNameConstants {
 	public static String IO_EXCEPTION = IOException.class.getName();
 	public static String ITERATOR = Iterator.class.getName();
 	public static String I_ADAPTABLE = org.eclipse.core.runtime.IAdaptable.class.getName();
+	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
 	public static String I_COMMAND = ICommand.class.getName();
 	public static String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
 	public static String I_CONTAINER = IContainer.class.getName();
@@ -268,6 +268,7 @@ public class IClassNameConstants {
 	public static String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
 	public static String MISMATCHED_TOKEN_EXCEPTION = MismatchedTokenException.class.getName();
 	public static String MISMATCHED_TREE_NODE_EXCEPTION = MismatchedTreeNodeException.class.getName();
+	public static String MODEL_VALIDATION_SERVICE = ModelValidationService.class.getName();
 	public static String NOTIFICATION = Notification.class.getName();
 	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
 	public static String NOTIFIER = Notifier.class.getName();

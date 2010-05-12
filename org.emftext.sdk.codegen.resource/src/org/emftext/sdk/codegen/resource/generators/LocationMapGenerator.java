@@ -14,12 +14,12 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IDENTITY_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 
@@ -245,10 +245,10 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + BASIC_E_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
 		sc.addLineBreak();
 	}
 
