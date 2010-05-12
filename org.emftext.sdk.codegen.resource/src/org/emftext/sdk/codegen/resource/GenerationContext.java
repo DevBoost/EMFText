@@ -91,6 +91,7 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	private IPluginDescriptor resourcePlugin;
 
 	private IPluginDescriptor resourceUIPlugin;
+	private IPluginDescriptor antlrPlugin;
 
 	public GenerationContext(ConcreteSyntax concreteSyntax) {
 		super();
@@ -364,5 +365,13 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 
 	public File getSchemaFolder(IPluginDescriptor plugin) {
 		return new File(getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + SCHEMA_DIR);
+	}
+
+	public IPluginDescriptor getAntlrPlugin() {
+		return antlrPlugin;
+	}
+
+	public void setAntlrPlugin(IPluginDescriptor antlrPlugin) {
+		this.antlrPlugin = antlrPlugin;
 	}
 }

@@ -26,7 +26,6 @@ import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.IResourceMarker;
 import org.emftext.sdk.codegen.antlr.ANTLRGenerationContext;
-import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.antlr.creators.ANTLRPluginContentCreator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -91,6 +90,8 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		context.setResourcePlugin(resourcePlugin);
 		IPluginDescriptor resourceUIPlugin = genUtil.getResourceUIPluginDescriptor(concreteSyntax);
 		context.setResourceUIPlugin(resourceUIPlugin);
+		IPluginDescriptor antlrPlugin = genUtil.getAntlrPluginDescriptor(concreteSyntax);
+		context.setAntlrPlugin(antlrPlugin);
 
 		SubMonitor progress = SubMonitor.convert(monitor, 100);
 
@@ -117,7 +118,7 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 			return result;
 		}
 		
-		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(concreteSyntax);
+		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(concreteSyntax, antlrPlugin);
 		antlrGenContext.setFileSystemConnector(context.getFileSystemConnector());
 		
 		createProjects(context, progress);
@@ -153,7 +154,7 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		createProject(context.getResourcePlugin(), context, progress);
 		createProject(context.getResourceUIPlugin(), context, progress);
 		if (context.getGenerateANTLRPlugin()) {
-			createProject(ANTLRPluginArtifacts.ANTLR_PLUGIN, context, progress);
+			createProject(context.getAntlrPlugin(), context, progress);
 		}
 	}
 

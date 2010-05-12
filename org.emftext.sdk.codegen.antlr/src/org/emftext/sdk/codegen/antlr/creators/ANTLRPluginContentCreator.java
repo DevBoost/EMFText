@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -142,9 +143,11 @@ public class ANTLRPluginContentCreator {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		boolean override = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.OVERRIDE_ANTLR_PLUGIN);
 
+		IPluginDescriptor antlrPlugin = context.getAntlrPlugin();
+		
 		List<IArtifactCreator<ANTLRGenerationContext>> creators = new ArrayList<IArtifactCreator<ANTLRGenerationContext>>();
 	    File sourceFolder = 
-	    	new File(context.getProjectFolder(ANTLRPluginArtifacts.ANTLR_PLUGIN).getAbsolutePath() + File.separator + SRC_FOLDER);
+	    	new File(context.getProjectFolder(antlrPlugin).getAbsolutePath() + File.separator + SRC_FOLDER);
 		
 	    String sourceFolderPath = sourceFolder.getAbsolutePath() + File.separator;
 		creators.add(new FoldersCreator<ANTLRGenerationContext>(new File[] {
@@ -155,13 +158,13 @@ public class ANTLRPluginContentCreator {
 	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
 	    
-	    ClassPathParameters cpp = new ClassPathParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+	    ClassPathParameters cpp = new ClassPathParameters(antlrPlugin);
 	    cpp.getSourceFolders().add(SRC_FOLDER);
 		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, cpp, override));
 		
-	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, ANTLRPluginArtifacts.ANTLR_PLUGIN, override));
+	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, antlrPlugin, override));
 	    
-		BuildPropertiesParameters bpp = new BuildPropertiesParameters(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+		BuildPropertiesParameters bpp = new BuildPropertiesParameters(antlrPlugin);
 	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
@@ -175,7 +178,7 @@ public class ANTLRPluginContentCreator {
 		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage());
 		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage());
 
-		manifestParameters.setPlugin(ANTLRPluginArtifacts.ANTLR_PLUGIN);
+		manifestParameters.setPlugin(antlrPlugin);
 		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");
 		creators.add(new ManifestCreator<ANTLRGenerationContext>(ANTLRPluginArtifacts.MANIFEST, manifestParameters, true));
 
@@ -199,7 +202,7 @@ public class ANTLRPluginContentCreator {
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {
 			if (doOverride) {
 				progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
-				creator.createArtifacts(ANTLRPluginArtifacts.ANTLR_PLUGIN, context);
+				creator.createArtifacts(antlrPlugin, context);
 			}
 			progress.worked(100 / creators.size());
 		}

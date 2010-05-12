@@ -22,13 +22,6 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class ANTLRPluginArtifacts {
 
-	public final static IPluginDescriptor ANTLR_PLUGIN = new IPluginDescriptor() {
-		// TODO mseifert: check whether OptionTypes.ANTLR_PLUGIN_ID still works
-		public String getName() {
-			return "org.emftext.commons.antlr3_2_0";
-		}
-	};
-
 	public final static ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters> BUILD_PROPERTIES = new ArtifactDescriptor<ANTLRGenerationContext, BuildPropertiesParameters>(null, BuildPropertiesCreator.FILENAME, "", null, OptionTypes.OVERRIDE_BUILD_PROPERTIES); 
 	public final static ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters> DOT_CLASSPATH = new ArtifactDescriptor<ANTLRGenerationContext, ClassPathParameters>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<ANTLRGenerationContext, IPluginDescriptor> DOT_PROJECT = new ArtifactDescriptor<ANTLRGenerationContext, IPluginDescriptor>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_PROJECT);

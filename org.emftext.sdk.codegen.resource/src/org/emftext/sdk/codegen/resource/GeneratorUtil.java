@@ -38,7 +38,6 @@ import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -290,6 +289,17 @@ public class GeneratorUtil {
 		return resourcePlugin;
 	}
 
+	public IPluginDescriptor getAntlrPluginDescriptor(ConcreteSyntax syntax) {
+		final String pluginName = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ANTLR_PLUGIN_ID, Constants.DEFAULT_ANTLR_PLUGIN_NAME);
+		IPluginDescriptor antlrPlugin = new IPluginDescriptor() {
+
+			public String getName() {
+				return pluginName;
+			}
+		};
+		return antlrPlugin;
+	}
+	
 	public String getPackageName(ConcreteSyntax syntax, String packageSuffix) {
 		/*
 		if (plugin == null) {
@@ -345,7 +355,7 @@ public class GeneratorUtil {
 		// first add the syntax itself
 		String syntaxPluginID = context.getResourcePlugin().getName();
 		requiredBundles.add(syntaxPluginID);
-		String antlrPluginID = ANTLRPluginArtifacts.ANTLR_PLUGIN.getName();
+		String antlrPluginID = context.getAntlrPlugin().getName();
 		requiredBundles.add(antlrPluginID);
 		
 		// second add the main generator package

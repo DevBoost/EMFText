@@ -24,7 +24,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IResourceMarker;
-import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
 
@@ -44,7 +43,7 @@ public class UICreateResourcePluginJob extends CreateTextResourcePluginsJob {
 		UIGenerationContext uiContext = (UIGenerationContext) context;
 		refresh(monitor, uiContext.getProject(context.getResourcePlugin()));
 		refresh(monitor, uiContext.getProject(context.getResourceUIPlugin()));
-		refresh(monitor, uiContext.getProject(ANTLRPluginArtifacts.ANTLR_PLUGIN));
+		refresh(monitor, uiContext.getProject(context.getAntlrPlugin()));
 
 		return result;
 	}

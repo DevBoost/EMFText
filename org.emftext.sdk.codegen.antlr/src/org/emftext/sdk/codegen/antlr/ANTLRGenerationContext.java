@@ -16,10 +16,12 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class ANTLRGenerationContext extends AbstractGenerationComponent implements IContext {
 
 	private ConcreteSyntax concreteSyntax;
+	private IPluginDescriptor antlrPlugin;
 
-	public ANTLRGenerationContext(ConcreteSyntax concreteSyntax) {
+	public ANTLRGenerationContext(ConcreteSyntax concreteSyntax, IPluginDescriptor antlrPlugin) {
 		super();
 		this.concreteSyntax = concreteSyntax;
+		this.antlrPlugin = antlrPlugin;
 	}
 
 	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
@@ -32,5 +34,9 @@ public class ANTLRGenerationContext extends AbstractGenerationComponent implemen
 
 	public ConcreteSyntax getConcreteSyntax() {
 		return concreteSyntax;
+	}
+
+	public IPluginDescriptor getAntlrPlugin() {
+		return antlrPlugin;
 	}
 }

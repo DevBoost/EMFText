@@ -14,7 +14,6 @@ import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.IResourceMarker;
-import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
@@ -60,7 +59,7 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		GenerationContext generationContext = context.getGenerationContext();
 		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()));
 		refresh(progress.newChild(2), getProject(generationContext.getResourceUIPlugin().getName()));
-		refresh(progress.newChild(2), getProject(ANTLRPluginArtifacts.ANTLR_PLUGIN.getName()));
+		refresh(progress.newChild(2), getProject(generationContext.getAntlrPlugin().getName()));
 		
 		// TODO expose problems to user
 		for (GenerationProblem problem : problems) {
