@@ -12,8 +12,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class LicenceHeaderUtil {
 
 	/**
-	 * Loads the licence head test if the option OptionTypes.LICENCE_HEADER
-	 * was specified. If the licence can not be found or the licence path
+	 * Loads the license head test if the option OptionTypes.LICENCE_HEADER
+	 * was specified. If the license can not be found or the license path
 	 * was not given, null is returned.
 	 * 
 	 * @param concreteSyntax
@@ -35,17 +35,23 @@ public class LicenceHeaderUtil {
 			InputStream newFileStream = resource
 					.getResourceSet().getURIConverter().createInputStream(
 							licenceUri);
-			return StreamUtil.getContent(newFileStream);
+			return StreamUtil.getContentAsString(newFileStream);
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
+	/**
+	 * Return the value of the syntax option OptionTypes.LICENCE_HEADER,
+	 * or null if the option is not set.
+	 * 
+	 * @param concreteSyntax
+	 * @return
+	 */
 	public String getLicenceLocation(ConcreteSyntax concreteSyntax) {
 		String licenceLocation = OptionManager.INSTANCE
 				.getStringOptionValue(concreteSyntax,
 						OptionTypes.LICENCE_HEADER);
 		return licenceLocation;
 	}
-
 }

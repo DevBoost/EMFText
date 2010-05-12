@@ -1,7 +1,7 @@
 package org.emftext.sdk.util;
 
 /**
- * An interface for classes that can convert object of 
+ * An interface for classes that can convert objects of 
  * 'SourceType' to a string.
  *
  * @param <SourceType> the type of the object to convert

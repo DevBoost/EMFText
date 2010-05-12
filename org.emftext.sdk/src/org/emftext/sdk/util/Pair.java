@@ -14,7 +14,8 @@
 package org.emftext.sdk.util;
 
 /**
- * A typed pair of objects.
+ * A typed pair of objects. Two pairs are equal if both
+ * the left and the right object are equal.
  *
  * @param <T1> the type of the first (left) object
  * @param <T2> the type of the second (right) object

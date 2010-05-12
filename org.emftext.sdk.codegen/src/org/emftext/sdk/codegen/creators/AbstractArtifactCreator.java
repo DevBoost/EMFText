@@ -60,7 +60,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 			boolean doSave = !exists || doOverride;
 		    if (doSave) {
 		    	try {
-					boolean changed = StreamUtil.setContentIfChanged(targetFile, artifact.getContentStream());
+					boolean changed = StreamUtil.storeContentIfChanged(targetFile, artifact.getContentStream());
 					if (changed) {
 						notifyArtifactChanged(context);
 					}

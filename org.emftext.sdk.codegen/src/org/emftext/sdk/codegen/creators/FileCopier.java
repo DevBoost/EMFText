@@ -38,7 +38,7 @@ public class FileCopier<ContextType> extends AbstractGenerationComponent impleme
 
 	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
 		try {
-			StreamUtil.setContentIfChanged(targetFile, inputStream);
+			StreamUtil.storeContentIfChanged(targetFile, inputStream);
 		} catch (IOException e) {
 			addError(context, e);
 		} catch (NullPointerException e) {

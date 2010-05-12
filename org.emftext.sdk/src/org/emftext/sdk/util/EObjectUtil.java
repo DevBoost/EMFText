@@ -31,6 +31,15 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class EObjectUtil {
 
+	/**
+	 * Returns all objects that are found by the iterator, which has
+	 * the given type.
+	 * 
+	 * @param <T>
+	 * @param iterator
+	 * @param type
+	 * @return
+	 */
 	public static <T> Collection<T> getObjectsByType(Iterator<?> iterator,
 			EClassifier type) {
 		Collection<T> result = new ArrayList<T>();
@@ -45,6 +54,13 @@ public class EObjectUtil {
 		return result;
 	}
 
+	/**
+	 * Returns the root (top most) container of the given
+	 * object.
+	 * 
+	 * @param object
+	 * @return
+	 */
 	public static EObject findRootContainer(EObject object) {
 		EObject container = object.eContainer();
 		if (container != null) {

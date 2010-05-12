@@ -23,20 +23,53 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+/**
+ * A collection of methods to work with streams and files.
+ */
 public class StreamUtil {
 	
 	private final static int IO_BUFFER_SIZE = 4 * 1024;
 	   
-	public static void copy(InputStream in, OutputStream out) throws IOException {
+	/**
+	 * Copies the content of the input stream to the output stream.
+	 * 
+	 * @param input the stream to read from
+	 * @param output the stream to write to
+	 * 
+	 * @throws IOException if reading or writing one of the streams fails
+	 */
+	public static void copy(InputStream input, OutputStream output) throws IOException {
 		byte[] b = new byte[IO_BUFFER_SIZE];
 		int read;
-		while ((read = in.read(b)) != -1) {
-			out.write(b, 0, read);
+		while ((read = input.read(b)) != -1) {
+			output.write(b, 0, read);
 		}
-		out.flush();
+		output.flush();
 	}
 
-	public static String getContent(InputStream inputStream) throws IOException {
+	/**
+	 * Returns the content of the file as string.
+	 * 
+	 * @param file the file to read from
+	 * 
+	 * @return the file's content as string
+	 * 
+	 * @throws IOException if reading the file fails
+	 */
+	public static String getContentAsString(File file) throws IOException {
+		return getContentAsString(new FileInputStream(file));
+	}
+	
+	/**
+	 * Returns the content of the stream as string.
+	 * 
+	 * @param inputStream the stream to read from
+	 * 
+	 * @return the stream's content as string
+	 * 
+	 * @throws IOException if reading the stream fails
+	 */
+	public static String getContentAsString(InputStream inputStream) throws IOException {
 		StringBuffer content = new StringBuffer();
 		InputStreamReader reader = new InputStreamReader(inputStream);
 		int next = -1;
@@ -46,7 +79,19 @@ public class StreamUtil {
 		return content.toString();
 	}
 
-	public static boolean setContentIfChanged(File target, InputStream in) throws IOException {
+	/**
+	 * Stores the content of the input stream to the target file if the
+	 * content has changed. If the file contains exactly the bytes found
+	 * in the input stream, the file is not touched.
+	 * 
+	 * @param target the file to write to
+	 * @param input the stream to read the new content from
+	 * 
+	 * @return true if the file was changed, otherwise false
+	 * 
+	 * @throws IOException if reading input or writing the target file fails
+	 */
+	public static boolean storeContentIfChanged(File target, InputStream input) throws IOException {
 		target.getParentFile().mkdirs();
 		long currentSize = target.length();
 		if (!target.exists()) {
@@ -54,13 +99,13 @@ public class StreamUtil {
 		}
 		
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		StreamUtil.copy(in, buffer);
+		StreamUtil.copy(input, buffer);
 		buffer.close();
 		long newSize = buffer.size();
 		byte[] newContent = buffer.toByteArray();
 		
 		if (newSize != currentSize) {
-			writeBuffer(target, newContent);
+			setContent(target, newContent);
 			return true;
 		} else {
 			// size is equal, check content
@@ -70,14 +115,23 @@ public class StreamUtil {
 				// do nothing - the new content is the same as the old one
 				return false;
 			} else {
-				writeBuffer(target, newContent);
+				setContent(target, newContent);
 				return true;
 			}
 		}
 	}
 
-	public static byte[] getContent(File target) throws IOException {
-		FileInputStream in = new FileInputStream(target);
+	/**
+	 * Returns the content of the file as array of bytes.
+	 * 
+	 * @param file the file to read
+	 * 
+	 * @return the file's contents as array of bytes
+	 *  
+	 * @throws IOException if reading the file fails
+	 */
+	public static byte[] getContent(File file) throws IOException {
+		FileInputStream in = new FileInputStream(file);
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		StreamUtil.copy(in, buffer);
 		in.close();
@@ -85,9 +139,17 @@ public class StreamUtil {
 		return buffer.toByteArray();
 	}
 
-	public static void writeBuffer(File target, byte[] buffer) throws IOException {
+	/**
+	 * Stores the given content to the target file.
+	 * 
+	 * @param target the file to write to
+	 * @param content the content to store in the file
+	 * 
+	 * @throws IOException if writing the file fails
+	 */
+	public static void setContent(File target, byte[] content) throws IOException {
 		FileOutputStream fos = new FileOutputStream(target);
-		fos.write(buffer);
+		fos.write(content);
 		fos.close();
 	}
 }

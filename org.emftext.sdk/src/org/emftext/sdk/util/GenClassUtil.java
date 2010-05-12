@@ -26,6 +26,16 @@ import org.emftext.sdk.concretesyntax.GenClassCache;
  */
 public class GenClassUtil {
 
+	/**
+	 * Searches for 'genClass' in 'genClasses'. If a class with the
+	 * same qualified interface name is found, this method returns
+	 * true, otherwise false.
+	 * 
+	 * @param genClasses the collection of classes to search in
+	 * @param genClass the class to search for
+	 * @param genClassCache
+	 * @return
+	 */
 	public boolean contains(Collection<GenClass> genClasses,
 			GenClass genClass, GenClassCache genClassCache) {
 		for (GenClass next : genClasses) {
@@ -36,14 +46,36 @@ public class GenClassUtil {
 		return false;
 	}
 
+	/**
+	 * Returns true if the given class is neither abstract nor
+	 * an interface.
+	 * 
+	 * @param genClass
+	 * @return
+	 */
 	public boolean isConcrete(GenClass genClass) {
 		return !genClass.isAbstract() && !genClass.isInterface();
 	}
 
+	/**
+	 * Returns true if the given class is either abstract or
+	 * an interface.
+	 * 
+	 * @param genClass
+	 * @return
+	 */
 	public boolean isNotConcrete(GenClass genClass) {
 		return !isConcrete(genClass);
 	}
 
+	/**
+	 * Returns true if superClass is a superclass of subClass.
+	 * 
+	 * @param superClass
+	 * @param subClass
+	 * @param genClassCache
+	 * @return
+	 */
 	public boolean isSuperClass(GenClass superClass, GenClass subClass, GenClassCache genClassCache) {
 		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
 		for (GenClass nextSuperclass : superClasses) {
@@ -54,10 +86,24 @@ public class GenClassUtil {
 		return false;
 	}
 
+	/**
+	 * Returns the code for a method call that obtains the EClass of the given
+	 * GenClass from the generated EPackage.
+	 * 
+	 * @param genClass
+	 * @return
+	 */
 	public String getAccessor(GenClass genClass) {
 		return genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()";
 	}
 
+	/**
+	 * Returns the code for a method call that creates an instance of the EClass 
+	 * of the given GenClass using the generated EFactory.
+	 * 
+	 * @param genClass
+	 * @return
+	 */
 	public String getCreateObjectCall(GenClass genClass, String qualifiedDummyEObjectClassName) {
 		GenPackage genPackage = genClass.getGenPackage();
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {

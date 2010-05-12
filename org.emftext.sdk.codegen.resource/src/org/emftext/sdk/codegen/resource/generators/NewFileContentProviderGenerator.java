@@ -109,7 +109,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
 		String newFileContent = null;
 		try {
 			InputStream newFileStream = resource.getResourceSet().getURIConverter().createInputStream(newFileURI);
-			newFileContent = StreamUtil.getContent(newFileStream);
+			newFileContent = StreamUtil.getContentAsString(newFileStream);
 			// replace platform specific line separators with \n,
 			// which will be replaced again by platform specific
 			// separators when the new file wizard is called, which
