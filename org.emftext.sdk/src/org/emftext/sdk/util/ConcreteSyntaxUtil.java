@@ -15,12 +15,11 @@ package org.emftext.sdk.util;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -30,7 +29,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.Constants;
@@ -38,12 +36,10 @@ import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
-import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
-import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
@@ -55,14 +51,12 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
-import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * A utility class that provides methods used by the code generators
- * to analyse CS specifications.
+ * to analyze CS specifications.
  */
 public class ConcreteSyntaxUtil {
 
@@ -80,10 +74,12 @@ public class ConcreteSyntaxUtil {
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
+	// TODO mseifert: move this to CompleteTokenDefinition.ejava
 	public boolean isImportedToken(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 		return !syntax.equals(getContainingSyntax(syntax, tokenDefinition));
 	}
 
+	// TODO mseifert: move this to CompleteTokenDefinition.ejava
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax, CompleteTokenDefinition baseDefinition) {
 		EObject container = baseDefinition.eContainer();
 		if (container instanceof ConcreteSyntax) {
@@ -95,6 +91,7 @@ public class ConcreteSyntaxUtil {
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */
+	// TODO mseifert: move this to ConcreteSyntax.ejava
 	public Collection<GenClass> getSubClassesWithSyntax(GenClass genClass,
 			ConcreteSyntax syntax, boolean excludeOperatorRules) {
 		Collection<GenClass> subClasses = new LinkedList<GenClass>();
@@ -118,13 +115,15 @@ public class ConcreteSyntaxUtil {
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */
+	// TODO mseifert: move this to ConcreteSyntax.ejava
 	public Collection<GenClass> getClassesWithSyntax(ConcreteSyntax syntax, boolean excludeOperatorRules) {
 		Collection<Rule> rules = syntax.getAllRules();
 		Collection<GenClass> foundGenClasses = new LinkedList<GenClass>();
 
 		for (Rule rule : rules) {
-			if(excludeOperatorRules && rule.getOperatorAnnotation()!=null)
+			if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
 				continue;
+			}
 			GenClass subClassCand = rule.getMetaclass();
 			foundGenClasses.add(subClassCand);
 		}
@@ -135,8 +134,8 @@ public class ConcreteSyntaxUtil {
 	 * Checks whether a subclass with concrete syntax does exist.
 	 */
 	public boolean hasSubClassesWithCS(GenClass genClass,
-			Collection<Rule> source) {
-		for (Rule rule : source) {
+			Collection<Rule> rules) {
+		for (Rule rule : rules) {
 			EClassUtil eClassUtil = rule.getSyntax().getEClassUtil();
 			GenClass subClassCand = rule.getMetaclass();
 			for (EClass superClass : subClassCand.getEcoreClass()
@@ -161,6 +160,7 @@ public class ConcreteSyntaxUtil {
 	 * 
 	 * @return a set of rules that reference 'genClass' or a sub type
 	 */
+	// TODO mseifert: move this to ConcreteSyntax.ejava
 	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		GenClassCache genClassCache = concreteSyntax.getGenClassCache();
 		Collection<Rule> foundRules = new ArrayList<Rule>();
@@ -191,10 +191,10 @@ public class ConcreteSyntaxUtil {
 	}
 
 	/**
-	 * Returns a list that contains the names of all resolver classes that are needed.
-	 * Some of them might be generated during the generation process, others
-	 * may already exist. This list does not contain resolver classes that are
-	 * contained in imported syntaxes and that are reused.
+	 * Returns a list that contains the names of all reference resolver classes 
+	 * that are needed. Some of them might be generated during the generation 
+	 * process, others may already exist. This list does not contain resolver 
+	 * classes that are contained in imported syntaxes and that are reused.
 	 */
 	public Collection<String> getReferenceResolverFileNames(ConcreteSyntax syntax) {
 		Collection<GenFeature> features = getNonContainmentFeaturesNeedingResolver(syntax);
@@ -205,6 +205,13 @@ public class ConcreteSyntaxUtil {
 		return resolverFileNames;
 	}
 
+	/**
+	 * Returns a collection of all token resolver classes that need to be generated
+	 * for a given syntax.
+	 * 
+	 * @param syntax the syntax containing the token definition
+	 * @return a collection of token resolver classes
+	 */
 	public Collection<String> getTokenResolverFileNames(ConcreteSyntax syntax) {
 		Collection<String> resolverFileNames = new LinkedHashSet<String>();
 		
@@ -221,6 +228,14 @@ public class ConcreteSyntaxUtil {
 		return resolverFileNames;
 	}
 
+	/**
+	 * Returns all non-containment references that are used in the given syntax and which
+	 * need a reference resolver class. This excluded all anonymous features (denoted by
+	 * an underscore as name in the syntax rule).
+	 * 
+	 * @param syntax the syntax containing references
+	 * @return all non-containment references excluding anonymous features
+	 */
 	public Collection<GenFeature> getNonContainmentFeaturesNeedingResolver(ConcreteSyntax syntax) {
 		Collection<GenFeature> features = new LinkedHashSet<GenFeature>();
 		Collection<Rule> allRules = syntax.getAllRules();
@@ -243,10 +258,26 @@ public class ConcreteSyntaxUtil {
 		return features;
 	}
 
+	/**
+	 * Returns the unqualified name of the reference resolver class for the given
+	 * non-containment reference.
+	 * 
+	 * @param proxyReference
+	 * @return
+	 */
+	// TODO mseifert: move this to NameUtil.java
 	public String getReferenceResolverClassName(GenFeature proxyReference) {
 		return proxyReference.getGenClass().getName() + StringUtil.capitalize(proxyReference.getName()) + Constants.CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 
+	/**
+	 * Returns the unqualified name of the token resolver class for the given
+	 * token definition.
+	 * 
+	 * @param proxyReference
+	 * @return
+	 */
+	// TODO mseifert: move this to NameUtil.java
 	public String getTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {
 
 		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(syntax, tokenDefinition));
@@ -259,6 +290,16 @@ public class ConcreteSyntaxUtil {
 		}
 	}
 
+	/**
+	 * Converts the first letter of the syntax name to upper case.
+	 * Composite syntax names (containing dot characters) are replaced
+	 * by a camel-case version (e.g., <code>text.ecore</code> is
+	 * converted to <code>TextEcore</code>.
+	 * 
+	 * @param syntax the syntax to obtain the name from
+	 * @return a capitalized camel-case version of the syntax name
+	 */
+	// TODO mseifert: move this to NameUtil.java
 	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
 		String csName = "";
 		String[] csNameParts = syntax.getName().split("\\.");
@@ -268,13 +309,26 @@ public class ConcreteSyntaxUtil {
 		return csName;
 	}
 
-
+	/**
+	 * Return the name of the default reference resolver class.
+	 * 
+	 * @param syntax
+	 * @return
+	 */
+	// TODO mseifert: move this to NameUtil.java
 	public String getDefaultResolverDelegateName(ConcreteSyntax syntax) {
 		return getCapitalizedConcreteSyntaxName(syntax) + Constants.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
 	}
 
-	// feature may be contained in imported rules and thus belong to a different
-	// CS specification
+	/**
+	 * Searches in syntaxes imported by 'syntax' for occurrences of the
+	 * given feature. Feature may be contained in imported rules and thus 
+	 * belong to a different syntax specification.
+	 * 
+	 * @param syntax the syntax to search in
+	 * @param genFeature the feature to search for
+	 * @return the syntax containing the feature
+	 */
 	public ConcreteSyntax getConcreteSyntax(ConcreteSyntax syntax, GenFeature genFeature) {
 		GenClassCache genClassCache = syntax.getGenClassCache();
 		for (Import nextImport : syntax.getImports()) {
@@ -282,7 +336,8 @@ public class ConcreteSyntaxUtil {
 			if (nextSyntax == null) {
 				continue;
 			}
-			if (genClassUtil.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass(), genClassCache)) {
+			Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(nextSyntax, true, true);
+			if (genClassUtil.contains(allGenClasses, genFeature.getGenClass(), genClassCache)) {
 				ConcreteSyntax cs = genClassFinder.getContainingSyntax(nextSyntax, genFeature.getGenClass());
 				return cs;
 			}
@@ -290,41 +345,55 @@ public class ConcreteSyntaxUtil {
 		return syntax;
 	}
 
-	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
+	/**
+	 * Returns the source folder (either the one for generated source or 
+	 * the one for custom code).
+	 * 
+	 * @param syntax
+	 * @param doOverride
+	 * @param pluginPath the absolute path to the plug-in that will contain the folder
+	 * @return
+	 */
+	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, String pluginPath) {
 		String srcFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_FOLDER);
 		String srcGenFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_GEN_FOLDER);
 		if (doOverride) {
-			return new File(pluginProjectFolder + File.separator + srcGenFolderName);
+			return new File(pluginPath + File.separator + srcGenFolderName);
 		} else {
-			return new File(pluginProjectFolder + File.separator + srcFolderName);
+			return new File(pluginPath + File.separator + srcFolderName);
 		}
 	}
 
+	/**
+	 * Returns the name of a source folder (either the one for generated
+	 * source or the one for custom code).
+	 * 
+	 * @param syntax
+	 * @param option
+	 * @return
+	 */
 	public String getSourceFolderName(ConcreteSyntax syntax, OptionTypes option) {
 		String defaultValue;
+		// TODO mseifert: use different options for UI resource plug-in
 		if (option == OptionTypes.SOURCE_FOLDER) {
 			defaultValue = "src";
 		} else if (option == OptionTypes.SOURCE_GEN_FOLDER) {
 			defaultValue = "src-gen";
 		} else {
-			throw new RuntimeException("Illegal option: " + option);
+			throw new IllegalArgumentException("Illegal option: " + option);
 		}
-		return getSourceFolderName(syntax, option, defaultValue);
+		return OptionManager.INSTANCE.getStringOptionValue(syntax, option, defaultValue);
 	}
 	
-	private String getSourceFolderName(ConcreteSyntax syntax, OptionTypes option, String defaultValue) {
-		String folderName;
-		String folderOptionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, option);
-		if (folderOptionValue != null) {
-			// use package plug-in from option
-			folderName = folderOptionValue;
-		} else {
-			// use default plug-in name
-			folderName = defaultValue;
-		}
-		return folderName;
-	}
-
+	/**
+	 * Returns a string representation of the cardinality of the
+	 * given definition. This can be one of '+', '?', '*' or the
+	 * empty string.
+	 * 
+	 * @param definition
+	 * @return
+	 */
+	// TODO mseifert: move this to Definition.ejava
 	public String computeCardinalityString(Definition definition) {
 		Cardinality cardinality = null;
 		if (definition instanceof CardinalityDefinition) {
@@ -341,45 +410,17 @@ public class ConcreteSyntaxUtil {
 		}
 	}
 
-	public String getScopeID(EObject object) {
-		String scopeID = null;
-		
-		EObject container = object.eContainer();
-		while (container != null) {
-			EReference reference = object.eContainmentFeature();
-			final Object referenceValue = container.eGet(reference);
-			int index = 1;
-			if (referenceValue instanceof List<?>) {
-				List<?> referenceList = (List<?>) referenceValue;
-				index = referenceList.indexOf(object) + 1;
-			}
-			String prefix = "_";
-			if (object instanceof Sequence) {
-				prefix = "s";
-			}
-			if (object instanceof Choice) {
-				prefix = "c";
-			}
-			if (object instanceof Rule) {
-				prefix = "r";
-			}
-			if (object instanceof CsString) {
-				prefix = "C";
-			}
-			if (object instanceof Terminal) {
-				prefix = "T";
-			}
-			if (scopeID == null) {
-				scopeID = index + prefix;
-			} else {
-				scopeID = index + prefix + "." + scopeID;
-			}
-			object = container;
-			container = object.eContainer();
-		}
-		return scopeID;
-	}
-
+	/**
+	 * Returns all types that are allowed for the given containment.
+	 * If type restrictions are specified in the syntax rule, this
+	 * list contains the allowed types. If no restriction are present
+	 * the type of the feature references by the containment is 
+	 * returned.
+	 * 
+	 * @param containment
+	 * @return
+	 */
+	// TODO mseifert: move this to Containment.ejava
 	public EList<GenClass> getAllowedSubTypes(Containment containment) {
 		EList<GenClass> types;
 		// is there an explicit type defined?
@@ -392,19 +433,11 @@ public class ConcreteSyntaxUtil {
 		return types;
 	}
 
-	public List<Containment> findContainments(ConcreteSyntax syntax) {
-		Collection<Containment> containments = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
-		return new ArrayList<Containment>(containments);
-	}
-
-	public static boolean isOperatorType(Annotation annotation, OperatorAnnotationType operatorType) {
-		return getOperatorAnnotationType(annotation).getLiteral() == operatorType.getLiteral();
-	}
-
-	public static OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
+	public OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
 	}
 
+	// TODO move this to NameUtil.java
 	public String getFieldName(String prefix, EObject object) {
 		List<Integer> path = EObjectUtil.getPath(object);
 		return prefix + StringUtil.explode(path, "_", new ToStringConverter<Integer>() {
@@ -415,21 +448,10 @@ public class ConcreteSyntaxUtil {
 		});
 	}
 
-	// TODO mseifert: move this method to ConcreteSyntax.ejava
+	// TODO move this to NameUtil.java
 	public String getFieldName(SyntaxElement syntaxElement) {
 		ConcreteSyntax syntax = syntaxElement.getContainingRule().getSyntax();
 		String escapedSyntaxName = syntax.getName().replace(".", "_").toUpperCase();
 		return getFieldName(escapedSyntaxName + "_", syntaxElement);
-	}
-
-	public Collection<String> getAdditionalPackages(ConcreteSyntax syntax, OptionTypes option) {
-		String additionalPackagesString = 
-			OptionManager.INSTANCE.getStringOptionValue(syntax, option);
-		if (additionalPackagesString != null) {
-			String[] additionalPackages = additionalPackagesString.split(",");
-			return Arrays.asList(additionalPackages);
-		} else {
-			return Collections.emptySet();
-		}
 	}
 }

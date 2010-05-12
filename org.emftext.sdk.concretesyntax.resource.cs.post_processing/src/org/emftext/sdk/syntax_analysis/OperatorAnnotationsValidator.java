@@ -49,6 +49,8 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 	private static final String OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY = "Operator classes cannot be used directly. Use the abstract expression superclass instead.";
 
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		EList<Rule> operatorRules = syntax.getOperatorRules();
@@ -97,7 +99,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				}
 			}
 			
-			OperatorAnnotationType type = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
+			OperatorAnnotationType type = csUtil.getOperatorAnnotationType(annotation);
 			if(type==null){
 				resource.addError("Could not determine operator type.",annotation);
 				continue;
@@ -335,7 +337,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	 */
 	private void checkUnaryOperatorRule(CsResource resource, ConcreteSyntax syntax,
 			Annotation annotation, List<Definition> definitions, GenClass commonMetaClass) {
-		OperatorAnnotationType annotationType = ConcreteSyntaxUtil.getOperatorAnnotationType(annotation);
+		OperatorAnnotationType annotationType = csUtil.getOperatorAnnotationType(annotation);
 		
 		int containmentIndex = -1;
 		if(annotationType == OperatorAnnotationType.UNARY_PREFIX){

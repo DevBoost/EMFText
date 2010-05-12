@@ -76,7 +76,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
 		exports.add(context.getPackageName(TextResourceUIArtifacts.PACKAGE_UI));
-		exports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_UI_EXPORTS));
+		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_UI_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
 		manifestParameters.setPlugin(resourceUIPlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR));
@@ -164,7 +164,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 			imports.add(qualifiedBasePluginName);
 		}
 		
-		imports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_UI_DEPENDENCIES));
+		imports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_UI_DEPENDENCIES));
 
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");

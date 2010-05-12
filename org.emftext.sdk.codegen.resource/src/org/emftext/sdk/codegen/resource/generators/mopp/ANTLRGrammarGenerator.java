@@ -1437,7 +1437,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 			boolean isLast = !sliceIterator.hasNext();
 			
 			Sequence firstSequence = firstRule.getDefinition().getOptions().get(0);
-			OperatorAnnotationType operatorType = ConcreteSyntaxUtil.getOperatorAnnotationType(firstRule.getOperatorAnnotation());
+			OperatorAnnotationType operatorType = csUtil.getOperatorAnnotationType(firstRule.getOperatorAnnotation());
 			
 			String ruleName = getExpressionSliceRuleName(firstRule);
 

@@ -137,7 +137,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		if (csUtil.getResolverFileNames(syntax).size() > 0) {
 			exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANALYSIS));
 		}
-		exports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_EXPORTS));
+		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
 		manifestParameters.setPlugin(resourcePlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR));
@@ -281,7 +281,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			imports.add(qualifiedBasePluginName);
 		}
 		
-		imports.addAll(csUtil.getAdditionalPackages(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES));
+		imports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_DEPENDENCIES));
 
 		genUtil.addImports(context, imports, syntax);
 		

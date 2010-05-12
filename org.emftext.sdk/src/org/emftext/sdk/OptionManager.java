@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -47,6 +50,46 @@ public class OptionManager {
 			return null;
 		}
 		return option.getValue();
+	}
+	
+	/**
+	 * Returns the value of the given syntax option. If the option is not
+	 * set, the default value is returned.
+	 * 
+	 * @param syntax
+	 * @param option
+	 * @param defaultValue
+	 * @return
+	 */
+	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes option, String defaultValue) {
+		String value;
+		String optionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+		if (optionValue != null) {
+			// use package plug-in from option
+			value = optionValue;
+		} else {
+			// use default plug-in name
+			value = defaultValue;
+		}
+		return value;
+	}
+
+	/**
+	 * Returns the value of the given syntax option as collection. The value is split into
+	 * parts denoted by commata.
+	 * 
+	 * @param syntax
+	 * @param option
+	 * @return
+	 */
+	public Collection<String> getStringOptionValueAsCollection(ConcreteSyntax syntax, OptionTypes option) {
+		String optionValue = getStringOptionValue(syntax, option);
+		if (optionValue != null) {
+			String[] parts = optionValue.split(",");
+			return Arrays.asList(parts);
+		} else {
+			return Collections.emptySet();
+		}
 	}
 	
 	public boolean getBooleanOptionValue(ConcreteSyntax concreteSyntax,
