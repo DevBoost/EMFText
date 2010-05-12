@@ -131,7 +131,7 @@ public class ExpectationComputer {
 			for (Rule rule : allRules) {
 				Collection<Containment> containments = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
 				for (Containment containment : containments) {
-					EList<GenClass> allowedSubTypes = csUtil.getAllowedSubTypes(containment);
+					EList<GenClass> allowedSubTypes = containment.getAllowedSubTypes();
 					for (GenClass subType : allowedSubTypes) {
 						Collection<Rule> subRules;
 						if (ruleCache.containsKey(subType)) {
@@ -197,7 +197,8 @@ public class ExpectationComputer {
 	private boolean canBeRepeated(EObject syntaxElement) {
 		String cardinality = "";
 		if (syntaxElement instanceof Definition) {
-			cardinality = csUtil.computeCardinalityString((Definition) syntaxElement);
+			Definition definition = (Definition) syntaxElement;
+			cardinality = definition.computeCardinalityString();
 		}
 		boolean canBeEmpty = "*".equals(cardinality) || "+".equals(cardinality);
 		return canBeEmpty;
@@ -259,7 +260,7 @@ public class ExpectationComputer {
 
 	private Set<Expectation> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition,Set<GenClass> contributingNonterminals) {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
-		String cardinality = csUtil.computeCardinalityString(definition);
+		String cardinality = definition.computeCardinalityString();
 		if ("?".equals(cardinality) || "*".equals(cardinality)) {
 			firstSet.add(EPSILON);
 		}
@@ -312,7 +313,7 @@ public class ExpectationComputer {
 		
 		// we need to consider subclass restrictions that may
 		// be set for the terminal
-		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
+		List<GenClass> subTypes = containment.getAllowedSubTypes();
 		for (GenClass subType : subTypes) {
 			if (contributingNonterminals.contains(subType)) {
 				continue;

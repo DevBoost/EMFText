@@ -27,7 +27,6 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /** 
  * Checks whether the given Concrete Syntax definition contains left-recursive rules.
@@ -36,8 +35,6 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class LeftRecursionDetector {
 
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-	
 	private final Map<String, Collection<String>> genClassNames2superNames;
 	private final ConcreteSyntax grammar;
 
@@ -80,7 +77,7 @@ public class LeftRecursionDetector {
 					continue;
 				}
 				
-				Collection<GenClass> featureTypes = csUtil.getAllowedSubTypes(containment);
+				Collection<GenClass> featureTypes = containment.getAllowedSubTypes();
 				if (featureTypes.contains(metaclass) || 
 						isSubtypeofOneOf(metaclass, featureTypes, genClassCache)) {
 					return currentRule;

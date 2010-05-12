@@ -1689,7 +1689,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<Expectation> expectations = computer.computeFollowSet(syntax, definition);
 			context.addToFollowSetMap(definition, expectations);
-			String cardinality = csUtil.computeCardinalityString(definition);
+			String cardinality = definition.computeCardinalityString();
 			if (!"".equals(cardinality)) {
 				sc.add("(");
 			}
@@ -1780,7 +1780,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 			assert ((EReference) eFeature).isContainment();
 			Containment containment = (Containment) terminal;
 
-			EList<GenClass> types = csUtil.getAllowedSubTypes(containment);
+			EList<GenClass> types = containment.getAllowedSubTypes();
 
 			int internalCount = 0;
 			for (GenClass type : types) {

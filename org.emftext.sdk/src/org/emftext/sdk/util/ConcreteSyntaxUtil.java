@@ -22,29 +22,21 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
-import org.emftext.sdk.concretesyntax.Cardinality;
-import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.Containment;
-import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.finders.GenClassFinder;
 
@@ -216,54 +208,6 @@ public class ConcreteSyntaxUtil {
 		return OptionManager.INSTANCE.getStringOptionValue(syntax, option, defaultValue);
 	}
 	
-	/**
-	 * Returns a string representation of the cardinality of the
-	 * given definition. This can be one of '+', '?', '*' or the
-	 * empty string.
-	 * 
-	 * @param definition
-	 * @return
-	 */
-	// TODO mseifert: move this to Definition.ejava
-	public String computeCardinalityString(Definition definition) {
-		Cardinality cardinality = null;
-		if (definition instanceof CardinalityDefinition) {
-			cardinality = ((CardinalityDefinition) definition).getCardinality();
-		}
-		if (cardinality == null) {
-			return "";
-		} else if (cardinality instanceof PLUS) {
-			return "+";
-		} else if (cardinality instanceof QUESTIONMARK) {
-			return "?";
-		} else {
-			return "*";
-		}
-	}
-
-	/**
-	 * Returns all types that are allowed for the given containment.
-	 * If type restrictions are specified in the syntax rule, this
-	 * list contains the allowed types. If no restriction are present
-	 * the type of the feature references by the containment is 
-	 * returned.
-	 * 
-	 * @param containment
-	 * @return
-	 */
-	// TODO mseifert: move this to Containment.ejava
-	public EList<GenClass> getAllowedSubTypes(Containment containment) {
-		EList<GenClass> types;
-		// is there an explicit type defined?
-		if (!containment.getTypes().isEmpty()) {
-			types = containment.getTypes();
-		} else {
-			types = new BasicEList<GenClass>();
-			types.add(containment.getFeature().getTypeGenClass());
-		}
-		return types;
-	}
-
 	public OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
 	}
