@@ -384,7 +384,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//CompleteTokenDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal">
-    <eOperations name="getAllowedSubTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eOperations name="getAllowedSubTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;// is there an explicit type defined?&#xA;if ( ! getTypes ( ) .isEmpty ( ) ) { &#xD;&#xA;&#x9;types = getTypes ( ) ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;&#x9;types .add ( getFeature ( ) .getTypeGenClass ( ) ) ; &#xD;&#xA;} &#xD;&#xA;return types ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Returns all types that are allowed for the given containment.&#xD;&#xA; If type restrictions are specified in the syntax rule, this&#xD;&#xA; list contains the allowed types. If no restriction are present&#xD;&#xA; the type of the feature references by the containment is &#xD;&#xA; returned.&#xD;&#xA; &#xD;&#xA; @param containment&#xD;&#xA; @return&#xD;&#xA;"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>

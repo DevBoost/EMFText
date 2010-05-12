@@ -55,7 +55,20 @@ public interface Containment extends Terminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Returns all types that are allowed for the given containment.
+	 *  If type restrictions are specified in the syntax rule, this
+	 *  list contains the allowed types. If no restriction are present
+	 *  the type of the feature references by the containment is 
+	 *  returned.
+	 *  
+	 *  @param containment
+	 *  @return
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > types = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\n// is there an explicit type defined?\nif ( ! getTypes ( ) .isEmpty ( ) ) { \r\n\ttypes = getTypes ( ) ; \r\n} else { \r\n\ttypes = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\n\ttypes .add ( getFeature ( ) .getTypeGenClass ( ) ) ; \r\n} \r\nreturn types ; \r\n'"
 	 * @generated
 	 */
 	EList<GenClass> getAllowedSubTypes();
