@@ -111,7 +111,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 		// add if statement for each class
 		for (GenClass genClass : sortedClasses) {
 			String methodName = getMethodName(genClass);
-			String typeName = genClassCache.getQualifiedInterfaceName(genClass);
+			String typeName = getTypeName(genClass);
 			sc.add("if (object instanceof " + typeName + ") {");
 			sc.add("result = " + methodName + "((" + typeName + ") object, context);");
 			sc.add("}");
@@ -122,6 +122,15 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private String getTypeName(GenClass genClass) {
+		String typeName = genClassCache.getQualifiedInterfaceName(genClass);
+		// for maps we add type arguments to avoid compiler warnings
+		if ("java.util.Map.Entry".equals(typeName)) {
+			typeName += "<?,?>";
+		}
+		return typeName;
 	}
 
 	private void addInterpreteTypeMethods(StringComposite sc) {
@@ -142,7 +151,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
-		String typeName = genClassCache.getQualifiedInterfaceName(genClass);
+		String typeName = getTypeName(genClass);
 		String methodName = getMethodName(genClass);
 		
 		sc.add("public ResultType " + methodName + "(" + typeName + " object, ContextType context) {");
