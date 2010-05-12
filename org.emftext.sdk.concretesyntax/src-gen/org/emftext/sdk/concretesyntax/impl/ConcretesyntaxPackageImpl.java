@@ -1791,6 +1791,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(concreteSyntaxEClass, this.getEClassUtil(), "getEClassUtil", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getClassesWithSyntax", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEBoolean(), "excludeOperatorRules", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getSubClassesWithSyntax", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theGenModelPackage.getGenClass(), "superClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEBoolean(), "excludeOperatorRules", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_Prefix(), ecorePackage.getEString(), "prefix", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getImport_ConcreteSyntax(), this.getConcreteSyntax(), null, "concreteSyntax", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1908,6 +1915,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(completeTokenDefinitionEClass, theEcorePackage.getEBoolean(), "isHidden", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(completeTokenDefinitionEClass, theEcorePackage.getEBoolean(), "isUsed", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(completeTokenDefinitionEClass, theEcorePackage.getEBoolean(), "isImported", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(completeTokenDefinitionEClass, this.getConcreteSyntax(), "getContainingSyntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(normalTokenDefinitionEClass, NormalTokenDefinition.class, "NormalTokenDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

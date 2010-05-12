@@ -1,5 +1,6 @@
 epackage concretesyntax;
 
+import ecore.EClass;
 import genmodel.GenClass;
 
 import org.eclipse.emf.ecore.EObject;
@@ -7,6 +8,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
@@ -156,5 +158,38 @@ eclass ConcreteSyntax {
 			}
 		}
 		return subset;
+	}
+
+	/**
+	 * Collects all the subclasses for which concrete syntax is defined.
+	 */
+	getClassesWithSyntax() {
+		Collection<Rule> rules = getAllRules();
+		EList<GenClass> foundGenClasses = new BasicEList<GenClass>();
+
+		for (Rule rule : rules) {
+			if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
+				continue;
+			}
+			GenClass subClassCand = rule.getMetaclass();
+			foundGenClasses.add(subClassCand);
+		}
+		return foundGenClasses;
+	}
+
+	/**
+	 * Collects all the subclasses for which concrete syntax is defined.
+	 */
+	getSubClassesWithSyntax() {
+		EList<GenClass> subClasses = new BasicEList<GenClass>();
+
+		EClass ecoreClass = superClass.getEcoreClass();
+		EClassUtil eClassUtil = getEClassUtil();
+		for (GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {
+			if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
+				subClasses.add(subClassCand);
+			}
+		}
+		return subClasses;
 	}
 }

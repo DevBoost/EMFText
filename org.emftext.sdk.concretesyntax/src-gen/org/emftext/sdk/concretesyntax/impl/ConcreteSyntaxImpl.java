@@ -827,6 +827,43 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<GenClass> getClassesWithSyntax(boolean excludeOperatorRules) {
+		java.util.Collection < org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; 
+		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
+		for ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { 
+			if ( excludeOperatorRules && rule .getOperatorAnnotation ( ) != null ) { 
+				continue ; 
+			} 
+			org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; 
+			foundGenClasses .add ( subClassCand ) ; 
+		} 
+		return foundGenClasses ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenClass> getSubClassesWithSyntax(GenClass superClass, boolean excludeOperatorRules) {
+		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
+		org.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; 
+		org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; 
+		for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { 
+			if ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { 
+				subClasses .add ( subClassCand ) ; 
+			} 
+		} 
+		return subClasses ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {

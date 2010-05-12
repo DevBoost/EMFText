@@ -1,5 +1,8 @@
 epackage concretesyntax;
 
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+
 eclass CompleteTokenDefinition {
 	
 	isHidden() {
@@ -12,5 +15,17 @@ eclass CompleteTokenDefinition {
 		boolean isReferenced = !getAttributeReferences().isEmpty();
 		boolean isCollectInToken = getAttributeName() != null;
 		return isReferenced || isCollectInToken;
+	}
+
+	isImported() {
+		return !syntax.equals(getContainingSyntax(syntax));
+	}
+
+	getContainingSyntax() {
+		EObject container = this.eContainer();
+		if (container instanceof ConcreteSyntax) {
+			return (ConcreteSyntax) container;
+		}
+		return syntax;
 	}
 }

@@ -266,6 +266,16 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isImportedRule/rule"/>
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getEClassUtil"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getClassesWithSyntax">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getClassesWithSyntax/excludeOperatorRules"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/superClass"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/excludeOperatorRules"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getRulesByType">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getRulesByType/genClass"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Import/prefix"/>
@@ -360,6 +370,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/attributeName"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isHidden"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isUsed"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isImported">
+        <genParameters ecoreParameter="concretesyntax.ecore#//CompleteTokenDefinition/isImported/syntax"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/getContainingSyntax">
+        <genParameters ecoreParameter="concretesyntax.ecore#//CompleteTokenDefinition/getContainingSyntax/syntax"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//NormalTokenDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//NormalTokenDefinition/getRegex"/>

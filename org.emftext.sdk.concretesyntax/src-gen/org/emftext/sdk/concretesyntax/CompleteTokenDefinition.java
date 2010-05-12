@@ -104,4 +104,28 @@ public interface CompleteTokenDefinition extends AbstractTokenDefinition, TokenD
 	 */
 	boolean isUsed();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model syntaxRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; \r\n'"
+	 * @generated
+	 */
+	boolean isImported(ConcreteSyntax syntax);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model syntaxRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; \r\nif ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { \r\n\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; \r\n} \r\nreturn syntax ; \r\n'"
+	 * @generated
+	 */
+	ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax);
+
 } // CompleteTokenDefinition

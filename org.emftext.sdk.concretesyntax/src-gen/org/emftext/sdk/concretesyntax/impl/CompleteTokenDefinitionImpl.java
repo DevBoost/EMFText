@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.RegexOwner;
@@ -172,6 +173,30 @@ public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitio
 		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
 		boolean isCollectInToken = getAttributeName ( ) != null ; 
 		return isReferenced || isCollectInToken ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isImported(ConcreteSyntax syntax) {
+		return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
+		org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; 
+		if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { 
+			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; 
+		} 
+		return syntax ; 
 		
 	}
 

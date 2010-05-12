@@ -77,6 +77,21 @@
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="java.util.Collection &lt; org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; &#xD;&#xA;org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { &#xD;&#xA;&#x9;if ( excludeOperatorRules &amp;&amp; rule .getOperatorAnnotation ( ) != null ) { &#xD;&#xA;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;} &#xD;&#xA;&#x9;org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; &#xD;&#xA;&#x9;foundGenClasses .add ( subClassCand ) ; &#xD;&#xA;} &#xD;&#xA;return foundGenClasses ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    </eOperations>
+    <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;org.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; &#xD;&#xA;org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; &#xD;&#xA;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { &#xD;&#xA;&#x9;if ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { &#xD;&#xA;&#x9;&#x9;subClasses .add ( subClassCand ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return subClasses ; &#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+      <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -317,6 +332,20 @@
         <details key="body" value="boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; &#xD;&#xA;boolean isCollectInToken = getAttributeName ( ) != null ; &#xD;&#xA;return isReferenced || isCollectInToken ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
+    </eOperations>
+    <eOperations name="isImported" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" lowerBound="1" eType="#//ConcreteSyntax"/>
+    </eOperations>
+    <eOperations name="getContainingSyntax" eType="#//ConcreteSyntax">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; &#xD;&#xA;if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { &#xD;&#xA;&#x9;return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; &#xD;&#xA;} &#xD;&#xA;return syntax ; &#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" lowerBound="1" eType="#//ConcreteSyntax"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferences" upperBound="-1"
         eType="#//Placeholder" eOpposite="#//Placeholder/token"/>
