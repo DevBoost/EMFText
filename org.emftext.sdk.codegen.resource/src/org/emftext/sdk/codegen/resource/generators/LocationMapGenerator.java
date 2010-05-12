@@ -17,7 +17,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.AR
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IDENTITY_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
@@ -156,7 +156,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addSetMapValueToMaxMethod(JavaComposite sc) {
-		sc.add("private void setMapValueToMax(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.add("private void setMapValueToMax(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -168,7 +168,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addSetMapValueToMinMethod(JavaComposite sc) {
-		sc.add("private void setMapValueToMin(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.add("private void setMapValueToMin(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -180,7 +180,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addGetMapValueMethod(JavaComposite sc) {
-		sc.add("private int getMapValue(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
+		sc.add("private int getMapValue(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
 		sc.add("if (!map.containsKey(element)) return -1;");
 		sc.add(INTEGER + " value = map.get(element);");
 		sc.add("return value == null ? -1 : value.intValue();");
@@ -245,10 +245,10 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + E_MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
 		sc.addLineBreak();
 	}
 
