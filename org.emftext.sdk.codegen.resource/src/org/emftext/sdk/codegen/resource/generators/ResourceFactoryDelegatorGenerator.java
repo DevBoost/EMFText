@@ -22,9 +22,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PL
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
@@ -37,15 +39,18 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
  */
 public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Object> {
 	
-	public ResourceFactoryDelegatorGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ResourceFactoryDelegatorGenerator());
+
+	private ResourceFactoryDelegatorGenerator() {
 		super();
 	}
 
 	/**
 	 * @param context the generation context
 	 */
-	private ResourceFactoryDelegatorGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
+	private ResourceFactoryDelegatorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 	}
 
 	@Override
@@ -133,7 +138,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Object>
     	sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ResourceFactoryDelegatorGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ResourceFactoryDelegatorGenerator(parent, context);
 	}
 }

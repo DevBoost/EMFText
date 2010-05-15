@@ -15,24 +15,29 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IOptionProviderGenerator extends JavaBaseGenerator<Object> {
 
-	public IOptionProviderGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new IOptionProviderGenerator());
+
+	private IOptionProviderGenerator() {
 		super();
 	}
 
-	private IOptionProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_OPTION_PROVIDER);
+	private IOptionProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_OPTION_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new IOptionProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new IOptionProviderGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

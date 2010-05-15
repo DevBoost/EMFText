@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,8 +35,8 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 
 	public static final String FILENAME = "plugin.xml";
 
-	public PluginXMLCreator() {
-		super(TextResourceArtifacts.PLUGIN_XML, null);
+	public PluginXMLCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.PLUGIN_XML, null);
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
 		File project = getFileSystemConnector().getProjectFolder(resourcePlugin);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<GenerationContext, Object> generator = new PluginXMLGenerator().newInstance(context, parameters);
+		IGenerator<GenerationContext, Object> generator = PluginXMLGenerator.PROVIDER.newInstance(getParent(), context, parameters);
 
 	    return createArtifact(
 	    		context,

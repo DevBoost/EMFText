@@ -16,24 +16,29 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ILocationMapGenerator extends JavaBaseGenerator<Object> {
 
-	public ILocationMapGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ILocationMapGenerator());
+
+	private ILocationMapGenerator() {
 		super();
 	}
 
-	private ILocationMapGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_LOCATION_MAP);
+	private ILocationMapGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_LOCATION_MAP);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ILocationMapGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ILocationMapGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

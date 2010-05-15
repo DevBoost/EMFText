@@ -1,23 +1,28 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class LineBreakGenerator extends JavaBaseGenerator<Object> {
 
-	public LineBreakGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new LineBreakGenerator());
+
+	private LineBreakGenerator() {
 		super();
 	}
 
-	private LineBreakGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.LINE_BREAK);
+	private LineBreakGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.LINE_BREAK);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new LineBreakGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new LineBreakGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -18,8 +19,8 @@ public class ANTLRGenerationContext extends AbstractGenerationComponent implemen
 	private ConcreteSyntax concreteSyntax;
 	private IPluginDescriptor antlrPlugin;
 
-	public ANTLRGenerationContext(ConcreteSyntax concreteSyntax, IPluginDescriptor antlrPlugin) {
-		super();
+	public ANTLRGenerationContext(ICodeGenerationComponent parent, ConcreteSyntax concreteSyntax, IPluginDescriptor antlrPlugin) {
+		super(parent);
 		this.concreteSyntax = concreteSyntax;
 		this.antlrPlugin = antlrPlugin;
 	}

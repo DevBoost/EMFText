@@ -13,24 +13,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator<Object> {
 
-	public IResourcePostProcessorProviderGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new IResourcePostProcessorProviderGenerator());
+
+	private IResourcePostProcessorProviderGenerator() {
 		super();
 	}
 
-	private IResourcePostProcessorProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+	private IResourcePostProcessorProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new IResourcePostProcessorProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new IResourcePostProcessorProviderGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

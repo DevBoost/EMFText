@@ -8,8 +8,10 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -22,19 +24,22 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new FollowSetProviderGenerator());
+
 	private NameUtil nameUtil = new NameUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	public FollowSetProviderGenerator() {
+	private FollowSetProviderGenerator() {
 		super();
 	}
 
-	private FollowSetProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
+	private FollowSetProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new FollowSetProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new FollowSetProviderGenerator(parent, context);
 	}
 
 	@Override

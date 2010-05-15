@@ -2,7 +2,10 @@ package org.emftext.sdk.codegen.newproject.generators;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IGeneratorProvider;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -19,12 +22,14 @@ public class SyntaxGenerator extends ModelGenerator {
 
 	private static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;
 
-	public SyntaxGenerator() {
+	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new SyntaxGenerator());
+
+	private SyntaxGenerator() {
 		super();
 	}
 
-	public SyntaxGenerator(NewProjectGenerationContext context) {
-		super(context);
+	public SyntaxGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
+		super(parent, context);
 	}
 	
 	@Override
@@ -85,7 +90,7 @@ public class SyntaxGenerator extends ModelGenerator {
 	}
 
 	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			NewProjectGenerationContext context, Object parameters) {
-		return new SyntaxGenerator(context);
+			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
+		return new SyntaxGenerator(parent, context);
 	}
 }

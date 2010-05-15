@@ -12,6 +12,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
@@ -25,6 +26,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class TextResourceCreator extends AbstractGenerationComponent implements
 		IArtifactCreator<NewProjectGenerationContext> {
 
+	public TextResourceCreator(ICodeGenerationComponent parent) {
+		super(parent);
+	}
+
 	public void createArtifacts(IPluginDescriptor plugin, final NewProjectGenerationContext context) {
 		ResourceSet rs = new ResourceSetImpl();
 		NewProjectParameters parameters = context.getParameters();
@@ -34,7 +39,7 @@ public class TextResourceCreator extends AbstractGenerationComponent implements
 		
 		ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
 		context.setConcreteSyntax(concreteSyntax);
-		GenerationContext genContext = new GenerationContext(concreteSyntax) {
+		GenerationContext genContext = new GenerationContext(context.getParent(), concreteSyntax) {
 
 			@Override
 			public boolean getGenerateANTLRPlugin() {
@@ -52,8 +57,6 @@ public class TextResourceCreator extends AbstractGenerationComponent implements
 				return context.getParameters().getProjectName();
 			}
 		};
-		genContext.setFileSystemConnector(context.getFileSystemConnector());
-		genContext.setProblemCollector(context.getProblemCollector());
 		context.setGenerationContext(genContext);
 		
 		try {

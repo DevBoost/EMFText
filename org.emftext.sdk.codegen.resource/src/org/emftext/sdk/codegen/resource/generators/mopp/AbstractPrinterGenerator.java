@@ -8,6 +8,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,8 +29,8 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Object>
 		super();
 	}
 
-	public AbstractPrinterGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext, Object> artifact) {
-		super(context, artifact);
+	public AbstractPrinterGenerator(ICodeGenerationComponent parent, GenerationContext context, ArtifactDescriptor<GenerationContext, Object> artifact) {
+		super(parent, context, artifact);
 		genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}
 

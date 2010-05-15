@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.resource.ui.generators;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -58,8 +59,8 @@ public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBas
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public UIResourceBaseGenerator(GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(context, parameters, artifact);
+	public UIResourceBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super(parent, context, parameters, artifact);
 	}
 	
 	@Override

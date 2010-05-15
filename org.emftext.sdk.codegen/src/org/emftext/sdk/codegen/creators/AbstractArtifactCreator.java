@@ -25,6 +25,7 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
@@ -39,8 +40,8 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 	private String artifactName;
 	protected ParameterType parameters;
 
-	public AbstractArtifactCreator(String artifactName, ParameterType parameters) {
-		super();
+	public AbstractArtifactCreator(ICodeGenerationComponent parent, String artifactName, ParameterType parameters) {
+		super(parent);
 		this.artifactName = artifactName;
 		this.parameters = parameters;
 	}
@@ -50,7 +51,6 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 	}
 
 	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
-		setFileSystemConnector(context.getFileSystemConnector());
 		boolean doOverride = doOverride(context);
 		
 		Collection<IArtifact> artifacts = getArtifactsToCreate(plugin, context, parameters);
@@ -105,13 +105,6 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 			// handled in createArtifact() by adding a generation problem
 			// to the problem collector
 			EMFTextSDKPlugin.logError("Exception while invoking code generator.", e);
-		} finally {
-			Collection<GenerationProblem> collectedProblems = generator.getCollectedProblems();
-			if (collectedProblems != null) {
-				for (GenerationProblem problem : collectedProblems) {
-					collector.addProblem(problem);
-				}
-			}
 		}
 		return null;
 	}

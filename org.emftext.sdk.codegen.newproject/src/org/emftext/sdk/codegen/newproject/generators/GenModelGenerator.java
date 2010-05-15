@@ -9,7 +9,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IGeneratorProvider;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
@@ -20,12 +23,14 @@ public class GenModelGenerator extends ModelGenerator {
 
 	private static final GenModelFactory GEN_MODEL_FACTORY = GenModelFactory.eINSTANCE;
 
-	public GenModelGenerator() {
+	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new GenModelGenerator());
+
+	private GenModelGenerator() {
 		super();
 	}
 
-	public GenModelGenerator(NewProjectGenerationContext context) {
-		super(context);
+	public GenModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
+		super(parent, context);
 	}
 
 	public EObject generateModel() {
@@ -50,8 +55,8 @@ public class GenModelGenerator extends ModelGenerator {
 	}
 
 	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			NewProjectGenerationContext context, Object parameters) {
-		return new GenModelGenerator(context);
+			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
+		return new GenModelGenerator(parent, context);
 	}
 
 	@Override

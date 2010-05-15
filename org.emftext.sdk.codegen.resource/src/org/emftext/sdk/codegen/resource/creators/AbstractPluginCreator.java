@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IPluginCreator;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -22,8 +23,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public abstract class AbstractPluginCreator<ParameterType> extends AbstractGenerationComponent implements IPluginCreator<GenerationContext, ParameterType> {
 
+	public AbstractPluginCreator(ICodeGenerationComponent parent) {
+		super(parent);
+	}
+	
 	public void create(IPluginDescriptor plugin, GenerationContext context, ParameterType parameters, IProgressMonitor monitor) throws IOException {
-		setFileSystemConnector(context.getFileSystemConnector());
 		SubMonitor progress = SubMonitor.convert(monitor, "generating " + getPluginName() + " plug-in...", 100);
 	    
 		ConcreteSyntax syntax = context.getConcreteSyntax();
@@ -45,5 +49,4 @@ public abstract class AbstractPluginCreator<ParameterType> extends AbstractGener
 	public abstract String getPluginName();
 
 	public abstract List<IArtifactCreator<GenerationContext>> getCreators(GenerationContext context);
-
 }

@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
@@ -35,10 +36,11 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 	private final boolean override;
 
 	public BuildPropertiesCreator(
+			ICodeGenerationComponent parent, 
 			ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, 
 			BuildPropertiesParameters parameters,
 			boolean override) {
-		super(artifact, parameters);
+		super(parent, artifact, parameters);
 		this.override = override;
 	}
 
@@ -47,7 +49,7 @@ public class BuildPropertiesCreator<ContextType extends IContext> extends Generi
 		
 		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<ContextType, BuildPropertiesParameters> generator = new BuildPropertiesGenerator<ContextType>(context, parameters);
+		IGenerator<ContextType, BuildPropertiesParameters> generator = new BuildPropertiesGenerator<ContextType>(this, context, parameters);
 		
 	    return createArtifact(
 	    		context,

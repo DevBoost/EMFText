@@ -29,7 +29,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.SDKOptionProvider;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.RootComponent;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
@@ -75,7 +79,15 @@ public class GenerateTextResourceTask extends Task {
 			performPreprocessing(syntax);
 			
 			AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
-			AntGenerationContext context = new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this), generateANTLRPlugin);
+			IFileSystemConnector folderConnector = new IFileSystemConnector() {
+				
+				public File getProjectFolder(IPluginDescriptor plugin) {
+					return new File(rootFolder.getAbsolutePath() + File.separator + plugin.getName());
+				}
+			};
+			
+			ICodeGenerationComponent rootComponent = new RootComponent(folderConnector, new AntProblemCollector(this));
+			AntGenerationContext context = new AntGenerationContext(rootComponent, syntax, rootFolder, syntaxProjectName, generateANTLRPlugin);
 			Result result = generator.run(
 					context, 
 					new AntLogMarker(this), 

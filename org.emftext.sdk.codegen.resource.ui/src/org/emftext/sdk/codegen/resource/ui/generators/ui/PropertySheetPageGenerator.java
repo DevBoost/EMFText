@@ -25,21 +25,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY_SHEET_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class PropertySheetPageGenerator extends UIJavaBaseGenerator {
 	
-	public PropertySheetPageGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PropertySheetPageGenerator());
+
+	private PropertySheetPageGenerator() {
 		super();
 	}
 
-	private PropertySheetPageGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
+	private PropertySheetPageGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -149,7 +154,7 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator {
 		sc.add("}");
 	}
 	
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PropertySheetPageGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PropertySheetPageGenerator(parent, context);
 	}
 }

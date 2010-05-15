@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,8 +32,8 @@ public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextRe
 
 	public static final String FILENAME = "additional_extension_parser.exsd";
 
-	public AdditionalExtensionParserExtensionPointSchemaCreator() {
-		super(TextResourceArtifacts.ADDITIONAL_EXTENSION_PARSER_EXSD, null);
+	public AdditionalExtensionParserExtensionPointSchemaCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.ADDITIONAL_EXTENSION_PARSER_EXSD, null);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class AdditionalExtensionParserExtensionPointSchemaCreator extends TextRe
 		
 		File schemaFolder = context.getSchemaFolder(context.getResourcePlugin());
 		File file = new File(schemaFolder.getAbsolutePath() + File.separator + FILENAME);
-		IGenerator<GenerationContext, Object> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext, Object> generator = new AdditionalExtensionParserExtensionPointSchemaGenerator(getParent(), context);
 
 	    return createArtifact(
 	    		context,

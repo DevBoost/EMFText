@@ -13,24 +13,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ITextScannerGenerator extends JavaBaseGenerator<Object> {
 
-	public ITextScannerGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ITextScannerGenerator());
+
+	private ITextScannerGenerator() {
 		super();
 	}
 
-	private ITextScannerGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_TEXT_SCANNER);
+	private ITextScannerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_TEXT_SCANNER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ITextScannerGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ITextScannerGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

@@ -17,24 +17,29 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class PreferenceInitializerGenerator extends UIJavaBaseGenerator {
 
-	public PreferenceInitializerGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PreferenceInitializerGenerator());
+
+	private PreferenceInitializerGenerator() {
 		super();
 	}
 
-	private PreferenceInitializerGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
+	private PreferenceInitializerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PreferenceInitializerGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PreferenceInitializerGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

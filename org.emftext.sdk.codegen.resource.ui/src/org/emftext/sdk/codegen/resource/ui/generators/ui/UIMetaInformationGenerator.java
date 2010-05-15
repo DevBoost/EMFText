@@ -1,20 +1,25 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
 
-	public UIMetaInformationGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new UIMetaInformationGenerator());
+
+	private UIMetaInformationGenerator() {
 		super();
 	}
 
-	private UIMetaInformationGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.UI_META_INFORMATION);
+	private UIMetaInformationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.UI_META_INFORMATION);
 	}
 	
 	@Override
@@ -67,7 +72,8 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(
+			ICodeGenerationComponent parent, 
 			GenerationContext context, Object parameters) {
-		return new UIMetaInformationGenerator(context);
+		return new UIMetaInformationGenerator(parent, context);
 	}
 }

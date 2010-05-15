@@ -1,23 +1,28 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CompoundGenerator extends JavaBaseGenerator<Object> {
 
-	public CompoundGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new CompoundGenerator());
+
+	private CompoundGenerator() {
 		super();
 	}
 
-	private CompoundGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.COMPOUND);
+	private CompoundGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.COMPOUND);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new CompoundGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new CompoundGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

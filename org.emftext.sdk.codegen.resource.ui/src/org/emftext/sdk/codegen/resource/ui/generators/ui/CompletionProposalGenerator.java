@@ -4,25 +4,30 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 public class CompletionProposalGenerator extends JavaBaseGenerator<Object> {
 
-	public CompletionProposalGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new CompletionProposalGenerator());
+
+	private CompletionProposalGenerator() {
 		super();
 	}
 
-	private CompletionProposalGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.COMPLETION_PROPOSAL);
+	private CompletionProposalGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.COMPLETION_PROPOSAL);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new CompletionProposalGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new CompletionProposalGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

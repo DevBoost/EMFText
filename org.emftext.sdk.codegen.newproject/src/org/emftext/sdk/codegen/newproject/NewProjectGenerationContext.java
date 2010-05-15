@@ -8,6 +8,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IResourceMarker;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
@@ -32,10 +33,11 @@ public class NewProjectGenerationContext extends AbstractGenerationComponent imp
 	private GenerationContext generationContext;
 
 	public NewProjectGenerationContext(
+			ICodeGenerationComponent parent, 
 			IProject project,
 			IPluginDescriptor pluginDescriptor,
 			NewProjectParameters parameters) {
-		super();
+		super(parent);
 		this.project = project;
 		this.pluginDescriptor = pluginDescriptor;
 		this.parameters = parameters;

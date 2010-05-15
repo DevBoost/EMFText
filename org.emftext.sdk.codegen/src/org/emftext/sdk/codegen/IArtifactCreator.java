@@ -25,7 +25,7 @@ import org.emftext.sdk.IPluginDescriptor;
  * array of bytes in memory, a creator is responsible for
  * storing created artifacts to disc.
  */
-public interface IArtifactCreator<ContextType> extends IConfigurableGenerationComponent {
+public interface IArtifactCreator<ContextType> extends ICodeGenerationComponent {
 	
 	/**
 	 * Returns the name of the artifact(s) that is

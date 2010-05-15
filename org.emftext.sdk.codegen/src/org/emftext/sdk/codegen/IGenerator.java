@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen;
 
 import java.io.OutputStream;
-import java.util.Collection;
 
 /**
  * A basic generator interface which should be implemented by all generators 
@@ -24,12 +23,7 @@ import java.util.Collection;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public interface IGenerator<ContextType, ParameterType> extends IConfigurableGenerationComponent {
+public interface IGenerator<ContextType, ParameterType> extends ICodeGenerationComponent {
 	
 	public boolean generate(OutputStream out);
-	
-	public Collection<GenerationProblem> getCollectedProblems();
-	public Collection<GenerationProblem> getCollectedErrors();
-
-	public IGenerator<ContextType, ParameterType> newInstance(ContextType context, ParameterType parameters);
 }

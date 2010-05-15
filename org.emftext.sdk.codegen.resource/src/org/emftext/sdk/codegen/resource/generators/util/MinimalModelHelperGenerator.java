@@ -27,25 +27,30 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class MinimalModelHelperGenerator extends JavaBaseGenerator<Object> {
 
-	public MinimalModelHelperGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new MinimalModelHelperGenerator());
+
+	private MinimalModelHelperGenerator() {
 		super();
 	}
 
-	private MinimalModelHelperGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
+	private MinimalModelHelperGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new MinimalModelHelperGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new MinimalModelHelperGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

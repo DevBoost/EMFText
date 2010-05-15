@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 
@@ -33,19 +34,19 @@ public abstract class GenericArtifactCreator<ContextType extends IContext, Param
 
 	private ArtifactDescriptor<ContextType, ParameterType> artifact;
 
-	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact) {
-		this(artifact, null);
+	public GenericArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ParameterType> artifact) {
+		this(parent, artifact, null);
 	}
 
-	public GenericArtifactCreator(ArtifactDescriptor<ContextType, ParameterType> artifact, ParameterType parameters) {
-		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), parameters);
+	public GenericArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ParameterType> artifact, ParameterType parameters) {
+		super(parent, artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), parameters);
 		this.artifact = artifact;
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameters) {
 	    File file = context.getFile(plugin, artifact);
-		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator(context, parameters);
+		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator(this, context, parameters);
 		
 	    return createArtifact(
 	    		context,

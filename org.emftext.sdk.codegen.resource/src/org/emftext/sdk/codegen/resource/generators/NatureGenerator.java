@@ -6,9 +6,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT_DESCRIPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT_NATURE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -16,18 +18,21 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class NatureGenerator extends JavaBaseGenerator<Object> {
 
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new NatureGenerator());
+
 	private final NameUtil nameUtil = new NameUtil();
 
-	public NatureGenerator() {
+	private NatureGenerator() {
 		super();
 	}
 
-	private NatureGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.NATURE);
+	private NatureGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.NATURE);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new NatureGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new NatureGenerator(parent, context);
 	}
 
 	@Override

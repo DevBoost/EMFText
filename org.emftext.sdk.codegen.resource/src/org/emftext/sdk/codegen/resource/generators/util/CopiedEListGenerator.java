@@ -20,24 +20,29 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IT
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CopiedEListGenerator extends JavaBaseGenerator<Object> {
 
-	public CopiedEListGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new CopiedEListGenerator());
+
+	private CopiedEListGenerator() {
 		super();
 	}
 
-	private CopiedEListGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.COPIED_E_LIST);
+	private CopiedEListGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.COPIED_E_LIST);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new CopiedEListGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new CopiedEListGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

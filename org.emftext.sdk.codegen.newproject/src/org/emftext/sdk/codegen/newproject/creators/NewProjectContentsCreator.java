@@ -9,7 +9,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IPluginCreator;
+import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
@@ -29,7 +31,11 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  * Afterwards the EMF code generation and the EMFText code generation is called
  * to obtain runnable DSL plug-ins. 
  */
-public class NewProjectContentsCreator implements IPluginCreator<NewProjectGenerationContext, Object> {
+public class NewProjectContentsCreator extends AbstractGenerationComponent implements IPluginCreator<NewProjectGenerationContext, Object> {
+
+	public NewProjectContentsCreator(ICodeGenerationComponent parent) {
+		super(parent);
+	}
 
 	public void create(IPluginDescriptor plugin, NewProjectGenerationContext context, Object parameters,
 			IProgressMonitor unusedMonitor) throws IOException {
@@ -49,7 +55,7 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getEcoreFile(), 
-					new MetaModelGenerator(), 
+					MetaModelGenerator.PROVIDER, 
 					null);
 
 		ArtifactDescriptor<NewProjectGenerationContext, Object> genModel  = 
@@ -57,7 +63,7 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getGenmodelFile(), 
-					new GenModelGenerator(), 
+					GenModelGenerator.PROVIDER, 
 					null);
 
 		ArtifactDescriptor<NewProjectGenerationContext, Object> syntax  = 
@@ -65,22 +71,22 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getSyntaxFile(), 
-					new SyntaxGenerator(), 
+					SyntaxGenerator.PROVIDER, 
 					null);
 
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
-		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(metamodel));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(genModel));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(syntax));
-    	creators.add(new GenerateCodeCreator());
-    	creators.add(new TextResourceCreator());
+		creators.add(new FoldersCreator<NewProjectGenerationContext>(this, new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(this, metamodel));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(this, genModel));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, Object>(this, syntax));
+    	creators.add(new GenerateCodeCreator(this));
+    	creators.add(new TextResourceCreator(this));
     	
     	ClassPathParameters cpp = new ClassPathParameters(context.getPluginDescriptor());
     	cpp.getSourceFolders().add(context.getParameters().getSrcFolder());
-		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, cpp, true));
-		creators.add(new DotProjectCreator<NewProjectGenerationContext>(NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor(), true));
+		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(this, NewProjectArtifacts.DOT_CLASSPATH, cpp, true));
+		creators.add(new DotProjectCreator<NewProjectGenerationContext>(this, NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor(), true));
 		
 		return creators;
 	}

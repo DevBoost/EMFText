@@ -2,14 +2,15 @@ package org.emftext.sdk.codegen.resource.creators;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public abstract class TextResourceArtifactCreator<ParameterType> extends GenericArtifactCreator<GenerationContext, ParameterType> {
 
-	public TextResourceArtifactCreator(ArtifactDescriptor<GenerationContext, ParameterType> artifact, ParameterType parameters) {
-		super(artifact, parameters);
+	public TextResourceArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<GenerationContext, ParameterType> artifact, ParameterType parameters) {
+		super(parent, artifact, parameters);
 	}
 
 	public boolean doOverride(GenerationContext context) {

@@ -31,21 +31,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class HyperlinkGenerator extends UIJavaBaseGenerator {
 
-	public HyperlinkGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new HyperlinkGenerator());
+
+	private HyperlinkGenerator() {
 		super();
 	}
 
-	private HyperlinkGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.HYPERLINK);
+	private HyperlinkGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.HYPERLINK);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -176,7 +181,7 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new HyperlinkGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new HyperlinkGenerator(parent, context);
 	}
 }

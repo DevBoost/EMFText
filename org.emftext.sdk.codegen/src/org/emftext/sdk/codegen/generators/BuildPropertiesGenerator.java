@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.util.StringUtil;
@@ -29,8 +30,8 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<ContextType, BuildPropertiesParameters> {
 
-	public BuildPropertiesGenerator(ContextType context, BuildPropertiesParameters parameters) {
-		super(context, parameters);
+	public BuildPropertiesGenerator(ICodeGenerationComponent parent, ContextType context, BuildPropertiesParameters parameters) {
+		super(parent, context, parameters);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<Con
 		return true;
 	}
 
-	public IGenerator<ContextType, BuildPropertiesParameters> newInstance(ContextType context, BuildPropertiesParameters parameters) {
-		return new BuildPropertiesGenerator<ContextType>(context, parameters);
+	public IGenerator<ContextType, BuildPropertiesParameters> newInstance(ICodeGenerationComponent parent, ContextType context, BuildPropertiesParameters parameters) {
+		return new BuildPropertiesGenerator<ContextType>(parent, context, parameters);
 	}
 }

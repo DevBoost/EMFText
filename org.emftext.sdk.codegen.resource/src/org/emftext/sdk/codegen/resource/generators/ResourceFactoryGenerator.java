@@ -16,8 +16,10 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
@@ -30,18 +32,15 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
  */
 public class ResourceFactoryGenerator extends JavaBaseGenerator<Object> {
 	
-	public ResourceFactoryGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ResourceFactoryGenerator());
+
+	private ResourceFactoryGenerator() {
 		super();
 	}
 
-	/**
-	 * @param className The name of the generated CompilationUnit
-	 * @param packageName The package name of the generated CompilationUnit
-	 * @param qualifiedTextResourceClassName The class name of the generated TextResource 
-	 * which is meant to be instantiated by the ResourceFactory.
-	 */
-	private ResourceFactoryGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.RESOURCE_FACTORY);
+	private ResourceFactoryGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.RESOURCE_FACTORY);
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator<Object> {
     	return true;	
     }
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ResourceFactoryGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ResourceFactoryGenerator(parent, context);
 	}
 }

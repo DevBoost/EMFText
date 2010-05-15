@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.creators;
 
-import org.emftext.sdk.codegen.IConfigurableGenerationComponent;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IProblemCollector;
 
@@ -9,25 +9,34 @@ import org.emftext.sdk.codegen.IProblemCollector;
  * All components can by configured according to the IConfigurableGenerationComponent
  * interface.
  */
-public abstract class AbstractGenerationComponent implements IConfigurableGenerationComponent {
+public abstract class AbstractGenerationComponent implements ICodeGenerationComponent {
 
-	private IFileSystemConnector fileSystemConnector;
-	private IProblemCollector problemCollector;
+	private ICodeGenerationComponent parent;
+
+	public AbstractGenerationComponent() {
+		super();
+	}
+
+	public AbstractGenerationComponent(ICodeGenerationComponent parent) {
+		if (parent == null) {
+			throw new IllegalArgumentException("Parent must not be null.");
+		}
+		this.parent = parent;
+	}
 
 	public IFileSystemConnector getFileSystemConnector() {
+		IFileSystemConnector fileSystemConnector = getParent().getFileSystemConnector();
 		assert fileSystemConnector != null : "No file system connector set in " + this;
 		return fileSystemConnector;
 	}
 
-	public void setFileSystemConnector(IFileSystemConnector fileSystemConnector) {
-		this.fileSystemConnector = fileSystemConnector;
-	}
-
 	public IProblemCollector getProblemCollector() {
+		IProblemCollector problemCollector = getParent().getProblemCollector();
+		assert problemCollector != null : "No file problem collector set in " + this;
 		return problemCollector;
 	}
 
-	public void setProblemCollector(IProblemCollector problemCollector) {
-		this.problemCollector = problemCollector;
+	public ICodeGenerationComponent getParent() {
+		return parent;
 	}
 }

@@ -5,7 +5,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IGeneratorProvider;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
@@ -15,13 +18,15 @@ import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 public class MetaModelGenerator extends ModelGenerator {
 
 	private static final EcoreFactory ECORE_FACTORY = EcoreFactory.eINSTANCE;
+	
+	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new MetaModelGenerator());
 
-	public MetaModelGenerator() {
+	private MetaModelGenerator() {
 		super();
 	}
 
-	public MetaModelGenerator(NewProjectGenerationContext context) {
-		super(context);
+	public MetaModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
+		super(parent, context);
 	}
 
 	public EObject generateModel() {
@@ -72,7 +77,7 @@ public class MetaModelGenerator extends ModelGenerator {
 	}
 
 	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			NewProjectGenerationContext context, Object parameters) {
-		return new MetaModelGenerator(context);
+			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
+		return new MetaModelGenerator(parent, context);
 	}
 }

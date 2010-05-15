@@ -24,21 +24,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PREFEREN
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_ATTRIBUTE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class TokenScannerGenerator extends UIJavaBaseGenerator {
 
-	public TokenScannerGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new TokenScannerGenerator());
+
+	private TokenScannerGenerator() {
 		super();
 	}
 
-	private TokenScannerGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.TOKEN_SCANNER);
+	private TokenScannerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.TOKEN_SCANNER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -158,7 +163,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new TokenScannerGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new TokenScannerGenerator(parent, context);
 	}
 }

@@ -21,6 +21,7 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
@@ -31,7 +32,8 @@ public class FileCopier<ContextType> extends AbstractGenerationComponent impleme
 	private InputStream inputStream;
 	private File targetFile;
 
-	public FileCopier(InputStream inputStream, File targetFile) {
+	public FileCopier(ICodeGenerationComponent parent, InputStream inputStream, File targetFile) {
+		super(parent);
 		this.inputStream = inputStream;
 		this.targetFile = targetFile;
 	}

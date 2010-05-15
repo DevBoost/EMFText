@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -28,8 +29,8 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextType, ManifestParameters> {
 
-	public ManifestGenerator(ContextType context, ManifestParameters parameters) {
-		super(context, parameters);
+	public ManifestGenerator(ICodeGenerationComponent parent, ContextType context, ManifestParameters parameters) {
+		super(parent, context, parameters);
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -71,7 +72,7 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 		return sc.toString();
 	}
 
-	public IGenerator<ContextType, ManifestParameters> newInstance(ContextType context, ManifestParameters parameters) {
-		return new ManifestGenerator<ContextType>(context, parameters);
+	public IGenerator<ContextType, ManifestParameters> newInstance(ICodeGenerationComponent parent, ContextType context, ManifestParameters parameters) {
+		return new ManifestGenerator<ContextType>(parent, context, parameters);
 	}
 }

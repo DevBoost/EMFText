@@ -12,9 +12,11 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -48,6 +50,9 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new GrammarInformationProviderGenerator());
+
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -55,12 +60,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 
 	private ConcreteSyntax concreteSyntax;
 
-	public GrammarInformationProviderGenerator() {
+	private GrammarInformationProviderGenerator() {
 		super();
 	}
 
-	private GrammarInformationProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
+	private GrammarInformationProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
 		concreteSyntax = context.getConcreteSyntax();
 	}
 
@@ -275,7 +280,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new GrammarInformationProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new GrammarInformationProviderGenerator(parent, context);
 	}
 }

@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
@@ -33,8 +34,8 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 
 	private final boolean override;
 
-	public DotClasspathCreator(ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters, boolean override) {
-		super(artifact, parameters);
+	public DotClasspathCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters, boolean override) {
+		super(parent, artifact, parameters);
 		this.override = override;
 	}
 
@@ -43,7 +44,7 @@ public class DotClasspathCreator<ContextType extends IContext> extends GenericAr
 		
 		File dotClasspathFile = new File(getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<ContextType, ClassPathParameters> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(context, parameters);
+		IGenerator<ContextType, ClassPathParameters> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(this, context, parameters);
 		
 	    return createArtifact(
 	    		context,

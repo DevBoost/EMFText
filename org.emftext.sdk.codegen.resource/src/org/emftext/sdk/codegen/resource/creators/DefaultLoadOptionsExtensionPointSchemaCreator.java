@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,8 +32,8 @@ public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceA
 
 	public static final String FILENAME = "default_load_options.exsd";
 
-	public DefaultLoadOptionsExtensionPointSchemaCreator() {
-		super(TextResourceArtifacts.DEFAULT_LOAD_OPTIONS_EXSD, null);
+	public DefaultLoadOptionsExtensionPointSchemaCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.DEFAULT_LOAD_OPTIONS_EXSD, null);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceA
 		
 		File schemaFolder = context.getSchemaFolder(context.getResourcePlugin());
 		File pluginXMLFile = new File(schemaFolder.getAbsolutePath() + File.separator + FILENAME);
-		IGenerator<GenerationContext, Object> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
+		IGenerator<GenerationContext, Object> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(getParent(), context);
 
 	    return createArtifact(
 	    		context,

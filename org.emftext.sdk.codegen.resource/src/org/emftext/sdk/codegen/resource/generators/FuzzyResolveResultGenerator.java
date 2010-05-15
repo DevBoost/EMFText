@@ -17,19 +17,24 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
 public class FuzzyResolveResultGenerator extends JavaBaseGenerator<Object> {
 
-	public FuzzyResolveResultGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new FuzzyResolveResultGenerator());
+
+	private FuzzyResolveResultGenerator() {
 		super();
 	}
 
-	private FuzzyResolveResultGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
+	private FuzzyResolveResultGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -148,7 +153,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new FuzzyResolveResultGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new FuzzyResolveResultGenerator(parent, context);
 	}
 }

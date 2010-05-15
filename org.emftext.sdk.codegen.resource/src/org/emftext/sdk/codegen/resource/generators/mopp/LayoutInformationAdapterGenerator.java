@@ -8,25 +8,30 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Object> {
 
-	public LayoutInformationAdapterGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new LayoutInformationAdapterGenerator());
+
+	private LayoutInformationAdapterGenerator() {
 		super();
 	}
 
-	private LayoutInformationAdapterGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
+	private LayoutInformationAdapterGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new LayoutInformationAdapterGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new LayoutInformationAdapterGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

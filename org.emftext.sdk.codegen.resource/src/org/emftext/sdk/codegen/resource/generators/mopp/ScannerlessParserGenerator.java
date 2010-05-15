@@ -53,9 +53,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -99,6 +101,9 @@ import org.emftext.sdk.util.StringUtil;
 // TODO mseifert: enable backtracking for the postParseCommands lists
 public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 	
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ScannerlessParserGenerator());
+
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
@@ -107,12 +112,12 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassCache genClassCache;
 	
-	public ScannerlessParserGenerator() {
+	private ScannerlessParserGenerator() {
 		super();
 	}
 
-	private ScannerlessParserGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.SCANNERLESS_PARSER);
+	private ScannerlessParserGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.SCANNERLESS_PARSER);
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 	}
 
@@ -815,7 +820,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 		//sc.add("}");
 		sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
 		sc.add("ICommand command = commands.get(c);");
-		sc.add("command.execute(context);");
+		sc.add("command.execute(parent, context);");
 		sc.add("}");
 		sc.add("commands = null;");
 		sc.add("}");
@@ -1488,7 +1493,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 		return ((List<?>) parent.eGet(feature)).indexOf(object);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ScannerlessParserGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ScannerlessParserGenerator(parent, context);
 	}
 }

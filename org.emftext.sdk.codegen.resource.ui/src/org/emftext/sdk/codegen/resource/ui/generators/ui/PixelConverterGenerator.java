@@ -18,24 +18,29 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_MET
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GC;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.JFACE_DIALOG;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class PixelConverterGenerator extends UIJavaBaseGenerator {
 
-	public PixelConverterGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PixelConverterGenerator());
+
+	private PixelConverterGenerator() {
 		super();
 	}
 
-	private PixelConverterGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.PIXEL_CONVERTER);
+	private PixelConverterGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.PIXEL_CONVERTER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PixelConverterGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PixelConverterGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

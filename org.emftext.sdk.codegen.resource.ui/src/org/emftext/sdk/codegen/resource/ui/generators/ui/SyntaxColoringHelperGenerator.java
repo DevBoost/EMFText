@@ -13,24 +13,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class SyntaxColoringHelperGenerator extends UIJavaBaseGenerator {
 
-	public SyntaxColoringHelperGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new SyntaxColoringHelperGenerator());
+
+	private SyntaxColoringHelperGenerator() {
 		super();
 	}
 
-	private SyntaxColoringHelperGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
+	private SyntaxColoringHelperGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new SyntaxColoringHelperGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new SyntaxColoringHelperGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

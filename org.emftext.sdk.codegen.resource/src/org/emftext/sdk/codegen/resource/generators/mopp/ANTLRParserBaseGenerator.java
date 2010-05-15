@@ -17,20 +17,25 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.AN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN_STREAM;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ANTLRParserBaseGenerator extends JavaBaseGenerator<Object> {
 
-	public ANTLRParserBaseGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ANTLRParserBaseGenerator());
+
+	private ANTLRParserBaseGenerator() {
 		super();
 	}
 
-	public ANTLRParserBaseGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.ANTLR_PARSER_BASE);
+	private ANTLRParserBaseGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.ANTLR_PARSER_BASE);
 	}
 
 	@Override
@@ -55,7 +60,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<Object> {
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ANTLRParserBaseGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ANTLRParserBaseGenerator(parent, context);
 	}
 }

@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -142,8 +143,8 @@ public abstract class ResourceBaseGenerator<ParameterType> extends BaseGenerator
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public ResourceBaseGenerator(GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(context, parameters, artifact);
+	public ResourceBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super(parent, context, parameters, artifact);
 
 		if (artifact != null) {
 			this.resourcePackageName = context.getPackageName(artifact);

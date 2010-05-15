@@ -28,6 +28,7 @@ import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
@@ -95,8 +96,8 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	private IPluginDescriptor resourceUIPlugin;
 	private IPluginDescriptor antlrPlugin;
 
-	public GenerationContext(ConcreteSyntax concreteSyntax) {
-		super();
+	public GenerationContext(ICodeGenerationComponent parent, ConcreteSyntax concreteSyntax) {
+		super(parent);
 		if (concreteSyntax == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}

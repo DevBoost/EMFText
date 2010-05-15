@@ -35,25 +35,30 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD_PAGE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class NewFileWizardPageGenerator extends UIJavaBaseGenerator {
 
-	public NewFileWizardPageGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new NewFileWizardPageGenerator());
+
+	private NewFileWizardPageGenerator() {
 		super();
 	}
 
-	private NewFileWizardPageGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
+	private NewFileWizardPageGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new NewFileWizardPageGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new NewFileWizardPageGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

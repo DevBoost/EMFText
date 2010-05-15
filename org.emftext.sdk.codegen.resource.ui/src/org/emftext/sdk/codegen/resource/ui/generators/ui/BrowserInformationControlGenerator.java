@@ -49,20 +49,25 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_STY
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WINDOW_EVENT;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class BrowserInformationControlGenerator extends UIJavaBaseGenerator {
 
-	public BrowserInformationControlGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new BrowserInformationControlGenerator());
+
+	private BrowserInformationControlGenerator() {
 		super();
 	}
 
-	private BrowserInformationControlGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
+	private BrowserInformationControlGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -599,7 +604,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new BrowserInformationControlGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new BrowserInformationControlGenerator(parent, context);
 	}
 }

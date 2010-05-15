@@ -20,21 +20,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_H
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RGB;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class ColorManagerGenerator extends UIJavaBaseGenerator {
 
-	public ColorManagerGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ColorManagerGenerator());
+
+	private ColorManagerGenerator() {
 		super();
 	}
 
-	private ColorManagerGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.COLOR_MANAGER);
+	private ColorManagerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.COLOR_MANAGER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -89,7 +94,7 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ColorManagerGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ColorManagerGenerator(parent, context);
 	}
 }

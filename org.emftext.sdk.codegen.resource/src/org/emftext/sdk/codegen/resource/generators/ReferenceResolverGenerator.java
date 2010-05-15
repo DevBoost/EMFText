@@ -23,9 +23,11 @@ import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -39,6 +41,9 @@ import org.emftext.sdk.finders.GenClassFinder;
  */
 public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
+	public static final GeneratorProvider<GenerationContext, GenFeature> PROVIDER = 
+		new GeneratorProvider<GenerationContext, GenFeature>(new ReferenceResolverGenerator());
+	
 	private final NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
@@ -48,12 +53,12 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
 	private GenClassCache genClassCache;
 
-	public ReferenceResolverGenerator() {
+	private ReferenceResolverGenerator() {
 		super();
 	}
 
-	private ReferenceResolverGenerator(GenerationContext context) {
-		super(context, null);
+	private ReferenceResolverGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, null);
 		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
 		this.defaultResolverDelegateName = context
 				.getQualifiedDefaultResolverDelegateName();
@@ -229,8 +234,8 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 		return Collections.emptySet();
 	}
 
-	public IGenerator<GenerationContext, GenFeature> newInstance(GenerationContext context, GenFeature parameters) {
-		ReferenceResolverGenerator instance = new ReferenceResolverGenerator(context);
+	public IGenerator<GenerationContext, GenFeature> newInstance(ICodeGenerationComponent parent, GenerationContext context, GenFeature parameters) {
+		ReferenceResolverGenerator instance = new ReferenceResolverGenerator(parent, context);
 		instance.setProxyReference(parameters);
 		return instance;
 	}

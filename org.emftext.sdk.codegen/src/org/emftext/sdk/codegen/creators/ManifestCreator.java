@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
@@ -33,8 +34,8 @@ public class ManifestCreator<ContextType extends IContext> extends GenericArtifa
 	public static final String FILENAME = "MANIFEST.MF";
 	private boolean override;
 
-	public ManifestCreator(ArtifactDescriptor<ContextType, ManifestParameters> artifact, ManifestParameters parameters, boolean override) {
-		super(artifact, parameters);
+	public ManifestCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ManifestParameters> artifact, ManifestParameters parameters, boolean override) {
+		super(parent, artifact, parameters);
 		this.override = override;
 	}
 
@@ -43,7 +44,7 @@ public class ManifestCreator<ContextType extends IContext> extends GenericArtifa
 		final File project = getFileSystemConnector().getProjectFolder(plugin);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + FILENAME);
 
-		IGenerator<ContextType, ManifestParameters> generator = new ManifestGenerator<ContextType>(context, parameters);
+		IGenerator<ContextType, ManifestParameters> generator = new ManifestGenerator<ContextType>(this, context, parameters);
 		
 	    return createArtifact(
 	    		context,

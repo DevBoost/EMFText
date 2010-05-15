@@ -19,14 +19,14 @@ public class ArtifactDescriptor<ContextType, ParameterType> {
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
-	private IGenerator<ContextType, ParameterType> generator;
+	private IGeneratorProvider<ContextType, ParameterType> provider;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(String packageName, String classNamePrefix, String classNameSuffix, IGenerator<ContextType, ParameterType> generator, OptionTypes overrideOption) {
+	public ArtifactDescriptor(String packageName, String classNamePrefix, String classNameSuffix, IGeneratorProvider<ContextType, ParameterType> provider, OptionTypes overrideOption) {
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
 		this.classNameSuffix = classNameSuffix;
-		this.generator = generator;
+		this.provider = provider;
 		this.overrideOption = overrideOption;
 	}
 
@@ -42,8 +42,8 @@ public class ArtifactDescriptor<ContextType, ParameterType> {
 		return classNameSuffix;
 	}
 
-	public IGenerator<ContextType, ParameterType> createGenerator(ContextType context, ParameterType parameter) {
-		return generator.newInstance(context, parameter);
+	public IGenerator<ContextType, ParameterType> createGenerator(ICodeGenerationComponent parent, ContextType context, ParameterType parameter) {
+		return provider.newInstance(parent, context, parameter);
 	}
 
 	public OptionTypes getOverrideOption() {

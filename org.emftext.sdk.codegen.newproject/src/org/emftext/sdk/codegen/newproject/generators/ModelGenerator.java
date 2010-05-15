@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
@@ -23,8 +24,8 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 		super();
 	}
 
-	public ModelGenerator(NewProjectGenerationContext context) {
-		super(context, null);
+	public ModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
+		super(parent, context, null);
 	}
 	
 	public boolean generate(OutputStream outputStream) {

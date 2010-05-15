@@ -12,8 +12,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.codegen.RootComponent;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
@@ -34,7 +36,7 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		SubMonitor progress = SubMonitor.convert(monitor2, 100);
 
 		final List<GenerationProblem> problems = new ArrayList<GenerationProblem>();
-		IProblemCollector problemCollector = new IProblemCollector() {
+		final IProblemCollector problemCollector = new IProblemCollector() {
 			
 			public void addProblem(GenerationProblem problem) {
 				problems.add(problem);
@@ -48,13 +50,12 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 			}
 		};
 		IProject project = createProject(progress.newChild(2), newProjectPlugin, parameters.getProjectName());
-		NewProjectGenerationContext context = new NewProjectGenerationContext(project, newProjectPlugin, parameters);
-		context.setFileSystemConnector(new WorkspaceConnector());
+		ICodeGenerationComponent root = new RootComponent(new WorkspaceConnector(), problemCollector);
+		NewProjectGenerationContext context = new NewProjectGenerationContext(root, project, newProjectPlugin, parameters);
 		context.setMonitor(progress.newChild(92));
 		context.setResourceMarker(resourceMarker);
-		context.setProblemCollector(problemCollector);
 		
-		new NewProjectContentsCreator().create(newProjectPlugin, context, null, null);
+		new NewProjectContentsCreator(root).create(newProjectPlugin, context, null, null);
 		refresh(progress.newChild(2), project);
 		GenerationContext generationContext = context.getGenerationContext();
 		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()));

@@ -20,21 +20,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class EObjectSelectionGenerator extends UIJavaBaseGenerator {
 
-	public EObjectSelectionGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new EObjectSelectionGenerator());
+
+	private EObjectSelectionGenerator() {
 		super();
 	}
 
-	private EObjectSelectionGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.E_OBJECT_SELECTION);
+	private EObjectSelectionGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.E_OBJECT_SELECTION);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -150,7 +155,7 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new EObjectSelectionGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new EObjectSelectionGenerator(parent, context);
 	}
 }

@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -28,8 +29,8 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  */
 public class DotClasspathGenerator<ContextType> extends AbstractGenerator<ContextType, ClassPathParameters> {
 
-	public DotClasspathGenerator(ContextType context, ClassPathParameters parameters) {
-		super(context, parameters);
+	public DotClasspathGenerator(ICodeGenerationComponent parent, ContextType context, ClassPathParameters parameters) {
+		super(parent, context, parameters);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class DotClasspathGenerator<ContextType> extends AbstractGenerator<Contex
 		return true;
 	}
 
-	public IGenerator<ContextType, ClassPathParameters> newInstance(ContextType context, ClassPathParameters parameters) {
-		return new DotClasspathGenerator<ContextType>(context, parameters);
+	public IGenerator<ContextType, ClassPathParameters> newInstance(ICodeGenerationComponent parent, ContextType context, ClassPathParameters parameters) {
+		return new DotClasspathGenerator<ContextType>(parent, context, parameters);
 	}
 }

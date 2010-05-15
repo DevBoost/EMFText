@@ -21,9 +21,11 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -34,6 +36,9 @@ import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
 
 public class BracketInformationProviderGenerator extends JavaBaseGenerator<Object> {
+
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new BracketInformationProviderGenerator());
 
 	private static class BracketPair {
 		private final String openingBracket;
@@ -96,12 +101,12 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Objec
 		}
 	}
 	
-	public BracketInformationProviderGenerator() {
+	private BracketInformationProviderGenerator() {
 		super();
 	}
 
-	public BracketInformationProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
+	private BracketInformationProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 	}
 
 	@Override
@@ -215,7 +220,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Objec
 		}
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new BracketInformationProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new BracketInformationProviderGenerator(parent, context);
 	}
 }

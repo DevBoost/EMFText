@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 
 /**
  * A basic implementation for generators which generate Java or ANTLR code.
@@ -51,8 +52,8 @@ public abstract class BaseGenerator<ContextType, ParameterType> extends Abstract
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public BaseGenerator(ContextType context, ParameterType parameters, ArtifactDescriptor<ContextType, ParameterType> artifact) {
-		super(context, parameters);
+	public BaseGenerator(ICodeGenerationComponent parent, ContextType context, ParameterType parameters, ArtifactDescriptor<ContextType, ParameterType> artifact) {
+		super(parent, context, parameters);
 	}
 	
 	/**

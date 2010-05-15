@@ -16,24 +16,29 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IReferenceResolverGenerator extends JavaBaseGenerator<Object> {
 
-	public IReferenceResolverGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new IReferenceResolverGenerator());
+
+	private IReferenceResolverGenerator() {
 		super();
 	}
 
-	private IReferenceResolverGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_REFERENCE_RESOLVER);
+	private IReferenceResolverGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_REFERENCE_RESOLVER);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new IReferenceResolverGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new IReferenceResolverGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

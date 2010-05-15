@@ -2,25 +2,30 @@ package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class SyntaxElementGenerator extends JavaBaseGenerator<Object> {
 
-	public SyntaxElementGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new SyntaxElementGenerator());
+
+	private SyntaxElementGenerator() {
 		super();
 	}
 
-	private SyntaxElementGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.SYNTAX_ELEMENT);
+	private SyntaxElementGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.SYNTAX_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new SyntaxElementGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new SyntaxElementGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

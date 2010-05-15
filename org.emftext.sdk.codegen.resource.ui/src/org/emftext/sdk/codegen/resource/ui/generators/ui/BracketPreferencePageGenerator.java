@@ -36,21 +36,26 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT_LIST;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class BracketPreferencePageGenerator extends UIJavaBaseGenerator {
 
-	public BracketPreferencePageGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new BracketPreferencePageGenerator());
+
+	private BracketPreferencePageGenerator() {
 		super();
 	}
 
-	private BracketPreferencePageGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
+	private BracketPreferencePageGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
 	}
 
 	@Override
@@ -407,7 +412,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new BracketPreferencePageGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new BracketPreferencePageGenerator(parent, context);
 	}
 }

@@ -13,24 +13,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IBracketPairGenerator extends JavaBaseGenerator<Object> {
 
-	public IBracketPairGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new IBracketPairGenerator());
+
+	private IBracketPairGenerator() {
 		super();
 	}
 
-	private IBracketPairGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_BRACKET_PAIR);
+	private IBracketPairGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_BRACKET_PAIR);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new IBracketPairGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new IBracketPairGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

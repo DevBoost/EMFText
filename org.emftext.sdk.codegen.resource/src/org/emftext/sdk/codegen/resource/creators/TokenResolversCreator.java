@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -33,8 +34,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class TokenResolversCreator extends TextResourceArtifactCreator<CompleteTokenDefinition> {
 
-	public TokenResolversCreator(CompleteTokenDefinition parameters) {
-		super(TextResourceArtifacts.TOKEN_RESOLVERS, parameters);
+	public TokenResolversCreator(ICodeGenerationComponent parent, CompleteTokenDefinition parameters) {
+		super(parent, TextResourceArtifacts.TOKEN_RESOLVERS, parameters);
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class TokenResolversCreator extends TextResourceArtifactCreator<CompleteT
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
 		File resolverFile = context.getTokenResolverFile(syntax, parameters);
-		TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) new TokenResolverGenerator().newInstance(context, parameters);
+		TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) TokenResolverGenerator.PROVIDER.newInstance(getParent(), context, parameters);
 
 		artifacts.addAll(createArtifact(
 	    		context,

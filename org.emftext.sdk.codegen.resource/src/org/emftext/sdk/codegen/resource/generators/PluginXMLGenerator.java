@@ -20,9 +20,11 @@ import java.util.Collections;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -36,17 +38,20 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PluginXMLGenerator());
+
 	private final NameUtil nameUtil = new NameUtil();
 
 	private GenerationContext context;
 	private String pluginID;
 	private String builderID;
 
-	public PluginXMLGenerator() {
+	private PluginXMLGenerator() {
 		super();
 	}
 
-	private PluginXMLGenerator(GenerationContext context) {
+	private PluginXMLGenerator(ICodeGenerationComponent parent, GenerationContext context) {
 		super();
 		this.context = context;
 		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
@@ -164,7 +169,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		return Collections.emptyList();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PluginXMLGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PluginXMLGenerator(parent, context);
 	}
 }

@@ -17,9 +17,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 
 import java.util.List;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.FontStyle;
@@ -31,12 +33,15 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  */
 public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Object> {
 
-	public TokenStyleInformationProviderGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new TokenStyleInformationProviderGenerator());
+
+	private TokenStyleInformationProviderGenerator() {
 		super();
 	}
 
-	public TokenStyleInformationProviderGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
+	private TokenStyleInformationProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ob
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new TokenStyleInformationProviderGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new TokenStyleInformationProviderGenerator(parent, context);
 	}
 }

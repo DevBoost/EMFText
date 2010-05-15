@@ -20,9 +20,11 @@ import java.util.Collections;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -36,13 +38,16 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PluginXMLGenerator());
+
 	private GenerationContext context;
 
-	public PluginXMLGenerator() {
+	private PluginXMLGenerator() {
 		super();
 	}
 
-	private PluginXMLGenerator(GenerationContext context) {
+	private PluginXMLGenerator(ICodeGenerationComponent parent, GenerationContext context) {
 		super();
 		this.context = context;
 	}
@@ -180,8 +185,8 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		return Collections.emptyList();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PluginXMLGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PluginXMLGenerator(parent, context);
 	}
 
 	private String getProjectRelativeNewIconPath() {

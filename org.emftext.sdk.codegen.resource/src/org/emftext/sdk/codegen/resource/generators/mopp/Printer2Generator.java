@@ -22,9 +22,11 @@ import java.util.List;
 import java.util.Queue;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -45,23 +47,26 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class Printer2Generator extends AbstractPrinterGenerator {
 
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new Printer2Generator());
+
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final static NameUtil nameUtil = new NameUtil();
 	
 	private ConcreteSyntax syntax;
 	
-	public Printer2Generator() {
+	private Printer2Generator() {
 		super();
 	}
 
-	private Printer2Generator(GenerationContext context) {
-		super(context, TextResourceArtifacts.PRINTER2);
+	private Printer2Generator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.PRINTER2);
 		syntax = context.getConcreteSyntax();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new Printer2Generator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new Printer2Generator(parent, context);
 	}
 
 	@Override

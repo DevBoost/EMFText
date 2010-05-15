@@ -21,6 +21,7 @@ import java.util.Collections;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -31,8 +32,9 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 	private GenerationContext context;
 
 	public AdditionalExtensionParserExtensionPointSchemaGenerator(
+			ICodeGenerationComponent parent,
 			GenerationContext context) {
-		super();
+		super(parent, context, null, null);
 		this.context = context;
 	}
 
@@ -162,8 +164,8 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new AdditionalExtensionParserExtensionPointSchemaGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new AdditionalExtensionParserExtensionPointSchemaGenerator(parent, context);
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {

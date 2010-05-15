@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -28,8 +29,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class BabylonSpecificationCreator extends TextResourceArtifactCreator<Object> {
 
-	public BabylonSpecificationCreator() {
-		super(TextResourceArtifacts.BABYLON_SPECIFICATION, null);
+	public BabylonSpecificationCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.BABYLON_SPECIFICATION, null);
 	}
 
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
@@ -40,7 +41,7 @@ public class BabylonSpecificationCreator extends TextResourceArtifactCreator<Obj
 		
 	    return createArtifact(
 	    		context,
-	    		new BabylonSpecificationGenerator().newInstance(context, parameters),
+	    		BabylonSpecificationGenerator.PROVIDER.newInstance(getParent(), context, parameters),
 	    		specificationFile,
 	    		"Exception while generating Babylon specification."
 	    );

@@ -26,20 +26,25 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLE_RA
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_PRESENTATION;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class HTMLPrinterGenerator extends UIJavaBaseGenerator {
 
-	public HTMLPrinterGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new HTMLPrinterGenerator());
+
+	private HTMLPrinterGenerator() {
 		super();
 	}
 
-	private HTMLPrinterGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.HTML_PRINTER);
+	private HTMLPrinterGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.HTML_PRINTER);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -590,7 +595,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new HTMLPrinterGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new HTMLPrinterGenerator(parent, context);
 	}
 }

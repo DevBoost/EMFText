@@ -82,12 +82,15 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IGeneratorProvider;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -146,6 +149,8 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 	
+	public final static IGeneratorProvider<GenerationContext, Object> PROVIDER = new GeneratorProvider<GenerationContext, Object>(new ANTLRGrammarGenerator());
+
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
 	 * a parse from the root.
@@ -181,12 +186,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
-	public ANTLRGrammarGenerator() {
+	private ANTLRGrammarGenerator() {
 		super();
 	}
 
-	private ANTLRGrammarGenerator(GenerationContext context) {
-		super(context, null, TextResourceArtifacts.ANTLR_GRAMMAR);
+	private ANTLRGrammarGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, null, TextResourceArtifacts.ANTLR_GRAMMAR);
 		concreteSyntax = context.getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
 	}
@@ -2088,7 +2093,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		return getContext().getCapitalizedConcreteSyntaxName() + "Parser";
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ANTLRGrammarGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ANTLRGrammarGenerator(parent, context);
 	}
 }

@@ -47,9 +47,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -60,12 +62,15 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
  */
 public class NewFileWizardGenerator extends UIJavaBaseGenerator {
 	
-	public NewFileWizardGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new NewFileWizardGenerator());
+
+	private NewFileWizardGenerator() {
 		super();
 	}
 
-	private NewFileWizardGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.NEW_FILE_WIZARD);
+	private NewFileWizardGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.NEW_FILE_WIZARD);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -296,7 +301,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator {
 		return new ArrayList<GenerationProblem>();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new NewFileWizardGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new NewFileWizardGenerator(parent, context);
 	}
 }

@@ -17,9 +17,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -37,14 +39,17 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class TokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 	
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new TokenResolverFactoryGenerator());
+
 	private final NameUtil nameUtil = new NameUtil();
 	
-	public TokenResolverFactoryGenerator() {
+	private TokenResolverFactoryGenerator() {
 		super();
 	}
 
-	private TokenResolverFactoryGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
+	private TokenResolverFactoryGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
 	}
 	
 	@Override
@@ -159,7 +164,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new TokenResolverFactoryGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new TokenResolverFactoryGenerator(parent, context);
 	}
 }

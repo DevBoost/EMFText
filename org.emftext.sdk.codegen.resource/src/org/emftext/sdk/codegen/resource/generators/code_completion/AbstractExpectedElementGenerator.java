@@ -19,25 +19,30 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Object> {
 
-	public AbstractExpectedElementGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new AbstractExpectedElementGenerator());
+
+	private AbstractExpectedElementGenerator() {
 		super();
 	}
 
-	private AbstractExpectedElementGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
+	private AbstractExpectedElementGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new AbstractExpectedElementGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new AbstractExpectedElementGenerator(parent, context);
 	}
 
 	@Override

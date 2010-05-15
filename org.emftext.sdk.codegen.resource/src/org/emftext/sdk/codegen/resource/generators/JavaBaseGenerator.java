@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.resource.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -20,8 +21,8 @@ public abstract class JavaBaseGenerator<ParameterType> extends ResourceBaseGener
 		super();
 	}
 
-	public JavaBaseGenerator(GenerationContext context, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(context, null, artifact);
+	public JavaBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super(parent, context, null, artifact);
 	}
 
 	final public boolean generate(PrintWriter out) {

@@ -13,20 +13,25 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class PreferenceConstantsGenerator extends UIJavaBaseGenerator {
 
-	public PreferenceConstantsGenerator() {
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new PreferenceConstantsGenerator());
+
+	private PreferenceConstantsGenerator() {
 		super();
 	}
 
-	private PreferenceConstantsGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
+	private PreferenceConstantsGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -62,7 +67,7 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator {
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new PreferenceConstantsGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new PreferenceConstantsGenerator(parent, context);
 	}
 }

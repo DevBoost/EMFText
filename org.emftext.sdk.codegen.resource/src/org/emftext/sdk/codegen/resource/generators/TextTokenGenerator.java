@@ -17,19 +17,24 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
 public class TextTokenGenerator extends JavaBaseGenerator<Object> {
 
-	public TextTokenGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new TextTokenGenerator());
+
+	private TextTokenGenerator() {
 		super();
 	}
 
-	public TextTokenGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.TEXT_TOKEN);
+	public TextTokenGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.TEXT_TOKEN);
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class TextTokenGenerator extends JavaBaseGenerator<Object> {
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new TextTokenGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new TextTokenGenerator(parent, context);
 	}
 }

@@ -17,7 +17,9 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 
@@ -28,11 +30,14 @@ import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 // TODO cbuerger: implement this class
 public class BabylonSpecificationGenerator extends ResourceBaseGenerator<Object> {
 
-	public BabylonSpecificationGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER =
+		new GeneratorProvider<GenerationContext, Object>(new BabylonSpecificationGenerator());
+	
+	private BabylonSpecificationGenerator() {
 		super();
 	}
 
-	private BabylonSpecificationGenerator(GenerationContext context) {
+	private BabylonSpecificationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -47,7 +52,7 @@ public class BabylonSpecificationGenerator extends ResourceBaseGenerator<Object>
 		return null;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new BabylonSpecificationGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new BabylonSpecificationGenerator(parent, context);
 	}
 }

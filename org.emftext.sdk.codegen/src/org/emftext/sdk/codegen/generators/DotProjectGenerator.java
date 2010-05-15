@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -29,8 +30,8 @@ public class DotProjectGenerator<ContextType> extends AbstractGenerator<ContextT
 
 	private IPluginDescriptor plugin;
 
-	public DotProjectGenerator(ContextType context, IPluginDescriptor plugin) {
-		super(context, null);
+	public DotProjectGenerator(ICodeGenerationComponent parent, ContextType context, IPluginDescriptor plugin) {
+		super(parent, context, null);
 		this.plugin = plugin;
 	}
 
@@ -73,7 +74,7 @@ public class DotProjectGenerator<ContextType> extends AbstractGenerator<ContextT
 		return true;
 	}
 
-	public IGenerator<ContextType, IPluginDescriptor> newInstance(ContextType context, IPluginDescriptor plugin) {
-		return new DotProjectGenerator<ContextType>(context, plugin);
+	public IGenerator<ContextType, IPluginDescriptor> newInstance(ICodeGenerationComponent parent, ContextType context, IPluginDescriptor plugin) {
+		return new DotProjectGenerator<ContextType>(parent, context, plugin);
 	}
 }

@@ -19,6 +19,7 @@ import java.util.Collection;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,8 +37,8 @@ public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext,
 	private OptionTypes overrideOption;
 	private ArtifactDescriptor<GenerationContext, Object> targetPackage;
 
-	public EmptyClassCreator(File file, ArtifactDescriptor<GenerationContext, Object> targetPackage, String className, OptionTypes overrideOption) {
-		super(new ArtifactDescriptor<GenerationContext, Object>(null, "empty " + className, "", null, null), null);
+	public EmptyClassCreator(ICodeGenerationComponent parent, File file, ArtifactDescriptor<GenerationContext, Object> targetPackage, String className, OptionTypes overrideOption) {
+		super(parent, new ArtifactDescriptor<GenerationContext, Object>(null, "empty " + className, "", null, null), null);
 		this.file = file;
 		this.className = className;
 		this.targetPackage = targetPackage;
@@ -47,8 +48,8 @@ public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext,
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
 		
-		EmptyClassGenerator generator = (EmptyClassGenerator) new EmptyClassGenerator().newInstance(context, parameters);
-		// TODO mseifert: put this into the parameter object
+		EmptyClassGenerator generator = (EmptyClassGenerator) EmptyClassGenerator.PROVIDER.newInstance(getParent(), context, parameters);
+		// TODO mseifert: put this into the parameter object, remove cast
 		generator.setClassName(className);
 		generator.setTargetPackage(targetPackage);
 		

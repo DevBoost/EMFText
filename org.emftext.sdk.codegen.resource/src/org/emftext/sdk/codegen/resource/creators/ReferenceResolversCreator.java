@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -40,8 +41,8 @@ public class ReferenceResolversCreator extends TextResourceArtifactCreator<GenFe
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil genUtil = new GeneratorUtil();
 	
-	public ReferenceResolversCreator() {
-		super(TextResourceArtifacts.REFERENCE_RESOLVERS, null);
+	public ReferenceResolversCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.REFERENCE_RESOLVERS, null);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class ReferenceResolversCreator extends TextResourceArtifactCreator<GenFe
 					proxyReference,
 					getFileSystemConnector().getProjectFolder(resourcePlugin).getAbsolutePath()
 			);
-			IGenerator<GenerationContext, GenFeature> generator = new ReferenceResolverGenerator().newInstance(context, proxyReference);
+			IGenerator<GenerationContext, GenFeature> generator = ReferenceResolverGenerator.PROVIDER.newInstance(getParent(), context, proxyReference);
 			
 			artifacts.addAll(createArtifact(
 		    		context,

@@ -13,24 +13,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IElementMappingGenerator extends JavaBaseGenerator<Object> {
 
-	public IElementMappingGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new IElementMappingGenerator());
+
+	private IElementMappingGenerator() {
 		super();
 	}
 
-	private IElementMappingGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.I_ELEMENT_MAPPING);
+	private IElementMappingGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.I_ELEMENT_MAPPING);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new IElementMappingGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new IElementMappingGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

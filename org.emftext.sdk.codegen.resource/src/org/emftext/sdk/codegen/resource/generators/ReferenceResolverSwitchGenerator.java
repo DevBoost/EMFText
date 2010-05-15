@@ -25,9 +25,11 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -45,6 +47,9 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> {
 	
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new ReferenceResolverSwitchGenerator());
+
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final NameUtil nameUtil = new NameUtil();
@@ -52,12 +57,12 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> 
 	private GenClassCache genClassCache;
 	private Collection<GenFeature> nonContainmentReferencesNeedingResolvers;
 
-	public ReferenceResolverSwitchGenerator() {
+	private ReferenceResolverSwitchGenerator() {
 		super();
 	}
 
-	private ReferenceResolverSwitchGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
+	private ReferenceResolverSwitchGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		this.genClassCache = syntax.getGenClassCache();
 		this.nonContainmentReferencesNeedingResolvers = csUtil.getNonContainmentFeaturesNeedingResolver(syntax);
@@ -173,7 +178,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> 
 		}
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new ReferenceResolverSwitchGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new ReferenceResolverSwitchGenerator(parent, context);
 	}
 }

@@ -15,24 +15,29 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class InputStreamProcessorGenerator extends JavaBaseGenerator<Object> {
 
-	public InputStreamProcessorGenerator() {
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new InputStreamProcessorGenerator());
+
+	private InputStreamProcessorGenerator() {
 		super();
 	}
 
-	private InputStreamProcessorGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
+	private InputStreamProcessorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new InputStreamProcessorGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new InputStreamProcessorGenerator(parent, context);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {

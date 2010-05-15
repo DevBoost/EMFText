@@ -19,6 +19,7 @@ import java.util.Collections;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -30,8 +31,9 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 	private GenerationContext context;
 
 	public DefaultLoadOptionsExtensionPointSchemaGenerator(
+			ICodeGenerationComponent parent,
 			GenerationContext context) {
-		super();
+		super(parent, context, null, null);
 		this.context = context;
 	}
 
@@ -168,8 +170,8 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new DefaultLoadOptionsExtensionPointSchemaGenerator(parent, context);
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {

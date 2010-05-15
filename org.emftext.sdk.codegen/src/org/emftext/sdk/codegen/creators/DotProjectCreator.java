@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 
@@ -31,8 +32,8 @@ public class DotProjectCreator<ContextType extends IContext> extends GenericArti
 	
 	private final boolean override;
 
-	public DotProjectCreator(ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin, boolean override) {
-		super(artifact, plugin);
+	public DotProjectCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin, boolean override) {
+		super(parent, artifact, plugin);
 		this.override = override;
 	}
 
@@ -42,7 +43,7 @@ public class DotProjectCreator<ContextType extends IContext> extends GenericArti
 		
 	    return createArtifact(
 	    		context,
-	    		new DotProjectGenerator<ContextType>(context, parameters),
+	    		new DotProjectGenerator<ContextType>(this, context, parameters),
 	    		dotProjectFile,
 	    		"Exception while generating " + FILENAME + " file."
 	    );

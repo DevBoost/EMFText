@@ -53,9 +53,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -70,17 +72,20 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class TextResourceGenerator extends JavaBaseGenerator<Object> {
 
+	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new TextResourceGenerator());
+
 	private ConcreteSyntax concreteSyntax;
 	private String csSyntaxName;
 	
 	private boolean saveChangedResourcesOnly = false;
 
-	public TextResourceGenerator() {
+	private TextResourceGenerator() {
 		super();
 	}
 
-	private TextResourceGenerator(GenerationContext context) {
-		super(context, TextResourceArtifacts.RESOURCE);
+	private TextResourceGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceArtifacts.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
 		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
@@ -876,7 +881,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<Object> {
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new TextResourceGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new TextResourceGenerator(parent, context);
 	}
 }

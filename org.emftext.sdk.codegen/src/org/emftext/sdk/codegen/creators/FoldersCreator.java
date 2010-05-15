@@ -17,6 +17,7 @@ import java.io.File;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -26,7 +27,8 @@ public class FoldersCreator<ContextType> extends AbstractGenerationComponent imp
 
 	private File[] folders;
 
-	public FoldersCreator(File... folders) {
+	public FoldersCreator(ICodeGenerationComponent parent, File... folders) {
+		super(parent);
 		this.folders = folders;
 	}
 

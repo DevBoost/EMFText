@@ -32,9 +32,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTUR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
 
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.GeneratorProvider;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.UIGeneratorUtil;
@@ -42,14 +44,17 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class OutlinePageGenerator extends UIJavaBaseGenerator {
 
+	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
+		new GeneratorProvider<GenerationContext, Object>(new OutlinePageGenerator());
+
 	private final UIGeneratorUtil generatorUtil = new UIGeneratorUtil();
 
-	public OutlinePageGenerator() {
+	private OutlinePageGenerator() {
 		super();
 	}
 
-	private OutlinePageGenerator(GenerationContext context) {
-		super(context, TextResourceUIArtifacts.OUTLINE_PAGE);
+	private OutlinePageGenerator(ICodeGenerationComponent parent, GenerationContext context) {
+		super(parent, context, TextResourceUIArtifacts.OUTLINE_PAGE);
 	}
 
 	public boolean generateJavaContents(JavaComposite sc) {
@@ -207,7 +212,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(GenerationContext context, Object parameters) {
-		return new OutlinePageGenerator(context);
+	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
+		return new OutlinePageGenerator(parent, context);
 	}
 }

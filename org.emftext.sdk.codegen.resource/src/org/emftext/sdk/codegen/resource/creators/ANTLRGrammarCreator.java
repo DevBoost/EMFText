@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -29,8 +30,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class ANTLRGrammarCreator extends TextResourceArtifactCreator<Object> {
 
-	public ANTLRGrammarCreator() {
-		super(TextResourceArtifacts.ANTLR_GRAMMAR, null);
+	public ANTLRGrammarCreator(ICodeGenerationComponent parent) {
+		super(parent, TextResourceArtifacts.ANTLR_GRAMMAR, null);
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class ANTLRGrammarCreator extends TextResourceArtifactCreator<Object> {
 	    File antlrFile = context.getANTLRGrammarFile(context.getResourcePlugin());
 	    return createArtifact(
 	    		context,
-	    		new ANTLRGrammarGenerator().newInstance(context, paramters),
+	    		ANTLRGrammarGenerator.PROVIDER.newInstance(this, context, paramters),
 	    		antlrFile,
 	    		"Exception while generating ANTLR grammar."
 	    );
