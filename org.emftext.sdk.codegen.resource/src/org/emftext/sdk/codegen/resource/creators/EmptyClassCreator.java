@@ -49,7 +49,7 @@ public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext,
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
 		
 		EmptyClassGenerator generator = (EmptyClassGenerator) EmptyClassGenerator.PROVIDER.newInstance(getParent(), context, parameters);
-		// TODO mseifert: put this into the parameter object, remove cast
+		// TODO mseifert: codegen: put this into the parameter object, remove cast
 		generator.setClassName(className);
 		generator.setTargetPackage(targetPackage);
 		

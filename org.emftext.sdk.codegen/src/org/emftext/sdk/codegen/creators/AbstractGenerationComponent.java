@@ -6,7 +6,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 
 /**
  * An abstract superclass for all participants of a code generation process.
- * All components can by configured according to the IConfigurableGenerationComponent
+ * All components need a parent that implements the ICodeGenerationComponent
  * interface.
  */
 public abstract class AbstractGenerationComponent implements ICodeGenerationComponent {
