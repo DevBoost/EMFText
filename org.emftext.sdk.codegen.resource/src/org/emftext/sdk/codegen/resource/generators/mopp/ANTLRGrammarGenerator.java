@@ -276,7 +276,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		sc.add(grammarCore.toString());
 
 		writer.print(sc.toString());
-		return getCollectedErrors().isEmpty();
+		return true;
 	}
 
 	private void addRules(ANTLRGrammarComposite sc) {

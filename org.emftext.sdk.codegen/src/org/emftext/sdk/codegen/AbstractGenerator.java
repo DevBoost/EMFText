@@ -3,9 +3,6 @@ package org.emftext.sdk.codegen;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 
@@ -14,9 +11,6 @@ public abstract class AbstractGenerator<ContextType, ParameterType> extends Abst
 	protected ContextType context;
 	protected ParameterType parameters;
 	
-	private List<GenerationProblem> errors;
-	private List<GenerationProblem> warnings;
-
 	public AbstractGenerator() {
 		super();
 		init(context, parameters);
@@ -30,8 +24,6 @@ public abstract class AbstractGenerator<ContextType, ParameterType> extends Abst
 	private void init(ContextType context, ParameterType parameters) {
 		this.context = context;
 		this.parameters = parameters;
-		errors = new LinkedList<GenerationProblem>();
-		warnings = new LinkedList<GenerationProblem>();
 	}
 	
 	public boolean generate(OutputStream stream) {
@@ -51,23 +43,9 @@ public abstract class AbstractGenerator<ContextType, ParameterType> extends Abst
 	 * 
 	 * @param problem
 	 */
-	public void addProblem(GenerationProblem problem){
-		if (problem.getSeverity().equals(GenerationProblem.Severity.ERROR)) {
-			errors.add(problem);
-		} else {
-			warnings.add(problem);
-		}
+	public void addProblem(GenerationProblem problem) {
+		getProblemCollector().addProblem(problem);
 	}
 
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return errors;
-	}
-	
-	public Collection<GenerationProblem> getCollectedProblems() {
-		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
-		allProblems.addAll(warnings);
-		return allProblems;
-	}
-	
 	public abstract IGenerator<ContextType, ParameterType> newInstance(ICodeGenerationComponent parent, ContextType context, ParameterType parameters);
 }

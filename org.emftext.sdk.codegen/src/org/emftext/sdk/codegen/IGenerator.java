@@ -25,5 +25,12 @@ import java.io.OutputStream;
  */
 public interface IGenerator<ContextType, ParameterType> extends ICodeGenerationComponent {
 	
+	// TODO mseifert: redesign this interface. the return value is probably not
+	// needed since problems are reported using the problem collector. if no 
+	// problems were reported the generation was successful. almost all 
+	// implementations of this interface do return true anyway.
+	//
+	// in addition, the context and the parameters could be passed to this method 
+	// instead of configuring generators using their constructors.
 	public boolean generate(OutputStream out);
 }
