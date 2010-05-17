@@ -43,10 +43,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -290,14 +286,6 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator {
 		sc.add("setNeedsProgressMonitor(true);");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return new ArrayList<GenerationProblem>();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return new ArrayList<GenerationProblem>();
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

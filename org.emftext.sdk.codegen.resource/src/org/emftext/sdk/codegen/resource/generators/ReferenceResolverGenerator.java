@@ -18,11 +18,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -222,14 +218,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptySet();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptySet();
 	}
 
 	public IGenerator<GenerationContext, GenFeature> newInstance(ICodeGenerationComponent parent, GenerationContext context, GenFeature parameters) {

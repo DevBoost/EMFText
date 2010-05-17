@@ -13,11 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -57,14 +53,6 @@ public class EmptyClassGenerator extends JavaBaseGenerator<Object> {
 		sc.addJavadoc("This empty class was generated to overwrite exiting classes.");
 		sc.add("public class " + className + " {");
 		sc.add("}");
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptySet();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptySet();
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

@@ -18,10 +18,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -204,14 +200,6 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 			suffix = ((QuotedTokenDefinition) definition).getEscapeCharacter();
 		}
 		return suffix;
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptySet();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptySet();
 	}
 
 	public IGenerator<GenerationContext, CompleteTokenDefinition> newInstance(ICodeGenerationComponent parent, GenerationContext context, CompleteTokenDefinition parameters) {

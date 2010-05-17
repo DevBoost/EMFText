@@ -14,12 +14,9 @@
 package org.emftext.sdk.codegen.resource.ui.generators;
 
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -174,14 +171,6 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		s.add("</objectContribution>");
 		s.add("</extension>");
 		return s;
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptyList();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptyList();
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
