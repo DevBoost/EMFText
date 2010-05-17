@@ -40,7 +40,7 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<Object> {
 		return new IHoverTextProviderGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -48,6 +48,5 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		sc.add("public String getHoverText(" + E_OBJECT + " object);");
 		sc.add("}");
-		return true;
 	}
 }

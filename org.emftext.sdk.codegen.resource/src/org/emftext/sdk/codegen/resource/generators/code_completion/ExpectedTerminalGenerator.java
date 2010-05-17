@@ -30,7 +30,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<Object> {
 		return new ExpectedTerminalGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -50,7 +50,6 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(StringComposite sc) {

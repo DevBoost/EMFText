@@ -46,7 +46,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.COMPLETION_PROCESSOR);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,7 +58,6 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

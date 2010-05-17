@@ -69,9 +69,8 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object> 
 	}
 	
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		generateReferenceResolverSwitch(sc);
-		return true;
 	}
 	
 	 /**

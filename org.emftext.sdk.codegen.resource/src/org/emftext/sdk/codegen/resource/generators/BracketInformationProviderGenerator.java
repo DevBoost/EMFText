@@ -110,7 +110,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Objec
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -120,8 +120,6 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Objec
 		addBracketPairClass(sc);
 		addGetBracketPairsMethod(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addBracketPairClass(StringComposite sc) {

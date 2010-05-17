@@ -14,11 +14,8 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Collections;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -37,7 +34,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		this.context = context;
 	}
 
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
@@ -167,18 +164,9 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		sc.addLineBreak();
 		
 		out.write(sc.toString());
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
 		return new DefaultLoadOptionsExtensionPointSchemaGenerator(parent, context);
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return Collections.emptyList();
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return Collections.emptyList();
 	}
 }

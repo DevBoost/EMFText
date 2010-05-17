@@ -60,7 +60,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		allGenClasses = getAllGenClasses();
 
 		sc.add("package " + getResourcePackageName() + ";");
@@ -82,8 +82,6 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<Object> {
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

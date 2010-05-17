@@ -43,7 +43,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<Object> {
 		return new IExpectedElementGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -57,6 +57,5 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path);");
 		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers();");
 		sc.add("}");
-		return true;
 	}
 }

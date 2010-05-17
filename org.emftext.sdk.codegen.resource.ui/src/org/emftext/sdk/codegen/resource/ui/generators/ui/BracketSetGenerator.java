@@ -51,7 +51,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.BRACKET_SET);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -66,7 +66,6 @@ public class BracketSetGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

@@ -42,7 +42,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -51,7 +51,6 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

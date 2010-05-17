@@ -25,7 +25,7 @@ public class CompoundGenerator extends JavaBaseGenerator<Object> {
 		return new CompoundGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -37,6 +37,5 @@ public class CompoundGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}"); 
 		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 }

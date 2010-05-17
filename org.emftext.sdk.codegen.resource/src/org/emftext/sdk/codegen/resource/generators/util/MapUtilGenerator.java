@@ -39,7 +39,7 @@ public class MapUtilGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.MAP_UTIL);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -48,7 +48,6 @@ public class MapUtilGenerator extends JavaBaseGenerator<Object> {
 		addCastToMapMethod(sc);
 		addCastToEMapMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addCastToEMapMethod(JavaComposite sc) {

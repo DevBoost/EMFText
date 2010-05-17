@@ -44,7 +44,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<Object> {
 		return new StringUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -288,7 +288,6 @@ public class StringUtilGenerator extends JavaBaseGenerator<Object> {
 		addMatchCamelCaseMethod(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMatchCamelCaseMethod(StringComposite sc) {

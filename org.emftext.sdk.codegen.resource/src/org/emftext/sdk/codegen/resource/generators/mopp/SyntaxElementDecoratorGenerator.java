@@ -35,7 +35,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<Object> {
 		return new SyntaxElementDecoratorGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -49,7 +49,6 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<Object> {
 		addGetChildDecoratatorsMethod(sc);
 		addGetNextIndexToPrintMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

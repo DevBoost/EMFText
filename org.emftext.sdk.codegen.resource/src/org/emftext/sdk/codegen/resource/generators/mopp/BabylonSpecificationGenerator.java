@@ -14,9 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import java.io.PrintWriter;
-import java.util.Collection;
 
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.GeneratorProvider;
@@ -40,16 +38,8 @@ public class BabylonSpecificationGenerator extends ResourceBaseGenerator<Object>
 	private BabylonSpecificationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
 	}
 
-	public boolean generate(PrintWriter out) {
-		return false;
-	}
-
-	public Collection<GenerationProblem> getCollectedErrors() {
-		return null;
-	}
-
-	public Collection<GenerationProblem> getCollectedProblems() {
-		return null;
+	public void generate(PrintWriter out) {
+		throw new UnsupportedOperationException("The " + BabylonSpecificationGenerator.class.getName() + " has not been implemented yet.");
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

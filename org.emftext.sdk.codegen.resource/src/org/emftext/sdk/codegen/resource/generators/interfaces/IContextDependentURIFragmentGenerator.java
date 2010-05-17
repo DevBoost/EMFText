@@ -41,7 +41,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Obj
 		return new IContextDependentURIFragmentGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -105,6 +105,5 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Obj
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

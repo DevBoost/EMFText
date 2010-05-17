@@ -70,7 +70,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -80,8 +80,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 		addConstantsForSyntaxElements(sc);
 		
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addConstantsForSyntaxElements(StringComposite sc) {

@@ -48,7 +48,7 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Objec
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -57,8 +57,6 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Objec
         sc.addLineBreak();
         addGetFoldableClassesMethod(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addGetFoldableClassesMethod(StringComposite sc) {

@@ -36,7 +36,7 @@ public class DotProjectGenerator<ContextType> extends AbstractGenerator<ContextT
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		String resourcePluginName = plugin.getName();
 
 		StringComposite sc = new XMLComposite();
@@ -71,7 +71,6 @@ public class DotProjectGenerator<ContextType> extends AbstractGenerator<ContextT
 		sc.add("</projectDescription>");
 		
 		out.write(sc.toString());
-		return true;
 	}
 
 	public IGenerator<ContextType, IPluginDescriptor> newInstance(ICodeGenerationComponent parent, ContextType context, IPluginDescriptor plugin) {

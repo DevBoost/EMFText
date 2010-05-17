@@ -30,7 +30,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -40,7 +40,6 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		addGetDefaultValuesMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addGetDefaultValuesMethod(StringComposite sc) {

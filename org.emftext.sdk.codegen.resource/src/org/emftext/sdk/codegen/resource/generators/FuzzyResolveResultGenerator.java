@@ -37,7 +37,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		String iReferenceResolveResultSimpleClassName = getContext().getClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -55,7 +55,6 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<Object> {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

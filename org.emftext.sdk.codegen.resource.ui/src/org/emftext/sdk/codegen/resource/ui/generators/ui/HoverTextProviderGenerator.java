@@ -40,7 +40,7 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -49,8 +49,6 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator {
 		addFields(sc);
 		addGetHoverTestMethod(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

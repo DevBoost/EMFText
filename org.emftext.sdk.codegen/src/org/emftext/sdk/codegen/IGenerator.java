@@ -32,5 +32,5 @@ public interface IGenerator<ContextType, ParameterType> extends ICodeGenerationC
 	//
 	// in addition, the context and the parameters could be passed to this method 
 	// instead of configuring generators using their constructors.
-	public boolean generate(OutputStream out);
+	public void generate(OutputStream out);
 }

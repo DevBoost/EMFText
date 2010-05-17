@@ -36,7 +36,7 @@ public class NatureGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_PROJECT_NATURE + " {");
@@ -44,7 +44,6 @@ public class NatureGenerator extends JavaBaseGenerator<Object> {
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

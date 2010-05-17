@@ -59,10 +59,9 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		builderID = nameUtil.getBuilderID(context.getConcreteSyntax());
 	}
 
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		out.write(getContentOfPluginXML());
 		out.flush();
-		return true;
 	}
 
 	/**

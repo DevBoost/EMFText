@@ -43,7 +43,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<Object> {
 		return new IMetaInformationGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -136,14 +136,6 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public " + E_CLASS + "[] getFoldableClasses();");
 		sc.addLineBreak();
 
-		/* has moved to UIMetaInformation
-		sc.addJavadoc("Returns a hover text provider which provides the hover text for <code>EObject</code>s");
-		sc.add("public " + iHoverTextProviderClassName  + " getHoverTextProvider();");
-		sc.addLineBreak();
-		*/
-		
 		sc.add("}");
-		
-		return true;
 	}
 }

@@ -62,9 +62,8 @@ public abstract class BaseGenerator<ContextType, ParameterType> extends Abstract
 	 * Important:  Even with valid output there might be problems.
 	 * 
 	 * @param out - the target stream to write on
-	 * @return true, iff the result is valid
 	 */
-	public abstract boolean generate(PrintWriter out);
+	public abstract void generate(PrintWriter out);
 	
 	public ContextType getContext() {
 		return context;

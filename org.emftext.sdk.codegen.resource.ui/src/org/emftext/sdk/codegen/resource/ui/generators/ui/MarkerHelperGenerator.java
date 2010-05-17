@@ -44,7 +44,7 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.MARKER_HELPER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,7 +60,6 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

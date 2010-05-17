@@ -32,7 +32,7 @@ public class BuilderGenerator extends JavaBaseGenerator<Object> {
 
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iBuilderClassName + " {");
@@ -40,8 +40,6 @@ public class BuilderGenerator extends JavaBaseGenerator<Object> {
 		addIsBuildingNeededMethod(sc);
 		addBuildMethod(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addIsBuildingNeededMethod(JavaComposite sc) {

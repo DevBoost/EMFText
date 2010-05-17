@@ -70,7 +70,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
@@ -80,8 +80,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addInnerClassPrintToken(JavaComposite sc) {

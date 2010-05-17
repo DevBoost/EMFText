@@ -38,7 +38,7 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator<Object> 
 		return new ITextResourcePluginPartGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,6 +58,5 @@ public class ITextResourcePluginPartGenerator extends JavaBaseGenerator<Object> 
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

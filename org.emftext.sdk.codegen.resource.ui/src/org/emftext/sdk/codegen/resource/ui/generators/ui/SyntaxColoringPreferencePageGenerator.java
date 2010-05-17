@@ -75,7 +75,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator {
 		return new SyntaxColoringPreferencePageGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -515,7 +515,6 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 
 	private void addColorListLabelProviderClass(JavaComposite sc) {

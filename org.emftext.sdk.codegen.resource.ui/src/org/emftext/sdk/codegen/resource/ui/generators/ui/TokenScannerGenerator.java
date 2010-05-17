@@ -46,7 +46,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.TOKEN_SCANNER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
@@ -61,7 +61,6 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

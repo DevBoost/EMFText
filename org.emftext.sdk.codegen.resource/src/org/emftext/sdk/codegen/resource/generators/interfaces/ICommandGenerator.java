@@ -38,7 +38,7 @@ public class ICommandGenerator extends JavaBaseGenerator<Object> {
 		return new ICommandGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,6 +52,5 @@ public class ICommandGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		sc.add("public boolean execute(ContextType context);");
 		sc.add("}");
-		return true;
 	}
 }

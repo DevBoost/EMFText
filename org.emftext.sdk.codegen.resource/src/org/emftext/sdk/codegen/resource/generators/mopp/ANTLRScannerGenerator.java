@@ -40,7 +40,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -70,7 +70,6 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object object) {

@@ -122,7 +122,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -135,7 +135,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 		addMethodsForRules(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addInnerClasses(JavaComposite sc) {

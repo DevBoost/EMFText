@@ -46,7 +46,7 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.HYPERLINK_DETECTOR);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -63,7 +63,6 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator {
 		addDetectHyperlinksMethod(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

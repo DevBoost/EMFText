@@ -46,7 +46,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.OCCURENCE);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,7 +60,6 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

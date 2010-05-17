@@ -52,10 +52,9 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		this.context = context;
 	}
 
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		out.write(getContentOfPluginXML());
 		out.flush();
-		return true;
 	}
 
 	/**

@@ -76,7 +76,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.TEXT_HOVER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -95,7 +95,6 @@ public class TextHoverGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

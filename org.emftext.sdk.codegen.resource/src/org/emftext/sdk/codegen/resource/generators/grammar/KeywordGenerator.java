@@ -26,7 +26,7 @@ public class KeywordGenerator extends JavaBaseGenerator<Object> {
 		return new KeywordGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -38,7 +38,6 @@ public class KeywordGenerator extends JavaBaseGenerator<Object> {
 		addConstructor(sc);
 		addGetValueMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

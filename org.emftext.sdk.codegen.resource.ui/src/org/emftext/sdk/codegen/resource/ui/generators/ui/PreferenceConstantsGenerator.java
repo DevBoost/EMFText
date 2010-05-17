@@ -34,7 +34,7 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -64,7 +64,6 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator {
 		sc.add("public static final String EDITOR_PROXY_COLOR = \"_proxy_color\";");
 		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

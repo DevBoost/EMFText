@@ -28,7 +28,7 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 		super(parent, context, null);
 	}
 	
-	public boolean generate(OutputStream outputStream) {
+	public void generate(OutputStream outputStream) {
 		EObject generatedModel = generateModel();
 		ResourceSet rs = new ResourceSetImpl();
 		String modelPath = getModelPath();
@@ -36,10 +36,8 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 		r.getContents().add(generatedModel);
 		try {
 			r.save(outputStream, null);
-			return true;
 		} catch (IOException e) {
 			addProblem(new GenerationProblem(e.getMessage(), null));
-			return false;
 		}
 	}
 	

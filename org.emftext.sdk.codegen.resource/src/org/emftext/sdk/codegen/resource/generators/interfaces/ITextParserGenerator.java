@@ -41,7 +41,7 @@ public class ITextParserGenerator extends JavaBaseGenerator<Object> {
 		return new ITextParserGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -81,6 +81,5 @@ public class ITextParserGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

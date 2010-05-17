@@ -216,7 +216,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		}
 	}
 
-	public boolean generate(PrintWriter writer) {
+	public void generate(PrintWriter writer) {
 		followSetID = 0;
 		initOptions();
 		initCaches();
@@ -276,7 +276,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		sc.add(grammarCore.toString());
 
 		writer.print(sc.toString());
-		return true;
 	}
 
 	private void addRules(ANTLRGrammarComposite sc) {

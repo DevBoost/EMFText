@@ -47,7 +47,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.HTML_PRINTER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -590,9 +590,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator {
 		sc.add("return html2TextReader.getString();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

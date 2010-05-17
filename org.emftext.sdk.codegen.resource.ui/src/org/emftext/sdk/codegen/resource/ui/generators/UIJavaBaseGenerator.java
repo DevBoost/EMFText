@@ -25,12 +25,11 @@ public abstract class UIJavaBaseGenerator extends UIResourceBaseGenerator<Object
 		super(parent, context, null, artifact);
 	}
 
-	final public boolean generate(PrintWriter out) {
+	final public void generate(PrintWriter out) {
 		JavaComposite sc = new JavaComposite();
 		addLicenceHeader(sc);
-		boolean success = generateJavaContents(sc);
+		generateJavaContents(sc);
 		out.write(sc.toString());
-		return success;
 	}
 
 	private void addLicenceHeader(StringComposite sc) {
@@ -57,5 +56,5 @@ public abstract class UIJavaBaseGenerator extends UIResourceBaseGenerator<Object
 		return getContext().getLicenceText();
 	}
 
-	public abstract boolean generateJavaContents(JavaComposite sc);
+	public abstract void generateJavaContents(JavaComposite sc);
 }

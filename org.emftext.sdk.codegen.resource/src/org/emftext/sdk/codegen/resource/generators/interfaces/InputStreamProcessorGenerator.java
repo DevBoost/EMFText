@@ -40,7 +40,7 @@ public class InputStreamProcessorGenerator extends JavaBaseGenerator<Object> {
 		return new InputStreamProcessorGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 
 		sc.add("package " + getResourcePackageName() + ";");
@@ -62,7 +62,5 @@ public class InputStreamProcessorGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public abstract String getOutputEncoding();");
 		
 		sc.add("}");
-		
-		return true;
 	}
 }

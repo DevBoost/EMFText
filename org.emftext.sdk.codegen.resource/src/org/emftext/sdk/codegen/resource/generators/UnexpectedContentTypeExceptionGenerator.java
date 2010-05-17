@@ -39,7 +39,7 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator<O
 		return new UnexpectedContentTypeExceptionGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,8 +54,6 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator<O
 		addConstructor(sc);
 		addGetContentTypeMethod(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addGetContentTypeMethod(JavaComposite sc) {

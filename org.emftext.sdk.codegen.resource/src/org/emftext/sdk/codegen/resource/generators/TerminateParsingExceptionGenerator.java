@@ -39,7 +39,7 @@ public class TerminateParsingExceptionGenerator extends JavaBaseGenerator<Object
 		return new TerminateParsingExceptionGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,7 +53,6 @@ public class TerminateParsingExceptionGenerator extends JavaBaseGenerator<Object
 		sc.addLineBreak();
 		addFields(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

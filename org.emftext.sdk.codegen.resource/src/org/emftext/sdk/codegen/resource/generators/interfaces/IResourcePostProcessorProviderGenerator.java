@@ -38,7 +38,7 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator<O
 		return new IResourcePostProcessorProviderGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,6 +52,5 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator<O
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

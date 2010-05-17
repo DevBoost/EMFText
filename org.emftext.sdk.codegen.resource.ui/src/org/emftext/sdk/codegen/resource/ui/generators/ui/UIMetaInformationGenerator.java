@@ -23,7 +23,7 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
 	}
 	
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -32,8 +32,6 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
         sc.addLineBreak();
     	addMethods(sc);
         sc.add("}");
-    	
-    	return true;	
 	}
 
 	public void addMethods(StringComposite sc) {

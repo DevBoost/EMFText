@@ -30,7 +30,7 @@ public class IBuilderGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
@@ -39,7 +39,5 @@ public class IBuilderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
 		sc.add("}");
-
-		return true;
 	}
 }

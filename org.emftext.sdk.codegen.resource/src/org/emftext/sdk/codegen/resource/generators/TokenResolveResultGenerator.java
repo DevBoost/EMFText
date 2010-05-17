@@ -33,7 +33,7 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -69,7 +69,6 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator<Object> {
 		sc.add("resolvedToken = null;");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

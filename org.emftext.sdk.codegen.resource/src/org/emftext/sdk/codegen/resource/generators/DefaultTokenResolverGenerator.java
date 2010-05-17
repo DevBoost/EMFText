@@ -44,7 +44,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,9 +53,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
-		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(StringComposite sc) {

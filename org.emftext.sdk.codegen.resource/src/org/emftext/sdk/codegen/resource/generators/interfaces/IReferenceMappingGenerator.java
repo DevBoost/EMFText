@@ -38,7 +38,7 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator<Object> {
 		return new IReferenceMappingGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -68,6 +68,5 @@ public class IReferenceMappingGenerator extends JavaBaseGenerator<Object> {
 		);
 		sc.add("public String getWarning();");
 		sc.add("}");
-		return true;
 	}
 }

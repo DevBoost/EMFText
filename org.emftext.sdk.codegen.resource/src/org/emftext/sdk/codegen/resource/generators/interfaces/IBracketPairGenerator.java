@@ -38,7 +38,7 @@ public class IBracketPairGenerator extends JavaBaseGenerator<Object> {
 		return new IBracketPairGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -62,6 +62,5 @@ public class IBracketPairGenerator extends JavaBaseGenerator<Object> {
 		);
 		sc.add("public boolean isClosingEnabledInside();");
 		sc.add("}");
-		return true;
 	}
 }

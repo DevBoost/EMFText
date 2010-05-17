@@ -28,7 +28,7 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<Object> {
 		return new IReferenceCacheGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -36,6 +36,5 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public " + OBJECT + " get(" + STRING + " identifier);");
 		sc.add("public void put(" + STRING + " identifier, " + OBJECT + " target);");
 		sc.add("}");
-		return true;
 	}
 }

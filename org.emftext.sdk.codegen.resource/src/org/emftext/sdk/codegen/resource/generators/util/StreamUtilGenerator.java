@@ -43,7 +43,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator<Object> {
 		return new StreamUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -71,6 +71,5 @@ public class StreamUtilGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return content.toString();");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

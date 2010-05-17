@@ -41,7 +41,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<Object> {
 		return new UnicodeConverterGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -280,6 +280,5 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return \"UTF-8\";");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

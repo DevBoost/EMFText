@@ -25,7 +25,7 @@ public class LineBreakGenerator extends JavaBaseGenerator<Object> {
 		return new LineBreakGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -43,6 +43,5 @@ public class LineBreakGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return tabs;"); 
 		sc.add("}"); 
 		sc.add("}");
-		return true;
 	}
 }

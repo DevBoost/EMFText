@@ -38,7 +38,7 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -85,7 +85,6 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

@@ -26,7 +26,7 @@ public class PairGenerator extends JavaBaseGenerator<Object> {
 		return new PairGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
@@ -91,7 +91,6 @@ public class PairGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addConstructor(StringComposite sc) {

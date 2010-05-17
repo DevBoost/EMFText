@@ -68,7 +68,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 		this.proxyReference = proxyReference;
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 
 		sc.add("package " + context.getResolverPackageName() + ";");
 		sc.addLineBreak();
@@ -93,8 +93,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 						sc,
 						"// save options in a field or leave method empty if this resolver does not depend on any option");
 		sc.add("}");
-
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

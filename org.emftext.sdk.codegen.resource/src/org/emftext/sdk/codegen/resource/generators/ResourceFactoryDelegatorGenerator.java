@@ -54,7 +54,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Object>
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -94,7 +94,6 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Object>
 		addInitMethod(sc);
 
 		sc.add("}");
-    	return true;	
     }
 	
 	private void addInitMethod(StringComposite sc) {

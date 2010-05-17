@@ -40,7 +40,7 @@ public class IConfigurableGenerator extends JavaBaseGenerator<Object> {
 		return new IConfigurableGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,6 +52,5 @@ public class IConfigurableGenerator extends JavaBaseGenerator<Object> {
 		sc.addJavadoc("Passes the options given by the map to the configurable object.");
 		sc.add("public void setOptions(" + MAP + "<?,?> options);");
 		sc.add("}");
-		return true;
 	}
 }

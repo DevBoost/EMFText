@@ -77,7 +77,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.CODE_FOLDING_MANAGER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -98,7 +98,6 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

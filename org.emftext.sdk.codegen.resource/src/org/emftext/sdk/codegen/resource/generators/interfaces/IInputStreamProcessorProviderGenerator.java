@@ -40,7 +40,7 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator<Ob
 		return new IInputStreamProcessorProviderGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -62,6 +62,5 @@ public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator<Ob
 		);
 		sc.add("public " + inputStreamProcessorClassName + " getInputStreamProcessor(" + INPUT_STREAM + " inputStream);");
 		sc.add("}");
-		return true;
 	}
 }

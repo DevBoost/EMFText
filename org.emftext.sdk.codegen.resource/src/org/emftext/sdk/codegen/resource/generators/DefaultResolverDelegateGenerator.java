@@ -58,7 +58,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Object> 
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
@@ -68,9 +68,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Object> 
 		addInnerClassReferenceCache(sc);
 		addFields(sc);
 		addMethods(sc);
-		
 		sc.add("}");
-		return true;
 	}
 
 	private void addInnerClassReferenceCache(StringComposite sc) {

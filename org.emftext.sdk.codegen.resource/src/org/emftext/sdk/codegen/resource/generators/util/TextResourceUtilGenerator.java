@@ -46,7 +46,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<Object> {
 		return new TextResourceUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -76,6 +76,5 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return (" + textResourceClassName + ") csResource;");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

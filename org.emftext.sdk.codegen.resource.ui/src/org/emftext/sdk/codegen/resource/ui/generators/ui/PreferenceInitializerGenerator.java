@@ -42,7 +42,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator {
 		return new PreferenceInitializerGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() +";");
 		sc.addLineBreak();
@@ -144,6 +144,5 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator {
 		sc.add("return colorAsRGB[0] + \",\" +colorAsRGB[1] + \",\"+ colorAsRGB[2];");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

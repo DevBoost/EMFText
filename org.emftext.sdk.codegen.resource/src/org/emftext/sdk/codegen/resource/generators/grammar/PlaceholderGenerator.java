@@ -29,7 +29,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator<Object> {
 		return new PlaceholderGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -41,7 +41,6 @@ public class PlaceholderGenerator extends JavaBaseGenerator<Object> {
 		addConstructor(sc);
 		addGetTokenNameMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

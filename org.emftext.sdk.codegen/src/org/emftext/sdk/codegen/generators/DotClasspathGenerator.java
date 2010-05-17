@@ -34,7 +34,7 @@ public class DotClasspathGenerator<ContextType> extends AbstractGenerator<Contex
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -48,7 +48,6 @@ public class DotClasspathGenerator<ContextType> extends AbstractGenerator<Contex
 		sc.add("</classpath>");
 		
 		out.write(sc.toString());
-		return true;
 	}
 
 	public IGenerator<ContextType, ClassPathParameters> newInstance(ICodeGenerationComponent parent, ContextType context, ClassPathParameters parameters) {

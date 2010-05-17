@@ -36,7 +36,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Object> 
 		super(parent, context, TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -94,7 +94,6 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Object> 
 		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

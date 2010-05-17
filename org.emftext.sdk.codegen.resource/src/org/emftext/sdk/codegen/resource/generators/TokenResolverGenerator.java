@@ -65,7 +65,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 		super(parent, context, TextResourceArtifacts.TOKEN_RESOLVER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
@@ -92,8 +92,6 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 		    generatorUtil.addSetOptionsMethod(sc, "defaultTokenResolver.setOptions(options);");
 		}
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void generateDeResolveMethod1(StringComposite sc) {

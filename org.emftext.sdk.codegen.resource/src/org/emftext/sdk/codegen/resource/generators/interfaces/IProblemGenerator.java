@@ -38,7 +38,7 @@ public class IProblemGenerator extends JavaBaseGenerator<Object> {
 		return new IProblemGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -46,6 +46,5 @@ public class IProblemGenerator extends JavaBaseGenerator<Object> {
 		sc.add("public String getMessage();");
 		sc.add("public " + eProblemTypeClassName + " getType();");
 		sc.add("}");
-		return true;
 	}
 }

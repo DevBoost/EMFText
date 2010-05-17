@@ -25,7 +25,7 @@ public class CardinalityGenerator extends JavaBaseGenerator<Object> {
 		return new CardinalityGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -35,6 +35,5 @@ public class CardinalityGenerator extends JavaBaseGenerator<Object> {
 		sc.add("ONE, PLUS, QUESTIONMARK, STAR;"); 
 		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 }

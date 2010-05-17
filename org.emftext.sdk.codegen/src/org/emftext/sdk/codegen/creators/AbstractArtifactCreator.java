@@ -94,11 +94,10 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 	}
 
 	private InputStream invokeGeneration(IGenerator<ContextType, ParameterType> generator, IProblemCollector collector) {
-       ByteArrayOutputStream stream = new ByteArrayOutputStream();
-       try {
-    	   if (generator.generate(stream)) {
-    		   return new ByteArrayInputStream(stream.toByteArray());
-       	   }
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try {
+			generator.generate(stream);
+			return new ByteArrayInputStream(stream.toByteArray());
 		} catch (Exception e) {
 			// we do not need to propagate the exception, because in the
 			// case if an exception this method returns null. This is then

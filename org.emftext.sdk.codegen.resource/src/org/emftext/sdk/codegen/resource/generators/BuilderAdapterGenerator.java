@@ -42,7 +42,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 
 		sc.add("package " + getResourcePackageName() + ";");
@@ -57,8 +57,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
 		addBuildMethod1(sc);
 		addBuildMethod2(sc);
 		sc.add("}");
-		
-		return true;
 	}
 
 	private void addBuildMethod1(StringComposite sc) {

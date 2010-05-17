@@ -38,7 +38,7 @@ public class SyntaxColoringHelperGenerator extends UIJavaBaseGenerator {
 		return new SyntaxColoringHelperGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -68,6 +68,5 @@ public class SyntaxColoringHelperGenerator extends UIJavaBaseGenerator {
 		sc.add("return languageID + \"$\" + tokenName + \"$\" + styleProperty.getSuffix();");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

@@ -42,7 +42,7 @@ public class ListUtilGenerator extends JavaBaseGenerator<Object> {
 		return new ListUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -67,6 +67,5 @@ public class ListUtilGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return castedCopy;");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

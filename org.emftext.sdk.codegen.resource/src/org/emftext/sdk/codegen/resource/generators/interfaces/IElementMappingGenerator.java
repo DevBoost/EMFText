@@ -38,7 +38,7 @@ public class IElementMappingGenerator extends JavaBaseGenerator<Object> {
 		return new IElementMappingGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,6 +53,5 @@ public class IElementMappingGenerator extends JavaBaseGenerator<Object> {
 		sc.addJavadoc("Returns the target object the identifier is mapped to.");
 		sc.add("public ReferenceType getTargetElement();");
 		sc.add("}");
-		return true;
 	}
 }

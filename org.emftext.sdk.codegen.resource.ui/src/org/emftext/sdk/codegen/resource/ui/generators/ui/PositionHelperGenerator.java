@@ -39,7 +39,7 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.POSITION_HELPER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -49,7 +49,6 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

@@ -61,7 +61,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator {
 		return new NewFileWizardPageGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -77,7 +77,6 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

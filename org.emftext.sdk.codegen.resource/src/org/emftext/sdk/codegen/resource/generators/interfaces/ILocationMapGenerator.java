@@ -41,7 +41,7 @@ public class ILocationMapGenerator extends JavaBaseGenerator<Object> {
 		return new ILocationMapGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -113,6 +113,5 @@ public class ILocationMapGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

@@ -34,7 +34,7 @@ public class PositionCategoryGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.POSITION_CATEGORY);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -43,7 +43,6 @@ public class PositionCategoryGenerator extends UIJavaBaseGenerator {
 		sc.add("public enum " + getResourceClassName() + " {");
 		sc.add("BRACKET, DEFINTION, PROXY;");
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

@@ -33,10 +33,9 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 		super(parent, context, parameters);
 	}
 
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		out.write(getManifestContent());
 		out.flush();
-		return true;
 	}
 
 	/**

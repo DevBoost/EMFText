@@ -41,7 +41,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,7 +60,6 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

@@ -41,7 +41,7 @@ public class ITextPrinterGenerator extends JavaBaseGenerator<Object> {
 		return new ITextPrinterGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,6 +60,5 @@ public class ITextPrinterGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

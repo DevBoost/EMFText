@@ -38,7 +38,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		this.context = context;
 	}
 
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
@@ -161,7 +161,6 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		sc.addLineBreak();
 		
 		out.write(sc.toString());
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

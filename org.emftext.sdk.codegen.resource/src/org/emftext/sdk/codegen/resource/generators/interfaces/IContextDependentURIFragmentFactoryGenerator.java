@@ -41,7 +41,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		return new IContextDependentURIFragmentFactoryGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -65,6 +65,5 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 		);
 		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
 		sc.add("}");
-		return true;
 	}
 }

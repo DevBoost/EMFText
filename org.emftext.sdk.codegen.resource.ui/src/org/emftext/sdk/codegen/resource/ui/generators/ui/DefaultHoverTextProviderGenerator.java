@@ -29,7 +29,7 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -55,8 +55,6 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator {
 		sc.add("return label;");
 		sc.add("}");
 		sc.add("}");
-		
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

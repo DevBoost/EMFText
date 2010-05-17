@@ -49,7 +49,7 @@ public class EmptyClassGenerator extends JavaBaseGenerator<Object> {
 		this.targetPackage = targetPackage;
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 
 		sc.add("package " + context.getPackageName(targetPackage) + ";");
 		sc.addLineBreak();
@@ -57,8 +57,6 @@ public class EmptyClassGenerator extends JavaBaseGenerator<Object> {
 		sc.addJavadoc("This empty class was generated to overwrite exiting classes.");
 		sc.add("public class " + className + " {");
 		sc.add("}");
-
-		return true;
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {

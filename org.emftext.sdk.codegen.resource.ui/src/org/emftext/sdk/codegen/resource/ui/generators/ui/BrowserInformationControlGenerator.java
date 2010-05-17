@@ -70,7 +70,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -601,7 +601,6 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

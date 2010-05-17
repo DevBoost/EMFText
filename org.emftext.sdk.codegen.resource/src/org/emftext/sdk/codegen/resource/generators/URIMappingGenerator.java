@@ -35,7 +35,7 @@ public class URIMappingGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.URI_MAPPING);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,7 +52,6 @@ public class URIMappingGenerator extends JavaBaseGenerator<Object> {
 		addGetIdentifierMethod(sc);
 		addGetWarningMethod(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

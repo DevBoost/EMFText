@@ -42,7 +42,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.DUMMY_E_OBJECT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -62,7 +62,6 @@ public class DummyEObjectGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

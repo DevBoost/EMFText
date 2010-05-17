@@ -33,7 +33,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.ELEMENT_MAPPING);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
@@ -65,7 +65,6 @@ public class ElementMappingGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return warning;");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

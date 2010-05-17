@@ -38,7 +38,7 @@ public class ITextTokenGenerator extends JavaBaseGenerator<Object> {
 		return new ITextTokenGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -74,7 +74,5 @@ public class ITextTokenGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		
-		return true;
 	}
 }

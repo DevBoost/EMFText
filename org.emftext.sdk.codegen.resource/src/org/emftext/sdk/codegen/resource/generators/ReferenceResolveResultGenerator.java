@@ -37,7 +37,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,7 +60,6 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<Object> {
 		addAddMappingMethod3(sc);
 		addAddMappingMethod4(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(JavaComposite sc) {

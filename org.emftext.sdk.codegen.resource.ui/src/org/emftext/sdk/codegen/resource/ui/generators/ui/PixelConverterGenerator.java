@@ -43,7 +43,7 @@ public class PixelConverterGenerator extends UIJavaBaseGenerator {
 		return new PixelConverterGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -82,6 +82,5 @@ public class PixelConverterGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

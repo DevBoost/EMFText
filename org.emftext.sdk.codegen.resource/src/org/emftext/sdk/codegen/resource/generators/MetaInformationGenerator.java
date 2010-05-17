@@ -44,7 +44,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<Object> {
 	}
 	
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -53,8 +53,6 @@ public class MetaInformationGenerator extends JavaBaseGenerator<Object> {
         sc.addLineBreak();
     	addMethods(sc);
         sc.add("}");
-    	
-    	return true;	
 	}
 
 	private void addCreateResourceFactoryMethod(StringComposite sc) {

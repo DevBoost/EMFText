@@ -26,16 +26,15 @@ public abstract class AbstractGenerator<ContextType, ParameterType> extends Abst
 		this.parameters = parameters;
 	}
 	
-	public boolean generate(OutputStream stream) {
+	public void generate(OutputStream stream) {
 		PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
-		boolean result = generate(out);
+		generate(out);
 		out.flush();
 		out.close();
-		return result;
 	}
 
-	public boolean generate(PrintWriter out) {
-		return false;
+	public void generate(PrintWriter out) {
+		// default implementation does nothing
 	}
 
 	/**

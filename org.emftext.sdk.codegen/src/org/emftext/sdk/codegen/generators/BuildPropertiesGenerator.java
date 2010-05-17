@@ -35,7 +35,7 @@ public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<Con
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
+	public void generate(PrintWriter out) {
 		Collection<String> sourceFolders = parameters.getSourceFolders();
 		Collection<String> binIncludes = parameters.getBinIncludes();
 
@@ -46,7 +46,6 @@ public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<Con
 		sc.append("\n");
 
 		out.write(sc.toString());
-		return true;
 	}
 
 	public IGenerator<ContextType, BuildPropertiesParameters> newInstance(ICodeGenerationComponent parent, ContextType context, BuildPropertiesParameters parameters) {

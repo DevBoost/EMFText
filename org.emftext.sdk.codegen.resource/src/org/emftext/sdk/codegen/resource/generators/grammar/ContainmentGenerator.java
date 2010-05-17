@@ -27,7 +27,7 @@ public class ContainmentGenerator extends JavaBaseGenerator<Object> {
 		return new ContainmentGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -38,6 +38,5 @@ public class ContainmentGenerator extends JavaBaseGenerator<Object> {
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("}"); 
 		sc.add("}");
-		return true;
 	}
 }

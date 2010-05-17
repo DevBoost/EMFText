@@ -46,7 +46,7 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,7 +58,6 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

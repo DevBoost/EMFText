@@ -26,7 +26,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator<Object> {
 		return new FormattingElementGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -35,7 +35,6 @@ public class FormattingElementGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		addConstructor(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addConstructor(StringComposite sc) {

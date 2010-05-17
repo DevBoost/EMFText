@@ -38,7 +38,7 @@ public class CastUtilGenerator extends JavaBaseGenerator<Object> {
 		return new CastUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,6 +54,5 @@ public class CastUtilGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return (T) temp;");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

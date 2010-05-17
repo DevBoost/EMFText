@@ -25,7 +25,7 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator<Object> {
 		return new WhiteSpaceGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -43,6 +43,5 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator<Object> {
 		sc.add("return amount;"); 
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

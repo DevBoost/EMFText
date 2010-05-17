@@ -42,7 +42,7 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.E_OBJECT_SELECTION);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,7 +54,6 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(StringComposite sc) {

@@ -48,7 +48,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Objec
 		return new CopiedEObjectInternalEListGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		//TODO mseifert: override remove() method of iterators
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -153,6 +153,5 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Objec
 		sc.add("return original.setUnique(index, object);");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 }

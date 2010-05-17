@@ -42,7 +42,7 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.COLOR_MANAGER);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -54,7 +54,6 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

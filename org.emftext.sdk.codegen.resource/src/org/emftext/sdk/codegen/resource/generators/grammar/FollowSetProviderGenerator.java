@@ -43,7 +43,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -56,7 +56,6 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		addTerminalConstants(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addTerminalConstants(JavaComposite sc) {

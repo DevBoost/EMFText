@@ -40,7 +40,7 @@ public class IOptionProviderGenerator extends JavaBaseGenerator<Object> {
 		return new IOptionProviderGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -61,6 +61,5 @@ public class IOptionProviderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

@@ -39,7 +39,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<Object> {
 		return new ExpectedCsStringGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -51,7 +51,6 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<Object> {
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

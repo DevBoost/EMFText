@@ -30,7 +30,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<Object> {
 		return new CompletionProposalGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -42,7 +42,6 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<Object> {
 		addConstructor2(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

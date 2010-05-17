@@ -39,7 +39,7 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 		super(parent, context, TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -55,7 +55,6 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

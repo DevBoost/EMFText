@@ -41,7 +41,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object>
 		return new IReferenceResolverSwitchGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -64,6 +64,5 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator<Object>
 		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");
 		
 		sc.add("}");
-		return true;
 	}
 }

@@ -36,7 +36,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		super(parent, context, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -64,7 +64,6 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		sc.add("};");
 		sc.add("}");
 		sc.add("}");
-		return true;
 	}
 
 	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {

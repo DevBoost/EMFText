@@ -34,7 +34,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Object>
 		return new LayoutInformationAdapterGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -44,7 +44,6 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Object>
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(StringComposite sc) {

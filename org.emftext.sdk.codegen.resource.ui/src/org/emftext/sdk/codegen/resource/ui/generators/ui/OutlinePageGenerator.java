@@ -57,7 +57,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.OUTLINE_PAGE);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -70,7 +70,6 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator {
 		addMethods(sc);
 
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

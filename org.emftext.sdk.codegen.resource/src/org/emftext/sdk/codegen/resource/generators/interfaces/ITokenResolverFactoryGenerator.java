@@ -38,7 +38,7 @@ public class ITokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 		return new ITokenResolverFactoryGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -60,6 +60,5 @@ public class ITokenResolverFactoryGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

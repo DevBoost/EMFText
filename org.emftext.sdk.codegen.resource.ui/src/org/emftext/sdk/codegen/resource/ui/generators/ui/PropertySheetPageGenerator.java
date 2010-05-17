@@ -47,7 +47,7 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -55,7 +55,6 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

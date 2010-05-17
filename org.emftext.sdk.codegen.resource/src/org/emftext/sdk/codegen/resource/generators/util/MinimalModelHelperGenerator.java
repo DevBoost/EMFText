@@ -53,7 +53,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator<Object> {
 		return new MinimalModelHelperGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -73,7 +73,6 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator<Object> {
 		addMethods(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

@@ -42,7 +42,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Object> 
 		return new IReferenceResolveResultGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -141,6 +141,5 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Object> 
 		sc.addLineBreak();
 		
 		sc.add("}");
-		return true;
 	}
 }

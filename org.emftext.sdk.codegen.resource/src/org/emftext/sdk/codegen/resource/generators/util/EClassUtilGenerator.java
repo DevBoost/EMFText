@@ -42,7 +42,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator<Object> {
 		return new EClassUtilGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -52,7 +52,6 @@ public class EClassUtilGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {

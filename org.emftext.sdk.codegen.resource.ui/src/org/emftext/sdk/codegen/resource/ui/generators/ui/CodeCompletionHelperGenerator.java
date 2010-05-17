@@ -73,7 +73,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator {
 		return new CodeCompletionHelperGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -89,7 +89,6 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator {
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addFields(StringComposite sc) {

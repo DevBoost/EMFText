@@ -44,7 +44,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator {
 	}
 
 	@Override
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -62,7 +62,6 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator {
 		addCancelMethod(sc);
 		
 		sc.add("}");
-		return true;
 	}
 
 	private void addCancelMethod(StringComposite sc) {

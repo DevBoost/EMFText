@@ -40,7 +40,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator<Objec
 		return new IBackgroundParsingListenerGenerator(parent, context);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -58,6 +58,5 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator<Objec
 		);
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource);");
 		sc.add("}");
-		return true;
 	}
 }

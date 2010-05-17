@@ -47,7 +47,7 @@ public class PreferencePageGenerator extends UIJavaBaseGenerator {
 		super(parent, context, TextResourceUIArtifacts.PREFERENCE_PAGE);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -57,7 +57,6 @@ public class PreferencePageGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 		addmethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addmethods(JavaComposite sc) {

@@ -46,7 +46,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 		super(parent, context, TextResourceArtifacts.LOCATION_MAP);
 	}
 
-	public boolean generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -70,7 +70,6 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
-		return true;
 	}
 
 	private void addMethods(JavaComposite sc) {
