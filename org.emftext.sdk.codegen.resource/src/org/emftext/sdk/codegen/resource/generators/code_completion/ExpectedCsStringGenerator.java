@@ -13,32 +13,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class ExpectedCsStringGenerator extends JavaBaseGenerator<Object> {
+public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new ExpectedCsStringGenerator());
-
-	private ExpectedCsStringGenerator() {
-		super();
-	}
-
-	private ExpectedCsStringGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.EXPECTED_CS_STRING);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new ExpectedCsStringGenerator(parent, context);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");

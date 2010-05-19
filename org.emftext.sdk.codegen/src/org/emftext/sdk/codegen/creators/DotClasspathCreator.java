@@ -17,8 +17,6 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
@@ -28,26 +26,27 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  * Creates a .classpath file, which is used by Eclipse to determine the
  * classes used by generated text resource plug-ins.
  */
-public class DotClasspathCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ClassPathParameters> {
+public class DotClasspathCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ClassPathParameters<ContextType>> {
 
 	public static final String FILENAME = ".classpath";
 
 	private final boolean override;
 
-	public DotClasspathCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ClassPathParameters> artifact, ClassPathParameters parameters, boolean override) {
-		super(parent, artifact, parameters);
+	public DotClasspathCreator(ClassPathParameters<ContextType> parameters, boolean override) {
+		super(parameters);
 		this.override = override;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ClassPathParameters parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ClassPathParameters<ContextType> parameters) {
 		
-		File dotClasspathFile = new File(getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + FILENAME);
+		File dotClasspathFile = new File(context.getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<ContextType, ClassPathParameters> dotClasspathGenerator = new DotClasspathGenerator<ContextType>(this, context, parameters);
+		IGenerator<ContextType, ClassPathParameters<ContextType>> dotClasspathGenerator = new DotClasspathGenerator<ContextType>();
 		
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		dotClasspathGenerator,
 	    		dotClasspathFile,
 	    		"Exception while generating " + FILENAME + " file."

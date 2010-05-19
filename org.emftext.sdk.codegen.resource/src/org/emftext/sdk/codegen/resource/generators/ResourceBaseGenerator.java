@@ -1,12 +1,14 @@
 package org.emftext.sdk.codegen.resource.generators;
 
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public abstract class ResourceBaseGenerator<ParameterType> extends BaseGenerator<GenerationContext, ParameterType> {
+public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends BaseGenerator<GenerationContext, ParameterType> {
 
 	private String resourceClassName;
 	private String resourcePackageName;
@@ -143,139 +145,134 @@ public abstract class ResourceBaseGenerator<ParameterType> extends BaseGenerator
 	 * 
 	 * @param artifact the type of artifact to be generated
 	 */
-	public ResourceBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(parent, context, parameters, artifact);
-
-		if (artifact != null) {
-			this.resourcePackageName = context.getPackageName(artifact);
-			this.resourceClassName = context.getClassName(artifact);
-		}
-		
-		initilizeClassNames();
+	public ResourceBaseGenerator(ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
+		super();
 	}
 	
 	protected void initilizeClassNames() {
-		abstractExpectedElementClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
-		abstractInterpreterClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ABSTRACT_INTERPRETER);
-		antlrGrammarClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ANTLR_GRAMMAR);
-		antlrLexerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ANTLR_LEXER);
-		antlrParserBaseClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER_BASE);
-		antlrParserClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
-		antlrScannerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
-		attributeValueProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
-		babylonSpecificationClassName = getContext().getQualifiedClassName(TextResourceArtifacts.BABYLON_SPECIFICATION);
-		bracketInformationProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
-		buildPropertiesClassName = getContext().getQualifiedClassName(TextResourceArtifacts.BUILD_PROPERTIES);
-		builderAdapterClassName = getContext().getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
-		builderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.BUILDER);
-		cardinalityClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CARDINALITY);
-		castUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CAST_UTIL);
-		choiceClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CHOICE);
-		compoundClassName = getContext().getQualifiedClassName(TextResourceArtifacts.COMPOUND);
-		containmentClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CONTAINMENT);
-		contextDependentUriFragmentClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
-		contextDependentUriFragmentFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		copiedEListClassName = getContext().getQualifiedClassName(TextResourceArtifacts.COPIED_E_LIST);
-		copiedEObjectInternalEListClassName = getContext().getQualifiedClassName(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
-		defaultResolverDelegateClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
-		defaultTokenResolverClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
-		delegatingResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
-		dotClasspathClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DOT_CLASSPATH);
-		dotProjectClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DOT_PROJECT);
-		dummyEObjectClassName = getContext().getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
-		eClassUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
-		eObjectUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
-		eProblemTypeClassName = getContext().getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
-		elementMappingClassName = getContext().getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
-		expectedCsStringClassName = getContext().getQualifiedClassName(TextResourceArtifacts.EXPECTED_CS_STRING);
-		expectedStructuralFeatureClassName = getContext().getQualifiedClassName(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
-		expectedTerminalClassName = getContext().getQualifiedClassName(TextResourceArtifacts.EXPECTED_TERMINAL);
-		foldingInformationProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
-		followSetProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.FOLLOW_SET_PROVIDER);
-		formattingElementClassName = getContext().getQualifiedClassName(TextResourceArtifacts.FORMATTING_ELEMENT);
-		fuzzyResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
-		grammarInformationProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
-		iBackgroundParsingListenerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
-		iBracketPairClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_BRACKET_PAIR);
-		iBuilderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_BUILDER);
-		iCommandClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
-		iConfigurableClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_CONFIGURABLE);
-		iContextDependentUriFragmentClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
-		iContextDependentUriFragmentFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		iElementMappingClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_ELEMENT_MAPPING);
-		iExpectedElementClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_EXPECTED_ELEMENT);
-		iHoverTextProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
-		iInputStreamProcessorProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
-		iLocationMapClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_LOCATION_MAP);
-		iMetaInformationClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_META_INFORMATION);
-		iOptionProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER);
-		iOptionsClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
-		iParseResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_PARSE_RESULT);
-		iProblemClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
-		iReferenceCacheClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_CACHE);
-		iReferenceMappingClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_MAPPING);
-		iReferenceResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
-		iReferenceResolverClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER);
-		iReferenceResolverSwitchClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
-		iResourcePostProcessorClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
-		iResourcePostProcessorProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
-		iTextDiagnosticClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
-		iTextParserClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_PARSER);
-		iTextPrinterClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_PRINTER);
-		iTextResourceClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
-		iTextResourcePluginPartClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART);
-		iTextScannerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_SCANNER);
-		iTextTokenClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TEXT_TOKEN);
-		iTokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT);
-		iTokenResolverClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVER);
-		iTokenResolverFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY);
-		iTokenStyleClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_STYLE);
-		iUriMappingClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_URI_MAPPING);
-		inputStreamProcessorClassName = getContext().getQualifiedClassName(TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
-		keywordClassName = getContext().getQualifiedClassName(TextResourceArtifacts.KEYWORD);
-		layoutInformationAdapterClassName = getContext().getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
-		layoutInformationClassName = getContext().getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION);
-		lineBreakClassName = getContext().getQualifiedClassName(TextResourceArtifacts.LINE_BREAK);
-		listUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
-		locationMapClassName = getContext().getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
-		mapUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
-		metaInformationClassName = getContext().getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
-		minimalModelHelperClassName = getContext().getQualifiedClassName(TextResourceArtifacts.MINIMAL_MODEL_HELPER);
-		natureClassName = getContext().getQualifiedClassName(TextResourceArtifacts.NATURE);
-		newFileContentProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
-		pairClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PAIR);
-		parseResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PARSE_RESULT);
-		placeholderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PLACEHOLDER);
-		pluginActivatorClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR);
-		printer2ClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PRINTER2);
-		printerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PRINTER);
-		problemClassName = getContext().getQualifiedClassName(TextResourceArtifacts.PROBLEM);
-		referenceResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
-		referenceResolverSwitchClassName = getContext().getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
-		resourceFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
-		resourceFactoryDelegatorClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
-		resourceUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_UTIL);
-		scannerlessParserClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_PARSER);
-		scannerlessScannerClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_SCANNER);
-		sequenceClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SEQUENCE);
-		streamUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.STREAM_UTIL);
-		stringUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.STRING_UTIL);
-		syntaxCoverageInformationProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
-		syntaxElementClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT);
-		syntaxElementDecoratorClassName = getContext().getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
-		terminalClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TERMINAL);
-		terminateParsingExceptionClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION);
-		textResourceClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE);
-		textResourceUtilClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TEXT_RESOURCE_UTIL);
-		textTokenClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TEXT_TOKEN);
-		tokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
-		tokenResolverClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER);
-		tokenResolverFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
-		tokenStyleInformationProviderClassName = getContext().getQualifiedClassName(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
-		unexpectedContentTypeExceptionClassName = getContext().getQualifiedClassName(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
-		unicodeConverterClassName = getContext().getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);
-		uriMappingClassName = getContext().getQualifiedClassName(TextResourceArtifacts.URI_MAPPING);
-		whiteSpaceClassName = getContext().getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
+		GenerationContext context = getContext();
+		
+		abstractExpectedElementClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
+		abstractInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_INTERPRETER);
+		antlrGrammarClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_GRAMMAR);
+		antlrLexerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_LEXER);
+		antlrParserBaseClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER_BASE);
+		antlrParserClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
+		antlrScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
+		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
+		babylonSpecificationClassName = context.getQualifiedClassName(TextResourceArtifacts.BABYLON_SPECIFICATION);
+		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
+		buildPropertiesClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILD_PROPERTIES);
+		builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
+		builderClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER);
+		cardinalityClassName = context.getQualifiedClassName(TextResourceArtifacts.CARDINALITY);
+		castUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.CAST_UTIL);
+		choiceClassName = context.getQualifiedClassName(TextResourceArtifacts.CHOICE);
+		compoundClassName = context.getQualifiedClassName(TextResourceArtifacts.COMPOUND);
+		containmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINMENT);
+		contextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
+		contextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		copiedEListClassName = context.getQualifiedClassName(TextResourceArtifacts.COPIED_E_LIST);
+		copiedEObjectInternalEListClassName = context.getQualifiedClassName(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
+		defaultResolverDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
+		defaultTokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
+		delegatingResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
+		dotClasspathClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_CLASSPATH);
+		dotProjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_PROJECT);
+		dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
+		eClassUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
+		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
+		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
+		elementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
+		expectedCsStringClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_CS_STRING);
+		expectedStructuralFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
+		expectedTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_TERMINAL);
+		foldingInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
+		followSetProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLLOW_SET_PROVIDER);
+		formattingElementClassName = context.getQualifiedClassName(TextResourceArtifacts.FORMATTING_ELEMENT);
+		fuzzyResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
+		grammarInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
+		iBackgroundParsingListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
+		iBracketPairClassName = context.getQualifiedClassName(TextResourceArtifacts.I_BRACKET_PAIR);
+		iBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_BUILDER);
+		iCommandClassName = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
+		iConfigurableClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONFIGURABLE);
+		iContextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
+		iContextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		iElementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_ELEMENT_MAPPING);
+		iExpectedElementClassName = context.getQualifiedClassName(TextResourceArtifacts.I_EXPECTED_ELEMENT);
+		iHoverTextProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
+		iInputStreamProcessorProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
+		iLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.I_LOCATION_MAP);
+		iMetaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.I_META_INFORMATION);
+		iOptionProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER);
+		iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
+		iParseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PARSE_RESULT);
+		iProblemClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
+		iReferenceCacheClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_CACHE);
+		iReferenceMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_MAPPING);
+		iReferenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
+		iReferenceResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER);
+		iReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
+		iResourcePostProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
+		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+		iTextDiagnosticClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
+		iTextParserClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_PARSER);
+		iTextPrinterClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_PRINTER);
+		iTextResourceClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
+		iTextResourcePluginPartClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART);
+		iTextScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_SCANNER);
+		iTextTokenClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_TOKEN);
+		iTokenResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT);
+		iTokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVER);
+		iTokenResolverFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY);
+		iTokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TOKEN_STYLE);
+		iUriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_URI_MAPPING);
+		inputStreamProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
+		keywordClassName = context.getQualifiedClassName(TextResourceArtifacts.KEYWORD);
+		layoutInformationAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
+		layoutInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION);
+		lineBreakClassName = context.getQualifiedClassName(TextResourceArtifacts.LINE_BREAK);
+		listUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
+		locationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
+		mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
+		metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		minimalModelHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.MINIMAL_MODEL_HELPER);
+		natureClassName = context.getQualifiedClassName(TextResourceArtifacts.NATURE);
+		newFileContentProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
+		pairClassName = context.getQualifiedClassName(TextResourceArtifacts.PAIR);
+		parseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.PARSE_RESULT);
+		placeholderClassName = context.getQualifiedClassName(TextResourceArtifacts.PLACEHOLDER);
+		pluginActivatorClassName = context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR);
+		printer2ClassName = context.getQualifiedClassName(TextResourceArtifacts.PRINTER2);
+		printerClassName = context.getQualifiedClassName(TextResourceArtifacts.PRINTER);
+		problemClassName = context.getQualifiedClassName(TextResourceArtifacts.PROBLEM);
+		referenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
+		referenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
+		resourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
+		resourceFactoryDelegatorClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
+		resourceUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_UTIL);
+		scannerlessParserClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_PARSER);
+		scannerlessScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_SCANNER);
+		sequenceClassName = context.getQualifiedClassName(TextResourceArtifacts.SEQUENCE);
+		streamUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.STREAM_UTIL);
+		stringUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.STRING_UTIL);
+		syntaxCoverageInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
+		syntaxElementClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT);
+		syntaxElementDecoratorClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
+		terminalClassName = context.getQualifiedClassName(TextResourceArtifacts.TERMINAL);
+		terminateParsingExceptionClassName = context.getQualifiedClassName(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION);
+		textResourceClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE);
+		textResourceUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.TEXT_RESOURCE_UTIL);
+		textTokenClassName = context.getQualifiedClassName(TextResourceArtifacts.TEXT_TOKEN);
+		tokenResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
+		tokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER);
+		tokenResolverFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
+		tokenStyleInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
+		unexpectedContentTypeExceptionClassName = context.getQualifiedClassName(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
+		unicodeConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);
+		uriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_MAPPING);
+		whiteSpaceClassName = context.getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
 	}
 
 	protected String getResourceClassName() {
@@ -286,4 +283,13 @@ public abstract class ResourceBaseGenerator<ParameterType> extends BaseGenerator
     	return resourcePackageName;
     }
     
+    @Override
+    public void doGenerate(PrintWriter out) {
+		initilizeClassNames();
+		ArtifactDescriptor<GenerationContext, ?> artifact = getParameters().getArtifact();
+		if (artifact != null) {
+			this.resourcePackageName = getContext().getPackageName(artifact);
+			this.resourceClassName = getContext().getClassName(artifact);
+		}
+    }
 }

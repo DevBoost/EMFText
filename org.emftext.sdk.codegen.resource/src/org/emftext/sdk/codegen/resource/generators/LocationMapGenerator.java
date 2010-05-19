@@ -23,28 +23,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class LocationMapGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new LocationMapGenerator());
+public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static final String SYNCHRONISATION_COMMENT = 
 		"We need to synchronize the write access, because other threads may iterate over the map concurrently.";
-
-	private LocationMapGenerator() {
-		super();
-	}
-
-	private LocationMapGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.LOCATION_MAP);
-	}
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -267,7 +253,5 @@ public class LocationMapGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new LocationMapGenerator(parent, context);
-	}
+	
 }

@@ -12,38 +12,24 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class BuilderAdapterGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new BuilderAdapterGenerator());
+public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();
 
-	private BuilderAdapterGenerator() {
+	public BuilderAdapterGenerator() {
 		super();
-	}
-
-	private BuilderAdapterGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.BUILDER_ADAPTER);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new BuilderAdapterGenerator(parent, context);
 	}
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

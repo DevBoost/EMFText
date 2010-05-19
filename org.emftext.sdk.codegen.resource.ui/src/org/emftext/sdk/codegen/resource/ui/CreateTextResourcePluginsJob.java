@@ -120,20 +120,20 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 			return result;
 		}
 		
-		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(context, concreteSyntax, antlrPlugin);
+		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(context.getFileSystemConnector(), context.getProblemCollector(), concreteSyntax, antlrPlugin);
 		
 		createProjects(context, progress);
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
-		AbstractPluginCreator<Object> pluginGenerator = new ResourcePluginContentCreator(context);
+		AbstractPluginCreator<Object> pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.create(resourcePlugin, context, null, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
-		AbstractPluginCreator<Object> uiPluginGenerator = new ResourceUIPluginContentCreator(context);
+		AbstractPluginCreator<Object> uiPluginGenerator = new ResourceUIPluginContentCreator();
 		uiPluginGenerator.create(resourceUIPlugin, context, null, progress.newChild(TICKS_GENERATE_UI_RESOURCE_PLUGIN));
 
 		if (context.getGenerateANTLRPlugin()) {
 			// generate the ANTLR commons plug-in
-			ANTLRPluginContentCreator antlrPluginGenerator = new ANTLRPluginContentCreator(context);
+			ANTLRPluginContentCreator antlrPluginGenerator = new ANTLRPluginContentCreator();
 			antlrPluginGenerator.generate(antlrGenContext, progress.newChild(TICKS_GENERATE_ANTLR_PLUGIN));
 		}
 

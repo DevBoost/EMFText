@@ -9,11 +9,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IGeneratorProvider;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
 /**
@@ -23,24 +18,18 @@ public class GenModelGenerator extends ModelGenerator {
 
 	private static final GenModelFactory GEN_MODEL_FACTORY = GenModelFactory.eINSTANCE;
 
-	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new GenModelGenerator());
-
-	private GenModelGenerator() {
+	public GenModelGenerator() {
 		super();
 	}
 
-	public GenModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
-		super(parent, context);
-	}
-
 	public EObject generateModel() {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 		
 		URI genModelURI = URI.createPlatformResourceURI(getModelPath(), true);
 
 		GenModel genModel = GEN_MODEL_FACTORY.createGenModel();
 		List<EPackage> ePackages = new ArrayList<EPackage>();
-		ePackages.add(context.getEPackage());
+		ePackages.add(getContext().getEPackage());
 		genModel.initialize(ePackages);
 		genModel.setModelDirectory(parameters.getProjectName() + "/" + parameters.getSrcFolder());
 		genModel.setModelPluginID(parameters.getProjectName());
@@ -50,18 +39,13 @@ public class GenModelGenerator extends ModelGenerator {
 
         genPackage.setPrefix(parameters.getName());
         genPackage.setBasePackage(parameters.getBasePackage());
-		context.setGenPackage(genPackage);
+        getContext().setGenPackage(genPackage);
         return genModel;
-	}
-
-	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
-		return new GenModelGenerator(parent, context);
 	}
 
 	@Override
 	public String getModelPath() {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 		String genModelFileName = parameters.getGenmodelFile();
 		return getFileInMetaModelFolder(genModelFileName);
 	}

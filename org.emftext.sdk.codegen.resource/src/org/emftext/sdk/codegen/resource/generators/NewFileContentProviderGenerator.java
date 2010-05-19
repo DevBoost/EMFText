@@ -14,32 +14,18 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StreamUtil;
 import org.emftext.sdk.util.StringUtil;
 
-public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new NewFileContentProviderGenerator());
+public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
-
-	private NewFileContentProviderGenerator() {
-		super();
-	}
-	
-	private NewFileContentProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
-	}
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -139,7 +125,5 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new NewFileContentProviderGenerator(parent, context);
-	}
+	
 }

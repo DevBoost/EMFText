@@ -7,27 +7,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator {
+public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new DefaultHoverTextProviderGenerator());
-
-	private DefaultHoverTextProviderGenerator() {
-		super();
-	}
-
-	private DefaultHoverTextProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -57,7 +43,5 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator {
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new DefaultHoverTextProviderGenerator(parent, context);
-	}
+	
 }

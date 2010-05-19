@@ -1,27 +1,13 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
+public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new UIMetaInformationGenerator());
-
-	private UIMetaInformationGenerator() {
-		super();
-	}
-
-	private UIMetaInformationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.UI_META_INFORMATION);
-	}
-	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -67,11 +53,5 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator {
 		sc.add("return new " + hoverTextProviderClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(
-			ICodeGenerationComponent parent, 
-			GenerationContext context, Object parameters) {
-		return new UIMetaInformationGenerator(parent, context);
 	}
 }

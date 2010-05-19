@@ -53,14 +53,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -99,10 +96,9 @@ import org.emftext.sdk.util.StringUtil;
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 // TODO mseifert: enable backtracking for the postParseCommands lists
-public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
+public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new ScannerlessParserGenerator());
+	
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -112,17 +108,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenClassCache genClassCache;
 	
-	private ScannerlessParserGenerator() {
-		super();
-	}
-
-	private ScannerlessParserGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.SCANNERLESS_PARSER);
-		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		this.genClassCache = getContext().getConcreteSyntax().getGenClassCache();
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -1492,7 +1480,5 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<Object> {
 		return ((List<?>) parent.eGet(feature)).indexOf(object);
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new ScannerlessParserGenerator(parent, context);
-	}
+	
 }

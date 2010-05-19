@@ -16,8 +16,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
@@ -27,19 +26,21 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  * classes used by generated plug-ins. The content of the file is determined by
  * the given parameters.
  */
-public class DotClasspathGenerator<ContextType> extends AbstractGenerator<ContextType, ClassPathParameters> {
+public class DotClasspathGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, ClassPathParameters<ContextType>> {
 
-	public DotClasspathGenerator(ICodeGenerationComponent parent, ContextType context, ClassPathParameters parameters) {
-		super(parent, context, parameters);
+	public DotClasspathGenerator() {
+		super();
 	}
 
 	@Override
-	public void generate(PrintWriter out) {
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
+		
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<classpath>");
-		for (String sourceFolder : parameters.getSourceFolders()) {
+		for (String sourceFolder : getParameters().getSourceFolders()) {
 			sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolder + "\"/>");
 		}
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5\"/>");
@@ -48,9 +49,5 @@ public class DotClasspathGenerator<ContextType> extends AbstractGenerator<Contex
 		sc.add("</classpath>");
 		
 		out.write(sc.toString());
-	}
-
-	public IGenerator<ContextType, ClassPathParameters> newInstance(ICodeGenerationComponent parent, ContextType context, ClassPathParameters parameters) {
-		return new DotClasspathGenerator<ContextType>(parent, context, parameters);
 	}
 }

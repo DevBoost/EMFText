@@ -15,9 +15,7 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import java.io.PrintWriter;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 
@@ -26,23 +24,15 @@ import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
  * framework.
  */
 // TODO cbuerger: implement this class
-public class BabylonSpecificationGenerator extends ResourceBaseGenerator<Object> {
+public class BabylonSpecificationGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER =
-		new GeneratorProvider<GenerationContext, Object>(new BabylonSpecificationGenerator());
-	
-	private BabylonSpecificationGenerator() {
+	public BabylonSpecificationGenerator() {
 		super();
 	}
 
-	private BabylonSpecificationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-	}
-
-	public void generate(PrintWriter out) {
+	@Override
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
 		throw new UnsupportedOperationException("The " + BabylonSpecificationGenerator.class.getName() + " has not been implemented yet.");
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new BabylonSpecificationGenerator(parent, context);
 	}
 }

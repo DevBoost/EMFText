@@ -13,49 +13,21 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.ClassParameters;
 
-public class EmptyClassGenerator extends JavaBaseGenerator<Object> {
+public class EmptyClassGenerator extends JavaBaseGenerator<ClassParameters> {
 
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new EmptyClassGenerator());
-	
-	private String className;
-	private ArtifactDescriptor<GenerationContext, ?> targetPackage;
-
-	private EmptyClassGenerator() {
+	public EmptyClassGenerator() {
 		super();
 	}
 
-	private EmptyClassGenerator(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		super(parent, context, null);
-		//this.context = context;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public void setTargetPackage(ArtifactDescriptor<GenerationContext, ?> targetPackage) {
-		this.targetPackage = targetPackage;
-	}
-
 	public void generateJavaContents(JavaComposite sc) {
-
-		sc.add("package " + context.getPackageName(targetPackage) + ";");
+		sc.add("package " + getContext().getPackageName(getParameters().getTargetPackage()) + ";");
 		sc.addLineBreak();
 
 		sc.addJavadoc("This empty class was generated to overwrite exiting classes.");
-		sc.add("public class " + className + " {");
+		sc.add("public class " + getParameters().getClassName() + " {");
 		sc.add("}");
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new EmptyClassGenerator(parent, context, parameters);
 	}
 }

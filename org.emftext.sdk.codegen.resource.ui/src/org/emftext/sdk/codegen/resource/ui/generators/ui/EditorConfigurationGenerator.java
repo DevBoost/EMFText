@@ -27,27 +27,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PRESENTATION_RECONCILER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class EditorConfigurationGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new EditorConfigurationGenerator());
-
-	private EditorConfigurationGenerator() {
-		super();
-	}
-
-	private EditorConfigurationGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.EDITOR_CONFIGURATION);
-	}
+public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -165,7 +151,5 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new EditorConfigurationGenerator(parent, context);
-	}
+	
 }

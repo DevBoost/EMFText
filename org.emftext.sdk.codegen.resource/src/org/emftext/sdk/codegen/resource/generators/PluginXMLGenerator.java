@@ -17,11 +17,9 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -33,30 +31,23 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * TODO mseifert: make this generator reusable
  */
-public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PluginXMLGenerator());
+public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();
 
-	private GenerationContext context;
 	private String pluginID;
 	private String builderID;
 
-	private PluginXMLGenerator() {
+	public PluginXMLGenerator() {
 		super();
 	}
 
-	private PluginXMLGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super();
-		this.context = context;
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+	@Override
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
+		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		pluginID = resourcePlugin.getName();
-		builderID = nameUtil.getBuilderID(context.getConcreteSyntax());
-	}
-
-	public void generate(PrintWriter out) {
+		builderID = nameUtil.getBuilderID(getContext().getConcreteSyntax());
 		out.write(getContentOfPluginXML());
 		out.flush();
 	}
@@ -67,15 +58,15 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 	 * @return Generated code.
 	 */
 	private String getContentOfPluginXML() {
-		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		final String secondaryConcreteSyntaxName = getSecondarySyntaxName(concreteSyntax);
 		final String qualifiedResourceFactoryClassName;
 		if (secondaryConcreteSyntaxName == null) {
-			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
+			qualifiedResourceFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 		}
 		else {
-			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
+			qualifiedResourceFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
 		}
 		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 
@@ -85,7 +76,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		sc.add("<plugin>");
 
 		// register the syntax meta information
-		String metaInformationClass = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		String metaInformationClass = getContext().getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
 		sc.add("<extension point=\"org.emftext.access.syntax\">");
 		sc.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
 		sc.add("</metaInformationProvider>");
@@ -94,7 +85,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		
 		sc.add("<extension id=\"" + nameUtil.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
 		sc.add("<runtime>");
-		sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
+		sc.add("<run class=\"" + getContext().getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
 		sc.add("</runtime>");
 		if (!disableBuilder) {
 			sc.add("<builder id=\"" + builderID + "\" />");
@@ -105,7 +96,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		if (!disableBuilder) {
 			sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
 			sc.add("<builder hasNature=\"true\">");
-			sc.add("<run class=\"" + context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER)+ "\" />");
+			sc.add("<run class=\"" + getContext().getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER)+ "\" />");
 			sc.add("</builder>");
 			sc.add("</extension>");
 			sc.addLineBreak();
@@ -157,7 +148,5 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		 return null;
 	}
 	
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PluginXMLGenerator(parent, context);
-	}
+	
 }

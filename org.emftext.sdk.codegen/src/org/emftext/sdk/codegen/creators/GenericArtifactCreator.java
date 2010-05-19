@@ -18,7 +18,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 
@@ -30,33 +30,24 @@ import org.emftext.sdk.codegen.IGenerator;
  * @param <ContextType>
  * @param <ParameterType>
  */
-public abstract class GenericArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractArtifactCreator<ContextType, ParameterType> {
+public abstract class GenericArtifactCreator<ContextType extends IContext, ParameterType extends IArtifactParameter<ContextType, ParameterType>> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
-	private ArtifactDescriptor<ContextType, ParameterType> artifact;
-
-	public GenericArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ParameterType> artifact) {
-		this(parent, artifact, null);
-	}
-
-	public GenericArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ParameterType> artifact, ParameterType parameters) {
-		super(parent, artifact.getClassNamePrefix() + artifact.getClassNameSuffix(), parameters);
-		this.artifact = artifact;
+	public GenericArtifactCreator(ParameterType parameters) {
+		super(parameters.getArtifact().getClassNamePrefix() + parameters.getArtifact().getClassNameSuffix(), parameters);
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ParameterType parameters) {
-	    File file = context.getFile(plugin, artifact);
-		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator(this, context, parameters);
+	    ArtifactDescriptor<ContextType, ParameterType> artifact = parameters.getArtifact();
+		File file = context.getFile(plugin, artifact);
+		IGenerator<ContextType, ParameterType> generator = artifact.createGenerator();
 		
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		file,
-	    		"Exception while generating " + getArtifactDescription() + "."
+	    		"Exception while generating " + getArtifactTypeDescription() + "."
 	    );
-	}
-	
-	public ArtifactDescriptor<ContextType, ParameterType> getArtifact() {
-		return artifact;
 	}
 }

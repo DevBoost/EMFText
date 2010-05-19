@@ -82,15 +82,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IGeneratorProvider;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -147,10 +144,8 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
+public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public final static IGeneratorProvider<GenerationContext, Object> PROVIDER = new GeneratorProvider<GenerationContext, Object>(new ANTLRGrammarGenerator());
-
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
 	 * a parse from the root.
@@ -186,14 +181,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
-	private ANTLRGrammarGenerator() {
+	public ANTLRGrammarGenerator() {
 		super();
-	}
-
-	private ANTLRGrammarGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, null, TextResourceArtifacts.ANTLR_GRAMMAR);
-		concreteSyntax = context.getConcreteSyntax();
-		genClassCache = concreteSyntax.getGenClassCache();
 	}
 
 	private void initOptions() {
@@ -216,12 +205,17 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 		}
 	}
 
-	public void generate(PrintWriter writer) {
+	@Override
+	public void doGenerate(PrintWriter writer) {
+		super.doGenerate(writer);
+		concreteSyntax = getContext().getConcreteSyntax();
+		genClassCache = concreteSyntax.getGenClassCache();
+
 		followSetID = 0;
 		initOptions();
 		initCaches();
 
-		String csName = context.getCapitalizedConcreteSyntaxName();
+		String csName = getContext().getCapitalizedConcreteSyntaxName();
 		String lexerName = getLexerName();
 		String parserName = getParserName();
 		boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(
@@ -1692,7 +1686,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 			}
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<Expectation> expectations = computer.computeFollowSet(syntax, definition);
-			context.addToFollowSetMap(definition, expectations);
+			getContext().addToFollowSetMap(definition, expectations);
 			String cardinality = definition.computeCardinalityString();
 			if (!"".equals(cardinality)) {
 				sc.add("(");
@@ -1733,14 +1727,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
-			String terminalID = followSetProviderClassName + "." + context.getID(expectedElement);
+			String terminalID = followSetProviderClassName + "." + getContext().getID(expectedElement);
 			// here the containment trace is used
 			// TODO mseifert: figure out whether this is really needed
 			StringBuilder traceArguments = new StringBuilder();
 			List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 			for (GenFeature genFeature : containmentTrace) {
 				traceArguments.append(", ");
-				traceArguments.append(followSetProviderClassName + "." + context.getFeatureConstantFieldName(genFeature));
+				traceArguments.append(followSetProviderClassName + "." + getContext().getFeatureConstantFieldName(genFeature));
 			}
 			sc.add("addExpectedElement(new "
 					+ expectedTerminalClassName + 
@@ -2090,9 +2084,5 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<Object> {
 
 	private String getParserName() {
 		return getContext().getCapitalizedConcreteSyntaxName() + "Parser";
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new ANTLRGrammarGenerator(parent, context);
 	}
 }

@@ -2,11 +2,6 @@ package org.emftext.sdk.codegen.newproject.generators;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IGeneratorProvider;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
@@ -22,34 +17,28 @@ public class SyntaxGenerator extends ModelGenerator {
 
 	private static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;
 
-	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new SyntaxGenerator());
-
-	private SyntaxGenerator() {
+	public SyntaxGenerator() {
 		super();
 	}
 
-	public SyntaxGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
-		super(parent, context);
-	}
-	
 	@Override
 	public EObject generateModel() {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 
 		ConcreteSyntax syntax = CS_FACTORY.createConcreteSyntax();
 		syntax.setName(parameters.getSyntaxName());
-		syntax.setPackage(context.getGenPackage());
+		syntax.setPackage(getContext().getGenPackage());
 		
 		syntax.getRules().add(getShapeSetRule());
 		syntax.getRules().add(getCircleRule());
 		syntax.getRules().add(getRectangleRule());
-		syntax.getStartSymbols().add(context.getGenPackage().getGenClasses().get(3));
+		syntax.getStartSymbols().add(getContext().getGenPackage().getGenClasses().get(3));
 		return syntax;
 	}
 	
 	private Rule getShapeSetRule() {
 		Rule rule = CS_FACTORY.createRule();
-		GenClass shapeSetClass = context.getGenPackage().getGenClasses().get(3);
+		GenClass shapeSetClass = getContext().getGenPackage().getGenClasses().get(3);
 		rule.setMetaclass(shapeSetClass);
 		CsString keyword = CS_FACTORY.createCsString();
 		keyword.setValue("shapes");
@@ -68,7 +57,7 @@ public class SyntaxGenerator extends ModelGenerator {
 
 	private Rule getRectangleRule() {
 		Rule rule = CS_FACTORY.createRule();
-		rule.setMetaclass(context.getGenPackage().getGenClasses().get(1));
+		rule.setMetaclass(getContext().getGenPackage().getGenClasses().get(1));
 		CsString keyword = CS_FACTORY.createCsString();
 		keyword.setValue("rect");
 		rule.getChildren().add(keyword);
@@ -77,7 +66,7 @@ public class SyntaxGenerator extends ModelGenerator {
 
 	private Rule getCircleRule() {
 		Rule rule = CS_FACTORY.createRule();
-		rule.setMetaclass(context.getGenPackage().getGenClasses().get(2));
+		rule.setMetaclass(getContext().getGenPackage().getGenClasses().get(2));
 		CsString keyword = CS_FACTORY.createCsString();
 		keyword.setValue("circ");
 		rule.getChildren().add(keyword);
@@ -86,11 +75,6 @@ public class SyntaxGenerator extends ModelGenerator {
 
 	@Override
 	public String getModelPath() {
-		return getFileInMetaModelFolder(context.getParameters().getSyntaxFile());
-	}
-
-	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
-		return new SyntaxGenerator(parent, context);
+		return getFileInMetaModelFolder(getContext().getParameters().getSyntaxFile());
 	}
 }

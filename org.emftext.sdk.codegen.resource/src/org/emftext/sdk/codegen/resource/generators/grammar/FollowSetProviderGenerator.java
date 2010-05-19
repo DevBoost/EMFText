@@ -8,13 +8,10 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -22,24 +19,13 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
-public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new FollowSetProviderGenerator());
+public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private NameUtil nameUtil = new NameUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	private FollowSetProviderGenerator() {
+	public FollowSetProviderGenerator() {
 		super();
-	}
-
-	private FollowSetProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new FollowSetProviderGenerator(parent, context);
 	}
 
 	@Override
@@ -59,7 +45,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addTerminalConstants(JavaComposite sc) {
-		Map<EObject, String> idMap = context.getIdMap();
+		Map<EObject, String> idMap = getContext().getIdMap();
 		for (EObject expectedElement : idMap.keySet()) {
 			String terminalID = idMap.get(expectedElement);
 			
@@ -83,21 +69,21 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 		}
 		sc.addLineBreak();
 
-		Map<String, Set<Expectation>> followSetMap = context.getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = getContext().getFollowSetMap();
 		// ask for all features to make sure respective fields are generated
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
 				for (GenFeature genFeature : containmentTrace) {
-					context.getFeatureConstantFieldName(genFeature);
+					getContext().getFeatureConstantFieldName(genFeature);
 				}
 			}
 		}
 		
-		Map<GenFeature, String> eFeatureToConstantNameMap = context.getFeatureToConstantNameMap();
+		Map<GenFeature, String> eFeatureToConstantNameMap = getContext().getFeatureToConstantNameMap();
 		// generate fields for all used features
 		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
-			String fieldName = context.getFeatureConstantFieldName(genFeature);
+			String fieldName = getContext().getFeatureConstantFieldName(genFeature);
 			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
 			sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + fieldName + " = " + featureAccessor + ";");
 		}
@@ -129,13 +115,13 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<Object> {
 				} else {
 					trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
 					for (GenFeature genFeature : containmentTrace) {
-						trace.append(context.getFeatureConstantFieldName(genFeature) + ", ");
+						trace.append(getContext().getFeatureConstantFieldName(genFeature) + ", ");
 						// another 16 bytes for each access to a constant
 						bytesUsedInCurrentMethod += 16;
 					}
 					trace.append("}");
 				}
-				sc.add(firstID + ".addFollower(" + context.getID(follower) + trace + ");");
+				sc.add(firstID + ".addFollower(" + getContext().getID(follower) + trace + ");");
 				// the method call takes 19 bytes
 				bytesUsedInCurrentMethod += 19;
 			}

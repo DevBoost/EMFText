@@ -16,26 +16,17 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerator<Object> {
+public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new ContextDependentURIFragmentFactoryGenerator());
-
-	private ContextDependentURIFragmentFactoryGenerator() {
+	public ContextDependentURIFragmentFactoryGenerator() {
 		super();
 	}
 
-	private ContextDependentURIFragmentFactoryGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -66,7 +57,5 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new ContextDependentURIFragmentFactoryGenerator(parent, context);
-	}
+	
 }

@@ -36,25 +36,15 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RU
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Object> {
+public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new DefaultResolverDelegateGenerator());
-
-	private DefaultResolverDelegateGenerator() {
+	public DefaultResolverDelegateGenerator() {
 		super();
-	}
-
-	private DefaultResolverDelegateGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 	}
 
 	@Override
@@ -388,7 +378,5 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Object> 
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new DefaultResolverDelegateGenerator(parent, context);
-	}
+	
 }

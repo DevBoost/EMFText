@@ -21,7 +21,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -31,8 +32,8 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class UIGenerationContext extends GenerationContext {
 
-	public UIGenerationContext(ICodeGenerationComponent parent, ConcreteSyntax concreteSyntax) {
-		super(parent, concreteSyntax);
+	public UIGenerationContext(IFileSystemConnector fileSystemConnector, IProblemCollector problemCollector, ConcreteSyntax concreteSyntax) {
+		super(fileSystemConnector, problemCollector, concreteSyntax);
 	}
 
 	private Map<IPluginDescriptor, IJavaProject> javaProjects = new LinkedHashMap<IPluginDescriptor, IJavaProject>();

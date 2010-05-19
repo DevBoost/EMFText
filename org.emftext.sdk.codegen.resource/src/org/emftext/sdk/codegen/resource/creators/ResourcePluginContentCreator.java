@@ -20,22 +20,26 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.ManifestCreator;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.TokenResolverParameters;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -53,10 +57,6 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GeneratorUtil genUtil = new GeneratorUtil();
 	
-	public ResourcePluginContentCreator(ICodeGenerationComponent parent) {
-		super(parent);
-	}
-	
 	public String getPluginName() {
 		return "resource";
 	}
@@ -66,74 +66,81 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 
 		List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
-	    creators.add(new FoldersCreator<GenerationContext>(this, new File[] {
+	    creators.add(new FoldersCreator<GenerationContext>(new File[] {
 	    		context.getSourceFolder(resourcePlugin, false),
 	    		context.getSourceFolder(resourcePlugin, true),
 	    		context.getSchemaFolder(resourcePlugin)
 	    }));
-	    ClassPathParameters cpp = new ClassPathParameters(resourcePlugin);
+	    ClassPathParameters<GenerationContext> cpp = new ClassPathParameters<GenerationContext>(TextResourceArtifacts.DOT_CLASSPATH, resourcePlugin);
 		String sourceFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceGenFolderName = csUtil.getSourceFolderName(context.getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
 		cpp.getSourceFolders().add(sourceFolderName);
 		cpp.getSourceFolders().add(sourceGenFolderName);
-	    creators.add(new DotClasspathCreator<GenerationContext>(this, TextResourceArtifacts.DOT_CLASSPATH, cpp, doOverride(syntax, TextResourceArtifacts.DOT_CLASSPATH)));
-	    creators.add(new DotProjectCreator<GenerationContext>(this, TextResourceArtifacts.DOT_PROJECT, resourcePlugin, doOverride(syntax, TextResourceArtifacts.DOT_PROJECT)));
+	    creators.add(new DotClasspathCreator<GenerationContext>(cpp, doOverride(syntax, TextResourceArtifacts.DOT_CLASSPATH)));
 	    
-		ArtifactDescriptor<GenerationContext, BuildPropertiesParameters> buildProperties = TextResourceArtifacts.BUILD_PROPERTIES;
+	    DotProjectParameters<GenerationContext> dpp = new DotProjectParameters<GenerationContext>(TextResourceArtifacts.DOT_PROJECT, resourcePlugin);
+	    creators.add(new DotProjectCreator<GenerationContext>(dpp, doOverride(syntax, TextResourceArtifacts.DOT_PROJECT)));
+	    
+		ArtifactDescriptor<GenerationContext, BuildPropertiesParameters<GenerationContext>> buildProperties = TextResourceArtifacts.BUILD_PROPERTIES;
 
-		BuildPropertiesParameters bpp = new BuildPropertiesParameters(resourcePlugin);
+		BuildPropertiesParameters<GenerationContext> bpp = new BuildPropertiesParameters<GenerationContext>(buildProperties, resourcePlugin);
 	    bpp.getSourceFolders().add(sourceFolderName + "/");
 		bpp.getSourceFolders().add(sourceGenFolderName + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
 		bpp.getBinIncludes().add("plugin.xml");
-		creators.add(new BuildPropertiesCreator<GenerationContext>(this, buildProperties, bpp, doOverride(syntax, buildProperties)));
+		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp, doOverride(syntax, buildProperties)));
 		
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
-	    	creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SCANNERLESS_SCANNER));
-	    	creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SCANNERLESS_PARSER));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_LEXER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER_BASE), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SCANNERLESS_SCANNER)));
+	    	creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SCANNERLESS_PARSER)));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_LEXER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.ANTLR_PARSER_BASE), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
 	    } else {
-	    	creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ANTLR_SCANNER));
-		    creators.add(new ANTLRGrammarCreator(this));
+	    	creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ANTLR_SCANNER)));
+		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
-		    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ANTLR_PARSER_BASE));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(this, context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
+		    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ANTLR_PARSER_BASE)));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
-	    creators.add(new PluginXMLCreator(this));
-	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator(this));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.RESOURCE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.RESOURCE_FACTORY));
+	    creators.add(new PluginXMLCreator());
+	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator());
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE_FACTORY)));
 	    if (!syntax.getName().contains(".")) {
-		    creators.add(new AdditionalExtensionParserExtensionPointSchemaCreator(this));
-		    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR));
+		    creators.add(new AdditionalExtensionParserExtensionPointSchemaCreator());
+		    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR)));
 	    }
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PRINTER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PRINTER2));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.LAYOUT_INFORMATION));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR));
-	    creators.add(new ReferenceResolversCreator(this));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PRINTER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PRINTER2)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.LAYOUT_INFORMATION)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR)));
+
+	    for (GenFeature proxyReference : csUtil.getNonContainmentFeaturesNeedingResolver(syntax)) {
+			ReferenceResolverParameters rpp = new ReferenceResolverParameters(proxyReference);
+		    creators.add(new ReferenceResolverCreator(rpp));
+		}
+
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH)));
 	    
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isUsed()) {
-			    creators.add(new TokenResolversCreator(this, tokenDefinition));
+			    creators.add(new TokenResolverCreator(new TokenResolverParameters(tokenDefinition)));
 			}
 		}
 	    
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TOKEN_RESOLVER_FACTORY));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY)));
 
-		File project = getFileSystemConnector().getProjectFolder(resourcePlugin);
+		File project = context.getFileSystemConnector().getProjectFolder(resourcePlugin);
 		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
-	    creators.add(new FoldersCreator<GenerationContext>(this, metaFolder));
+	    creators.add(new FoldersCreator<GenerationContext>(metaFolder));
 
-	    ManifestParameters manifestParameters = new ManifestParameters();
+	    ManifestParameters<GenerationContext> manifestParameters = new ManifestParameters<GenerationContext>(TextResourceArtifacts.MANIFEST);
 	    Collection<String> exports = manifestParameters.getExportedPackages();
 		// export the generated packages
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ROOT));
@@ -151,114 +158,114 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		manifestParameters.setPlugin(resourcePlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText Parser Plugin: " + context.getConcreteSyntax().getName());
-		creators.add(new ManifestCreator<GenerationContext>(this, TextResourceArtifacts.MANIFEST, manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_MANIFEST)));
+		creators.add(new ManifestCreator<GenerationContext>(manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_MANIFEST)));
 		
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.META_INFORMATION));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PROBLEM));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.DELEGATING_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.DUMMY_E_OBJECT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ELEMENT_MAPPING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.FUZZY_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.LOCATION_MAP));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.REFERENCE_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TOKEN_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.URI_MAPPING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PARSE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PLUGIN_ACTIVATOR));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.META_INFORMATION)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PROBLEM)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.DUMMY_E_OBJECT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ELEMENT_MAPPING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.FUZZY_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.LOCATION_MAP)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TOKEN_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.URI_MAPPING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PARSE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PLUGIN_ACTIVATOR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION)));
 
 	    // add grammar information generators
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CARDINALITY));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SYNTAX_ELEMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.KEYWORD));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TERMINAL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PLACEHOLDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CHOICE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CONTAINMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.COMPOUND));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.SEQUENCE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.LINE_BREAK));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.WHITE_SPACE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.FORMATTING_ELEMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.FOLLOW_SET_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CARDINALITY)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SYNTAX_ELEMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.KEYWORD)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TERMINAL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PLACEHOLDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CHOICE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CONTAINMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.COMPOUND)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.SEQUENCE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.LINE_BREAK)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.WHITE_SPACE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.FORMATTING_ELEMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.FOLLOW_SET_PROVIDER)));
 	    
 	    
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.INPUT_STREAM_PROCESSOR));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_OPTION_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_OPTIONS));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_BRACKET_PAIR));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_COMMAND));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_CONFIGURABLE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_ELEMENT_MAPPING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_EXPECTED_ELEMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_HOVER_TEXT_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_LOCATION_MAP));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_PARSE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_PROBLEM));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_REFERENCE_CACHE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_REFERENCE_MAPPING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_REFERENCE_RESOLVER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_DIAGNOSTIC));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_PARSER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_PRINTER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_RESOURCE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_META_INFORMATION));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_SCANNER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TEXT_TOKEN));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TOKEN_RESOLVER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_TOKEN_STYLE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_URI_MAPPING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.E_PROBLEM_TYPE));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.INPUT_STREAM_PROCESSOR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_OPTION_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_OPTIONS)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_BRACKET_PAIR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_COMMAND)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_CONFIGURABLE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_ELEMENT_MAPPING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_EXPECTED_ELEMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_LOCATION_MAP)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_PARSE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_PROBLEM)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_REFERENCE_CACHE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_REFERENCE_MAPPING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_REFERENCE_RESOLVER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_DIAGNOSTIC)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_PARSER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_PRINTER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_RESOURCE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_META_INFORMATION)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_RESOURCE_PLUGIN_PART)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_SCANNER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TEXT_TOKEN)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TOKEN_RESOLVER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TOKEN_RESOLVER_FACTORY)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_TOKEN_STYLE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_URI_MAPPING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.E_PROBLEM_TYPE)));
 
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.EXPECTED_CS_STRING));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.EXPECTED_TERMINAL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.EXPECTED_CS_STRING)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.EXPECTED_TERMINAL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER)));
 
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.CAST_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.COPIED_E_LIST));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.E_CLASS_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.E_OBJECT_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.LIST_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.MAP_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.PAIR));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.MINIMAL_MODEL_HELPER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.RESOURCE_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.STREAM_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.STRING_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TEXT_RESOURCE_UTIL));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.UNICODE_CONVERTER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.BUILDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.BUILDER_ADAPTER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.I_BUILDER));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.NATURE));
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.ABSTRACT_INTERPRETER));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.CAST_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.COPIED_E_LIST)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.E_CLASS_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.E_OBJECT_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.LIST_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.MAP_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PAIR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.MINIMAL_MODEL_HELPER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.STREAM_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.STRING_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TEXT_RESOURCE_UTIL)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.UNICODE_CONVERTER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.BUILDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.BUILDER_ADAPTER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.I_BUILDER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.NATURE)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ABSTRACT_INTERPRETER)));
 	    
-	    creators.add(new SyntaxArtifactCreator<Object>(this, TextResourceArtifacts.TEXT_TOKEN));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.TEXT_TOKEN)));
 		return creators;
 	}
 

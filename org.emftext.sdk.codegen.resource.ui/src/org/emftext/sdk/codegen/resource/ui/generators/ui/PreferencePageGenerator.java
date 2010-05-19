@@ -26,26 +26,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTIO
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class PreferencePageGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PreferencePageGenerator());
-
-	private PreferencePageGenerator() {
-		super();
-	}
-
-	private PreferencePageGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.PREFERENCE_PAGE);
-	}
+public class PreferencePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -98,7 +84,5 @@ public class PreferencePageGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PreferencePageGenerator(parent, context);
-	}
+	
 }

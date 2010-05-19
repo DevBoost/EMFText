@@ -10,5 +10,9 @@ import org.emftext.sdk.IPluginDescriptor;
  */
 public interface IContext {
 
+	public IFileSystemConnector getFileSystemConnector();
+	
+	public IProblemCollector getProblemCollector();
+
 	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact);
 }

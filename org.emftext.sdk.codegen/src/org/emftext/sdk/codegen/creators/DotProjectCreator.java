@@ -17,33 +17,33 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
+import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 
 /**
  * Creates a .project file, which is used by Eclipse to read meta data
  * about plug-ins.
  */
-public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, IPluginDescriptor> {
+public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, DotProjectParameters<ContextType>> {
 
 	public static final String FILENAME = ".project";
 	
 	private final boolean override;
 
-	public DotProjectCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, IPluginDescriptor> artifact, IPluginDescriptor plugin, boolean override) {
-		super(parent, artifact, plugin);
+	public DotProjectCreator(DotProjectParameters<ContextType> parameters, boolean override) {
+		super(parameters);
 		this.override = override;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, IPluginDescriptor parameters) {
-		File dotProjectFile = new File(getFileSystemConnector().getProjectFolder(parameters).getAbsolutePath() + File.separator + FILENAME);
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, DotProjectParameters<ContextType> parameters) {
+		File dotProjectFile = new File(context.getFileSystemConnector().getProjectFolder(parameters.getPlugin()).getAbsolutePath() + File.separator + FILENAME);
 		
 	    return createArtifact(
 	    		context,
-	    		new DotProjectGenerator<ContextType>(this, context, parameters),
+	    		parameters,
+	    		new DotProjectGenerator<ContextType>(),
 	    		dotProjectFile,
 	    		"Exception while generating " + FILENAME + " file."
 	    );

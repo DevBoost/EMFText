@@ -1,5 +1,6 @@
 package org.emftext.sdk.codegen;
 
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -19,14 +20,14 @@ public class ArtifactDescriptor<ContextType, ParameterType> {
 	private String packageName;
 	private String classNamePrefix;
 	private String classNameSuffix;
-	private IGeneratorProvider<ContextType, ParameterType> provider;
+	private Class<? extends IGenerator<ContextType, ParameterType>> generatorClass;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(String packageName, String classNamePrefix, String classNameSuffix, IGeneratorProvider<ContextType, ParameterType> provider, OptionTypes overrideOption) {
+	public ArtifactDescriptor(String packageName, String classNamePrefix, String classNameSuffix, Class<? extends IGenerator<ContextType, ParameterType>> generatorClass, OptionTypes overrideOption) {
 		this.packageName = packageName;
 		this.classNamePrefix = classNamePrefix;
 		this.classNameSuffix = classNameSuffix;
-		this.provider = provider;
+		this.generatorClass = generatorClass;
 		this.overrideOption = overrideOption;
 	}
 
@@ -42,8 +43,15 @@ public class ArtifactDescriptor<ContextType, ParameterType> {
 		return classNameSuffix;
 	}
 
-	public IGenerator<ContextType, ParameterType> createGenerator(ICodeGenerationComponent parent, ContextType context, ParameterType parameter) {
-		return provider.newInstance(parent, context, parameter);
+	public IGenerator<ContextType, ParameterType> createGenerator() {
+		try {
+			return generatorClass.newInstance();
+		} catch (InstantiationException e) {
+			EMFTextSDKPlugin.logError(e.getMessage(), e);
+		} catch (IllegalAccessException e) {
+			EMFTextSDKPlugin.logError(e.getMessage(), e);
+		}
+		return null;
 	}
 
 	public OptionTypes getOverrideOption() {

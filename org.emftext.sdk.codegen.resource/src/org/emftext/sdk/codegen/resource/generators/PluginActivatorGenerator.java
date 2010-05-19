@@ -20,26 +20,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class PluginActivatorGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PluginActivatorGenerator());
-
-	private PluginActivatorGenerator() {
-		super();
-	}
-
-	private PluginActivatorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.PLUGIN_ACTIVATOR);
-	}
+public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -121,7 +107,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<Object> {
 	}
 
 	private void addFields(StringComposite sc) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
 		sc.add("public static final String PLUGIN_ID = \"" + resourcePluginName + "\";");
@@ -133,8 +119,6 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PluginActivatorGenerator(parent, context);
-	}
+	
 
 }

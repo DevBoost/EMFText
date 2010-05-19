@@ -69,28 +69,14 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class EditorGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new EditorGenerator());
-
-	private EditorGenerator() {
-		super();
-	}
-
-	private EditorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.EDITOR);
-	}
+public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -138,7 +124,7 @@ public class EditorGenerator extends UIJavaBaseGenerator {
 	private void addInitializeEditorMethod(StringComposite sc) {
 		sc.add("public void initializeEditor() {");
 		sc.add("super.initializeEditor();");
-		sc.add("setEditorContextMenuId(\"" + context.getResourcePlugin().getName() + ".EditorContext\");");
+		sc.add("setEditorContextMenuId(\"" + getContext().getResourcePlugin().getName() + ".EditorContext\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -609,7 +595,5 @@ public class EditorGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new EditorGenerator(parent, context);
-	}
+	
 }

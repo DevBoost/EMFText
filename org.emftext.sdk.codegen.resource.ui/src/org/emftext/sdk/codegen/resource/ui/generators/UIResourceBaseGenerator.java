@@ -1,12 +1,11 @@
 package org.emftext.sdk.codegen.resource.ui.generators;
 
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
-public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBaseGenerator<ParameterType> {
+public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
 	protected String antlrTokenHelperClassName;
 	protected String backgroundParsingStrategyClassName;
@@ -49,20 +48,6 @@ public abstract class UIResourceBaseGenerator<ParameterType> extends ResourceBas
 	protected String uiMetaInformationClassName;
 	protected String uiPluginActivatorClassName;
 
-	public UIResourceBaseGenerator() {
-		super();
-	}
-
-	/**
-	 * Creates a new BaseGenerator that can be used to generate an 
-	 * artifact of the given type.
-	 * 
-	 * @param artifact the type of artifact to be generated
-	 */
-	public UIResourceBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ParameterType parameters, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(parent, context, parameters, artifact);
-	}
-	
 	@Override
 	protected void initilizeClassNames() {
 		super.initilizeClassNames();

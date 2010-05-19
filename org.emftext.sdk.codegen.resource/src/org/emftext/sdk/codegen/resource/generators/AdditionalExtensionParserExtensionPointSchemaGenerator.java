@@ -18,25 +18,21 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
-public class AdditionalExtensionParserExtensionPointSchemaGenerator extends ResourceBaseGenerator<Object> {
+public class AdditionalExtensionParserExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	private GenerationContext context;
-
-	public AdditionalExtensionParserExtensionPointSchemaGenerator(
-			ICodeGenerationComponent parent,
-			GenerationContext context) {
-		super(parent, context, null, null);
-		this.context = context;
+	public AdditionalExtensionParserExtensionPointSchemaGenerator() {
+		super();
 	}
 
-	public void generate(PrintWriter out) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+	@Override
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
+		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
 		StringComposite sc = new XMLComposite();
@@ -48,7 +44,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + ".additional_extension_parser\" name=\"Additional Extension Parser\"/>");
 		sc.add("</appinfo>");
 		sc.add("<documentation>");
-		sc.add("This extension point can be used to add another parser for '" + context.getConcreteSyntax().getName() + "' files.");
+		sc.add("This extension point can be used to add another parser for '" + getContext().getConcreteSyntax().getName() + "' files.");
 		sc.add("</documentation>");
 		sc.add("</annotation>");
 		sc.addLineBreak();
@@ -160,7 +156,5 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		out.write(sc.toString());
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new AdditionalExtensionParserExtensionPointSchemaGenerator(parent, context);
-	}
+	
 }

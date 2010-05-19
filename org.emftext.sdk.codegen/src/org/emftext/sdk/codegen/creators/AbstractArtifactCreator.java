@@ -25,29 +25,31 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
  * An abstract superclass for all creators. It that handles overriding
  * of existing artifacts.
  */
-public abstract class AbstractArtifactCreator<ContextType extends IContext, ParameterType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
+public abstract class AbstractArtifactCreator<ContextType extends IContext, ParameterType> implements IArtifactCreator<ContextType> {
 	
 	private String artifactName;
-	protected ParameterType parameters;
+	private ParameterType parameters;
 
-	public AbstractArtifactCreator(ICodeGenerationComponent parent, String artifactName, ParameterType parameters) {
-		super(parent);
+	public AbstractArtifactCreator(String artifactName, ParameterType parameters) {
+		super();
 		this.artifactName = artifactName;
 		this.parameters = parameters;
 	}
 
-	public String getArtifactDescription() {
+	public String getArtifactTypeDescription() {
 		return artifactName;
+	}
+	
+	public ParameterType getParameters() {
+		return parameters;
 	}
 
 	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
@@ -65,7 +67,7 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 						notifyArtifactChanged(context);
 					}
 				} catch (IOException e) {
-					getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
+					context.getProblemCollector().addProblem(new GenerationProblem("Exception while generating artifact.", null, GenerationProblem.Severity.ERROR, e));
 				}
 		    }
 		}
@@ -81,22 +83,26 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext, Para
 		// do nothing
 	}
 
-	protected Collection<IArtifact> createArtifact(ContextType context,
-			IGenerator<ContextType, ParameterType> generator, File targetFile, String errorMessage) {
+	protected Collection<IArtifact> createArtifact(
+			ContextType context,
+			ParameterType parameters,
+			IGenerator<ContextType, ParameterType> generator, 
+			File targetFile, 
+			String errorMessage) {
 
-		InputStream stream = invokeGeneration(generator, getProblemCollector());
+		InputStream stream = invokeGeneration(generator, context);
 	    if (stream == null) {
-			getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
+	    	context.getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
 	    	return new ArrayList<IArtifact>();
 	    }
 	    Artifact artifact = new Artifact(targetFile, stream);
 	    return toList(artifact);
 	}
 
-	private InputStream invokeGeneration(IGenerator<ContextType, ParameterType> generator, IProblemCollector collector) {
+	private InputStream invokeGeneration(IGenerator<ContextType, ParameterType> generator, ContextType context) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		try {
-			generator.generate(stream);
+			generator.generate(context, parameters, stream);
 			return new ByteArrayInputStream(stream.toByteArray());
 		} catch (Exception e) {
 			// we do not need to propagate the exception, because in the

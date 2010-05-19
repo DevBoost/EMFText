@@ -18,14 +18,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.TokenResolverParameters;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -43,25 +40,16 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefinition> {
-	
-	public static final GeneratorProvider<GenerationContext, CompleteTokenDefinition> PROVIDER = 
-		new GeneratorProvider<GenerationContext, CompleteTokenDefinition>(new TokenResolverGenerator());
+public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParameters> {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final NameUtil nameUtil = new NameUtil();
 	
 	private CompleteTokenDefinition definition;
 	
-	private TokenResolverGenerator() {
-		super();
-	}
-	
-	private TokenResolverGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.TOKEN_RESOLVER);
-	}
-
 	public void generateJavaContents(JavaComposite sc) {
+		setTokenDefinition(getParameters().getDefinition());
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
@@ -202,15 +190,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<CompleteTokenDefin
 		return suffix;
 	}
 
-	public IGenerator<GenerationContext, CompleteTokenDefinition> newInstance(ICodeGenerationComponent parent, GenerationContext context, CompleteTokenDefinition parameters) {
-		TokenResolverGenerator instance = new TokenResolverGenerator(parent, context);
-		instance.setTokenDefinition(parameters);
-		return instance;
-	}
-
-	public void setTokenDefinition(CompleteTokenDefinition tokenDefinition) {
+	private void setTokenDefinition(CompleteTokenDefinition tokenDefinition) {
 		this.definition = tokenDefinition;
 	}
-
-
 }

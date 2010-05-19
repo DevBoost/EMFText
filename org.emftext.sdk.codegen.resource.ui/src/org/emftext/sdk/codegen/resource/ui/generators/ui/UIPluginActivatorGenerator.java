@@ -23,28 +23,14 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 // TODO this is a copy of class PluginActivatorGenerator in codegen.resource!
-public class UIPluginActivatorGenerator extends JavaBaseGenerator<Object> {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new UIPluginActivatorGenerator());
-
-	private UIPluginActivatorGenerator() {
-		super();
-	}
-
-	private UIPluginActivatorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
-	}
+public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -152,8 +138,6 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<Object> {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new UIPluginActivatorGenerator(parent, context);
-	}
+	
 
 }

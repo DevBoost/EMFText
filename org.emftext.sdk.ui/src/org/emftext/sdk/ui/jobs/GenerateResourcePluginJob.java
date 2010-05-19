@@ -22,9 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.RootComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -59,8 +57,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 				}
 			};
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
-			ICodeGenerationComponent rootComponent = new RootComponent(new WorkspaceConnector(), problemCollector);
-			GenerationContext context = new UIGenerationContext(rootComponent, concreteSyntax);
+			GenerationContext context = new UIGenerationContext(new WorkspaceConnector(), problemCollector, concreteSyntax);
 			
 			Result result = new UICreateResourcePluginJob().run(context, new WorkspaceMarker(), monitor);
 			switch (result) {

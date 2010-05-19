@@ -2,30 +2,27 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import java.io.PrintWriter;
 
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.LicenceHeaderUtil;
 
-public abstract class JavaBaseGenerator<ParameterType> extends ResourceBaseGenerator<ParameterType> {
+public abstract class JavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
 	public static final String DEFAULT_LICENCE_HEADER_TEXT = "/**\n" + " * <copyright>\n" + " * </copyright>\n"
 	+ " *\n" + " * \n" + " */";
 
 	private LicenceHeaderUtil licenceHeaderUtil = new LicenceHeaderUtil();
 
-	protected JavaBaseGenerator() {
+	public JavaBaseGenerator() {
 		super();
 	}
 
-	public JavaBaseGenerator(ICodeGenerationComponent parent, GenerationContext context, ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super(parent, context, null, artifact);
-	}
-
-	final public void generate(PrintWriter out) {
+	@Override
+	public final void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
 		JavaComposite sc = new JavaComposite();
 		addLicenceHeader(sc);
 		generateJavaContents(sc);

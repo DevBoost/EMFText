@@ -4,12 +4,18 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.IContext;
 
 /**
  * A parameter class that can be used to specify the content of manifest
  * files.
  */
-public class ManifestParameters {
+public class ManifestParameters<ContextType extends IContext> extends AbstractArtifactParameter<ContextType, ManifestParameters<ContextType>> {
+
+	public ManifestParameters(ArtifactDescriptor<ContextType, ManifestParameters<ContextType>> artifact) {
+		super(artifact);
+	}
 
 	private String bundleName;
 	private String activatorClass;

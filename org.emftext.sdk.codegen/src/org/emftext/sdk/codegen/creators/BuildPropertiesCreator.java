@@ -17,8 +17,6 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
@@ -29,30 +27,29 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
  *
  * @param <ContextType>
  */
-public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters> {
+public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
 
 	public static final String FILENAME = "build.properties";
 	
 	private final boolean override;
 
 	public BuildPropertiesCreator(
-			ICodeGenerationComponent parent, 
-			ArtifactDescriptor<ContextType, BuildPropertiesParameters> artifact, 
-			BuildPropertiesParameters parameters,
+			BuildPropertiesParameters<ContextType> parameters,
 			boolean override) {
-		super(parent, artifact, parameters);
+		super(parameters);
 		this.override = override;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, BuildPropertiesParameters<ContextType> parameters) {
 		
-		File buildPropertiesFile = new File(getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + FILENAME);
+		File buildPropertiesFile = new File(context.getFileSystemConnector().getProjectFolder(parameters.getProject()).getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<ContextType, BuildPropertiesParameters> generator = new BuildPropertiesGenerator<ContextType>(this, context, parameters);
+		IGenerator<ContextType, BuildPropertiesParameters<ContextType>> generator = new BuildPropertiesGenerator<ContextType>();
 		
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		buildPropertiesFile,
 	    		"Exception while generating " + FILENAME + " file."

@@ -7,10 +7,9 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
@@ -19,7 +18,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.StringUtil;
 
-public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Object> {
+public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
@@ -28,10 +27,10 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Object>
 	public AbstractPrinterGenerator() {
 		super();
 	}
-
-	public AbstractPrinterGenerator(ICodeGenerationComponent parent, GenerationContext context, ArtifactDescriptor<GenerationContext, Object> artifact) {
-		super(parent, context, artifact);
-		genClassCache = context.getConcreteSyntax().getGenClassCache();
+	
+	@Override
+	public void generateJavaContents(JavaComposite sc) {
+		genClassCache = getContext().getConcreteSyntax().getGenClassCache();
 	}
 
 	protected String getMetaClassName(Rule rule) {

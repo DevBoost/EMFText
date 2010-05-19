@@ -2,8 +2,7 @@ package org.emftext.sdk.codegen.resource.ui.generators;
 
 import java.io.PrintWriter;
 
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -12,7 +11,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.LicenceHeaderUtil;
 
 // TODO mseifert: some of this code is copied from JavaBaseGenerator
-public abstract class UIJavaBaseGenerator extends UIResourceBaseGenerator<Object> {
+public abstract class UIJavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends UIResourceBaseGenerator<ParameterType> {
 
 	private LicenceHeaderUtil licenceHeaderUtil = new LicenceHeaderUtil();
 
@@ -20,12 +19,9 @@ public abstract class UIJavaBaseGenerator extends UIResourceBaseGenerator<Object
 		super();
 	}
 
-	public UIJavaBaseGenerator(ICodeGenerationComponent parent, GenerationContext context,
-			ArtifactDescriptor<GenerationContext, Object> artifact) {
-		super(parent, context, null, artifact);
-	}
-
-	final public void generate(PrintWriter out) {
+	@Override
+	public final void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
 		JavaComposite sc = new JavaComposite();
 		addLicenceHeader(sc);
 		generateJavaContents(sc);

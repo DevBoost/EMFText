@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IContext;
+import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -54,7 +54,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class GenerationContext extends AbstractGenerationComponent implements IContext {
+public abstract class GenerationContext extends AbstractGenerationContext {
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	private static final String SCHEMA_DIR = "schema";
@@ -96,8 +96,8 @@ public abstract class GenerationContext extends AbstractGenerationComponent impl
 	private IPluginDescriptor resourceUIPlugin;
 	private IPluginDescriptor antlrPlugin;
 
-	public GenerationContext(ICodeGenerationComponent parent, ConcreteSyntax concreteSyntax) {
-		super(parent);
+	public GenerationContext(IFileSystemConnector fileSystemConnector, IProblemCollector problemCollector, ConcreteSyntax concreteSyntax) {
+		super(fileSystemConnector, problemCollector);
 		if (concreteSyntax == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}

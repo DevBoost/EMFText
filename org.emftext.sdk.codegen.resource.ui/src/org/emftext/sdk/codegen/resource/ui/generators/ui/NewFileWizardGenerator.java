@@ -43,32 +43,18 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 /**
  * The NewFileContentGenerator can be used to create a NewFileWizard that 
  * creates a minimal sample file from a concrete syntax when it is invoked.
  */
-public class NewFileWizardGenerator extends UIJavaBaseGenerator {
+public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new NewFileWizardGenerator());
-
-	private NewFileWizardGenerator() {
-		super();
-	}
-
-	private NewFileWizardGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.NEW_FILE_WIZARD);
-	}
-
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -288,7 +274,5 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new NewFileWizardGenerator(parent, context);
-	}
+	
 }

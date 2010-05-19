@@ -17,8 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
@@ -27,13 +26,14 @@ import org.emftext.sdk.util.StringUtil;
 /**
  * A generator that creates manifest files.
  */
-public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextType, ManifestParameters> {
+public class ManifestGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, ManifestParameters<ContextType>> {
 
-	public ManifestGenerator(ICodeGenerationComponent parent, ContextType context, ManifestParameters parameters) {
-		super(parent, context, parameters);
+	public ManifestGenerator() {
+		super();
 	}
 
-	public void generate(PrintWriter out) {
+	@Override
+	public void doGenerate(PrintWriter out) {
 		out.write(getManifestContent());
 		out.flush();
 	}
@@ -46,6 +46,7 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 	private String getManifestContent() {
 		StringComposite sc = new ManifestComposite();
 		
+		ManifestParameters<ContextType> parameters = getParameters();
 		Collection<String> requiredBundles = parameters.getRequiredBundles();
 		Collection<String> exportedPackages = parameters.getExportedPackages();
 
@@ -69,9 +70,5 @@ public class ManifestGenerator<ContextType> extends AbstractGenerator<ContextTyp
 		}
 
 		return sc.toString();
-	}
-
-	public IGenerator<ContextType, ManifestParameters> newInstance(ICodeGenerationComponent parent, ContextType context, ManifestParameters parameters) {
-		return new ManifestGenerator<ContextType>(parent, context, parameters);
 	}
 }

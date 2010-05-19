@@ -19,9 +19,9 @@ import java.util.Collection;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.resource.ClassParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -30,34 +30,27 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * A creator that produces empty Java classes. This is sometimes used to override
  * existing classes which depend on other generated classes.
  */
-public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext, Object> {
+public class EmptyClassCreator extends GenericArtifactCreator<GenerationContext, ClassParameters> {
 
 	private File file;
-	private String className;
 	private OptionTypes overrideOption;
-	private ArtifactDescriptor<GenerationContext, Object> targetPackage;
 
-	public EmptyClassCreator(ICodeGenerationComponent parent, File file, ArtifactDescriptor<GenerationContext, Object> targetPackage, String className, OptionTypes overrideOption) {
-		super(parent, new ArtifactDescriptor<GenerationContext, Object>(null, "empty " + className, "", null, null), null);
+	public EmptyClassCreator(File file, ArtifactDescriptor<GenerationContext, ?> targetPackage, String className, OptionTypes overrideOption) {
+		super(new ClassParameters(className, targetPackage));
 		this.file = file;
-		this.className = className;
-		this.targetPackage = targetPackage;
 		this.overrideOption = overrideOption;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ClassParameters parameters) {
 		
-		EmptyClassGenerator generator = (EmptyClassGenerator) EmptyClassGenerator.PROVIDER.newInstance(getParent(), context, parameters);
-		// TODO mseifert: codegen: put this into the parameter object, remove cast
-		generator.setClassName(className);
-		generator.setTargetPackage(targetPackage);
-		
+		EmptyClassGenerator generator = new EmptyClassGenerator();
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		file,
-	    		"Exception while generating " + getArtifactDescription() + "."
+	    		"Exception while generating " + getArtifactTypeDescription() + "."
 	    );
 	}
 

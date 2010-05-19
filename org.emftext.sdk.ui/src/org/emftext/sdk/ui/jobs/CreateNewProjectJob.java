@@ -12,10 +12,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.IResourceMarker;
-import org.emftext.sdk.codegen.RootComponent;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
@@ -50,12 +48,11 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 			}
 		};
 		IProject project = createProject(progress.newChild(2), newProjectPlugin, parameters.getProjectName());
-		ICodeGenerationComponent root = new RootComponent(new WorkspaceConnector(), problemCollector);
-		NewProjectGenerationContext context = new NewProjectGenerationContext(root, project, newProjectPlugin, parameters);
+		NewProjectGenerationContext context = new NewProjectGenerationContext(new WorkspaceConnector(), problemCollector, project, newProjectPlugin, parameters);
 		context.setMonitor(progress.newChild(92));
 		context.setResourceMarker(resourceMarker);
 		
-		new NewProjectContentsCreator(root).create(newProjectPlugin, context, null, null);
+		new NewProjectContentsCreator().create(newProjectPlugin, context, null, null);
 		refresh(progress.newChild(2), project);
 		GenerationContext generationContext = context.getGenerationContext();
 		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()));

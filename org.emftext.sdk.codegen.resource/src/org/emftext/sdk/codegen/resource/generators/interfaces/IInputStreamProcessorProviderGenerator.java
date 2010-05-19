@@ -15,31 +15,14 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator<Object> {
+public class IInputStreamProcessorProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new IInputStreamProcessorProviderGenerator());
-
-	private IInputStreamProcessorProviderGenerator() {
-		super();
-	}
-
-	private IInputStreamProcessorProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new IInputStreamProcessorProviderGenerator(parent, context);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");

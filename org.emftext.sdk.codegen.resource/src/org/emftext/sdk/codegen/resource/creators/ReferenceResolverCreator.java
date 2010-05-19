@@ -17,55 +17,48 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolverGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
- * Creates the Java files for all reference resolvers using the content
- * provided by ReferenceResolverGenerator. A reference resolver is generated
+ * Creates the Java files for one reference resolvers using the content
+ * provided by a ReferenceResolverGenerator. A reference resolver is generated
  * for each non-containment reference in the CS specification that is not
  * imported.
  */
-public class ReferenceResolversCreator extends TextResourceArtifactCreator<GenFeature> {
+public class ReferenceResolverCreator extends TextResourceArtifactCreator<ReferenceResolverParameters> {
 
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil genUtil = new GeneratorUtil();
 	
-	public ReferenceResolversCreator(ICodeGenerationComponent parent) {
-		super(parent, TextResourceArtifacts.REFERENCE_RESOLVERS, null);
+	public ReferenceResolverCreator(ReferenceResolverParameters parameters) {
+		super(parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, GenFeature param) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ReferenceResolverParameters parameters) {
+		IGenerator<GenerationContext, ReferenceResolverParameters> generator = new ReferenceResolverGenerator();
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
-		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		for (GenFeature proxyReference : csUtil.getNonContainmentFeaturesNeedingResolver(syntax)) {
-			File resolverFile = genUtil.getResolverFile(
-					syntax, 
-					proxyReference,
-					getFileSystemConnector().getProjectFolder(resourcePlugin).getAbsolutePath()
-			);
-			IGenerator<GenerationContext, GenFeature> generator = ReferenceResolverGenerator.PROVIDER.newInstance(getParent(), context, proxyReference);
-			
-			artifacts.addAll(createArtifact(
-		    		context,
-		    		generator,
-		    		resolverFile,
-		    		"Exception while generating reference resolver."
-		    ));
-		}
+		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		File resolverFile = genUtil.getResolverFile(
+				syntax, 
+				parameters.getReference(),
+				context.getFileSystemConnector().getProjectFolder(resourcePlugin).getAbsolutePath()
+		);
+		artifacts.addAll(createArtifact(
+	    		context,
+	    		parameters,
+	    		generator,
+	    		resolverFile,
+	    		"Exception while generating reference resolver."
+	    ));
 		
 		return artifacts;
 	}

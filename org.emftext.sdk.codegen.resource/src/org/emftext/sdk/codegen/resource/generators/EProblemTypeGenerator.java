@@ -13,26 +13,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class EProblemTypeGenerator extends JavaBaseGenerator<Object> {
+public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new EProblemTypeGenerator());
-
-	private EProblemTypeGenerator() {
+	public EProblemTypeGenerator() {
 		super();
 	}
 	
-	private EProblemTypeGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.E_PROBLEM_TYPE);
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -43,8 +33,6 @@ public class EProblemTypeGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new EProblemTypeGenerator(parent, context);
-	}
+	
 
 }

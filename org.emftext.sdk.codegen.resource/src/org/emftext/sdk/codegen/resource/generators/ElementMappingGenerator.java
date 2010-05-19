@@ -13,26 +13,17 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class ElementMappingGenerator extends JavaBaseGenerator<Object> {
+public class ElementMappingGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new ElementMappingGenerator());
-	
-	private ElementMappingGenerator() {
+	public ElementMappingGenerator() {
 		super();
 	}
 
-	private ElementMappingGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.ELEMENT_MAPPING);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -67,7 +58,5 @@ public class ElementMappingGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new ElementMappingGenerator(parent, context);
-	}
+	
 }

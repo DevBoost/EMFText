@@ -4,13 +4,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.AR
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 /**
@@ -18,22 +15,7 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
  * SyntaxElementDecorator can be used to attach information to 
  * elements of syntax rules.
  */
-public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new SyntaxElementDecoratorGenerator());
-
-	private SyntaxElementDecoratorGenerator() {
-		super();
-	}
-
-	private SyntaxElementDecoratorGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new SyntaxElementDecoratorGenerator(parent, context);
-	}
+public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		

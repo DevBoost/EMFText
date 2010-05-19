@@ -19,13 +19,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -35,11 +32,8 @@ import org.emftext.sdk.finders.GenClassFinder;
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
-public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
+public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResolverParameters> {
 
-	public static final GeneratorProvider<GenerationContext, GenFeature> PROVIDER = 
-		new GeneratorProvider<GenerationContext, GenFeature>(new ReferenceResolverGenerator());
-	
 	private final NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
@@ -49,24 +43,17 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
 	private GenClassCache genClassCache;
 
-	private ReferenceResolverGenerator() {
-		super();
-	}
-
-	private ReferenceResolverGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, null);
-		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
-		this.defaultResolverDelegateName = context
-				.getQualifiedDefaultResolverDelegateName();
-	}
-
-	public void setProxyReference(GenFeature proxyReference) {
+	private void setProxyReference(GenFeature proxyReference) {
 		this.proxyReference = proxyReference;
 	}
 
 	public void generateJavaContents(JavaComposite sc) {
+		this.genClassCache = getContext().getConcreteSyntax().getGenClassCache();
+		this.defaultResolverDelegateName = getContext()
+				.getQualifiedDefaultResolverDelegateName();
+		setProxyReference(getParameters().getReference());
 
-		sc.add("package " + context.getResolverPackageName() + ";");
+		sc.add("package " + getContext().getResolverPackageName() + ";");
 		sc.addLineBreak();
 
 		sc.add("public class "
@@ -92,13 +79,13 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 	}
 
 	private void addFields(StringComposite sc) {
-		final boolean isImportedReference = context
+		final boolean isImportedReference = getContext()
 				.isImportedWithSyntaxReference(proxyReference);
 		if (isImportedReference) {
 			// for references in imported rules with a syntax defined elsewhere
 			// we
 			// delegate the reference resolving to the original resolver
-			String resolverName = context
+			String resolverName = getContext()
 					.getQualifiedReferenceResolverClassName(proxyReference,
 							true);
 			sc.add("private " + resolverName + " delegate = new "
@@ -147,17 +134,17 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 				+ iReferenceResolveResultClassName + "<"
 				+ typeClassName + "> result) {");
 
-		final boolean isImportedReference = context
+		final boolean isImportedReference = getContext()
 				.isImportedWithSyntaxReference(proxyReference);
 		if (isImportedReference) {
 			ConcreteSyntax containingSyntax = genClassFinder
-					.getContainingSyntax(context.getConcreteSyntax(),
+					.getContainingSyntax(getContext().getConcreteSyntax(),
 							proxyReference.getGenClass());
-			String iReferenceResolveResultClassName = context
+			String iReferenceResolveResultClassName = getContext()
 					.getQualifiedClassName(
 							TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT,
 							containingSyntax);
-			String iReferenceMappingClassName = context.getQualifiedClassName(
+			String iReferenceMappingClassName = getContext().getQualifiedClassName(
 					TextResourceArtifacts.I_REFERENCE_MAPPING, containingSyntax);
 			sc
 					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new "
@@ -218,11 +205,5 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<GenFeature> {
 
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	public IGenerator<GenerationContext, GenFeature> newInstance(ICodeGenerationComponent parent, GenerationContext context, GenFeature parameters) {
-		ReferenceResolverGenerator instance = new ReferenceResolverGenerator(parent, context);
-		instance.setProxyReference(parameters);
-		return instance;
 	}
 }

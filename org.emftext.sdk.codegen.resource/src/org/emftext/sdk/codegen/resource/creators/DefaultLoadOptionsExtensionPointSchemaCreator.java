@@ -17,9 +17,9 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.DefaultLoadOptionsExtensionPointSchemaGenerator;
@@ -28,23 +28,24 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 /**
  * A creator for the schema of the default_load_options extension point.
  */
-public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator<Object> {
+public class DefaultLoadOptionsExtensionPointSchemaCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
 
 	public static final String FILENAME = "default_load_options.exsd";
 
-	public DefaultLoadOptionsExtensionPointSchemaCreator(ICodeGenerationComponent parent) {
-		super(parent, TextResourceArtifacts.DEFAULT_LOAD_OPTIONS_EXSD, null);
+	public DefaultLoadOptionsExtensionPointSchemaCreator() {
+		super(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.DEFAULT_LOAD_OPTIONS_EXSD));
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameter) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ArtifactParameter<GenerationContext> parameters) {
 		
 		File schemaFolder = context.getSchemaFolder(context.getResourcePlugin());
 		File pluginXMLFile = new File(schemaFolder.getAbsolutePath() + File.separator + FILENAME);
-		IGenerator<GenerationContext, Object> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(getParent(), context);
+		IGenerator<GenerationContext, ArtifactParameter<GenerationContext>> generator = new DefaultLoadOptionsExtensionPointSchemaGenerator();
 
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		pluginXMLFile,
 	    		"Exception while generating default_load_options.exsd file."

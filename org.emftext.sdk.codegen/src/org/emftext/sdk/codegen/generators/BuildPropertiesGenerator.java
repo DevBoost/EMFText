@@ -17,8 +17,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.util.StringUtil;
 
@@ -28,16 +27,16 @@ import org.emftext.sdk.util.StringUtil;
  *
  * @param <ContextType>
  */
-public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<ContextType, BuildPropertiesParameters> {
+public class BuildPropertiesGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, BuildPropertiesParameters<ContextType>> {
 
-	public BuildPropertiesGenerator(ICodeGenerationComponent parent, ContextType context, BuildPropertiesParameters parameters) {
-		super(parent, context, parameters);
+	public BuildPropertiesGenerator() {
+		super();
 	}
 
 	@Override
-	public void generate(PrintWriter out) {
-		Collection<String> sourceFolders = parameters.getSourceFolders();
-		Collection<String> binIncludes = parameters.getBinIncludes();
+	public void doGenerate(PrintWriter out) {
+		Collection<String> sourceFolders = getParameters().getSourceFolders();
+		Collection<String> binIncludes = getParameters().getBinIncludes();
 
 		StringBuilder sc = new StringBuilder();
 		sc.append("bin.includes = " + StringUtil.explode(binIncludes, ",\\\n"));
@@ -46,9 +45,5 @@ public class BuildPropertiesGenerator<ContextType> extends AbstractGenerator<Con
 		sc.append("\n");
 
 		out.write(sc.toString());
-	}
-
-	public IGenerator<ContextType, BuildPropertiesParameters> newInstance(ICodeGenerationComponent parent, ContextType context, BuildPropertiesParameters parameters) {
-		return new BuildPropertiesGenerator<ContextType>(parent, context, parameters);
 	}
 }

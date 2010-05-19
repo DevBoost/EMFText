@@ -48,15 +48,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.CollectInFeatureHelper;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -85,9 +80,6 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class PrinterGenerator extends AbstractPrinterGenerator {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PrinterGenerator());
-
 	private final static String localtabName = "localtab";
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -106,17 +98,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
 
 	private GenClassCache genClassCache;
-
-	private PrinterGenerator() {
-		super();
-	}
-
-	private PrinterGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.PRINTER);
-
-		this.concretSyntax = context.getConcreteSyntax();
-		this.genClassCache = concretSyntax.getGenClassCache();
-	}
 
 	private void extractChoices(List<Rule> rules,
 			Map<Rule, Set<Choice>> ruleMap, Map<Choice, String> choiceMap,
@@ -188,6 +169,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		super.generateJavaContents(sc);
+		
+		this.concretSyntax = getContext().getConcreteSyntax();
+		this.genClassCache = concretSyntax.getGenClassCache();
+
 		List<Rule> rules = prepare();
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -781,7 +767,5 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PrinterGenerator(parent, context);
-	}
+	
 }

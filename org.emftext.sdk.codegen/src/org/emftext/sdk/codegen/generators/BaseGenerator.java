@@ -13,20 +13,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IContext;
 
 /**
  * A basic implementation for generators which generate Java or ANTLR code.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class BaseGenerator<ContextType, ParameterType> extends AbstractGenerator<ContextType, ParameterType> {
+public abstract class BaseGenerator<ContextType extends IContext, ParameterType> extends AbstractGenerator<ContextType, ParameterType> {
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {
@@ -47,28 +45,15 @@ public abstract class BaseGenerator<ContextType, ParameterType> extends Abstract
 	}
 	
 	/**
-	 * Creates a new BaseGenerator that can be used to generate an 
-	 * artifact of the given type.
-	 * 
-	 * @param artifact the type of artifact to be generated
-	 */
-	public BaseGenerator(ICodeGenerationComponent parent, ContextType context, ParameterType parameters, ArtifactDescriptor<ContextType, ParameterType> artifact) {
-		super(parent, context, parameters);
-	}
-	
-	/**
 	 * A BaseGenerator generates its output on a PrintWriter. All its GenerationProblems should be reported
 	 * via addProblem(GenerationProblem).<br/>
 	 * Important:  Even with valid output there might be problems.
 	 * 
 	 * @param out - the target stream to write on
 	 */
-	public abstract void generate(PrintWriter out);
+	// TODO mseifert: remove this
+	//public abstract void generate(PrintWriter out);
 	
-	public ContextType getContext() {
-		return context;
-	}
-
     protected String getObjectTypeName(String typeName){
     	if (BaseGenerator.javaNativeTypeMapping.containsKey(typeName)) {
     		return BaseGenerator.javaNativeTypeMapping.get(typeName);

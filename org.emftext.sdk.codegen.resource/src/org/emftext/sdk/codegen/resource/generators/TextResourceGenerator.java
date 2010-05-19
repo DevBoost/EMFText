@@ -53,13 +53,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -70,30 +67,18 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class TextResourceGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new TextResourceGenerator());
+public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private ConcreteSyntax concreteSyntax;
 	private String csSyntaxName;
-	
 	private boolean saveChangedResourcesOnly = false;
-
-	private TextResourceGenerator() {
-		super();
-	}
-
-	private TextResourceGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.RESOURCE);
-		this.concreteSyntax = context.getConcreteSyntax();
-		this.csSyntaxName = concreteSyntax.getName();
-		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
-				concreteSyntax, OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
-	}
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		this.concreteSyntax = getContext().getConcreteSyntax();
+		this.csSyntaxName = concreteSyntax.getName();
+		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
+				concreteSyntax, OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 		
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
@@ -880,7 +865,5 @@ public class TextResourceGenerator extends JavaBaseGenerator<Object> {
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new TextResourceGenerator(parent, context);
-	}
+	
 }

@@ -21,19 +21,18 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
  * Copies files.
  */
-public class FileCopier<ContextType> extends AbstractGenerationComponent implements IArtifactCreator<ContextType> {
+public class FileCopier<ContextType extends IContext> implements IArtifactCreator<ContextType> {
 
 	private InputStream inputStream;
 	private File targetFile;
 
-	public FileCopier(ICodeGenerationComponent parent, InputStream inputStream, File targetFile) {
-		super(parent);
+	public FileCopier(InputStream inputStream, File targetFile) {
 		this.inputStream = inputStream;
 		this.targetFile = targetFile;
 	}
@@ -49,11 +48,11 @@ public class FileCopier<ContextType> extends AbstractGenerationComponent impleme
 	}
 
 	private void addError(ContextType context, Exception e) {
-		getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + targetFile.getName() + ".", null, GenerationProblem.Severity.ERROR, e));
+		context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + targetFile.getName() + ".", null, GenerationProblem.Severity.ERROR, e));
 		EMFTextSDKPlugin.logError("Error while copying " + targetFile.getName() + ".", e);
 	}
 
-	public String getArtifactDescription() {
+	public String getArtifactTypeDescription() {
 		return targetFile.getName();
 	}
 }

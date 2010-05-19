@@ -17,27 +17,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new DocBrowserInformationControlInputGenerator());
-
-	private DocBrowserInformationControlInputGenerator() {
-		super();
-	}
-
-	private DocBrowserInformationControlInputGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
-	}
+public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -173,7 +159,5 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new DocBrowserInformationControlInputGenerator(parent, context);
-	}
+	
 }

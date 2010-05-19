@@ -3,10 +3,10 @@ package org.emftext.sdk.codegen.antlr;
 import java.io.File;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IContext;
-import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
+import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -14,13 +14,13 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * plug-in. It carries a concrete syntax object, which is used to determine the
  * value of override options.
  */
-public class ANTLRGenerationContext extends AbstractGenerationComponent implements IContext {
+public class ANTLRGenerationContext extends AbstractGenerationContext {
 
 	private ConcreteSyntax concreteSyntax;
 	private IPluginDescriptor antlrPlugin;
 
-	public ANTLRGenerationContext(ICodeGenerationComponent parent, ConcreteSyntax concreteSyntax, IPluginDescriptor antlrPlugin) {
-		super(parent);
+	public ANTLRGenerationContext(IFileSystemConnector fileSystemConnector, IProblemCollector problemCollector, ConcreteSyntax concreteSyntax, IPluginDescriptor antlrPlugin) {
+		super(fileSystemConnector, problemCollector);
 		this.concreteSyntax = concreteSyntax;
 		this.antlrPlugin = antlrPlugin;
 	}

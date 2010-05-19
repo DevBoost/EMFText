@@ -17,9 +17,9 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.creators.TextResourceArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -32,23 +32,24 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * TODO mseifert: make this creator reusable
  */
-public class PluginXMLCreator extends TextResourceArtifactCreator<Object> {
+public class PluginXMLCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
 
 	public static final String FILENAME = "plugin.xml";
 
-	public PluginXMLCreator(ICodeGenerationComponent  parent) {
-		super(parent, TextResourceUIArtifacts.PLUGIN_XML, null);
+	public PluginXMLCreator() {
+		super(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PLUGIN_XML));
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object parameters) {
-		File project = getFileSystemConnector().getProjectFolder(plugin);
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ArtifactParameter<GenerationContext> parameters) {
+		File project = context.getFileSystemConnector().getProjectFolder(plugin);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<GenerationContext, Object> generator = PluginXMLGenerator.PROVIDER.newInstance(getParent(), context, parameters);
+		IGenerator<GenerationContext, ArtifactParameter<GenerationContext>> generator = new PluginXMLGenerator();
 
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		pluginXMLFile,
 	    		"Exception while generating " + FILENAME + " file."

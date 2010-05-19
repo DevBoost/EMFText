@@ -18,26 +18,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_POSI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class PositionHelperGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PositionHelperGenerator());
-
-	private PositionHelperGenerator() {
-		super();
-	}
-
-	private PositionHelperGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.POSITION_HELPER);
-	}
+public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -130,7 +116,5 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PositionHelperGenerator(parent, context);
-	}
+	
 }

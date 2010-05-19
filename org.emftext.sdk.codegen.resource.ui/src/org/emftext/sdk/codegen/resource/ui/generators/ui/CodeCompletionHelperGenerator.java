@@ -37,20 +37,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.UIGeneratorUtil;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new CodeCompletionHelperGenerator());
+public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	/**
 	 * This is a temporary flag which can be used to enable the
@@ -61,18 +55,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator {
 
 	private final UIGeneratorUtil generatorUtil = new UIGeneratorUtil();
 
-	private CodeCompletionHelperGenerator() {
-		super();
-	}
-
-	private CodeCompletionHelperGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.CODE_COMPLETION_HELPER);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new CodeCompletionHelperGenerator(parent, context);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");

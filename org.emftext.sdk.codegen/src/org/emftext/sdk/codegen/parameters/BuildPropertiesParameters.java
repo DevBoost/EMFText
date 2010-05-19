@@ -4,19 +4,21 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.IContext;
 
 /**
  * A parameter class that can be used to specify the content of build.properties
  * files.
  */
-public class BuildPropertiesParameters {
+public class BuildPropertiesParameters<ContextType extends IContext> extends AbstractArtifactParameter<ContextType, BuildPropertiesParameters<ContextType>> {
 	
 	private Collection<String> sourceFolders = new LinkedHashSet<String>();
 	private Collection<String> binIncludes = new LinkedHashSet<String>();
 	private IPluginDescriptor plugin;
 
-	public BuildPropertiesParameters(IPluginDescriptor plugin) {
-		super();
+	public BuildPropertiesParameters(ArtifactDescriptor<ContextType, BuildPropertiesParameters<ContextType>> artifact, IPluginDescriptor plugin) {
+		super(artifact);
 		this.plugin = plugin;
 	}
 

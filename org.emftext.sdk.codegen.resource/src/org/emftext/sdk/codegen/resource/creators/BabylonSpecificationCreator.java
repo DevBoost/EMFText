@@ -16,8 +16,8 @@ package org.emftext.sdk.codegen.resource.creators;
 import java.io.File;
 import java.util.Collection;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.mopp.BabylonSpecificationGenerator;
@@ -27,13 +27,13 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * An experimental (not yet implemented) creator for the Babylon compiler
  * framework.
  */
-public class BabylonSpecificationCreator extends TextResourceArtifactCreator<Object> {
+public class BabylonSpecificationCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
 
-	public BabylonSpecificationCreator(ICodeGenerationComponent parent) {
-		super(parent, TextResourceArtifacts.BABYLON_SPECIFICATION, null);
+	public BabylonSpecificationCreator() {
+		super(null);
 	}
 
-	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, Object parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context, ArtifactParameter<GenerationContext> parameters) {
 		
 		String specificationName = context.getCapitalizedConcreteSyntaxName();
 		String packagePath = context.getPackagePath(context.getResourcePlugin(), TextResourceArtifacts.BABYLON_SPECIFICATION);
@@ -41,7 +41,8 @@ public class BabylonSpecificationCreator extends TextResourceArtifactCreator<Obj
 		
 	    return createArtifact(
 	    		context,
-	    		BabylonSpecificationGenerator.PROVIDER.newInstance(getParent(), context, parameters),
+	    		parameters,
+	    		new BabylonSpecificationGenerator(),
 	    		specificationFile,
 	    		"Exception while generating Babylon specification."
 	    );

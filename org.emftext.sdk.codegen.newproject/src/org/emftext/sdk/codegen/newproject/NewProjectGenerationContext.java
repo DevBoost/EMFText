@@ -7,11 +7,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IContext;
+import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.IResourceMarker;
-import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -20,7 +20,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * creating a new EMFText project. It carries the parameters that were given by users
  * for creating the new project.
  */
-public class NewProjectGenerationContext extends AbstractGenerationComponent implements IContext {
+public class NewProjectGenerationContext extends AbstractGenerationContext {
 
 	private IPluginDescriptor pluginDescriptor;
 	private NewProjectParameters parameters;
@@ -33,11 +33,12 @@ public class NewProjectGenerationContext extends AbstractGenerationComponent imp
 	private GenerationContext generationContext;
 
 	public NewProjectGenerationContext(
-			ICodeGenerationComponent parent, 
+			IFileSystemConnector fileSystemConnector, 
+			IProblemCollector problemCollector,
 			IProject project,
 			IPluginDescriptor pluginDescriptor,
 			NewProjectParameters parameters) {
-		super(parent);
+		super(fileSystemConnector, problemCollector);
 		this.project = project;
 		this.pluginDescriptor = pluginDescriptor;
 		this.parameters = parameters;

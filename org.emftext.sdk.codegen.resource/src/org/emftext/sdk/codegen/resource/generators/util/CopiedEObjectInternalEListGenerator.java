@@ -23,31 +23,18 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION_CHAIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Object> {
+public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new CopiedEObjectInternalEListGenerator());
-
-	private CopiedEObjectInternalEListGenerator() {
+	public CopiedEObjectInternalEListGenerator() {
 		super();
 	}
 
-	private CopiedEObjectInternalEListGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new CopiedEObjectInternalEListGenerator(parent, context);
-	}
-
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		//TODO mseifert: override remove() method of iterators
 		

@@ -5,11 +5,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.IGeneratorProvider;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
-import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
 /**
@@ -19,18 +14,12 @@ public class MetaModelGenerator extends ModelGenerator {
 
 	private static final EcoreFactory ECORE_FACTORY = EcoreFactory.eINSTANCE;
 	
-	public static final IGeneratorProvider<NewProjectGenerationContext, Object> PROVIDER = new GeneratorProvider<NewProjectGenerationContext, Object>(new MetaModelGenerator());
-
-	private MetaModelGenerator() {
+	public MetaModelGenerator() {
 		super();
 	}
 
-	public MetaModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
-		super(parent, context);
-	}
-
 	public EObject generateModel() {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 
 		EClass shapeClass = ECORE_FACTORY.createEClass();
 		shapeClass.setName("Shape");
@@ -65,19 +54,14 @@ public class MetaModelGenerator extends ModelGenerator {
 		ePackage.setNsPrefix(parameters.getNamespacePrefix());
 		ePackage.setNsURI(parameters.getNamespaceUri());
 
-		context.setEPackage(ePackage);
+		getContext().setEPackage(ePackage);
 		return ePackage;
 	}
 
 	public String getModelPath() {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 		String metaModelFileName = parameters.getEcoreFile();
 		String pathToMetaModel = getFileInMetaModelFolder(metaModelFileName);
 		return pathToMetaModel;
-	}
-
-	public IGenerator<NewProjectGenerationContext, Object> newInstance(
-			ICodeGenerationComponent parent, NewProjectGenerationContext context, Object parameters) {
-		return new MetaModelGenerator(parent, context);
 	}
 }

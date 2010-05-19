@@ -26,10 +26,8 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.antlr3_2_0.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.antlr.ANTLRGenerationContext;
 import org.emftext.sdk.codegen.antlr.ANTLRPluginArtifacts;
-import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
@@ -38,6 +36,7 @@ import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.ManifestCreator;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
+import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -48,14 +47,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * plug-in. The creation of the commons plug-in can be disable using the syntax
  * option OptionTypes.OVERRIDE_ANTLR_PLUGIN.
  */
-public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
+public class ANTLRPluginContentCreator {
 
 	private static final String SRC_FOLDER = "src";
 	
-	public ANTLRPluginContentCreator(ICodeGenerationComponent parent) {
-		super(parent);
-	}
-
 	/**
 	 * A list of all class to copy.
 	 */
@@ -156,7 +151,7 @@ public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
 	    	new File(context.getProjectFolder(antlrPlugin).getAbsolutePath() + File.separator + SRC_FOLDER);
 		
 	    String sourceFolderPath = sourceFolder.getAbsolutePath() + File.separator;
-		creators.add(new FoldersCreator<ANTLRGenerationContext>(this, new File[] {
+		creators.add(new FoldersCreator<ANTLRGenerationContext>(new File[] {
 	    		sourceFolder,
 	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
 	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
@@ -164,19 +159,19 @@ public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
 	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
 	    }));
 	    
-	    ClassPathParameters cpp = new ClassPathParameters(antlrPlugin);
+	    ClassPathParameters<ANTLRGenerationContext> cpp = new ClassPathParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, antlrPlugin);
 	    cpp.getSourceFolders().add(SRC_FOLDER);
-		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(this, ANTLRPluginArtifacts.DOT_CLASSPATH, cpp, override));
+		creators.add(new DotClasspathCreator<ANTLRGenerationContext>(cpp, override));
 		
-	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(this, ANTLRPluginArtifacts.DOT_PROJECT, antlrPlugin, override));
+	    creators.add(new DotProjectCreator<ANTLRGenerationContext>(new DotProjectParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_PROJECT, antlrPlugin), override));
 	    
-		BuildPropertiesParameters bpp = new BuildPropertiesParameters(antlrPlugin);
+		BuildPropertiesParameters<ANTLRGenerationContext> bpp = new BuildPropertiesParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.BUILD_PROPERTIES, antlrPlugin);
 	    bpp.getSourceFolders().add(sourceFolder.getName() + "/");
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
-		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(this, ANTLRPluginArtifacts.BUILD_PROPERTIES, bpp, override));
+		creators.add(new BuildPropertiesCreator<ANTLRGenerationContext>(bpp, override));
 	    
-	    ManifestParameters manifestParameters = new ManifestParameters();
+	    ManifestParameters<ANTLRGenerationContext> manifestParameters = new ManifestParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.MANIFEST);
 		// export the generated packages
 		Collection<String> exports = manifestParameters.getExportedPackages();
 		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage());
@@ -186,7 +181,7 @@ public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
 
 		manifestParameters.setPlugin(antlrPlugin);
 		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");
-		creators.add(new ManifestCreator<ANTLRGenerationContext>(this, ANTLRPluginArtifacts.MANIFEST, manifestParameters, true));
+		creators.add(new ManifestCreator<ANTLRGenerationContext>(manifestParameters, true));
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
@@ -198,7 +193,7 @@ public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
 			String urlString = url.toString().replace("bin/" + packagePath + "/", "");
 			urlString = urlString.replace(packagePath + "/", "");
 			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
-			creators.add(new FileCopier<ANTLRGenerationContext>(this, new URL(pathToSourceFile).openStream(), 
+			creators.add(new FileCopier<ANTLRGenerationContext>(new URL(pathToSourceFile).openStream(), 
 					new File(sourceFolderPath + pathFile)));
 	    }
 	    
@@ -207,7 +202,7 @@ public class ANTLRPluginContentCreator extends AbstractGenerationComponent {
 
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {
 			if (doOverride) {
-				progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
+				progress.setTaskName("creating " + creator.getArtifactTypeDescription() + "...");
 				creator.createArtifacts(antlrPlugin, context);
 			}
 			progress.worked(100 / creators.size());

@@ -18,30 +18,16 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.GenClassUtil;
 
-public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator<Object> {
+public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new SyntaxCoverageInformationProviderGenerator());
-
-	private SyntaxCoverageInformationProviderGenerator() {
-		super();
-	}
-
-	private SyntaxCoverageInformationProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
-	}
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -84,7 +70,5 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
         sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new SyntaxCoverageInformationProviderGenerator(parent, context);
-	}
+	
 }

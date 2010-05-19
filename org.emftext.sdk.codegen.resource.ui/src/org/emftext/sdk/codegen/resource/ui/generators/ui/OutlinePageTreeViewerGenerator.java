@@ -19,27 +19,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTIO
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new OutlinePageTreeViewerGenerator());
-
-	private OutlinePageTreeViewerGenerator() {
-		super();
-	}
-
-	private OutlinePageTreeViewerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
-	}
+public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -155,7 +141,5 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new OutlinePageTreeViewerGenerator(parent, context);
-	}
+	
 }

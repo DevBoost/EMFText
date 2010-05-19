@@ -17,11 +17,9 @@ import java.io.PrintWriter;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -33,23 +31,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * TODO mseifert: make this generator reusable
  */
-public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
+public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new PluginXMLGenerator());
-
-	private GenerationContext context;
-
-	private PluginXMLGenerator() {
-		super();
-	}
-
-	private PluginXMLGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super();
-		this.context = context;
-	}
-
-	public void generate(PrintWriter out) {
+	@Override
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
 		out.write(getContentOfPluginXML());
 		out.flush();
 	}
@@ -60,7 +46,8 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 	 * @return Generated code.
 	 */
 	private String getContentOfPluginXML() {
-		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		GenerationContext context = getContext();
+		final ConcreteSyntax concreteSyntax = context .getConcreteSyntax();
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
 		String uiPluginID = resourceUIPlugin.getName();
@@ -155,7 +142,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 	
 	private StringComposite generateTestActionExtension() {
 
-		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
 		final String concreteSyntaxName = concreteSyntax.getName();
 		final GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
 		final String concreteSyntaxBasePackage = concreteSyntaxPackage.getBasePackage();
@@ -173,9 +160,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<Object> {
 		return s;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new PluginXMLGenerator(parent, context);
-	}
+	
 
 	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into

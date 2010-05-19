@@ -17,8 +17,8 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
@@ -28,19 +28,20 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Creates an ANTLR .g file using the ANTLRGrammarGenerator, which
  * creates the content for the file.
  */
-public class ANTLRGrammarCreator extends TextResourceArtifactCreator<Object> {
+public class ANTLRGrammarCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
 
-	public ANTLRGrammarCreator(ICodeGenerationComponent parent) {
-		super(parent, TextResourceArtifacts.ANTLR_GRAMMAR, null);
+	public ANTLRGrammarCreator() {
+		super(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.ANTLR_GRAMMAR));
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, Object paramters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ArtifactParameter<GenerationContext> parameters) {
 		
 	    File antlrFile = context.getANTLRGrammarFile(context.getResourcePlugin());
 	    return createArtifact(
 	    		context,
-	    		ANTLRGrammarGenerator.PROVIDER.newInstance(this, context, paramters),
+	    		parameters,
+	    		new ANTLRGrammarGenerator(),
 	    		antlrFile,
 	    		"Exception while generating ANTLR grammar."
 	    );

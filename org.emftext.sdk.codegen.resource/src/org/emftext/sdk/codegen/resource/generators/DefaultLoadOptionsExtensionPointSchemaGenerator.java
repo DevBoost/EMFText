@@ -16,26 +16,22 @@ package org.emftext.sdk.codegen.resource.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBaseGenerator<Object> {
+public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	private GenerationContext context;
-
-	public DefaultLoadOptionsExtensionPointSchemaGenerator(
-			ICodeGenerationComponent parent,
-			GenerationContext context) {
-		super(parent, context, null, null);
-		this.context = context;
+	public DefaultLoadOptionsExtensionPointSchemaGenerator() {
+		super();
 	}
 
-	public void generate(PrintWriter out) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+	@Override
+	public void doGenerate(PrintWriter out) {
+		super.doGenerate(out);
+		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
 		StringComposite sc = new XMLComposite();
@@ -111,7 +107,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		sc.addLineBreak();
 		sc.add("</documentation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.attribute kind=\"java\" basedOn=\":" + context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER) + "\"/>");
+		sc.add("<meta.attribute kind=\"java\" basedOn=\":" + getContext().getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER) + "\"/>");
 		sc.add("</appinfo>");
 		sc.add("</annotation>");
 		sc.add("</attribute>");
@@ -166,7 +162,5 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		out.write(sc.toString());
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new DefaultLoadOptionsExtensionPointSchemaGenerator(parent, context);
-	}
+	
 }

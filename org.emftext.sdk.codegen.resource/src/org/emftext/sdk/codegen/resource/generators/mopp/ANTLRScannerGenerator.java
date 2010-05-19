@@ -18,27 +18,17 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class ANTLRScannerGenerator extends JavaBaseGenerator<Object> {
+public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new ANTLRScannerGenerator());
-	
-	private ANTLRScannerGenerator() {
+	public ANTLRScannerGenerator() {
 		super();
 	}
 	
-	private ANTLRScannerGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.ANTLR_SCANNER);
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -70,9 +60,5 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object object) {
-		return new ANTLRScannerGenerator(parent, context);
 	}
 }

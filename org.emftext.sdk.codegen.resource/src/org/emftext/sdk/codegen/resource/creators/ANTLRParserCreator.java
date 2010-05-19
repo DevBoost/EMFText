@@ -19,14 +19,13 @@ import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.creators.AbstractGenerationComponent;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
 /**
  * Runs ANTLR on a .g file to generate Java classes for the parser and
  * the lexer from the ANTLR grammar specification.
  */
-public class ANTLRParserCreator extends AbstractGenerationComponent implements IArtifactCreator<GenerationContext> {
+public class ANTLRParserCreator implements IArtifactCreator<GenerationContext> {
 
 	public void createArtifacts(IPluginDescriptor plugin, GenerationContext context) {
 		if (context.getANTLRGrammarHasChanged()) {
@@ -37,7 +36,7 @@ public class ANTLRParserCreator extends AbstractGenerationComponent implements I
 		}
 	}
 
-	public String getArtifactDescription() {
+	public String getArtifactTypeDescription() {
 		return "ANTLR lexer and parser";
 	}
 }

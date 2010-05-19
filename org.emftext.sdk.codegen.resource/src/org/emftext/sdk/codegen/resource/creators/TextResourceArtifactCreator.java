@@ -1,16 +1,15 @@
 package org.emftext.sdk.codegen.resource.creators;
 
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
+import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public abstract class TextResourceArtifactCreator<ParameterType> extends GenericArtifactCreator<GenerationContext, ParameterType> {
+public abstract class TextResourceArtifactCreator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends GenericArtifactCreator<GenerationContext, ParameterType> {
 
-	public TextResourceArtifactCreator(ICodeGenerationComponent parent, ArtifactDescriptor<GenerationContext, ParameterType> artifact, ParameterType parameters) {
-		super(parent, artifact, parameters);
+	public TextResourceArtifactCreator(ParameterType parameters) {
+		super(parameters);
 	}
 
 	public boolean doOverride(GenerationContext context) {
@@ -27,6 +26,6 @@ public abstract class TextResourceArtifactCreator<ParameterType> extends Generic
 	 * @return the option to enabled this creator
 	 */
 	public OptionTypes getOverrideOption() {
-		return getArtifact().getOverrideOption();
+		return getParameters().getArtifact().getOverrideOption();
 	}
 }

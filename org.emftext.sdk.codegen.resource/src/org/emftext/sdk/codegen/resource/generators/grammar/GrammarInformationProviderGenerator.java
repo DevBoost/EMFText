@@ -12,14 +12,11 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -48,10 +45,7 @@ import org.emftext.sdk.util.StringUtil;
  * A generator that creates a class that contains the syntax structure given
  * in the CS specification.
  */
-public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new GrammarInformationProviderGenerator());
+public class GrammarInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";
 
@@ -60,17 +54,9 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 
 	private ConcreteSyntax concreteSyntax;
 
-	private GrammarInformationProviderGenerator() {
-		super();
-	}
-
-	private GrammarInformationProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
-		concreteSyntax = context.getConcreteSyntax();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		concreteSyntax = getContext().getConcreteSyntax();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -278,7 +264,5 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Objec
 		return true;
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new GrammarInformationProviderGenerator(parent, context);
-	}
+	
 }

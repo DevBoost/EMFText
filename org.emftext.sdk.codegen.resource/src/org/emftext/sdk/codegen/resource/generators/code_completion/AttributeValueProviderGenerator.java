@@ -3,30 +3,16 @@ package org.emftext.sdk.codegen.resource.generators.code_completion;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class AttributeValueProviderGenerator extends JavaBaseGenerator<Object> {
+public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new AttributeValueProviderGenerator());
-
-	private AttributeValueProviderGenerator() {
+	public AttributeValueProviderGenerator() {
 		super();
-	}
-
-	private AttributeValueProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
-	}
-
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new AttributeValueProviderGenerator(parent, context);
 	}
 
 	@Override

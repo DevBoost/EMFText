@@ -18,37 +18,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.creators.IArtifact;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.TokenResolverParameters;
 import org.emftext.sdk.codegen.resource.generators.TokenResolverGenerator;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * Creates the Java files for the token resolvers using the content
- * provided by TokenResolverGenerator. A token resolver is generated
+ * Creates the Java file for one token resolvers using the content
+ * provided by a TokenResolverGenerator. A token resolver is generated
  * for all tokens that are used and that are not imported.
  */
-public class TokenResolversCreator extends TextResourceArtifactCreator<CompleteTokenDefinition> {
+public class TokenResolverCreator extends TextResourceArtifactCreator<TokenResolverParameters> {
 
-	public TokenResolversCreator(ICodeGenerationComponent parent, CompleteTokenDefinition parameters) {
-		super(parent, TextResourceArtifacts.TOKEN_RESOLVERS, parameters);
+	public TokenResolverCreator(TokenResolverParameters parameters) {
+		super(parameters);
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, CompleteTokenDefinition parameters) {
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, TokenResolverParameters parameters) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
 		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
-		File resolverFile = context.getTokenResolverFile(syntax, parameters);
-		TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) TokenResolverGenerator.PROVIDER.newInstance(getParent(), context, parameters);
+		File resolverFile = context.getTokenResolverFile(syntax, parameters.getDefinition());
+		TokenResolverGenerator resolverGenerator = new TokenResolverGenerator();
 
 		artifacts.addAll(createArtifact(
 	    		context,
+	    		parameters,
 	    		resolverGenerator,
 	    		resolverFile,
 	    		"Exception while generating token resolver."

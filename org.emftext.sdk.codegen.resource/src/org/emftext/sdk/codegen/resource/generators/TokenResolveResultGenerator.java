@@ -13,25 +13,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
-public class TokenResolveResultGenerator extends JavaBaseGenerator<Object> {
-
-	public final static GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new TokenResolveResultGenerator());
-
-	private TokenResolveResultGenerator() {
-		super();
-	}
-
-	private TokenResolveResultGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
-	}
+public class TokenResolveResultGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -71,7 +57,5 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator<Object> {
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new TokenResolveResultGenerator(parent, context);
-	}
+	
 }

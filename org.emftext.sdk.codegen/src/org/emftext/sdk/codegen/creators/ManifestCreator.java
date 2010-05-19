@@ -17,8 +17,6 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
@@ -29,25 +27,26 @@ import org.emftext.sdk.codegen.parameters.ManifestParameters;
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
  */
-public class ManifestCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ManifestParameters> {
+public class ManifestCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ManifestParameters<ContextType>> {
 
 	public static final String FILENAME = "MANIFEST.MF";
 	private boolean override;
 
-	public ManifestCreator(ICodeGenerationComponent parent, ArtifactDescriptor<ContextType, ManifestParameters> artifact, ManifestParameters parameters, boolean override) {
-		super(parent, artifact, parameters);
+	public ManifestCreator(ManifestParameters<ContextType> parameters, boolean override) {
+		super(parameters);
 		this.override = override;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ManifestParameters parameters) {
-		final File project = getFileSystemConnector().getProjectFolder(plugin);
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, ManifestParameters<ContextType> parameters) {
+		final File project = context.getFileSystemConnector().getProjectFolder(plugin);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + FILENAME);
 
-		IGenerator<ContextType, ManifestParameters> generator = new ManifestGenerator<ContextType>(this, context, parameters);
+		IGenerator<ContextType, ManifestParameters<ContextType>> generator = new ManifestGenerator<ContextType>();
 		
 	    return createArtifact(
 	    		context,
+	    		parameters,
 	    		generator,
 	    		manifestMFFile,
 	    		"Exception while generating manifest file."

@@ -10,25 +10,22 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
+import org.emftext.sdk.codegen.newproject.parameters.ModelParameter;
 
 /**
  * An abstract superclass for all generators that produce models. This class
  * takes care of serializing the generator models by saving them to EMF resources.
  */
-public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerationContext, Object> {
+public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerationContext, ModelParameter<String>> {
 
 	public ModelGenerator() {
 		super();
 	}
 
-	public ModelGenerator(ICodeGenerationComponent parent, NewProjectGenerationContext context) {
-		super(parent, context, null);
-	}
-	
-	public void generate(OutputStream outputStream) {
+	@Override
+	public void doGenerate(OutputStream outputStream) {
 		EObject generatedModel = generateModel();
 		ResourceSet rs = new ResourceSetImpl();
 		String modelPath = getModelPath();
@@ -42,7 +39,7 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 	}
 	
 	protected String getFileInMetaModelFolder(String fileName) {
-		NewProjectParameters parameters = context.getParameters();
+		NewProjectParameters parameters = getContext().getParameters();
 		String projectName = parameters.getProjectName();
 		String metaModelFolder = parameters.getMetamodelFolder();
 		String pathToMetaModel = projectName + "/" + metaModelFolder + "/" + fileName;

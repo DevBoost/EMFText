@@ -16,29 +16,15 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class HoverTextProviderGenerator extends UIJavaBaseGenerator {
+public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new HoverTextProviderGenerator());
-
-	private HoverTextProviderGenerator() {
-		super();
-	}
-
-	private HoverTextProviderGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -67,8 +53,6 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator {
 		sc.addLineBreak();
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new HoverTextProviderGenerator(parent, context);
-	}
+	
 
 }

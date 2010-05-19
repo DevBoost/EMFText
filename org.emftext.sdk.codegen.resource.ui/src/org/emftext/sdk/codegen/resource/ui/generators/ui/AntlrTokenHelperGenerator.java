@@ -16,26 +16,12 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOKEN;
 
-import org.emftext.sdk.codegen.ICodeGenerationComponent;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.generators.GeneratorProvider;
+import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator {
-
-	public static final GeneratorProvider<GenerationContext, Object> PROVIDER = 
-		new GeneratorProvider<GenerationContext, Object>(new AntlrTokenHelperGenerator());
-
-	private AntlrTokenHelperGenerator() {
-		super();
-	}
-
-	private AntlrTokenHelperGenerator(ICodeGenerationComponent parent, GenerationContext context) {
-		super(parent, context, TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
-	}
+public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -87,7 +73,5 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator {
 		sc.add("}");
 	}
 
-	public IGenerator<GenerationContext, Object> newInstance(ICodeGenerationComponent parent, GenerationContext context, Object parameters) {
-		return new AntlrTokenHelperGenerator(parent, context);
-	}
+	
 }
