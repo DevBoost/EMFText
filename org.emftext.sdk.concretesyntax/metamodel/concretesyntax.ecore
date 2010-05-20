@@ -634,6 +634,8 @@
     <eLiterals name="OVERRIDE_UI_BUILD_PROPERTIES" value="193" literal="overrideUIBuildProperties"/>
     <eLiterals name="OVERRIDE_UI_DOT_CLASSPATH" value="194" literal="overrideUIDotClasspath"/>
     <eLiterals name="OVERRIDE_UI_DOT_PROJECT" value="195" literal="overrideUIDotProject"/>
+    <eLiterals name="UI_SOURCE_FOLDER" value="196" literal="uiSrcFolder"/>
+    <eLiterals name="UI_SOURCE_GEN_FOLDER" value="197" literal="uiSrcGenFolder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

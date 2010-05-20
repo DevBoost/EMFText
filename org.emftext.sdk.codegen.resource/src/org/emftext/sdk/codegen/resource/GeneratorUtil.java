@@ -235,12 +235,12 @@ public class GeneratorUtil {
 	public File getResolverFile(ConcreteSyntax syntax, GenFeature proxyReference, String projectFolder) {
 		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
-		File resolverFile = new File(csUtil.getSourceFolder(syntax, doOverride, projectFolder) + File.separator + getResolverPackagePath(syntax) + File.separator + nameUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
+		File resolverFile = new File(csUtil.getSourceFolder(syntax, doOverride, false, projectFolder) + File.separator + getResolverPackagePath(syntax) + File.separator + nameUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
 		return resolverFile;
 	}
 
 	public File getResolverPackageFile(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
-		return new File(csUtil.getSourceFolder(syntax, doOverride, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
+		return new File(csUtil.getSourceFolder(syntax, doOverride, false, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
 	}
 
 	public IPath getResolverPackagePath(ConcreteSyntax syntax) {

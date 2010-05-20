@@ -24,6 +24,7 @@ import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.PluginDescriptor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -112,25 +113,14 @@ public class NameUtil {
 	}
 	
 	public IPluginDescriptor getResourcePluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
-		
-		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
-
-			public String getName() {
-				return pluginName;
-			}
-		};
+		String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
+		IPluginDescriptor resourcePlugin = new PluginDescriptor(pluginName);
 		return resourcePlugin;
 	}
 
 	public IPluginDescriptor getResourceUIPluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, Constants.RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
-		IPluginDescriptor resourcePlugin = new IPluginDescriptor() {
-
-			public String getName() {
-				return pluginName;
-			}
-		};
+		String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, Constants.RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
+		IPluginDescriptor resourcePlugin = new PluginDescriptor(pluginName);
 		return resourcePlugin;
 	}
 

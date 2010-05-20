@@ -177,9 +177,12 @@ public class ConcreteSyntaxUtil {
 	 * @param pluginPath the absolute path to the plug-in that will contain the folder
 	 * @return
 	 */
-	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, String pluginPath) {
-		String srcFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_FOLDER);
-		String srcGenFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_GEN_FOLDER);
+	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, boolean isUiPlugin, String pluginPath) {
+		OptionTypes sourceFolderOption = isUiPlugin ? OptionTypes.UI_SOURCE_FOLDER : OptionTypes.SOURCE_FOLDER;
+		OptionTypes sourceGenFolderOption = isUiPlugin ? OptionTypes.UI_SOURCE_GEN_FOLDER : OptionTypes.SOURCE_GEN_FOLDER;
+
+		String srcFolderName = getSourceFolderName(syntax, sourceFolderOption);
+		String srcGenFolderName = getSourceFolderName(syntax, sourceGenFolderOption);
 		if (doOverride) {
 			return new File(pluginPath + File.separator + srcGenFolderName);
 		} else {
@@ -197,10 +200,9 @@ public class ConcreteSyntaxUtil {
 	 */
 	public String getSourceFolderName(ConcreteSyntax syntax, OptionTypes option) {
 		String defaultValue;
-		// TODO mseifert: use different options for UI resource plug-in
-		if (option == OptionTypes.SOURCE_FOLDER) {
+		if (option == OptionTypes.SOURCE_FOLDER || option == OptionTypes.UI_SOURCE_FOLDER) {
 			defaultValue = "src";
-		} else if (option == OptionTypes.SOURCE_GEN_FOLDER) {
+		} else if (option == OptionTypes.SOURCE_GEN_FOLDER || option == OptionTypes.UI_SOURCE_GEN_FOLDER) {
 			defaultValue = "src-gen";
 		} else {
 			throw new IllegalArgumentException("Illegal option: " + option);

@@ -228,7 +228,8 @@ public abstract class GenerationContext extends AbstractGenerationContext {
 	}
 
 	public File getSourceFolder(IPluginDescriptor plugin, boolean doOverride) {
-		return csUtil.getSourceFolder(getConcreteSyntax(), doOverride, getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath());
+		boolean isUiPlugin = plugin == getResourceUIPlugin();
+		return csUtil.getSourceFolder(getConcreteSyntax(), doOverride, isUiPlugin, getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath());
 	}
 
 	public File getTokenResolverFile(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {

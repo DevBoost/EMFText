@@ -1916,7 +1916,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_DOT_PROJECT(195, "OVERRIDE_UI_DOT_PROJECT", "overrideUIDotProject");
+	OVERRIDE_UI_DOT_PROJECT(195, "OVERRIDE_UI_DOT_PROJECT", "overrideUIDotProject"), /**
+	 * The '<em><b>UI SOURCE FOLDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UI_SOURCE_FOLDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UI_SOURCE_FOLDER(196, "UI_SOURCE_FOLDER", "uiSrcFolder"), /**
+	 * The '<em><b>UI SOURCE GEN FOLDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UI_SOURCE_GEN_FOLDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UI_SOURCE_GEN_FOLDER(197, "UI_SOURCE_GEN_FOLDER", "uiSrcGenFolder");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4829,6 +4845,36 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_UI_DOT_PROJECT_VALUE = 195;
 
 	/**
+	 * The '<em><b>UI SOURCE FOLDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>UI SOURCE FOLDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UI_SOURCE_FOLDER
+	 * @model literal="uiSrcFolder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UI_SOURCE_FOLDER_VALUE = 196;
+
+	/**
+	 * The '<em><b>UI SOURCE GEN FOLDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>UI SOURCE GEN FOLDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UI_SOURCE_GEN_FOLDER
+	 * @model literal="uiSrcGenFolder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UI_SOURCE_GEN_FOLDER_VALUE = 197;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5030,6 +5076,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UI_BUILD_PROPERTIES,
 			OVERRIDE_UI_DOT_CLASSPATH,
 			OVERRIDE_UI_DOT_PROJECT,
+			UI_SOURCE_FOLDER,
+			UI_SOURCE_GEN_FOLDER,
 		};
 
 	/**
@@ -5273,6 +5321,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UI_BUILD_PROPERTIES_VALUE: return OVERRIDE_UI_BUILD_PROPERTIES;
 			case OVERRIDE_UI_DOT_CLASSPATH_VALUE: return OVERRIDE_UI_DOT_CLASSPATH;
 			case OVERRIDE_UI_DOT_PROJECT_VALUE: return OVERRIDE_UI_DOT_PROJECT;
+			case UI_SOURCE_FOLDER_VALUE: return UI_SOURCE_FOLDER;
+			case UI_SOURCE_GEN_FOLDER_VALUE: return UI_SOURCE_GEN_FOLDER;
 		}
 		return null;
 	}
