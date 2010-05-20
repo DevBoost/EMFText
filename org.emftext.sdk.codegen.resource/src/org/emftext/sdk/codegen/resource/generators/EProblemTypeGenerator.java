@@ -19,10 +19,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public EProblemTypeGenerator() {
-		super();
-	}
-	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -32,7 +28,4 @@ public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("WARNING,ERROR;");
 		sc.add("}");
 	}
-
-	
-
 }

@@ -15,10 +15,6 @@ public abstract class UIJavaBaseGenerator<ParameterType extends IArtifactParamet
 
 	private LicenceHeaderUtil licenceHeaderUtil = new LicenceHeaderUtil();
 
-	public UIJavaBaseGenerator() {
-		super();
-	}
-
 	@Override
 	public final void doGenerate(PrintWriter out) {
 		super.doGenerate(out);

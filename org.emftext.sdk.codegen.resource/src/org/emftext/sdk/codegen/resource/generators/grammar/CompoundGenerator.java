@@ -7,10 +7,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CompoundGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public CompoundGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

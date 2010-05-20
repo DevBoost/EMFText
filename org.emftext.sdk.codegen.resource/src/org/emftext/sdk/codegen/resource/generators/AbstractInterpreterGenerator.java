@@ -39,10 +39,6 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		
 	}
 
-	public AbstractInterpreterGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		concreteSyntax = getContext().getConcreteSyntax();

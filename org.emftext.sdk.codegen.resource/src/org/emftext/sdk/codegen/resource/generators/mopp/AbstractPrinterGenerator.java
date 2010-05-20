@@ -24,10 +24,6 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 
 	private GenClassCache genClassCache;
 	
-	public AbstractPrinterGenerator() {
-		super();
-	}
-	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		genClassCache = getContext().getConcreteSyntax().getGenClassCache();

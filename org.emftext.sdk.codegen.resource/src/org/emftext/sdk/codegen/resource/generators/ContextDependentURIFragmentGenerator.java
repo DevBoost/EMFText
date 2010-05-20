@@ -27,10 +27,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public ContextDependentURIFragmentGenerator() {
-		super();
-	}
-	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

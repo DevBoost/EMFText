@@ -30,10 +30,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public CopiedEObjectInternalEListGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		//TODO mseifert: override remove() method of iterators

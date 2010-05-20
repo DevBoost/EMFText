@@ -43,10 +43,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public DefaultResolverDelegateGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

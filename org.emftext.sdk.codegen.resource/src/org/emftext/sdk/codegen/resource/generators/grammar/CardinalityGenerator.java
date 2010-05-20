@@ -7,10 +7,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CardinalityGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public CardinalityGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

@@ -26,10 +26,6 @@ import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 // TODO cbuerger: implement this class
 public class BabylonSpecificationGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public BabylonSpecificationGenerator() {
-		super();
-	}
-
 	@Override
 	public void doGenerate(PrintWriter out) {
 		super.doGenerate(out);

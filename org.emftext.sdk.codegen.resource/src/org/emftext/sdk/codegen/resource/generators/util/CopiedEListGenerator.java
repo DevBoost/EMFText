@@ -27,10 +27,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public CopiedEListGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

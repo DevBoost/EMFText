@@ -24,10 +24,6 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
 public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public DefaultLoadOptionsExtensionPointSchemaGenerator() {
-		super();
-	}
-
 	@Override
 	public void doGenerate(PrintWriter out) {
 		super.doGenerate(out);

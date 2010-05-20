@@ -38,10 +38,6 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 	private String pluginID;
 	private String builderID;
 
-	public PluginXMLGenerator() {
-		super();
-	}
-
 	@Override
 	public void doGenerate(PrintWriter out) {
 		super.doGenerate(out);

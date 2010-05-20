@@ -23,10 +23,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	private final NameUtil nameUtil = new NameUtil();
 
-	public BuilderAdapterGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();

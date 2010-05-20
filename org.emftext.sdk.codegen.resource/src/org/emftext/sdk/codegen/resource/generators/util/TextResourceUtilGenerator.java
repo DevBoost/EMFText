@@ -28,10 +28,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public TextResourceUtilGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

@@ -12,10 +12,6 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public BuilderGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");

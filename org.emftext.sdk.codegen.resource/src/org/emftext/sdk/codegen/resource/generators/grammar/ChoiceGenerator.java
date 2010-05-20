@@ -7,10 +7,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ChoiceGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public ChoiceGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

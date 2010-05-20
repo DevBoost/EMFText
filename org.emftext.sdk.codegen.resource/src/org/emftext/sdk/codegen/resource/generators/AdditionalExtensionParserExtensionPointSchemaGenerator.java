@@ -25,10 +25,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class AdditionalExtensionParserExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public AdditionalExtensionParserExtensionPointSchemaGenerator() {
-		super();
-	}
-
 	@Override
 	public void doGenerate(PrintWriter out) {
 		super.doGenerate(out);

@@ -18,10 +18,6 @@ import org.emftext.sdk.codegen.resource.ClassParameters;
 
 public class EmptyClassGenerator extends JavaBaseGenerator<ClassParameters> {
 
-	public EmptyClassGenerator() {
-		super();
-	}
-
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getContext().getPackageName(getParameters().getTargetPackage()) + ";");
 		sc.addLineBreak();

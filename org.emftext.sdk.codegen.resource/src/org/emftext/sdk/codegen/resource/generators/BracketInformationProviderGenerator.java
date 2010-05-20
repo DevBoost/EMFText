@@ -97,10 +97,6 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 		}
 	}
 	
-	public BracketInformationProviderGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

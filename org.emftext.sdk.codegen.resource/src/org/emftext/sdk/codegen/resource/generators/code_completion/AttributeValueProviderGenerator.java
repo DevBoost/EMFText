@@ -11,10 +11,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public AttributeValueProviderGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

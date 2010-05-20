@@ -21,9 +21,9 @@ import org.emftext.sdk.codegen.newproject.TextResourceCreator;
 import org.emftext.sdk.codegen.newproject.generators.GenModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.MetaModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.SyntaxGenerator;
-import org.emftext.sdk.codegen.newproject.parameters.ModelParameter;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
+import org.emftext.sdk.codegen.parameters.SimpleParameter;
 
 /**
  * This class creates the content of new EMFText project. First it uses special
@@ -50,24 +50,24 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 	}
 	
 	public List<IArtifactCreator<NewProjectGenerationContext>> getCreators(NewProjectGenerationContext context) {
-		ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>> metamodel  = 
-			new ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>>(
+		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> metamodel  = 
+			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getEcoreFile(), 
 					MetaModelGenerator.class, 
 					null);
 
-		ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>> genModel  = 
-			new ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>>(
+		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> genModel  = 
+			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getGenmodelFile(), 
 					GenModelGenerator.class, 
 					null);
 
-		ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>> syntax  = 
-			new ArtifactDescriptor<NewProjectGenerationContext, ModelParameter<String>>(
+		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> syntax  = 
+			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
 					NewProjectConstants.META_MODEL_PACKAGE, 
 					"", 
 					context.getParameters().getSyntaxFile(), 
@@ -77,9 +77,9 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
 		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, ModelParameter<String>>(new ModelParameter<String>(metamodel, context.getParameters().getEcoreFile())));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, ModelParameter<String>>(new ModelParameter<String>(genModel, context.getParameters().getGenmodelFile())));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, ModelParameter<String>>(new ModelParameter<String>(syntax, context.getParameters().getSyntaxFile())));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(metamodel, context.getParameters().getEcoreFile())));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(genModel, context.getParameters().getGenmodelFile())));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(syntax, context.getParameters().getSyntaxFile())));
     	creators.add(new GenerateCodeCreator());
     	creators.add(new TextResourceCreator());
     	

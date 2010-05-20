@@ -27,10 +27,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class AbstractExpectedElementGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public AbstractExpectedElementGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

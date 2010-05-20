@@ -181,10 +181,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private ExpectationComputer computer = new ExpectationComputer();
 
-	public ANTLRGrammarGenerator() {
-		super();
-	}
-
 	private void initOptions() {
 		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax, OptionTypes.FORCE_EOF);

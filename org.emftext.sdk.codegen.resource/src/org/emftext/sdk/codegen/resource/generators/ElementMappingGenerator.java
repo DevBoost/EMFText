@@ -19,10 +19,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class ElementMappingGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public ElementMappingGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");

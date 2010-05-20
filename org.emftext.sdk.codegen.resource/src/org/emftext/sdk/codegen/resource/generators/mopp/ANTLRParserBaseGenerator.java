@@ -24,10 +24,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public ANTLRParserBaseGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

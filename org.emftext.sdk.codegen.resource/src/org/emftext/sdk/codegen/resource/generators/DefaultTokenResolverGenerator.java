@@ -30,10 +30,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public DefaultTokenResolverGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

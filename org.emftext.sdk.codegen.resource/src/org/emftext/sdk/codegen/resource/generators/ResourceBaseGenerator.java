@@ -135,20 +135,6 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
 
-	public ResourceBaseGenerator() {
-		super();
-	}
-
-	/**
-	 * Creates a new BaseGenerator that can be used to generate an 
-	 * artifact of the given type.
-	 * 
-	 * @param artifact the type of artifact to be generated
-	 */
-	public ResourceBaseGenerator(ArtifactDescriptor<GenerationContext, ParameterType> artifact) {
-		super();
-	}
-	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
 		

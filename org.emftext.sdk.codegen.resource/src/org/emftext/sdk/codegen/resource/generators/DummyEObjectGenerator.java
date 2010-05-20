@@ -28,10 +28,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class DummyEObjectGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public DummyEObjectGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

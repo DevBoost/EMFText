@@ -34,10 +34,6 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public EObjectUtilGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

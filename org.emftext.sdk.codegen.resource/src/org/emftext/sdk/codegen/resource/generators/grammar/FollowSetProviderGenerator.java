@@ -24,10 +24,6 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private NameUtil nameUtil = new NameUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
-	public FollowSetProviderGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		

@@ -22,10 +22,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 
 public class DelegatingResolveResultGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public DelegatingResolveResultGenerator() {
-		super();
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
