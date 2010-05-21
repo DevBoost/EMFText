@@ -101,6 +101,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			
 			OperatorAnnotationType type = csUtil.getOperatorAnnotationType(annotation);
 			if(type==null){
+				// TODO skarol: improve error message by giving the valid types
 				resource.addError("Could not determine operator type.",annotation);
 				continue;
 			}
