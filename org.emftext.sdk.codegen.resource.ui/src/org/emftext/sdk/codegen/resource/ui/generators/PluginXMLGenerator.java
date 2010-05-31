@@ -57,6 +57,13 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		sc.add("<?eclipse version=\"3.2\"?>");
 		sc.add("<plugin>");
 
+		String uiMetaInformationClass = getContext().getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
+		sc.add("<extension point=\"org.emftext.access.syntax.ui\">");
+		sc.add("<metaInformationProvider class=\"" + uiMetaInformationClass + "\" id=\"" + uiMetaInformationClass + "\">");
+		sc.add("</metaInformationProvider>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+
 		String editorName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
 
 		// registers the editor itself
