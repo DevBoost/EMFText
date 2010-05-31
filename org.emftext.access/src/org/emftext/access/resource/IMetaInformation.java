@@ -48,16 +48,6 @@ public interface IMetaInformation {
 	 */
 	public IScanner createLexer();
 	
-	public IColorManager createColorManager();
-	
-	/**
-	 * Return a scanner capable to split the underlying text file into JFace
-	 * tokens.
-	 * 
-	 * @return a scanner instance.
-	 */
-	public org.eclipse.jface.text.rules.ITokenScanner createTokenScanner(IColorManager colorManager);
-	
 	/**
 	 * Returns an instance of the parser. This factory method
 	 * is needed, because we can not create ANTLR parsers using
