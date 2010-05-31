@@ -50,6 +50,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.THROWABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
@@ -151,21 +152,30 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		
 		sc.add("private void runValidators(" + E_OBJECT + " root) {");
 		if (!disableEValidators) {
-			sc.addComment("check EMF validation constraints");
+			sc.addComment("check constraints provided by EMF validator classes");
 			sc.add(DIAGNOSTIC + " diagnostics = " + DIAGNOSTICIAN + ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
 		} else {
-			sc.addComment("checking EMF validation constraints was disabled");
+			sc.addComment("checking constraints provided by EMF validator classes was disabled");
 		}
 		if (!disableEMFValidationConstraints) {
 			sc.addComment("check EMF validation constraints");
+			sc.addComment("EMF validation does not work if OSGi is not running");
 			sc.add("if (" + PLATFORM + ".isRunning()) {");
-			sc.addComment("EMF validation does not work is OSGi is not running");
+			sc.addComment(
+				"The EMF validation framework code throws a NPE if the validation plug-in is not loaded. " +
+				"This is a bug, which is fixed in the helios release. Nonetheless, we need to catch the " +
+				"exception here."
+			);
+			sc.add("try {");
 			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
 			sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
 			sc.add("validator.setIncludeLiveConstraints(true);");
 			sc.add(I_STATUS + " status = validator.validate(root);");
 			sc.add("addStatus(status, root);");
+			sc.add("} catch (" + THROWABLE + " t) {");
+			sc.add(pluginActivatorClassName + ".logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
+			sc.add("}");
 			sc.add("}");
 		} else {
 			sc.addComment("checking EMF validation constraints was disabled");
