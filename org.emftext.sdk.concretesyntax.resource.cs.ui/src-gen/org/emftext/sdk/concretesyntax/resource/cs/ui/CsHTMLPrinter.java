@@ -525,11 +525,9 @@ public class CsHTMLPrinter {
 		}
 	}
 	
-	public static String html2text(java.io.StringReader stringReader,
-	org.eclipse.jface.text.TextPresentation presentation) throws java.io.IOException {
+	public static String html2text(java.io.StringReader stringReader, org.eclipse.jface.text.TextPresentation presentation) throws java.io.IOException {
 		HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);
 		return html2TextReader.getString();
 	}
-	
 	
 }

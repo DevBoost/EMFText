@@ -519,7 +519,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private void runValidators(org.eclipse.emf.ecore.EObject root) {
-		// checking EMF validation constraints was disabled
+		// checking constraints provided by EMF validator classes was disabled
 		// checking EMF validation constraints was disabled
 	}
 	

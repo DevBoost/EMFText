@@ -53,7 +53,6 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * with a name attribute matching the identifier.
 	 */
 	protected void resolve(java.lang.String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
-		Object targetFromCache = getCache(container).get(identifier);
 		try {
 			org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 			org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
