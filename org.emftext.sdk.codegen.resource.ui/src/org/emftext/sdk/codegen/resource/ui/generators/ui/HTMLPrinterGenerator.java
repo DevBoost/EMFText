@@ -570,14 +570,11 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public static String html2text(" + STRING_READER + " stringReader,");
-		sc.add(TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
+		sc.add("public static String html2text(" + STRING_READER + " stringReader, " + TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
 		sc.add("HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);");
 		sc.add("return html2TextReader.getString();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
 	}
-
-	
 }
