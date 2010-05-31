@@ -807,7 +807,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		//sc.add("}");
 		sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
 		sc.add("ICommand command = commands.get(c);");
-		sc.add("command.execute(parent, context);");
+		sc.add("command.execute(context);");
 		sc.add("}");
 		sc.add("commands = null;");
 		sc.add("}");
