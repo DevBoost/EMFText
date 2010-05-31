@@ -636,6 +636,7 @@
     <eLiterals name="OVERRIDE_UI_DOT_PROJECT" value="195" literal="overrideUIDotProject"/>
     <eLiterals name="UI_SOURCE_FOLDER" value="196" literal="uiSrcFolder"/>
     <eLiterals name="UI_SOURCE_GEN_FOLDER" value="197" literal="uiSrcGenFolder"/>
+    <eLiterals name="GENERATE_UI_PLUGIN" value="198" literal="generateUIPlugin"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

@@ -118,6 +118,9 @@ public class OptionManager {
 	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
+		if (option == OptionTypes.GENERATE_UI_PLUGIN) {
+			return true;
+		}
 		if (option == OptionTypes.DISABLE_EVALIDATORS) {
 			return true;
 		}

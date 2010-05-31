@@ -128,8 +128,12 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		// generate the resource class, parser, and printer
 		AbstractPluginCreator<Object> pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.create(resourcePlugin, context, null, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
-		AbstractPluginCreator<Object> uiPluginGenerator = new ResourceUIPluginContentCreator();
-		uiPluginGenerator.create(resourceUIPlugin, context, null, progress.newChild(TICKS_GENERATE_UI_RESOURCE_PLUGIN));
+		if (OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.GENERATE_UI_PLUGIN)) {
+			AbstractPluginCreator<Object> uiPluginGenerator = new ResourceUIPluginContentCreator();
+			uiPluginGenerator.create(resourceUIPlugin, context, null, progress.newChild(TICKS_GENERATE_UI_RESOURCE_PLUGIN));
+		} else {
+			progress.worked(TICKS_GENERATE_UI_RESOURCE_PLUGIN);
+		}
 
 		if (context.getGenerateANTLRPlugin()) {
 			// generate the ANTLR commons plug-in

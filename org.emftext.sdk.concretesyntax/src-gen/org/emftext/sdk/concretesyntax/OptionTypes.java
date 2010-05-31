@@ -1932,7 +1932,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UI_SOURCE_GEN_FOLDER(197, "UI_SOURCE_GEN_FOLDER", "uiSrcGenFolder");
+	UI_SOURCE_GEN_FOLDER(197, "UI_SOURCE_GEN_FOLDER", "uiSrcGenFolder"), /**
+	 * The '<em><b>GENERATE UI PLUGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GENERATE_UI_PLUGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	GENERATE_UI_PLUGIN(198, "GENERATE_UI_PLUGIN", "generateUIPlugin");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4875,6 +4883,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int UI_SOURCE_GEN_FOLDER_VALUE = 197;
 
 	/**
+	 * The '<em><b>GENERATE UI PLUGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>GENERATE UI PLUGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #GENERATE_UI_PLUGIN
+	 * @model literal="generateUIPlugin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERATE_UI_PLUGIN_VALUE = 198;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5078,6 +5101,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UI_DOT_PROJECT,
 			UI_SOURCE_FOLDER,
 			UI_SOURCE_GEN_FOLDER,
+			GENERATE_UI_PLUGIN,
 		};
 
 	/**
@@ -5323,6 +5347,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UI_DOT_PROJECT_VALUE: return OVERRIDE_UI_DOT_PROJECT;
 			case UI_SOURCE_FOLDER_VALUE: return UI_SOURCE_FOLDER;
 			case UI_SOURCE_GEN_FOLDER_VALUE: return UI_SOURCE_GEN_FOLDER;
+			case GENERATE_UI_PLUGIN_VALUE: return GENERATE_UI_PLUGIN;
 		}
 		return null;
 	}

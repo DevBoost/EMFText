@@ -53,6 +53,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_BUILDER);
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EVALIDATORS);
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_UI_PLUGIN);
 		
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
