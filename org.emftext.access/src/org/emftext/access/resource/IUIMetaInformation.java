@@ -1,6 +1,6 @@
 package org.emftext.access.resource;
 
-public interface IUIMetaInformation {
+public interface IUIMetaInformation extends IMetaInformation {
 
 	public IColorManager createColorManager();
 	

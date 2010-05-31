@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.emftext.access.resource.IMetaInformation;
+import org.emftext.access.resource.IUIMetaInformation;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -34,6 +35,7 @@ public class EMFTextAccessPlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.emftext.access";
 	public static final String EP_SYNTAX_ID = PLUGIN_ID + ".syntax";
+	public static final String EP_UI_PLUGIN_ID = EP_SYNTAX_ID + ".ui";
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
 	
 	private static EMFTextAccessPlugin plugin;
@@ -65,8 +67,8 @@ public class EMFTextAccessPlugin extends Plugin {
 	
 	private static Map<String, URI> URIToConcreteSyntaxLocationMap = null;
 	private static List<String>     concreteSyntaxNamesList = null;
-	private static boolean concreteSyntaxRegistryIsInitialized = false;
-	private static List<IMetaInformation> concreteSyntaxRegistry;
+	private static List<IMetaInformation> concreteSyntaxRegistry = null;
+	private static List<IUIMetaInformation> uiPluginRegistry = null;
 	
 	/**
 	 * Returns the concrete syntax models that are registered through generated plugins. 
@@ -108,24 +110,44 @@ public class EMFTextAccessPlugin extends Plugin {
 	}
 	
 	public static List<IMetaInformation> getConcreteSyntaxRegistry() {
-		if (!concreteSyntaxRegistryIsInitialized) {
+		if (concreteSyntaxRegistry == null) {
 			concreteSyntaxRegistry = new ArrayList<IMetaInformation>();
-			concreteSyntaxRegistryIsInitialized = true;
 			// check for syntax extensions
-			if (Platform.isRunning()) {
-				org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
-				org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.access.EMFTextAccessPlugin.EP_SYNTAX_ID);
-				for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
-					try {
-						Object metaInformation = element.createExecutableExtension("class");
-						registerConcreteSyntax(metaInformation);
-					} catch (CoreException ce) {
-						org.emftext.access.EMFTextAccessPlugin.logError("Exception while registering syntax extension.", ce);
-					}
-				}
+			List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_SYNTAX_ID);
+			for (Object metaInformation : extensions) {
+				registerConcreteSyntax(metaInformation);
 			}
 		}
 		return concreteSyntaxRegistry;
+	}
+
+	public static List<IUIMetaInformation> getUIPluginRegistry() {
+		if (uiPluginRegistry == null) {
+			uiPluginRegistry = new ArrayList<IUIMetaInformation>();
+			// check for UI plug-in extensions
+			List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_UI_PLUGIN_ID);
+			for (Object uiMetaInformation : extensions) {
+				registerUIPlugin(uiMetaInformation);
+			}
+		}
+		return uiPluginRegistry;
+	}
+
+	private static List<Object> findExtensions(String extensionPointID) {
+		List<Object> extensions = new ArrayList<Object>();
+		if (Platform.isRunning()) {
+			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
+			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(extensionPointID);
+			for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
+				try {
+					Object extension = element.createExecutableExtension("class");
+					extensions.add(extension);
+				} catch (CoreException ce) {
+					org.emftext.access.EMFTextAccessPlugin.logError("Exception while registering syntax extension.", ce);
+				}
+			}
+		}
+		return extensions;
 	}
 
 	public static void registerConcreteSyntax(
@@ -133,6 +155,13 @@ public class EMFTextAccessPlugin extends Plugin {
 		IMetaInformation accessProxy = 
 			(IMetaInformation) EMFTextAccessProxy.get(metaInformation, IMetaInformation.class);
 		 getConcreteSyntaxRegistry().add(accessProxy);
+	}
+
+	public static void registerUIPlugin(
+			Object uiMetaInformation) {
+		IUIMetaInformation accessProxy = 
+			(IUIMetaInformation) EMFTextAccessProxy.get(uiMetaInformation, IUIMetaInformation.class);
+		 getUIPluginRegistry().add(accessProxy);
 	}
 
 	/**
