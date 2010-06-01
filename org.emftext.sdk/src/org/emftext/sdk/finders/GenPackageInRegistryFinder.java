@@ -68,12 +68,18 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		        			}
 		            	}
 			    	} catch (Exception e ) {
+			    		String uriString = genModelURI.toString();
 			    		// ignore FileNotFoundException caused by the org.eclipse.m2m.qvt.oml plug-in
 			    		// this plug-in does not contain the generator models it registers
 			    		// this is a workaround for Eclipse Bug 288208
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=288208
-			    		if (!genModelURI.toString().startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml")) {
-				    		EMFTextSDKPlugin.logWarning("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
+			    		//
+			    		// do also ignore FileNotFoundException caused by some ATL plug-ins
+						if (!uriString.startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.model/model/ATL-Profiler.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.exportmodel/model/exportmodel.genmodel")
+							) {
+				    		EMFTextSDKPlugin.logWarning("Exception while looking up generator model (" + nextNS + ") at " + uriString + " in the registry.", e);
 			    		}
 			    	}
 		        }
