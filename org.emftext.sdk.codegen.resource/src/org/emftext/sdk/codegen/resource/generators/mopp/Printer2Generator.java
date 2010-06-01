@@ -653,8 +653,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addComment("retrieve all tokens from scanner and add them to list 'tempTokens'");
 		sc.add(LIST + "<" + iTextTokenClassName + "> tempTokens = new " + ARRAY_LIST + "<" + iTextTokenClassName + ">();");
 		sc.add(iTextTokenClassName  + " nextToken = scanner.getNextToken();");
-		sc.add("while (nextToken != null) {");
+		sc.add("while (nextToken != null && nextToken.getText() != null) {");
 		sc.add("tempTokens.add(nextToken);");
+		sc.add("nextToken = scanner.getNextToken();");
 		sc.add("}");
 		
 		sc.add("boolean sequenceIsValid = true;");
@@ -667,7 +668,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("break;");
 		sc.add("}");
 		sc.add("String commonTokenName = tempToken.getName();");
-		sc.add("if (!commonTokenName.equals(printTokenT.getTokenName())) {");
+		// TODO this is a hack to remove the single quotes used by ANTLR for keyword tokens
+		sc.add("String printTokenName = printTokenT.getTokenName().replace(\"'\", \"\");");
+		sc.add("if (!commonTokenName.equals(printTokenName)) {");
 		sc.add("sequenceIsValid = false;");
 		sc.add("break;");
 		sc.add("}");
