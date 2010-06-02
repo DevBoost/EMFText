@@ -67,7 +67,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 								registerSubGenPackages(genPackage);
 		        			}
 		            	}
-			    	} catch (Exception e ) {
+			    	} catch (Exception e) {
 			    		String uriString = genModelURI.toString();
 			    		// ignore FileNotFoundException caused by the org.eclipse.m2m.qvt.oml plug-in
 			    		// this plug-in does not contain the generator models it registers
@@ -75,6 +75,8 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=288208
 			    		//
 			    		// do also ignore FileNotFoundException caused by some ATL plug-ins
+			    		// this is a workaround for Eclipse Bug 315376
+			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=315376
 						if (!uriString.startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.model/model/ATL-Profiler.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.exportmodel/model/exportmodel.genmodel")
