@@ -28,6 +28,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 
 	private void addFields(StringComposite sc) {
 		sc.add("private final " + syntaxElementClassName + " syntaxElement;");
+		sc.add("private final int startOffset;");
 		sc.add("private final " + STRING + " hiddenTokenText;");
 		sc.add("private final " + STRING + " visibleTokenText;");
 		sc.add("private " + OBJECT + " object;");
@@ -36,10 +37,11 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, " + STRING + " hiddenTokenText, " + STRING + " visibleTokenText) {");
+		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, int startOffset, " + STRING + " hiddenTokenText, " + STRING + " visibleTokenText) {");
 		sc.add("super();");
 		sc.add("this.syntaxElement = syntaxElement;");
 		sc.add("this.object = object;");
+		sc.add("this.startOffset = startOffset;");
 		sc.add("this.hiddenTokenText = hiddenTokenText;");
 		sc.add("this.visibleTokenText = visibleTokenText;");
 		sc.add("}");
@@ -48,6 +50,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 
 	private void addMethods(JavaComposite sc) {
 		addGetSyntaxElementMethod(sc);
+		addGetStartOffsetMethod(sc);
 		addGetObjectMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
 		addGetVisibleTokenTextMethod(sc);
@@ -57,6 +60,13 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addGetSyntaxElementMethod(StringComposite sc) {
 		sc.add("public " + syntaxElementClassName + " getSyntaxElement() {");
 		sc.add("return syntaxElement;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetStartOffsetMethod(StringComposite sc) {
+		sc.add("public int getStartOffset() {");
+		sc.add("return startOffset;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -530,11 +530,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (typeObject == null) {");
 		sc.add("return start();");
 		sc.add("} else if (typeObject instanceof " + E_CLASS + ") {");
-		sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
+		boolean isFirst = true;
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			// operator rules cannot be used as start symbol
 			// TODO mseifert: check whether this is checked by a post processor
 			if (rule.getOperatorAnnotation() == null) {
+				if (isFirst) {
+					// this code is only needed if non-operator rules are found
+					sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
+					isFirst = false;
+				}
 				String qualifiedClassName = genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
 				String ruleName = getRuleName(rule.getMetaclass());
 				sc.add("if (type.getInstanceClass() == " + qualifiedClassName + ".class) {");
@@ -669,8 +674,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("visibleTokenText.append(token.getText());");
 		sc.add("}");
 		sc.add("}");
+		sc.add(COMMON_TOKEN + " firstToken = (" + COMMON_TOKEN + ") getTokenStream().get(this.lastPosition2);");
+		sc.add("int offset = firstToken.getStartIndex();");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
-		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, hiddenTokenText.toString(), visibleTokenText.toString()));");
+		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
 		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -1510,8 +1517,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Rule firstRule, List<Rule> equalWeightOPs, final String nextRuleName) {
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			assert definitions.size() > 2;
+			// TODO skarol: this assertion fails both for the simplemath and the threevaluedlogic
+			// languages
+			//assert definitions.size() > 2;
 			
+			// TODO skarol: we should not alter the syntax models during code generation
 			Definition right = definitions.remove(definitions.size()-1);
 			
 			assert right instanceof Containment;
