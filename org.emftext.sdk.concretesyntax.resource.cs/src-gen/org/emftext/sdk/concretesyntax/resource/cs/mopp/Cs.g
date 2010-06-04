@@ -674,8 +674,10 @@ options {
 				visibleTokenText.append(token.getText());
 			}
 		}
+		org.antlr.runtime3_2_0.CommonToken firstToken = (org.antlr.runtime3_2_0.CommonToken) getTokenStream().get(this.lastPosition2);
+		int offset = firstToken.getStartIndex();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
-		layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, hiddenTokenText.toString(), visibleTokenText.toString()));
+		layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));
 		this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);
 	}
 	

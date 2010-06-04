@@ -23,8 +23,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilder();
 	
-	@SuppressWarnings("unchecked")	
-	public org.eclipse.core.resources.IProject[] build(int kind, java.util.Map args, final org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
+	public org.eclipse.core.resources.IProject[] build(int kind, @SuppressWarnings("rawtypes") java.util.Map args, final org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 		return build(kind, args, monitor, builder, getProject());
 	}
 	

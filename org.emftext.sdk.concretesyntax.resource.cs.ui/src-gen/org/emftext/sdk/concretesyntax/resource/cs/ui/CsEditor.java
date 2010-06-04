@@ -120,8 +120,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		setEditorContextMenuId("org.emftext.sdk.concretesyntax.resource.cs.EditorContext");
 	}
 	
-	@SuppressWarnings("unchecked")	
-	public java.lang.Object getAdapter(Class required) {
+	public java.lang.Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 		if (org.eclipse.ui.views.contentoutline.IContentOutlinePage.class.equals(required)) {
 			return getOutlinePage();
 		} else if (required.equals(org.eclipse.ui.views.properties.IPropertySheetPage.class)) {

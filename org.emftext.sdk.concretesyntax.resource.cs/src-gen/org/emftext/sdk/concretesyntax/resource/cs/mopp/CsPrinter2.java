@@ -437,6 +437,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		String tokenName = placeholder.getTokenName();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 		tokenResolver.setOptions(getOptions());
+		@SuppressWarnings("rawtypes")		
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver referenceResolver = getReferenceResolverSwitch().getResolver(reference);
 		referenceResolver.setOptions(getOptions());
 		java.lang.String deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) referencedObject, eObject, reference);
@@ -606,8 +607,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			// retrieve all tokens from scanner and add them to list 'tempTokens'
 			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> tempTokens = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken nextToken = scanner.getNextToken();
-			while (nextToken != null) {
+			while (nextToken != null && nextToken.getText() != null) {
 				tempTokens.add(nextToken);
+				nextToken = scanner.getNextToken();
 			}
 			boolean sequenceIsValid = true;
 			// check whether the current block was scanned to the same token sequence
@@ -619,7 +621,8 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					break;
 				}
 				String commonTokenName = tempToken.getName();
-				if (!commonTokenName.equals(printTokenT.getTokenName())) {
+				String printTokenName = printTokenT.getTokenName().replace("'", "");
+				if (!commonTokenName.equals(printTokenName)) {
 					sequenceIsValid = false;
 					break;
 				}
