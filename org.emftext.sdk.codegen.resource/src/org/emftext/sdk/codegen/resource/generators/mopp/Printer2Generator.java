@@ -488,6 +488,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("String tokenName = placeholder.getTokenName();");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
 		

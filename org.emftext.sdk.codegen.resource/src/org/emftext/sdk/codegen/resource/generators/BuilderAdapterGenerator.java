@@ -42,8 +42,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addBuildMethod1(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
-		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
+		sc.add("public " + I_PROJECT + "[] build(int kind, @SuppressWarnings(\"rawtypes\") " + MAP + " args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
 		sc.add("return build(kind, args, monitor, builder, getProject());");
 		sc.add("}");
 		sc.addLineBreak();

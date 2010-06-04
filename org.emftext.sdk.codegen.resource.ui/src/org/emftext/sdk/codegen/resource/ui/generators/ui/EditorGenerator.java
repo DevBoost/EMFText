@@ -462,9 +462,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetAdapterMethod(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.addLineBreak();
-		sc.add("public " + OBJECT + " getAdapter(Class required) {");
+		sc.add("public " + OBJECT + " getAdapter(@SuppressWarnings(\"rawtypes\") Class required) {");
 		sc.add("if (" + I_CONTENT_OUTLINE_PAGE + ".class.equals(required)) {");
 		sc.add("return getOutlinePage();");
 		sc.add("} else if (required.equals(" + I_PROPERTY_SHEET_PAGE + ".class)) {");
