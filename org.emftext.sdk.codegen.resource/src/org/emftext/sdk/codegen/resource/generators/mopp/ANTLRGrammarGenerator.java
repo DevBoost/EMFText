@@ -280,9 +280,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void addMethods(String lexerName, String parserName,
 			ANTLRGrammarComposite sc) {
-		generatorUtil.addAddErrorToResourceMethod(sc, getContext());
+		GenerationContext context = getContext();
+		
+		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddExpectedElementMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getContext());
+		generatorUtil.addAddMapEntryMethod(sc, context);
 		generatorUtil.addAddObjectToListMethod(sc);
 		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
@@ -296,16 +298,15 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addGetMismatchedTokenRecoveryTriesMethod(sc);
 		addGetMissingSymbolMethod(sc);
 		addGetOptionsMethod(sc);
-    	getContext().addGetMetaInformationMethod(sc);
+    	context.addGetMetaInformationMethod(sc);
 		addGetParseToIndexTypeObjectMethod(sc);
-		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
 		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
-		generatorUtil.addRegisterContextDependentProxyMethod(sc,
-				contextDependentUriFragmentFactoryClassName, true, getContext());
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, context);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -385,7 +386,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("} else {");
 		sc.add("tokenName = getTokenNames()[mtne.expecting];");
 		sc.add("}");
-		sc.add("message = \"mismatched tree node: \"+\"xxx\" +\"; expecting \" + tokenName;");
+		sc.add("message = \"mismatched tree node: \" + \"xxx\" + \"; expecting \" + tokenName;");
 		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
 		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
 		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
@@ -398,7 +399,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
 		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
 		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText+\"}?\";");
+		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText + \"}?\";");
 		sc.add("}");
 		
 		sc.addComment("the resource may be null if the parse is used for code completion");
@@ -1064,6 +1065,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private List<CompleteTokenDefinition> collectCollectTokenDefinitions(

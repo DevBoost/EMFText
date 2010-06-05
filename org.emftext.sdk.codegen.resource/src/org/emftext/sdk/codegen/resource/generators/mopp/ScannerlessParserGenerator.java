@@ -265,7 +265,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		generatorUtil.addRegisterContextDependentProxyMethod(sc, contextDependentUriFragmentFactoryClassName, false, getContext());
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, false, getContext());
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -459,7 +459,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		addDiscardTokensMethod(sc);
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, dummyEObjectClassName, getContext());
+		generatorUtil.addAddMapEntryMethod(sc, getContext());
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);

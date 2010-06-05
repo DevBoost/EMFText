@@ -115,15 +115,16 @@ public class GeneratorUtil {
 		sc.add("completedElement(" + expressionToBeSet + ", " + isContainment + ");");
 	}
 
-	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, GenerationContext context) {
-		String mapUtil = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
+	public void addAddMapEntryMethod(StringComposite sc, GenerationContext context) {
+		String dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
+		String mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
 
-		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + qualifiedDummyEObjectClassName + " dummy) {");
+		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + dummyEObjectClassName + " dummy) {");
 		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
 		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
 		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
 		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + mapUtil  + ".castToEMap(value);");
+		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + mapUtilClassName  + ".castToEMap(value);");
 		sc.add("if (mapKey != null && mapValue != null) {");
 		sc.add("valueMap.put(mapKey, mapValue);");
 		sc.add("}");
@@ -149,19 +150,20 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(JavaComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, GenerationContext context) {
-		String iCommand = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
-		String iTextResource = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
+	public void addRegisterContextDependentProxyMethod(JavaComposite sc, boolean addTypeParameters, GenerationContext context) {
+		String iCommandClassName = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
+		String iTextResourceClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
+		String contextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 
 		String typeParameters = "";
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
 		}
-		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + contextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
 				+ " proxy) {");
 
-		sc.add("postParseCommands.add(new " + iCommand + "<" + iTextResource + ">() {");
-		sc.add("public boolean execute(" + iTextResource + " resource) {");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
