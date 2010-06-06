@@ -35,7 +35,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  * to preserve layout information that was gathered during parsing.
  * 
  * TODO use two separate classes to store layout information. One class for
- *      keywords and NC-reference, another one for attributes. The former
+ *      keywords and NC-references, another one for attributes. The former
  *      do not need the field 'object' and 'visibleTokenText' as these are
  *      never used. The latter can use the current generator for the class
  *      LayoutInformation.
@@ -182,7 +182,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("startedPrintingElement = true;");
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
 			Rule rule = ruleQueue.remove();
@@ -249,7 +248,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean handleTokenSpaceAutomatically = " + handleTokenSpaceAutomatically + ";");
 		sc.add("private int tokenSpace = " + getTokenSpace() + ";");
-		sc.add("private boolean startedPrintingElement = false;");
+		sc.add("private boolean beforeFirstElementToPrint = false;");
 		sc.addLineBreak();
 	}
 
@@ -519,7 +518,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("layoutInformations.remove(layoutInformation);");
 		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
 		sc.add("foundFormattingElements.clear();");
-		sc.add("startedPrintingElement = false;");
+		sc.add("beforeFirstElementToPrint = false;");
 		sc.add("return;");
 		sc.add("}");
 		// (b) if Whitespace or LineBreak elements were found, print those
@@ -540,12 +539,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("foundFormattingElements.clear();");
-		sc.add("startedPrintingElement = false;");
+		sc.add("beforeFirstElementToPrint = false;");
 		sc.add("} else {");
 		// (c) if not, print default token space, but only if automatic token
 		//     space handling is disabled
-		sc.add("if (startedPrintingElement) {");
-		sc.add("startedPrintingElement = false;");
+		sc.add("if (beforeFirstElementToPrint) {");
+		sc.addComment(
+			"if no elements have been printed yet, we do not add the default token space, " +
+			"because spaces before the first element are not desired.");
+		sc.add("beforeFirstElementToPrint = false;");
 		sc.add("} else {");
 		sc.add("if (!handleTokenSpaceAutomatically) {");
 		sc.add("tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));");
@@ -561,7 +563,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addComment("get value of feature");
 		sc.add(OBJECT + " o = eObject.eGet(feature);");
 		sc.add("if (o instanceof " + LIST + "<?>) {");
-		sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
+		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
 		sc.add("int index = list.size() - count;");
 		sc.add("o = list.get(index);");
 		sc.add("}");
@@ -573,6 +575,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintMethod(JavaComposite sc) {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
 		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
+		sc.add("beforeFirstElementToPrint = true;");
 		sc.add("doPrint(element);");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
