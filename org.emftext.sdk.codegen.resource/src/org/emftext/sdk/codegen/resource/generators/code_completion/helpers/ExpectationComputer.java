@@ -120,8 +120,11 @@ public class ExpectationComputer {
 		}
 		
 		EReference reference = syntaxElement.eContainmentFeature();
-		SyntaxElement container = (SyntaxElement) syntaxElement.eContainer();
+		EObject container = syntaxElement.eContainer();
 		if (container == null) {
+			return result;
+		}
+		if (container instanceof ConcreteSyntax) {
 			return result;
 		}
 		if (container instanceof Rule) {
@@ -155,7 +158,7 @@ public class ExpectationComputer {
 		} else if (container instanceof Choice) {
 			// we need to skip choices because the other alternatives in
 			// a choice must not be included in the FOLLOW set
-			result.addAll(computeFollowSet(syntax, container, usedRules, contributingNonterminals));
+			result.addAll(computeFollowSet(syntax, (Choice) container, usedRules, contributingNonterminals));
 		} else {
 			Object children = container.eGet(reference);
 			// search the next element to the right in the syntax rule tree
