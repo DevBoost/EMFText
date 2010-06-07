@@ -125,7 +125,7 @@ public class OptionManager {
 			return true;
 		}
 		if (option == OptionTypes.USE_CLASSIC_PRINTER) {
-			return true;
+			return false;
 		}
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;

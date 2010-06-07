@@ -303,6 +303,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("} else if (syntaxElement instanceof " + terminalClassName + ") {");
 		sc.add(terminalClassName + " terminal = (" + terminalClassName + ") syntaxElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = terminal.getFeature();");
+		sc.add("if (feature == " + grammarInformationProviderClassName + ".ANONYMOUS_FEATURE) {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add("int countLeft = printCountingMap.get(feature.getName());");
 		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
 		sc.add("decorator.addIndexToPrint(countLeft);");
