@@ -17,12 +17,12 @@ public abstract class AbstractGenerator<ContextType extends IContext, ParameterT
 		super();
 	}
 
-	private void init(ContextType context, ParameterType parameters) {
+	protected void init(ContextType context, ParameterType parameters) {
 		this.context = context;
 		this.parameters = parameters;
 	}
 	
-	public final void generate(ContextType context, ParameterType parameters, OutputStream stream) {
+	public void generate(ContextType context, ParameterType parameters, OutputStream stream) {
 		init(context, parameters);
 		
 		PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
@@ -32,11 +32,13 @@ public abstract class AbstractGenerator<ContextType extends IContext, ParameterT
 	}
 
 	public void doGenerate(OutputStream stream) {
-		// can be overridden by subclasses
+		// must be overridden by subclasses
+		throw new UnsupportedOperationException("Method doGenerate(OutputStream) must be overridden by subclasses");
 	}
 
 	public void doGenerate(PrintWriter out) {
-		// can be overridden by subclasses
+		// must be overridden by subclasses
+		throw new UnsupportedOperationException("Method doGenerate(PrintWriter) must be overridden by subclasses");
 	}
 
 	/**

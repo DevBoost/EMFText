@@ -25,7 +25,9 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 	}
 
 	@Override
-	public void doGenerate(OutputStream outputStream) {
+	public final void generate(NewProjectGenerationContext context, SimpleParameter<NewProjectGenerationContext, String> parameters, OutputStream outputStream) {
+		init(context, parameters);
+		
 		EObject generatedModel = generateModel();
 		ResourceSet rs = new ResourceSetImpl();
 		String modelPath = getModelPath();

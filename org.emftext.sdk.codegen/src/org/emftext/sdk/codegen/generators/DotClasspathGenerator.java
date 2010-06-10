@@ -34,8 +34,6 @@ public class DotClasspathGenerator<ContextType extends IContext> extends Abstrac
 
 	@Override
 	public void doGenerate(PrintWriter out) {
-		super.doGenerate(out);
-		
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
