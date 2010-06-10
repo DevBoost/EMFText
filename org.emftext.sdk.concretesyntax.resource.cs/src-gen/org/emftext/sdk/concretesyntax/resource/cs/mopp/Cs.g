@@ -497,6 +497,7 @@ options {
 			return null;
 		}
 	}
+	
 	protected <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, final ContainerType element, final org.eclipse.emf.ecore.EReference reference, final String id, final org.eclipse.emf.ecore.EObject proxy) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -533,7 +534,7 @@ options {
 			} else {
 				tokenName = getTokenNames()[mtne.expecting];
 			}
-			message = "mismatched tree node: "+"xxx" +"; expecting " + tokenName;
+			message = "mismatched tree node: " + "xxx" + "; expecting " + tokenName;
 		} else if (e instanceof org.antlr.runtime3_2_0.NoViableAltException) {
 			message = "Syntax error on token \"" + e.token.getText() + "\", check following tokens";
 		} else if (e instanceof org.antlr.runtime3_2_0.EarlyExitException) {
@@ -546,7 +547,7 @@ options {
 			message = "mismatched token: " +  e.token + "; expecting set " + mse.expecting;
 		} else if (e instanceof org.antlr.runtime3_2_0.FailedPredicateException) {
 			org.antlr.runtime3_2_0.FailedPredicateException fpe = (org.antlr.runtime3_2_0.FailedPredicateException) e;
-			message = "rule " + fpe.ruleName + " failed predicate: {" +  fpe.predicateText+"}?";
+			message = "rule " + fpe.ruleName + " failed predicate: {" +  fpe.predicateText + "}?";
 		}
 		// the resource may be null if the parse is used for code completion
 		final java.lang.String finalMessage = message;

@@ -33,7 +33,7 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, resource);
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter2(outputStream, resource);
 	}
 	
 	public org.eclipse.emf.ecore.EClass[] getClassesWithSyntax() {

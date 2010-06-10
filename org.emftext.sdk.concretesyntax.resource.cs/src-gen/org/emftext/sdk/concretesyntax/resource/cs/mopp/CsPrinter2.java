@@ -50,7 +50,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean handleTokenSpaceAutomatically = false;
 	private int tokenSpace = 0;
-	private boolean startedPrintingElement = false;
+	private boolean beforeFirstElementToPrint = false;
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -60,6 +60,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
 		tokenOutputStream = new java.util.ArrayList<PrintToken>();
+		beforeFirstElementToPrint = true;
 		doPrint(element);
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		if (handleTokenSpaceAutomatically) {
@@ -78,7 +79,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			throw new java.lang.IllegalArgumentException("Nothing to write on.");
 		}
 		
-		startedPrintingElement = true;
 		if (element instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0);
 			return;
@@ -242,6 +242,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			} else if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) {
 				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) syntaxElement;
 				org.eclipse.emf.ecore.EStructuralFeature feature = terminal.getFeature();
+				if (feature == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
+					return false;
+				}
 				int countLeft = printCountingMap.get(feature.getName());
 				if (countLeft > terminal.getMandatoryOccurencesAfter()) {
 					decorator.addIndexToPrint(countLeft);
@@ -383,7 +386,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			layoutInformations.remove(layoutInformation);
 			tokenOutputStream.add(new PrintToken(hiddenTokenText, null));
 			foundFormattingElements.clear();
-			startedPrintingElement = false;
+			beforeFirstElementToPrint = false;
 			return;
 		}
 		if (foundFormattingElements.size() > 0) {
@@ -403,10 +406,12 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				}
 			}
 			foundFormattingElements.clear();
-			startedPrintingElement = false;
+			beforeFirstElementToPrint = false;
 		} else {
-			if (startedPrintingElement) {
-				startedPrintingElement = false;
+			if (beforeFirstElementToPrint) {
+				// if no elements have been printed yet, we do not add the default token space,
+				// because spaces before the first element are not desired.
+				beforeFirstElementToPrint = false;
 			} else {
 				if (!handleTokenSpaceAutomatically) {
 					tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));
