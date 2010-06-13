@@ -287,7 +287,7 @@ public class ConcreteSyntaxItemProvider
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
@@ -301,8 +301,8 @@ public class ConcreteSyntaxItemProvider
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__GEN_CLASS_CACHE);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ECLASS_UTIL);
+			//childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__GEN_CLASS_CACHE);
+			//childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ECLASS_UTIL);
 		}
 		return childrenFeatures;
 	}
