@@ -73,6 +73,7 @@ public enum ECsProblemType {
 	UNUSED_RESOLVER_CLASS(CsEProblemType.WARNING), 
 	UNUSED_TOKEN(CsEProblemType.WARNING), 
 	AUTOMATIC_TOKEN_SPACE_CONFLICT_WITH_CLASSIC_PRINTER(CsEProblemType.ERROR),
+	EMPTY_COMPOUND(CsEProblemType.ERROR), 
 	;
 
 	private CsEProblemType problemType;
