@@ -174,7 +174,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + E_OBJECT + " element) {");
+		sc.add("protected void doPrint(" + E_OBJECT + " element, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements) {");
 		sc.add("if (element == null) {");
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
 		sc.add("}");
@@ -191,7 +191,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 				ruleQueue.add(rule);
 			} else {
 				sc.add("if (element instanceof " + getMetaClassName(rule) + ") {");
-				sc.add("printInternal(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ");");
+				sc.add("printInternal(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", foundFormattingElements);");
 				sc.add("return;");
 				sc.add("}");
 			}
@@ -253,7 +253,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintInternalMethod(JavaComposite sc) {
-		sc.add("public void printInternal(" + E_OBJECT + " eObject, " + syntaxElementClassName + " ruleElement) {");
+		sc.add("public void printInternal(" + E_OBJECT + " eObject, " + syntaxElementClassName + " ruleElement, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
 		sc.add(LIST + "<" + layoutInformationClassName + "> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();");
 		sc.addComment(
@@ -264,7 +264,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("layoutInformations.addAll(originalLayoutInformations);");
 		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(ruleElement);");
 		sc.add("decorateTree(decoratorTree, eObject);");
-		sc.add("printTree(decoratorTree, eObject, new " + ARRAY_LIST + "<" + formattingElementClassName + ">(), layoutInformations);");
+		sc.add("printTree(decoratorTree, eObject, foundFormattingElements, layoutInformations);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -513,7 +513,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
-		sc.add("doPrint((" + E_OBJECT + ") o);");
+		sc.add("doPrint((" + E_OBJECT + ") o, foundFormattingElements);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -586,7 +586,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
 		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
 		sc.add("beforeFirstElementToPrint = true;");
-		sc.add("doPrint(element);");
+		sc.add("doPrint(element, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
 		sc.add("printSmart(writer);");
