@@ -71,10 +71,9 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.util.StringUtil;
 
 /**
- * A generator that creates the class for the printer.
+ * A generator that creates the class for the classic printer.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
@@ -253,11 +252,13 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("protected " + iTokenResolverFactoryClassName + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
-		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
+		sc.addJavadoc(
+			"Holds the resource that is associated with this printer. may be null if the printer is used stand alone."
+		);
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
@@ -650,7 +651,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			ListIterator<Definition> definitionIterator, String printPrefix,
 			CsString keyword) {
 		sc.add(printPrefix + "\""
-				+ StringUtil.escapeToJavaString(keyword.getValue())
+				//+ StringUtil.escapeToJavaString(keyword.getValue())
+				+ keyword.getValue().replace("\"", "\\\"") // we do not escape keywords, because they are already escaped
 				+ "\");");
 
 		// the given tokenSpace (>0) causes an additional

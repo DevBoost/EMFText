@@ -432,8 +432,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("String value = keyword.getValue();");
-		// using single quotes to obtain the token name here is ANTLR specific
-		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + value + \"'\"));");
+		// TODO this replacements can be removed once the CsQUOTED_34_34_92TokenResolver
+		// has been fixed
+		sc.add("value = value.replace(\"\\\\n\", \"\\n\");");
+		sc.add("value = value.replace(\"\\\\r\", \"\\r\");");
+		sc.add("value = value.replace(\"\\\\t\", \"\\t\");");
+		sc.add("value = value.replace(\"\\\\b\", \"\\b\");");
+		sc.add("value = value.replace(\"\\\\f\", \"\\f\");");
+		// TODO using single quotes to obtain the token name here is ANTLR specific
+		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + keyword.getValue().replace(\"'\", \"\\\\'\") + \"'\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -676,7 +683,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("String commonTokenName = tempToken.getName();");
 		// TODO this is a hack to remove the single quotes used by ANTLR for keyword tokens
-		sc.add("String printTokenName = printTokenT.getTokenName().replace(\"'\", \"\");");
+		sc.add("String printTokenName = printTokenT.getTokenName();");
+		sc.add("if (printTokenName.length() > 2 && printTokenName.startsWith(\"'\") && printTokenName.endsWith(\"'\")) {");
+		sc.add("printTokenName = printTokenName.substring(1, printTokenName.length() - 1);");
+		sc.add("}");
 		sc.add("if (!commonTokenName.equals(printTokenName)) {");
 		sc.add("sequenceIsValid = false;");
 		sc.add("break;");

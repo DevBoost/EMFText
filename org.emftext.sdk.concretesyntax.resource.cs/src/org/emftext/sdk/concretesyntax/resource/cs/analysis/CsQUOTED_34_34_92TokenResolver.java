@@ -16,6 +16,16 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 
+// TODO this resolver is buggy. it does escape and unescape backslashes
+// and double quotes, but it does not correctly handle escape sequences
+// such as \n, \r or \t. Calls to resolve() should replace such sequences
+// with the actual character (newline, return or tab). Calls to deResolve()
+// should correctly escape such special characters.
+//
+// If this resolver is fixed, the code generation may fail, because some
+// of the generators rely on this (faulty) behavior. Nonetheless, this bug
+// should be fixed to obtain consistent values for the attributes that
+// are parsed using this token.
 public class CsQUOTED_34_34_92TokenResolver implements ICsTokenResolver {
 	
 	private CsDefaultTokenResolver defaultTokenResolver = new CsDefaultTokenResolver();

@@ -37,10 +37,39 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addConstants(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addCapitalizeMethod(sc);
+		addGetMissingTailMethod(sc);
+		addConvertAllCapsToCamelCaseMethod(sc);
+		addExplodeMethod(sc);
+		addFormatTokenNameMethod(sc);
+		addGetLineMethod(sc);
+		addGetCharPositionInLineMethod(sc);
+		addGetLineAndCharPositionMethod(sc);
+		addEscapeQuotesMethod(sc);
+		addConvertCamelCaseToAllCapsMethod(sc);
+		addEscapeToJavaStringMethod(sc);
+		addEscapeToJavaStringInANTLRGrammarMethod(sc);
+		addEscapeToANTLRKeywordMethod(sc);
+		addEscapeToANTLRKeywordComplexMethod(sc);
+		addIsUnicodeSequenceMethod(sc);
+		addMatchCamelCaseMethod(sc);
+	}
+
+	private void addConstants(JavaComposite sc) {
 		sc.add("public final static String HEX_DIGIT_REGEXP = \"[0-9a-fA-F]\";");
-		sc.add("public final static String UNICODE_SEQUENCE_REGEXP = \"\\\\A\\\\\\\\u\" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;");
+		sc.add("public final static String UNICODE_SEQUENCE_REGEXP = \"\\\\\\\\u\" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;");
+		sc.add("public final static String ESC_OTHER = \"\\\\\\\\(n|r|t|b|f|\\\"|'|>)\";");
+		sc.add("public final static String ESC_REGEXP = \"\\\\A((\" + UNICODE_SEQUENCE_REGEXP + \")|(\" + ESC_OTHER + \")).*\";");
 		sc.addLineBreak();
-		
+	}
+
+	private void addCapitalizeMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Capitalizes the first letter of the given string.",
 			"@param text the string to capitalize.",
@@ -52,7 +81,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return h + t;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetMissingTailMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the part of 'tail' that is not present at the end of " +
 			"'text'. For example if text = 'abc' and tail = 'cd' this method " +
@@ -73,7 +104,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return tail;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addConvertAllCapsToCamelCaseMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Converts a string that contains upper-case letter and " +
 			"underscores (e.g., constant names) to a camel-case string. " +
@@ -107,7 +140,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return lowerCase;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addExplodeMethod(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
 		sc.add("public static String explode(" + COLLECTION + "<String> parts, String glue) {");
 		sc.add("StringBuilder sb = new StringBuilder();");
@@ -122,7 +157,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return sb.toString();");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addFormatTokenNameMethod(JavaComposite sc) {
 		sc.addJavadoc("Removes single quotes at the start and end of tokenName.");
 		sc.add("public static String formatTokenName(String tokenName) {");
 		sc.add("if (tokenName.length() > 0 && tokenName.startsWith(\"'\")) {");
@@ -134,14 +171,23 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetLineMethod(JavaComposite sc) {
 		sc.add("public static int getLine(String text, int offset) {");
 		sc.add("return getLineAndCharPosition(text, offset)[0];");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetCharPositionInLineMethod(JavaComposite sc) {
 		sc.add("public static int getCharPositionInLine(String text, int offset) {");
 		sc.add("return getLineAndCharPosition(text, offset)[1];");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetLineAndCharPositionMethod(JavaComposite sc) {
 		sc.add("public static Integer[] getLineAndCharPosition(String text, int offset) {");
 		sc.add("int index = 0;");
 		sc.add("int line = 0;");
@@ -175,6 +221,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return new Integer[] {line, positionInLine};");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addEscapeQuotesMethod(JavaComposite sc) {
 		sc.add("public static String escapeQuotes(String s) {");
 		sc.add("s = s.replace(\"\\\\\", \"\\\\\\\\\");");
 		sc.add("s = s.replace(\"\\\"\", \"\\\\\\\"\");");
@@ -182,6 +231,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return s;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addConvertCamelCaseToAllCapsMethod(JavaComposite sc) {
 		sc.add("public static String convertCamelCaseToAllCaps(String qualifiedClassName) {");
 		sc.add("StringBuffer sb = new StringBuffer();");
 		sc.add("final char[] charArray = qualifiedClassName.toCharArray();");
@@ -203,7 +255,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return sb.toString();");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addEscapeToJavaStringMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Escapes the given text such that it can be safely embedded in a string " +
 			"literal in Java source code.",
@@ -212,10 +266,12 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		);
 		sc.add("public static String escapeToJavaString(String text) {");
 		sc.addComment("for javac: replace one backslash by two and escape double quotes");
-		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\").replaceAll(\"\\\"\", \"\\\\\\\\\\\"\");");
+		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\").replaceAll(\"\\\"\", \"\\\\\\\\\\\"\").replace(\"\\n\", \"\\\\n\").replace(\"\\r\", \"\\\\r\").replace(\"\\t\", \"\\\\t\");");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addEscapeToJavaStringInANTLRGrammarMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Escapes the given text such that it can be safely embedded in a string "+ 
 			"literal in the Java source code contained in an ANTLR grammar. This " +
@@ -234,7 +290,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return escapeToJavaString(text.replaceAll(\"'\", \"\\\\'\")).replace(\"%\", \"\\u0025\");");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addEscapeToANTLRKeywordMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Escapes the given text such that it can be safely embedded in an " +
 			"ANTLR grammar as keyword (i.e., an in-line token). Single quotes " +
@@ -244,32 +302,66 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToANTLRKeyword(String value) {");
-		sc.add("String result = value;");
-		sc.add("int index = result.indexOf(\"\\\\\");");
-		sc.add("while (index >= 0) {");
-		sc.add("String tail = result.substring(index);");
-		sc.add("if (!tail.matches(UNICODE_SEQUENCE_REGEXP)) {");
-		sc.addComment("not Unicode - do escape backslash");
-		sc.add("String head = \"\";");
-		sc.add("if (index > 0) {");
-		sc.add("head = result.substring(0, index - 1);");
-		sc.add("}");
-		sc.add("result = head + \"\\\\\" + tail;");
-		sc.add("}");
-		sc.add("index = result.indexOf(\"\\\\\", index + 2);");
-		sc.add("}");
-		sc.add("result.replaceAll(\"'\", \"\\\\'\");");
-		sc.add("return result;");
+		sc.add("return escapeToANTLRKeywordComplex(value).getLeft();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addIsUnicodeSequenceMethod(JavaComposite sc) {
 		sc.add("public static boolean isUnicodeSequence(String text) {");
 		sc.add("return text.matches(UNICODE_SEQUENCE_REGEXP);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		addMatchCamelCaseMethod(sc);
+	}
 
+	private void addEscapeToANTLRKeywordComplexMethod(JavaComposite sc) {
+		sc.add("public static " + pairClassName + "<String, Boolean> escapeToANTLRKeywordComplex(String value) {");
+		sc.add("boolean foundInvalidEscapeSequence = false;");
+		sc.add("String result = value;");
+		sc.add("int index = result.indexOf(\"\\\\\");");
+		sc.add("while (index >= 0) {");
+		sc.add("String tail = result.substring(index);");
+		sc.add("if (!tail.matches(ESC_REGEXP)) {");
+		sc.addComment(
+			"tail is not Unicode (uXXXX) or \\b,\\n,\\r,\\t,\\f " +
+			"thus, do escape backslash"
+		);
+		sc.add("String head = \"\";");
+		sc.add("if (index > 0) {");
+		sc.add("head = result.substring(0, index - 1);");
 		sc.add("}");
+		sc.add("if (tail.startsWith(\"\\\\\\\\\")) {");
+		sc.addComment(
+			"if the tail starts with two backslashes we do " +
+			"not escape, because two backslashes represent " +
+			"one backslash"
+		);
+		sc.add("result = head + tail;");
+		sc.add("index++;");
+		sc.add("} else if (tail.startsWith(\"\\\\\")) {");
+		sc.addComment(
+			"if one slash is found here, we got an invalid " +
+			"escape sequence, because the valid ones are " +
+			"detected by matching the ESC_REGEXP expression");
+		sc.add("foundInvalidEscapeSequence |= true;");
+		sc.addJavadoc(
+			"we do construct the escaped string even though " +
+			"the input was invalid, but indicate the error " +
+			"using the foundInvalidEscapeSequence flag");
+		sc.add("result = head + \"\\\\\" + tail;");
+		sc.add("} else {");
+		sc.add("result = head + \"\\\\\" + tail;");
+		sc.add("}");
+		sc.add("} else {");
+		sc.addComment("found valid escape sequence");
+		sc.add("}");
+		sc.addComment("continue searching for backslash characters");
+		sc.add("index = result.indexOf(\"\\\\\", index + 2);");
+		sc.add("}");
+		sc.add("result = result.replace(\"'\", \"\\\\'\");");
+		sc.add("return new " + pairClassName + "<String, Boolean>(result, foundInvalidEscapeSequence);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMatchCamelCaseMethod(StringComposite sc) {

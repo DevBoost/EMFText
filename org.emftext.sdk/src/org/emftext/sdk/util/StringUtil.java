@@ -342,7 +342,7 @@ public class StringUtil {
 	public static String escapeToANTLRKeyword(String value) {
 		return escapeToANTLRKeywordComplex(value).getLeft();
 	}
-		
+
 	public static Pair<String, Boolean> escapeToANTLRKeywordComplex(String value) {
 		boolean foundInvalidEscapeSequence = false;
 		String result = value;
