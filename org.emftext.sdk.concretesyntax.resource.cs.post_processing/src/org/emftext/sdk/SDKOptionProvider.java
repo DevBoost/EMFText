@@ -29,6 +29,7 @@ import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenNameAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenStyleAnalyser;
+import org.emftext.sdk.syntax_analysis.EmptyCompoundAnalyser;
 import org.emftext.sdk.syntax_analysis.FeatureCardinalityAnalyser;
 import org.emftext.sdk.syntax_analysis.GenModelAnalyser;
 import org.emftext.sdk.syntax_analysis.LeftRecursionAnalyser;
@@ -116,6 +117,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new LicenceHeaderAnalyser());
 		postProcessors.add(new OperatorAnnotationsValidator());
 		postProcessors.add(new SyntaxNameWithDotAnalyser());
+		postProcessors.add(new EmptyCompoundAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
