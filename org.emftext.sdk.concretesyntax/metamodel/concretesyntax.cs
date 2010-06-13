@@ -63,11 +63,11 @@ RULES {
 		"SYNTAXDEF" #1 name[] !0 
 		"FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
 		("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
-		(!0 !0 "IMPORTS" "{" ( !1 imports)* !0 "}")? 
-		(!0 !0 "OPTIONS" "{" (!1 options ";" )*  !0 "}")? 
-		(!0 !0 "TOKENS" "{" ( !1 tokens ";")* !0 "}")? 
-		(!0 !0 "TOKENSTYLES" "{" ( !1 tokenStyles)* !0 "}")? 
-		!0 !0 "RULES" "{" ( !1 rules*) !0"}"
+		(!0 !0 "IMPORTS" #1 "{" ( !1 imports)* !0 "}")? 
+		(!0 !0 "OPTIONS" #1 "{" (!1 options ";" )*  !0 "}")? 
+		(!0 !0 "TOKENS" #1 "{" ( !1 tokens ";")* !0 "}")? 
+		(!0 !0 "TOKENSTYLES" #1 "{" ( !1 tokenStyles)* !0 "}")? 
+		 !0 !0 "RULES" #1 "{" (!1 rules)* !0 "}"
 		;
 
 	Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
