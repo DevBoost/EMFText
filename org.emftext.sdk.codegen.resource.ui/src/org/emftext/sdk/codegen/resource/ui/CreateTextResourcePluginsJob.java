@@ -121,14 +121,15 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		}
 		
 		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(context.getFileSystemConnector(), context.getProblemCollector(), concreteSyntax, antlrPlugin);
+		boolean generateUIPlugin = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.GENERATE_UI_PLUGIN);
 		
-		createProjects(context, progress);
+		createProjects(context, generateUIPlugin, progress);
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
 		AbstractPluginCreator<Object> pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.create(resourcePlugin, context, null, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
-		if (OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.GENERATE_UI_PLUGIN)) {
+		if (generateUIPlugin) {
 			AbstractPluginCreator<Object> uiPluginGenerator = new ResourceUIPluginContentCreator();
 			uiPluginGenerator.create(resourceUIPlugin, context, null, progress.newChild(TICKS_GENERATE_UI_RESOURCE_PLUGIN));
 		} else {
@@ -153,11 +154,13 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		return Result.SUCCESS;
 	}
 
-	private void createProjects(GenerationContext context, SubMonitor progress)
+	private void createProjects(GenerationContext context, boolean generateUIPlugin, SubMonitor progress)
 			throws Exception {
 		// create the projects for the plug-ins
 		createProject(context.getResourcePlugin(), context, progress);
-		createProject(context.getResourceUIPlugin(), context, progress);
+		if (generateUIPlugin) {
+			createProject(context.getResourceUIPlugin(), context, progress);
+		}
 		if (context.getGenerateANTLRPlugin()) {
 			createProject(context.getAntlrPlugin(), context, progress);
 		}
