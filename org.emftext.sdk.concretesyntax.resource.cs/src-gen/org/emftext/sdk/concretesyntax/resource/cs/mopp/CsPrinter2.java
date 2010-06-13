@@ -61,7 +61,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
 		tokenOutputStream = new java.util.ArrayList<PrintToken>();
 		beforeFirstElementToPrint = true;
-		doPrint(element);
+		doPrint(element, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>());
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		if (handleTokenSpaceAutomatically) {
 			printSmart(writer);
@@ -71,7 +71,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		writer.flush();
 	}
 	
-	protected void doPrint(org.eclipse.emf.ecore.EObject element) {
+	protected void doPrint(org.eclipse.emf.ecore.EObject element, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
 		if (element == null) {
 			throw new java.lang.IllegalArgumentException("Nothing to write.");
 		}
@@ -80,114 +80,114 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		
 		if (element instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Import) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Option) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Rule) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Sequence) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_4);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_4, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Choice) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.CsString) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_6);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_6, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Containment) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.CompoundDefinition) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.WhiteSpaces) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.LineBreak) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.NormalTokenDefinition) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_16);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_16, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.AtomicRegex) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.RegexReference) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.PLUS) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.STAR) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_21);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_21, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24, foundFormattingElements);
 			return;
 		}
 		if (element instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25, foundFormattingElements);
 			return;
 		}
 		
 		addWarningToResource("The printer can not handle " + element.eClass().getName() + " elements", element);
 	}
 	
-	public void printInternal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement ruleElement) {
+	public void printInternal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement ruleElement, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(eObject);
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();
 		// create a copy of the original list of layout information object in order to be
@@ -196,7 +196,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		layoutInformations.addAll(originalLayoutInformations);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decoratorTree = getDecoratorTree(ruleElement);
 		decorateTree(decoratorTree, eObject);
-		printTree(decoratorTree, eObject, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>(), layoutInformations);
+		printTree(decoratorTree, eObject, foundFormattingElements, layoutInformations);
 	}
 	
 	/**
@@ -338,7 +338,12 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);
 		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
 		String value = keyword.getValue();
-		tokenOutputStream.add(new PrintToken(value, "'" + value + "'"));
+		value = value.replace("\\n", "\n");
+		value = value.replace("\\r", "\r");
+		value = value.replace("\\t", "\t");
+		value = value.replace("\\b", "\b");
+		value = value.replace("\\f", "\f");
+		tokenOutputStream.add(new PrintToken(value, "'" + keyword.getValue().replace("'", "\\'") + "'"));
 	}
 	
 	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
@@ -376,7 +381,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EStructuralFeature reference = containment.getFeature();
 		java.lang.Object o = getValue(eObject, reference, count);
-		doPrint((org.eclipse.emf.ecore.EObject) o);
+		doPrint((org.eclipse.emf.ecore.EObject) o, foundFormattingElements);
 	}
 	
 	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
@@ -626,7 +631,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					break;
 				}
 				String commonTokenName = tempToken.getName();
-				String printTokenName = printTokenT.getTokenName().replace("'", "");
+				String printTokenName = printTokenT.getTokenName();
+				if (printTokenName.length() > 2 && printTokenName.startsWith("'") && printTokenName.endsWith("'")) {
+					printTokenName = printTokenName.substring(1, printTokenName.length() - 1);
+				}
 				if (!commonTokenName.equals(printTokenName)) {
 					sequenceIsValid = false;
 					break;

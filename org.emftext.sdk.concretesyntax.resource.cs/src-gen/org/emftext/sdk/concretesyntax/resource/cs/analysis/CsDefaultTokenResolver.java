@@ -33,19 +33,19 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 		
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
 			if (feature.getEType() instanceof org.eclipse.emf.ecore.EEnum) {
-				org.eclipse.emf.ecore.EEnumLiteral literal = ((org.eclipse.emf.ecore.EEnum)feature.getEType()).getEEnumLiteralByLiteral(lexem);
+				org.eclipse.emf.ecore.EEnumLiteral literal = ((org.eclipse.emf.ecore.EEnum) feature.getEType()).getEEnumLiteralByLiteral(lexem);
 				if (literal != null) {
 					result.setResolvedToken(literal.getInstance());
 					return;
 				} else {
-					result.setErrorMessage("Could not map lexem '"+lexem+"' to enum '"+feature.getEType().getName()+"'.");
+					result.setErrorMessage("Could not map lexem '" + lexem + "' to enum '" + feature.getEType().getName() + "'.");
 					return;
 				}
 			} else if (feature.getEType() instanceof org.eclipse.emf.ecore.EDataType) {
 				try {
 					result.setResolvedToken(org.eclipse.emf.ecore.util.EcoreUtil.createFromString((org.eclipse.emf.ecore.EDataType) feature.getEType(), lexem));
 				} catch (Exception e) {
-					result.setErrorMessage("Could not convert '"+lexem+"' to '" + feature.getEType().getName() + "'.");
+					result.setErrorMessage("Could not convert '" + lexem + "' to '" + feature.getEType().getName() + "'.");
 				}
 			} else {
 				assert false;

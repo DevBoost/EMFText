@@ -777,12 +777,12 @@ public class CsLexer extends Lexer {
         try {
             int _type = COMMENTS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4397:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // Cs.g:4398:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // Cs.g:4399:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // Cs.g:4400:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // Cs.g:4398:6: (~ ( '\\n' | '\\r' ) )*
+            // Cs.g:4400:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -795,7 +795,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // Cs.g:4398:7: ~ ( '\\n' | '\\r' )
+            	    // Cs.g:4400:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -832,8 +832,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUALIFIED_NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4401:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
-            // Cs.g:4402:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // Cs.g:4403:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
+            // Cs.g:4404:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -844,7 +844,7 @@ public class CsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // Cs.g:4402:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
+            // Cs.g:4404:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -877,7 +877,7 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4402:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // Cs.g:4404:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             loop4:
             do {
                 int alt4=2;
@@ -890,10 +890,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // Cs.g:4402:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // Cs.g:4404:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // Cs.g:4402:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // Cs.g:4404:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt3=0;
             	    loop3:
             	    do {
@@ -956,10 +956,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4403:7: ( ( '0' .. '9' )+ )
-            // Cs.g:4404:2: ( '0' .. '9' )+
+            // Cs.g:4405:7: ( ( '0' .. '9' )+ )
+            // Cs.g:4406:2: ( '0' .. '9' )+
             {
-            // Cs.g:4404:2: ( '0' .. '9' )+
+            // Cs.g:4406:2: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -973,7 +973,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // Cs.g:4404:3: '0' .. '9'
+            	    // Cs.g:4406:3: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1005,11 +1005,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = HEXNUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4405:10: ( '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+ )
-            // Cs.g:4406:2: '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            // Cs.g:4407:10: ( '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+ )
+            // Cs.g:4408:2: '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
             {
             match('#'); 
-            // Cs.g:4406:5: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            // Cs.g:4408:5: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
             int cnt6=0;
             loop6:
             do {
@@ -1063,8 +1063,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4407:11: ( ( ' ' | '\\t' | '\\f' ) )
-            // Cs.g:4408:2: ( ' ' | '\\t' | '\\f' )
+            // Cs.g:4409:11: ( ( ' ' | '\\t' | '\\f' ) )
+            // Cs.g:4410:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1092,10 +1092,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4411:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Cs.g:4412:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cs.g:4413:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cs.g:4414:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Cs.g:4412:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cs.g:4414:2: ( '\\r\\n' | '\\r' | '\\n' )
             int alt7=3;
             int LA7_0 = input.LA(1);
 
@@ -1119,7 +1119,7 @@ public class CsLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // Cs.g:4412:3: '\\r\\n'
+                    // Cs.g:4414:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1127,14 +1127,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4412:10: '\\r'
+                    // Cs.g:4414:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Cs.g:4412:15: '\\n'
+                    // Cs.g:4414:15: '\\n'
                     {
                     match('\n'); 
 
@@ -1160,17 +1160,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4415:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
-            // Cs.g:4416:2: ( '<' ) (~ ( '>' ) )* ( '>' )
+            // Cs.g:4417:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Cs.g:4418:2: ( '<' ) (~ ( '>' ) )* ( '>' )
             {
-            // Cs.g:4416:2: ( '<' )
-            // Cs.g:4416:3: '<'
+            // Cs.g:4418:2: ( '<' )
+            // Cs.g:4418:3: '<'
             {
             match('<'); 
 
             }
 
-            // Cs.g:4416:7: (~ ( '>' ) )*
+            // Cs.g:4418:7: (~ ( '>' ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1183,7 +1183,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // Cs.g:4416:8: ~ ( '>' )
+            	    // Cs.g:4418:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1203,8 +1203,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4416:16: ( '>' )
-            // Cs.g:4416:17: '>'
+            // Cs.g:4418:16: ( '>' )
+            // Cs.g:4418:17: '>'
             {
             match('>'); 
 
@@ -1226,17 +1226,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_34_34_92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4418:16: ( ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' ) )
-            // Cs.g:4419:2: ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' )
+            // Cs.g:4420:16: ( ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' ) )
+            // Cs.g:4421:2: ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' )
             {
-            // Cs.g:4419:2: ( '\"' )
-            // Cs.g:4419:3: '\"'
+            // Cs.g:4421:2: ( '\"' )
+            // Cs.g:4421:3: '\"'
             {
             match('\"'); 
 
             }
 
-            // Cs.g:4419:7: ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )*
+            // Cs.g:4421:7: ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )*
             loop9:
             do {
                 int alt9=4;
@@ -1261,10 +1261,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // Cs.g:4419:8: ( '\\\\' '\"' )
+            	    // Cs.g:4421:8: ( '\\\\' '\"' )
             	    {
-            	    // Cs.g:4419:8: ( '\\\\' '\"' )
-            	    // Cs.g:4419:9: '\\\\' '\"'
+            	    // Cs.g:4421:8: ( '\\\\' '\"' )
+            	    // Cs.g:4421:9: '\\\\' '\"'
             	    {
             	    match('\\'); 
             	    match('\"'); 
@@ -1275,10 +1275,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // Cs.g:4419:18: ( '\\\\' '\\\\' )
+            	    // Cs.g:4421:18: ( '\\\\' '\\\\' )
             	    {
-            	    // Cs.g:4419:18: ( '\\\\' '\\\\' )
-            	    // Cs.g:4419:19: '\\\\' '\\\\'
+            	    // Cs.g:4421:18: ( '\\\\' '\\\\' )
+            	    // Cs.g:4421:19: '\\\\' '\\\\'
             	    {
             	    match('\\'); 
             	    match('\\'); 
@@ -1289,7 +1289,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:4419:29: ~ ( '\"' | '\\\\' )
+            	    // Cs.g:4421:29: ~ ( '\"' | '\\\\' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1309,8 +1309,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4419:42: ( '\"' )
-            // Cs.g:4419:43: '\"'
+            // Cs.g:4421:42: ( '\"' )
+            // Cs.g:4421:43: '\"'
             {
             match('\"'); 
 
@@ -1332,17 +1332,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_39_39_92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4421:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
-            // Cs.g:4422:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
+            // Cs.g:4423:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
+            // Cs.g:4424:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
             {
-            // Cs.g:4422:2: ( '\\'' )
-            // Cs.g:4422:3: '\\''
+            // Cs.g:4424:2: ( '\\'' )
+            // Cs.g:4424:3: '\\''
             {
             match('\''); 
 
             }
 
-            // Cs.g:4422:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
+            // Cs.g:4424:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
             loop10:
             do {
                 int alt10=4;
@@ -1367,10 +1367,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // Cs.g:4422:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4424:9: ( '\\\\' '\\'' )
             	    {
-            	    // Cs.g:4422:9: ( '\\\\' '\\'' )
-            	    // Cs.g:4422:10: '\\\\' '\\''
+            	    // Cs.g:4424:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4424:10: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1381,10 +1381,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // Cs.g:4422:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4424:20: ( '\\\\' '\\\\' )
             	    {
-            	    // Cs.g:4422:20: ( '\\\\' '\\\\' )
-            	    // Cs.g:4422:21: '\\\\' '\\\\'
+            	    // Cs.g:4424:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4424:21: '\\\\' '\\\\'
             	    {
             	    match('\\'); 
             	    match('\\'); 
@@ -1395,7 +1395,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:4422:31: ~ ( '\\'' | '\\\\' )
+            	    // Cs.g:4424:31: ~ ( '\\'' | '\\\\' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1415,8 +1415,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4422:45: ( '\\'' )
-            // Cs.g:4422:46: '\\''
+            // Cs.g:4424:45: ( '\\'' )
+            // Cs.g:4424:46: '\\''
             {
             match('\''); 
 
@@ -1438,17 +1438,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_36_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4424:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
-            // Cs.g:4425:2: ( '$' ) (~ ( '$' ) )* ( '$' )
+            // Cs.g:4426:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
+            // Cs.g:4427:2: ( '$' ) (~ ( '$' ) )* ( '$' )
             {
-            // Cs.g:4425:2: ( '$' )
-            // Cs.g:4425:3: '$'
+            // Cs.g:4427:2: ( '$' )
+            // Cs.g:4427:3: '$'
             {
             match('$'); 
 
             }
 
-            // Cs.g:4425:7: (~ ( '$' ) )*
+            // Cs.g:4427:7: (~ ( '$' ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1461,7 +1461,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // Cs.g:4425:8: ~ ( '$' )
+            	    // Cs.g:4427:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1481,8 +1481,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4425:16: ( '$' )
-            // Cs.g:4425:17: '$'
+            // Cs.g:4427:16: ( '$' )
+            // Cs.g:4427:17: '$'
             {
             match('$'); 
 

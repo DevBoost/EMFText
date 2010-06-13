@@ -18,7 +18,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	protected java.io.OutputStream outputStream;
-	/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */
+	/**
+	 * Holds the resource that is associated with this printer. may be null if the
+	 * printer is used stand alone.
+	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	private java.util.Map<?, ?> options;
 	
@@ -401,10 +404,27 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("RULES");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_8(element, localtab, out, printCountingMap);
+		iterate = true;
+		while (iterate) {
+			sWriter = new java.io.StringWriter();
+			out1 = new java.io.PrintWriter(sWriter);
+			printCountingMap1 = new java.util.LinkedHashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_8(element, localtab, out1, printCountingMap1);
+			if (printCountingMap.equals(printCountingMap1)) {
+				iterate = false;
+				out1.close();
+			} else {
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -558,6 +578,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("IMPORTS");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -621,6 +643,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("OPTIONS");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -686,6 +710,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("TOKENS");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -751,6 +777,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
 		out.print("TOKENSTYLES");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("{");
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -810,17 +838,18 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("rules");
 		if (count > 0) {
-			java.util.List<?> list = (java.util.List<?>)element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES));
-			int index  = list.size() - count;
-			if (index < 0) {
-				index = 0;
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
 			}
-			java.util.ListIterator<?> it  = list.listIterator(index);
-			while (it.hasNext()) {
-				java.lang.Object o = it.next();
+			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("rules", 0);
+			printCountingMap.put("rules", count - 1);
 		}
 	}
 	
