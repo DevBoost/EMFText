@@ -68,19 +68,19 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("if (feature.getEType() instanceof " + E_ENUM + ") {");
-		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ")feature.getEType()).getEEnumLiteralByLiteral(lexem);");
+		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ") feature.getEType()).getEEnumLiteralByLiteral(lexem);");
 		sc.add("if (literal != null) {");
 		sc.add("result.setResolvedToken(literal.getInstance());");
 		sc.add("return;");
 		sc.add("} else {");
-		sc.add("result.setErrorMessage(\"Could not map lexem '\"+lexem+\"' to enum '\"+feature.getEType().getName()+\"'.\");");
+		sc.add("result.setErrorMessage(\"Could not map lexem '\" + lexem + \"' to enum '\" + feature.getEType().getName() + \"'.\");");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("} else if (feature.getEType() instanceof " + E_DATA_TYPE + ") {");
 		sc.add("try {");
 		sc.add("result.setResolvedToken(" + ECORE_UTIL + ".createFromString((" + E_DATA_TYPE + ") feature.getEType(), lexem));");
 		sc.add("} catch (Exception e) {");
-		sc.add("result.setErrorMessage(\"Could not convert '\"+lexem+\"' to '\" + feature.getEType().getName() + \"'.\");");
+		sc.add("result.setErrorMessage(\"Could not convert '\" + lexem + \"' to '\" + feature.getEType().getName() + \"'.\");");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("assert false;");
@@ -107,6 +107,4 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 	}
-
-	
 }
