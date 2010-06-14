@@ -23,6 +23,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.TokenStyle;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * This generator composes a provider class that can be used to access the 
@@ -49,7 +50,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		for (TokenStyle nextStyle : styles) {
 			String name = nextStyle.getTokenName();
-			sc.add("if (\"" + name + "\".equals(tokenName)) {");
+			sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");
 			String rgb = nextStyle.getRgb();
 			String color = "new int[] {0x" + rgb.substring(0, 2)+ ", 0x" + rgb.substring(2, 4) + ", 0x" + rgb.substring(4, 6) + "}";
 			String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));
