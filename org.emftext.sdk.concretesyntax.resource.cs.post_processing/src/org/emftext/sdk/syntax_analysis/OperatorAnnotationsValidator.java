@@ -168,7 +168,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 	private void checkStartSymbols(CsResource resource, ConcreteSyntax syntax,
 			Set<GenClass> operatorGenClasses) {
-		for (GenClass startSymbol : syntax.getAllStartSymbols()) {
+		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
 			if (operatorGenClasses.contains(startSymbol))
 				resource
 						.addError(
