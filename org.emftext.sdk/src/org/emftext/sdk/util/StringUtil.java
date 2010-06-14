@@ -302,6 +302,9 @@ public class StringUtil {
 	 * 
 	 * @param text the text to escape
 	 * @return the escaped text
+	 * 
+	 * TODO mseifert: characters that are not ASCII should be converted
+	 *                to Unicode escape sequences
 	 */
 	public static String escapeToJavaString(String text) {
 		if (text == null) {
