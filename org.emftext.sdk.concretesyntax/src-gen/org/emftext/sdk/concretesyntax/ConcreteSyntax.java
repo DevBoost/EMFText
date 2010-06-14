@@ -409,6 +409,8 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @model kind="operation"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\nsymbols .addAll ( getStartSymbols ( ) ) ; \r\norg.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Import > imports = getImports ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports ) { \r\n\tfinal org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement .getConcreteSyntax ( ) ; \r\n\tif ( importedSyntax != null ) { \r\n\t\tsymbols .addAll ( importedSyntax .getAllStartSymbols ( ) ) ; \r\n\t} \r\n} \r\nreturn symbols ; \r\n'"
 	 * @generated
+	 * 
+	 * TODO mseifert: remove this method from the metamodel and the .ejava file
 	 */
 	EList<GenClass> getAllStartSymbols();
 
