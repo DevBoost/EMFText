@@ -71,6 +71,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * A generator that creates the class for the classic printer.
@@ -651,8 +652,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			ListIterator<Definition> definitionIterator, String printPrefix,
 			CsString keyword) {
 		sc.add(printPrefix + "\""
-				//+ StringUtil.escapeToJavaString(keyword.getValue())
-				+ keyword.getValue().replace("\"", "\\\"") // we do not escape keywords, because they are already escaped
+				+ StringUtil.escapeToJavaString(keyword.getValue())
 				+ "\");");
 
 		// the given tokenSpace (>0) causes an additional

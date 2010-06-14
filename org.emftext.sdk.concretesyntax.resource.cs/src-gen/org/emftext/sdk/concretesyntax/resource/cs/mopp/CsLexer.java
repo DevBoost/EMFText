@@ -7,7 +7,6 @@ import org.antlr.runtime3_2_0.*;
 
 public class CsLexer extends Lexer {
     public static final int T__42=42;
-    public static final int QUOTED_34_34_92=6;
     public static final int T__28=28;
     public static final int T__23=23;
     public static final int NUMBER=9;
@@ -29,6 +28,7 @@ public class CsLexer extends Lexer {
     public static final int QUOTED_36_36=10;
     public static final int T__36=36;
     public static final int T__20=20;
+    public static final int STRING=6;
     public static final int T__44=44;
     public static final int T__14=14;
     public static final int T__33=33;
@@ -1058,13 +1058,182 @@ public class CsLexer extends Lexer {
     }
     // $ANTLR end "HEXNUMBER"
 
+    // $ANTLR start "STRING"
+    public final void mSTRING() throws RecognitionException {
+        try {
+            int _type = STRING;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Cs.g:4409:7: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // Cs.g:4410:2: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"'
+            {
+            match('\"'); 
+            // Cs.g:4410:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )*
+            loop7:
+            do {
+                int alt7=5;
+                int LA7_0 = input.LA(1);
+
+                if ( (LA7_0=='\\') ) {
+                    switch ( input.LA(2) ) {
+                    case '\"':
+                    case '\'':
+                    case '\\':
+                    case 'b':
+                    case 'f':
+                    case 'n':
+                    case 'r':
+                    case 't':
+                        {
+                        alt7=1;
+                        }
+                        break;
+                    case 'u':
+                        {
+                        alt7=2;
+                        }
+                        break;
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                        {
+                        alt7=3;
+                        }
+                        break;
+
+                    }
+
+                }
+                else if ( ((LA7_0>='\u0000' && LA7_0<='!')||(LA7_0>='#' && LA7_0<='[')||(LA7_0>=']' && LA7_0<='\uFFFF')) ) {
+                    alt7=4;
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // Cs.g:4410:6: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+            	    {
+            	    match('\\'); 
+            	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // Cs.g:4410:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            	    {
+            	    // Cs.g:4410:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            	    // Cs.g:4410:48: '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            	    {
+            	    match('\\'); 
+            	    match('u'); 
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 3 :
+            	    // Cs.g:4410:169: '\\\\' ( '0' .. '7' )
+            	    {
+            	    match('\\'); 
+            	    // Cs.g:4410:173: ( '0' .. '7' )
+            	    // Cs.g:4410:174: '0' .. '7'
+            	    {
+            	    matchRange('0','7'); 
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 4 :
+            	    // Cs.g:4410:184: ~ ( '\\\\' | '\"' )
+            	    {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop7;
+                }
+            } while (true);
+
+            match('\"'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "STRING"
+
     // $ANTLR start "WHITESPACE"
     public final void mWHITESPACE() throws RecognitionException {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4409:11: ( ( ' ' | '\\t' | '\\f' ) )
-            // Cs.g:4410:2: ( ' ' | '\\t' | '\\f' )
+            // Cs.g:4411:11: ( ( ' ' | '\\t' | '\\f' ) )
+            // Cs.g:4412:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1092,34 +1261,34 @@ public class CsLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4413:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Cs.g:4414:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cs.g:4415:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cs.g:4416:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Cs.g:4414:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt7=3;
-            int LA7_0 = input.LA(1);
+            // Cs.g:4416:2: ( '\\r\\n' | '\\r' | '\\n' )
+            int alt8=3;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA7_0=='\r') ) {
-                int LA7_1 = input.LA(2);
+            if ( (LA8_0=='\r') ) {
+                int LA8_1 = input.LA(2);
 
-                if ( (LA7_1=='\n') ) {
-                    alt7=1;
+                if ( (LA8_1=='\n') ) {
+                    alt8=1;
                 }
                 else {
-                    alt7=2;}
+                    alt8=2;}
             }
-            else if ( (LA7_0=='\n') ) {
-                alt7=3;
+            else if ( (LA8_0=='\n') ) {
+                alt8=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 7, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // Cs.g:4414:3: '\\r\\n'
+                    // Cs.g:4416:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1127,14 +1296,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4414:10: '\\r'
+                    // Cs.g:4416:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Cs.g:4414:15: '\\n'
+                    // Cs.g:4416:15: '\\n'
                     {
                     match('\n'); 
 
@@ -1160,138 +1329,32 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4417:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
-            // Cs.g:4418:2: ( '<' ) (~ ( '>' ) )* ( '>' )
+            // Cs.g:4419:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Cs.g:4420:2: ( '<' ) (~ ( '>' ) )* ( '>' )
             {
-            // Cs.g:4418:2: ( '<' )
-            // Cs.g:4418:3: '<'
+            // Cs.g:4420:2: ( '<' )
+            // Cs.g:4420:3: '<'
             {
             match('<'); 
 
             }
 
-            // Cs.g:4418:7: (~ ( '>' ) )*
-            loop8:
-            do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
-
-                if ( ((LA8_0>='\u0000' && LA8_0<='=')||(LA8_0>='?' && LA8_0<='\uFFFF')) ) {
-                    alt8=1;
-                }
-
-
-                switch (alt8) {
-            	case 1 :
-            	    // Cs.g:4418:8: ~ ( '>' )
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop8;
-                }
-            } while (true);
-
-            // Cs.g:4418:16: ( '>' )
-            // Cs.g:4418:17: '>'
-            {
-            match('>'); 
-
-            }
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "QUOTED_60_62"
-
-    // $ANTLR start "QUOTED_34_34_92"
-    public final void mQUOTED_34_34_92() throws RecognitionException {
-        try {
-            int _type = QUOTED_34_34_92;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4420:16: ( ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' ) )
-            // Cs.g:4421:2: ( '\"' ) ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )* ( '\"' )
-            {
-            // Cs.g:4421:2: ( '\"' )
-            // Cs.g:4421:3: '\"'
-            {
-            match('\"'); 
-
-            }
-
-            // Cs.g:4421:7: ( ( '\\\\' '\"' ) | ( '\\\\' '\\\\' ) | ~ ( '\"' | '\\\\' ) )*
+            // Cs.g:4420:7: (~ ( '>' ) )*
             loop9:
             do {
-                int alt9=4;
+                int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0=='\\') ) {
-                    int LA9_2 = input.LA(2);
-
-                    if ( (LA9_2=='\"') ) {
-                        alt9=1;
-                    }
-                    else if ( (LA9_2=='\\') ) {
-                        alt9=2;
-                    }
-
-
-                }
-                else if ( ((LA9_0>='\u0000' && LA9_0<='!')||(LA9_0>='#' && LA9_0<='[')||(LA9_0>=']' && LA9_0<='\uFFFF')) ) {
-                    alt9=3;
+                if ( ((LA9_0>='\u0000' && LA9_0<='=')||(LA9_0>='?' && LA9_0<='\uFFFF')) ) {
+                    alt9=1;
                 }
 
 
                 switch (alt9) {
             	case 1 :
-            	    // Cs.g:4421:8: ( '\\\\' '\"' )
+            	    // Cs.g:4420:8: ~ ( '>' )
             	    {
-            	    // Cs.g:4421:8: ( '\\\\' '\"' )
-            	    // Cs.g:4421:9: '\\\\' '\"'
-            	    {
-            	    match('\\'); 
-            	    match('\"'); 
-
-            	    }
-
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // Cs.g:4421:18: ( '\\\\' '\\\\' )
-            	    {
-            	    // Cs.g:4421:18: ( '\\\\' '\\\\' )
-            	    // Cs.g:4421:19: '\\\\' '\\\\'
-            	    {
-            	    match('\\'); 
-            	    match('\\'); 
-
-            	    }
-
-
-            	    }
-            	    break;
-            	case 3 :
-            	    // Cs.g:4421:29: ~ ( '\"' | '\\\\' )
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
 
             	    }
@@ -1309,10 +1372,10 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4421:42: ( '\"' )
-            // Cs.g:4421:43: '\"'
+            // Cs.g:4420:16: ( '>' )
+            // Cs.g:4420:17: '>'
             {
-            match('\"'); 
+            match('>'); 
 
             }
 
@@ -1325,24 +1388,24 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "QUOTED_34_34_92"
+    // $ANTLR end "QUOTED_60_62"
 
     // $ANTLR start "QUOTED_39_39_92"
     public final void mQUOTED_39_39_92() throws RecognitionException {
         try {
             int _type = QUOTED_39_39_92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4423:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
-            // Cs.g:4424:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
+            // Cs.g:4422:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
+            // Cs.g:4423:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
             {
-            // Cs.g:4424:2: ( '\\'' )
-            // Cs.g:4424:3: '\\''
+            // Cs.g:4423:2: ( '\\'' )
+            // Cs.g:4423:3: '\\''
             {
             match('\''); 
 
             }
 
-            // Cs.g:4424:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
+            // Cs.g:4423:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
             loop10:
             do {
                 int alt10=4;
@@ -1367,10 +1430,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // Cs.g:4424:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4423:9: ( '\\\\' '\\'' )
             	    {
-            	    // Cs.g:4424:9: ( '\\\\' '\\'' )
-            	    // Cs.g:4424:10: '\\\\' '\\''
+            	    // Cs.g:4423:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4423:10: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1381,10 +1444,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // Cs.g:4424:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4423:20: ( '\\\\' '\\\\' )
             	    {
-            	    // Cs.g:4424:20: ( '\\\\' '\\\\' )
-            	    // Cs.g:4424:21: '\\\\' '\\\\'
+            	    // Cs.g:4423:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4423:21: '\\\\' '\\\\'
             	    {
             	    match('\\'); 
             	    match('\\'); 
@@ -1395,7 +1458,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:4424:31: ~ ( '\\'' | '\\\\' )
+            	    // Cs.g:4423:31: ~ ( '\\'' | '\\\\' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1415,8 +1478,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4424:45: ( '\\'' )
-            // Cs.g:4424:46: '\\''
+            // Cs.g:4423:45: ( '\\'' )
+            // Cs.g:4423:46: '\\''
             {
             match('\''); 
 
@@ -1438,17 +1501,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_36_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4426:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
-            // Cs.g:4427:2: ( '$' ) (~ ( '$' ) )* ( '$' )
+            // Cs.g:4425:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
+            // Cs.g:4426:2: ( '$' ) (~ ( '$' ) )* ( '$' )
             {
-            // Cs.g:4427:2: ( '$' )
-            // Cs.g:4427:3: '$'
+            // Cs.g:4426:2: ( '$' )
+            // Cs.g:4426:3: '$'
             {
             match('$'); 
 
             }
 
-            // Cs.g:4427:7: (~ ( '$' ) )*
+            // Cs.g:4426:7: (~ ( '$' ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1461,7 +1524,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // Cs.g:4427:8: ~ ( '$' )
+            	    // Cs.g:4426:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1481,8 +1544,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4427:16: ( '$' )
-            // Cs.g:4427:17: '$'
+            // Cs.g:4426:16: ( '$' )
+            // Cs.g:4426:17: '$'
             {
             match('$'); 
 
@@ -1500,7 +1563,7 @@ public class CsLexer extends Lexer {
     // $ANTLR end "QUOTED_36_36"
 
     public void mTokens() throws RecognitionException {
-        // Cs.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34_92 | QUOTED_39_39_92 | QUOTED_36_36 )
+        // Cs.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 )
         int alt12=44;
         alt12 = dfa12.predict(input);
         switch (alt12) {
@@ -1771,42 +1834,42 @@ public class CsLexer extends Lexer {
                 }
                 break;
             case 39 :
-                // Cs.g:1:255: WHITESPACE
+                // Cs.g:1:255: STRING
+                {
+                mSTRING(); 
+
+                }
+                break;
+            case 40 :
+                // Cs.g:1:262: WHITESPACE
                 {
                 mWHITESPACE(); 
 
                 }
                 break;
-            case 40 :
-                // Cs.g:1:266: LINEBREAK
+            case 41 :
+                // Cs.g:1:273: LINEBREAK
                 {
                 mLINEBREAK(); 
 
                 }
                 break;
-            case 41 :
-                // Cs.g:1:276: QUOTED_60_62
+            case 42 :
+                // Cs.g:1:283: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
                 }
                 break;
-            case 42 :
-                // Cs.g:1:289: QUOTED_34_34_92
-                {
-                mQUOTED_34_34_92(); 
-
-                }
-                break;
             case 43 :
-                // Cs.g:1:305: QUOTED_39_39_92
+                // Cs.g:1:296: QUOTED_39_39_92
                 {
                 mQUOTED_39_39_92(); 
 
                 }
                 break;
             case 44 :
-                // Cs.g:1:321: QUOTED_36_36
+                // Cs.g:1:312: QUOTED_36_36
                 {
                 mQUOTED_36_36(); 
 
@@ -1863,9 +1926,9 @@ public class CsLexer extends Lexer {
     static final String DFA12_specialS =
         "\u0089\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\1\40\1\41\1\uffff\1\40\1\41\22\uffff\1\40\1\23\1\43\1\37\1"+
+            "\1\41\1\42\1\uffff\1\41\1\42\22\uffff\1\41\1\23\1\40\1\37\1"+
             "\45\2\uffff\1\44\1\21\1\22\1\30\1\25\1\3\2\uffff\1\34\12\36"+
-            "\1\13\1\10\1\42\1\15\1\uffff\1\31\1\33\1\32\1\35\1\26\1\24\1"+
+            "\1\13\1\10\1\43\1\15\1\uffff\1\31\1\33\1\32\1\35\1\26\1\24\1"+
             "\35\1\2\2\35\1\4\5\35\1\7\1\27\1\35\1\12\1\1\1\11\2\35\1\14"+
             "\3\35\1\17\1\uffff\1\20\1\uffff\1\35\1\uffff\32\35\1\5\1\16"+
             "\1\6",
@@ -2054,7 +2117,7 @@ public class CsLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34_92 | QUOTED_39_39_92 | QUOTED_36_36 );";
+            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 );";
         }
     }
  

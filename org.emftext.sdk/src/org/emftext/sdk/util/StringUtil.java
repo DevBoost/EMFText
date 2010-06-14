@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -44,6 +46,7 @@ public class StringUtil {
 	*/
 	public final static String ESC_OTHER = "\\\\(n|r|t|b|f|\"|'|>)";
 	public final static String ESC_REGEXP = "\\A((" + UNICODE_SEQUENCE_REGEXP + ")|(" + ESC_OTHER + ")).*";
+	public final static String UNICODE_SEQUENCE_START = "\\A(" + UNICODE_SEQUENCE_REGEXP + ")";
 
 	private static String[] RESERVED_WORDS = new String[] {
 		"abstract", 
@@ -307,29 +310,68 @@ public class StringUtil {
 		//for javac: replace one backslash by two and escape double quotes
 		return text.replaceAll("\\\\", "\\\\\\\\").
 			replaceAll("\"", "\\\\\"").
+			replace("\b", "\\b").
+			replace("\f", "\\f").
 			replace("\n", "\\n").
 			replace("\r", "\\r").
 			replace("\t", "\\t");
 	}
 
 	/**
-	 * Escapes the given text such that it can be safely embedded in a string
-	 * literal in the Java source code contained in an ANTLR grammar. This 
-	 * method is similar to escapeToJavaString(), but does also convert the 
-	 * percent character to its Unicode representation, because the percent
-	 * character has special meaning in ANTLR grammars.
+	 * Unescapes the given Java string. It converts the string as
+	 * it would be found in a Java file to its actual value that
+	 * can, for example, be printed to System.out. The following 
+	 * replacements are made:
 	 * 
-	 * Also, single quotes are escaped. God knows why.
+	 * <ul>
+	 * <li>backslash double quote - double quote
+	 * <li>backslash backslash - backslash
+	 * <li>backslash ('n', 'r', 't', 'b', 'f') - line break, return, tab, bell or \f
+	 * </ul>
 	 * 
-	 * @param text the text to escape
-	 * @return the escaped text
+	 * The same behavior observed, when javac reads plain Java files 
+	 * with String literals.
+	 * 
+	 * @param string
+	 * @return
 	 */
-	public static String escapeToJavaStringInANTLRGrammar(String text) {
-		// we must use the Unicode representation for the % character, because
-		// StringTemplate does treat % special
-		return StringUtil.escapeToJavaString(text.replaceAll("'", "\\\\'")).replace("%", "\\u0025");
+	public static String unescapeJavaString(String text) {
+		String result = text;
+		int index = result.indexOf("\\");
+		while (index >= 0) {
+			String tail = result.substring(index);
+			if (tail.startsWith("\\n")) {
+				result = result.substring(0, index) + "\n" + result.substring(index + 2);
+			} else if (tail.startsWith("\\r")) {
+				result = result.substring(0, index) + "\r" + result.substring(index + 2);
+			} else if (tail.startsWith("\\t")) {
+				result = result.substring(0, index) + "\t" + result.substring(index + 2);
+			} else if (tail.startsWith("\\b")) {
+				result = result.substring(0, index) + "\b" + result.substring(index + 2);
+			} else if (tail.startsWith("\\f")) {
+				result = result.substring(0, index) + "\f" + result.substring(index + 2);
+			} else if (tail.startsWith("\\\\")) {
+				result = result.substring(0, index) + "\\" + result.substring(index + 2);
+			} else if (tail.startsWith("\\\"")) {
+				result = result.substring(0, index) + "\"" + result.substring(index + 2);
+			} else if (tail.startsWith("\\u")) {
+				// unicode sequence
+				assert tail.length() > 5;
+				String unicodeCharacter = tail.substring(0, 6);
+				UnicodeConverter converter = new UnicodeConverter(new ByteArrayInputStream(unicodeCharacter.getBytes()));
+				try {
+					result = result.substring(0, index) + new Character((char) converter.read()) + result.substring(index + 6);
+				} catch (IOException e) {
+					e.printStackTrace();
+					assert false;
+				}
+			}
+			// continue searching for backslash characters
+			index = result.indexOf("\\", index + 1);
+		}
+		return result;
 	}
-
+	
 	/**
 	 * Escapes the given text such that it can be safely embedded in an
 	 * ANTLR grammar as keyword (i.e., an in-line token). Single quotes
@@ -340,50 +382,9 @@ public class StringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRKeyword(String value) {
-		return escapeToANTLRKeywordComplex(value).getLeft();
+		return escapeToJavaString(value).replace("'", "\\'").replace("%", "\\u0025");
 	}
 
-	public static Pair<String, Boolean> escapeToANTLRKeywordComplex(String value) {
-		boolean foundInvalidEscapeSequence = false;
-		String result = value;
-		int index = result.indexOf("\\");
-		while (index >= 0) {
-			String tail = result.substring(index);
-			if (!tail.matches(ESC_REGEXP)) {
-				// tail is not Unicode (uXXXX) or \b,\n,\r,\t,\f
-				// thus, do escape backslash
-				String head = "";
-				if (index > 0) {
-					head = result.substring(0, index - 1);
-				}
-				if (tail.startsWith("\\\\")) {
-					// if the tail starts with two backslashes we do
-					// not escape, because two backslashes represent
-					// one backslash
-					result = head + tail;
-					index++;
-				} else if (tail.startsWith("\\")) {
-					// if one slash is found here, we got an invalid 
-					// escape sequence, because the valid ones are
-					// detected by matching the ESC_REGEXP expression
-					foundInvalidEscapeSequence |= true;
-					// we do construct the escaped string even though
-					// the input was invalid, but indicate the error
-					// using the foundInvalidEscapeSequence flag
-					result = head + "\\" + tail;
-				} else {
-					result = head + "\\" + tail;
-				}
-			} else {
-				// found valid escape sequence
-			}
-			// continue searching for backslash characters
-			index = result.indexOf("\\", index + 2);
-		}
-		result = result.replace("'", "\\'");
-		return new Pair<String, Boolean>(result, foundInvalidEscapeSequence);
-	}
-	
 	public static boolean isUnicodeSequence(String text) {
 		return text.matches(UNICODE_SEQUENCE_REGEXP);
 	}

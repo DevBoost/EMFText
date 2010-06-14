@@ -48,7 +48,6 @@ public class CsBracketInformationProvider {
 		result.add(new BracketPair("[", "]", true));
 		result.add(new BracketPair("(", ")", true));
 		result.add(new BracketPair("<", ">", false));
-		result.add(new BracketPair("\"", "\"", false));
 		result.add(new BracketPair("'", "'", false));
 		return result;
 	}

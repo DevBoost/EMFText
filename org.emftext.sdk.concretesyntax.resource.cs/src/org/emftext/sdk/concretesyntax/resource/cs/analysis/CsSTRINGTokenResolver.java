@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
@@ -18,14 +19,13 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
-import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 import org.emftext.sdk.util.StringUtil;
 
 /** 
- * This resolver converts string enclosed in double quotes. The conversion
- * is equal to the one performed for string in Java source files.
+ * This resolver converts strings enclosed in double quotes. The conversion
+ * is equal to the one performed for strings in Java source files.
  */
-public class CsQUOTED_34_34_92TokenResolver implements ICsTokenResolver {
+public class CsSTRINGTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
 	private CsDefaultTokenResolver defaultTokenResolver = new CsDefaultTokenResolver();
 	

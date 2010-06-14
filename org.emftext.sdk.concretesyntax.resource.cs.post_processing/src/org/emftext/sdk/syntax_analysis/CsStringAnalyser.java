@@ -22,13 +22,10 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
-import org.emftext.sdk.util.Pair;
-import org.emftext.sdk.util.StringUtil;
 
 /**
  * A post processor that checks whether the syntax contains empty
- * CsStrings or CsString containing invalid escape sequences, 
- * which are not allowed.
+ * CsStrings, which are not allowed.
  */
 public class CsStringAnalyser extends AbstractPostProcessor {
 
@@ -37,7 +34,6 @@ public class CsStringAnalyser extends AbstractPostProcessor {
 		Collection<CsString> csStrings = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 		for (CsString csString : csStrings) {
 			checkNotEmpty(resource, csString);
-			checkForInvalidEscapes(resource, csString);
 		}
 	}
 
@@ -51,24 +47,6 @@ public class CsStringAnalyser extends AbstractPostProcessor {
 		final String value = csString.getValue();
 		if ("".equals(value)) {
 			addProblem(resource, ECsProblemType.EMPTY_CS_STRING, "Empty strings are not allowed.", csString);
-		}
-	}
-
-	/**
-	 * Checks that csString does not contain invalid escape sequences. 
-	 * If it does, an error is reported.
-	 * 
-	 * An example for an invalid escape sequence is '\e', because there
-	 * is not special character \e.
-	 * 
-	 * @param resource
-	 * @param csString
-	 */
-	private void checkForInvalidEscapes(CsResource resource, CsString csString) {
-		Pair<String, Boolean> result = StringUtil.escapeToANTLRKeywordComplex(csString.getValue());
-		if (result.getRight()) {
-			// found invalid escape sequence
-			addProblem(resource, ECsProblemType.INVALID_ESCAPE_IN_CS_STRING, "Invalid escape sequence detected.", csString);
 		}
 	}
 }

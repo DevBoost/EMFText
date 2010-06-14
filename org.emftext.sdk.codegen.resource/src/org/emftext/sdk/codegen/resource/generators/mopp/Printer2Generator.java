@@ -432,15 +432,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.add("String value = keyword.getValue();");
-		// TODO this replacements can be removed once the CsQUOTED_34_34_92TokenResolver
-		// has been fixed
-		sc.add("value = value.replace(\"\\\\n\", \"\\n\");");
-		sc.add("value = value.replace(\"\\\\r\", \"\\r\");");
-		sc.add("value = value.replace(\"\\\\t\", \"\\t\");");
-		sc.add("value = value.replace(\"\\\\b\", \"\\b\");");
-		sc.add("value = value.replace(\"\\\\f\", \"\\f\");");
-		// TODO using single quotes to obtain the token name here is ANTLR specific
-		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + keyword.getValue().replace(\"'\", \"\\\\'\") + \"'\"));");
+		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
+		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(value) + \"'\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}

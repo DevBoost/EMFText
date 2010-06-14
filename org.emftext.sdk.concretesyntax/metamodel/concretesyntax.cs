@@ -25,6 +25,7 @@ TOKENS {
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
+	DEFINE STRING $'"'('\\'('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')|('\\''u'('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F'))|'\\'('0'..'7')|~('\\'|'"'))*'"'$;
 	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
 	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
 }
@@ -50,7 +51,7 @@ TOKENSTYLES {
 	"TOKENSTYLES" COLOR #800040, BOLD;
 	"RULES" COLOR #800040, BOLD;
 	
-	"QUOTED_34_34_92" COLOR #2A00FF;
+	"STRING" COLOR #2A00FF;
 	"QUOTED_60_62" COLOR #000000;
 	"QUOTED_39_39_92" COLOR #2A00FF;
 }
@@ -72,7 +73,7 @@ RULES {
 
 	Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
-	Option 	       ::= type[] "=" value['"','"','\\'];
+	Option 	       ::= type[] "=" value[STRING];
  
 	@Foldable
 	Rule           ::= (!0 annotations)* !0 metaclass[] "::=" children : Choice ";" !0;
@@ -81,7 +82,7 @@ RULES {
  
 	Choice         ::= children : Sequence ("|" children : Sequence)* #1;	
 
-	CsString       ::= #1 value['"','"','\\'] #1 ;
+	CsString       ::= #1 value[STRING] #1 ;
 	
 	PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" cardinality?;
 	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" cardinality?;
@@ -107,9 +108,9 @@ RULES {
 	
 	Abstract ::= "ABSTRACT";
 	
-	TokenStyle ::= tokenName['"','"','\\'] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
+	TokenStyle ::= tokenName[STRING] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
 	
 	Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
 	
-	KeyValuePair ::= key[] ("=" value['"','"','\\'])?;
+	KeyValuePair ::= key[] ("=" value[STRING])?;
 }

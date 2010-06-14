@@ -54,9 +54,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addEscapeQuotesMethod(sc);
 		addConvertCamelCaseToAllCapsMethod(sc);
 		addEscapeToJavaStringMethod(sc);
-		addEscapeToJavaStringInANTLRGrammarMethod(sc);
 		addEscapeToANTLRKeywordMethod(sc);
-		addEscapeToANTLRKeywordComplexMethod(sc);
 		addIsUnicodeSequenceMethod(sc);
 		addMatchCamelCaseMethod(sc);
 	}
@@ -265,29 +263,17 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToJavaString(String text) {");
-		sc.addComment("for javac: replace one backslash by two and escape double quotes");
-		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\").replaceAll(\"\\\"\", \"\\\\\\\\\\\"\").replace(\"\\n\", \"\\\\n\").replace(\"\\r\", \"\\\\r\").replace(\"\\t\", \"\\\\t\");");
+		sc.add("if (text == null) {");
+		sc.add("return null;");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addEscapeToJavaStringInANTLRGrammarMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Escapes the given text such that it can be safely embedded in a string "+ 
-			"literal in the Java source code contained in an ANTLR grammar. This " +
-			"method is similar to escapeToJavaString(), but does also convert the " +
-			"percent character to its Unicode representation, because the percent " +
-			"character has special meaning in ANTLR grammars.",
-			"Also, single quotes are escaped. God knows why.",
-			"@param text the text to escape",
-			"@return the escaped text"
-		);
-		sc.add("public static String escapeToJavaStringInANTLRGrammar(String text) {");
-		sc.addComment(
-			"we must use the Unicode representation for the % character, because " +
-			"StringTemplate does treat % special"
-		);
-		sc.add("return escapeToJavaString(text.replaceAll(\"'\", \"\\\\'\")).replace(\"%\", \"\\u0025\");");
+		//for javac: replace one backslash by two and escape double quotes
+		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\")." +
+			"replaceAll(\"\\\"\", \"\\\\\\\\\\\"\")." +
+			"replace(\"\\b\", \"\\\\b\")." +
+			"replace(\"\\f\", \"\\\\f\")." +
+			"replace(\"\\n\", \"\\\\n\")." +
+			"replace(\"\\r\", \"\\\\r\")." +
+			"replace(\"\\t\", \"\\\\t\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -302,7 +288,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToANTLRKeyword(String value) {");
-		sc.add("return escapeToANTLRKeywordComplex(value).getLeft();");
+		sc.add("return escapeToJavaString(value).replace(\"'\", \"\\\\'\").replace(\"%\", \"\\\\u0025\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -310,56 +296,6 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	private void addIsUnicodeSequenceMethod(JavaComposite sc) {
 		sc.add("public static boolean isUnicodeSequence(String text) {");
 		sc.add("return text.matches(UNICODE_SEQUENCE_REGEXP);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addEscapeToANTLRKeywordComplexMethod(JavaComposite sc) {
-		sc.add("public static " + pairClassName + "<String, Boolean> escapeToANTLRKeywordComplex(String value) {");
-		sc.add("boolean foundInvalidEscapeSequence = false;");
-		sc.add("String result = value;");
-		sc.add("int index = result.indexOf(\"\\\\\");");
-		sc.add("while (index >= 0) {");
-		sc.add("String tail = result.substring(index);");
-		sc.add("if (!tail.matches(ESC_REGEXP)) {");
-		sc.addComment(
-			"tail is not Unicode (uXXXX) or \\b,\\n,\\r,\\t,\\f " +
-			"thus, do escape backslash"
-		);
-		sc.add("String head = \"\";");
-		sc.add("if (index > 0) {");
-		sc.add("head = result.substring(0, index - 1);");
-		sc.add("}");
-		sc.add("if (tail.startsWith(\"\\\\\\\\\")) {");
-		sc.addComment(
-			"if the tail starts with two backslashes we do " +
-			"not escape, because two backslashes represent " +
-			"one backslash"
-		);
-		sc.add("result = head + tail;");
-		sc.add("index++;");
-		sc.add("} else if (tail.startsWith(\"\\\\\")) {");
-		sc.addComment(
-			"if one slash is found here, we got an invalid " +
-			"escape sequence, because the valid ones are " +
-			"detected by matching the ESC_REGEXP expression");
-		sc.add("foundInvalidEscapeSequence |= true;");
-		sc.addJavadoc(
-			"we do construct the escaped string even though " +
-			"the input was invalid, but indicate the error " +
-			"using the foundInvalidEscapeSequence flag");
-		sc.add("result = head + \"\\\\\" + tail;");
-		sc.add("} else {");
-		sc.add("result = head + \"\\\\\" + tail;");
-		sc.add("}");
-		sc.add("} else {");
-		sc.addComment("found valid escape sequence");
-		sc.add("}");
-		sc.addComment("continue searching for backslash characters");
-		sc.add("index = result.indexOf(\"\\\\\", index + 2);");
-		sc.add("}");
-		sc.add("result = result.replace(\"'\", \"\\\\'\");");
-		sc.add("return new " + pairClassName + "<String, Boolean>(result, foundInvalidEscapeSequence);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

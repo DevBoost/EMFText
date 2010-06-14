@@ -109,7 +109,7 @@ public class CsTokenStyleInformationProvider {
 		if ("RULES".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
 		}
-		if ("QUOTED_34_34_92".equals(tokenName)) {
+		if ("STRING".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		if ("QUOTED_60_62".equals(tokenName)) {
