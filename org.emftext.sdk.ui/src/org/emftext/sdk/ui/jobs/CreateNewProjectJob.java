@@ -59,7 +59,7 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		refresh(progress.newChild(2), getProject(generationContext.getResourceUIPlugin().getName()));
 		refresh(progress.newChild(2), getProject(generationContext.getAntlrPlugin().getName()));
 		
-		// TODO expose problems to user
+		// TODO mseifert: expose problems to user
 		for (GenerationProblem problem : problems) {
 			System.out.println("CreateNewProjectJob.run() " + problem);
 		}
