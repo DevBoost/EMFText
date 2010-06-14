@@ -9,7 +9,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
+import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 import org.emftext.sdk.ui.jobs.CreateNewProjectJob;
 import org.emftext.sdk.ui.jobs.WorkspaceMarker;
 
@@ -51,8 +53,7 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 		try {
 			new CreateNewProjectJob(parameters, new WorkspaceMarker()).run(monitor);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EMFTextSDKPlugin.logError("Error while creating new EMFText project.", e);
 		}
 	}
 
