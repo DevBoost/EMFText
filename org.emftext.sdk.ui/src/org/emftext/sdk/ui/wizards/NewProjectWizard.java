@@ -11,7 +11,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
-import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 import org.emftext.sdk.ui.jobs.CreateNewProjectJob;
 import org.emftext.sdk.ui.jobs.WorkspaceMarker;
 
