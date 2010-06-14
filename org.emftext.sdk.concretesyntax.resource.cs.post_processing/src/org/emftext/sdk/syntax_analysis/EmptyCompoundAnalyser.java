@@ -19,6 +19,16 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
+/**
+ * The EmptyCompoundAnalyser searches for compounds with an unlimited
+ * upper bound (tagged with STAR or PLUS), which can potentially be
+ * empty. A compound can be empty if it does not contain at least one
+ * mandatory syntax element. Such (potentially empty) compounds cause 
+ * ANTLR to parse forever, which is why the EmptyCompoundAnalyser emits 
+ * an error if such a compound is found.
+ * 
+ * This analyzer was created as a response to bug 1183.
+ */
 public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 
 	@Override
@@ -76,7 +86,7 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 			EList<SyntaxElement> children = choice.getChildren();
 			boolean canBeEmpty = true;
 			for (SyntaxElement child : children) {
-				// TODO check how ANTLR behaves in this case
+				// TODO mseifert: check how ANTLR behaves in this case
 				canBeEmpty &= canBeEmpty(child);
 			}
 			return canBeEmpty;
