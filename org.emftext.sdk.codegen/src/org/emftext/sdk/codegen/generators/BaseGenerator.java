@@ -44,16 +44,6 @@ public abstract class BaseGenerator<ContextType extends IContext, ParameterType>
 		super();
 	}
 	
-	/**
-	 * A BaseGenerator generates its output on a PrintWriter. All its GenerationProblems should be reported
-	 * via addProblem(GenerationProblem).<br/>
-	 * Important:  Even with valid output there might be problems.
-	 * 
-	 * @param out - the target stream to write on
-	 */
-	// TODO mseifert: remove this
-	//public abstract void generate(PrintWriter out);
-	
     protected String getObjectTypeName(String typeName){
     	if (BaseGenerator.javaNativeTypeMapping.containsKey(typeName)) {
     		return BaseGenerator.javaNativeTypeMapping.get(typeName);
