@@ -338,12 +338,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);
 		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
 		String value = keyword.getValue();
-		value = value.replace("\\n", "\n");
-		value = value.replace("\\r", "\r");
-		value = value.replace("\\t", "\t");
-		value = value.replace("\\b", "\b");
-		value = value.replace("\\f", "\f");
-		tokenOutputStream.add(new PrintToken(value, "'" + keyword.getValue().replace("'", "\\'") + "'"));
+		tokenOutputStream.add(new PrintToken(value, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(value) + "'"));
 	}
 	
 	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {

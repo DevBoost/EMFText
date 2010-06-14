@@ -198,26 +198,10 @@ public class CsStringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToJavaString(String text) {
-		// for javac: replace one backslash by two and escape double quotes
-		return text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
-	}
-	
-	/**
-	 * Escapes the given text such that it can be safely embedded in a string literal
-	 * in the Java source code contained in an ANTLR grammar. This method is similar
-	 * to escapeToJavaString(), but does also convert the percent character to its
-	 * Unicode representation, because the percent character has special meaning in
-	 * ANTLR grammars.
-	 * Also, single quotes are escaped. God knows why.
-	 * 
-	 * @param text the text to escape
-	 * 
-	 * @return the escaped text
-	 */
-	public static String escapeToJavaStringInANTLRGrammar(String text) {
-		// we must use the Unicode representation for the % character, because
-		// StringTemplate does treat % special
-		return escapeToJavaString(text.replaceAll("'", "\\'")).replace("%", "\u0025");
+		if (text == null) {
+			return null;
+		}
+		return text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"").replace("\b", "\\b").replace("\f", "\\f").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
 	}
 	
 	/**
@@ -230,46 +214,7 @@ public class CsStringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRKeyword(String value) {
-		return escapeToANTLRKeywordComplex(value).getLeft();
-	}
-	
-	public static org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<String, Boolean> escapeToANTLRKeywordComplex(String value) {
-		boolean foundInvalidEscapeSequence = false;
-		String result = value;
-		int index = result.indexOf("\\");
-		while (index >= 0) {
-			String tail = result.substring(index);
-			if (!tail.matches(ESC_REGEXP)) {
-				// tail is not Unicode (uXXXX) or \b,\n,\r,\t,\f thus, do escape backslash
-				String head = "";
-				if (index > 0) {
-					head = result.substring(0, index - 1);
-				}
-				if (tail.startsWith("\\\\")) {
-					// if the tail starts with two backslashes we do not escape, because two
-					// backslashes represent one backslash
-					result = head + tail;
-					index++;
-				} else if (tail.startsWith("\\")) {
-					// if one slash is found here, we got an invalid escape sequence, because the
-					// valid ones are detected by matching the ESC_REGEXP expression
-					foundInvalidEscapeSequence |= true;
-					/**
-					 * we do construct the escaped string even though the input was invalid, but
-					 * indicate the error using the foundInvalidEscapeSequence flag
-					 */
-					result = head + "\\" + tail;
-				} else {
-					result = head + "\\" + tail;
-				}
-			} else {
-				// found valid escape sequence
-			}
-			// continue searching for backslash characters
-			index = result.indexOf("\\", index + 2);
-		}
-		result = result.replace("'", "\\'");
-		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<String, Boolean>(result, foundInvalidEscapeSequence);
+		return escapeToJavaString(value).replace("'", "\\'").replace("%", "\\u0025");
 	}
 	
 	public static boolean isUnicodeSequence(String text) {
