@@ -302,22 +302,34 @@ public class StringUtil {
 	 * 
 	 * @param text the text to escape
 	 * @return the escaped text
-	 * 
-	 * TODO mseifert: characters that are not ASCII should be converted
-	 *                to Unicode escape sequences
 	 */
 	public static String escapeToJavaString(String text) {
 		if (text == null) {
 			return null;
 		}
 		//for javac: replace one backslash by two and escape double quotes
-		return text.replaceAll("\\\\", "\\\\\\\\").
+		String result = text.replaceAll("\\\\", "\\\\\\\\").
 			replaceAll("\"", "\\\\\"").
 			replace("\b", "\\b").
 			replace("\f", "\\f").
 			replace("\n", "\\n").
 			replace("\r", "\\r").
 			replace("\t", "\\t");
+		
+		StringBuffer complete = new StringBuffer();
+		for (int i = 0; i < result.length(); i++) {
+			int codePointI = result.codePointAt(i);
+			if (codePointI >= 32 && codePointI <= 127) {
+				complete.append(Character.toChars(codePointI));
+			} else {
+				// use Unicode representation
+				complete.append("\\u");
+				String hex = Integer.toHexString(codePointI);
+				complete.append(getRepeatingString(4 - hex.length(), '0'));
+				complete.append(hex);
+			}
+		}
+		return complete.toString();
 	}
 
 	/**
