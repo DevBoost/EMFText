@@ -66,20 +66,6 @@ eclass ConcreteSyntax {
 		return symbols;
 	}
 
-	getAllStartSymbols() {
-		EList<GenClass> symbols = new BasicEList<GenClass>();
-		symbols.addAll(getStartSymbols());
-		
-		EList<Import> imports = getImports();
-		for (Import importedElement : imports) {
-			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
-			if (importedSyntax != null) {
-				symbols.addAll(importedSyntax.getAllStartSymbols());
-			}
-		}
-		return symbols;
-	}
-
 	getAllRules() {
 		//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
 		EList<Rule> l = new BasicEList<Rule>(getRules().size());

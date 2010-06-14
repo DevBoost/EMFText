@@ -1772,8 +1772,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getActiveStartSymbols", 0, -1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getAllStartSymbols", 0, -1, IS_UNIQUE, IS_ORDERED);
-
 		addEOperation(concreteSyntaxEClass, this.getRule(), "getAllRules", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(concreteSyntaxEClass, this.getRule(), "getOperatorRules", 0, -1, IS_UNIQUE, IS_ORDERED);

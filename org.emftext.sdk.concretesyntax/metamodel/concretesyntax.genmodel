@@ -258,7 +258,6 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getActiveStartSymbols"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllStartSymbols"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/initialiseAnnotatedOperatorRules"/>
