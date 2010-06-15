@@ -71,6 +71,12 @@ public class GenerateTextResourceTask extends Task {
 			ICsTextResource csResource = CsTextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			EList<EObject> contents = csResource.getContents();
 			if (contents.size() < 1) {
+				if (!csResource.getErrors().isEmpty()) {
+					log("Resource has the following errors:");
+					for (Resource.Diagnostic diagnostic : csResource.getErrors()) {
+						log(diagnostic.getMessage() + " (line " + diagnostic.getLine() + ", column " + diagnostic.getColumn() + ")");
+					}
+				}
 				throw new BuildException("Generation failed, because the syntax file could not be loaded. Probably it contains syntactical errors.");
 			}
 			ConcreteSyntax syntax = (ConcreteSyntax) contents.get(0);
