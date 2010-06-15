@@ -16,25 +16,41 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addGetFeatureMethod(sc);
+		addGetMandatoryOccurencesAfterMethod(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
 		sc.add("private final int mandatoryOccurencesAfter;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(cardinality, null);");
 		sc.add("this.feature = feature;");
 		sc.add("this.mandatoryOccurencesAfter = mandatoryOccurencesAfter;");
 		sc.add("}"); 
 		sc.addLineBreak();
+	}
+
+	private void addGetFeatureMethod(JavaComposite sc) {
 		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {"); 
 		sc.add("return feature;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
+	}
+
+	private void addGetMandatoryOccurencesAfterMethod(JavaComposite sc) {
 		sc.add("public int getMandatoryOccurencesAfter() {"); 
 		sc.add("return mandatoryOccurencesAfter;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		addToStringMethod(sc);
-		sc.add("}");
 	}
 
 	private void addToStringMethod(JavaComposite sc) {
