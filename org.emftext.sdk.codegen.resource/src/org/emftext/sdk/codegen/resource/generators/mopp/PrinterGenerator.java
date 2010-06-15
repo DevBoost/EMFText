@@ -202,9 +202,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 	}
 
-	private void addPrintMethod(StringComposite sc) {
-		sc.add("/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */");
-		sc.add("public void print(" + E_OBJECT + " element)  {");
+	private void addPrintMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Calls {@link #doPrint(EObject, PrintWriter, String)} and writes the result to the underlying output stream."
+		);
+		sc.add("public void print(" + E_OBJECT + " element) {");
 		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
@@ -740,7 +742,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	 * @param sc
 	 * @param genClass
 	 */
-	protected void printCountingMapIntialization(JavaComposite sc, GenClass genClass) {
+	private void printCountingMapIntialization(JavaComposite sc, GenClass genClass) {
 		List<GenFeature> featureList = genClass.getAllGenFeatures();
 		String printCountingMapName = "printCountingMap";
 		sc.addComment(
