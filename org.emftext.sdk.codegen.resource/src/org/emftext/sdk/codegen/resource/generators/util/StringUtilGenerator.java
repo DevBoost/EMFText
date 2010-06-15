@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATTERN;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_BUILDER;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -57,6 +58,17 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addEscapeToANTLRKeywordMethod(sc);
 		addIsUnicodeSequenceMethod(sc);
 		addMatchCamelCaseMethod(sc);
+		addGetRepeatingStringMethod(sc);
+	}
+
+	private void addGetRepeatingStringMethod(JavaComposite sc) {
+		sc.add("public static String getRepeatingString(int count, char character) {");
+		sc.add(STRING_BUILDER + " result = new " + STRING_BUILDER + "();");
+		sc.add("for (int i = 0; i < count; i++) {");
+		sc.add("result.append(character);");
+		sc.add("}");
+		sc.add("return result.toString();");
+		sc.add("}");
 	}
 
 	private void addConstants(JavaComposite sc) {
@@ -267,13 +279,28 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("return null;");
 		sc.add("}");
 		//for javac: replace one backslash by two and escape double quotes
-		sc.add("return text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\")." +
+		sc.add("String result = text.replaceAll(\"\\\\\\\\\", \"\\\\\\\\\\\\\\\\\")." +
 			"replaceAll(\"\\\"\", \"\\\\\\\\\\\"\")." +
 			"replace(\"\\b\", \"\\\\b\")." +
 			"replace(\"\\f\", \"\\\\f\")." +
 			"replace(\"\\n\", \"\\\\n\")." +
 			"replace(\"\\r\", \"\\\\r\")." +
 			"replace(\"\\t\", \"\\\\t\");");
+		
+		sc.add(STRING_BUILDER + " complete = new " + STRING_BUILDER + "();");
+		sc.add("for (int i = 0; i < result.length(); i++) {");
+		sc.add("int codePointI = result.codePointAt(i);");
+		sc.add("if (codePointI >= 32 && codePointI <= 127) {");
+		sc.add("complete.append(Character.toChars(codePointI));");
+		sc.add("} else {");
+		sc.addComment("use Unicode representation");
+		sc.add("complete.append(\"\\\\u\");");
+		sc.add("String hex = Integer.toHexString(codePointI);");
+		sc.add("complete.append(getRepeatingString(4 - hex.length(), '0'));");
+		sc.add("complete.append(hex);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return complete.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

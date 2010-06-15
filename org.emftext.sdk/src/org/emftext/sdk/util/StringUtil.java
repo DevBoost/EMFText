@@ -375,7 +375,19 @@ public class StringUtil {
 				String unicodeCharacter = tail.substring(0, 6);
 				UnicodeConverter converter = new UnicodeConverter(new ByteArrayInputStream(unicodeCharacter.getBytes()));
 				try {
-					result = result.substring(0, index) + new Character((char) converter.read()) + result.substring(index + 6);
+					byte[] bytes = new byte[8];
+					int next = converter.read();
+					int i = 0;
+					while (next >= 0) {
+						bytes[i] = (byte) next;
+						i++;
+						next = converter.read();
+					}
+					byte[] usedBytes = new byte[i];
+					for (int j = 0; j < usedBytes.length; j++) {
+						usedBytes[j] = bytes[j];
+					}
+					result = result.substring(0, index) + new String(usedBytes, "UTF-8") + result.substring(index + 6);
 				} catch (IOException e) {
 					e.printStackTrace();
 					assert false;
