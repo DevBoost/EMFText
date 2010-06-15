@@ -16,14 +16,31 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 		sc.add("private final int amount;"); 
 		sc.addLineBreak();
+		addConstructor(sc);
+		addGetAmountMethod(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(int amount, " + cardinalityClassName + " cardinality) {"); 
 		sc.add("super(cardinality);"); 
 		sc.add("this.amount = amount;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
+	}
+
+	private void addGetAmountMethod(JavaComposite sc) {
 		sc.add("public int getAmount() {"); 
 		sc.add("return amount;"); 
 		sc.add("}");
-		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return \"#\" + getAmount();");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

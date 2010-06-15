@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATTERN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_BUILDER;
@@ -154,13 +153,18 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addExplodeMethod(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
-		sc.add("public static String explode(" + COLLECTION + "<String> parts, String glue) {");
+		sc.add("public static String explode(" + COLLECTION + "<Object> parts, String glue) {");
+		sc.add("return explode(parts.toArray(new Object[parts.size()]), glue);");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
+		sc.add("public static String explode(Object[] parts, String glue) {");
 		sc.add("StringBuilder sb = new StringBuilder();");
-		sc.add(ITERATOR + "<String> it = parts.iterator();");
-		sc.add("while (it.hasNext()) {");
-		sc.add("String next = it.next();");
-		sc.add("sb.append(next);");
-		sc.add("if (it.hasNext()) {");
+		sc.add("for (int i = 0; i < parts.length; i++) {");
+		sc.add("Object next = parts[i];");
+		sc.add("sb.append(next.toString());");
+		sc.add("if (i < parts.length - 1) {");
 		sc.add("sb.append(glue);");
 		sc.add("}");
 		sc.add("}");

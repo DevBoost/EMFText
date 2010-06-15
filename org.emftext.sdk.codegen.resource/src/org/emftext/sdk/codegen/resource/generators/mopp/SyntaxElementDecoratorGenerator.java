@@ -30,6 +30,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 		addGetDecoratedElementMethod(sc);
 		addGetChildDecoratatorsMethod(sc);
 		addGetNextIndexToPrintMethod(sc);
+		addToStringMethod(sc);
 		sc.add("}");
 	}
 
@@ -84,6 +85,13 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 	private void addAddIndexToPrintMethod(StringComposite sc) {
 		sc.add("public void addIndexToPrint(" + INTEGER + " index) {");
 		sc.add("indicesToPrint.add(index);"); 
+		sc.add("}"); 
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return \"\" + getDecoratedElement();");
 		sc.add("}"); 
 		sc.addLineBreak();
 	}

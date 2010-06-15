@@ -14,10 +14,22 @@ public class SequenceGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
+		addConstructor(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... elements) {");
 		sc.add("super(cardinality, elements);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("}");
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return " + stringUtilClassName + ".explode(getChildren(), \" \");");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

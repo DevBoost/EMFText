@@ -15,10 +15,22 @@ public class CompoundGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
+		addConstructor(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + choiceClassName + " choice, " + cardinalityClassName + " cardinality) {");
 		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("}");
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return \"(\" + getChildren()[0] + \")\";");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

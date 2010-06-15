@@ -33,6 +33,14 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("return mandatoryOccurencesAfter;"); 
 		sc.add("}"); 
 		sc.addLineBreak();
+		addToStringMethod(sc);
 		sc.add("}");
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return feature.getName() + \"[]\";");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

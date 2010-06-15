@@ -17,9 +17,22 @@ public class ContainmentGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		
 		sc.add("public class " + getResourceClassName() + " extends " + terminalClassName + " {");
 		sc.addLineBreak();
+		addConstructor(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
-		sc.add("}"); 
 		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return getFeature().getName();");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

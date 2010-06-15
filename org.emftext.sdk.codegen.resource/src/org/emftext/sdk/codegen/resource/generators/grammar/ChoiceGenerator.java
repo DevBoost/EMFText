@@ -15,10 +15,22 @@ public class ChoiceGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
+		addConstructor(sc);
+		addToStringMethod(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + cardinalityClassName + " cardinality, " + syntaxElementClassName + "... choices) {"); 
 		sc.add("super(cardinality, choices);"); 
 		sc.add("}"); 
 		sc.addLineBreak();
-		sc.add("}");
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {"); 
+		sc.add("return " + stringUtilClassName + ".explode(getChildren(), \"|\");");
+		sc.add("}"); 
+		sc.addLineBreak();
 	}
 }

@@ -95,6 +95,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetDecoratorTreeMethod(sc);
 		addDecorateTreeMethod(sc);
 		addDecorateTreeBasicMethod(sc);
+		addDoesPrintFeatureMethod(sc);
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
@@ -313,10 +314,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("keepDecorating = true;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("if (syntaxElement instanceof " + choiceClassName + ") {");
+		sc.addComment("for choices we do print only the choice which does print at least one feature");
+		sc.add(syntaxElementDecoratorClassName + " childToPrint = null;");
+		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
+		sc.addComment("pick first choice as default, will be overridden if a choice that prints a feature is found");
+		sc.add("if (childToPrint == null) {");
+		sc.add("childToPrint = childDecorator;");
+		sc.add("}");
+		sc.add("if (doesPrintFeature(childDecorator, eObject, printCountingMap)) {");
+		sc.add("childToPrint = childDecorator;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("keepDecorating |= decorateTreeBasic(childToPrint, eObject, printCountingMap, subKeywordsToPrint);");
+		sc.add("} else {");
+		sc.addComment("for all other syntax element we do print all children");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);");
-		sc.add("if (syntaxElement instanceof " + choiceClassName + ") {");
-		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("foundFeatureToPrint |= keepDecorating;");
@@ -342,6 +357,37 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("isFirstIteration = false;");
 		sc.add("}");
 		sc.add("return foundFeatureToPrint;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addDoesPrintFeatureMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether decorating the given node will use at least one attribute value, or reference holded by eObject. " +
+			"Returns true if a printable attribute value or reference was found. " +
+			"This method is used to decide which choice to pick, when multiple choices are available. " +
+			"We pick the choice that prints at least one attribute or reference."
+		);
+		sc.add("public boolean doesPrintFeature(" + syntaxElementDecoratorClassName + " decorator, " + E_OBJECT + " eObject, " + MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap) {");
+		sc.add(syntaxElementClassName + " syntaxElement = decorator.getDecoratedElement();");
+		sc.add("if (syntaxElement instanceof " + terminalClassName + ") {");
+		sc.add(terminalClassName + " terminal = (" + terminalClassName + ") syntaxElement;");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = terminal.getFeature();");
+		sc.add("if (feature == " + grammarInformationProviderClassName + ".ANONYMOUS_FEATURE) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("int countLeft = printCountingMap.get(feature.getName());");
+		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
+		sc.addComment("found a feature to print");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
+		sc.add("if (doesPrintFeature(childDecorator, eObject, printCountingMap)) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -382,6 +428,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("for (" + syntaxElementDecoratorClassName + " childDecorator : decorator.getChildDecorators()) {");
 		sc.add("foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements, layoutInformations);");
+		sc.add(syntaxElementClassName + " decoratedElement = decorator.getDecoratedElement();");
+		sc.add("if (foundSomethingToPrint && decoratedElement instanceof " + choiceClassName + ") {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("if (cardinality == " + cardinalityClassName + ".ONE || cardinality == " + cardinalityClassName + ".QUESTIONMARK) {");
 		sc.add("break;");
