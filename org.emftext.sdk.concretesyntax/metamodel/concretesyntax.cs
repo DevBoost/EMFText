@@ -25,6 +25,7 @@ TOKENS {
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
+	DEFINE TABNUMBER $'!'$ + NUMBER;
 	DEFINE STRING $'"'('\\'('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')|('\\''u'('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F'))|'\\'('0'..'7')|~('\\'|'"'))*'"'$;
 	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
 	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
@@ -33,6 +34,7 @@ TOKENS {
 TOKENSTYLES {
 	"NUMBER" COLOR #00D0FF;
 	"HEXNUMBER" COLOR #00D0FF;
+	"TABNUMBER" COLOR #00D0FF;
 	"DEFINE" COLOR #FF9000, BOLD;
 	"FRAGMENT" COLOR #FF9000, BOLD;
 	"COLLECT" COLOR #FF9000, BOLD;
@@ -93,7 +95,7 @@ RULES {
 	CompoundDefinition ::= "(" children : Choice ")" cardinality?;
 
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
-	LineBreak    ::= "!" tab[NUMBER] #1;
+	LineBreak    ::= tab[TABNUMBER] #1;
 	
 	NormalTokenDefinition  ::= (annotations !0)* "DEFINE" #1 name[] #1 regexParts (#1 "+" #1 regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
 	PartialTokenDefinition ::= "DEFINE" #1 "FRAGMENT" #1 name[] #1 regexParts (#1 "+" #1 regexParts)*;

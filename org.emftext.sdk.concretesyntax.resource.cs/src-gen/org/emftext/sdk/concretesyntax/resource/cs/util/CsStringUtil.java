@@ -94,13 +94,19 @@ public class CsStringUtil {
 	/**
 	 * Concatenates the given parts and puts 'glue' between them.
 	 */
-	public static String explode(java.util.Collection<String> parts, String glue) {
+	public static String explode(java.util.Collection<Object> parts, String glue) {
+		return explode(parts.toArray(new Object[parts.size()]), glue);
+	}
+	
+	/**
+	 * Concatenates the given parts and puts 'glue' between them.
+	 */
+	public static String explode(Object[] parts, String glue) {
 		StringBuilder sb = new StringBuilder();
-		java.util.Iterator<String> it = parts.iterator();
-		while (it.hasNext()) {
-			String next = it.next();
-			sb.append(next);
-			if (it.hasNext()) {
+		for (int i = 0; i < parts.length; i++) {
+			Object next = parts[i];
+			sb.append(next.toString());
+			if (i < parts.length - 1) {
 				sb.append(glue);
 			}
 		}
@@ -201,7 +207,21 @@ public class CsStringUtil {
 		if (text == null) {
 			return null;
 		}
-		return text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"").replace("\b", "\\b").replace("\f", "\\f").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
+		String result = text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"").replace("\b", "\\b").replace("\f", "\\f").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
+		java.lang.StringBuilder complete = new java.lang.StringBuilder();
+		for (int i = 0; i < result.length(); i++) {
+			int codePointI = result.codePointAt(i);
+			if (codePointI >= 32 && codePointI <= 127) {
+				complete.append(Character.toChars(codePointI));
+			} else {
+				// use Unicode representation
+				complete.append("\\u");
+				String hex = Integer.toHexString(codePointI);
+				complete.append(getRepeatingString(4 - hex.length(), '0'));
+				complete.append(hex);
+			}
+		}
+		return complete.toString();
 	}
 	
 	/**
@@ -252,4 +272,11 @@ public class CsStringUtil {
 		}
 	}
 	
+	public static String getRepeatingString(int count, char character) {
+		java.lang.StringBuilder result = new java.lang.StringBuilder();
+		for (int i = 0; i < count; i++) {
+			result.append(character);
+		}
+		return result.toString();
+	}
 }

@@ -20,4 +20,8 @@ public class CsChoice extends org.emftext.sdk.concretesyntax.resource.cs.grammar
 		super(cardinality, choices);
 	}
 	
+	public String toString() {
+		return org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(getChildren(), "|");
+	}
+	
 }

@@ -26,4 +26,9 @@ public class CsWhiteSpace extends org.emftext.sdk.concretesyntax.resource.cs.gra
 	public int getAmount() {
 		return amount;
 	}
+	
+	public String toString() {
+		return "#" + getAmount();
+	}
+	
 }

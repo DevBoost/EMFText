@@ -26,4 +26,9 @@ public class CsLineBreak extends org.emftext.sdk.concretesyntax.resource.cs.gram
 	public int getTabs() {
 		return tabs;
 	}
+	
+	public String toString() {
+		return "!" + getTabs();
+	}
+	
 }

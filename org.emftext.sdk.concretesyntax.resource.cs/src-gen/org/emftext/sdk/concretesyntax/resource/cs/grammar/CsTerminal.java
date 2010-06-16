@@ -33,4 +33,8 @@ public class CsTerminal extends org.emftext.sdk.concretesyntax.resource.cs.gramm
 		return mandatoryOccurencesAfter;
 	}
 	
+	public String toString() {
+		return feature.getName() + "[]";
+	}
+	
 }

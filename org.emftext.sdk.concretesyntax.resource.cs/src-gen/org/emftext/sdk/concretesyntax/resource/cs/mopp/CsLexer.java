@@ -9,7 +9,7 @@ public class CsLexer extends Lexer {
     public static final int T__42=42;
     public static final int T__28=28;
     public static final int T__23=23;
-    public static final int NUMBER=9;
+    public static final int NUMBER=12;
     public static final int T__47=47;
     public static final int T__21=21;
     public static final int HEXNUMBER=8;
@@ -25,16 +25,16 @@ public class CsLexer extends Lexer {
     public static final int T__34=34;
     public static final int T__15=15;
     public static final int T__35=35;
-    public static final int QUOTED_36_36=10;
     public static final int T__36=36;
+    public static final int QUOTED_36_36=10;
     public static final int T__20=20;
+    public static final int TABNUMBER=9;
     public static final int STRING=6;
     public static final int T__44=44;
-    public static final int T__14=14;
     public static final int T__33=33;
     public static final int T__22=22;
     public static final int QUOTED_60_62=5;
-    public static final int WHITESPACE=12;
+    public static final int WHITESPACE=13;
     public static final int T__29=29;
     public static final int T__45=45;
     public static final int T__43=43;
@@ -45,7 +45,7 @@ public class CsLexer extends Lexer {
     public static final int T__16=16;
     public static final int T__32=32;
     public static final int T__38=38;
-    public static final int LINEBREAK=13;
+    public static final int LINEBREAK=14;
     public static final int T__37=37;
     public static final int T__26=26;
     public static final int T__25=25;
@@ -74,36 +74,15 @@ public class CsLexer extends Lexer {
     }
     public String getGrammarFileName() { return "Cs.g"; }
 
-    // $ANTLR start "T__14"
-    public final void mT__14() throws RecognitionException {
-        try {
-            int _type = T__14;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:16:7: ( 'SYNTAXDEF' )
-            // Cs.g:16:9: 'SYNTAXDEF'
-            {
-            match("SYNTAXDEF"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__14"
-
     // $ANTLR start "T__15"
     public final void mT__15() throws RecognitionException {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:17:7: ( 'FOR' )
-            // Cs.g:17:9: 'FOR'
+            // Cs.g:16:7: ( 'SYNTAXDEF' )
+            // Cs.g:16:9: 'SYNTAXDEF'
             {
-            match("FOR"); 
+            match("SYNTAXDEF"); 
 
 
             }
@@ -121,10 +100,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:18:7: ( 'START' )
-            // Cs.g:18:9: 'START'
+            // Cs.g:17:7: ( 'FOR' )
+            // Cs.g:17:9: 'FOR'
             {
-            match("START"); 
+            match("FOR"); 
 
 
             }
@@ -142,10 +121,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:19:7: ( ',' )
-            // Cs.g:19:9: ','
+            // Cs.g:18:7: ( 'START' )
+            // Cs.g:18:9: 'START'
             {
-            match(','); 
+            match("START"); 
+
 
             }
 
@@ -162,11 +142,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:20:7: ( 'IMPORTS' )
-            // Cs.g:20:9: 'IMPORTS'
+            // Cs.g:19:7: ( ',' )
+            // Cs.g:19:9: ','
             {
-            match("IMPORTS"); 
-
+            match(','); 
 
             }
 
@@ -183,10 +162,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:21:7: ( '{' )
-            // Cs.g:21:9: '{'
+            // Cs.g:20:7: ( 'IMPORTS' )
+            // Cs.g:20:9: 'IMPORTS'
             {
-            match('{'); 
+            match("IMPORTS"); 
+
 
             }
 
@@ -203,10 +183,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:22:7: ( '}' )
-            // Cs.g:22:9: '}'
+            // Cs.g:21:7: ( '{' )
+            // Cs.g:21:9: '{'
             {
-            match('}'); 
+            match('{'); 
 
             }
 
@@ -223,11 +203,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:23:7: ( 'OPTIONS' )
-            // Cs.g:23:9: 'OPTIONS'
+            // Cs.g:22:7: ( '}' )
+            // Cs.g:22:9: '}'
             {
-            match("OPTIONS"); 
-
+            match('}'); 
 
             }
 
@@ -244,10 +223,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:24:7: ( ';' )
-            // Cs.g:24:9: ';'
+            // Cs.g:23:7: ( 'OPTIONS' )
+            // Cs.g:23:9: 'OPTIONS'
             {
-            match(';'); 
+            match("OPTIONS"); 
+
 
             }
 
@@ -264,11 +244,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:25:7: ( 'TOKENS' )
-            // Cs.g:25:9: 'TOKENS'
+            // Cs.g:24:7: ( ';' )
+            // Cs.g:24:9: ';'
             {
-            match("TOKENS"); 
-
+            match(';'); 
 
             }
 
@@ -285,10 +264,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:26:7: ( 'TOKENSTYLES' )
-            // Cs.g:26:9: 'TOKENSTYLES'
+            // Cs.g:25:7: ( 'TOKENS' )
+            // Cs.g:25:9: 'TOKENS'
             {
-            match("TOKENSTYLES"); 
+            match("TOKENS"); 
 
 
             }
@@ -306,10 +285,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:27:7: ( 'RULES' )
-            // Cs.g:27:9: 'RULES'
+            // Cs.g:26:7: ( 'TOKENSTYLES' )
+            // Cs.g:26:9: 'TOKENSTYLES'
             {
-            match("RULES"); 
+            match("TOKENSTYLES"); 
 
 
             }
@@ -327,10 +306,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:28:7: ( ':' )
-            // Cs.g:28:9: ':'
+            // Cs.g:27:7: ( 'RULES' )
+            // Cs.g:27:9: 'RULES'
             {
-            match(':'); 
+            match("RULES"); 
+
 
             }
 
@@ -347,11 +327,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:29:7: ( 'WITH' )
-            // Cs.g:29:9: 'WITH'
+            // Cs.g:28:7: ( ':' )
+            // Cs.g:28:9: ':'
             {
-            match("WITH"); 
-
+            match(':'); 
 
             }
 
@@ -368,10 +347,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:30:7: ( 'SYNTAX' )
-            // Cs.g:30:9: 'SYNTAX'
+            // Cs.g:29:7: ( 'WITH' )
+            // Cs.g:29:9: 'WITH'
             {
-            match("SYNTAX"); 
+            match("WITH"); 
 
 
             }
@@ -389,10 +368,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:31:7: ( '=' )
-            // Cs.g:31:9: '='
+            // Cs.g:30:7: ( 'SYNTAX' )
+            // Cs.g:30:9: 'SYNTAX'
             {
-            match('='); 
+            match("SYNTAX"); 
+
 
             }
 
@@ -409,11 +389,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:32:7: ( '::=' )
-            // Cs.g:32:9: '::='
+            // Cs.g:31:7: ( '=' )
+            // Cs.g:31:9: '='
             {
-            match("::="); 
-
+            match('='); 
 
             }
 
@@ -430,10 +409,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:33:7: ( '|' )
-            // Cs.g:33:9: '|'
+            // Cs.g:32:7: ( '::=' )
+            // Cs.g:32:9: '::='
             {
-            match('|'); 
+            match("::="); 
+
 
             }
 
@@ -450,10 +430,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:34:7: ( '[' )
-            // Cs.g:34:9: '['
+            // Cs.g:33:7: ( '|' )
+            // Cs.g:33:9: '|'
             {
-            match('['); 
+            match('|'); 
 
             }
 
@@ -470,10 +450,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:35:7: ( ']' )
-            // Cs.g:35:9: ']'
+            // Cs.g:34:7: ( '[' )
+            // Cs.g:34:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -490,10 +470,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:36:7: ( '(' )
-            // Cs.g:36:9: '('
+            // Cs.g:35:7: ( ']' )
+            // Cs.g:35:9: ']'
             {
-            match('('); 
+            match(']'); 
 
             }
 
@@ -510,10 +490,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:37:7: ( ')' )
-            // Cs.g:37:9: ')'
+            // Cs.g:36:7: ( '(' )
+            // Cs.g:36:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -530,10 +510,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:38:7: ( '!' )
-            // Cs.g:38:9: '!'
+            // Cs.g:37:7: ( ')' )
+            // Cs.g:37:9: ')'
             {
-            match('!'); 
+            match(')'); 
 
             }
 
@@ -550,8 +530,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:39:7: ( 'DEFINE' )
-            // Cs.g:39:9: 'DEFINE'
+            // Cs.g:38:7: ( 'DEFINE' )
+            // Cs.g:38:9: 'DEFINE'
             {
             match("DEFINE"); 
 
@@ -571,8 +551,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:40:7: ( '+' )
-            // Cs.g:40:9: '+'
+            // Cs.g:39:7: ( '+' )
+            // Cs.g:39:9: '+'
             {
             match('+'); 
 
@@ -591,8 +571,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:41:7: ( 'COLLECT' )
-            // Cs.g:41:9: 'COLLECT'
+            // Cs.g:40:7: ( 'COLLECT' )
+            // Cs.g:40:9: 'COLLECT'
             {
             match("COLLECT"); 
 
@@ -612,8 +592,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:42:7: ( 'IN' )
-            // Cs.g:42:9: 'IN'
+            // Cs.g:41:7: ( 'IN' )
+            // Cs.g:41:9: 'IN'
             {
             match("IN"); 
 
@@ -633,8 +613,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:43:7: ( 'FRAGMENT' )
-            // Cs.g:43:9: 'FRAGMENT'
+            // Cs.g:42:7: ( 'FRAGMENT' )
+            // Cs.g:42:9: 'FRAGMENT'
             {
             match("FRAGMENT"); 
 
@@ -654,8 +634,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:44:7: ( 'PRIORITIZE' )
-            // Cs.g:44:9: 'PRIORITIZE'
+            // Cs.g:43:7: ( 'PRIORITIZE' )
+            // Cs.g:43:9: 'PRIORITIZE'
             {
             match("PRIORITIZE"); 
 
@@ -675,8 +655,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:45:7: ( '*' )
-            // Cs.g:45:9: '*'
+            // Cs.g:44:7: ( '*' )
+            // Cs.g:44:9: '*'
             {
             match('*'); 
 
@@ -695,8 +675,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:46:7: ( '?' )
-            // Cs.g:46:9: '?'
+            // Cs.g:45:7: ( '?' )
+            // Cs.g:45:9: '?'
             {
             match('?'); 
 
@@ -715,8 +695,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:47:7: ( 'ABSTRACT' )
-            // Cs.g:47:9: 'ABSTRACT'
+            // Cs.g:46:7: ( 'ABSTRACT' )
+            // Cs.g:46:9: 'ABSTRACT'
             {
             match("ABSTRACT"); 
 
@@ -736,8 +716,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:48:7: ( 'COLOR' )
-            // Cs.g:48:9: 'COLOR'
+            // Cs.g:47:7: ( 'COLOR' )
+            // Cs.g:47:9: 'COLOR'
             {
             match("COLOR"); 
 
@@ -757,8 +737,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:49:7: ( '@' )
-            // Cs.g:49:9: '@'
+            // Cs.g:48:7: ( '@' )
+            // Cs.g:48:9: '@'
             {
             match('@'); 
 
@@ -777,12 +757,12 @@ public class CsLexer extends Lexer {
         try {
             int _type = COMMENTS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4399:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // Cs.g:4400:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // Cs.g:4385:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // Cs.g:4386:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // Cs.g:4400:6: (~ ( '\\n' | '\\r' ) )*
+            // Cs.g:4386:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -795,7 +775,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // Cs.g:4400:7: ~ ( '\\n' | '\\r' )
+            	    // Cs.g:4386:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -832,8 +812,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUALIFIED_NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4403:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
-            // Cs.g:4404:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // Cs.g:4389:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
+            // Cs.g:4390:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -844,7 +824,7 @@ public class CsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // Cs.g:4404:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
+            // Cs.g:4390:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -877,7 +857,7 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // Cs.g:4404:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // Cs.g:4390:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             loop4:
             do {
                 int alt4=2;
@@ -890,10 +870,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // Cs.g:4404:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // Cs.g:4390:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // Cs.g:4404:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // Cs.g:4390:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt3=0;
             	    loop3:
             	    do {
@@ -956,10 +936,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4405:7: ( ( '0' .. '9' )+ )
-            // Cs.g:4406:2: ( '0' .. '9' )+
+            // Cs.g:4391:7: ( ( '0' .. '9' )+ )
+            // Cs.g:4392:2: ( '0' .. '9' )+
             {
-            // Cs.g:4406:2: ( '0' .. '9' )+
+            // Cs.g:4392:2: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -973,7 +953,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // Cs.g:4406:3: '0' .. '9'
+            	    // Cs.g:4392:3: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -989,6 +969,7 @@ public class CsLexer extends Lexer {
                 cnt5++;
             } while (true);
 
+             _channel = 99; 
 
             }
 
@@ -1005,11 +986,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = HEXNUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4407:10: ( '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+ )
-            // Cs.g:4408:2: '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            // Cs.g:4394:10: ( '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+ )
+            // Cs.g:4395:2: '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
             {
             match('#'); 
-            // Cs.g:4408:5: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            // Cs.g:4395:5: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
             int cnt6=0;
             loop6:
             do {
@@ -1058,22 +1039,72 @@ public class CsLexer extends Lexer {
     }
     // $ANTLR end "HEXNUMBER"
 
+    // $ANTLR start "TABNUMBER"
+    public final void mTABNUMBER() throws RecognitionException {
+        try {
+            int _type = TABNUMBER;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // Cs.g:4396:10: ( '!' ( '0' .. '9' )+ )
+            // Cs.g:4397:2: '!' ( '0' .. '9' )+
+            {
+            match('!'); 
+            // Cs.g:4397:5: ( '0' .. '9' )+
+            int cnt7=0;
+            loop7:
+            do {
+                int alt7=2;
+                int LA7_0 = input.LA(1);
+
+                if ( ((LA7_0>='0' && LA7_0<='9')) ) {
+                    alt7=1;
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // Cs.g:4397:6: '0' .. '9'
+            	    {
+            	    matchRange('0','9'); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt7 >= 1 ) break loop7;
+                        EarlyExitException eee =
+                            new EarlyExitException(7, input);
+                        throw eee;
+                }
+                cnt7++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "TABNUMBER"
+
     // $ANTLR start "STRING"
     public final void mSTRING() throws RecognitionException {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4409:7: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // Cs.g:4410:2: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"'
+            // Cs.g:4398:7: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // Cs.g:4399:2: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
-            // Cs.g:4410:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )*
-            loop7:
+            // Cs.g:4399:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ) | '\\\\' ( '0' .. '7' ) | ~ ( '\\\\' | '\"' ) )*
+            loop8:
             do {
-                int alt7=5;
-                int LA7_0 = input.LA(1);
+                int alt8=5;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA7_0=='\\') ) {
+                if ( (LA8_0=='\\') ) {
                     switch ( input.LA(2) ) {
                     case '\"':
                     case '\'':
@@ -1084,12 +1115,12 @@ public class CsLexer extends Lexer {
                     case 'r':
                     case 't':
                         {
-                        alt7=1;
+                        alt8=1;
                         }
                         break;
                     case 'u':
                         {
-                        alt7=2;
+                        alt8=2;
                         }
                         break;
                     case '0':
@@ -1101,21 +1132,21 @@ public class CsLexer extends Lexer {
                     case '6':
                     case '7':
                         {
-                        alt7=3;
+                        alt8=3;
                         }
                         break;
 
                     }
 
                 }
-                else if ( ((LA7_0>='\u0000' && LA7_0<='!')||(LA7_0>='#' && LA7_0<='[')||(LA7_0>=']' && LA7_0<='\uFFFF')) ) {
-                    alt7=4;
+                else if ( ((LA8_0>='\u0000' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')) ) {
+                    alt8=4;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
-            	    // Cs.g:4410:6: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+            	    // Cs.g:4399:6: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
             	    {
             	    match('\\'); 
             	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1131,10 +1162,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // Cs.g:4410:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            	    // Cs.g:4399:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
             	    {
-            	    // Cs.g:4410:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            	    // Cs.g:4410:48: '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            	    // Cs.g:4399:47: ( '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            	    // Cs.g:4399:48: '\\\\' 'u' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             	    {
             	    match('\\'); 
             	    match('u'); 
@@ -1181,11 +1212,11 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:4410:169: '\\\\' ( '0' .. '7' )
+            	    // Cs.g:4399:169: '\\\\' ( '0' .. '7' )
             	    {
             	    match('\\'); 
-            	    // Cs.g:4410:173: ( '0' .. '7' )
-            	    // Cs.g:4410:174: '0' .. '7'
+            	    // Cs.g:4399:173: ( '0' .. '7' )
+            	    // Cs.g:4399:174: '0' .. '7'
             	    {
             	    matchRange('0','7'); 
 
@@ -1195,7 +1226,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 4 :
-            	    // Cs.g:4410:184: ~ ( '\\\\' | '\"' )
+            	    // Cs.g:4399:184: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1211,7 +1242,7 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop7;
+            	    break loop8;
                 }
             } while (true);
 
@@ -1232,8 +1263,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4411:11: ( ( ' ' | '\\t' | '\\f' ) )
-            // Cs.g:4412:2: ( ' ' | '\\t' | '\\f' )
+            // Cs.g:4400:11: ( ( ' ' | '\\t' | '\\f' ) )
+            // Cs.g:4401:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1261,34 +1292,34 @@ public class CsLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4415:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Cs.g:4416:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cs.g:4404:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cs.g:4405:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Cs.g:4416:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt8=3;
-            int LA8_0 = input.LA(1);
+            // Cs.g:4405:2: ( '\\r\\n' | '\\r' | '\\n' )
+            int alt9=3;
+            int LA9_0 = input.LA(1);
 
-            if ( (LA8_0=='\r') ) {
-                int LA8_1 = input.LA(2);
+            if ( (LA9_0=='\r') ) {
+                int LA9_1 = input.LA(2);
 
-                if ( (LA8_1=='\n') ) {
-                    alt8=1;
+                if ( (LA9_1=='\n') ) {
+                    alt9=1;
                 }
                 else {
-                    alt8=2;}
+                    alt9=2;}
             }
-            else if ( (LA8_0=='\n') ) {
-                alt8=3;
+            else if ( (LA9_0=='\n') ) {
+                alt9=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 9, 0, input);
 
                 throw nvae;
             }
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // Cs.g:4416:3: '\\r\\n'
+                    // Cs.g:4405:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1296,14 +1327,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4416:10: '\\r'
+                    // Cs.g:4405:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Cs.g:4416:15: '\\n'
+                    // Cs.g:4405:15: '\\n'
                     {
                     match('\n'); 
 
@@ -1329,30 +1360,30 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4419:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
-            // Cs.g:4420:2: ( '<' ) (~ ( '>' ) )* ( '>' )
+            // Cs.g:4408:13: ( ( '<' ) (~ ( '>' ) )* ( '>' ) )
+            // Cs.g:4409:2: ( '<' ) (~ ( '>' ) )* ( '>' )
             {
-            // Cs.g:4420:2: ( '<' )
-            // Cs.g:4420:3: '<'
+            // Cs.g:4409:2: ( '<' )
+            // Cs.g:4409:3: '<'
             {
             match('<'); 
 
             }
 
-            // Cs.g:4420:7: (~ ( '>' ) )*
-            loop9:
+            // Cs.g:4409:7: (~ ( '>' ) )*
+            loop10:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt10=2;
+                int LA10_0 = input.LA(1);
 
-                if ( ((LA9_0>='\u0000' && LA9_0<='=')||(LA9_0>='?' && LA9_0<='\uFFFF')) ) {
-                    alt9=1;
+                if ( ((LA10_0>='\u0000' && LA10_0<='=')||(LA10_0>='?' && LA10_0<='\uFFFF')) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
-            	    // Cs.g:4420:8: ~ ( '>' )
+            	    // Cs.g:4409:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1368,12 +1399,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
-            // Cs.g:4420:16: ( '>' )
-            // Cs.g:4420:17: '>'
+            // Cs.g:4409:16: ( '>' )
+            // Cs.g:4409:17: '>'
             {
             match('>'); 
 
@@ -1395,45 +1426,45 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_39_39_92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4422:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
-            // Cs.g:4423:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
+            // Cs.g:4411:16: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
+            // Cs.g:4412:2: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )* ( '\\'' )
             {
-            // Cs.g:4423:2: ( '\\'' )
-            // Cs.g:4423:3: '\\''
+            // Cs.g:4412:2: ( '\\'' )
+            // Cs.g:4412:3: '\\''
             {
             match('\''); 
 
             }
 
-            // Cs.g:4423:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
-            loop10:
+            // Cs.g:4412:8: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | ~ ( '\\'' | '\\\\' ) )*
+            loop11:
             do {
-                int alt10=4;
-                int LA10_0 = input.LA(1);
+                int alt11=4;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA10_0=='\\') ) {
-                    int LA10_2 = input.LA(2);
+                if ( (LA11_0=='\\') ) {
+                    int LA11_2 = input.LA(2);
 
-                    if ( (LA10_2=='\'') ) {
-                        alt10=1;
+                    if ( (LA11_2=='\'') ) {
+                        alt11=1;
                     }
-                    else if ( (LA10_2=='\\') ) {
-                        alt10=2;
+                    else if ( (LA11_2=='\\') ) {
+                        alt11=2;
                     }
 
 
                 }
-                else if ( ((LA10_0>='\u0000' && LA10_0<='&')||(LA10_0>='(' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFF')) ) {
-                    alt10=3;
+                else if ( ((LA11_0>='\u0000' && LA11_0<='&')||(LA11_0>='(' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFF')) ) {
+                    alt11=3;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
             	case 1 :
-            	    // Cs.g:4423:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4412:9: ( '\\\\' '\\'' )
             	    {
-            	    // Cs.g:4423:9: ( '\\\\' '\\'' )
-            	    // Cs.g:4423:10: '\\\\' '\\''
+            	    // Cs.g:4412:9: ( '\\\\' '\\'' )
+            	    // Cs.g:4412:10: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1444,10 +1475,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // Cs.g:4423:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4412:20: ( '\\\\' '\\\\' )
             	    {
-            	    // Cs.g:4423:20: ( '\\\\' '\\\\' )
-            	    // Cs.g:4423:21: '\\\\' '\\\\'
+            	    // Cs.g:4412:20: ( '\\\\' '\\\\' )
+            	    // Cs.g:4412:21: '\\\\' '\\\\'
             	    {
             	    match('\\'); 
             	    match('\\'); 
@@ -1458,7 +1489,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:4423:31: ~ ( '\\'' | '\\\\' )
+            	    // Cs.g:4412:31: ~ ( '\\'' | '\\\\' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1474,12 +1505,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop11;
                 }
             } while (true);
 
-            // Cs.g:4423:45: ( '\\'' )
-            // Cs.g:4423:46: '\\''
+            // Cs.g:4412:45: ( '\\'' )
+            // Cs.g:4412:46: '\\''
             {
             match('\''); 
 
@@ -1501,30 +1532,30 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_36_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:4425:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
-            // Cs.g:4426:2: ( '$' ) (~ ( '$' ) )* ( '$' )
+            // Cs.g:4414:13: ( ( '$' ) (~ ( '$' ) )* ( '$' ) )
+            // Cs.g:4415:2: ( '$' ) (~ ( '$' ) )* ( '$' )
             {
-            // Cs.g:4426:2: ( '$' )
-            // Cs.g:4426:3: '$'
+            // Cs.g:4415:2: ( '$' )
+            // Cs.g:4415:3: '$'
             {
             match('$'); 
 
             }
 
-            // Cs.g:4426:7: (~ ( '$' ) )*
-            loop11:
+            // Cs.g:4415:7: (~ ( '$' ) )*
+            loop12:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( ((LA11_0>='\u0000' && LA11_0<='#')||(LA11_0>='%' && LA11_0<='\uFFFF')) ) {
-                    alt11=1;
+                if ( ((LA12_0>='\u0000' && LA12_0<='#')||(LA12_0>='%' && LA12_0<='\uFFFF')) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
-            	    // Cs.g:4426:8: ~ ( '$' )
+            	    // Cs.g:4415:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1540,12 +1571,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop12;
                 }
             } while (true);
 
-            // Cs.g:4426:16: ( '$' )
-            // Cs.g:4426:17: '$'
+            // Cs.g:4415:16: ( '$' )
+            // Cs.g:4415:17: '$'
             {
             match('$'); 
 
@@ -1563,313 +1594,313 @@ public class CsLexer extends Lexer {
     // $ANTLR end "QUOTED_36_36"
 
     public void mTokens() throws RecognitionException {
-        // Cs.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 )
-        int alt12=44;
-        alt12 = dfa12.predict(input);
-        switch (alt12) {
+        // Cs.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | TABNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 )
+        int alt13=44;
+        alt13 = dfa13.predict(input);
+        switch (alt13) {
             case 1 :
-                // Cs.g:1:10: T__14
-                {
-                mT__14(); 
-
-                }
-                break;
-            case 2 :
-                // Cs.g:1:16: T__15
+                // Cs.g:1:10: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
-            case 3 :
-                // Cs.g:1:22: T__16
+            case 2 :
+                // Cs.g:1:16: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
-            case 4 :
-                // Cs.g:1:28: T__17
+            case 3 :
+                // Cs.g:1:22: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
-            case 5 :
-                // Cs.g:1:34: T__18
+            case 4 :
+                // Cs.g:1:28: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
-            case 6 :
-                // Cs.g:1:40: T__19
+            case 5 :
+                // Cs.g:1:34: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
-            case 7 :
-                // Cs.g:1:46: T__20
+            case 6 :
+                // Cs.g:1:40: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
-            case 8 :
-                // Cs.g:1:52: T__21
+            case 7 :
+                // Cs.g:1:46: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
-            case 9 :
-                // Cs.g:1:58: T__22
+            case 8 :
+                // Cs.g:1:52: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
-            case 10 :
-                // Cs.g:1:64: T__23
+            case 9 :
+                // Cs.g:1:58: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
-            case 11 :
-                // Cs.g:1:70: T__24
+            case 10 :
+                // Cs.g:1:64: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
-            case 12 :
-                // Cs.g:1:76: T__25
+            case 11 :
+                // Cs.g:1:70: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
-            case 13 :
-                // Cs.g:1:82: T__26
+            case 12 :
+                // Cs.g:1:76: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 14 :
-                // Cs.g:1:88: T__27
+            case 13 :
+                // Cs.g:1:82: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 15 :
-                // Cs.g:1:94: T__28
+            case 14 :
+                // Cs.g:1:88: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 16 :
-                // Cs.g:1:100: T__29
+            case 15 :
+                // Cs.g:1:94: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 17 :
-                // Cs.g:1:106: T__30
+            case 16 :
+                // Cs.g:1:100: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 18 :
-                // Cs.g:1:112: T__31
+            case 17 :
+                // Cs.g:1:106: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 19 :
-                // Cs.g:1:118: T__32
+            case 18 :
+                // Cs.g:1:112: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
-            case 20 :
-                // Cs.g:1:124: T__33
+            case 19 :
+                // Cs.g:1:118: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
-            case 21 :
-                // Cs.g:1:130: T__34
+            case 20 :
+                // Cs.g:1:124: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
-            case 22 :
-                // Cs.g:1:136: T__35
+            case 21 :
+                // Cs.g:1:130: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
-            case 23 :
-                // Cs.g:1:142: T__36
+            case 22 :
+                // Cs.g:1:136: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
-            case 24 :
-                // Cs.g:1:148: T__37
+            case 23 :
+                // Cs.g:1:142: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
-            case 25 :
-                // Cs.g:1:154: T__38
+            case 24 :
+                // Cs.g:1:148: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
-            case 26 :
-                // Cs.g:1:160: T__39
+            case 25 :
+                // Cs.g:1:154: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
-            case 27 :
-                // Cs.g:1:166: T__40
+            case 26 :
+                // Cs.g:1:160: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
-            case 28 :
-                // Cs.g:1:172: T__41
+            case 27 :
+                // Cs.g:1:166: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
-            case 29 :
-                // Cs.g:1:178: T__42
+            case 28 :
+                // Cs.g:1:172: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 30 :
-                // Cs.g:1:184: T__43
+            case 29 :
+                // Cs.g:1:178: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 31 :
-                // Cs.g:1:190: T__44
+            case 30 :
+                // Cs.g:1:184: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 32 :
-                // Cs.g:1:196: T__45
+            case 31 :
+                // Cs.g:1:190: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 33 :
-                // Cs.g:1:202: T__46
+            case 32 :
+                // Cs.g:1:196: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
-            case 34 :
-                // Cs.g:1:208: T__47
+            case 33 :
+                // Cs.g:1:202: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
-            case 35 :
-                // Cs.g:1:214: COMMENTS
+            case 34 :
+                // Cs.g:1:208: COMMENTS
                 {
                 mCOMMENTS(); 
 
                 }
                 break;
-            case 36 :
-                // Cs.g:1:223: QUALIFIED_NAME
+            case 35 :
+                // Cs.g:1:217: QUALIFIED_NAME
                 {
                 mQUALIFIED_NAME(); 
 
                 }
                 break;
-            case 37 :
-                // Cs.g:1:238: NUMBER
+            case 36 :
+                // Cs.g:1:232: NUMBER
                 {
                 mNUMBER(); 
 
                 }
                 break;
-            case 38 :
-                // Cs.g:1:245: HEXNUMBER
+            case 37 :
+                // Cs.g:1:239: HEXNUMBER
                 {
                 mHEXNUMBER(); 
 
                 }
                 break;
+            case 38 :
+                // Cs.g:1:249: TABNUMBER
+                {
+                mTABNUMBER(); 
+
+                }
+                break;
             case 39 :
-                // Cs.g:1:255: STRING
+                // Cs.g:1:259: STRING
                 {
                 mSTRING(); 
 
                 }
                 break;
             case 40 :
-                // Cs.g:1:262: WHITESPACE
+                // Cs.g:1:266: WHITESPACE
                 {
                 mWHITESPACE(); 
 
                 }
                 break;
             case 41 :
-                // Cs.g:1:273: LINEBREAK
+                // Cs.g:1:277: LINEBREAK
                 {
                 mLINEBREAK(); 
 
                 }
                 break;
             case 42 :
-                // Cs.g:1:283: QUOTED_60_62
+                // Cs.g:1:287: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
                 }
                 break;
             case 43 :
-                // Cs.g:1:296: QUOTED_39_39_92
+                // Cs.g:1:300: QUOTED_39_39_92
                 {
                 mQUOTED_39_39_92(); 
 
                 }
                 break;
             case 44 :
-                // Cs.g:1:312: QUOTED_36_36
+                // Cs.g:1:316: QUOTED_36_36
                 {
                 mQUOTED_36_36(); 
 
@@ -1881,20 +1912,20 @@ public class CsLexer extends Lexer {
     }
 
 
-    protected DFA12 dfa12 = new DFA12(this);
-    static final String DFA12_eotS =
-        "\1\uffff\2\35\1\uffff\1\35\2\uffff\1\35\1\uffff\2\35\1\60\1\35"+
-        "\7\uffff\1\35\1\uffff\2\35\2\uffff\1\35\13\uffff\5\35\1\73\3\35"+
-        "\2\uffff\7\35\1\106\2\35\1\uffff\12\35\1\uffff\5\35\1\131\6\35\1"+
-        "\140\4\35\1\145\1\uffff\2\35\1\150\2\35\1\154\1\uffff\3\35\1\161"+
-        "\1\uffff\1\162\1\35\1\uffff\3\35\1\uffff\1\35\1\170\1\171\1\35\2"+
-        "\uffff\1\173\3\35\1\177\2\uffff\1\35\1\uffff\1\35\1\u0082\1\u0083"+
-        "\1\uffff\2\35\2\uffff\1\35\1\u0087\1\u0088\2\uffff";
-    static final String DFA12_eofS =
+    protected DFA13 dfa13 = new DFA13(this);
+    static final String DFA13_eotS =
+        "\1\uffff\2\34\1\uffff\1\34\2\uffff\1\34\1\uffff\2\34\1\60\1\34"+
+        "\6\uffff\1\34\1\uffff\2\34\2\uffff\1\34\14\uffff\5\34\1\73\3\34"+
+        "\2\uffff\7\34\1\106\2\34\1\uffff\12\34\1\uffff\5\34\1\131\6\34\1"+
+        "\140\4\34\1\145\1\uffff\2\34\1\150\2\34\1\154\1\uffff\3\34\1\161"+
+        "\1\uffff\1\162\1\34\1\uffff\3\34\1\uffff\1\34\1\170\1\171\1\34\2"+
+        "\uffff\1\173\3\34\1\177\2\uffff\1\34\1\uffff\1\34\1\u0082\1\u0083"+
+        "\1\uffff\2\34\2\uffff\1\34\1\u0087\1\u0088\2\uffff";
+    static final String DFA13_eofS =
         "\u0089\uffff";
-    static final String DFA12_minS =
+    static final String DFA13_minS =
         "\1\11\1\124\1\117\1\uffff\1\115\2\uffff\1\120\1\uffff\1\117\1\125"+
-        "\1\72\1\111\7\uffff\1\105\1\uffff\1\117\1\122\2\uffff\1\102\13\uffff"+
+        "\1\72\1\111\6\uffff\1\105\1\uffff\1\117\1\122\2\uffff\1\102\14\uffff"+
         "\1\116\1\101\1\122\1\101\1\120\1\55\1\124\1\113\1\114\2\uffff\1"+
         "\124\1\106\1\114\1\111\1\123\1\124\1\122\1\55\1\107\1\117\1\uffff"+
         "\1\111\2\105\1\110\1\111\1\114\1\117\1\124\1\101\1\124\1\uffff\1"+
@@ -1904,10 +1935,10 @@ public class CsLexer extends Lexer {
         "\1\103\1\105\1\uffff\1\124\2\55\1\131\2\uffff\1\55\1\111\1\124\1"+
         "\106\1\55\2\uffff\1\114\1\uffff\1\132\2\55\1\uffff\2\105\2\uffff"+
         "\1\123\2\55\2\uffff";
-    static final String DFA12_maxS =
+    static final String DFA13_maxS =
         "\1\175\1\131\1\122\1\uffff\1\116\2\uffff\1\120\1\uffff\1\117\1"+
-        "\125\1\72\1\111\7\uffff\1\105\1\uffff\1\117\1\122\2\uffff\1\102"+
-        "\13\uffff\1\116\1\101\1\122\1\101\1\120\1\172\1\124\1\113\1\114"+
+        "\125\1\72\1\111\6\uffff\1\105\1\uffff\1\117\1\122\2\uffff\1\102"+
+        "\14\uffff\1\116\1\101\1\122\1\101\1\120\1\172\1\124\1\113\1\114"+
         "\2\uffff\1\124\1\106\1\114\1\111\1\123\1\124\1\122\1\172\1\107\1"+
         "\117\1\uffff\1\111\2\105\1\110\1\111\2\117\1\124\1\101\1\124\1\uffff"+
         "\1\115\1\122\1\117\1\116\1\123\1\172\1\116\1\105\3\122\1\130\1\172"+
@@ -1916,21 +1947,21 @@ public class CsLexer extends Lexer {
         "\1\124\1\103\1\105\1\uffff\1\124\2\172\1\131\2\uffff\1\172\1\111"+
         "\1\124\1\106\1\172\2\uffff\1\114\1\uffff\1\132\2\172\1\uffff\2\105"+
         "\2\uffff\1\123\2\172\2\uffff";
-    static final String DFA12_acceptS =
+    static final String DFA13_acceptS =
         "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\4\uffff\1\20\1\22\1\23"+
-        "\1\24\1\25\1\26\1\27\1\uffff\1\31\2\uffff\1\36\1\37\1\uffff\1\42"+
+        "\1\24\1\25\1\26\1\uffff\1\30\2\uffff\1\35\1\36\1\uffff\1\41\1\42"+
         "\1\43\1\44\1\45\1\46\1\47\1\50\1\51\1\52\1\53\1\54\11\uffff\1\21"+
-        "\1\15\12\uffff\1\33\12\uffff\1\2\22\uffff\1\16\6\uffff\1\3\4\uffff"+
-        "\1\14\2\uffff\1\41\3\uffff\1\17\4\uffff\1\12\1\30\5\uffff\1\5\1"+
-        "\10\1\uffff\1\32\3\uffff\1\34\2\uffff\1\40\1\1\3\uffff\1\35\1\13";
-    static final String DFA12_specialS =
+        "\1\15\12\uffff\1\32\12\uffff\1\2\22\uffff\1\16\6\uffff\1\3\4\uffff"+
+        "\1\14\2\uffff\1\40\3\uffff\1\17\4\uffff\1\12\1\27\5\uffff\1\5\1"+
+        "\10\1\uffff\1\31\3\uffff\1\33\2\uffff\1\37\1\1\3\uffff\1\34\1\13";
+    static final String DFA13_specialS =
         "\u0089\uffff}>";
-    static final String[] DFA12_transitionS = {
-            "\1\41\1\42\1\uffff\1\41\1\42\22\uffff\1\41\1\23\1\40\1\37\1"+
-            "\45\2\uffff\1\44\1\21\1\22\1\30\1\25\1\3\2\uffff\1\34\12\36"+
-            "\1\13\1\10\1\43\1\15\1\uffff\1\31\1\33\1\32\1\35\1\26\1\24\1"+
-            "\35\1\2\2\35\1\4\5\35\1\7\1\27\1\35\1\12\1\1\1\11\2\35\1\14"+
-            "\3\35\1\17\1\uffff\1\20\1\uffff\1\35\1\uffff\32\35\1\5\1\16"+
+    static final String[] DFA13_transitionS = {
+            "\1\41\1\42\1\uffff\1\41\1\42\22\uffff\1\41\1\37\1\40\1\36\1"+
+            "\45\2\uffff\1\44\1\21\1\22\1\27\1\24\1\3\2\uffff\1\33\12\35"+
+            "\1\13\1\10\1\43\1\15\1\uffff\1\30\1\32\1\31\1\34\1\25\1\23\1"+
+            "\34\1\2\2\34\1\4\5\34\1\7\1\26\1\34\1\12\1\1\1\11\2\34\1\14"+
+            "\3\34\1\17\1\uffff\1\20\1\uffff\1\34\1\uffff\32\34\1\5\1\16"+
             "\1\6",
             "\1\47\4\uffff\1\46",
             "\1\50\2\uffff\1\51",
@@ -1944,7 +1975,6 @@ public class CsLexer extends Lexer {
             "\1\56",
             "\1\57",
             "\1\61",
-            "",
             "",
             "",
             "",
@@ -1969,13 +1999,14 @@ public class CsLexer extends Lexer {
             "",
             "",
             "",
+            "",
             "\1\66",
             "\1\67",
             "\1\70",
             "\1\71",
             "\1\72",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\74",
             "\1\75",
             "\1\76",
@@ -1988,8 +2019,8 @@ public class CsLexer extends Lexer {
             "\1\103",
             "\1\104",
             "\1\105",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\107",
             "\1\110",
             "",
@@ -2009,40 +2040,40 @@ public class CsLexer extends Lexer {
             "\1\126",
             "\1\127",
             "\1\130",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\132",
             "\1\133",
             "\1\134",
             "\1\135",
             "\1\136",
             "\1\137",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\141",
             "\1\142",
             "\1\143",
             "\1\144",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "",
             "\1\146",
             "\1\147",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\151",
             "\1\152",
-            "\2\35\1\uffff\12\35\7\uffff\3\35\1\153\26\35\4\uffff\1\35"+
-            "\1\uffff\32\35",
+            "\2\34\1\uffff\12\34\7\uffff\3\34\1\153\26\34\4\uffff\1\34"+
+            "\1\uffff\32\34",
             "",
             "\1\155",
             "\1\156",
             "\1\157",
-            "\2\35\1\uffff\12\35\7\uffff\23\35\1\160\6\35\4\uffff\1\35"+
-            "\1\uffff\32\35",
+            "\2\34\1\uffff\12\34\7\uffff\23\34\1\160\6\34\4\uffff\1\34"+
+            "\1\uffff\32\34",
             "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\163",
             "",
             "\1\164",
@@ -2050,74 +2081,74 @@ public class CsLexer extends Lexer {
             "\1\166",
             "",
             "\1\167",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\172",
             "",
             "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\174",
             "\1\175",
             "\1\176",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "",
             "",
             "\1\u0080",
             "",
             "\1\u0081",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "",
             "\1\u0084",
             "\1\u0085",
             "",
             "",
             "\1\u0086",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "",
             ""
     };
 
-    static final short[] DFA12_eot = DFA.unpackEncodedString(DFA12_eotS);
-    static final short[] DFA12_eof = DFA.unpackEncodedString(DFA12_eofS);
-    static final char[] DFA12_min = DFA.unpackEncodedStringToUnsignedChars(DFA12_minS);
-    static final char[] DFA12_max = DFA.unpackEncodedStringToUnsignedChars(DFA12_maxS);
-    static final short[] DFA12_accept = DFA.unpackEncodedString(DFA12_acceptS);
-    static final short[] DFA12_special = DFA.unpackEncodedString(DFA12_specialS);
-    static final short[][] DFA12_transition;
+    static final short[] DFA13_eot = DFA.unpackEncodedString(DFA13_eotS);
+    static final short[] DFA13_eof = DFA.unpackEncodedString(DFA13_eofS);
+    static final char[] DFA13_min = DFA.unpackEncodedStringToUnsignedChars(DFA13_minS);
+    static final char[] DFA13_max = DFA.unpackEncodedStringToUnsignedChars(DFA13_maxS);
+    static final short[] DFA13_accept = DFA.unpackEncodedString(DFA13_acceptS);
+    static final short[] DFA13_special = DFA.unpackEncodedString(DFA13_specialS);
+    static final short[][] DFA13_transition;
 
     static {
-        int numStates = DFA12_transitionS.length;
-        DFA12_transition = new short[numStates][];
+        int numStates = DFA13_transitionS.length;
+        DFA13_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA12_transition[i] = DFA.unpackEncodedString(DFA12_transitionS[i]);
+            DFA13_transition[i] = DFA.unpackEncodedString(DFA13_transitionS[i]);
         }
     }
 
-    class DFA12 extends DFA {
+    class DFA13 extends DFA {
 
-        public DFA12(BaseRecognizer recognizer) {
+        public DFA13(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 12;
-            this.eot = DFA12_eot;
-            this.eof = DFA12_eof;
-            this.min = DFA12_min;
-            this.max = DFA12_max;
-            this.accept = DFA12_accept;
-            this.special = DFA12_special;
-            this.transition = DFA12_transition;
+            this.decisionNumber = 13;
+            this.eot = DFA13_eot;
+            this.eof = DFA13_eof;
+            this.min = DFA13_min;
+            this.max = DFA13_max;
+            this.accept = DFA13_accept;
+            this.special = DFA13_special;
+            this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 );";
+            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | TABNUMBER | STRING | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_39_39_92 | QUOTED_36_36 );";
         }
     }
  

@@ -61,6 +61,9 @@ public class CsTokenStyleInformationProvider {
 		if ("HEXNUMBER".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
 		}
+		if ("TABNUMBER".equals(tokenName)) {
+			return new TokenStyleImpl(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
+		}
 		if ("DEFINE".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}

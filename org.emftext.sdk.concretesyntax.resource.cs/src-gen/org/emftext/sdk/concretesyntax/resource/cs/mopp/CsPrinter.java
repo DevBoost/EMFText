@@ -189,8 +189,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		return resource;
 	}
 	
-	/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */
-	public void print(org.eclipse.emf.ecore.EObject element)  {
+	/**
+	 * Calls {@link #doPrint(EObject, PrintWriter, String)} and writes the result to
+	 * the underlying output stream.
+	 */
+	public void print(org.eclipse.emf.ecore.EObject element) {
 		java.io.PrintWriter out = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		doPrint(element, out, "");
 		out.flush();
@@ -1707,14 +1710,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("tab", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
-		// DEFINITION PART BEGINS (CsString)
-		out.print("!");
 		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
 		count = printCountingMap.get("tab");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB));
 			if (o != null) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver resolver = tokenResolverFactory.createTokenResolver("NUMBER");
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver resolver = tokenResolverFactory.createTokenResolver("TABNUMBER");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((java.lang.Object) o, element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), element));
 			}

@@ -19,4 +19,9 @@ public class CsContainment extends org.emftext.sdk.concretesyntax.resource.cs.gr
 	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
 		super(feature, cardinality, mandatoryOccurencesAfter);
 	}
+	
+	public String toString() {
+		return getFeature().getName();
+	}
+	
 }

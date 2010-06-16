@@ -30,4 +30,8 @@ public class CsKeyword extends org.emftext.sdk.concretesyntax.resource.cs.gramma
 		return value;
 	}
 	
+	public String toString() {
+		return value;
+	}
+	
 }

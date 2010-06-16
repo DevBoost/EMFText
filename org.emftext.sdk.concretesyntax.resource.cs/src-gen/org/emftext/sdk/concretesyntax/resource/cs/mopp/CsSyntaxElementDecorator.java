@@ -57,4 +57,8 @@ public class CsSyntaxElementDecorator {
 		return indicesToPrint.remove(0);
 	}
 	
+	public String toString() {
+		return "" + getDecoratedElement();
+	}
+	
 }

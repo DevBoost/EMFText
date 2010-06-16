@@ -24,8 +24,8 @@ public class CsTokenResolverFactory implements org.emftext.sdk.concretesyntax.re
 		tokenName2TokenResolver = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
 		featureName2CollectInTokenResolver = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver>();
 		registerTokenResolver("QUALIFIED_NAME", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUALIFIED_NAMETokenResolver());
-		registerTokenResolver("NUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsNUMBERTokenResolver());
 		registerTokenResolver("HEXNUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsHEXNUMBERTokenResolver());
+		registerTokenResolver("TABNUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsTABNUMBERTokenResolver());
 		registerTokenResolver("STRING", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsSTRINGTokenResolver());
 		registerTokenResolver("QUOTED_60_62", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_60_62TokenResolver());
 		registerTokenResolver("QUOTED_39_39_92", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_39_39_92TokenResolver());

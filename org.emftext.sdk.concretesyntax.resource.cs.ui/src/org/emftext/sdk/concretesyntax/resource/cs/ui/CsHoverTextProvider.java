@@ -88,7 +88,7 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 		}
 		EClass eClass = object.eClass();
 
-		List<String> booleanAttributes = new ArrayList<String>();
+		List<Object> booleanAttributes = new ArrayList<Object>();
 		StringBuffer nonBooleanAttributes = new StringBuffer();
 		for (EAttribute attribute : eClass.getEAllAttributes()) {
 			Object value = null;

@@ -20,4 +20,8 @@ public class CsSequence extends org.emftext.sdk.concretesyntax.resource.cs.gramm
 		super(cardinality, elements);
 	}
 	
+	public String toString() {
+		return org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(getChildren(), " ");
+	}
+	
 }

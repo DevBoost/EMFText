@@ -50,7 +50,25 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean handleTokenSpaceAutomatically = false;
 	private int tokenSpace = 0;
-	private boolean beforeFirstElementToPrint = false;
+	/**
+	 * A flag that indicates whether token have already been printed for the current
+	 * object. The flag is set to false whenever printing of the next EObject in the
+	 * tree is started. The status of the flag is used to avoid printing default token
+	 * space in front of objects.
+	 */
+	private boolean startedPrintingObject = false;
+	/**
+	 * The number of tab characters the were printed before the current line. This
+	 * number is used to calculate the relative indendation when printing contained
+	 * objects.
+	 */
+	private int currentTabs;
+	/**
+	 * The number of tab characters that must be printed before the current object.
+	 * This number is used to calculate the indendation of new lines, when line breaks
+	 * are printed within one object.
+	 */
+	private int tabsBeforeCurrentObject;
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -60,7 +78,8 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
 		tokenOutputStream = new java.util.ArrayList<PrintToken>();
-		beforeFirstElementToPrint = true;
+		currentTabs = 0;
+		tabsBeforeCurrentObject = 0;
 		doPrint(element, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>());
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		if (handleTokenSpaceAutomatically) {
@@ -78,6 +97,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		if (outputStream == null) {
 			throw new java.lang.IllegalArgumentException("Nothing to write on.");
 		}
+		startedPrintingObject = true;
 		
 		if (element instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0, foundFormattingElements);
@@ -252,10 +272,25 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					keepDecorating = true;
 				}
 			}
-			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
-				keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);
-				if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) {
-					break;
+			if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) {
+				// for choices we do print only the choice which does print at least one feature
+				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childToPrint = null;
+				for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
+					// pick first choice as default, will be overridden if a choice that prints a
+					// feature is found
+					if (childToPrint == null) {
+						childToPrint = childDecorator;
+					}
+					if (doesPrintFeature(childDecorator, eObject, printCountingMap)) {
+						childToPrint = childDecorator;
+						break;
+					}
+				}
+				keepDecorating |= decorateTreeBasic(childToPrint, eObject, printCountingMap, subKeywordsToPrint);
+			} else {
+				// for all other syntax element we do print all children
+				for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
+					keepDecorating |= decorateTreeBasic(childDecorator, eObject, printCountingMap, subKeywordsToPrint);
 				}
 			}
 			foundFeatureToPrint |= keepDecorating;
@@ -281,6 +316,35 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			isFirstIteration = false;
 		}
 		return foundFeatureToPrint;
+	}
+	
+	/**
+	 * Checks whether decorating the given node will use at least one attribute value,
+	 * or reference holded by eObject. Returns true if a printable attribute value or
+	 * reference was found. This method is used to decide which choice to pick, when
+	 * multiple choices are available. We pick the choice that prints at least one
+	 * attribute or reference.
+	 */
+	public boolean doesPrintFeature(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap) {
+		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = decorator.getDecoratedElement();
+		if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) {
+			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) syntaxElement;
+			org.eclipse.emf.ecore.EStructuralFeature feature = terminal.getFeature();
+			if (feature == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
+				return false;
+			}
+			int countLeft = printCountingMap.get(feature.getName());
+			if (countLeft > terminal.getMandatoryOccurencesAfter()) {
+				// found a feature to print
+				return true;
+			}
+		}
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
+			if (doesPrintFeature(childDecorator, eObject, printCountingMap)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean printTree(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
@@ -318,6 +382,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			}
 			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator childDecorator : decorator.getChildDecorators()) {
 				foundSomethingToPrint |= printTree(childDecorator, eObject, foundFormattingElements, layoutInformations);
+				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement decoratedElement = decorator.getDecoratedElement();
+				if (foundSomethingToPrint && decoratedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) {
+					break;
+				}
 			}
 			if (cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE || cardinality == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.QUESTIONMARK) {
 				break;
@@ -376,7 +444,17 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EStructuralFeature reference = containment.getFeature();
 		java.lang.Object o = getValue(eObject, reference, count);
+		// print formatting elements
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, containment, o, eObject);
+		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		// save current number of tabs
+		int tabs = tabsBeforeCurrentObject;
+		// use current number of tabs to indent contained object
+		tabsBeforeCurrentObject += currentTabs;
+		currentTabs = 0;
 		doPrint((org.eclipse.emf.ecore.EObject) o, foundFormattingElements);
+		// restore number of tabs after printing the contained object
+		tabsBeforeCurrentObject = tabs;
 	}
 	
 	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
@@ -386,7 +464,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			layoutInformations.remove(layoutInformation);
 			tokenOutputStream.add(new PrintToken(hiddenTokenText, null));
 			foundFormattingElements.clear();
-			beforeFirstElementToPrint = false;
+			startedPrintingObject = false;
 			return;
 		}
 		if (foundFormattingElements.size() > 0) {
@@ -398,20 +476,20 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					}
 				}
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) {
-					int tabs = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) foundFormattingElement).getTabs();
+					currentTabs = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) foundFormattingElement).getTabs();
 					tokenOutputStream.add(new PrintToken(NEW_LINE, null));
-					for (int i = 0; i < tabs; i++) {
+					for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {
 						tokenOutputStream.add(new PrintToken("\t", null));
 					}
 				}
 			}
 			foundFormattingElements.clear();
-			beforeFirstElementToPrint = false;
+			startedPrintingObject = false;
 		} else {
-			if (beforeFirstElementToPrint) {
+			if (startedPrintingObject) {
 				// if no elements have been printed yet, we do not add the default token space,
 				// because spaces before the first element are not desired.
-				beforeFirstElementToPrint = false;
+				startedPrintingObject = false;
 			} else {
 				if (!handleTokenSpaceAutomatically) {
 					tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));

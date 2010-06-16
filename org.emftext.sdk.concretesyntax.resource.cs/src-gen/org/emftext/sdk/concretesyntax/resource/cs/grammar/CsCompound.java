@@ -20,4 +20,8 @@ public class CsCompound extends org.emftext.sdk.concretesyntax.resource.cs.gramm
 		super(cardinality, new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement[] {choice});
 	}
 	
+	public String toString() {
+		return "(" + getChildren()[0] + ")";
+	}
+	
 }
