@@ -1085,9 +1085,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 				printCountingMap.putAll(printCountingMap1);
 			}
 		}
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("metaclass");
 		if (count > 0) {
@@ -1099,6 +1096,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			}
 			printCountingMap.put("metaclass", count - 1);
 		}
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("::=");
 		// DEFINITION PART BEGINS (Containment)
@@ -1119,16 +1118,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(";");
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
 	}
 	public void print_org_emftext_sdk_concretesyntax_Rule_0(org.emftext.sdk.concretesyntax.Rule element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		int count;
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
 		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("annotations");
 		if (count > 0) {
@@ -1145,6 +1138,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			}
 			printCountingMap.put("annotations", count - 1);
 		}
+		// DEFINITION PART BEGINS (LineBreak)
+		out.println();
+		out.print(localtab);
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Sequence(org.emftext.sdk.concretesyntax.Sequence element, java.lang.String outertab, java.io.PrintWriter out) {

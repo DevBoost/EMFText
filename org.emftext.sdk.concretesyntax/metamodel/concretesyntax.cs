@@ -78,7 +78,7 @@ RULES {
 	Option 	       ::= type[] "=" value[STRING];
  
 	@Foldable
-	Rule           ::= (!0 annotations)* !0 metaclass[] "::=" children : Choice ";" !0;
+	Rule           ::= (annotations !0)* metaclass[] #1 "::=" children : Choice ";";
  
 	Sequence       ::= children : Definition +;
  
