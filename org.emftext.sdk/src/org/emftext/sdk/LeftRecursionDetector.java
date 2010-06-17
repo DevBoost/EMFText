@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2010 
+  * Copyright (c) 2006-2010 
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -25,13 +25,14 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenClassCache;
+import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /** 
  * Checks whether the given Concrete Syntax definition contains left-recursive rules.
  * It currently detects direct left recursion and a subset of indirect left recursive rules.
- * 
  */
 public class LeftRecursionDetector {
 
@@ -56,10 +57,12 @@ public class LeftRecursionDetector {
     	return findLeftProducingRule(metaclass, rule.getDefinition(), rule); 
 	}
 
-	private Rule findLeftProducingRule(GenClass metaclass, Choice c, Rule currentRule) {
-		for (Sequence sequence : c.getOptions()) {
+	private Rule findLeftProducingRule(GenClass metaclass, Choice choice, Rule currentRule) {
+		for (Sequence sequence : choice.getOptions()) {
 			Rule leftProducingRule = findLeftProducingRule(metaclass, sequence, currentRule);
-			if (leftProducingRule != null) return leftProducingRule;
+			if (leftProducingRule != null) {
+				return leftProducingRule;
+			}
 		}
 		return null;
 	}
@@ -79,7 +82,7 @@ public class LeftRecursionDetector {
 				
 				Collection<GenClass> featureTypes = containment.getAllowedSubTypes();
 				if (featureTypes.contains(metaclass) || 
-						isSubtypeofOneOf(metaclass, featureTypes, genClassCache)) {
+					isSubtypeofOneOf(metaclass, featureTypes, genClassCache)) {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
@@ -108,7 +111,14 @@ public class LeftRecursionDetector {
 				if (leftProducingRule != null) {
 					return leftProducingRule;
 				}
-			} 
+			}
+			// ignore formatting operators
+			if (definition instanceof LineBreak) {
+				continue;
+			}
+			if (definition instanceof WhiteSpaces) {
+				continue;
+			}
 			if (definition.hasMinimalCardinalityOneOrHigher()) {
 				break;
 			}
