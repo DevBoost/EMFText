@@ -1587,7 +1587,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			Containment leftContainment = (Containment) left;
 			Containment rightContainment = (Containment) right;
-			sc.add("{ element = null; }");
+			// TODO sven: check whether the next line is actually needed
+			// its existence causes bug 1374. if I remove it, the generated
+			// code is fine. However, I have no idea in which cases it is needed
+			//sc.add("{ element = null; }");
 			
 			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
 			
