@@ -329,7 +329,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		}
 		if(commonMetaClass!=null){
 			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(0));
-			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(2));
+			checkContainment(resource, syntax, commonMetaClass,(Containment)definitions.get(definitions.size()-1));
 		}
 	}
 
