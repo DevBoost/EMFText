@@ -666,8 +666,12 @@ options {
 		}
 		java.lang.StringBuilder hiddenTokenText = new java.lang.StringBuilder();
 		java.lang.StringBuilder visibleTokenText = new java.lang.StringBuilder();
+		org.antlr.runtime3_2_0.CommonToken firstToken = null;
 		for (int pos = this.lastPosition2; pos <= endPos; pos++) {
 			org.antlr.runtime3_2_0.Token token = getTokenStream().get(pos);
+			if (firstToken == null) {
+				firstToken = (org.antlr.runtime3_2_0.CommonToken) token;
+			}
 			int _channel = token.getChannel();
 			if (_channel == 99) {
 				hiddenTokenText.append(token.getText());
@@ -675,8 +679,10 @@ options {
 				visibleTokenText.append(token.getText());
 			}
 		}
-		org.antlr.runtime3_2_0.CommonToken firstToken = (org.antlr.runtime3_2_0.CommonToken) getTokenStream().get(this.lastPosition2);
-		int offset = firstToken.getStartIndex();
+		int offset = -1;
+		if (firstToken != null) {
+			offset = firstToken.getStartIndex();
+		}
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
 		layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));
 		this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);
