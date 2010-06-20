@@ -126,7 +126,11 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					continue;
 				}
 				if (uri.equals(nsURI) || resolveFuzzy) {
-					GenPackageInFile nextResult = new GenPackageInFile(packages.get(nsURI), ecoreFile, genmodelFile);
+					GenPackage genPackage = packages.get(nsURI);
+					if (genPackage == null) {
+						continue;
+					}
+					GenPackageInFile nextResult = new GenPackageInFile(genPackage, ecoreFile, genmodelFile);
 					result.add(nextResult);
 					if (!resolveFuzzy) {
 						break;
