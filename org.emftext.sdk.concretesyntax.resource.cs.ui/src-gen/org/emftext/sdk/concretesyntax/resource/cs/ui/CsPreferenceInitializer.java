@@ -53,7 +53,7 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 	private void initializeDefaultBrackets(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
 		// set default brackets for ITextResource bracket set
-		org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(null);
+		org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(null, null);
 		final java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs = metaInformation.getBracketPairs();
 		if (bracketPairs != null) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair : bracketPairs) {

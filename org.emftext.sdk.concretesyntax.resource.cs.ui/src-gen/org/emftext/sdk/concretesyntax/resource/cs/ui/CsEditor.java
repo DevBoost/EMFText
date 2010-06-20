@@ -32,6 +32,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
 	private org.eclipse.swt.widgets.Display display;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler;
 	
 	public CsEditor() {
 		super();
@@ -402,4 +403,13 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			});
 		}
 	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler getBracketHandler() {
+		return bracketHandler;
+	}
+	
+	public void setBracketHandler(org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler) {
+		this.bracketHandler = bracketHandler;
+	}
+	
 }

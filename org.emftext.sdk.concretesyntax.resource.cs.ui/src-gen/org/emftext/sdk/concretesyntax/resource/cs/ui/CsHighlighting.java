@@ -120,7 +120,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		projectionViewer = sourceviewer;
 		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
 		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
-		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(sourceviewer);
+		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(editor, sourceviewer);
 		this.colorManager = colorManager;
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 		isHighlightOccurrences = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX);

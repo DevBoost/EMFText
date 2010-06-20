@@ -172,7 +172,7 @@ public class CsOccurrence {
 		if (tokenText == null || tokenText.equals("")) {
 			return;
 		}
-		if ((resolvedEO == null && quotedTokenArray.contains(tokenText))		|| (resolvedEO == null && elementsAtOffset.get(0).eResource() == null)		|| bracketSet.isBracket(tokenText)) {
+		if ((resolvedEO == null && quotedTokenArray.contains(tokenText)) || (resolvedEO == null && elementsAtOffset.get(0).eResource() == null) || bracketSet.isBracket(tokenText)) {
 			tokenText = "";
 			return;
 		}

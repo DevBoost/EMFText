@@ -66,7 +66,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the coloring of matching brackets.");
 		
-		bracketsTmp = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(null);
+		bracketsTmp = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(null, null);
 		for (String languageID : languageIDs) {
 			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}

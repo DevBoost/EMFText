@@ -64,7 +64,7 @@ public class CsBracketSet {
 	/**
 	 * A listener for the automatic closing.
 	 */
-	private class ClosingListener implements org.eclipse.swt.events.VerifyListener, org.eclipse.swt.events.ModifyListener, org.eclipse.swt.custom.VerifyKeyListener {
+	private class ClosingListener implements org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler, org.eclipse.swt.events.VerifyListener, org.eclipse.swt.events.ModifyListener, org.eclipse.swt.custom.VerifyKeyListener {
 		private int closingLength = -1;
 		private int addedPosition = -1;
 		private boolean closingAdded = false;
@@ -81,7 +81,9 @@ public class CsBracketSet {
 			}
 			if (caret > 0 && caret < textWidget.getCharCount()) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair = getBracketPair(textWidget.getTextRange(caret - 1, 1), textWidget.getTextRange(caret, 1));
-				if (bracketPair != null && !bracketPair.isClosingEnabledInside())				return;
+				if (bracketPair != null && !bracketPair.isClosingEnabledInside()) {
+					return;
+				}
 			}
 			closingAdded = true;
 			closing = getCounterpart(e.text);
@@ -120,6 +122,11 @@ public class CsBracketSet {
 				e.doit = false;
 				textWidget.setCaretOffset(caret + 1);
 			}
+			// if the CTRL key is pressed to activate the code completion, we do clear the
+			// information about the recently closed bracket.
+			if ((e.keyCode & org.eclipse.swt.SWT.CTRL) != 0) {
+				return;
+			}
 			closing = null;
 			addedPosition = -1;
 			
@@ -132,15 +139,22 @@ public class CsBracketSet {
 				isEmbraced = true;
 			}
 		}
+		public boolean addedClosingBracket() {
+			return closing != null;
+		}
+		
+		public String getClosingBracket() {
+			return closing;
+		}
+		
 	}
 	
 	/**
 	 * Creates a bracket set to manage the bracket pairs.
 	 * 
 	 * @param sourceViewer the source viewer for matching brackets
-	 * @param extension the file extension of the DSL
 	 */
-	public CsBracketSet(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public CsBracketSet(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor, org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
 		languageID = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 		this.bracketPairs = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
 		if (sourceViewer != null) {
@@ -150,7 +164,7 @@ public class CsBracketSet {
 		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		if (sourceViewer != null && preferenceStore != null) {
 			resetBrackets();
-			addListeners();
+			addListeners(editor);
 		}
 	}
 	
@@ -340,11 +354,12 @@ public class CsBracketSet {
 	/**
 	 * Adds listeners to handle bracket automatic closing.
 	 */
-	private void addListeners() {
+	private void addListeners(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
 		ClosingListener closingListener = new ClosingListener();
 		textWidget.addVerifyListener(closingListener);
 		textWidget.addVerifyKeyListener(closingListener);
 		textWidget.addModifyListener(closingListener);
+		editor.setBracketHandler(closingListener);
 	}
 	
 	/**
