@@ -138,6 +138,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.COMPLETION_PROPOSAL)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_META_INFORMATION)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.I_BACKET_HANDLER)));
 	    creators.add(new PluginXMLCreator());
 	    return creators;
 	}

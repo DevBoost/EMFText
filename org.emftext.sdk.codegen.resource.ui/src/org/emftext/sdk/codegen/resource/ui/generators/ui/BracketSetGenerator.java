@@ -136,11 +136,12 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addAddListenersMethod(JavaComposite sc) {
 		sc.addJavadoc("Adds listeners to handle bracket automatic closing.");
-		sc.add("private void addListeners() {");
+		sc.add("private void addListeners(" + editorClassName + " editor) {");
 		sc.add("ClosingListener closingListener = new ClosingListener();");
 		sc.add("textWidget.addVerifyListener(closingListener);");
 		sc.add("textWidget.addVerifyKeyListener(closingListener);");
 		sc.add("textWidget.addModifyListener(closingListener);");
+		sc.add("editor.setBracketHandler(closingListener);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -345,10 +346,9 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
 			"Creates a bracket set to manage the bracket pairs.",
-			"@param sourceViewer the source viewer for matching brackets",
-			"@param extension the file extension of the DSL"
+			"@param sourceViewer the source viewer for matching brackets"
 		);
-		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer) {");
+		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor, " + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.add("languageID = new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
 		sc.add("if (sourceViewer != null) {");
@@ -358,7 +358,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("if (sourceViewer != null && preferenceStore != null) {");
 		sc.add("resetBrackets();");
-		sc.add("addListeners();");
+		sc.add("addListeners(editor);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -371,7 +371,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addClosingListenerClass(JavaComposite sc) {
 		sc.addJavadoc("A listener for the automatic closing.");
-		sc.add("private class ClosingListener implements " + VERIFY_LISTENER + ", " + MODIFY_LISTENER + ", " + VERIFY_KEY_LISTENER + " {");
+		sc.add("private class ClosingListener implements " + iBracketHandlerClassName + ", " + VERIFY_LISTENER + ", " + MODIFY_LISTENER + ", " + VERIFY_KEY_LISTENER + " {");
 		sc.add("private int closingLength = -1;");
 		sc.add("private int addedPosition = -1;");
 		sc.add("private boolean closingAdded = false;");
@@ -387,8 +387,9 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("if (caret > 0 && caret < textWidget.getCharCount()) {");
 		sc.add(iBracketPairClassName + " bracketPair = getBracketPair(textWidget.getTextRange(caret - 1, 1), textWidget.getTextRange(caret, 1));");
-		sc.add("if (bracketPair != null && !bracketPair.isClosingEnabledInside())");
+		sc.add("if (bracketPair != null && !bracketPair.isClosingEnabledInside()) {");
 		sc.add("return;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("closingAdded = true;");
 		sc.add("closing = getCounterpart(e.text);");
@@ -426,6 +427,13 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("e.doit = false;");
 		sc.add("textWidget.setCaretOffset(caret + 1);");
 		sc.add("}");
+		sc.addComment(
+			"if the CTRL key is pressed to activate the code completion, " +
+			"we do clear the information about the recently closed bracket."
+		);
+		sc.add("if ((e.keyCode & " + SWT + ".CTRL) != 0) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("closing = null;");
 		sc.add("addedPosition = -1;");
 		sc.addLineBreak();
@@ -438,6 +446,14 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("isEmbraced = true;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("public boolean addedClosingBracket() {");
+		sc.add("return closing != null;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getClosingBracket() {");
+		sc.add("return closing;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}

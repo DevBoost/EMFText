@@ -1940,7 +1940,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GENERATE_UI_PLUGIN(198, "GENERATE_UI_PLUGIN", "generateUIPlugin");
+	GENERATE_UI_PLUGIN(198, "GENERATE_UI_PLUGIN", "generateUIPlugin"), /**
+	 * The '<em><b>OVERRIDE IBACKET HANDLER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBACKET_HANDLER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IBACKET_HANDLER(199, "OVERRIDE_I_BACKET_HANDLER", "overrideIBracketHandler");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -4898,6 +4906,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int GENERATE_UI_PLUGIN_VALUE = 198;
 
 	/**
+	 * The '<em><b>OVERRIDE IBACKET HANDLER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IBACKET HANDLER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBACKET_HANDLER
+	 * @model name="OVERRIDE_I_BACKET_HANDLER" literal="overrideIBracketHandler"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IBACKET_HANDLER_VALUE = 199;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5102,6 +5125,7 @@ public enum OptionTypes implements Enumerator {
 			UI_SOURCE_FOLDER,
 			UI_SOURCE_GEN_FOLDER,
 			GENERATE_UI_PLUGIN,
+			OVERRIDE_IBACKET_HANDLER,
 		};
 
 	/**
@@ -5348,6 +5372,7 @@ public enum OptionTypes implements Enumerator {
 			case UI_SOURCE_FOLDER_VALUE: return UI_SOURCE_FOLDER;
 			case UI_SOURCE_GEN_FOLDER_VALUE: return UI_SOURCE_GEN_FOLDER;
 			case GENERATE_UI_PLUGIN_VALUE: return GENERATE_UI_PLUGIN;
+			case OVERRIDE_IBACKET_HANDLER_VALUE: return OVERRIDE_IBACKET_HANDLER;
 		}
 		return null;
 	}

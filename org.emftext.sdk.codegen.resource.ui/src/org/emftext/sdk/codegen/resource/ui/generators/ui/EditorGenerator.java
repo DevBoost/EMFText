@@ -119,6 +119,22 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addAddBackgroundParsingListenerMethod(sc);
 		addNotifyBackgroundParsingFinishedMethod(sc);
 		addRefreshMarkersMethod(sc);
+		addGetBracketHandlerMethod(sc);
+		addSetBracketHandlerMethod(sc);
+	}
+
+	private void addGetBracketHandlerMethod(JavaComposite sc) {
+		sc.add("public " + iBracketHandlerClassName + " getBracketHandler() {");
+		sc.add("return bracketHandler;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetBracketHandlerMethod(JavaComposite sc) {
+		sc.add("public void setBracketHandler(" + iBracketHandlerClassName + " bracketHandler) {");
+		sc.add("this.bracketHandler = bracketHandler;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addInitializeEditorMethod(StringComposite sc) {
@@ -574,6 +590,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("});");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {
@@ -590,6 +607,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
 		sc.add("private " + DISPLAY + " display;");
+		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
 		sc.addLineBreak();
 	}
 

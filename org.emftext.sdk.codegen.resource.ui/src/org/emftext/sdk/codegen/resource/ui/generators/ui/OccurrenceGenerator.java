@@ -210,9 +210,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (tokenText == null || tokenText.equals(\"\")) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("if ((resolvedEO == null && quotedTokenArray.contains(tokenText))");
-		sc.add("|| (resolvedEO == null && elementsAtOffset.get(0).eResource() == null)");
-		sc.add("|| bracketSet.isBracket(tokenText)) {");
+		sc.add("if ((resolvedEO == null && quotedTokenArray.contains(tokenText)) " +
+			"|| (resolvedEO == null && elementsAtOffset.get(0).eResource() == null) " +
+			"|| bracketSet.isBracket(tokenText)) {");
 		sc.add("tokenText = \"\";");
 		sc.add("return;");
 		sc.add("}");

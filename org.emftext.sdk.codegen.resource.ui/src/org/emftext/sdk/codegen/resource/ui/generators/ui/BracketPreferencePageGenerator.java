@@ -351,7 +351,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
 		sc.addLineBreak();
-		sc.add("bracketsTmp = new " + bracketSetClassName + "(null);");
+		sc.add("bracketsTmp = new " + bracketSetClassName + "(null, null);");
 		sc.add("for (String languageID : languageIDs) {");
 		sc.add("bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
 		sc.add("}");

@@ -51,7 +51,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addComputeCompletionProposalsMethod(sc);
 		addComputeContextInformationMethod(sc);
 		addGetCompletionProposalAutoActivationCharactersMethod(sc);
@@ -94,12 +94,12 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addComputeCompletionProposalsMethod(StringComposite sc) {
+	private void addComputeCompletionProposalsMethod(JavaComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.addLineBreak();
 		sc.add(RESOURCE + " resource = editor.getResource();");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
-		sc.add("String content = viewer.getDocument().get();");
+		sc.add(STRING + " content = viewer.getDocument().get();");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] proposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
@@ -112,7 +112,17 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add(I_CONTEXT_INFORMATION + " info;");
 		sc.add("info = new " + CONTEXT_INFORMATION + "(image, proposalString, proposalString);");
 		sc.add("int begin = offset - prefix.length();");
-		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, prefix.length(), proposalString.length(), image, proposalString, info, proposalString);");
+		sc.add("int replacementLength = prefix.length();");
+		sc.addComment(
+			"if a closing bracket was automatically inserted right before, " +
+			"we enlarge the replacement length in order to overwrite the bracket."
+		);
+		sc.add(iBracketHandlerClassName + " bracketHandler = editor.getBracketHandler();");
+		sc.add(STRING + " closingBracket = bracketHandler.getClosingBracket();");
+		sc.add("if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {");
+		sc.add("replacementLength += closingBracket.length();");
+		sc.add("}");
+		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, replacementLength, proposalString.length(), image, proposalString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");

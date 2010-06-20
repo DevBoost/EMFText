@@ -69,7 +69,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("private void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.addComment("set default brackets for ITextResource bracket set");
-		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "(null);");
+		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "(null, null);");
 		sc.add("final " + COLLECTION + "<" + iBracketPairClassName + "> bracketPairs = metaInformation.getBracketPairs();");
 		sc.add("if (bracketPairs != null) {");
 		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
