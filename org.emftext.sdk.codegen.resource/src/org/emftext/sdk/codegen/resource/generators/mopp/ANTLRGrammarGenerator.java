@@ -1454,7 +1454,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 			GenClass returnGenClass = firstRule.getMetaclass();
 			for (GenClass metaClass : allGenClasses) {
-				if (metaClass.getName().equals(firstRule.getOperatorAnnotation().getValue(OperatorAnnotationProperty.IDENTIFIER.toString()))) {
+				if (metaClass.getName().equals(firstRule.getOperatorAnnotation().getValue(OperatorAnnotationProperty.SUPERCLASS.toString()))) {
 					returnGenClass = metaClass;
 				}
 			}
@@ -1664,7 +1664,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	
 	private String getExpressionSliceRuleName(Rule rule){
 		Annotation operatorAnnotation = rule.getOperatorAnnotation();
-		String ruleName = operatorAnnotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString()) + "_level_";
+		String ruleName = operatorAnnotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString()) + "_level_";
 		String weight = operatorAnnotation.getValue(OperatorAnnotationProperty.WEIGHT.toString()).replace('-','_');
 		ruleName += weight;
 		return "parseop_" + ruleName;

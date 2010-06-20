@@ -230,7 +230,7 @@
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OperatorAnnotationProperty">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/type"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/identifier"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/superclass"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OperatorAnnotationProperty/weight"/>
     </genEnums>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//GenPackageDependentElement">

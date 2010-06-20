@@ -2257,7 +2257,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEEnum(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.class, "OperatorAnnotationProperty");
 		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.TYPE);
-		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.IDENTIFIER);
+		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.SUPERCLASS);
 		addEEnumLiteral(operatorAnnotationPropertyEEnum, OperatorAnnotationProperty.WEIGHT);
 
 		// Create resource

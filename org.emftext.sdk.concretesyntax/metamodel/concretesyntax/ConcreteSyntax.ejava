@@ -125,7 +125,7 @@ eclass ConcreteSyntax {
 				if (!added) {
 					operatorRules.add(rule);
 				}
-				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString());
 				operatorRuleSubsets.add(identifier);
 			}
 		}
@@ -138,7 +138,7 @@ eclass ConcreteSyntax {
 		}
 		for (Rule rule : getOperatorRules()) {
 			Annotation annotation = rule.getOperatorAnnotation();
-			String value = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
+			String value = annotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString());
 			if (identifier.equals(value)) {
 				subset.add(rule);
 			}

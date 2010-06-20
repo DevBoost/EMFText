@@ -43,16 +43,14 @@ public enum OperatorAnnotationProperty implements Enumerator {
 	TYPE(0, "type", "type"),
 
 	/**
-	 * The '<em><b>Identifier</b></em>' literal object.
+	 * The '<em><b>Superclass</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #IDENTIFIER_VALUE
+	 * @see #SUPERCLASS_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	IDENTIFIER(1, "identifier", "identifier"),
-
-	/**
+	SUPERCLASS(1, "superclass", "superclass"), /**
 	 * The '<em><b>Weight</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,19 +76,19 @@ public enum OperatorAnnotationProperty implements Enumerator {
 	public static final int TYPE_VALUE = 0;
 
 	/**
-	 * The '<em><b>Identifier</b></em>' literal value.
+	 * The '<em><b>Superclass</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Identifier</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Superclass</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #IDENTIFIER
-	 * @model name="identifier"
+	 * @see #SUPERCLASS
+	 * @model name="superclass"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int IDENTIFIER_VALUE = 1;
+	public static final int SUPERCLASS_VALUE = 1;
 
 	/**
 	 * The '<em><b>Weight</b></em>' literal value.
@@ -116,7 +114,7 @@ public enum OperatorAnnotationProperty implements Enumerator {
 	private static final OperatorAnnotationProperty[] VALUES_ARRAY =
 		new OperatorAnnotationProperty[] {
 			TYPE,
-			IDENTIFIER,
+			SUPERCLASS,
 			WEIGHT,
 		};
 
@@ -169,7 +167,7 @@ public enum OperatorAnnotationProperty implements Enumerator {
 	public static OperatorAnnotationProperty get(int value) {
 		switch (value) {
 			case TYPE_VALUE: return TYPE;
-			case IDENTIFIER_VALUE: return IDENTIFIER;
+			case SUPERCLASS_VALUE: return SUPERCLASS;
 			case WEIGHT_VALUE: return WEIGHT;
 		}
 		return null;

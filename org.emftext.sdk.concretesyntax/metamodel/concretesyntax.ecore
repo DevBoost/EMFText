@@ -678,7 +678,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationProperty">
     <eLiterals name="type"/>
-    <eLiterals name="identifier" value="1"/>
+    <eLiterals name="superclass" value="1"/>
     <eLiterals name="weight" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyValuePair">

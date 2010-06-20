@@ -634,7 +634,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		} 
 		for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules ( ) ) { 
 			org.emftext.sdk.concretesyntax.Annotation annotation = rule .getOperatorAnnotation ( ) ; 
-			java.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .IDENTIFIER .toString ( ) ) ; 
+			java.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; 
 			if ( identifier .equals ( value ) ) { 
 				subset .add ( rule ) ; 
 			} 
@@ -736,7 +736,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				if ( ! added ) { 
 					operatorRules .add ( rule ) ; 
 				} 
-				java.lang.String identifier = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .IDENTIFIER .toString ( ) ) ; 
+				java.lang.String identifier = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; 
 				operatorRuleSubsets .add ( identifier ) ; 
 			} 
 		} 

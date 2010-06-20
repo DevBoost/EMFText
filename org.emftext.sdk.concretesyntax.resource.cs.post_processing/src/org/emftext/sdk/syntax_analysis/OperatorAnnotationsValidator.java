@@ -74,28 +74,32 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 		for (Rule operatorRule : syntax.getOperatorRules()) {
 			Annotation annotation = operatorRule.getOperatorAnnotation();
-			String weight = annotation.getValue(OperatorAnnotationProperty.WEIGHT.toString());
-			String identifier = annotation.getValue(OperatorAnnotationProperty.IDENTIFIER.toString());
-			String typeString = annotation.getValue(OperatorAnnotationProperty.TYPE.toString());
-			if (weight == null || identifier == null || typeString == null) {
+			
+			String weightKey = OperatorAnnotationProperty.WEIGHT.toString();
+			String weightValue = annotation.getValue(weightKey);
+			String superclassKey = OperatorAnnotationProperty.SUPERCLASS.toString();
+			String superclassValue = annotation.getValue(superclassKey);
+			String typeKey = OperatorAnnotationProperty.TYPE.toString();
+			String typeValue = annotation.getValue(typeKey);
+			
+			if (weightValue == null || superclassValue == null || typeValue == null) {
 				resource
 						.addError(
-								"Operator annotations require values for weigth, type and identifier.",
+								"Operator annotations require values for properties " + weightKey + ", " + typeKey + " and " + superclassKey + ".",
 								annotation);
 				continue;
 			}
 			
-			checkWeightParameter(resource, annotation, weight);
+			checkWeightParameter(resource, annotation, weightValue);
 			
-			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, identifier);
+			GenClass expressionMetaClass = mapIdentifierToGenClass(syntax, superclassValue);
 			if (expressionMetaClass==null ||
 				(!expressionMetaClass.isAbstract() && !expressionMetaClass.isInterface())){
-				resource.addError("Expression idenfitier must map to a common abstract metaclass or interface.",annotation);
-			}
-			else{
+				resource.addError("Expression superclass must be a common abstract metaclass or interface.", annotation);
+			} else {
 				EClassUtil eUtil = syntax.getEClassUtil();
-				if(!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
-					resource.addError("Operator rule must be associated with a subclass of "+identifier,operatorRule);
+				if (!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
+					resource.addError("Operator rule must be associated with a subclass of " + superclassValue,operatorRule);
 				}
 			}
 			
