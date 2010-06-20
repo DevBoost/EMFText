@@ -666,8 +666,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add(STRING_BUILDER + " hiddenTokenText = new " + STRING_BUILDER + "();");
 		sc.add(STRING_BUILDER + " visibleTokenText = new " + STRING_BUILDER + "();");
+		sc.add(COMMON_TOKEN + " firstToken = null;");
 		sc.add("for (int pos = this.lastPosition2; pos <= endPos; pos++) {");
 		sc.add(TOKEN + " token = getTokenStream().get(pos);");
+		sc.add("if (firstToken == null) {");
+		sc.add("firstToken = (" + COMMON_TOKEN + ") token;");
+		sc.add("}");
 		sc.add("int _channel = token.getChannel();");
 		sc.add("if (_channel == 99) {");
 		sc.add("hiddenTokenText.append(token.getText());");
@@ -675,8 +679,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("visibleTokenText.append(token.getText());");
 		sc.add("}");
 		sc.add("}");
-		sc.add(COMMON_TOKEN + " firstToken = (" + COMMON_TOKEN + ") getTokenStream().get(this.lastPosition2);");
-		sc.add("int offset = firstToken.getStartIndex();");
+		sc.add("int offset = -1;");
+		sc.add("if (firstToken != null) {");
+		sc.add("offset = firstToken.getStartIndex();");
+		sc.add("}");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
 		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
