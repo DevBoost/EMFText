@@ -15,6 +15,7 @@ package org.emftext.sdk.syntax_analysis;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.emftext.sdk.regex.SorterException;
 import org.emftext.sdk.regex.TokenSorter;
 import org.emftext.sdk.util.StringUtil;
+import org.emftext.sdk.util.ToStringConverter;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
@@ -41,7 +43,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = Collections.emptyMap();
 		EList<CompleteTokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
-		List<CompleteTokenDefinition> unreachable = Collections.emptyList();
+		Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> unreachable = Collections.emptyMap();
 		try {
 			conflicting = ts.getConflicting(allTokenDefinitions);
 			List<CompleteTokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
@@ -56,12 +58,19 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
-		for (CompleteTokenDefinition tokenDirective : unreachable) {
+		for (CompleteTokenDefinition tokenDirective : unreachable.keySet()) {
 			conflicting.remove(tokenDirective);
 
+			String conflictingTokens = StringUtil.explode(unreachable.get(tokenDirective), ", ", new ToStringConverter<CompleteTokenDefinition>() {
+
+				public String toString(CompleteTokenDefinition definition) {
+					return definition.getName();
+				}
+				
+			});
 			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
 					"The token definition '" + tokenDirective.getRegex()
-							+ "' is not reachable", tokenDirective);
+							+ "' is not reachable because of previous tokens " + conflictingTokens, tokenDirective);
 
 		}
 		for (CompleteTokenDefinition tokenDirective : conflicting.keySet()) {

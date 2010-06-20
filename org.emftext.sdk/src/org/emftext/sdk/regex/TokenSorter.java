@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -98,23 +99,63 @@ public class TokenSorter {
 		// return firstLanguage.subsetOf(secondLanguage);
 	}
 
-	public List<CompleteTokenDefinition> getNonReachables(List<CompleteTokenDefinition> ds)
+	public Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> getNonReachables(List<CompleteTokenDefinition> ds)
 			throws SorterException {
-		List<CompleteTokenDefinition> nonReachables = new ArrayList<CompleteTokenDefinition>();
+		
+		Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> nonReachables = new LinkedHashMap<CompleteTokenDefinition, Collection<CompleteTokenDefinition>>();
+		List<CompleteTokenDefinition> previousDefinitions = new ArrayList<CompleteTokenDefinition>();
 		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
 		Automaton unionPreviousDefinitions = new Automaton();
 		for (int i = 0; i < compareables.size() - 1; i++) {
+			ComparableTokenDefinition comparableI = compareables.get(i);
 			unionPreviousDefinitions = unionPreviousDefinitions
-					.union(compareables.get(i).getAutomaton());
+					.union(comparableI.getAutomaton());
+			previousDefinitions.add(comparableI.getDef());
 			ComparableTokenDefinition currentTokenDefinition = compareables.get(i+1);
 
 			if (isSubLanguage(currentTokenDefinition.getAutomaton(),
 					unionPreviousDefinitions)) {
-				nonReachables.add(currentTokenDefinition.getDef());
+				// find the definition in the set of previous definitions
+				// that cause the conflict
+				List<CompleteTokenDefinition> conflictCausingSet = getMinimalCoveringSet(previousDefinitions, currentTokenDefinition.getDef());
+				nonReachables.put(currentTokenDefinition.getDef(), conflictCausingSet);
 			}
-
 		}
 		return nonReachables;
+	}
+
+	private List<CompleteTokenDefinition> getMinimalCoveringSet(
+			List<CompleteTokenDefinition> initialCoveringSet,
+			CompleteTokenDefinition definitionToCover) throws SorterException {
+		
+		List<CompleteTokenDefinition> workingSet = new ArrayList<CompleteTokenDefinition>();
+		workingSet.addAll(initialCoveringSet);
+		
+		while (true) {
+			boolean foundRemovableDefinition = false;
+			for (CompleteTokenDefinition removeCandidate : workingSet) {
+				// build the union of all definitions except removeCandidate
+				List<CompleteTokenDefinition> candidateSet = new ArrayList<CompleteTokenDefinition>();
+				candidateSet.addAll(workingSet);
+				candidateSet.remove(removeCandidate);
+				
+				Automaton union = new Automaton();
+				List<ComparableTokenDefinition> candidateAutomata = translateToComparables(candidateSet);
+				for (ComparableTokenDefinition next : candidateAutomata) {
+					union = union.union(next.getAutomaton());
+				}
+				if (isSubLanguage(translateToComparable(definitionToCover).getAutomaton(), union)) {
+					// found a subset that still covers 'definitionToCover'
+					workingSet.remove(removeCandidate);
+					foundRemovableDefinition = true;
+					break;
+				}
+			}
+			if (!foundRemovableDefinition) {
+				break;
+			}
+		}
+		return workingSet;
 	}
 
 	/**
@@ -150,7 +191,7 @@ public class TokenSorter {
 			boolean ignoreUnreachables) throws SorterException {
 		List<ComparableTokenDefinition> compareables = translateToComparables(toSort);
 
-		// PITFALL: Can't use collections sort here since token definition comparision is not
+		// PITFALL: Can't use collections sort here since token definition comparison is not
 		// transitive that means t1 < t2 and t2 < t3 does not imply t1 < t3
 		//Collections.sort(compareables);
 		doSort(compareables);
@@ -160,25 +201,30 @@ public class TokenSorter {
 			resultList.add(directive.getDef());
 		}
 		if (!ignoreUnreachables) {
-			List<CompleteTokenDefinition> conflicting = getNonReachables(resultList);
+			Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> conflicting = getNonReachables(resultList);
 			if (conflicting.size() > 0) {
 				throw new SorterException(
 						"Sorting Tokens failed. Grammar contains unreachable tokens",
-						conflicting);
+						conflicting.keySet());
 			}
 		}
 		return resultList;
 	}
 
 	private List<ComparableTokenDefinition> translateToComparables(
-			List<CompleteTokenDefinition> toSort) throws SorterException {
+			List<CompleteTokenDefinition> definitions) throws SorterException {
 		List<ComparableTokenDefinition> compareables = new ArrayList<ComparableTokenDefinition>();
 
-		for (CompleteTokenDefinition def : toSort) {
-			String original = def.getRegex();
-			compareables.add(createComparableTokenDirective(original, def));
+		for (CompleteTokenDefinition definition : definitions) {
+			compareables.add(translateToComparable(definition));
 		}
 		return compareables;
+	}
+
+	private ComparableTokenDefinition translateToComparable(
+			CompleteTokenDefinition definition) throws SorterException {
+		String original = definition.getRegex();
+		return createComparableTokenDirective(original, definition);
 	}
 
 	private ComparableTokenDefinition createComparableTokenDirective(

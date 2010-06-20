@@ -13,16 +13,17 @@
  ******************************************************************************/
 package org.emftext.sdk.regex;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 public class SorterException extends Exception {
 
 	private static final long serialVersionUID = 7500645730266413189L;
-	private List<CompleteTokenDefinition> errorTokens;
+	
+	private Collection<CompleteTokenDefinition> errorTokens;
 
-	public SorterException(String message, List<CompleteTokenDefinition> errorTokens) {
+	public SorterException(String message, Collection<CompleteTokenDefinition> errorTokens) {
 		super(message);
 		this.errorTokens = errorTokens;
 	}
@@ -35,7 +36,7 @@ public class SorterException extends Exception {
 		super(message, throwable);
 	}
 
-	public List<CompleteTokenDefinition> getErrorTokens() {
+	public Collection<CompleteTokenDefinition> getErrorTokens() {
 		return errorTokens;
 	}
 }
