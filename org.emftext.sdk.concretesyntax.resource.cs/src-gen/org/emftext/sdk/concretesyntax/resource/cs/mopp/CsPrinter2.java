@@ -51,10 +51,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	private boolean handleTokenSpaceAutomatically = false;
 	private int tokenSpace = 0;
 	/**
-	 * A flag that indicates whether token have already been printed for the current
-	 * object. The flag is set to false whenever printing of the next EObject in the
-	 * tree is started. The status of the flag is used to avoid printing default token
-	 * space in front of objects.
+	 * A flag that indicates whether token have already been printed for the some
+	 * object. The flag is set to false whenever printing of an EObject tree is
+	 * started. The status of the flag is used to avoid printing default token space
+	 * in front of the root object.
 	 */
 	private boolean startedPrintingObject = false;
 	/**
@@ -69,6 +69,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	 * are printed within one object.
 	 */
 	private int tabsBeforeCurrentObject;
+	private int newTabsBeforeCurrentObject;
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -80,6 +81,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		tokenOutputStream = new java.util.ArrayList<PrintToken>();
 		currentTabs = 0;
 		tabsBeforeCurrentObject = 0;
+		startedPrintingObject = true;
 		doPrint(element, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>());
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		if (handleTokenSpaceAutomatically) {
@@ -97,7 +99,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		if (outputStream == null) {
 			throw new java.lang.IllegalArgumentException("Nothing to write on.");
 		}
-		startedPrintingObject = true;
 		
 		if (element instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0, foundFormattingElements);
@@ -444,17 +445,18 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EStructuralFeature reference = containment.getFeature();
 		java.lang.Object o = getValue(eObject, reference, count);
-		// print formatting elements
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, containment, o, eObject);
-		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
-		// save current number of tabs
-		int tabs = tabsBeforeCurrentObject;
-		// use current number of tabs to indent contained object
-		tabsBeforeCurrentObject += currentTabs;
+		// save current number of tabs to restore them after printing the contained object
+		int oldTabsBeforeCurrentObject = tabsBeforeCurrentObject;
+		int oldCurrentTabs = currentTabs;
+		// use current number of tabs to indent contained object. we do not directly set
+		// 'tabsBeforeCurrentObject' because the first element of the new object must be
+		// printed with the old number of tabs.
+		newTabsBeforeCurrentObject = tabsBeforeCurrentObject + currentTabs;
 		currentTabs = 0;
 		doPrint((org.eclipse.emf.ecore.EObject) o, foundFormattingElements);
 		// restore number of tabs after printing the contained object
-		tabsBeforeCurrentObject = tabs;
+		tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;
+		currentTabs = oldCurrentTabs;
 	}
 	
 	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
@@ -465,6 +467,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			tokenOutputStream.add(new PrintToken(hiddenTokenText, null));
 			foundFormattingElements.clear();
 			startedPrintingObject = false;
+			tabsBeforeCurrentObject = newTabsBeforeCurrentObject;
 			return;
 		}
 		if (foundFormattingElements.size() > 0) {
@@ -496,6 +499,8 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				}
 			}
 		}
+		// after printing the first element, we can use the new number of tabs.
+		tabsBeforeCurrentObject = newTabsBeforeCurrentObject;
 	}
 	
 	private Object getValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int count) {

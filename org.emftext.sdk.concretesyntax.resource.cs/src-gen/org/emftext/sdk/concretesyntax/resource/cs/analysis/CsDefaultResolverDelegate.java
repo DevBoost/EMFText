@@ -254,7 +254,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {
+	protected org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(object);
 		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = root.eAdapters();
 		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {
