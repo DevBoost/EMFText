@@ -78,14 +78,17 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// this is a workaround for Eclipse Bug 315376
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=315376
 			    		//
-			    		// do also ignore FileNotFoundException caused by some xText plug-ins
-						if (!uriString.startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml") &&
-							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.model/model/ATL-Profiler.genmodel") &&
-							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.exportmodel/model/exportmodel.genmodel") &&
-							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.xbase/org/eclipse/xtext/xbase/Xbase.genmodel") &&
+			    		// do also ignore FileNotFoundException caused by some EMF CDO, pure::variants, and xText plug-ins
+						if (!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmeta.genmodel") &&
+							!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmodel.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.emf.cdo/model/resource.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.emf.mwe2.language/model/Mwe2.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.exportmodel/model/exportmodel.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.model/model/ATL-Profiler.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.xtext/model/xtext.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.builder/model/BuilderState.genmodel") &&
-							!uriString.startsWith("platform:/plugin/org.eclipse.xtext/model/xtext.genmodel")
+							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.xbase/org/eclipse/xtext/xbase/Xbase.genmodel")
 							) {
 				    		EMFTextSDKPlugin.logWarning("Exception while looking up generator model (" + nextNS + ") at " + uriString + " in the registry.", e);
 			    		}
