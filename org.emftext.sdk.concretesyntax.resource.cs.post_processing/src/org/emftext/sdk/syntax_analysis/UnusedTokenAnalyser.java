@@ -19,9 +19,11 @@ import java.util.List;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -33,6 +35,12 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+		boolean useClassicPrinter = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.USE_CLASSIC_PRINTER);
+		if (!useClassicPrinter) {
+			// the modern printer (printer2) does not discard unused tokens.
+			// therefore we do not need to emit warnings in this case.
+			return;
+		}
 		List<CompleteTokenDefinition> activeTokens = syntax.getActiveTokens();
 		TreeIterator<EObject> allContents = syntax.eAllContents();
 		List<String> keywordTokens = new ArrayList<String>();
