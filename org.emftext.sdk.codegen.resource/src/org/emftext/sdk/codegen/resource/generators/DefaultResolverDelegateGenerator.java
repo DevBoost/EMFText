@@ -106,7 +106,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addGetCacheMethod(StringComposite sc) {
-		sc.add("private " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
+		sc.add("protected " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
 		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(object);");
 		sc.add(LIST + "<" + ADAPTER + "> eAdapters = root.eAdapters();");
 		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
