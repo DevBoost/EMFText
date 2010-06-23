@@ -182,7 +182,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (outputStream == null) {");
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
 		sc.add("}");
-		sc.add("startedPrintingObject = true;");
 		sc.addLineBreak();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
@@ -252,9 +251,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private int tokenSpace = " + getTokenSpace() + ";");
 		sc.addJavadoc(
 			"A flag that indicates whether token have already been printed for " +
-			"the current object. The flag is set to false whenever printing of " +
-			"the next EObject in the tree is started. The status of the flag " +
-			"is used to avoid printing default token space in front of objects."
+			"the some object. The flag is set to false whenever printing of " +
+			"an EObject tree is started. The status of the flag " +
+			"is used to avoid printing default token space in front of the root object."
 		);
 		sc.add("private boolean startedPrintingObject = false;");
 		sc.addJavadoc(
@@ -269,6 +268,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"are printed within one object."
 		);
 		sc.add("private int tabsBeforeCurrentObject;");
+		sc.add("private int newTabsBeforeCurrentObject;");
 		sc.addLineBreak();
 	}
 
@@ -575,17 +575,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
 		sc.add(OBJECT + " o = getValue(eObject, reference, count);");
-		sc.addComment("print formatting elements");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, containment, o, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
-		sc.addComment("save current number of tabs");
-		sc.add("int tabs = tabsBeforeCurrentObject;");
-		sc.addComment("use current number of tabs to indent contained object");
-		sc.add("tabsBeforeCurrentObject += currentTabs;");
+		//sc.addComment("print formatting elements");
+		//sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, containment, o, eObject);");
+		//sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.addComment(
+				"save current number of tabs to restore them after printing the contained object"
+		);
+		sc.add("int oldTabsBeforeCurrentObject = tabsBeforeCurrentObject;");
+		sc.add("int oldCurrentTabs = currentTabs;");
+		sc.addComment(
+				"use current number of tabs to indent contained object. " +
+				"we do not directly set 'tabsBeforeCurrentObject' because the first " +
+				"element of the new object must be printed with the old number of tabs.");
+		sc.add("newTabsBeforeCurrentObject = tabsBeforeCurrentObject + currentTabs;");
 		sc.add("currentTabs = 0;");
 		sc.add("doPrint((" + E_OBJECT + ") o, foundFormattingElements);");
 		sc.addComment("restore number of tabs after printing the contained object");
-		sc.add("tabsBeforeCurrentObject = tabs;");
+		sc.add("tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;");
+		sc.add("currentTabs = oldCurrentTabs;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -601,6 +608,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingObject = false;");
+		sc.add("tabsBeforeCurrentObject = newTabsBeforeCurrentObject;");
 		sc.add("return;");
 		sc.add("}");
 		// (b) if Whitespace or LineBreak elements were found, print those
@@ -636,6 +644,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.addComment(
+				"after printing the first element, we can use the new number of tabs."
+		);
+		sc.add("tabsBeforeCurrentObject = newTabsBeforeCurrentObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -659,6 +671,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");
 		sc.add("currentTabs = 0;");
 		sc.add("tabsBeforeCurrentObject = 0;");
+		sc.add("startedPrintingObject = true;");
 		sc.add("doPrint(element, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
