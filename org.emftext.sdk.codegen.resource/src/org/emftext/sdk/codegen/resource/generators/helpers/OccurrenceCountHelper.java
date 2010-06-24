@@ -11,7 +11,7 @@ import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 
 /**
- * A helper class to computer the mandatory occurrences of feature in syntax
+ * A helper class to compute the mandatory occurrences of features in syntax
  * rules.
  */
 public class OccurrenceCountHelper {
