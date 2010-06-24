@@ -23,11 +23,13 @@ public class OccurrenceCountHelper {
 	}
 
 	private int getMandatoryOccurencesAfter(SyntaxElement syntaxElement, SyntaxElement startAt, GenFeature feature, int count, boolean mandatory) {
+		System.out.println("getMandatoryOccurencesAfter(" + syntaxElement + ") count = " + count);
 		boolean isMandatory = mandatory && isMandatory(syntaxElement);
 		if (syntaxElement instanceof Terminal) {
 			Terminal terminal = (Terminal) syntaxElement;
 			if (terminal.getFeature() == feature) {
 				if (count >= 0 && isMandatory) {
+					System.out.println("count++");
 					count++;
 				}
 			}
@@ -45,6 +47,7 @@ public class OccurrenceCountHelper {
 						count = 0;
 					}
 					if (isMandatory) {
+						System.out.println("adding child count (" + childCount + ") to count (" + count + ")");
 						count += childCount;
 					}
 				}
@@ -56,6 +59,7 @@ public class OccurrenceCountHelper {
 		if (startAt == syntaxElement) {
 			count = 0;
 		}
+		System.out.println("}");
 		return count;
 	}
 

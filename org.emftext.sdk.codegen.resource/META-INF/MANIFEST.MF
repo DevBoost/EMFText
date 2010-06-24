@@ -9,6 +9,7 @@ Export-Package: org.emftext.sdk.codegen.resource,
  org.emftext.sdk.codegen.resource.generators.code_completion,
  org.emftext.sdk.codegen.resource.generators.code_completion.helpers,
  org.emftext.sdk.codegen.resource.generators.grammar,
+ org.emftext.sdk.codegen.resource.generators.helpers,
  org.emftext.sdk.codegen.resource.generators.interfaces,
  org.emftext.sdk.codegen.resource.generators.mopp,
  org.emftext.sdk.codegen.resource.generators.util
