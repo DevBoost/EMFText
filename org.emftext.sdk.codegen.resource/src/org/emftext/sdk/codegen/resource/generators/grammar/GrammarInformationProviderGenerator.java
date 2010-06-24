@@ -18,6 +18,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.helpers.OccurrenceCountHelper;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -35,8 +36,6 @@ import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.SyntaxElement;
-import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.StringUtil;
@@ -51,6 +50,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final static NameUtil nameUtil = new NameUtil();
+	private final static OccurrenceCountHelper occurrenceHelper = new OccurrenceCountHelper();
 
 	private ConcreteSyntax concreteSyntax;
 
@@ -126,7 +126,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
 			String featureAccessor = getFeatureAccessor;
 			String fieldName = nameUtil.getFieldName(placeholder);
-			int mandatoryOccurencesAfter = getMandatoryOccurencesAfter(placeholder, genFeature);
+			int mandatoryOccurencesAfter = occurrenceHelper.getMandatoryOccurencesAfter(placeholder, genFeature);
 			sc.add("public final static " + placeholderClassName + " " + fieldName + " = new " + placeholderClassName + "(" + featureAccessor + ", \"" + StringUtil.escapeToJavaString(placeholder.getToken().getName()) + "\", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else if (next instanceof WhiteSpaces) {
 			WhiteSpaces whiteSpaces = (WhiteSpaces) next;
@@ -163,7 +163,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			GenFeature genFeature = containment.getFeature();
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
 			String fieldName = nameUtil.getFieldName(containment);
-			int mandatoryOccurencesAfter = getMandatoryOccurencesAfter(containment, genFeature);
+			int mandatoryOccurencesAfter = occurrenceHelper.getMandatoryOccurencesAfter(containment, genFeature);
 			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
@@ -208,61 +208,4 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			return generatorUtil.getFeatureAccessor(genClass, genFeature);
 		}
 	}
-
-
-	private int getMandatoryOccurencesAfter(SyntaxElement syntaxElement, GenFeature feature) {
-		Rule rule = syntaxElement.getContainingRule();
-		int count = getMandatoryOccurencesAfter(rule, syntaxElement, feature, -1, true);
-		return count < 0 ? 0 : count;
-	}
-
-	private int getMandatoryOccurencesAfter(SyntaxElement syntaxElement, SyntaxElement startAt, GenFeature feature, int count, boolean mandatory) {
-		boolean isMandatory = mandatory && isMandatory(syntaxElement);
-		if (syntaxElement instanceof Terminal) {
-			Terminal terminal = (Terminal) syntaxElement;
-			if (terminal.getFeature() == feature) {
-				if (count >= 0 && isMandatory) {
-					count++;
-				}
-			}
-		}
-		// check children
-		for (SyntaxElement child : syntaxElement.getChildren()) {
-			int childCount = getMandatoryOccurencesAfter(child, startAt, feature, count, isMandatory);
-			if (childCount < 0) {
-				// feature was not found yet
-			} else {
-				if (childCount == 0) {
-					count = 0;
-				} else {
-					if (count < 0) {
-						count = 0;
-					}
-					if (isMandatory) {
-						count += childCount;
-					}
-				}
-			}
-			if (syntaxElement instanceof Choice) {
-				break;
-			}
-		}
-		if (startAt == syntaxElement) {
-			count = 0;
-		}
-		return count;
-	}
-
-	private boolean isMandatory(SyntaxElement element) {
-		if (element instanceof CardinalityDefinition) {
-			CardinalityDefinition cd = (CardinalityDefinition) element;
-			Cardinality cardinality = cd.getCardinality();
-			if (cardinality instanceof STAR || cardinality instanceof QUESTIONMARK) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	
 }
