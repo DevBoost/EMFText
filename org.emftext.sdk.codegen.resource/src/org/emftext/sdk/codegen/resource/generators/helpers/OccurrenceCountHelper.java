@@ -22,32 +22,49 @@ public class OccurrenceCountHelper {
 		return count < 0 ? 0 : count;
 	}
 
-	private int getMandatoryOccurencesAfter(SyntaxElement syntaxElement, SyntaxElement startAt, GenFeature feature, int count, boolean mandatory) {
-		System.out.println("getMandatoryOccurencesAfter(" + syntaxElement + ") count = " + count);
+	/**
+	 * Calculates the number of mandatory occurrences of the given feature in a subtree
+	 * of a syntax rule. 
+	 * 
+	 * @param syntaxElement the root node of the subtree to search in
+	 * @param startAt the syntax node where to start the search, all node before this 
+	 *                node are ignored
+	 * @param feature the feature to search for
+	 * @param count the number of occurrences already found, if no occurrence was found
+	 *              the value of this parameter is -1
+	 * @param mandatory a flag that indicates whether the current subtree is mandatory 
+	 *                  or not
+	 * @return the mandatory occurrences found in the subtree or -1 if no occurrence was
+	 *         found
+	 */
+	private int getMandatoryOccurencesAfter(
+			SyntaxElement syntaxElement, 
+			SyntaxElement startAt, 
+			GenFeature feature, 
+			int count, 
+			boolean mandatory) {
 		boolean isMandatory = mandatory && isMandatory(syntaxElement);
 		if (syntaxElement instanceof Terminal) {
 			Terminal terminal = (Terminal) syntaxElement;
 			if (terminal.getFeature() == feature) {
 				if (count >= 0 && isMandatory) {
-					System.out.println("count++");
 					count++;
 				}
 			}
 		}
 		// check children
 		for (SyntaxElement child : syntaxElement.getChildren()) {
-			int childCount = getMandatoryOccurencesAfter(child, startAt, feature, count, isMandatory);
+			int childCount = getMandatoryOccurencesAfter(child, startAt, feature, count >= 0 ? 0 : -1, isMandatory);
 			if (childCount < 0) {
 				// feature was not found yet
 			} else {
-				if (childCount == 0) {
-					count = 0;
-				} else {
+				if (childCount >= 0) {
+					// feature was found in the subtree
 					if (count < 0) {
+						// but not before
 						count = 0;
 					}
 					if (isMandatory) {
-						System.out.println("adding child count (" + childCount + ") to count (" + count + ")");
 						count += childCount;
 					}
 				}
@@ -59,7 +76,6 @@ public class OccurrenceCountHelper {
 		if (startAt == syntaxElement) {
 			count = 0;
 		}
-		System.out.println("}");
 		return count;
 	}
 
