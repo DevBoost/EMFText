@@ -89,6 +89,8 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	}
 
 	private void addRuleClass(StringComposite sc) {
+		// TODO this should rather be generated as a top level class instead of an
+		// inner type
 		sc.add("public static class Rule extends " + syntaxElementClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final " + E_CLASS + " metaclass;"); 

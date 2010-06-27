@@ -327,6 +327,18 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("int countLeft = printCountingMap.get(feature.getName());");
+		// TODO mseifert: this condition should be modified to include a check whether
+		// the current syntax element (or the subtree that contains it) is mandatory.
+		// currently the decorator is only decorated if there is enough values left to
+		// fill the mandatory occurrences after this element. But, if the current 
+		// element is mandatory too, we should use a value for decoratation even though
+		// there might not be enough values left for the subsequent elements. it is better 
+		// to fill the first mandatory elements rather then the later ones.
+		//
+		// In any case this situation should only occur if models have not been created
+		// from text, but stem from some other source. Probably it would be good to
+		// emit some kind of warning if we're facing this situation. The question is
+		// where is the most reasonable place to put such warnings.
 		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
 		sc.add("decorator.addIndexToPrint(countLeft);");
 		sc.add("printCountingMap.put(feature.getName(), countLeft - 1);");
