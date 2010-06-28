@@ -40,7 +40,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  * is not reflected in the models after parsing and can thus cause a 
  * result different from the original text after printing.
  */
-public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
+public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 
 	private static final String MULTIPLE_FEATURE_WARNING = 
 		"The feature is used multiple times. Reprinting may fail for feature: ";

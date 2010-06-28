@@ -25,7 +25,7 @@ import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.CsStringAnalyser;
 import org.emftext.sdk.syntax_analysis.CyclicImportAnalyser;
 import org.emftext.sdk.syntax_analysis.CyclicTokenDefinitionAnalyser;
-import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
+import org.emftext.sdk.syntax_analysis.DuplicateFeatureAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenNameAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenStyleAnalyser;
@@ -92,7 +92,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new PlaceholderInQuotesAnalyser());
 		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());
-		postProcessors.add(new DuplicateReferenceAnalyser());
+		postProcessors.add(new DuplicateFeatureAnalyser());
 		postProcessors.add(new ChoiceAnalyser());
 		postProcessors.add(new RegularExpressionAnalyser());
 		postProcessors.add(new LeftRecursionAnalyser());
