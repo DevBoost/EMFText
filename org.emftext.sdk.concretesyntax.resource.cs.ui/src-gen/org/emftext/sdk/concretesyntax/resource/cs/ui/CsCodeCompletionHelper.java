@@ -189,9 +189,11 @@ public class CsCodeCompletionHelper {
 						org.eclipse.emf.ecore.EObject object = contentList.get(i);
 						if (neededClass.isInstance(object)) {
 							org.eclipse.emf.ecore.EObject newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);
-							org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(object, eStructuralFeature, newContainer, false);
-							container = newContainer;
-							attachedArtificialContainer = true;
+							if (eStructuralFeature.getEType().isInstance(newContainer)) {
+								org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(object, eStructuralFeature, newContainer, false);
+								container = newContainer;
+								attachedArtificialContainer = true;
+							}
 						}
 					}
 				}
