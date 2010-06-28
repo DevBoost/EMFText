@@ -57,6 +57,6 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<ArtifactParame
 	}
 
 	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_PLUGIN_XML;
+		return OptionTypes.OVERRIDE_UI_PLUGIN_XML;
 	}
 }
