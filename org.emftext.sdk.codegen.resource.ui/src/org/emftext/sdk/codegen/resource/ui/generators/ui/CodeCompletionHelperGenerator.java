@@ -300,12 +300,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			sc.add("System.out.println(\"Found \" + object);");
 		}
 		sc.add(E_OBJECT + " newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);");
+		sc.add("if (eStructuralFeature.getEType().isInstance(newContainer)) {");
 		sc.add(eObjectUtilClassName + ".setFeature(object, eStructuralFeature, newContainer, false);");
 		if (INSERT_DEBUG_OUTPUT_CODE) {
 			sc.add("System.out.println(\"Attached \" + newContainer);");
 		}
 		sc.add("container = newContainer;");
 		sc.add("attachedArtificialContainer = true;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
