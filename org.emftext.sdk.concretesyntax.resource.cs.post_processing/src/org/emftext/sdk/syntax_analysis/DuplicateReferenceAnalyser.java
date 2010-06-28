@@ -80,7 +80,7 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 	 * @return
 	 */
 	private boolean canCauseReprintProblem(Choice choice, GenFeature feature) {
-		return countProblematicOccurrences(choice, feature, false) > 1;
+		return countProblematicOccurrences(choice, feature, false, false) > 1;
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 	 * @param foundStarOrOptionalBefore
 	 * @return
 	 */
-	private int countProblematicOccurrences(Choice choice, GenFeature feature, boolean foundStarOrOptionalBefore) {
+	private int countProblematicOccurrences(Choice choice, GenFeature feature, boolean foundStarOrOptionalBefore, boolean hasOptionalParent) {
 		int occurences = 0;
 		
 		List<Sequence> choices = choice.getOptions();
@@ -103,13 +103,15 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 			for (Definition definition : definitions) {
 				// incorporate cardinality of the definition
 				Cardinality cardinality = null;
+				
+				boolean isStarOrOptional = hasOptionalParent;
 				if (definition instanceof CardinalityDefinition) {
 					cardinality = ((CardinalityDefinition) definition).getCardinality();
+					isStarOrOptional |= cardinality instanceof STAR || cardinality instanceof QUESTIONMARK;
 				}
 				if (definition instanceof Terminal) {
 					Terminal terminal = (Terminal) definition;
 					if (terminal.getFeature() == feature) {
-						final boolean isStarOrOptional = cardinality instanceof STAR || cardinality instanceof QUESTIONMARK;
 						if (isStarOrOptional || foundStarOrOptionalBefore) {
 							occurences++;
 						}
@@ -118,7 +120,7 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 					CompoundDefinition compound = (CompoundDefinition) definition;
 					Choice subChoice = compound.getDefinition();
 					// recursive method call
-					occurences += countProblematicOccurrences(subChoice, feature, occurences > 0);
+					occurences += countProblematicOccurrences(subChoice, feature, occurences > 0, isStarOrOptional);
 				}
 			}
 		}
