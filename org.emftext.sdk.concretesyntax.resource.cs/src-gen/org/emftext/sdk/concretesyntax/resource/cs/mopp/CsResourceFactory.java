@@ -23,4 +23,5 @@ public class CsResourceFactory implements org.eclipse.emf.ecore.resource.Resourc
 	public org.eclipse.emf.ecore.resource.Resource createResource(org.eclipse.emf.common.util.URI uri) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource(uri);
 	}
+	
 }

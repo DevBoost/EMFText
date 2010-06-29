@@ -47,4 +47,5 @@ public class CsTokenResolveResult implements org.emftext.sdk.concretesyntax.reso
 		errorMessage = "Can't resolve token.";
 		resolvedToken = null;
 	}
+	
 }

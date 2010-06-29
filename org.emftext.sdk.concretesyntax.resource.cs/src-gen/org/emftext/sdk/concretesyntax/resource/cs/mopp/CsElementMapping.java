@@ -44,4 +44,5 @@ public class CsElementMapping<ReferenceType> implements org.emftext.sdk.concrete
 	public String getWarning() {
 		return warning;
 	}
+	
 }

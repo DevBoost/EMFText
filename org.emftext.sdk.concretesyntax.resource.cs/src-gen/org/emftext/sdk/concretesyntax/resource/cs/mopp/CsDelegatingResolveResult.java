@@ -69,4 +69,5 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri, String warning) {
 		delegate.addMapping(identifier, uri, warning);
 	}
+	
 }
