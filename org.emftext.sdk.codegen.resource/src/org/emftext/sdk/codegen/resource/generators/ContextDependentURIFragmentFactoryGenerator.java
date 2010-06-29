@@ -36,12 +36,25 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		);
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addCreateMethod(sc);
+		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private final " + iReferenceResolverClassName + "<ContainerType, ReferenceType> resolver;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + iReferenceResolverClassName + "<ContainerType, ReferenceType> resolver) {");
 		sc.add("this.resolver = resolver;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addCreateMethod(JavaComposite sc) {
 		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
 		sc.addLineBreak();
 		sc.add("return new " + contextDependentUriFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
@@ -49,7 +62,6 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 		sc.add("return resolver;");
 		sc.add("}");
 		sc.add("};");
-		sc.add("}");
 		sc.add("}");
 	}
 

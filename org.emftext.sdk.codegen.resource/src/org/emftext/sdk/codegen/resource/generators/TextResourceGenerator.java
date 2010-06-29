@@ -874,6 +874,4 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.add("}");
         sc.addLineBreak();
 	}
-
-	
 }

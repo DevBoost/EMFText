@@ -25,7 +25,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
  * It can be registered to the EMF resource framework.
  * 
  * @see org.emftext.sdk.codegen.resource.generators.TextResourceGenerator
- * @see org.emftext.runtime.resource.ITextResource
  */
 public class ResourceFactoryGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
@@ -37,18 +36,24 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator<ArtifactParamete
         
         sc.add("public class " + getResourceClassName()+ " implements " + RESOURCE + ".Factory {");
         sc.addLineBreak();
-        
+		addConstructor(sc);
+		addCreateResourceMethod(sc);
+		sc.add("}");
+    }
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addCreateResourceMethod(JavaComposite sc) {
 		sc.add("public " + RESOURCE + " createResource(" + URI + " uri) {");
 		sc.add("return new " + textResourceClassName + "(uri);");
 		sc.add("}");
-		
-		sc.add("}");
-    }
+		sc.addLineBreak();
+	}
 
 	
 }

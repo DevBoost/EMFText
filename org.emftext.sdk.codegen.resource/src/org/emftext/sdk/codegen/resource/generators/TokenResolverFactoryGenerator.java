@@ -27,17 +27,12 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * Generates a TokenResolverFactory which will contain a mapping from 
- * ANTLR token names to TokenResolver implementations. It will inherit 
- * from AbstractTokenResolverFactory to allow adaptation to API changes.
- * 
- * @see org.emftext.runtime.resource.impl.AbstractTokenResolverFactory
+ * token names to TokenResolver implementations.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	
-
 	private final NameUtil nameUtil = new NameUtil();
 	
 	@Override
@@ -150,6 +145,4 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

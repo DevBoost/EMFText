@@ -36,7 +36,12 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
-		addGetErrorMessage(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetErrorMessageMethod(sc);
 		addGetMappingsMethod(sc);
 		addWasResolvedMethod(sc);
 		addWasResolvedMultipleMethod(sc);
@@ -46,7 +51,6 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 		addAddMappingMethod2(sc);
 		addAddMappingMethod3(sc);
 		addAddMappingMethod4(sc);
-		sc.add("}");
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -64,7 +68,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetErrorMessage(JavaComposite sc) {
+	private void addGetErrorMessageMethod(JavaComposite sc) {
 		sc.add("public String getErrorMessage() {");
 		sc.add("return errorMessage;");
 		sc.add("}");

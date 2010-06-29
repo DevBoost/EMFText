@@ -17,9 +17,13 @@ public class LineBreakGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.add("private final int tabs;");
 		sc.addLineBreak();
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addGetTabsMethod(sc);
 		addToStringMethod(sc);
-		sc.add("}");
 	}
 
 	private void addConstructor(JavaComposite sc) {

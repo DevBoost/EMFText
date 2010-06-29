@@ -213,9 +213,14 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addSetOptionsMethod(StringComposite sc, String body) {
+	public void addSetOptionsMethod(StringComposite sc, String body, String comment) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
-		sc.add(body);
+		if (comment != null) {
+			sc.add(comment);
+		}
+		if (body != null) {
+			sc.add(body);
+		}
 		sc.add("}");
 	    sc.addLineBreak();
 	}

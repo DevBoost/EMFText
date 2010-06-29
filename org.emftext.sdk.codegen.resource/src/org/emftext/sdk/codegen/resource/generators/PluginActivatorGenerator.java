@@ -106,19 +106,23 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
 
 		sc.add("public static final String PLUGIN_ID = \"" + resourcePluginName + "\";");
+		sc.addJavadoc(
+			"The version of EMFText that was used to generate this plug-in."
+		);
 		sc.add("public static final String EMFTEXT_SDK_VERSION = \"" + EMFTextSDKPlugin.VERSION + "\";");
+		sc.addJavadoc(
+			"The ID of the extension point to register default options to be used when loading " +
+			"resources with this plug-in."
+		);
 		sc.add("public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + \".default_load_options\";");
 		sc.add("public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + \".additional_extension_parser\";");
 		sc.addLineBreak();
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();
 	}
-
-	
-
 }

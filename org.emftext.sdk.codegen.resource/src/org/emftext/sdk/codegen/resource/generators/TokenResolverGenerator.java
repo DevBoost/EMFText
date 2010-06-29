@@ -67,13 +67,13 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 			sc.addLineBreak();
 			generateDeResolveMethod2(sc);
 			generateResolveMethod2(sc);
-		    generatorUtil.addSetOptionsMethod(sc, "importedResolver.setOptions(options);");
+		    generatorUtil.addSetOptionsMethod(sc, "importedResolver.setOptions(options);", null);
 		} else {
 			sc.add("private " + defaultTokenResolverClassName + " defaultTokenResolver = new " + defaultTokenResolverClassName + "();");
 			sc.addLineBreak();
 			generateDeResolveMethod1(sc);
 			generateResolveMethod1(sc);
-		    generatorUtil.addSetOptionsMethod(sc, "defaultTokenResolver.setOptions(options);");
+		    generatorUtil.addSetOptionsMethod(sc, "defaultTokenResolver.setOptions(options);", null);
 		}
 		sc.add("}");
 	}

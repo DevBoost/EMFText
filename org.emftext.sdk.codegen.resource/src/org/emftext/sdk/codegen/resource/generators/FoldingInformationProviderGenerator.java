@@ -66,6 +66,4 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

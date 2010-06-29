@@ -138,6 +138,4 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

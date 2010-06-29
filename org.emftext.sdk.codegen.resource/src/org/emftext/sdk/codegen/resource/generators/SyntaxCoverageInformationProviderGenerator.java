@@ -25,6 +25,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.GenClassUtil;
 
+// TODO maybe we should merge this with the GrammarInformationProvider
 public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
@@ -69,6 +70,4 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 		sc.add("}");
         sc.addLineBreak();
 	}
-
-	
 }

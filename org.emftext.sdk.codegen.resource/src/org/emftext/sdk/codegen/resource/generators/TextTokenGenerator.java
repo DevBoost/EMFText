@@ -30,26 +30,57 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		
 		sc.add("public class " + getResourceClassName() + " implements " + iTextTokenClassName + " {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private final " + iMetaInformationClassName + " metaInformation = new " +metaInformationClassName + "();");
 		sc.add("private final " + TOKEN + " antlrToken;");
 		sc.addLineBreak();
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetNameMethod(sc);
+		addGetOffsetMethod(sc);
+		addGetLengthMethod(sc);
+		addCanBeUsedForSyntaxHighlightingMethod(sc);
+		addGetTextMethod(sc);
+		addGetTokenNameMethod(sc);
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + TOKEN + " antlrToken) {");
 		sc.add("super();");
 		sc.add("this.antlrToken = antlrToken;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetNameMethod(JavaComposite sc) {
 		sc.add("public " + STRING + " getName() {");
 		sc.add("return getTokenName(metaInformation.getTokenNames(), antlrToken.getType());");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetOffsetMethod(JavaComposite sc) {
 		sc.add("public int getOffset() {");
 		sc.add("return ((" + COMMON_TOKEN + ") antlrToken).getStartIndex();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetLengthMethod(JavaComposite sc) {
 		sc.add("public int getLength() {");
 		sc.add("return ((" + COMMON_TOKEN + ") antlrToken).getStopIndex() - ((" + COMMON_TOKEN + ") antlrToken).getStartIndex() + 1;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
 		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
 		sc.add("int tokenType = antlrToken.getType();");
 		sc.add("if (tokenType == " + TOKEN + ".EOF) {");
@@ -70,10 +101,16 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetTextMethod(JavaComposite sc) {
 		sc.add("public " + STRING + " getText() {");
 		sc.add("return antlrToken.getText();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetTokenNameMethod(JavaComposite sc) {
 		sc.add("public " + STRING + " getTokenName(" + STRING + "[] tokenNames, int index) {");
 		sc.add("if (tokenNames == null) {");
 		sc.add("return null;");
@@ -85,7 +122,6 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("}");
 	}
 
 	

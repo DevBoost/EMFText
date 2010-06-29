@@ -34,10 +34,14 @@ public class URIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addGetTargetIdentifierMethod(sc);
 		addGetIdentifierMethod(sc);
 		addGetWarningMethod(sc);
-		sc.add("}");
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -77,6 +81,4 @@ public class URIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

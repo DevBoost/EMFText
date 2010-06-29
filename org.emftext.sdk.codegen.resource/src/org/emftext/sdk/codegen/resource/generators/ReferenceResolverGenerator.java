@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
- * A generator that can create basic stub for a single reference resolver.
+ * A generator that can create a basic stub for a single reference resolver.
  */
 public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResolverParameters> {
 
@@ -69,13 +69,18 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 		sc.addLineBreak();
 
 		addFields(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addResolveMethod(sc);
 		addDeResolveMethod(sc);
 		generatorUtil
 				.addSetOptionsMethod(
 						sc,
-						"// save options in a field or leave method empty if this resolver does not depend on any option");
-		sc.add("}");
+						null,
+						"save options in a field or leave method empty if this resolver does not depend on any option");
 	}
 
 	private void addFields(StringComposite sc) {

@@ -17,9 +17,13 @@ public class WhiteSpaceGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("private final int amount;"); 
 		sc.addLineBreak();
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addGetAmountMethod(sc);
 		addToStringMethod(sc);
-		sc.add("}");
 	}
 
 	private void addConstructor(JavaComposite sc) {

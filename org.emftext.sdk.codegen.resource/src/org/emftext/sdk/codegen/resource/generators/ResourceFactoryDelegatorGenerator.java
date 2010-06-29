@@ -31,8 +31,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
  * Generates a factory that delegates to other ResourceFactories based on secondary file 
  * extensions.
  * 
- * @see org.emftext.sdk.codegen.generators.TextResourceFactoryGenerator
- * @see org.emftext.runtime.resource.ITextResource
+ * @see org.emftext.sdk.codegen.resource.generators.ResourceFactoryGenerator
  */
 public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
@@ -44,20 +43,39 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
         
         sc.add("public class " + getResourceClassName() + " implements " + RESOURCE + ".Factory {");
         sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+    }
 
+	private void addMethods(JavaComposite sc) {
+		addInitMethod(sc);
+		addGetResourceFactoriesMapMethod(sc);
+		addGetFactoryForURIMethod(sc);
+		addCreateResourceMethod(sc);
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("protected " + MAP + "<String, " + RESOURCE + ".Factory> factories = null;");
 		sc.addLineBreak();
+	}
 
+	private void addGetResourceFactoriesMapMethod(JavaComposite sc) {
 		sc.add("public " + MAP + "<String, " + RESOURCE + ".Factory> getResourceFactoriesMap() {");
 		sc.add("return factories;");
 		sc.add("}");
 		sc.addLineBreak();
-        
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("init();");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetFactoryForURIMethod(JavaComposite sc) {
 		sc.add("public " + RESOURCE + ".Factory getFactoryForURI(" + URI + " uri) {");
 		sc.add(URI + " trimmedURI = uri.trimFileExtension();");
 		sc.add("String secondaryFileExtension = trimmedURI.fileExtension();");
@@ -68,16 +86,14 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
 		sc.add("return factory;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addCreateResourceMethod(JavaComposite sc) {
 		sc.add("public " + RESOURCE + " createResource(" + URI + " uri) {");
 		sc.add("return getFactoryForURI(uri).createResource(uri);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		addInitMethod(sc);
-
-		sc.add("}");
-    }
+	}
 	
 	private void addInitMethod(StringComposite sc) {
 		sc.add("protected void init() {");
@@ -119,6 +135,4 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
     	sc.add("}");
     	sc.addLineBreak();
 	}
-
-	
 }

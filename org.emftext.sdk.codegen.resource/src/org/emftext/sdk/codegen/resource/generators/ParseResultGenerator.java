@@ -31,33 +31,51 @@ public class ParseResultGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
         
         sc.add("public class " + getResourceClassName()+ " implements " + iParseResultClassName + " {");
         sc.addLineBreak();
+        addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+    }
 
-        sc.add("private " + E_OBJECT + " root;");
+	private void addMethods(JavaComposite sc) {
+		addSetRootMethod(sc);
+		addGetRootMethod(sc);
+		addGetPostParseCommands(sc);
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("private " + E_OBJECT + " root;");
         sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
         sc.addLineBreak();
-        
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addSetRootMethod(JavaComposite sc) {
 		sc.add("public void setRoot(" + E_OBJECT + " root) {");
 		sc.add("this.root = root;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetRootMethod(JavaComposite sc) {
 		sc.add("public " + E_OBJECT + " getRoot() {");
 		sc.add("return root;");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addGetPostParseCommands(JavaComposite sc) {
 		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands() {");
 		sc.add("return commands;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("}");
-    }
+	}
 
 	
 }

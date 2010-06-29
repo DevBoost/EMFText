@@ -18,10 +18,14 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addGetFeatureMethod(sc);
 		addGetMandatoryOccurencesAfterMethod(sc);
 		addToStringMethod(sc);
-		sc.add("}");
 	}
 
 	private void addFields(JavaComposite sc) {

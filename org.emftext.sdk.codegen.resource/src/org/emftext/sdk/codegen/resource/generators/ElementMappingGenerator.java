@@ -29,10 +29,26 @@ public class ElementMappingGenerator extends JavaBaseGenerator<ArtifactParameter
 		);
 		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + iElementMappingClassName + "<ReferenceType> {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetTargetElementMethod(sc);
+		addGetIdentifierMethod(sc);
+		addGetWarningMethod(sc);
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private final ReferenceType target;");
 		sc.add("private String identifier;");
 		sc.add("private String warning;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(String identifier, ReferenceType target, String warning) {");
 		sc.add("super();");
 		sc.add("this.target = target;");
@@ -40,18 +56,27 @@ public class ElementMappingGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("this.warning = warning;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetTargetElementMethod(JavaComposite sc) {
 		sc.add("public ReferenceType getTargetElement() {");
 		sc.add("return target;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetIdentifierMethod(JavaComposite sc) {
 		sc.add("public String getIdentifier() {");
 		sc.add("return identifier;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetWarningMethod(JavaComposite sc) {
 		sc.add("public String getWarning() {");
 		sc.add("return warning;");
 		sc.add("}");
-		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	

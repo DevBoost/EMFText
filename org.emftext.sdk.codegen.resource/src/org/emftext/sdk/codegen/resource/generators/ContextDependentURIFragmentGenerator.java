@@ -39,6 +39,27 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		);
 		sc.add("public abstract class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements " + iContextDependentUriFragmentClassName + "<ReferenceType> {");
 		sc.addLineBreak();
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addIsResolvedMethod(sc);
+		addResolveMethod(sc);
+		addGetResolverMethod(sc);
+		addHandleMultipleResultsMethod(sc);
+		addAddResultToListMethod(sc);
+		getStdErrorMessageMethod(sc);
+		addGetIdentifierMethod(sc);
+		addContainerMethod(sc);
+		addGetReferenceMethod(sc);
+		addGetPositionInReferenceMethod(sc);
+		addGetProxyMethod(sc);
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("protected String identifier;");
 		sc.add("protected ContainerType container;");
 		sc.add("protected " + E_REFERENCE + " reference;");
@@ -48,6 +69,9 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.add("private boolean resolving;");
 		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
 		sc.add("this.identifier = identifier;");
 		sc.add("this.container = container;");
@@ -56,10 +80,16 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("this.proxy = proxy;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addIsResolvedMethod(JavaComposite sc) {
 		sc.add("public boolean isResolved() {");
 		sc.add("return result != null;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addResolveMethod(JavaComposite sc) {
 		sc.add("public synchronized " + iReferenceResolveResultClassName + "<ReferenceType> resolve() {");
 		sc.add("if (resolving) {");
 		sc.add("return null;");
@@ -86,8 +116,14 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetResolverMethod(JavaComposite sc) {
 		sc.add("public abstract " + iReferenceResolverClassName + "<ContainerType, ReferenceType> getResolver();");
 		sc.addLineBreak();
+	}
+
+	private void addHandleMultipleResultsMethod(JavaComposite sc) {
 		sc.add("private void handleMultipleResults() {");
 		sc.add(E_LIST + "<" + E_OBJECT + "> list = null;");
 		sc.add(OBJECT + " temp = container.eGet(reference);");
@@ -107,6 +143,9 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addAddResultToListMethod(JavaComposite sc) {
 		sc.add("private void addResultToList(" + iReferenceMappingClassName + "<ReferenceType> mapping, " + E_OBJECT + " proxy, " + E_LIST + "<" + E_OBJECT + "> list) {");
 		sc.add("" + E_OBJECT + " target = null;");
 		sc.add("int proxyPosition = list.indexOf(proxy);");
@@ -137,34 +176,49 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void getStdErrorMessageMethod(JavaComposite sc) {
 		sc.add("private String getStdErrorMessage() {");
 		sc.add("String typeName = this.getReference().getEType().getName();");
 		sc.add("String msg = typeName + \" '\" + identifier + \"' not declared\";");
 		sc.add("return msg;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetIdentifierMethod(JavaComposite sc) {
 		sc.add("public String getIdentifier() {");
 		sc.add("return identifier;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addContainerMethod(JavaComposite sc) {
 		sc.add("public ContainerType getContainer() {");
 		sc.add("return container;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetReferenceMethod(JavaComposite sc) {
 		sc.add("public " + E_REFERENCE + " getReference() {");
 		sc.add("return reference;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetPositionInReferenceMethod(JavaComposite sc) {
 		sc.add("public int getPositionInReference() {");
 		sc.add("return positionInReference;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetProxyMethod(JavaComposite sc) {
 		sc.add("public " + E_OBJECT + " getProxy() {");
 		sc.add("return proxy;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("}");
 	}
-
-	
 }

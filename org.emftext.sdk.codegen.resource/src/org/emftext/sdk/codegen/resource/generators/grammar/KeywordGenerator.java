@@ -18,9 +18,13 @@ public class KeywordGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addGetValueMethod(sc);
 		addToStringMethod(sc);
-		sc.add("}");
 	}
 
 	private void addToStringMethod(JavaComposite sc) {
