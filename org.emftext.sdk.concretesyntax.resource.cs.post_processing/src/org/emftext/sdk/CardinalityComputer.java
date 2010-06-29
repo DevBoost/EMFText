@@ -1,6 +1,6 @@
 package org.emftext.sdk;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +20,36 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class CardinalityComputer {
 
-	public void countOccurences(Choice choice,
-			Map<GenFeature, MinMax> featureToMinMaxMap) {
+	/**
+	 * Counts the min/max occurrences of all features that are referenced by terminal
+	 * in the given syntax tree. The occurrences are computed as follows:
+	 * 
+	 * - Mandatory occurrences do have cardinality 1..1
+	 * - Optional (?) occurrences do have cardinality 0..1
+	 * - Unbound (*) occurrences do have cardinality 0..*
+	 * - Mandatory Unbound (+) occurrences do have cardinality 1..*
+	 * 
+	 * - For sequences the min/max values are added pairwise
+	 * - For alternatives the minimum of the min and the maximum of the max values is returned
+	 * - For compounds the min/max values are multiplied
+	 * 
+	 * @param choice the root of the syntax tree
+	 * @param featureToMinMaxMap a map which maps features to their min/max occurrences
+	 */
+	public void countOccurences(Choice choice, Map<GenFeature, MinMax> featureToMinMaxMap) {
 
 		List<Sequence> options = choice.getOptions();
 		int optionCount = 0;
 		for (Sequence sequence : options) {
 			// next option
 			Map<GenFeature, MinMax> newFeatureToCountMap;
+			
+			// for the first options we use the feature map that was
+			// given as a parameter. for all other, we use a fresh
+			// map, which is merged with the previous map at the end
+			// of each loop iteration
 			if (optionCount > 0) {
-				newFeatureToCountMap = new HashMap<GenFeature, MinMax>();
+				newFeatureToCountMap = new LinkedHashMap<GenFeature, MinMax>();
 			} else {
 				newFeatureToCountMap = featureToMinMaxMap;
 			}
@@ -39,6 +59,7 @@ public class CardinalityComputer {
 				if (part instanceof Terminal) {
 					Terminal terminal = (Terminal) part;
 					GenFeature feature = terminal.getFeature();
+					// ignore anonymous features
 					if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
 						continue;
 					}
@@ -51,6 +72,8 @@ public class CardinalityComputer {
 					countOccurences(subChoices, newFeatureToCountMap);
 				}
 			}
+			// merge the min/max values found for the current option with 
+			// the previous options
 			if (optionCount > 0) {
 				or(featureToMinMaxMap, newFeatureToCountMap);
 			}
