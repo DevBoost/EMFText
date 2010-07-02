@@ -1,3 +1,4 @@
+@SuppressWarnings(featureWithoutSyntax)
 SYNTAXDEF cs 
 FOR       <http://www.emftext.org/sdk/concretesyntax> <concretesyntax.genmodel>
 START     ConcreteSyntax
