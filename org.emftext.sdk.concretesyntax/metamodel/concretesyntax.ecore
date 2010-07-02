@@ -668,7 +668,7 @@
     <eLiterals name="OVERRIDE" literal="Override"/>
     <eLiterals name="SUPPRESS_WARNINGS" value="1" literal="SuppressWarnings"/>
     <eLiterals name="FOLDABLE" value="2" literal="Foldable"/>
-    <eLiterals name="OPERATOR" value="3" literal="operator"/>
+    <eLiterals name="OPERATOR" value="3" literal="Operator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OperatorAnnotationType">
     <eLiterals name="binary_left_associative"/>

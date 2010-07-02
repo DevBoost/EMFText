@@ -70,7 +70,7 @@ public enum AnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OPERATOR(3, "OPERATOR", "operator");
+	OPERATOR(3, "OPERATOR", "Operator");
 
 	/**
 	 * The '<em><b>OVERRIDE</b></em>' literal value.
@@ -126,7 +126,7 @@ public enum AnnotationType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #OPERATOR
-	 * @model literal="operator"
+	 * @model literal="Operator"
 	 * @generated
 	 * @ordered
 	 */
