@@ -652,6 +652,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (!(syntaxElement instanceof " + placeholderClassName + ") && !(syntaxElement instanceof " + keywordClassName + ")) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
+		sc.add("for (" + COMMON_TOKEN + " anonymousToken : anonymousTokens) {");
+		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), \"\"));");
+		sc.add("}");
+		sc.add("anonymousTokens.clear();");
 		sc.add("int currentPos = getTokenStream().index();");
 		sc.add("if (currentPos == 0) {");
 		sc.add("return;");
@@ -683,7 +688,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (firstToken != null) {");
 		sc.add("offset = firstToken.getStartIndex();");
 		sc.add("}");
-		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
 		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
 		sc.add("}");
@@ -751,7 +755,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("");
 		sc.add("});");
 		sc.add("return (T) proxy;");
 		sc.add("}");
@@ -853,6 +856,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.add("private int expectedElementsIndexOfLastCompleteElement;");
+		sc.addLineBreak();
+
+		sc.addJavadoc("a collection to store all anonymous tokens");
+		sc.add("private " + LIST + "<" + COMMON_TOKEN
+				+ "> anonymousTokens = new " + ARRAY_LIST + "<"
+				+ COMMON_TOKEN + ">();");
 		sc.addLineBreak();
 	}
 
@@ -1784,6 +1793,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 		final String ident = "a" + count;
 		final String proxyIdent = "proxy";
+		boolean isAnonymousFeature = genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE;
 
 		StringComposite resolvements = new ANTLRGrammarComposite();
 
@@ -1829,7 +1839,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.addLineBreak();
 
 			// ignore the anonymous features
-			if (genFeature != ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+			if (!isAnonymousFeature) {
 				String targetTypeName = null;
 				String resolvedIdent = "resolved";
 				String preResolved = resolvedIdent + "Object";
@@ -1940,6 +1950,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 
 		sc.add(")");
+		if (isAnonymousFeature) {
+			sc.add("{");
+			sc.add("anonymousTokens.add((" + COMMON_TOKEN + ") " + ident+ ");");
+			sc.add("}");
+		}
 		return ++count;
 	}
 
@@ -1977,7 +1992,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
 		if (terminal instanceof Containment) {
-			sc.add("copyLocalizationInfos(" + ident + ", element); ");
+			sc.add("copyLocalizationInfos(" + ident + ", element);");
 		} else {
 			sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ") " + ident + ", element);");
 			if (eFeature instanceof EReference) {
