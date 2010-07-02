@@ -49,6 +49,10 @@ import org.emftext.sdk.util.EObjectUtil;
  * syntax rules. The mapping of elements to one occurrence of the other
  * is not reflected in the models after parsing and can thus cause a 
  * result different from the original text after printing.
+ * 
+ * TODO once the printer does handle type restrictions for containments
+ * correctly, this analyzer should take the restrictions into account
+ * when detecting problems of duplicate features.
  */
 public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 
