@@ -39,6 +39,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.util.EObjectUtil;
@@ -60,6 +61,11 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 			Collection<Terminal> allTerminals = collectAllTerminals(rule);
 			Map<GenFeature, Set<Terminal>> featureToTerminalsMap = groupTerminalsByFeature(allTerminals);
 			for (GenFeature feature : featureToTerminalsMap.keySet()) {
+				if (feature == CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
+					// do not analyse the anonymous features as they are not
+					// printed anyway
+					continue;
+				}
 				Set<Terminal> terminals = featureToTerminalsMap.get(feature);
 				if (terminals.size() < 2) {
 					// if there is only one terminal that refers to 'feature'
