@@ -213,10 +213,10 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addSetOptionsMethod(StringComposite sc, String body, String comment) {
+	public void addSetOptionsMethod(JavaComposite sc, String body, String comment) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
 		if (comment != null) {
-			sc.add(comment);
+			sc.addComment(comment);
 		}
 		if (body != null) {
 			sc.add(body);
