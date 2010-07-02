@@ -15,6 +15,7 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
@@ -106,10 +107,15 @@ public class CardinalityComputer {
 		return featureToMinMaxMap.get(feature);
 	}
 
-	private MinMax getTotalCardinality(Terminal terminal) {
+		
+	public MinMax getTotalCardinality(Terminal terminal) {
+		return getTotalCardinality(terminal, null);
+	}
+	
+	public MinMax getTotalCardinality(SyntaxElement element, SyntaxElement stopAt) {
 		MinMax result = null;
-		EObject current = terminal;
-		while (current != null) {
+		EObject current = element;
+		while (current != stopAt) {
 			if (current instanceof CardinalityDefinition) {
 				CardinalityDefinition cd = (CardinalityDefinition) current;
 				Cardinality cardinality = cd.getCardinality();
