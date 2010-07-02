@@ -61,7 +61,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 			Collection<Terminal> allTerminals = collectAllTerminals(rule);
 			Map<GenFeature, Set<Terminal>> featureToTerminalsMap = groupTerminalsByFeature(allTerminals);
 			for (GenFeature feature : featureToTerminalsMap.keySet()) {
-				if (feature == CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
+				if (CsGrammarInformationProvider.ANONYMOUS_FEATURE.getName().equals(feature.getName())) {
 					// do not analyse the anonymous features as they are not
 					// printed anyway
 					continue;
