@@ -99,6 +99,11 @@ options {
 	
 	private int expectedElementsIndexOfLastCompleteElement;
 	
+	/**
+	 * a collection to store all anonymous tokens
+	 */
+	private java.util.List<org.antlr.runtime3_2_0.CommonToken> anonymousTokens = new java.util.ArrayList<org.antlr.runtime3_2_0.CommonToken>();
+	
 	protected void addErrorToResource(final java.lang.String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -644,7 +649,7 @@ options {
 				}
 				return null;
 			}
-					});
+		});
 		return (T) proxy;
 	}
 	
@@ -652,6 +657,11 @@ options {
 		if (!(syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) && !(syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword)) {
 			return;
 		}
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
+		for (org.antlr.runtime3_2_0.CommonToken anonymousToken : anonymousTokens) {
+			layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), ""));
+		}
+		anonymousTokens.clear();
 		int currentPos = getTokenStream().index();
 		if (currentPos == 0) {
 			return;
@@ -683,7 +693,6 @@ options {
 		if (firstToken != null) {
 			offset = firstToken.getStartIndex();
 		}
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
 		layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));
 		this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);
 	}
@@ -737,7 +746,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_0_0_0_0, a0_0);
-						copyLocalizationInfos(a0_0, element); 					}
+						copyLocalizationInfos(a0_0, element);
+					}
 				}
 			)
 			{
@@ -773,7 +783,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_1_0_0_0, a1_0);
-						copyLocalizationInfos(a1_0, element); 					}
+						copyLocalizationInfos(a1_0, element);
+					}
 				}
 			)
 			{
@@ -1160,7 +1171,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_12_0_0_5_0_0_1, a13_0);
-								copyLocalizationInfos(a13_0, element); 							}
+								copyLocalizationInfos(a13_0, element);
+							}
 						}
 					)
 					{
@@ -1252,7 +1264,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_5_0_0_1, a17_0);
-								copyLocalizationInfos(a17_0, element); 							}
+								copyLocalizationInfos(a17_0, element);
+							}
 						}
 					)
 					{
@@ -1359,7 +1372,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_5_0_0_1, a22_0);
-								copyLocalizationInfos(a22_0, element); 							}
+								copyLocalizationInfos(a22_0, element);
+							}
 						}
 					)
 					{
@@ -1467,7 +1481,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_15_0_0_5_0_0_1, a27_0);
-								copyLocalizationInfos(a27_0, element); 							}
+								copyLocalizationInfos(a27_0, element);
+							}
 						}
 					)
 					{
@@ -1552,7 +1567,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_21_0_0_1, a31_0);
-						copyLocalizationInfos(a31_0, element); 					}
+						copyLocalizationInfos(a31_0, element);
+					}
 				}
 			)
 			{
@@ -1960,7 +1976,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_0_0_0_0, a0_0);
-						copyLocalizationInfos(a0_0, element); 					}
+						copyLocalizationInfos(a0_0, element);
+					}
 				}
 			)
 			{
@@ -2051,7 +2068,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_4, a3_0);
-				copyLocalizationInfos(a3_0, element); 			}
+				copyLocalizationInfos(a3_0, element);
+			}
 		}
 	)
 	{
@@ -2097,7 +2115,8 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_4_0_0_0, a0_0);
-					copyLocalizationInfos(a0_0, element); 				}
+					copyLocalizationInfos(a0_0, element);
+				}
 			}
 		)
 		
@@ -2137,7 +2156,8 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5_0_0_0, a0_0);
-				copyLocalizationInfos(a0_0, element); 			}
+				copyLocalizationInfos(a0_0, element);
+			}
 		}
 	)
 	{
@@ -2185,7 +2205,8 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5_0_0_1_0_0_1, a2_0);
-						copyLocalizationInfos(a2_0, element); 					}
+						copyLocalizationInfos(a2_0, element);
+					}
 				}
 			)
 			{
@@ -2393,7 +2414,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_4, a4_0);
-					copyLocalizationInfos(a4_0, element); 				}
+					copyLocalizationInfos(a4_0, element);
+				}
 			}
 		)
 		
@@ -2513,7 +2535,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_3, a3_0);
-					copyLocalizationInfos(a3_0, element); 				}
+					copyLocalizationInfos(a3_0, element);
+				}
 			}
 		)
 		
@@ -2773,7 +2796,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_8, a8_0);
-					copyLocalizationInfos(a8_0, element); 				}
+					copyLocalizationInfos(a8_0, element);
+				}
 			}
 		)
 		
@@ -3043,7 +3067,8 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_2, a5_0);
-					copyLocalizationInfos(a5_0, element); 				}
+					copyLocalizationInfos(a5_0, element);
+				}
 			}
 		)
 		
@@ -3104,7 +3129,8 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_1, a1_0);
-				copyLocalizationInfos(a1_0, element); 			}
+				copyLocalizationInfos(a1_0, element);
+			}
 		}
 	)
 	{
@@ -3155,7 +3181,8 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 					}
 					collectHiddenTokens(element);
 					retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_3, a3_0);
-					copyLocalizationInfos(a3_0, element); 				}
+					copyLocalizationInfos(a3_0, element);
+				}
 			}
 		)
 		
@@ -3297,7 +3324,8 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_0_0_0_0, a0_0);
-						copyLocalizationInfos(a0_0, element); 					}
+						copyLocalizationInfos(a0_0, element);
+					}
 				}
 			)
 			{
@@ -3378,7 +3406,8 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_5, a3_0);
-				copyLocalizationInfos(a3_0, element); 			}
+				copyLocalizationInfos(a3_0, element);
+			}
 		}
 	)
 	{
@@ -3420,7 +3449,8 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_6_0_0_3, a5_0);
-						copyLocalizationInfos(a5_0, element); 					}
+						copyLocalizationInfos(a5_0, element);
+					}
 				}
 			)
 			{
@@ -3594,7 +3624,8 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 				}
 				collectHiddenTokens(element);
 				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15_0_0_6, a3_0);
-				copyLocalizationInfos(a3_0, element); 			}
+				copyLocalizationInfos(a3_0, element);
+			}
 		}
 	)
 	{
@@ -3635,7 +3666,8 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15_0_0_7_0_0_3, a5_0);
-						copyLocalizationInfos(a5_0, element); 					}
+						copyLocalizationInfos(a5_0, element);
+					}
 				}
 			)
 			{
@@ -4163,7 +4195,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 						}
 						collectHiddenTokens(element);
 						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_1, a3_0);
-						copyLocalizationInfos(a3_0, element); 					}
+						copyLocalizationInfos(a3_0, element);
+					}
 				}
 			)
 			{
@@ -4203,7 +4236,8 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 								}
 								collectHiddenTokens(element);
 								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_2_0_0_1, a5_0);
-								copyLocalizationInfos(a5_0, element); 							}
+								copyLocalizationInfos(a5_0, element);
+							}
 						}
 					)
 					{
