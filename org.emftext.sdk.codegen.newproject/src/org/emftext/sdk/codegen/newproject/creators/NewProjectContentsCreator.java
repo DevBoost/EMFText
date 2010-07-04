@@ -15,8 +15,8 @@ import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.OverridingArtifactCreator;
 import org.emftext.sdk.codegen.newproject.NewProjectArtifacts;
-import org.emftext.sdk.codegen.newproject.NewProjectConstants;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
+import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.TextResourceCreator;
 import org.emftext.sdk.codegen.newproject.generators.GenModelGenerator;
 import org.emftext.sdk.codegen.newproject.generators.MetaModelGenerator;
@@ -50,41 +50,43 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 	}
 	
 	public List<IArtifactCreator<NewProjectGenerationContext>> getCreators(NewProjectGenerationContext context) {
+		NewProjectParameters parameters = context.getParameters();
+		String metamodelPackage = parameters.getMetamodelFolder();
 		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> metamodel  = 
 			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
-					NewProjectConstants.META_MODEL_PACKAGE, 
+					metamodelPackage, 
 					"", 
-					context.getParameters().getEcoreFile(), 
+					parameters.getEcoreFile(), 
 					MetaModelGenerator.class, 
 					null);
 
 		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> genModel  = 
 			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
-					NewProjectConstants.META_MODEL_PACKAGE, 
+					metamodelPackage, 
 					"", 
-					context.getParameters().getGenmodelFile(), 
+					parameters.getGenmodelFile(), 
 					GenModelGenerator.class, 
 					null);
 
 		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> syntax  = 
 			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
-					NewProjectConstants.META_MODEL_PACKAGE, 
+					metamodelPackage, 
 					"", 
-					context.getParameters().getSyntaxFile(), 
+					parameters.getSyntaxFile(), 
 					SyntaxGenerator.class, 
 					null);
 
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
-		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + NewProjectConstants.META_MODEL_PACKAGE)));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(metamodel, context.getParameters().getEcoreFile())));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(genModel, context.getParameters().getGenmodelFile())));
-    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(syntax, context.getParameters().getSyntaxFile())));
+		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + metamodelPackage)));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(metamodel, parameters.getEcoreFile())));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(genModel, parameters.getGenmodelFile())));
+    	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(syntax, parameters.getSyntaxFile())));
     	creators.add(new GenerateCodeCreator());
     	creators.add(new TextResourceCreator());
     	
     	ClassPathParameters<NewProjectGenerationContext> cpp = new ClassPathParameters<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, context.getPluginDescriptor());
-    	cpp.getSourceFolders().add(context.getParameters().getSrcFolder());
+    	cpp.getSourceFolders().add(parameters.getSrcFolder());
 		creators.add(new DotClasspathCreator<NewProjectGenerationContext>(cpp, true));
 		
 		DotProjectParameters<NewProjectGenerationContext> dpp = new DotProjectParameters<NewProjectGenerationContext>(NewProjectArtifacts.DOT_PROJECT, context.getPluginDescriptor());
