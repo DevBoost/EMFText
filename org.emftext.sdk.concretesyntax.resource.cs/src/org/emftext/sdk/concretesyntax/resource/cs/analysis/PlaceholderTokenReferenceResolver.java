@@ -15,12 +15,14 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
@@ -72,15 +74,29 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 
 	private boolean searchForToken(String identifier, boolean resolveFuzzy,
 			ICsReferenceResolveResult<CompleteTokenDefinition> result,
-			ConcreteSyntax nextImportedSyntax) {
-		for (CompleteTokenDefinition tokenDefinition : nextImportedSyntax.getActiveTokens()) {
-			final String tokenName = tokenDefinition.getName();
-			if (tokenName.equals(identifier) && !resolveFuzzy) {
-				result.addMapping(identifier, tokenDefinition);
-				return false;
-			}
-			if (tokenName.startsWith(identifier) && resolveFuzzy) {
-				result.addMapping(tokenName, tokenDefinition);
+			ConcreteSyntax syntax) {
+		EList<? extends TokenDirective> tokens = syntax.getActiveTokens();
+		// for fuzzy resolution we must use getTokens(), because getActiveTokens()
+		// is initialized in a post processor, which does not run in fuzzy resolving
+		// mode. As a result the predefined tokens are not available during code
+		// completion. Probably it would be better to implement getActiveTokens()
+		// in eJava rather than using a post processor.
+		if (resolveFuzzy) {
+			tokens = syntax.getTokens();
+		} else {
+			tokens = syntax.getActiveTokens();
+		}
+		for (TokenDirective token : tokens) {
+			if (token instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition tokenDefinition = (CompleteTokenDefinition) token;
+				final String tokenName = tokenDefinition.getName();
+				if (tokenName.equals(identifier) && !resolveFuzzy) {
+					result.addMapping(identifier, tokenDefinition);
+					return false;
+				}
+				if (resolveFuzzy) {
+					result.addMapping(tokenName, tokenDefinition);
+				}
 			}
 		}
 		return true;
