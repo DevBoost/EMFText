@@ -38,8 +38,10 @@ public class GenClassUtil {
 	 */
 	public boolean contains(Collection<GenClass> genClasses,
 			GenClass genClass, GenClassCache genClassCache) {
+		String genClassInterfaceName = genClassCache.getQualifiedInterfaceName(genClass);
 		for (GenClass next : genClasses) {
-			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
+			String nextInterfaceName = genClassCache.getQualifiedInterfaceName(next);
+			if (nextInterfaceName != null && nextInterfaceName.equals(genClassInterfaceName)) {
 				return true;
 			}
 		}
