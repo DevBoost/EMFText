@@ -153,10 +153,10 @@ public class ANTLRPluginContentCreator {
 	    String sourceFolderPath = sourceFolder.getAbsolutePath() + File.separator;
 		creators.add(new FoldersCreator<ANTLRGenerationContext>(new File[] {
 	    		sourceFolder,
-	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().replace(".", File.separator)),
-	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().getName(context).replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().getName(context).replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().getName(context).replace(".", File.separator)),
+	    		new File(sourceFolderPath + ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().getName(context).replace(".", File.separator)),
 	    }));
 	    
 	    ClassPathParameters<ANTLRGenerationContext> cpp = new ClassPathParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.DOT_CLASSPATH, antlrPlugin);
@@ -174,10 +174,10 @@ public class ANTLRPluginContentCreator {
 	    ManifestParameters<ANTLRGenerationContext> manifestParameters = new ManifestParameters<ANTLRGenerationContext>(ANTLRPluginArtifacts.MANIFEST);
 		// export the generated packages
 		Collection<String> exports = manifestParameters.getExportedPackages();
-		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage());
-		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage());
-		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage());
-		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage());
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME.getPackage().getName(context));
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_DEBUG.getPackage().getName(context));
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_MISC.getPackage().getName(context));
+		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().getName(context));
 
 		manifestParameters.setPlugin(antlrPlugin);
 		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");

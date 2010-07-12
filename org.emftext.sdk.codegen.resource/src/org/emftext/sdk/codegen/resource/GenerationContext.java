@@ -30,7 +30,9 @@ import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IFileSystemConnector;
+import org.emftext.sdk.codegen.IPackage;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -54,7 +56,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class GenerationContext extends AbstractGenerationContext {
+public abstract class GenerationContext extends AbstractGenerationContext<GenerationContext> implements ISyntaxContext {
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	private static final String SCHEMA_DIR = "schema";
@@ -122,8 +124,12 @@ public abstract class GenerationContext extends AbstractGenerationContext {
 		return file;
 	}
 	
-	public String getPackageName(ArtifactDescriptor<?, ?> artifact) {
-		return nameUtil.getPackageName(concreteSyntax, artifact);
+	public String getPackageName(ArtifactDescriptor<GenerationContext, ?> artifact) {
+		IPackage<ISyntaxContext> artifactPackage = artifact.getPackage();
+		if (artifactPackage == null) {
+			return "";
+		}
+		return artifactPackage.getName(this);
 	}
 
 	/**
@@ -217,11 +223,11 @@ public abstract class GenerationContext extends AbstractGenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getPackagePath(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
+	public String getPackagePath(IPluginDescriptor plugin, ArtifactDescriptor<GenerationContext, ?> artifact) {
 		OptionTypes overrideOption = artifact.getOverrideOption();
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
 		File targetFolder = getSourceFolder(plugin, doOverride);
-		IPath csPackagePath = new Path(getPackageName(artifact).replaceAll("\\.","/"));
+		IPath csPackagePath = new Path(artifact.getPackage().getName(this).replaceAll("\\.","/"));
 		String targetFolderPath = targetFolder.getAbsolutePath();
 		String packagePath = targetFolderPath + File.separator + csPackagePath + File.separator;
 		return packagePath;
@@ -266,10 +272,10 @@ public abstract class GenerationContext extends AbstractGenerationContext {
 	}
 
 	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
-		return nameUtil.getPackageName(syntax, artifact) + "." + getClassName(artifact, syntax);
+		return artifact.getPackage().getName(this) + "." + getClassName(artifact, syntax);
 	}
 
-	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
+	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<GenerationContext, ?> artifact) {
 		return new File(getPackagePath(plugin, artifact) + getClassName(artifact) + Constants.JAVA_FILE_EXTENSION);
 	}
 

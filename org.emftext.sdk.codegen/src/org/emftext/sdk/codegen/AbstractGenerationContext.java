@@ -1,7 +1,7 @@
 package org.emftext.sdk.codegen;
 
 
-public abstract class AbstractGenerationContext implements IContext {
+public abstract class AbstractGenerationContext<ContextType> implements IContext<ContextType> {
 
 	private final IFileSystemConnector fileSystemConnector;
 	private final IProblemCollector problemCollector;

@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
+import static org.emftext.sdk.codegen.Constants.ANALYSIS_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.RESOURCE_UI_PLUGIN_SUFFIX;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -23,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.codegen.PluginDescriptor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -53,29 +56,13 @@ public class NameUtil {
 	 * Returns the name of the package where token and reference resolvers 
 	 * must go to depending on the given syntax.
 	 */
-	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, Constants.ANALYSIS_PACKAGE);
-		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
-	}
-
-	public String getPackageName(ConcreteSyntax syntax, String packageSuffix) {
-		/*
-		if (plugin == null) {
-			// this is the case for artifacts that are generated for
-			// multiple plug-ins
-			return null;
-		}
-		*/
-		String basePackage = getBasePackage(syntax, Constants.RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
-		if (basePackage == null || "".equals(basePackage)) {
-			return packageSuffix;
-		} else {
-			if ("".equals(packageSuffix)) {
-				return basePackage;
-			} else {
-				return basePackage + "." + packageSuffix;
+	public String getResolverPackageName(final ConcreteSyntax syntax) {
+		String csPackageName = ANALYSIS_PACKAGE.getName(new ISyntaxContext() {
+			public ConcreteSyntax getConcreteSyntax() {
+				return syntax;
 			}
-		}
+		});
+		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
 	public String getBasePackage(ConcreteSyntax syntax, String suffix, String prefix, OptionTypes basePackageOption) {
@@ -108,10 +95,6 @@ public class NameUtil {
 		}
 	}
 
-	public String getPackageName(ConcreteSyntax syntax, ArtifactDescriptor<?, ?> artifact) {
-		return getPackageName(syntax, artifact.getPackage());
-	}
-	
 	public IPluginDescriptor getResourcePluginDescriptor(ConcreteSyntax syntax) {
 		String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, "", OptionTypes.BASE_PACKAGE);
 		IPluginDescriptor resourcePlugin = new PluginDescriptor(pluginName);
@@ -119,7 +102,7 @@ public class NameUtil {
 	}
 
 	public IPluginDescriptor getResourceUIPluginDescriptor(ConcreteSyntax syntax) {
-		String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, Constants.RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
+		String pluginName = getPluginName(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID, Constants.RESOURCE_PLUGIN_SUFFIX, RESOURCE_UI_PLUGIN_SUFFIX, OptionTypes.UI_BASE_PACKAGE);
 		IPluginDescriptor resourcePlugin = new PluginDescriptor(pluginName);
 		return resourcePlugin;
 	}

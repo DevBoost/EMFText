@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.IContext;
  * A parameter class that can be used to specify the content of build.properties
  * files.
  */
-public class BuildPropertiesParameters<ContextType extends IContext> extends AbstractArtifactParameter<ContextType, BuildPropertiesParameters<ContextType>> {
+public class BuildPropertiesParameters<ContextType extends IContext<ContextType>> extends AbstractArtifactParameter<ContextType, BuildPropertiesParameters<ContextType>> {
 	
 	private Collection<String> sourceFolders = new LinkedHashSet<String>();
 	private Collection<String> binIncludes = new LinkedHashSet<String>();

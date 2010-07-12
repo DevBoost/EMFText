@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.parameters.DotProjectParameters;
  * Creates a .project file, which is used by Eclipse to read meta data
  * about plug-ins.
  */
-public class DotProjectCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, DotProjectParameters<ContextType>> {
+public class DotProjectCreator<ContextType extends IContext<ContextType>> extends GenericArtifactCreator<ContextType, DotProjectParameters<ContextType>> {
 
 	public static final String FILENAME = ".project";
 	

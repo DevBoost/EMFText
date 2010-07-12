@@ -17,22 +17,22 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class ArtifactDescriptor<ContextType, ParameterType> {
 
-	private String packageName;
+	private IPackage<ISyntaxContext> targetPackage;
 	private String classNamePrefix;
 	private String classNameSuffix;
 	private Class<? extends IGenerator<ContextType, ParameterType>> generatorClass;
 	private OptionTypes overrideOption;
 
-	public ArtifactDescriptor(String packageName, String classNamePrefix, String classNameSuffix, Class<? extends IGenerator<ContextType, ParameterType>> generatorClass, OptionTypes overrideOption) {
-		this.packageName = packageName;
+	public ArtifactDescriptor(IPackage<ISyntaxContext> targetPackage, String classNamePrefix, String classNameSuffix, Class<? extends IGenerator<ContextType, ParameterType>> generatorClass, OptionTypes overrideOption) {
+		this.targetPackage = targetPackage;
 		this.classNamePrefix = classNamePrefix;
 		this.classNameSuffix = classNameSuffix;
 		this.generatorClass = generatorClass;
 		this.overrideOption = overrideOption;
 	}
 
-	public String getPackage() {
-		return packageName;
+	public IPackage<ISyntaxContext> getPackage() {
+		return targetPackage;
 	}
 
 	public String getClassNamePrefix() {

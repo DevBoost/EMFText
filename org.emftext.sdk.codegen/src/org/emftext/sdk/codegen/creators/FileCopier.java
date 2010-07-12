@@ -27,7 +27,7 @@ import org.emftext.sdk.util.StreamUtil;
 /**
  * Copies files.
  */
-public class FileCopier<ContextType extends IContext> implements IArtifactCreator<ContextType> {
+public class FileCopier<ContextType extends IContext<ContextType>> implements IArtifactCreator<ContextType> {
 
 	private InputStream inputStream;
 	private File targetFile;

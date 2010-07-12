@@ -33,7 +33,7 @@ import org.emftext.sdk.util.StreamUtil;
  * An abstract superclass for all creators. It that handles overriding
  * of existing artifacts.
  */
-public abstract class AbstractArtifactCreator<ContextType extends IContext, ParameterType> implements IArtifactCreator<ContextType> {
+public abstract class AbstractArtifactCreator<ContextType extends IContext<ContextType>, ParameterType> implements IArtifactCreator<ContextType> {
 	
 	private String artifactName;
 	private ParameterType parameters;

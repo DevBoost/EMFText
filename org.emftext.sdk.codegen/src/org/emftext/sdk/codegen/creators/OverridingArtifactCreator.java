@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.IContext;
 
-public class OverridingArtifactCreator<ContextType extends IContext, ParameterType extends IArtifactParameter<ContextType, ParameterType>> 
+public class OverridingArtifactCreator<ContextType extends IContext<ContextType>, ParameterType extends IArtifactParameter<ContextType, ParameterType>> 
 	extends GenericArtifactCreator<ContextType, ParameterType> {
 
 	public OverridingArtifactCreator(ParameterType parameters) {

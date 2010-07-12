@@ -9,7 +9,7 @@ import org.emftext.sdk.codegen.IContext;
  *
  * @param <ParameterType>
  */
-public class SimpleParameter<ContextType extends IContext, ParameterType> extends AbstractArtifactParameter<ContextType, SimpleParameter<ContextType, ParameterType>> {
+public class SimpleParameter<ContextType extends IContext<ContextType>, ParameterType> extends AbstractArtifactParameter<ContextType, SimpleParameter<ContextType, ParameterType>> {
 
 	private ParameterType parameter;
 

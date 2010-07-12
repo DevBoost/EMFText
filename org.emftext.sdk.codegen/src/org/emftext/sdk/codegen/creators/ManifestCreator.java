@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.parameters.ManifestParameters;
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
  */
-public class ManifestCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, ManifestParameters<ContextType>> {
+public class ManifestCreator<ContextType extends IContext<ContextType>> extends GenericArtifactCreator<ContextType, ManifestParameters<ContextType>> {
 
 	public static final String FILENAME = "MANIFEST.MF";
 	private boolean override;

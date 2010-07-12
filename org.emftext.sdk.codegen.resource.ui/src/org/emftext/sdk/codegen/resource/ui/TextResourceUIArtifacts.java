@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.resource.ui;
 
-import static org.emftext.sdk.Constants.UI_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.UI_PACKAGE;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;

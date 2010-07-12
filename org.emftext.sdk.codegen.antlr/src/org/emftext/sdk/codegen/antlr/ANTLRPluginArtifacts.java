@@ -1,9 +1,9 @@
 package org.emftext.sdk.codegen.antlr;
 
-import static org.emftext.sdk.Constants.ANTLR_RUNTIME_DEBUG_PACKAGE;
-import static org.emftext.sdk.Constants.ANTLR_RUNTIME_MISC_PACKAGE;
-import static org.emftext.sdk.Constants.ANTLR_RUNTIME_PACKAGE;
-import static org.emftext.sdk.Constants.ANTLR_RUNTIME_TREE_PACKAGE;
+import static org.emftext.sdk.codegen.antlr.Constants.ANTLR_RUNTIME_DEBUG_PACKAGE;
+import static org.emftext.sdk.codegen.antlr.Constants.ANTLR_RUNTIME_MISC_PACKAGE;
+import static org.emftext.sdk.codegen.antlr.Constants.ANTLR_RUNTIME_PACKAGE;
+import static org.emftext.sdk.codegen.antlr.Constants.ANTLR_RUNTIME_TREE_PACKAGE;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;

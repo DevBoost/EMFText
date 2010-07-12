@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.IContext;
  * A parameter class that can be used to specify the content of .classpath
  * files.
  */
-public class ClassPathParameters<ContextType extends IContext> 
+public class ClassPathParameters<ContextType extends IContext<ContextType>> 
 	extends AbstractArtifactParameter<ContextType, ClassPathParameters<ContextType>> {
 
 	private Set<String> sourceFolders = new LinkedHashSet<String>();

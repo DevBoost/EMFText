@@ -27,7 +27,7 @@ import org.emftext.sdk.util.StringUtil;
  *
  * @param <ContextType>
  */
-public class BuildPropertiesGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, BuildPropertiesParameters<ContextType>> {
+public class BuildPropertiesGenerator<ContextType extends IContext<ContextType>> extends AbstractGenerator<ContextType, BuildPropertiesParameters<ContextType>> {
 
 	public BuildPropertiesGenerator() {
 		super();

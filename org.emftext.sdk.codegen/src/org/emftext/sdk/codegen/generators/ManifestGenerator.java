@@ -26,7 +26,7 @@ import org.emftext.sdk.util.StringUtil;
 /**
  * A generator that creates manifest files.
  */
-public class ManifestGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, ManifestParameters<ContextType>> {
+public class ManifestGenerator<ContextType extends IContext<ContextType>> extends AbstractGenerator<ContextType, ManifestParameters<ContextType>> {
 
 	public ManifestGenerator() {
 		super();

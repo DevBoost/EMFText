@@ -30,7 +30,7 @@ import org.emftext.sdk.codegen.IGenerator;
  * @param <ContextType>
  * @param <ParameterType>
  */
-public abstract class GenericArtifactCreator<ContextType extends IContext, ParameterType extends IArtifactParameter<ContextType, ParameterType>> extends AbstractArtifactCreator<ContextType, ParameterType> {
+public abstract class GenericArtifactCreator<ContextType extends IContext<ContextType>, ParameterType extends IArtifactParameter<ContextType, ParameterType>> extends AbstractArtifactCreator<ContextType, ParameterType> {
 
 	public GenericArtifactCreator(ParameterType parameters) {
 		super(parameters.getArtifact().getClassNamePrefix() + parameters.getArtifact().getClassNameSuffix(), parameters);

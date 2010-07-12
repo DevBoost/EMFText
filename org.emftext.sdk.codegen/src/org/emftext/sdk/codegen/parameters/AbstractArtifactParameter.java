@@ -4,7 +4,7 @@ import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactParameter;
 import org.emftext.sdk.codegen.IContext;
 
-public abstract class AbstractArtifactParameter<ContextType extends IContext, ParameterType> implements IArtifactParameter<ContextType, ParameterType> {
+public abstract class AbstractArtifactParameter<ContextType extends IContext<ContextType>, ParameterType> implements IArtifactParameter<ContextType, ParameterType> {
 
 	private ArtifactDescriptor<ContextType, ParameterType> artifact;
 

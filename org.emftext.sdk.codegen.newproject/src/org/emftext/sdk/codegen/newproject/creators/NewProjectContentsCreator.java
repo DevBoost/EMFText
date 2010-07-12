@@ -8,8 +8,11 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.BasicPackage;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.IPackage;
 import org.emftext.sdk.codegen.IPluginCreator;
+import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
 import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
@@ -51,7 +54,7 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 	
 	public List<IArtifactCreator<NewProjectGenerationContext>> getCreators(NewProjectGenerationContext context) {
 		NewProjectParameters parameters = context.getParameters();
-		String metamodelPackage = parameters.getMetamodelFolder();
+		IPackage<ISyntaxContext> metamodelPackage = new BasicPackage<ISyntaxContext>(parameters.getMetamodelFolder());
 		ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>> metamodel  = 
 			new ArtifactDescriptor<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(
 					metamodelPackage, 
@@ -78,7 +81,7 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
 
 		List<IArtifactCreator<NewProjectGenerationContext>> creators = new ArrayList<IArtifactCreator<NewProjectGenerationContext>>();
 		
-		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + metamodelPackage)));
+		creators.add(new FoldersCreator<NewProjectGenerationContext>(new File(context.getProjectFolder(context.getPluginDescriptor()) + File.separator + metamodelPackage.getName(context))));
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(metamodel, parameters.getEcoreFile())));
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(genModel, parameters.getGenmodelFile())));
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(syntax, parameters.getSyntaxFile())));

@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.IContext;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public abstract class BaseGenerator<ContextType extends IContext, ParameterType> extends AbstractGenerator<ContextType, ParameterType> {
+public abstract class BaseGenerator<ContextType extends IContext<ContextType>, ParameterType> extends AbstractGenerator<ContextType, ParameterType> {
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {

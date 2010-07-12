@@ -13,14 +13,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
-import static org.emftext.sdk.Constants.ANALYSIS_PACKAGE;
-import static org.emftext.sdk.Constants.CC_PACKAGE;
-import static org.emftext.sdk.Constants.GRAMMAR_PACKAGE;
-import static org.emftext.sdk.Constants.MOPP_PACKAGE;
-import static org.emftext.sdk.Constants.ROOT_PACKAGE;
-import static org.emftext.sdk.Constants.UTIL_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.ANALYSIS_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.CC_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.GRAMMAR_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.MOPP_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.ROOT_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.UTIL_PACKAGE;
 
-import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.creators.BuildPropertiesCreator;
 import org.emftext.sdk.codegen.creators.DotClasspathCreator;
@@ -210,9 +209,9 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BUILDER_ADAPTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "BuilderAdapter", BuilderAdapterGenerator.class, OptionTypes.OVERRIDE_BUILDER_ADAPTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BUILDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Builder", IBuilderGenerator.class, OptionTypes.OVERRIDE_IBUILDER);
 	
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", DefaultTokenResolverGenerator.class, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_RESOLVER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", DefaultResolverDelegateGenerator.class, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 
-	public final static ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(Constants.ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultTokenResolver", DefaultTokenResolverGenerator.class, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_RESOLVER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", DefaultResolverDelegateGenerator.class, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 
+	public final static ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_INPUT_STREAM_PROCESSOR_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "InputStreamProcessorProvider", IInputStreamProcessorProviderGenerator.class, OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> INPUT_STREAM_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "InputStreamProcessor", InputStreamProcessorGenerator.class, OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR);

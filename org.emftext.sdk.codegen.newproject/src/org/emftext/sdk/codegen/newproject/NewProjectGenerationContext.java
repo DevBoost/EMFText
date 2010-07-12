@@ -12,6 +12,7 @@ import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -20,7 +21,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * creating a new EMFText project. It carries the parameters that were given by users
  * for creating the new project.
  */
-public class NewProjectGenerationContext extends AbstractGenerationContext {
+public class NewProjectGenerationContext extends AbstractGenerationContext<NewProjectGenerationContext> implements ISyntaxContext {
 
 	private IPluginDescriptor pluginDescriptor;
 	private NewProjectParameters parameters;
@@ -44,14 +45,14 @@ public class NewProjectGenerationContext extends AbstractGenerationContext {
 		this.parameters = parameters;
 	}
 
-	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
+	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<NewProjectGenerationContext, ?> artifact) {
 		return new File(getPackagePath(artifact) + File.separator + artifact.getClassNameSuffix());
 	}
 
 	public String getPackagePath(ArtifactDescriptor<?, ?> artifact) {
 		File targetFolder = getProjectFolder(null);
 		String targetFolderPath = targetFolder.getAbsolutePath();
-		String packagePath = targetFolderPath + File.separator + artifact.getPackage() + File.separator;
+		String packagePath = targetFolderPath + File.separator + artifact.getPackage().getName(this) + File.separator;
 		return packagePath;
 	}
 

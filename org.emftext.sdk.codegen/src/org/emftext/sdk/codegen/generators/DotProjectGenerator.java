@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.parameters.DotProjectParameters;
  * Creates the content for .project files, which are used by Eclipse to store meta data
  * about plug-ins. The content of the file is determined by the given plug-in descriptor.
  */
-public class DotProjectGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, DotProjectParameters<ContextType>> {
+public class DotProjectGenerator<ContextType extends IContext<ContextType>> extends AbstractGenerator<ContextType, DotProjectParameters<ContextType>> {
 
 	public DotProjectGenerator() {
 		super();

@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
  *
  * @param <ContextType>
  */
-public class BuildPropertiesCreator<ContextType extends IContext> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
+public class BuildPropertiesCreator<ContextType extends IContext<ContextType>> extends GenericArtifactCreator<ContextType, BuildPropertiesParameters<ContextType>> {
 
 	public static final String FILENAME = "build.properties";
 	

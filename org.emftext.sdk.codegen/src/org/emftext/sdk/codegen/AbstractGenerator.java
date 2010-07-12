@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 
-public abstract class AbstractGenerator<ContextType extends IContext, ParameterType> implements IGenerator<ContextType, ParameterType>, IProblemCollector {
+public abstract class AbstractGenerator<ContextType extends IContext<ContextType>, ParameterType> implements IGenerator<ContextType, ParameterType>, IProblemCollector {
 
 	private ContextType context;
 	private ParameterType parameters;

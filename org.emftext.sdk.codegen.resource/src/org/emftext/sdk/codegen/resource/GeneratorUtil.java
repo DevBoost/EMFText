@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
+import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -255,7 +256,7 @@ public class GeneratorUtil {
 	}
 
 	public IPluginDescriptor getAntlrPluginDescriptor(ConcreteSyntax syntax) {
-		final String pluginName = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ANTLR_PLUGIN_ID, Constants.DEFAULT_ANTLR_PLUGIN_NAME);
+		final String pluginName = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ANTLR_PLUGIN_ID, DEFAULT_ANTLR_PLUGIN_NAME);
 		IPluginDescriptor antlrPlugin = new IPluginDescriptor() {
 
 			public String getName() {

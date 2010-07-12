@@ -7,6 +7,7 @@ import org.emftext.sdk.codegen.AbstractGenerationContext;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -14,7 +15,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * plug-in. It carries a concrete syntax object, which is used to determine the
  * value of override options.
  */
-public class ANTLRGenerationContext extends AbstractGenerationContext {
+public class ANTLRGenerationContext extends AbstractGenerationContext<ANTLRGenerationContext> implements ISyntaxContext {
 
 	private ConcreteSyntax concreteSyntax;
 	private IPluginDescriptor antlrPlugin;
@@ -25,7 +26,7 @@ public class ANTLRGenerationContext extends AbstractGenerationContext {
 		this.antlrPlugin = antlrPlugin;
 	}
 
-	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact) {
+	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<ANTLRGenerationContext, ?> artifact) {
 		throw new UnsupportedOperationException();
 	}
 

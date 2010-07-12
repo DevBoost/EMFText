@@ -8,11 +8,11 @@ import org.emftext.sdk.IPluginDescriptor;
  * An interface that defines methods which must be implemented by all
  * code generation contexts.
  */
-public interface IContext {
+public interface IContext<ContextType> {
 
 	public IFileSystemConnector getFileSystemConnector();
 	
 	public IProblemCollector getProblemCollector();
 
-	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<?, ?> artifact);
+	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<ContextType, ?> artifact);
 }

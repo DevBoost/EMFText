@@ -26,7 +26,7 @@ import org.emftext.sdk.codegen.parameters.ClassPathParameters;
  * classes used by generated plug-ins. The content of the file is determined by
  * the given parameters.
  */
-public class DotClasspathGenerator<ContextType extends IContext> extends AbstractGenerator<ContextType, ClassPathParameters<ContextType>> {
+public class DotClasspathGenerator<ContextType extends IContext<ContextType>> extends AbstractGenerator<ContextType, ClassPathParameters<ContextType>> {
 
 	public DotClasspathGenerator() {
 		super();
