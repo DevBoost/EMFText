@@ -33,6 +33,22 @@
       </objectContribution>
    </extension>
 
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.ui.generatejavastylecontributor"
+            nameFilter="*.genmodel*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.emftext.sdk.ui.actions.GenerateJavaStyleSyntaxAction"
+               enablesFor="1"
+               id="org.emftext.ui.actions.generatejavastyleaction"
+               label="Generate Java-like Syntax"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
    <extension
          point="org.eclipse.ui.newWizards">
       <category
