@@ -82,6 +82,16 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("} catch (Exception e) {");
 		sc.add("result.setErrorMessage(\"Could not convert '\" + lexem + \"' to '\" + feature.getEType().getName() + \"'.\");");
 		sc.add("}");
+		sc.add("String typeName = feature.getEType().getInstanceClassName();");
+		sc.add("if (typeName.equals(\"boolean\") || java.lang.Boolean.class.getName().equals(typeName)) {");
+		sc.add("String featureName = feature.getName();");
+		sc.add("boolean featureNameMatchesLexem = featureName.equals(lexem);");
+		sc.add("if (featureName.length() > 2 && featureName.startsWith(\"is\")) {");
+		sc.add("featureNameMatchesLexem |= (featureName.substring(2, 3).toLowerCase() + featureName.substring(3)).equals(lexem);");
+		sc.add("}");
+		sc.add("result.setResolvedToken(Boolean.parseBoolean(lexem) || featureNameMatchesLexem);");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("} else {");
 		sc.add("assert false;");
 		sc.add("}");
