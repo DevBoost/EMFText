@@ -17,6 +17,20 @@
       </objectContribution>
    </extension>
 
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.ui.generatesyntax"
+            nameFilter="*.genmodel*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               id="org.emftext.ui.generatesyntaxactions"
+               label="Generate Syntax"
+               path="additions">
+         </menu>
+      </objectContribution>
+   </extension>
+
    <extension  
             point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -28,8 +42,8 @@
                class="org.emftext.sdk.ui.actions.GenerateHUTNAction"
                enablesFor="1"
                id="org.emftext.ui.actions.generatehutnaction"
-               label="Generate HUTN Syntax"
-               menubarPath="additions"/>
+               label="HUTN Syntax"
+               menubarPath="org.emftext.ui.generatesyntaxactions/additions"/>
       </objectContribution>
    </extension>
 
@@ -44,8 +58,8 @@
                class="org.emftext.sdk.ui.actions.GenerateJavaStyleSyntaxAction"
                enablesFor="1"
                id="org.emftext.ui.actions.generatejavastyleaction"
-               label="Generate Java-like Syntax"
-               menubarPath="additions"/>
+               label="Java-like Syntax"
+               menubarPath="org.emftext.ui.generatesyntaxactions/additions"/>
       </objectContribution>
    </extension>
 
