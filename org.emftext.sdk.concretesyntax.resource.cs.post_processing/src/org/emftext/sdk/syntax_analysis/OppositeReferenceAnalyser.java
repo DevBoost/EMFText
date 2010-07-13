@@ -13,15 +13,16 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -32,11 +33,13 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 
 	private static final String NON_CONTAINMENT_OPPOSITE_WARNING = 
-		"Feature has a non-containment opposite feature. The opposite is only established after reference resolving: ";
+		"Feature %s has a non-containment opposite feature. The opposite is only established after reference resolving: %s";
 	
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<EReference> referencesWithSyntaxAndNCOpposite = new ArrayList<EReference>();
+		// maps references that have syntax and a non-containment opposite to
+		// the rule which defined the syntax for the reference
+		Map<EReference, Rule> referencesWithSyntaxAndNCOpposite = new LinkedHashMap<EReference, Rule>();
 		
 		Iterator<EObject> iterator = syntax.eAllContents();
 		while (iterator.hasNext()) {
@@ -49,26 +52,29 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 					EReference opposite = reference.getEOpposite();
 					if (opposite != null) {
 						if (!opposite.isContainment()) {
-							referencesWithSyntaxAndNCOpposite.add(reference);
+							referencesWithSyntaxAndNCOpposite.put(reference, placeholder.getContainingRule());
 						}
 					}
 				}
 			}
 		}
 		
-		for(EReference reference : referencesWithSyntaxAndNCOpposite) {
+		for (EReference reference : referencesWithSyntaxAndNCOpposite.keySet()) {
 			
 			EReference opposite = reference.getEOpposite();
 			//it is ok, if the opposite itself has syntax through which a proxy is produced during parsing
-			if(!referencesWithSyntaxAndNCOpposite.contains(opposite)) {
+			if (!referencesWithSyntaxAndNCOpposite.keySet().contains(opposite)) {
+				Rule containingRule = referencesWithSyntaxAndNCOpposite.get(reference);
+				String message = String.format(
+						NON_CONTAINMENT_OPPOSITE_WARNING, 
+						reference.getName(),
+						opposite.getEContainingClass().getName() + "." + opposite.getName()
+				);
 				addProblem(
 						resource,
 						ECsProblemType.NON_CONTAINMENT_OPPOSITE,
-						NON_CONTAINMENT_OPPOSITE_WARNING + 
-						opposite.getEContainingClass().getName() +
-						"." +
-						opposite.getName(),
-						reference);	
+						message,
+						containingRule);
 			}
 		}
 	}
