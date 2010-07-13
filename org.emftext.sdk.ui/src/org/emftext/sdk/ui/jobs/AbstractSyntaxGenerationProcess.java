@@ -52,6 +52,10 @@ import org.emftext.sdk.util.GenClassUtil;
 
 public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithProgress {
 	
+	private static final String FLOAT_TOKEN_NAME = "FLOAT";
+
+	private static final String INTEGER_TOKEN_NAME = "INTEGER";
+
 	private static final String KEYWORD_VIOLETT = "7F0055";
 
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
@@ -59,10 +63,6 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 	public static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;
 
 	private final IFile file;
-	private ConcreteSyntax cSyntax;
-	private NormalTokenDefinition comment;
-	private NormalTokenDefinition floatToken;
-	private NormalTokenDefinition intToken;
 
 	public AbstractSyntaxGenerationProcess(IFile file) {
 		this.file = file;
@@ -90,38 +90,14 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 				 currentSyntax = csResource.getContents().get(0);
 			}
 			
+			ConcreteSyntax cSyntax;
 			if (currentSyntax instanceof ConcreteSyntax) {
 				cSyntax = (ConcreteSyntax) currentSyntax;
 			} else {
 				cSyntax = CS_FACTORY.createConcreteSyntax();	
 				csResource.getContents().add(cSyntax);
 			}
-			GenClassCache genClassCache = cSyntax.getGenClassCache();
-			
-			Map<String, Rule>  genClass2RuleCache = new LinkedHashMap<String, Rule>(); 
-			for (Rule rule : cSyntax.getRules()) {
-				genClass2RuleCache.put(genClassCache.getQualifiedInterfaceName(rule.getMetaclass()), rule);
-			}
-			
-			//String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
-			List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenAndUsedGenPackagesWithClassifiers();
-			
-			cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
-			cSyntax.setName(cSyntax.getPackage().getNSName());
-			generateRules(genClass2RuleCache, cSyntax.getPackage(), "", genClassCache);
-			
-			for (int i = 1; i < allGenPackagesWithClassifiers.size(); i++) {
-				GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
-				
-				Import imp = CS_FACTORY.createImport();
-				cSyntax.getImports().add(imp);
-				imp.setPackage(currentPkg);
-				String prefix = currentPkg.getQualifiedPackageName();
-				imp.setPrefix(prefix);
-				
-				generateRules(genClass2RuleCache, currentPkg, prefix, genClassCache);
-			}
-			generateTokenstyles();
+			fillSyntax(cSyntax, genModel);
 			
 			try {
 				csResource.save(null);
@@ -131,7 +107,35 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 			}
 	}
 
-	private void generateTokenstyles() {
+	public void fillSyntax(ConcreteSyntax cSyntax, GenModel genModel) {
+		GenClassCache genClassCache = cSyntax.getGenClassCache();
+		
+		Map<String, Rule>  genClass2RuleCache = new LinkedHashMap<String, Rule>(); 
+		for (Rule rule : cSyntax.getRules()) {
+			genClass2RuleCache.put(genClassCache.getQualifiedInterfaceName(rule.getMetaclass()), rule);
+		}
+		
+		List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenAndUsedGenPackagesWithClassifiers();
+		
+		cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
+		cSyntax.setName(cSyntax.getPackage().getNSName());
+		generateRules(cSyntax, genClass2RuleCache, cSyntax.getPackage(), "", genClassCache);
+		
+		for (int i = 1; i < allGenPackagesWithClassifiers.size(); i++) {
+			GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
+			
+			Import imp = CS_FACTORY.createImport();
+			cSyntax.getImports().add(imp);
+			imp.setPackage(currentPkg);
+			String prefix = currentPkg.getQualifiedPackageName();
+			imp.setPrefix(prefix);
+			
+			generateRules(cSyntax, genClass2RuleCache, currentPkg, prefix, genClassCache);
+		}
+		generateTokenstyles(cSyntax);
+	}
+
+	private void generateTokenstyles(ConcreteSyntax cSyntax) {
 		 TreeIterator<EObject> allContents = cSyntax.eAllContents();
 		 HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
 		 for (TokenStyle style : cSyntax.getTokenStyles()) {
@@ -156,7 +160,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		}
 	}
 
-	private void generateRules(Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
+	private void generateRules(ConcreteSyntax cSyntax, Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
 		EList<GenClass> genClasses = pkg.getGenClasses();
 		Set<EClassifier> containedClasses = new LinkedHashSet<EClassifier>();
 		for (GenClass genClass : genClasses) {
@@ -180,16 +184,16 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		boolean newRuleGenerated = false;
 		for (GenClass genClass : genClasses) {
 			if (genClass2Rule.get(genClassCache.getQualifiedInterfaceName(genClass)) == null) {
-				generateRule(genClass);
+				generateRule(cSyntax, genClass);
 				newRuleGenerated = true;
 			}
 		}
 		if (newRuleGenerated) {
-			generateStandardTokens();
+			generateStandardTokens(cSyntax);
 		}
 	}
 
-	private void generateRule(GenClass genClass) {
+	private void generateRule(ConcreteSyntax cSyntax, GenClass genClass) {
 		if (genClassUtil.isNotConcrete(genClass)) {
 			return;
 		}
@@ -221,7 +225,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		Choice featureSyntaxChoice = CS_FACTORY.createChoice();
 		for (GenFeature genFeature : allGenFeatures) {
 			if (!genFeature.isBooleanType() || genFeature.getEcoreFeature().getUpperBound() == -1) {
-				generateFeatureSyntax(featureSyntaxChoice, genFeature);
+				generateFeatureSyntax(cSyntax, featureSyntaxChoice, genFeature);
 			}
 		}
 		
@@ -243,14 +247,14 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 
 	public abstract void createFeaturePrefix(GenFeature genFeature, Sequence sequence);
 
-	private void generateStandardTokens() {
+	private void generateStandardTokens(ConcreteSyntax cSyntax) {
 		List<CompleteTokenDefinition> toRemove = new ArrayList<CompleteTokenDefinition>();
 		EList<TokenDirective> existing = cSyntax.getTokens();
 		for (TokenDirective tokenDirective : existing) {
 			if (tokenDirective instanceof CompleteTokenDefinition) {
 				CompleteTokenDefinition def = (CompleteTokenDefinition) tokenDirective;
-				if (def.getName().equals("INTEGER") ||
-						def.getName().equals("FLOAT") ||
+				if (def.getName().equals(INTEGER_TOKEN_NAME) ||
+						def.getName().equals(FLOAT_TOKEN_NAME) ||
 						def.getName().equals("COMMENT")) {
 					toRemove.add(def);
 				}
@@ -258,9 +262,9 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		}
 		
 		cSyntax.getTokens().removeAll(toRemove);
-		intToken = createToken("INTEGER", "('-')?('1'..'9')('0'..'9')*|'0'");
-		floatToken = createToken("FLOAT", "('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
-		comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
+		NormalTokenDefinition intToken = createToken(INTEGER_TOKEN_NAME, "('-')?('1'..'9')('0'..'9')*|'0'");
+		NormalTokenDefinition floatToken = createToken(FLOAT_TOKEN_NAME, "('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
+		NormalTokenDefinition comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
 		
 		cSyntax.getTokens().add(comment);
 		cSyntax.getTokens().add(intToken);
@@ -276,7 +280,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		return newToken;
 	}
 
-	private void generateFeatureSyntax(Choice featureSyntaxChoice,
+	private void generateFeatureSyntax(ConcreteSyntax cSyntax, Choice featureSyntaxChoice,
 			GenFeature genFeature) {
 		Sequence innerSequence = CS_FACTORY.createSequence();
 
@@ -306,13 +310,13 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 			
 			else if (typeName.equals("int") || typeName.equals("long") || typeName.equals("short")) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-				placeholder.setToken(intToken);
+				placeholder.setToken(getTokenByName(cSyntax, INTEGER_TOKEN_NAME));
 				content = placeholder;
 			}
 			
 			else if (typeName.equals("float") || typeName.equals("double")) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-				placeholder.setToken(floatToken);
+				placeholder.setToken(getTokenByName(cSyntax, FLOAT_TOKEN_NAME));
 				content = placeholder;
 			}										
 			else {
@@ -323,6 +327,18 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		
 		innerSequence.getChildren().add(content);
 		featureSyntaxChoice.getChildren().add(innerSequence);
+	}
+
+	private CompleteTokenDefinition getTokenByName(ConcreteSyntax cSyntax, String tokenName) {
+		for (TokenDirective tokenDirective : cSyntax.getTokens()) {
+			if (tokenDirective instanceof NormalTokenDefinition) {
+				NormalTokenDefinition tokenDefinition = (NormalTokenDefinition) tokenDirective;
+				if (tokenDefinition.getName().equals(tokenName)) {
+					return tokenDefinition;
+				}
+			}
+		}
+		return null;
 	}
 
 	private void addBooleanModifier(Sequence ruleSequence, GenFeature genFeature) {
