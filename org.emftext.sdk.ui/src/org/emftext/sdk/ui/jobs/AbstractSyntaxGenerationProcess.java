@@ -70,7 +70,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		ResourceSet rs = new ResourceSetImpl();
-		Resource genResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		Resource genResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
 		final GenModel genModel = (GenModel) genResource.getContents().get(0);
 		
 		URI uri = URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true);
