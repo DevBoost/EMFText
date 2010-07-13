@@ -69,42 +69,42 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 	}
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-			ResourceSet rs = new ResourceSetImpl();
-			Resource genResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-			final GenModel genModel = (GenModel) genResource.getContents().get(0);
-			
-			URI uri = URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true);
-			Resource csResource = null;
-			if (uri != null && uri.isPlatform()) {
-				IResource workspaceMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
-				if (workspaceMember != null) {
-					csResource = rs.getResource(uri, true);
-				}
-				else {
-					csResource = rs.createResource(uri);
-				}
+		ResourceSet rs = new ResourceSetImpl();
+		Resource genResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		final GenModel genModel = (GenModel) genResource.getContents().get(0);
+		
+		URI uri = URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true);
+		Resource csResource = null;
+		if (uri != null && uri.isPlatform()) {
+			IResource workspaceMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+			if (workspaceMember != null) {
+				csResource = rs.getResource(uri, true);
 			}
-			
-			EObject currentSyntax = null;
-			if (csResource != null && csResource.getContents().size() > 0) {
-				 currentSyntax = csResource.getContents().get(0);
+			else {
+				csResource = rs.createResource(uri);
 			}
-			
-			ConcreteSyntax cSyntax;
-			if (currentSyntax instanceof ConcreteSyntax) {
-				cSyntax = (ConcreteSyntax) currentSyntax;
-			} else {
-				cSyntax = CS_FACTORY.createConcreteSyntax();	
-				csResource.getContents().add(cSyntax);
-			}
-			fillSyntax(cSyntax, genModel);
-			
-			try {
-				csResource.save(null);
-			} catch (IOException e) {
-	        	// TODO cwende: this exception should be shown to the user
-				EMFTextSDKPlugin.logError("Exception while saving resource.", e);
-			}
+		}
+		
+		EObject currentSyntax = null;
+		if (csResource != null && csResource.getContents().size() > 0) {
+			currentSyntax = csResource.getContents().get(0);
+		}
+		
+		ConcreteSyntax cSyntax;
+		if (currentSyntax instanceof ConcreteSyntax) {
+			cSyntax = (ConcreteSyntax) currentSyntax;
+		} else {
+			cSyntax = CS_FACTORY.createConcreteSyntax();	
+			csResource.getContents().add(cSyntax);
+		}
+		fillSyntax(cSyntax, genModel);
+		
+		try {
+			csResource.save(null);
+		} catch (IOException e) {
+        	// TODO cwende: this exception should be shown to the user
+			EMFTextSDKPlugin.logError("Exception while saving resource.", e);
+		}
 	}
 
 	public void fillSyntax(ConcreteSyntax cSyntax, GenModel genModel) {
@@ -136,13 +136,13 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 	}
 
 	private void generateTokenstyles(ConcreteSyntax cSyntax) {
-		 TreeIterator<EObject> allContents = cSyntax.eAllContents();
-		 HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
-		 for (TokenStyle style : cSyntax.getTokenStyles()) {
+		TreeIterator<EObject> allContents = cSyntax.eAllContents();
+		HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
+		for (TokenStyle style : cSyntax.getTokenStyles()) {
 			cachedStyles.put(style.getTokenName(), style);
 		}
 		 
-		 while (allContents.hasNext()) {
+		while (allContents.hasNext()) {
 			EObject object = (EObject) allContents.next();
 			if (object instanceof CsString) {
 				CsString s = (CsString) object;
