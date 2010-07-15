@@ -257,9 +257,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		);
 		sc.add("private boolean startedPrintingObject = false;");
 		sc.addJavadoc(
-			"The number of tab characters the were printed before the current line. " +
+			"The number of tab characters that were printed before the current line. " +
 			"This number is used to calculate the relative indendation when printing " +
-			"contained objects."
+			"contained objects, because all contained objects must start with this " +
+			"indendation (tabsBeforeCurrentObject + currentTabs)."
 		);
 		sc.add("private int currentTabs;");
 		sc.addJavadoc(
