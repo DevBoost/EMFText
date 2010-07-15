@@ -96,7 +96,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			}
 		}
     	
-    	// then check whether all token that needed to be overridden because they had
+    	// then check whether all tokens that needed to be overridden because they had
     	// mismatching regular expressions are overridden indeed
     	for (String mustOverrideTokenName : mustOverrideTokenNames) {
     		if (!overriddenTokens.contains(mustOverrideTokenName)) {
@@ -122,7 +122,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			if (tokenDirective instanceof TokenPriorityDirective) {
 				TokenPriorityDirective priorityDirective = (TokenPriorityDirective) tokenDirective;
 				CompleteTokenDefinition prioritizedToken = priorityDirective.getToken();
-				activeTokens.add((CompleteTokenDefinition) prioritizedToken);
+				activeTokens.add(prioritizedToken);
 				handledDirectives.add(prioritizedToken);
 			} else {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
@@ -160,16 +160,16 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	}
 
 	private CompleteTokenDefinition findTokenWithSameName(
-			List<TokenDirective> tokens,
-			TokenDirective tokenDirective) {
-		for (TokenDirective directive : tokens) {
-			if (!(directive instanceof CompleteTokenDefinition)) {
+			List<TokenDirective> allTokens,
+			TokenDirective tokenToSearchFor) {
+		for (TokenDirective nextToken : allTokens) {
+			if (!(nextToken instanceof CompleteTokenDefinition)) {
 				continue;
 			}
-			CompleteTokenDefinition token = (CompleteTokenDefinition) tokenDirective;
-			CompleteTokenDefinition tokenDefinition = (CompleteTokenDefinition) directive;
-			if (token.getName().equals(tokenDefinition.getName())) {
-				return tokenDefinition;
+			CompleteTokenDefinition token = (CompleteTokenDefinition) tokenToSearchFor;
+			CompleteTokenDefinition nextDefinition = (CompleteTokenDefinition) nextToken;
+			if (token.getName().equals(nextDefinition.getName())) {
+				return nextDefinition;
 			}
 		}
 		return null;
