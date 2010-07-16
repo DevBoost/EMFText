@@ -35,6 +35,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, EMFText generate a UI action that 
+	 * can be used to test parsing and printing of files containing 
+	 * textual syntax. The default value of this option is <code>false</code>.
 	 * <!-- end-user-doc -->
 	 * @see #GENERATE_TEST_ACTION_VALUE
 	 * @generated
@@ -45,6 +48,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>GENERATE CODE FROM GENERATOR MODEL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, EMFText automatically generates the
+	 * model code using the generator model referenced in the CS specification.
+	 * The default value of this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #GENERATE_CODE_FROM_GENERATOR_MODEL_VALUE
 	 * @generated
@@ -55,6 +61,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE PLUGIN XML</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the plugin.xml file will be overridden during code
+	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PLUGIN_XML_VALUE
 	 * @generated
@@ -65,6 +73,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE MANIFEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the manifest of the generated plug-in will be overridden during code
+	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_MANIFEST_VALUE
 	 * @generated
@@ -85,6 +95,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the token resolver classes will be overridden during code
+	 * generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVERS_VALUE
 	 * @generated
@@ -95,6 +107,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE REFERENCE RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the reference resolver classes will be overridden during code
+	 * generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVERS_VALUE
 	 * @generated
@@ -105,6 +119,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE REFERENCE RESOLVER SWITCH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the reference resolver switch will be overridden during code
+	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVER_SWITCH_VALUE
 	 * @generated
@@ -115,6 +131,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVER FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the token resolver factory class will be overridden during code
+	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVER_FACTORY_VALUE
 	 * @generated
@@ -125,6 +143,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE PRINTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the printer will be overridden during code
+	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PRINTER_VALUE
 	 * @generated
@@ -135,6 +155,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>ANTLR BACKTRACKING</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the Antlr-backtracking is activated for
+	 * parser generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #ANTLR_BACKTRACKING_VALUE
 	 * @generated
@@ -145,6 +167,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>ANTLR MEMOIZE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the Antlr-memoize is activated for
+	 * parser generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #ANTLR_MEMOIZE_VALUE
 	 * @generated
@@ -155,6 +179,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>AUTOFIX SIMPLE LEFTRECURSION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, EMFText will try to resolve rules that
+	 * contain simple left recursion. The default value for this option
+	 * is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #AUTOFIX_SIMPLE_LEFTRECURSION_VALUE
 	 * @generated
@@ -165,6 +192,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>FORCE EOF</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, EMFText will generate a parser that expects
+	 * an EOF signal at the end of the input stream. The default value for this option
+	 * is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #FORCE_EOF_VALUE
 	 * @generated
@@ -175,6 +205,10 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>DEFAULT TOKEN NAME</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * This option can be used to specify the name of the token that is used for
+	 * non-containment references. A declaration like <code>featureX[]</code> in
+	 * a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the
+	 * value of this option is <code>TOKEN_Y</code>.
 	 * <!-- end-user-doc -->
 	 * @see #DEFAULT_TOKEN_NAME_VALUE
 	 * @generated
@@ -185,6 +219,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>USE PREDEFINED TOKENS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, EMFText does not automatically provide 
+	 * predefined tokens (TEXT, WS, ...). The default value of this option is
+	 * <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #USE_PREDEFINED_TOKENS_VALUE
 	 * @generated
@@ -195,6 +232,9 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>TOKENSPACE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The (numerical) value of this option defined how many whitespace should 
+	 * be printed between tokens if no whitespace information is given in CS
+	 * rules. The default value for this option is 0.
 	 * <!-- end-user-doc -->
 	 * @see #TOKENSPACE_VALUE
 	 * @generated
@@ -205,6 +245,10 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>RELOAD GENERATOR MODEL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, EMFText reloads the generator model
+	 * before loading it. This is particular useful, when the meta model
+	 * (i.e., the Ecore file) is changing a lot during language development.
+	 * The default value of this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #RELOAD_GENERATOR_MODEL_VALUE
 	 * @generated
@@ -215,6 +259,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the .classpath file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_CLASSPATH_VALUE
 	 * @generated
@@ -225,6 +271,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE DOT PROJECT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the .project file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_PROJECT_VALUE
 	 * @generated
@@ -235,6 +283,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the text resource class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TEXT_RESOURCE_VALUE
 	 * @generated
@@ -245,6 +295,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the resource factory class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_RESOURCE_FACTORY_VALUE
 	 * @generated
@@ -255,6 +307,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the new file wizard class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_NEW_FILE_WIZARD_VALUE
 	 * @generated
@@ -265,6 +319,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>PARSER GENERATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The name of the parser generator to use. The default value for this
+	 * option is ANTLR.
 	 * <!-- end-user-doc -->
 	 * @see #PARSER_GENERATOR_VALUE
 	 * @generated
@@ -275,6 +331,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>SOURCE FOLDER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The name of the folder EMFText shall store the generated classes in.
+	 * The default value for this option is 'src'.
 	 * <!-- end-user-doc -->
 	 * @see #SOURCE_FOLDER_VALUE
 	 * @generated
@@ -285,6 +343,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>BASE PACKAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The name of the base package EMFText shall store the generated 
+	 * classes in.
 	 * <!-- end-user-doc -->
 	 * @see #BASE_PACKAGE_VALUE
 	 * @generated
@@ -295,6 +355,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>RESOURCE PLUGIN ID</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The ID of the generated resource plug-in. The resource 
+	 * plug-in is stored in a folder that is equal to this ID.
 	 * <!-- end-user-doc -->
 	 * @see #RESOURCE_PLUGIN_ID_VALUE
 	 * @generated
@@ -305,6 +367,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the build.properties file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_BUILD_PROPERTIES_VALUE
 	 * @generated
@@ -325,6 +389,8 @@ public enum OptionTypes implements Enumerator {
 	/**
 	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the default resolver class will be overridden 
+	 * during code generation. The default value for this option is <code>false</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE
 	 * @generated
