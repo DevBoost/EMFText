@@ -5,7 +5,7 @@
     modelDirectory="/org.emftext.sdk.concretesyntax/src-gen" editDirectory="/org.emftext.sdk.concretesyntax.edit/src-gen"
     editorDirectory="/org.emftext.sdk.concretesyntax.editor/src" modelPluginID="org.emftext.sdk.concretesyntax"
     modelName="Concretesyntax" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
-    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
+    suppressGenModelAnnotations="false" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
   <foreignModel>concretesyntax.ecore</foreignModel>
   <genPackages prefix="Concretesyntax" basePackage="org.emftext.sdk" disposableProviderFactory="true"
       ecorePackage="concretesyntax.ecore#/">
