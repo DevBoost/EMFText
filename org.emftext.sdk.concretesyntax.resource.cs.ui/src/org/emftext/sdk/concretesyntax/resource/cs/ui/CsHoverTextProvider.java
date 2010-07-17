@@ -27,7 +27,10 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil;
@@ -54,6 +57,10 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 			return "<strong>" + eObject.eClass().getName() + "</strong>" + "<br/><br/>" + "Inserts " + spaces + " whitespace character(s) when printing this model element.";
 		}
 		String htmlForObject = getHTML(eObject);
+		if (eObject instanceof Option) {
+			Option option = (Option) eObject;
+			return htmlForObject + "<br/>" + EcoreUtil.getDocumentation(ConcretesyntaxPackage.eINSTANCE.getOptionTypes().getEEnumLiteral(option.getType().getName()));
+		}
 		if (eObject instanceof GenClass) {
 			// for generator classes we do also show the properties of the
 			// corresponding EClass
