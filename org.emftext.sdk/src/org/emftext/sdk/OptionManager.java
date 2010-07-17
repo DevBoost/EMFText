@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -37,6 +38,60 @@ public class OptionManager {
 	
 	private OptionManager() {
 		super();
+	}
+
+	public List<OptionTypes> getNonStandardOptions() {
+		List<OptionTypes> nonStandardOptions = new ArrayList<OptionTypes>();
+		nonStandardOptions.add(OptionTypes.PARSER_GENERATOR);
+		nonStandardOptions.add(OptionTypes.GENERATE_TEST_ACTION);
+		nonStandardOptions.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+		return nonStandardOptions;
+	}
+
+	public List<OptionTypes> getStringOptions() {
+		List<OptionTypes> stringOptions = new ArrayList<OptionTypes>();
+		stringOptions.add(OptionTypes.BASE_PACKAGE);
+		stringOptions.add(OptionTypes.UI_BASE_PACKAGE);
+		stringOptions.add(OptionTypes.RESOURCE_PLUGIN_ID);
+		stringOptions.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
+		stringOptions.add(OptionTypes.SOURCE_FOLDER);
+		stringOptions.add(OptionTypes.SOURCE_GEN_FOLDER);
+		stringOptions.add(OptionTypes.PARSER_GENERATOR);
+		stringOptions.add(OptionTypes.BASE_RESOURCE_PLUGIN);
+		stringOptions.add(OptionTypes.ANTLR_PLUGIN_ID);
+		stringOptions.add(OptionTypes.LICENCE_HEADER);
+		stringOptions.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
+		stringOptions.add(OptionTypes.ADDITIONAL_EXPORTS);
+		stringOptions.add(OptionTypes.ADDITIONAL_UI_DEPENDENCIES);
+		stringOptions.add(OptionTypes.ADDITIONAL_UI_EXPORTS);
+		return stringOptions;
+	}
+
+	public List<OptionTypes> getBooleanOptions() {
+		List<OptionTypes> booleanOptions = new ArrayList<OptionTypes>();
+		booleanOptions.add(OptionTypes.USE_CLASSIC_PRINTER);
+		booleanOptions.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+		booleanOptions.add(OptionTypes.FORCE_EOF);
+		booleanOptions.add(OptionTypes.GENERATE_TEST_ACTION);
+		booleanOptions.add(OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
+		booleanOptions.add(OptionTypes.RELOAD_GENERATOR_MODEL);
+		booleanOptions.add(OptionTypes.USE_PREDEFINED_TOKENS);
+		booleanOptions.add(OptionTypes.ANTLR_BACKTRACKING);
+		booleanOptions.add(OptionTypes.ANTLR_MEMOIZE);
+		booleanOptions.add(OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
+		booleanOptions.add(OptionTypes.DISABLE_BUILDER);
+		booleanOptions.add(OptionTypes.DISABLE_EVALIDATORS);
+		booleanOptions.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
+
+		// all override options are boolean
+		for (OptionTypes optionType : OptionTypes.VALUES) {
+			if (optionType.name().startsWith("OVERRIDE_")) {
+				booleanOptions.add(optionType);
+			}
+		}
+
+		return booleanOptions;
 	}
 
 	public String getStringOptionValue(ConcreteSyntax concreteSyntax,
@@ -115,7 +170,7 @@ public class OptionManager {
 		}
 	}
 
-	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
+	public boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
 		if (option == OptionTypes.GENERATE_UI_PLUGIN) {

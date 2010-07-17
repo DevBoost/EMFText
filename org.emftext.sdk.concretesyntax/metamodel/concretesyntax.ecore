@@ -542,7 +542,7 @@
     <eLiterals name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" value="109" literal="overrideITokenResolveResult"/>
     <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" value="110" literal="overrideITokenResolverFactory"/>
     <eLiterals name="OVERRIDE_I_TOKEN_STYLE" value="111" literal="overrideITokenStyle"/>
-    <eLiterals name="OVERRIDE_IURI_MAPPING" value="112" literal="overrideIURIMapping"/>
+    <eLiterals name="OVERRIDE_I_URI_MAPPING" value="112" literal="overrideIURIMapping"/>
     <eLiterals name="OVERRIDE_E_PROBLEM_TYPE" value="113" literal="overrideEProblemType"/>
     <eLiterals name="OVERRIDE_CODE_COMPLETION_HELPER" value="114" literal="overrideCodeCompletionHelper"/>
     <eLiterals name="OVERRIDE_EXPECTED_CS_STRING" value="115" literal="overrideExpectedCsString"/>
@@ -609,7 +609,7 @@
     <eLiterals name="OVERRIDE_SEQUENCE" value="174" literal="overrideSequence"/>
     <eLiterals name="OVERRIDE_WHITE_SPACE" value="175" literal="overrideWhiteSpace"/>
     <eLiterals name="OVERRIDE_SYNTAX_ELEMENT_DECORATOR" value="176" literal="overrideSyntaxElementDecorator"/>
-    <eLiterals name="OVERRIDE_IREFERENCE_CACHE" value="177" literal="overrideIReferenceCache"/>
+    <eLiterals name="OVERRIDE_I_REFERENCE_CACHE" value="177" literal="overrideIReferenceCache"/>
     <eLiterals name="OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER" value="178" literal="overrideDefaultHoverTextProvider"/>
     <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement"/>
     <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal"/>
@@ -631,7 +631,7 @@
     <eLiterals name="UI_SOURCE_FOLDER" value="196" literal="uiSrcFolder"/>
     <eLiterals name="UI_SOURCE_GEN_FOLDER" value="197" literal="uiSrcGenFolder"/>
     <eLiterals name="GENERATE_UI_PLUGIN" value="198" literal="generateUIPlugin"/>
-    <eLiterals name="OVERRIDE_I_BACKET_HANDLER" value="199" literal="overrideIBracketHandler"/>
+    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER" value="199" literal="overrideIBracketHandler"/>
     <eLiterals name="OVERRIDE_UI_PLUGIN_XML" value="200" literal="overrideUIPluginXML"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>

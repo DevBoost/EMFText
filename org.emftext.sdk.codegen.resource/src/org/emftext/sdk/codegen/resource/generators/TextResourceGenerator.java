@@ -106,7 +106,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         addCancelReloadMethod(sc);
         addDoSaveMethod(sc);
         
-        if(saveChangedResourcesOnly) {
+        if (saveChangedResourcesOnly) {
         	addSaveOnlyIfChangedWithMemoryBuffer(sc);
         	addGetPrint(sc);
         }

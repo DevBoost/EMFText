@@ -15,7 +15,6 @@ package org.emftext.sdk.syntax_analysis;
 
 import static org.emftext.sdk.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
@@ -39,49 +38,9 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	private final List<OptionTypes> NON_STANDARD_OPTIONS;
 	
 	public OptionsAnalyser() {
-		BOOLEAN_OPTIONS = new ArrayList<OptionTypes>();
-		BOOLEAN_OPTIONS.add(OptionTypes.USE_CLASSIC_PRINTER);
-		BOOLEAN_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
-		BOOLEAN_OPTIONS.add(OptionTypes.FORCE_EOF);
-		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
-		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
-		BOOLEAN_OPTIONS.add(OptionTypes.RELOAD_GENERATOR_MODEL);
-		BOOLEAN_OPTIONS.add(OptionTypes.USE_PREDEFINED_TOKENS);
-		BOOLEAN_OPTIONS.add(OptionTypes.ANTLR_BACKTRACKING);
-		BOOLEAN_OPTIONS.add(OptionTypes.ANTLR_MEMOIZE);
-		BOOLEAN_OPTIONS.add(OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
-		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_BUILDER);
-		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EVALIDATORS);
-		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
-		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_UI_PLUGIN);
-		
-		// all override options are boolean
-		for (OptionTypes optionType : OptionTypes.VALUES) {
-			if (optionType.name().startsWith("OVERRIDE_")) {
-				BOOLEAN_OPTIONS.add(optionType);
-			}
-		}
-
-		STRING_OPTIONS = new ArrayList<OptionTypes>();
-		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);
-		STRING_OPTIONS.add(OptionTypes.UI_BASE_PACKAGE);
-		STRING_OPTIONS.add(OptionTypes.RESOURCE_PLUGIN_ID);
-		STRING_OPTIONS.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
-		STRING_OPTIONS.add(OptionTypes.SOURCE_FOLDER);
-		STRING_OPTIONS.add(OptionTypes.SOURCE_GEN_FOLDER);
-		STRING_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
-		STRING_OPTIONS.add(OptionTypes.BASE_RESOURCE_PLUGIN);
-		STRING_OPTIONS.add(OptionTypes.ANTLR_PLUGIN_ID);
-		STRING_OPTIONS.add(OptionTypes.LICENCE_HEADER);
-		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
-		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_EXPORTS);
-		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_DEPENDENCIES);
-		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_EXPORTS);
-		
-		NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
-		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
-		NON_STANDARD_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
-		NON_STANDARD_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+		BOOLEAN_OPTIONS = OptionManager.INSTANCE.getBooleanOptions();
+		STRING_OPTIONS = OptionManager.INSTANCE.getStringOptions();
+		NON_STANDARD_OPTIONS = OptionManager.INSTANCE.getNonStandardOptions();
 	}
 
 	@Override
