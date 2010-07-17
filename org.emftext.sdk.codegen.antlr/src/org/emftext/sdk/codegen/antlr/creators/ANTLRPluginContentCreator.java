@@ -139,11 +139,13 @@ public class ANTLRPluginContentCreator {
 	};
 
 	public void generate(ANTLRGenerationContext context, IProgressMonitor monitor) throws IOException {
-		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
-		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		boolean override = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.OVERRIDE_ANTLR_PLUGIN);
-
+		if (!override) {
+			return;
+		}
+		SubMonitor progress = SubMonitor.convert(monitor, "generating antlr common plug-in...", 100);
+		
 		IPluginDescriptor antlrPlugin = context.getAntlrPlugin();
 		
 		List<IArtifactCreator<ANTLRGenerationContext>> creators = new ArrayList<IArtifactCreator<ANTLRGenerationContext>>();
@@ -197,11 +199,8 @@ public class ANTLRPluginContentCreator {
 					new File(sourceFolderPath + pathFile)));
 	    }
 	    
-		OptionTypes overrideOption = OptionTypes.OVERRIDE_ANTLR_PLUGIN;
-		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
-
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {
-			if (doOverride) {
+			if (override) {
 				progress.setTaskName("creating " + creator.getArtifactTypeDescription() + "...");
 				creator.createArtifacts(antlrPlugin, context);
 			}

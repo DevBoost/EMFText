@@ -123,7 +123,9 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(context.getFileSystemConnector(), context.getProblemCollector(), concreteSyntax, antlrPlugin);
 		boolean generateUIPlugin = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.GENERATE_UI_PLUGIN);
 		
-		createProjects(context, generateUIPlugin, progress);
+		boolean generateAntlrPlugin = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.OVERRIDE_ANTLR_PLUGIN);
+		
+		createProjects(context, generateAntlrPlugin, generateUIPlugin, progress);
 		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
@@ -154,14 +156,16 @@ public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJ
 		return Result.SUCCESS;
 	}
 
-	private void createProjects(GenerationContext context, boolean generateUIPlugin, SubMonitor progress)
+	private void createProjects(GenerationContext context, boolean generateAntlrPlugin, boolean generateUIPlugin, SubMonitor progress)
 			throws Exception {
 		// create the projects for the plug-ins
 		createProject(context.getResourcePlugin(), context, progress);
 		if (generateUIPlugin) {
 			createProject(context.getResourceUIPlugin(), context, progress);
 		}
-		if (context.getGenerateANTLRPlugin()) {
+		// only generate ANTLR common runtime plug-in if both the
+		// context demands it and the override option is set to false
+		if (context.getGenerateANTLRPlugin() && generateAntlrPlugin) {
 			createProject(context.getAntlrPlugin(), context, progress);
 		}
 	}
