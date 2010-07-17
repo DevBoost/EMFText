@@ -431,208 +431,1004 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OptionTypes">
-    <eLiterals name="GENERATE_TEST_ACTION" literal="generateTestAction"/>
-    <eLiterals name="GENERATE_CODE_FROM_GENERATOR_MODEL" value="1" literal="generateCodeFromGeneratorModel"/>
-    <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML"/>
-    <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest"/>
-    <eLiterals name="OVERRIDE_PARSER" value="5" literal="overrideParser"/>
-    <eLiterals name="OVERRIDE_TOKEN_RESOLVERS" value="6" literal="overrideTokenResolvers"/>
-    <eLiterals name="OVERRIDE_REFERENCE_RESOLVERS" value="7" literal="overrideReferenceResolvers"/>
-    <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch"/>
-    <eLiterals name="OVERRIDE_TOKEN_RESOLVER_FACTORY" value="9" literal="overrideTokenResolverFactory"/>
-    <eLiterals name="OVERRIDE_PRINTER" value="10" literal="overridePrinter"/>
-    <eLiterals name="ANTLR_BACKTRACKING" value="12" literal="backtracking"/>
-    <eLiterals name="ANTLR_MEMOIZE" value="13" literal="memoize"/>
-    <eLiterals name="AUTOFIX_SIMPLE_LEFTRECURSION" value="14" literal="autofixSimpleLeftrecursion"/>
-    <eLiterals name="FORCE_EOF" value="15" literal="forceEOF"/>
-    <eLiterals name="DEFAULT_TOKEN_NAME" value="16" literal="defaultTokenName"/>
-    <eLiterals name="USE_PREDEFINED_TOKENS" value="17" literal="usePredefinedTokens"/>
-    <eLiterals name="TOKENSPACE" value="18" literal="tokenspace"/>
-    <eLiterals name="RELOAD_GENERATOR_MODEL" value="19" literal="reloadGeneratorModel"/>
-    <eLiterals name="OVERRIDE_DOT_CLASSPATH" value="20" literal="overrideClasspath"/>
-    <eLiterals name="OVERRIDE_DOT_PROJECT" value="21" literal="overrideProjectFile"/>
-    <eLiterals name="OVERRIDE_TEXT_RESOURCE" value="22" literal="overrideTextResource"/>
-    <eLiterals name="OVERRIDE_RESOURCE_FACTORY" value="23" literal="overrideResourceFactory"/>
-    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="24" literal="overrideNewFileWizard"/>
-    <eLiterals name="PARSER_GENERATOR" value="25" literal="parserGenerator"/>
-    <eLiterals name="SOURCE_FOLDER" value="26" literal="srcFolder"/>
-    <eLiterals name="BASE_PACKAGE" value="27" literal="basePackage"/>
-    <eLiterals name="RESOURCE_PLUGIN_ID" value="28" literal="resourcePluginID"/>
-    <eLiterals name="OVERRIDE_BUILD_PROPERTIES" value="29" literal="overrideBuildProperties"/>
-    <eLiterals name="OVERRIDE_META_INFORMATION" value="30" literal="overrideMetaInformation"/>
-    <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate"/>
-    <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass"/>
-    <eLiterals name="OVERRIDE_SCANNER" value="33" literal="overrideScanner"/>
-    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT" value="34" literal="overrideContextDependentURIFragment"/>
-    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" value="35" literal="overrideContextDependentURIFragmentFactory"/>
-    <eLiterals name="OVERRIDE_DELEGATING_RESOLVE_RESULT" value="36" literal="overrideDelegatingResolveResult"/>
-    <eLiterals name="OVERRIDE_DUMMY_E_OBJECT" value="37" literal="overrideDummyEObject"/>
-    <eLiterals name="OVERRIDE_ELEMENT_MAPPING" value="38" literal="overrideElementMapping"/>
-    <eLiterals name="OVERRIDE_FUZZY_RESOLVE_RESULT" value="39" literal="overrideFuzzyResolveResult"/>
-    <eLiterals name="OVERRIDE_DEFAULT_TOKEN_RESOLVER" value="40" literal="overrideDefaultTokenResolver"/>
-    <eLiterals name="OVERRIDE_LOCATION_MAP" value="41" literal="overrideLocationMap"/>
-    <eLiterals name="OVERRIDE_REFERENCE_RESOLVE_RESULT" value="42" literal="overrideReferenceResolveResult"/>
-    <eLiterals name="OVERRIDE_TOKEN_RESOLVE_RESULT" value="43" literal="overrideTokenResolveResult"/>
-    <eLiterals name="OVERRIDE_URI_MAPPING" value="45" literal="overrideURIMapping"/>
-    <eLiterals name="OVERRIDE_HOVER_TEXT_PROVIDER" value="46" literal="overrideHoverTextProvider"/>
-    <eLiterals name="OVERRIDE_PARSE_RESULT" value="47" literal="overrideParseResult"/>
-    <eLiterals name="OVERRIDE_ANTLR_TOKEN_HELPER" value="48" literal="overrideAntlrTokenHelper"/>
-    <eLiterals name="OVERRIDE_BRACKET_SET" value="49" literal="overrideBracketSet"/>
-    <eLiterals name="OVERRIDE_BROWSER_INFORMATION_CONTROL" value="50" literal="overrideBrowserInformationControl"/>
-    <eLiterals name="OVERRIDE_CODE_FOLDING_MANAGER" value="51" literal="overrideCodeFoldingManager"/>
-    <eLiterals name="OVERRIDE_COLOR_MANAGER" value="52" literal="overrideColorManager"/>
-    <eLiterals name="OVERRIDE_COMPLETION_PROCESSOR" value="53" literal="overrideCompletionProcessor"/>
-    <eLiterals name="OVERRIDE_PARSING_STRATEGY" value="54" literal="overrideParsingStrategy"/>
-    <eLiterals name="OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT" value="55" literal="overrideDocBrowserInformationControlInput"/>
-    <eLiterals name="OVERRIDE_EDITOR_CONFIGURATION" value="55" literal="overrideEditorConfiguration"/>
-    <eLiterals name="OVERRIDE_EDITOR" value="56" literal="overrideEditor"/>
-    <eLiterals name="OVERRIDE_E_OBJECT_SELECTION" value="57" literal="overrideEObjectSelection"/>
-    <eLiterals name="OVERRIDE_HIGHLIGHTING" value="58" literal="overrideHighlighting"/>
-    <eLiterals name="OVERRIDE_HTML_PRINTER" value="59" literal="overrideHTMLPrinter"/>
-    <eLiterals name="OVERRIDE_HYPERLINK" value="60" literal="overrideHyperlink"/>
-    <eLiterals name="OVERRIDE_HYPERLINK_DETECTOR" value="61" literal="overrideHyperlinkDetector"/>
-    <eLiterals name="OVERRIDE_MARKER_HELPER" value="62" literal="overrideMarkerHelper"/>
-    <eLiterals name="OVERRIDE_OCCURENCE" value="63" literal="overrideOccurrence"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE" value="64" literal="overrideOutlinePage"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_TREE_VIEWER" value="65" literal="overrideOutlinePageTreeViewer"/>
-    <eLiterals name="OVERRIDE_PLUGIN_ACTIVATOR" value="66" literal="overridePluginActivator"/>
-    <eLiterals name="OVERRIDE_POSITION_CATEGORY" value="67" literal="overridePositionCategory"/>
-    <eLiterals name="OVERRIDE_POSITION_HELPER" value="68" literal="overridePositionHelper"/>
-    <eLiterals name="OVERRIDE_PROPERTY_SHEET_PAGE" value="69" literal="overridePropertySheetPage"/>
-    <eLiterals name="OVERRIDE_TEXT_HOVER" value="70" literal="overrideTextHover"/>
-    <eLiterals name="OVERRIDE_TOKEN_SCANNER" value="71" literal="overrideTokenScanner"/>
-    <eLiterals name="OVERRIDE_BRACKET_PREFERENCE_PAGE" value="72" literal="overrideBracketPreferencePage"/>
-    <eLiterals name="OVERRIDE_PREFERENCE_CONSTANTS" value="73" literal="overridePreferenceConstants"/>
-    <eLiterals name="OVERRIDE_OCCURENCE_PREFERENCE_PAGE" value="74" literal="overrideOccurencePreferencePage"/>
-    <eLiterals name="OVERRIDE_PIXEL_CONVERTER" value="75" literal="overridePixelConverter"/>
-    <eLiterals name="OVERRIDE_PREFERENCE_INITIALIZER" value="76" literal="overridePreferenceInitializer"/>
-    <eLiterals name="OVERRIDE_SYNTAX_COLORING_HELPER" value="77" literal="overrideSyntaxColoringHelper"/>
-    <eLiterals name="OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE" value="78" literal="overrideSyntaxColoringPreferencePage"/>
-    <eLiterals name="OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER" value="79" literal="overrideIInputStreamProcessorProvider"/>
-    <eLiterals name="OVERRIDE_INPUT_STREAM_PROCESSOR" value="80" literal="overrideInputStreamProcessor"/>
-    <eLiterals name="OVERRIDE_I_OPTION_PROVIDER" value="81" literal="overrideIOptionProvider"/>
-    <eLiterals name="OVERRIDE_I_OPTIONS" value="82" literal="overrideIOptions"/>
-    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR" value="83" literal="overrideIResourcePostProcessor"/>
-    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER" value="84" literal="overrideIResourcePostProcessorProvider"/>
-    <eLiterals name="OVERRIDE_I_BRACKET_PAIR" value="85" literal="overrideIBracketPair"/>
-    <eLiterals name="OVERRIDE_I_COMMAND" value="86" literal="overrideICommand"/>
-    <eLiterals name="OVERRIDE_I_CONFIGURABLE" value="87" literal="overrideIConfigurable"/>
-    <eLiterals name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT" value="88" literal="overrideIContextDependentURIFragment"/>
+    <eLiterals name="GENERATE_TEST_ACTION" literal="generateTestAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, EMFText generate a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GENERATE_CODE_FROM_GENERATOR_MODEL" value="1" literal="generateCodeFromGeneratorModel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the plugin.xml file will be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the manifest of the resource plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PARSER" value="5" literal="overrideParser">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Parser class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVERS" value="6" literal="overrideTokenResolvers">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the token resolver classes will be overridden. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVERS" value="7" literal="overrideReferenceResolvers">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the reference resolver classes will be overridden. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the reference resolver switch will be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVER_FACTORY" value="9" literal="overrideTokenResolverFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the token resolver factory class will be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PRINTER" value="10" literal="overridePrinter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the printer will be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ANTLR_BACKTRACKING" value="12" literal="backtracking">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Antlr-backtracking is activated for parser generation. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ANTLR_MEMOIZE" value="13" literal="memoize">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Antlr-memoize is activated for parser generation. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="AUTOFIX_SIMPLE_LEFTRECURSION" value="14" literal="autofixSimpleLeftrecursion">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, EMFText will try to fix rules that contain simple left recursion. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="FORCE_EOF" value="15" literal="forceEOF">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, EMFText will generate a parser that expects an EOF signal at the end of the input stream. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DEFAULT_TOKEN_NAME" value="16" literal="defaultTokenName">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This option can be used to specify the name of the token that is used for non-containment references. A declaration like &lt;code>featureX[]&lt;/code> in a CS rule with be replaced by &lt;code>featureX[TOKEN_Y]&lt;/code> if the value of this option is &lt;code>TOKEN_Y&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="USE_PREDEFINED_TOKENS" value="17" literal="usePredefinedTokens">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TOKENSPACE" value="18" literal="tokenspace">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="RELOAD_GENERATOR_MODEL" value="19" literal="reloadGeneratorModel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DOT_CLASSPATH" value="20" literal="overrideClasspath">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the .classpath file of the resource plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DOT_PROJECT" value="21" literal="overrideProjectFile">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the .project file of the resource plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TEXT_RESOURCE" value="22" literal="overrideTextResource">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the text resource class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_RESOURCE_FACTORY" value="23" literal="overrideResourceFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the resource factory class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="24" literal="overrideNewFileWizard">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the new file wizard class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PARSER_GENERATOR" value="25" literal="parserGenerator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the parser generator to use."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SOURCE_FOLDER" value="26" literal="srcFolder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the folder EMFText shall store the overridable classes of the resource plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BASE_PACKAGE" value="27" literal="basePackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the base package EMFText shall store the generated classes or the resource plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="RESOURCE_PLUGIN_ID" value="28" literal="resourcePluginID">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BUILD_PROPERTIES" value="29" literal="overrideBuildProperties">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the build.properties file will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_META_INFORMATION" value="30" literal="overrideMetaInformation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the MetaInformation class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the default resolver class will be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ProblemClass class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SCANNER" value="33" literal="overrideScanner">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Scanner class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT" value="34" literal="overrideContextDependentURIFragment">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ContextDependentUriFragment class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" value="35" literal="overrideContextDependentURIFragmentFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ContextDependentUriFragmentFactory class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DELEGATING_RESOLVE_RESULT" value="36" literal="overrideDelegatingResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the DelegatingResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DUMMY_E_OBJECT" value="37" literal="overrideDummyEObject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the DummyEObject class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ELEMENT_MAPPING" value="38" literal="overrideElementMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ElementMapping class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_FUZZY_RESOLVE_RESULT" value="39" literal="overrideFuzzyResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the FuzzyResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEFAULT_TOKEN_RESOLVER" value="40" literal="overrideDefaultTokenResolver">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the DefaultTokenResolver class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LOCATION_MAP" value="41" literal="overrideLocationMap">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the LocationMap class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVE_RESULT" value="42" literal="overrideReferenceResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ReferenceResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVE_RESULT" value="43" literal="overrideTokenResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TokenResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_URI_MAPPING" value="45" literal="overrideURIMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the UriMapping class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_HOVER_TEXT_PROVIDER" value="46" literal="overrideHoverTextProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the HoverTextProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PARSE_RESULT" value="47" literal="overrideParseResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ParseResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ANTLR_TOKEN_HELPER" value="48" literal="overrideAntlrTokenHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the AntlrTokenHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BRACKET_SET" value="49" literal="overrideBracketSet">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the BracketSet class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BROWSER_INFORMATION_CONTROL" value="50" literal="overrideBrowserInformationControl">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the BrowserInformationControl class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CODE_FOLDING_MANAGER" value="51" literal="overrideCodeFoldingManager">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CodeFoldingManager class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COLOR_MANAGER" value="52" literal="overrideColorManager">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ColorManager class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COMPLETION_PROCESSOR" value="53" literal="overrideCompletionProcessor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CompletionProcessor class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PARSING_STRATEGY" value="54" literal="overrideParsingStrategy">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ParsingStrategy class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT" value="55" literal="overrideDocBrowserInformationControlInput">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the DocBrowserInformationControlInput class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EDITOR_CONFIGURATION" value="55" literal="overrideEditorConfiguration">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the EditorConfiguration class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EDITOR" value="56" literal="overrideEditor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Editor class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_E_OBJECT_SELECTION" value="57" literal="overrideEObjectSelection">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the EObjectSelection class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_HIGHLIGHTING" value="58" literal="overrideHighlighting">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Highlighting class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_HTML_PRINTER" value="59" literal="overrideHTMLPrinter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the HtmlPrinter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_HYPERLINK" value="60" literal="overrideHyperlink">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Hyperlink class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_HYPERLINK_DETECTOR" value="61" literal="overrideHyperlinkDetector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the HyperlinkDetector class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MARKER_HELPER" value="62" literal="overrideMarkerHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the MarkerHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OCCURENCE" value="63" literal="overrideOccurrence">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Occurence class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE" value="64" literal="overrideOutlinePage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the OutlinePage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_TREE_VIEWER" value="65" literal="overrideOutlinePageTreeViewer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the OutlinePageTreeViewer class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PLUGIN_ACTIVATOR" value="66" literal="overridePluginActivator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PluginActivator class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_POSITION_CATEGORY" value="67" literal="overridePositionCategory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PositionCategory class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_POSITION_HELPER" value="68" literal="overridePositionHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PositionHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PROPERTY_SHEET_PAGE" value="69" literal="overridePropertySheetPage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PropertySheetPage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TEXT_HOVER" value="70" literal="overrideTextHover">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TextHover class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TOKEN_SCANNER" value="71" literal="overrideTokenScanner">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TokenScanner class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BRACKET_PREFERENCE_PAGE" value="72" literal="overrideBracketPreferencePage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the BracketPreferencePage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PREFERENCE_CONSTANTS" value="73" literal="overridePreferenceConstants">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PreferenceConstants class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OCCURENCE_PREFERENCE_PAGE" value="74" literal="overrideOccurencePreferencePage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the OccurencePreferencePage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PIXEL_CONVERTER" value="75" literal="overridePixelConverter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PixelConverter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PREFERENCE_INITIALIZER" value="76" literal="overridePreferenceInitializer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PreferenceInitializer class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_COLORING_HELPER" value="77" literal="overrideSyntaxColoringHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the SyntaxColoringHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE" value="78" literal="overrideSyntaxColoringPreferencePage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the SyntaxColoringPreferencePage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER" value="79" literal="overrideIInputStreamProcessorProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IInputStreamProcessorProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_INPUT_STREAM_PROCESSOR" value="80" literal="overrideInputStreamProcessor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the InputStreamProcessor class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_OPTION_PROVIDER" value="81" literal="overrideIOptionProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IOptionProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_OPTIONS" value="82" literal="overrideIOptions">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IOptions class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR" value="83" literal="overrideIResourcePostProcessor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IResourcePostProcessor class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER" value="84" literal="overrideIResourcePostProcessorProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IResourcePostProcessorProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_BRACKET_PAIR" value="85" literal="overrideIBracketPair">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IBracketPair class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_COMMAND" value="86" literal="overrideICommand">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ICommand class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_CONFIGURABLE" value="87" literal="overrideIConfigurable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IConfigurable class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT" value="88" literal="overrideIContextDependentURIFragment">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IContextDependentUriFragment class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
     <eLiterals name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" value="89"
-        literal="overrideIContextDependentURIFragmentFactory"/>
-    <eLiterals name="OVERRIDE_I_ELEMENT_MAPPING" value="90" literal="overrideIElementMapping"/>
-    <eLiterals name="OVERRIDE_I_EXPECTED_ELEMENT" value="91" literal="overrideIExpectedElement"/>
-    <eLiterals name="OVERRIDE_I_HOVER_TEXT_PROVIDER" value="92" literal="overrideIHoverTextProvider"/>
-    <eLiterals name="OVERRIDE_I_LOCATION_MAP" value="93" literal="overrideILocationMap"/>
-    <eLiterals name="OVERRIDE_I_PARSE_RESULT" value="94" literal="overrideIParseResult"/>
-    <eLiterals name="OVERRIDE_I_PROBLEM" value="95" literal="overrideIProblem"/>
-    <eLiterals name="OVERRIDE_I_REFERENCE_MAPPING" value="96" literal="overrideIReferenceMapping"/>
-    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER" value="97" literal="overrideIReferenceResolver"/>
-    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVE_RESULT" value="98" literal="overrideIReferenceResolveResult"/>
-    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER_SWITCH" value="99" literal="overrideIReferenceResolverSwitch"/>
-    <eLiterals name="OVERRIDE_I_TEXT_DIAGNOSTIC" value="100" literal="overrideITextDiagnostic"/>
-    <eLiterals name="OVERRIDE_I_TEXT_PARSER" value="101" literal="overrideITextParser"/>
-    <eLiterals name="OVERRIDE_I_TEXT_PRINTER" value="102" literal="overrideITextPrinter"/>
-    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE" value="103" literal="overrideITextResource"/>
-    <eLiterals name="OVERRIDE_I_META_INFORMATION" value="104" literal="overrideIMetaInformation"/>
-    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" value="105" literal="overrideITextResourcePluginPart"/>
-    <eLiterals name="OVERRIDE_I_TEXT_SCANNER" value="106" literal="overrideITextScanner"/>
-    <eLiterals name="OVERRIDE_I_TEXT_TOKEN" value="107" literal="overrideITextToken"/>
-    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER" value="108" literal="overrideITokenResolver"/>
-    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" value="109" literal="overrideITokenResolveResult"/>
-    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" value="110" literal="overrideITokenResolverFactory"/>
-    <eLiterals name="OVERRIDE_I_TOKEN_STYLE" value="111" literal="overrideITokenStyle"/>
-    <eLiterals name="OVERRIDE_I_URI_MAPPING" value="112" literal="overrideIURIMapping"/>
-    <eLiterals name="OVERRIDE_E_PROBLEM_TYPE" value="113" literal="overrideEProblemType"/>
-    <eLiterals name="OVERRIDE_CODE_COMPLETION_HELPER" value="114" literal="overrideCodeCompletionHelper"/>
-    <eLiterals name="OVERRIDE_EXPECTED_CS_STRING" value="115" literal="overrideExpectedCsString"/>
-    <eLiterals name="OVERRIDE_EXPECTED_STRUCTURAL_FEATURE" value="116" literal="overrideExpectedStructuralFeature"/>
-    <eLiterals name="OVERRIDE_CAST_UTIL" value="117" literal="overrideCastUtil"/>
-    <eLiterals name="OVERRIDE_COPIED_E_LIST" value="118" literal="overrideCopiedEList"/>
-    <eLiterals name="OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST" value="119" literal="overrideCopiedEObjectInternalEList"/>
-    <eLiterals name="OVERRIDE_E_CLASS_UTIL" value="120" literal="overrideEClassUtil"/>
-    <eLiterals name="OVERRIDE_E_OBJECT_UTIL" value="121" literal="overrideEObjectUtil"/>
-    <eLiterals name="OVERRIDE_LIST_UTIL" value="122" literal="overrideListUtil"/>
-    <eLiterals name="OVERRIDE_MAP_UTIL" value="123" literal="overrideMapUtil"/>
-    <eLiterals name="OVERRIDE_MINIMAL_MODEL_HELPER" value="124" literal="overrideMinimalModelHelper"/>
-    <eLiterals name="OVERRIDE_RESOURCE_UTIL" value="125" literal="overrideResourceUtil"/>
-    <eLiterals name="OVERRIDE_STREAM_UTIL" value="126" literal="overrideStreamUtil"/>
-    <eLiterals name="OVERRIDE_STRING_UTIL" value="127" literal="overrideStringUtil"/>
-    <eLiterals name="OVERRIDE_TEXT_RESOURCE_UTIL" value="128" literal="overrideTextResourceUtil"/>
-    <eLiterals name="OVERRIDE_UNICODE_CONVERTER" value="129" literal="overrideUnicodeConverter"/>
-    <eLiterals name="OVERRIDE_ABSTRACT_EXPECTED_ELEMENT" value="130" literal="overrideAbstractExpectedElement"/>
-    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD_PAGE" value="131" literal="overrideNewFileWizardPage"/>
-    <eLiterals name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" value="132" literal="overrideIBackgroundParsingListener"/>
-    <eLiterals name="OVERRIDE_TERMINATE_PARSING_EXCEPTION" value="133" literal="overrideTerminateParsingException"/>
-    <eLiterals name="OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION" value="134" literal="overrideUnexpectedContentTypeException"/>
-    <eLiterals name="OVERRIDE_TEXT_TOKEN" value="135" literal="overrideTextToken"/>
-    <eLiterals name="SOURCE_GEN_FOLDER" value="136" literal="srcGenFolder"/>
+        literal="overrideIContextDependentURIFragmentFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IContextDependentUriFragmentFactory class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_ELEMENT_MAPPING" value="90" literal="overrideIElementMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IElementMapping class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_EXPECTED_ELEMENT" value="91" literal="overrideIExpectedElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IExpectedElement class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_HOVER_TEXT_PROVIDER" value="92" literal="overrideIHoverTextProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IHoverTextProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_LOCATION_MAP" value="93" literal="overrideILocationMap">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ILocationMap class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_PARSE_RESULT" value="94" literal="overrideIParseResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IParseResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_PROBLEM" value="95" literal="overrideIProblem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IProblem class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_REFERENCE_MAPPING" value="96" literal="overrideIReferenceMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IReferenceMapping class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER" value="97" literal="overrideIReferenceResolver">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IReferenceResolver class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVE_RESULT" value="98" literal="overrideIReferenceResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IReferenceResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER_SWITCH" value="99" literal="overrideIReferenceResolverSwitch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IReferenceResolverSwitch class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_DIAGNOSTIC" value="100" literal="overrideITextDiagnostic">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextDiagnostic class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_PARSER" value="101" literal="overrideITextParser">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextParser class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_PRINTER" value="102" literal="overrideITextPrinter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextPrinter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE" value="103" literal="overrideITextResource">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextResource class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_META_INFORMATION" value="104" literal="overrideIMetaInformation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IMetaInformation class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" value="105" literal="overrideITextResourcePluginPart">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextResourcePluginPart class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_SCANNER" value="106" literal="overrideITextScanner">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextScanner class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TEXT_TOKEN" value="107" literal="overrideITextToken">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITextToken class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER" value="108" literal="overrideITokenResolver">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITokenResolver class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" value="109" literal="overrideITokenResolveResult">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITokenResolveResult class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" value="110" literal="overrideITokenResolverFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITokenResolverFactory class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_TOKEN_STYLE" value="111" literal="overrideITokenStyle">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ITokenStyle class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_URI_MAPPING" value="112" literal="overrideIURIMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IUriMapping class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_E_PROBLEM_TYPE" value="113" literal="overrideEProblemType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the EProblemType class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CODE_COMPLETION_HELPER" value="114" literal="overrideCodeCompletionHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CodeCompletionHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTED_CS_STRING" value="115" literal="overrideExpectedCsString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ExpectedCsString class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTED_STRUCTURAL_FEATURE" value="116" literal="overrideExpectedStructuralFeature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ExpectedStructuralFeature class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CAST_UTIL" value="117" literal="overrideCastUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CastUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COPIED_E_LIST" value="118" literal="overrideCopiedEList">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CopiedEList class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST" value="119" literal="overrideCopiedEObjectInternalEList">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CopiedEObjectInternalEList class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_E_CLASS_UTIL" value="120" literal="overrideEClassUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the EClassUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_E_OBJECT_UTIL" value="121" literal="overrideEObjectUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the EObjectUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LIST_UTIL" value="122" literal="overrideListUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ListUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MAP_UTIL" value="123" literal="overrideMapUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the MapUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MINIMAL_MODEL_HELPER" value="124" literal="overrideMinimalModelHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the MinimalModelHelper class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_RESOURCE_UTIL" value="125" literal="overrideResourceUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ResourceUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_STREAM_UTIL" value="126" literal="overrideStreamUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the StreamUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_STRING_UTIL" value="127" literal="overrideStringUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the StringUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TEXT_RESOURCE_UTIL" value="128" literal="overrideTextResourceUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TextResourceUtil class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UNICODE_CONVERTER" value="129" literal="overrideUnicodeConverter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the UnicodeConverter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ABSTRACT_EXPECTED_ELEMENT" value="130" literal="overrideAbstractExpectedElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the AbstractExpectedElement class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD_PAGE" value="131" literal="overrideNewFileWizardPage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the NewFileWizardPage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" value="132" literal="overrideIBackgroundParsingListener">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IBackgroundParsingListener class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TERMINATE_PARSING_EXCEPTION" value="133" literal="overrideTerminateParsingException">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TerminateParsingException class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION" value="134" literal="overrideUnexpectedContentTypeException">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the UnexpectedContentTypeException class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TEXT_TOKEN" value="135" literal="overrideTextToken">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TextToken class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SOURCE_GEN_FOLDER" value="136" literal="srcGenFolder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the folder EMFText shall store the generated classes of the resource plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
     <eLiterals name="OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA" value="137"
-        literal="overrideDefaultLoadOptionsExtensionPointSchema"/>
+        literal="overrideDefaultLoadOptionsExtensionPointSchema">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the extension point schema for default load options is not overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
     <eLiterals name="OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA"
-        value="138" literal="overrideAdditionalExtensionParserExtensionPointSchema"/>
-    <eLiterals name="OVERRIDE_RESOURCE_FACTORY_DELEGATOR" value="139" literal="overrideResourceFactoryDelegator"/>
-    <eLiterals name="BASE_RESOURCE_PLUGIN" value="140" literal="baseResourcePlugin"/>
-    <eLiterals name="OVERRIDE_PREFERENCE_PAGE" value="141" literal="overridePreferencePage"/>
-    <eLiterals name="ANTLR_PLUGIN_ID" value="142" literal="antlrPluginID"/>
-    <eLiterals name="OVERRIDE_ANTLR_PLUGIN" value="143" literal="overrideAntlrPlugin"/>
-    <eLiterals name="OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER" value="144" literal="overrideTokenStyleInformationProvider"/>
-    <eLiterals name="OVERRIDE_FOLDING_INFORMATION_PROVIDER" value="145" literal="overrideFoldingInformationProvider"/>
-    <eLiterals name="OVERRIDE_BRACKET_INFORMATION_PROVIDER" value="146" literal="overrideBracketInformationProvider"/>
-    <eLiterals name="OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER" value="147" literal="overrideSyntaxCoverageInformationProvider"/>
-    <eLiterals name="SAVE_CHANGED_RESOURCES_ONLY" value="148" literal="saveChangedResourcesOnly"/>
-    <eLiterals name="OVERRIDE_NEW_FILE_CONTENT_PROVIDER" value="149" literal="overrideNewFileContentProvider"/>
-    <eLiterals name="LICENCE_HEADER" value="150" literal="licenceHeader"/>
-    <eLiterals name="OVERRIDE_EXPECTED_TERMINAL" value="151" literal="overrideExpectedTerminal"/>
-    <eLiterals name="OVERRIDE_COMPLETION_PROPOSAL" value="152" literal="overrideCompletionProposal"/>
-    <eLiterals name="OVERRIDE_BUILDER" value="153" literal="overrideBuilder"/>
-    <eLiterals name="OVERRIDE_BUILDER_ADAPTER" value="154" literal="overrideBuilderAdapter"/>
-    <eLiterals name="OVERRIDE_I_BUILDER" value="155" literal="overrideIBuilder"/>
-    <eLiterals name="OVERRIDE_NATURE" value="156" literal="overrideNature"/>
-    <eLiterals name="ADDITIONAL_DEPENDENCIES" value="157" literal="additionalDependencies"/>
-    <eLiterals name="DISABLE_BUILDER" value="158" literal="disableBuilder"/>
-    <eLiterals name="ADDITIONAL_EXPORTS" value="159" literal="additionalExports"/>
-    <eLiterals name="OVERRIDE_PAIR" value="160" literal="overridePair"/>
-    <eLiterals name="OVERRIDE_ABSTRACT_INTERPRETER" value="161" literal="overrideAbstractInterpreter"/>
-    <eLiterals name="OVERRIDE_GRAMMAR_INFORMATION_PROVIDER" value="162" literal="overrideGrammarInformationProvider"/>
-    <eLiterals name="OVERRIDE_ATTRIBUTE_VALUE_PROVIDER" value="163" literal="overrideAttributeValueProvider"/>
-    <eLiterals name="OVERRIDE_FOLLOW_SET_PROVIDER" value="164" literal="overrideFollowSetProvider"/>
-    <eLiterals name="OVERRIDE_SYNTAX_ELEMENT" value="165" literal="overrideSyntaxElement"/>
-    <eLiterals name="OVERRIDE_KEYWORD" value="166" literal="overrideKeyword"/>
-    <eLiterals name="OVERRIDE_PLACEHOLDER" value="167" literal="overridePlaceholder"/>
-    <eLiterals name="OVERRIDE_CARDINALITY" value="168" literal="overrideCardinality"/>
-    <eLiterals name="OVERRIDE_PRINTER2" value="169" literal="overridePrinter2"/>
-    <eLiterals name="OVERRIDE_CHOICE" value="170" literal="overrideChoice"/>
-    <eLiterals name="OVERRIDE_COMPOUND" value="171" literal="overrideCompound"/>
-    <eLiterals name="OVERRIDE_CONTAINMENT" value="172" literal="overrideContainment"/>
-    <eLiterals name="OVERRIDE_LINE_BREAK" value="173" literal="overrideLineBreak"/>
-    <eLiterals name="OVERRIDE_SEQUENCE" value="174" literal="overrideSequence"/>
-    <eLiterals name="OVERRIDE_WHITE_SPACE" value="175" literal="overrideWhiteSpace"/>
-    <eLiterals name="OVERRIDE_SYNTAX_ELEMENT_DECORATOR" value="176" literal="overrideSyntaxElementDecorator"/>
-    <eLiterals name="OVERRIDE_I_REFERENCE_CACHE" value="177" literal="overrideIReferenceCache"/>
-    <eLiterals name="OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER" value="178" literal="overrideDefaultHoverTextProvider"/>
-    <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement"/>
-    <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal"/>
-    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION_ADAPTER" value="181" literal="overrideLayoutInformationAdapter"/>
-    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION" value="182" literal="overrideLayoutInformation"/>
-    <eLiterals name="USE_CLASSIC_PRINTER" value="183" literal="useClassicPrinter"/>
-    <eLiterals name="DISABLE_E_VALIDATORS" value="184" literal="disableEValidators"/>
-    <eLiterals name="DISABLE_EMF_VALIDATION_CONSTRAINTS" value="185" literal="disableEMFValidationConstraints"/>
-    <eLiterals name="OVERRIDE_UI_META_INFORMATION" value="186" literal="overrideUIMetaInformation"/>
-    <eLiterals name="RESOURCE_UI_PLUGIN_ID" value="187" literal="resourceUIPluginID"/>
-    <eLiterals name="OVERRIDE_UI_PLUGIN_ACTIVATOR" value="188" literal="overrideUIPluginActivator"/>
-    <eLiterals name="UI_BASE_PACKAGE" value="189" literal="uiBasePackage"/>
-    <eLiterals name="ADDITIONAL_UI_DEPENDENCIES" value="190" literal="additionalUIDependencies"/>
-    <eLiterals name="ADDITIONAL_UI_EXPORTS" value="191" literal="additionalUIExports"/>
-    <eLiterals name="OVERRIDE_UI_MANIFEST" value="192" literal="overrideUIManifest"/>
-    <eLiterals name="OVERRIDE_UI_BUILD_PROPERTIES" value="193" literal="overrideUIBuildProperties"/>
-    <eLiterals name="OVERRIDE_UI_DOT_CLASSPATH" value="194" literal="overrideUIDotClasspath"/>
-    <eLiterals name="OVERRIDE_UI_DOT_PROJECT" value="195" literal="overrideUIDotProject"/>
-    <eLiterals name="UI_SOURCE_FOLDER" value="196" literal="uiSrcFolder"/>
-    <eLiterals name="UI_SOURCE_GEN_FOLDER" value="197" literal="uiSrcGenFolder"/>
-    <eLiterals name="GENERATE_UI_PLUGIN" value="198" literal="generateUIPlugin"/>
-    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER" value="199" literal="overrideIBracketHandler"/>
-    <eLiterals name="OVERRIDE_UI_PLUGIN_XML" value="200" literal="overrideUIPluginXML"/>
+        value="138" literal="overrideAdditionalExtensionParserExtensionPointSchema">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the extension point schema for additional parsers is not overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_RESOURCE_FACTORY_DELEGATOR" value="139" literal="overrideResourceFactoryDelegator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ResourceFactoryDelegator class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BASE_RESOURCE_PLUGIN" value="140" literal="baseResourcePlugin">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PREFERENCE_PAGE" value="141" literal="overridePreferencePage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the PreferencePage class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ANTLR_PLUGIN_ID" value="142" literal="antlrPluginID">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Sets the ID for the generated common ANTLR runtime plug-in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ANTLR_PLUGIN" value="143" literal="overrideAntlrPlugin">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, no ANTLR common runtime plug-in is generated. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER" value="144" literal="overrideTokenStyleInformationProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the TokenStyleInformationProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_FOLDING_INFORMATION_PROVIDER" value="145" literal="overrideFoldingInformationProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the FoldingInformationProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BRACKET_INFORMATION_PROVIDER" value="146" literal="overrideBracketInformationProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the BracketInformationProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER" value="147" literal="overrideSyntaxCoverageInformationProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the SyntaxCoverageInformationProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SAVE_CHANGED_RESOURCES_ONLY" value="148" literal="saveChangedResourcesOnly">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_NEW_FILE_CONTENT_PROVIDER" value="149" literal="overrideNewFileContentProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the NewFileContentProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="LICENCE_HEADER" value="150" literal="licenceHeader">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A URI pointing to a text file that contains a header which shall be added to all generated Java files."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTED_TERMINAL" value="151" literal="overrideExpectedTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the ExpectedTerminal class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COMPLETION_PROPOSAL" value="152" literal="overrideCompletionProposal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the CompletionProposal class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BUILDER" value="153" literal="overrideBuilder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Builder class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BUILDER_ADAPTER" value="154" literal="overrideBuilderAdapter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the BuilderAdapter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_BUILDER" value="155" literal="overrideIBuilder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IBuilder class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_NATURE" value="156" literal="overrideNature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Nature class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ADDITIONAL_DEPENDENCIES" value="157" literal="additionalDependencies">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DISABLE_BUILDER" value="158" literal="disableBuilder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the builder that is generated and registed by default will not be registed anymore. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ADDITIONAL_EXPORTS" value="159" literal="additionalExports">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PAIR" value="160" literal="overridePair">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Pair class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ABSTRACT_INTERPRETER" value="161" literal="overrideAbstractInterpreter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the AbstractInterpreter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_GRAMMAR_INFORMATION_PROVIDER" value="162" literal="overrideGrammarInformationProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the GrammarInformationProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ATTRIBUTE_VALUE_PROVIDER" value="163" literal="overrideAttributeValueProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the AttributeValueProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_FOLLOW_SET_PROVIDER" value="164" literal="overrideFollowSetProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the FollowSetProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_ELEMENT" value="165" literal="overrideSyntaxElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the SyntaxElement class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_KEYWORD" value="166" literal="overrideKeyword">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Keyword class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PLACEHOLDER" value="167" literal="overridePlaceholder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Placeholder class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CARDINALITY" value="168" literal="overrideCardinality">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Cardinality class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_PRINTER2" value="169" literal="overridePrinter2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Printer2 class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CHOICE" value="170" literal="overrideChoice">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Choice class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_COMPOUND" value="171" literal="overrideCompound">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Compound class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_CONTAINMENT" value="172" literal="overrideContainment">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Containment class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LINE_BREAK" value="173" literal="overrideLineBreak">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the LineBreak class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SEQUENCE" value="174" literal="overrideSequence">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Sequence class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_WHITE_SPACE" value="175" literal="overrideWhiteSpace">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the WhiteSpace class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_ELEMENT_DECORATOR" value="176" literal="overrideSyntaxElementDecorator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the SyntaxElementDecorator class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_REFERENCE_CACHE" value="177" literal="overrideIReferenceCache">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IReferenceCache class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER" value="178" literal="overrideDefaultHoverTextProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the DefaultHoverTextProvider class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_FORMATTING_ELEMENT" value="179" literal="overrideFormattingElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the FormattingElement class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TERMINAL" value="180" literal="overrideTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the Terminal class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION_ADAPTER" value="181" literal="overrideLayoutInformationAdapter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the LayoutInformationAdapter class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LAYOUT_INFORMATION" value="182" literal="overrideLayoutInformation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the LayoutInformation class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="USE_CLASSIC_PRINTER" value="183" literal="useClassicPrinter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the classic printer (i.e., the used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DISABLE_E_VALIDATORS" value="184" literal="disableEValidators">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, constraint validation using registered EValidators is disabled. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DISABLE_EMF_VALIDATION_CONSTRAINTS" value="185" literal="disableEMFValidationConstraints">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, constraint validation using the EMF Validation Framework is disabled. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_META_INFORMATION" value="186" literal="overrideUIMetaInformation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="RESOURCE_UI_PLUGIN_ID" value="187" literal="resourceUIPluginID">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_PLUGIN_ACTIVATOR" value="188" literal="overrideUIPluginActivator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="UI_BASE_PACKAGE" value="189" literal="uiBasePackage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The package where to store all clasess of the resource UI plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ADDITIONAL_UI_DEPENDENCIES" value="190" literal="additionalUIDependencies">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ADDITIONAL_UI_EXPORTS" value="191" literal="additionalUIExports">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_MANIFEST" value="192" literal="overrideUIManifest">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the manifest of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_BUILD_PROPERTIES" value="193" literal="overrideUIBuildProperties">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_DOT_CLASSPATH" value="194" literal="overrideUIDotClasspath">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_DOT_PROJECT" value="195" literal="overrideUIDotProject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the .project file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="UI_SOURCE_FOLDER" value="196" literal="uiSrcFolder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the folder EMFText shall store the overridable classes of the resource UI plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="UI_SOURCE_GEN_FOLDER" value="197" literal="uiSrcGenFolder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the folder EMFText shall store the generated classes of the resource UI plug-in in."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GENERATE_UI_PLUGIN" value="198" literal="generateUIPlugin">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, EMFText will not generate the resource UI plug-in. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER" value="199" literal="overrideIBracketHandler">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to true, the IBracketHandler class will not be overriden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_UI_PLUGIN_XML" value="200" literal="overrideUIPluginXML">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

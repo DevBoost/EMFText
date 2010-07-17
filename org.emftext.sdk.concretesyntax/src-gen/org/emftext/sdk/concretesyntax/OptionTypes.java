@@ -1634,6 +1634,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, EMFText generate a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #GENERATE_TEST_ACTION
 	 * @model literal="generateTestAction"
 	 * @generated
@@ -1648,6 +1651,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #GENERATE_CODE_FROM_GENERATOR_MODEL
 	 * @model literal="generateCodeFromGeneratorModel"
 	 * @generated
@@ -1662,6 +1668,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the plugin.xml file will be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PLUGIN_XML
 	 * @model literal="overridePluginXML"
 	 * @generated
@@ -1676,6 +1685,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MANIFEST
 	 * @model literal="overrideManifest"
 	 * @generated
@@ -1690,6 +1702,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Parser class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PARSER
 	 * @model literal="overrideParser"
 	 * @generated
@@ -1704,6 +1719,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the token resolver classes will be overridden. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVERS
 	 * @model literal="overrideTokenResolvers"
 	 * @generated
@@ -1718,6 +1736,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the reference resolver classes will be overridden. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVERS
 	 * @model literal="overrideReferenceResolvers"
 	 * @generated
@@ -1732,6 +1753,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the reference resolver switch will be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVER_SWITCH
 	 * @model literal="overrideReferenceResolverSwitch"
 	 * @generated
@@ -1746,6 +1770,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the token resolver factory class will be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVER_FACTORY
 	 * @model literal="overrideTokenResolverFactory"
 	 * @generated
@@ -1760,6 +1787,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the printer will be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PRINTER
 	 * @model literal="overridePrinter"
 	 * @generated
@@ -1774,6 +1804,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Antlr-backtracking is activated for parser generation. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #ANTLR_BACKTRACKING
 	 * @model literal="backtracking"
 	 * @generated
@@ -1788,6 +1821,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Antlr-memoize is activated for parser generation. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #ANTLR_MEMOIZE
 	 * @model literal="memoize"
 	 * @generated
@@ -1802,6 +1838,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #AUTOFIX_SIMPLE_LEFTRECURSION
 	 * @model literal="autofixSimpleLeftrecursion"
 	 * @generated
@@ -1816,6 +1855,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, EMFText will generate a parser that expects an EOF signal at the end of the input stream. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #FORCE_EOF
 	 * @model literal="forceEOF"
 	 * @generated
@@ -1830,6 +1872,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This option can be used to specify the name of the token that is used for non-containment references. A declaration like <code>featureX[]</code> in a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DEFAULT_TOKEN_NAME
 	 * @model literal="defaultTokenName"
 	 * @generated
@@ -1844,6 +1889,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #USE_PREDEFINED_TOKENS
 	 * @model literal="usePredefinedTokens"
 	 * @generated
@@ -1858,6 +1906,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules.
+	 * <!-- end-model-doc -->
 	 * @see #TOKENSPACE
 	 * @model literal="tokenspace"
 	 * @generated
@@ -1872,6 +1923,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #RELOAD_GENERATOR_MODEL
 	 * @model literal="reloadGeneratorModel"
 	 * @generated
@@ -1886,6 +1940,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DOT_CLASSPATH
 	 * @model literal="overrideClasspath"
 	 * @generated
@@ -1900,6 +1957,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DOT_PROJECT
 	 * @model literal="overrideProjectFile"
 	 * @generated
@@ -1914,6 +1974,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the text resource class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TEXT_RESOURCE
 	 * @model literal="overrideTextResource"
 	 * @generated
@@ -1928,6 +1991,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the resource factory class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_RESOURCE_FACTORY
 	 * @model literal="overrideResourceFactory"
 	 * @generated
@@ -1942,6 +2008,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the new file wizard class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_NEW_FILE_WIZARD
 	 * @model literal="overrideNewFileWizard"
 	 * @generated
@@ -1956,6 +2025,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the parser generator to use.
+	 * <!-- end-model-doc -->
 	 * @see #PARSER_GENERATOR
 	 * @model literal="parserGenerator"
 	 * @generated
@@ -1970,6 +2042,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the folder EMFText shall store the overridable classes of the resource plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #SOURCE_FOLDER
 	 * @model literal="srcFolder"
 	 * @generated
@@ -1984,6 +2059,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the base package EMFText shall store the generated classes or the resource plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #BASE_PACKAGE
 	 * @model literal="basePackage"
 	 * @generated
@@ -1998,6 +2076,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID.
+	 * <!-- end-model-doc -->
 	 * @see #RESOURCE_PLUGIN_ID
 	 * @model literal="resourcePluginID"
 	 * @generated
@@ -2012,6 +2093,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the build.properties file will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BUILD_PROPERTIES
 	 * @model literal="overrideBuildProperties"
 	 * @generated
@@ -2026,6 +2110,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the MetaInformation class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_META_INFORMATION
 	 * @model literal="overrideMetaInformation"
 	 * @generated
@@ -2040,6 +2127,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the default resolver class will be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEFAULT_RESOLVER_DELEGATE
 	 * @model literal="overrideDefaultResolverDelegate"
 	 * @generated
@@ -2054,6 +2144,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ProblemClass class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PROBLEM_CLASS
 	 * @model literal="overrideProblemClass"
 	 * @generated
@@ -2068,6 +2161,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Scanner class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SCANNER
 	 * @model literal="overrideScanner"
 	 * @generated
@@ -2082,6 +2178,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ContextDependentUriFragment class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT
 	 * @model literal="overrideContextDependentURIFragment"
 	 * @generated
@@ -2096,6 +2195,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ContextDependentUriFragmentFactory class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY
 	 * @model literal="overrideContextDependentURIFragmentFactory"
 	 * @generated
@@ -2110,6 +2212,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the DelegatingResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DELEGATING_RESOLVE_RESULT
 	 * @model literal="overrideDelegatingResolveResult"
 	 * @generated
@@ -2124,6 +2229,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the DummyEObject class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DUMMY_EOBJECT
 	 * @model name="OVERRIDE_DUMMY_E_OBJECT" literal="overrideDummyEObject"
 	 * @generated
@@ -2138,6 +2246,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ElementMapping class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ELEMENT_MAPPING
 	 * @model literal="overrideElementMapping"
 	 * @generated
@@ -2152,6 +2263,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the FuzzyResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FUZZY_RESOLVE_RESULT
 	 * @model literal="overrideFuzzyResolveResult"
 	 * @generated
@@ -2166,6 +2280,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the DefaultTokenResolver class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEFAULT_TOKEN_RESOLVER
 	 * @model literal="overrideDefaultTokenResolver"
 	 * @generated
@@ -2180,6 +2297,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the LocationMap class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LOCATION_MAP
 	 * @model literal="overrideLocationMap"
 	 * @generated
@@ -2194,6 +2314,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ReferenceResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_REFERENCE_RESOLVE_RESULT
 	 * @model literal="overrideReferenceResolveResult"
 	 * @generated
@@ -2208,6 +2331,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TokenResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_RESOLVE_RESULT
 	 * @model literal="overrideTokenResolveResult"
 	 * @generated
@@ -2222,6 +2348,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the UriMapping class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_URI_MAPPING
 	 * @model literal="overrideURIMapping"
 	 * @generated
@@ -2236,6 +2365,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the HoverTextProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_HOVER_TEXT_PROVIDER
 	 * @model literal="overrideHoverTextProvider"
 	 * @generated
@@ -2250,6 +2382,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ParseResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PARSE_RESULT
 	 * @model literal="overrideParseResult"
 	 * @generated
@@ -2264,6 +2399,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the AntlrTokenHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ANTLR_TOKEN_HELPER
 	 * @model literal="overrideAntlrTokenHelper"
 	 * @generated
@@ -2278,6 +2416,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the BracketSet class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BRACKET_SET
 	 * @model literal="overrideBracketSet"
 	 * @generated
@@ -2292,6 +2433,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the BrowserInformationControl class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BROWSER_INFORMATION_CONTROL
 	 * @model literal="overrideBrowserInformationControl"
 	 * @generated
@@ -2306,6 +2450,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CodeFoldingManager class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CODE_FOLDING_MANAGER
 	 * @model literal="overrideCodeFoldingManager"
 	 * @generated
@@ -2320,6 +2467,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ColorManager class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COLOR_MANAGER
 	 * @model literal="overrideColorManager"
 	 * @generated
@@ -2334,6 +2484,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CompletionProcessor class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COMPLETION_PROCESSOR
 	 * @model literal="overrideCompletionProcessor"
 	 * @generated
@@ -2348,6 +2501,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ParsingStrategy class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PARSING_STRATEGY
 	 * @model literal="overrideParsingStrategy"
 	 * @generated
@@ -2362,6 +2518,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the DocBrowserInformationControlInput class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT
 	 * @model literal="overrideDocBrowserInformationControlInput"
 	 * @generated
@@ -2376,6 +2535,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the EditorConfiguration class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EDITOR_CONFIGURATION
 	 * @model literal="overrideEditorConfiguration"
 	 * @generated
@@ -2390,6 +2552,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Editor class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EDITOR
 	 * @model literal="overrideEditor"
 	 * @generated
@@ -2404,6 +2569,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the EObjectSelection class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EOBJECT_SELECTION
 	 * @model name="OVERRIDE_E_OBJECT_SELECTION" literal="overrideEObjectSelection"
 	 * @generated
@@ -2418,6 +2586,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Highlighting class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_HIGHLIGHTING
 	 * @model literal="overrideHighlighting"
 	 * @generated
@@ -2432,6 +2603,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the HtmlPrinter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_HTML_PRINTER
 	 * @model literal="overrideHTMLPrinter"
 	 * @generated
@@ -2446,6 +2620,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Hyperlink class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_HYPERLINK
 	 * @model literal="overrideHyperlink"
 	 * @generated
@@ -2460,6 +2637,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the HyperlinkDetector class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_HYPERLINK_DETECTOR
 	 * @model literal="overrideHyperlinkDetector"
 	 * @generated
@@ -2474,6 +2654,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the MarkerHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MARKER_HELPER
 	 * @model literal="overrideMarkerHelper"
 	 * @generated
@@ -2488,6 +2671,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Occurence class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OCCURENCE
 	 * @model literal="overrideOccurrence"
 	 * @generated
@@ -2502,6 +2688,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the OutlinePage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE
 	 * @model literal="overrideOutlinePage"
 	 * @generated
@@ -2516,6 +2705,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the OutlinePageTreeViewer class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER
 	 * @model literal="overrideOutlinePageTreeViewer"
 	 * @generated
@@ -2530,6 +2722,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PluginActivator class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PLUGIN_ACTIVATOR
 	 * @model literal="overridePluginActivator"
 	 * @generated
@@ -2544,6 +2739,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PositionCategory class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_POSITION_CATEGORY
 	 * @model literal="overridePositionCategory"
 	 * @generated
@@ -2558,6 +2756,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PositionHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_POSITION_HELPER
 	 * @model literal="overridePositionHelper"
 	 * @generated
@@ -2572,6 +2773,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PropertySheetPage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PROPERTY_SHEET_PAGE
 	 * @model literal="overridePropertySheetPage"
 	 * @generated
@@ -2586,6 +2790,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TextHover class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TEXT_HOVER
 	 * @model literal="overrideTextHover"
 	 * @generated
@@ -2600,6 +2807,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TokenScanner class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_SCANNER
 	 * @model literal="overrideTokenScanner"
 	 * @generated
@@ -2614,6 +2824,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the BracketPreferencePage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BRACKET_PREFERENCE_PAGE
 	 * @model literal="overrideBracketPreferencePage"
 	 * @generated
@@ -2628,6 +2841,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PreferenceConstants class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PREFERENCE_CONSTANTS
 	 * @model literal="overridePreferenceConstants"
 	 * @generated
@@ -2642,6 +2858,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the OccurencePreferencePage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE
 	 * @model literal="overrideOccurencePreferencePage"
 	 * @generated
@@ -2656,6 +2875,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PixelConverter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PIXEL_CONVERTER
 	 * @model literal="overridePixelConverter"
 	 * @generated
@@ -2670,6 +2892,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PreferenceInitializer class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PREFERENCE_INITIALIZER
 	 * @model literal="overridePreferenceInitializer"
 	 * @generated
@@ -2684,6 +2909,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the SyntaxColoringHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SYNTAX_COLORING_HELPER
 	 * @model literal="overrideSyntaxColoringHelper"
 	 * @generated
@@ -2698,6 +2926,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the SyntaxColoringPreferencePage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE
 	 * @model literal="overrideSyntaxColoringPreferencePage"
 	 * @generated
@@ -2712,6 +2943,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IInputStreamProcessorProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER
 	 * @model name="OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER" literal="overrideIInputStreamProcessorProvider"
 	 * @generated
@@ -2726,6 +2960,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the InputStreamProcessor class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_INPUT_STREAM_PROCESSOR
 	 * @model literal="overrideInputStreamProcessor"
 	 * @generated
@@ -2740,6 +2977,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IOptionProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IOPTION_PROVIDER
 	 * @model name="OVERRIDE_I_OPTION_PROVIDER" literal="overrideIOptionProvider"
 	 * @generated
@@ -2754,6 +2994,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IOptions class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IOPTIONS
 	 * @model name="OVERRIDE_I_OPTIONS" literal="overrideIOptions"
 	 * @generated
@@ -2768,6 +3011,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IResourcePostProcessor class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR
 	 * @model name="OVERRIDE_I_RESOURCE_POST_PROCESSOR" literal="overrideIResourcePostProcessor"
 	 * @generated
@@ -2782,6 +3028,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IResourcePostProcessorProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER
 	 * @model name="OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER" literal="overrideIResourcePostProcessorProvider"
 	 * @generated
@@ -2796,6 +3045,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IBracketPair class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IBRACKET_PAIR
 	 * @model name="OVERRIDE_I_BRACKET_PAIR" literal="overrideIBracketPair"
 	 * @generated
@@ -2810,6 +3062,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ICommand class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ICOMMAND
 	 * @model name="OVERRIDE_I_COMMAND" literal="overrideICommand"
 	 * @generated
@@ -2824,6 +3079,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IConfigurable class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ICONFIGURABLE
 	 * @model name="OVERRIDE_I_CONFIGURABLE" literal="overrideIConfigurable"
 	 * @generated
@@ -2838,6 +3096,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IContextDependentUriFragment class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT
 	 * @model name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT" literal="overrideIContextDependentURIFragment"
 	 * @generated
@@ -2852,6 +3113,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IContextDependentUriFragmentFactory class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY
 	 * @model name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" literal="overrideIContextDependentURIFragmentFactory"
 	 * @generated
@@ -2866,6 +3130,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IElementMapping class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IELEMENT_MAPPING
 	 * @model name="OVERRIDE_I_ELEMENT_MAPPING" literal="overrideIElementMapping"
 	 * @generated
@@ -2880,6 +3147,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IExpectedElement class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IEXPECTED_ELEMENT
 	 * @model name="OVERRIDE_I_EXPECTED_ELEMENT" literal="overrideIExpectedElement"
 	 * @generated
@@ -2894,6 +3164,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IHoverTextProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IHOVER_TEXT_PROVIDER
 	 * @model name="OVERRIDE_I_HOVER_TEXT_PROVIDER" literal="overrideIHoverTextProvider"
 	 * @generated
@@ -2908,6 +3181,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ILocationMap class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ILOCATION_MAP
 	 * @model name="OVERRIDE_I_LOCATION_MAP" literal="overrideILocationMap"
 	 * @generated
@@ -2922,6 +3198,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IParseResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IPARSE_RESULT
 	 * @model name="OVERRIDE_I_PARSE_RESULT" literal="overrideIParseResult"
 	 * @generated
@@ -2936,6 +3215,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IProblem class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IPROBLEM
 	 * @model name="OVERRIDE_I_PROBLEM" literal="overrideIProblem"
 	 * @generated
@@ -2950,6 +3232,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IReferenceMapping class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IREFERENCE_MAPPING
 	 * @model name="OVERRIDE_I_REFERENCE_MAPPING" literal="overrideIReferenceMapping"
 	 * @generated
@@ -2964,6 +3249,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IReferenceResolver class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IREFERENCE_RESOLVER
 	 * @model name="OVERRIDE_I_REFERENCE_RESOLVER" literal="overrideIReferenceResolver"
 	 * @generated
@@ -2978,6 +3266,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IReferenceResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IREFERENCE_RESOLVE_RESULT
 	 * @model name="OVERRIDE_I_REFERENCE_RESOLVE_RESULT" literal="overrideIReferenceResolveResult"
 	 * @generated
@@ -2992,6 +3283,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IReferenceResolverSwitch class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IREFERENCE_RESOLVER_SWITCH
 	 * @model name="OVERRIDE_I_REFERENCE_RESOLVER_SWITCH" literal="overrideIReferenceResolverSwitch"
 	 * @generated
@@ -3006,6 +3300,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextDiagnostic class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_DIAGNOSTIC
 	 * @model name="OVERRIDE_I_TEXT_DIAGNOSTIC" literal="overrideITextDiagnostic"
 	 * @generated
@@ -3020,6 +3317,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextParser class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_PARSER
 	 * @model name="OVERRIDE_I_TEXT_PARSER" literal="overrideITextParser"
 	 * @generated
@@ -3034,6 +3334,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextPrinter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_PRINTER
 	 * @model name="OVERRIDE_I_TEXT_PRINTER" literal="overrideITextPrinter"
 	 * @generated
@@ -3048,6 +3351,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextResource class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_RESOURCE
 	 * @model name="OVERRIDE_I_TEXT_RESOURCE" literal="overrideITextResource"
 	 * @generated
@@ -3062,6 +3368,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IMetaInformation class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IMETA_INFORMATION
 	 * @model name="OVERRIDE_I_META_INFORMATION" literal="overrideIMetaInformation"
 	 * @generated
@@ -3076,6 +3385,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextResourcePluginPart class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART
 	 * @model name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" literal="overrideITextResourcePluginPart"
 	 * @generated
@@ -3090,6 +3402,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextScanner class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_SCANNER
 	 * @model name="OVERRIDE_I_TEXT_SCANNER" literal="overrideITextScanner"
 	 * @generated
@@ -3104,6 +3419,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITextToken class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITEXT_TOKEN
 	 * @model name="OVERRIDE_I_TEXT_TOKEN" literal="overrideITextToken"
 	 * @generated
@@ -3118,6 +3436,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITokenResolver class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITOKEN_RESOLVER
 	 * @model name="OVERRIDE_I_TOKEN_RESOLVER" literal="overrideITokenResolver"
 	 * @generated
@@ -3132,6 +3453,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITokenResolveResult class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITOKEN_RESOLVE_RESULT
 	 * @model name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" literal="overrideITokenResolveResult"
 	 * @generated
@@ -3146,6 +3470,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITokenResolverFactory class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITOKEN_RESOLVER_FACTORY
 	 * @model name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" literal="overrideITokenResolverFactory"
 	 * @generated
@@ -3160,6 +3487,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ITokenStyle class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITOKEN_STYLE
 	 * @model name="OVERRIDE_I_TOKEN_STYLE" literal="overrideITokenStyle"
 	 * @generated
@@ -3174,6 +3504,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IUriMapping class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IURI_MAPPING
 	 * @model name="OVERRIDE_I_URI_MAPPING" literal="overrideIURIMapping"
 	 * @generated
@@ -3188,6 +3521,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the EProblemType class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EPROBLEM_TYPE
 	 * @model name="OVERRIDE_E_PROBLEM_TYPE" literal="overrideEProblemType"
 	 * @generated
@@ -3202,6 +3538,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CodeCompletionHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CODE_COMPLETION_HELPER
 	 * @model literal="overrideCodeCompletionHelper"
 	 * @generated
@@ -3216,6 +3555,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ExpectedCsString class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EXPECTED_CS_STRING
 	 * @model literal="overrideExpectedCsString"
 	 * @generated
@@ -3230,6 +3572,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ExpectedStructuralFeature class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EXPECTED_STRUCTURAL_FEATURE
 	 * @model literal="overrideExpectedStructuralFeature"
 	 * @generated
@@ -3244,6 +3589,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CastUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CAST_UTIL
 	 * @model literal="overrideCastUtil"
 	 * @generated
@@ -3258,6 +3606,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CopiedEList class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COPIED_ELIST
 	 * @model name="OVERRIDE_COPIED_E_LIST" literal="overrideCopiedEList"
 	 * @generated
@@ -3272,6 +3623,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CopiedEObjectInternalEList class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST
 	 * @model name="OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST" literal="overrideCopiedEObjectInternalEList"
 	 * @generated
@@ -3286,6 +3640,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the EClassUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ECLASS_UTIL
 	 * @model name="OVERRIDE_E_CLASS_UTIL" literal="overrideEClassUtil"
 	 * @generated
@@ -3300,6 +3657,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the EObjectUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EOBJECT_UTIL
 	 * @model name="OVERRIDE_E_OBJECT_UTIL" literal="overrideEObjectUtil"
 	 * @generated
@@ -3314,6 +3674,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ListUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LIST_UTIL
 	 * @model literal="overrideListUtil"
 	 * @generated
@@ -3328,6 +3691,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the MapUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MAP_UTIL
 	 * @model literal="overrideMapUtil"
 	 * @generated
@@ -3342,6 +3708,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the MinimalModelHelper class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MINIMAL_MODEL_HELPER
 	 * @model literal="overrideMinimalModelHelper"
 	 * @generated
@@ -3356,6 +3725,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ResourceUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_RESOURCE_UTIL
 	 * @model literal="overrideResourceUtil"
 	 * @generated
@@ -3370,6 +3742,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the StreamUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_STREAM_UTIL
 	 * @model literal="overrideStreamUtil"
 	 * @generated
@@ -3384,6 +3759,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the StringUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_STRING_UTIL
 	 * @model literal="overrideStringUtil"
 	 * @generated
@@ -3398,6 +3776,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TextResourceUtil class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TEXT_RESOURCE_UTIL
 	 * @model literal="overrideTextResourceUtil"
 	 * @generated
@@ -3412,6 +3793,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the UnicodeConverter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UNICODE_CONVERTER
 	 * @model literal="overrideUnicodeConverter"
 	 * @generated
@@ -3426,6 +3810,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the AbstractExpectedElement class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ABSTRACT_EXPECTED_ELEMENT
 	 * @model literal="overrideAbstractExpectedElement"
 	 * @generated
@@ -3440,6 +3827,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the NewFileWizardPage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_NEW_FILE_WIZARD_PAGE
 	 * @model literal="overrideNewFileWizardPage"
 	 * @generated
@@ -3454,6 +3844,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IBackgroundParsingListener class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IBACKGROUND_PARSING_LISTENER
 	 * @model name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" literal="overrideIBackgroundParsingListener"
 	 * @generated
@@ -3468,6 +3861,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TerminateParsingException class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TERMINATE_PARSING_EXCEPTION
 	 * @model literal="overrideTerminateParsingException"
 	 * @generated
@@ -3482,6 +3878,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the UnexpectedContentTypeException class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION
 	 * @model literal="overrideUnexpectedContentTypeException"
 	 * @generated
@@ -3496,6 +3895,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TextToken class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TEXT_TOKEN
 	 * @model literal="overrideTextToken"
 	 * @generated
@@ -3510,6 +3912,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the folder EMFText shall store the generated classes of the resource plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #SOURCE_GEN_FOLDER
 	 * @model literal="srcGenFolder"
 	 * @generated
@@ -3524,6 +3929,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA
 	 * @model literal="overrideDefaultLoadOptionsExtensionPointSchema"
 	 * @generated
@@ -3538,6 +3946,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA
 	 * @model literal="overrideAdditionalExtensionParserExtensionPointSchema"
 	 * @generated
@@ -3552,6 +3963,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ResourceFactoryDelegator class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_RESOURCE_FACTORY_DELEGATOR
 	 * @model literal="overrideResourceFactoryDelegator"
 	 * @generated
@@ -3566,6 +3980,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in).
+	 * <!-- end-model-doc -->
 	 * @see #BASE_RESOURCE_PLUGIN
 	 * @model literal="baseResourcePlugin"
 	 * @generated
@@ -3580,6 +3997,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the PreferencePage class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PREFERENCE_PAGE
 	 * @model literal="overridePreferencePage"
 	 * @generated
@@ -3594,6 +4014,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Sets the ID for the generated common ANTLR runtime plug-in.
+	 * <!-- end-model-doc -->
 	 * @see #ANTLR_PLUGIN_ID
 	 * @model literal="antlrPluginID"
 	 * @generated
@@ -3608,6 +4031,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ANTLR_PLUGIN
 	 * @model literal="overrideAntlrPlugin"
 	 * @generated
@@ -3622,6 +4048,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the TokenStyleInformationProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER
 	 * @model literal="overrideTokenStyleInformationProvider"
 	 * @generated
@@ -3636,6 +4065,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the FoldingInformationProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FOLDING_INFORMATION_PROVIDER
 	 * @model literal="overrideFoldingInformationProvider"
 	 * @generated
@@ -3650,6 +4082,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the BracketInformationProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BRACKET_INFORMATION_PROVIDER
 	 * @model literal="overrideBracketInformationProvider"
 	 * @generated
@@ -3664,6 +4099,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the SyntaxCoverageInformationProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER
 	 * @model literal="overrideSyntaxCoverageInformationProvider"
 	 * @generated
@@ -3678,6 +4116,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #SAVE_CHANGED_RESOURCES_ONLY
 	 * @model literal="saveChangedResourcesOnly"
 	 * @generated
@@ -3692,6 +4133,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the NewFileContentProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_NEW_FILE_CONTENT_PROVIDER
 	 * @model literal="overrideNewFileContentProvider"
 	 * @generated
@@ -3706,6 +4150,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A URI pointing to a text file that contains a header which shall be added to all generated Java files.
+	 * <!-- end-model-doc -->
 	 * @see #LICENCE_HEADER
 	 * @model literal="licenceHeader"
 	 * @generated
@@ -3720,6 +4167,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the ExpectedTerminal class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EXPECTED_TERMINAL
 	 * @model literal="overrideExpectedTerminal"
 	 * @generated
@@ -3734,6 +4184,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the CompletionProposal class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COMPLETION_PROPOSAL
 	 * @model literal="overrideCompletionProposal"
 	 * @generated
@@ -3748,6 +4201,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Builder class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BUILDER
 	 * @model literal="overrideBuilder"
 	 * @generated
@@ -3762,6 +4218,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the BuilderAdapter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BUILDER_ADAPTER
 	 * @model literal="overrideBuilderAdapter"
 	 * @generated
@@ -3776,6 +4235,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IBuilder class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IBUILDER
 	 * @model name="OVERRIDE_I_BUILDER" literal="overrideIBuilder"
 	 * @generated
@@ -3790,6 +4252,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Nature class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_NATURE
 	 * @model literal="overrideNature"
 	 * @generated
@@ -3804,6 +4269,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in.
+	 * <!-- end-model-doc -->
 	 * @see #ADDITIONAL_DEPENDENCIES
 	 * @model literal="additionalDependencies"
 	 * @generated
@@ -3818,6 +4286,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the builder that is generated and registed by default will not be registed anymore. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_BUILDER
 	 * @model literal="disableBuilder"
 	 * @generated
@@ -3832,6 +4303,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in.
+	 * <!-- end-model-doc -->
 	 * @see #ADDITIONAL_EXPORTS
 	 * @model literal="additionalExports"
 	 * @generated
@@ -3846,6 +4320,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Pair class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PAIR
 	 * @model literal="overridePair"
 	 * @generated
@@ -3860,6 +4337,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the AbstractInterpreter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ABSTRACT_INTERPRETER
 	 * @model literal="overrideAbstractInterpreter"
 	 * @generated
@@ -3874,6 +4354,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the GrammarInformationProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_GRAMMAR_INFORMATION_PROVIDER
 	 * @model literal="overrideGrammarInformationProvider"
 	 * @generated
@@ -3888,6 +4371,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the AttributeValueProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ATTRIBUTE_VALUE_PROVIDER
 	 * @model literal="overrideAttributeValueProvider"
 	 * @generated
@@ -3902,6 +4388,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the FollowSetProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FOLLOW_SET_PROVIDER
 	 * @model literal="overrideFollowSetProvider"
 	 * @generated
@@ -3916,6 +4405,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the SyntaxElement class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SYNTAX_ELEMENT
 	 * @model literal="overrideSyntaxElement"
 	 * @generated
@@ -3930,6 +4422,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Keyword class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_KEYWORD
 	 * @model literal="overrideKeyword"
 	 * @generated
@@ -3944,6 +4439,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Placeholder class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PLACEHOLDER
 	 * @model literal="overridePlaceholder"
 	 * @generated
@@ -3958,6 +4456,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Cardinality class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CARDINALITY
 	 * @model literal="overrideCardinality"
 	 * @generated
@@ -3972,6 +4473,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Printer2 class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PRINTER2
 	 * @model literal="overridePrinter2"
 	 * @generated
@@ -3986,6 +4490,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Choice class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CHOICE
 	 * @model literal="overrideChoice"
 	 * @generated
@@ -4000,6 +4507,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Compound class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_COMPOUND
 	 * @model literal="overrideCompound"
 	 * @generated
@@ -4014,6 +4524,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Containment class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_CONTAINMENT
 	 * @model literal="overrideContainment"
 	 * @generated
@@ -4028,6 +4541,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the LineBreak class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LINE_BREAK
 	 * @model literal="overrideLineBreak"
 	 * @generated
@@ -4042,6 +4558,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Sequence class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SEQUENCE
 	 * @model literal="overrideSequence"
 	 * @generated
@@ -4056,6 +4575,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the WhiteSpace class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_WHITE_SPACE
 	 * @model literal="overrideWhiteSpace"
 	 * @generated
@@ -4070,6 +4592,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the SyntaxElementDecorator class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SYNTAX_ELEMENT_DECORATOR
 	 * @model literal="overrideSyntaxElementDecorator"
 	 * @generated
@@ -4084,6 +4609,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IReferenceCache class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IREFERENCE_CACHE
 	 * @model name="OVERRIDE_I_REFERENCE_CACHE" literal="overrideIReferenceCache"
 	 * @generated
@@ -4098,6 +4626,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the DefaultHoverTextProvider class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER
 	 * @model literal="overrideDefaultHoverTextProvider"
 	 * @generated
@@ -4112,6 +4643,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the FormattingElement class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FORMATTING_ELEMENT
 	 * @model literal="overrideFormattingElement"
 	 * @generated
@@ -4126,6 +4660,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the Terminal class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TERMINAL
 	 * @model literal="overrideTerminal"
 	 * @generated
@@ -4140,6 +4677,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the LayoutInformationAdapter class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAYOUT_INFORMATION_ADAPTER
 	 * @model literal="overrideLayoutInformationAdapter"
 	 * @generated
@@ -4154,6 +4694,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the LayoutInformation class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAYOUT_INFORMATION
 	 * @model literal="overrideLayoutInformation"
 	 * @generated
@@ -4168,6 +4711,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the classic printer (i.e., the used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #USE_CLASSIC_PRINTER
 	 * @model literal="useClassicPrinter"
 	 * @generated
@@ -4182,6 +4728,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, constraint validation using registered EValidators is disabled. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_EVALIDATORS
 	 * @model name="DISABLE_E_VALIDATORS" literal="disableEValidators"
 	 * @generated
@@ -4196,6 +4745,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_EMF_VALIDATION_CONSTRAINTS
 	 * @model literal="disableEMFValidationConstraints"
 	 * @generated
@@ -4210,6 +4762,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_META_INFORMATION
 	 * @model literal="overrideUIMetaInformation"
 	 * @generated
@@ -4224,6 +4779,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID.
+	 * <!-- end-model-doc -->
 	 * @see #RESOURCE_UI_PLUGIN_ID
 	 * @model literal="resourceUIPluginID"
 	 * @generated
@@ -4238,6 +4796,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_PLUGIN_ACTIVATOR
 	 * @model literal="overrideUIPluginActivator"
 	 * @generated
@@ -4252,6 +4813,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The package where to store all clasess of the resource UI plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #UI_BASE_PACKAGE
 	 * @model literal="uiBasePackage"
 	 * @generated
@@ -4266,6 +4830,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in.
+	 * <!-- end-model-doc -->
 	 * @see #ADDITIONAL_UI_DEPENDENCIES
 	 * @model literal="additionalUIDependencies"
 	 * @generated
@@ -4280,6 +4847,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in.
+	 * <!-- end-model-doc -->
 	 * @see #ADDITIONAL_UI_EXPORTS
 	 * @model literal="additionalUIExports"
 	 * @generated
@@ -4294,6 +4864,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_MANIFEST
 	 * @model literal="overrideUIManifest"
 	 * @generated
@@ -4308,6 +4881,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_BUILD_PROPERTIES
 	 * @model literal="overrideUIBuildProperties"
 	 * @generated
@@ -4322,6 +4898,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_DOT_CLASSPATH
 	 * @model literal="overrideUIDotClasspath"
 	 * @generated
@@ -4336,6 +4915,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_DOT_PROJECT
 	 * @model literal="overrideUIDotProject"
 	 * @generated
@@ -4350,6 +4932,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the folder EMFText shall store the overridable classes of the resource UI plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #UI_SOURCE_FOLDER
 	 * @model literal="uiSrcFolder"
 	 * @generated
@@ -4364,6 +4949,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the folder EMFText shall store the generated classes of the resource UI plug-in in.
+	 * <!-- end-model-doc -->
 	 * @see #UI_SOURCE_GEN_FOLDER
 	 * @model literal="uiSrcGenFolder"
 	 * @generated
@@ -4378,6 +4966,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #GENERATE_UI_PLUGIN
 	 * @model literal="generateUIPlugin"
 	 * @generated
@@ -4392,6 +4983,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to true, the IBracketHandler class will not be overriden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IBRACKET_HANDLER
 	 * @model name="OVERRIDE_I_BRACKET_HANDLER" literal="overrideIBracketHandler"
 	 * @generated
@@ -4406,6 +5000,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_PLUGIN_XML
 	 * @model literal="overrideUIPluginXML"
 	 * @generated
