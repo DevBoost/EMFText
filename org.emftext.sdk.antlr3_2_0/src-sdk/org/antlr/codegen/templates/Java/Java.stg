@@ -179,6 +179,7 @@ genericParser(grammar, name, scopes, tokens, tokenNames, rules, numRules,
               bitsets, inputStreamType, superClass,
               ASTLabelType="Object", labelType, members, rewriteElementType,
               filterMode) ::= <<
+@SuppressWarnings("unused")
 public class <grammar.recognizerName> extends <@superClassName><superClass><@end> {
 <if(grammar.grammarIsRoot)>
     public static final String[] tokenNames = new String[] {

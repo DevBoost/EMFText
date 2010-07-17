@@ -768,7 +768,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc("the index of the last token that was handled by collectHiddenTokens()");
-		sc.add("@SuppressWarnings(\"unused\")");
 		sc.add("private int lastPosition;");
 		sc.addLineBreak();
 		
