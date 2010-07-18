@@ -1144,13 +1144,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int REFERENCABLE_TOKEN_DEFINITION__NAME = NAMED_TOKEN_DEFINITION__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Regex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCABLE_TOKEN_DEFINITION__REGEX = NAMED_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = NAMED_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = NAMED_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Referencable Token Definition</em>' class.
@@ -1159,7 +1168,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCABLE_TOKEN_DEFINITION_FEATURE_COUNT = NAMED_TOKEN_DEFINITION_FEATURE_COUNT + 1;
+	int REFERENCABLE_TOKEN_DEFINITION_FEATURE_COUNT = NAMED_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PartialTokenDefinitionImpl <em>Partial Token Definition</em>}' class.

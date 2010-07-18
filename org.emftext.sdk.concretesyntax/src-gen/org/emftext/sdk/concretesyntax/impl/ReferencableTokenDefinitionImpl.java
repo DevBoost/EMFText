@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
+import org.emftext.sdk.concretesyntax.RegexOwner;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,6 +34,7 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ReferencableTokenDefinitionImpl#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ReferencableTokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
  * </ul>
  * </p>
@@ -40,6 +42,15 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
  * @generated
  */
 public abstract class ReferencableTokenDefinitionImpl extends NamedTokenDefinitionImpl implements ReferencableTokenDefinition {
+	/**
+	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REGEX_EDEFAULT = null;
 	/**
 	 * The cached value of the '{@link #getAttributeReferences() <em>Attribute References</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -67,6 +78,17 @@ public abstract class ReferencableTokenDefinitionImpl extends NamedTokenDefiniti
 	@Override
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.REFERENCABLE_TOKEN_DEFINITION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRegex() {
+		// TODO: implement this method to return the 'Regex' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -118,6 +140,8 @@ public abstract class ReferencableTokenDefinitionImpl extends NamedTokenDefiniti
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__REGEX:
+				return getRegex();
 			case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return getAttributeReferences();
 		}
@@ -164,10 +188,44 @@ public abstract class ReferencableTokenDefinitionImpl extends NamedTokenDefiniti
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__REGEX:
+				return REGEX_EDEFAULT == null ? getRegex() != null : !REGEX_EDEFAULT.equals(getRegex());
 			case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				return attributeReferences != null && !attributeReferences.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == RegexOwner.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__REGEX: return ConcretesyntaxPackage.REGEX_OWNER__REGEX;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == RegexOwner.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.REGEX_OWNER__REGEX: return ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__REGEX;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //ReferencableTokenDefinitionImpl
