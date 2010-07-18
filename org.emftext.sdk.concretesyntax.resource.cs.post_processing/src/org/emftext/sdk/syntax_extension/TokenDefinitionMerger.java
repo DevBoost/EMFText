@@ -20,6 +20,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
@@ -39,7 +40,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<TokenDirective> allImportedTokens = new ArrayList<TokenDirective>();
+		List<CompleteTokenDefinition> allImportedTokens = new ArrayList<CompleteTokenDefinition>();
 		List<String> mustOverrideTokenNames = new ArrayList<String>();
 		
 		// first we add the (merged) tokens from the imported syntax
@@ -53,12 +54,16 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     			for (CompleteTokenDefinition importedToken : importedTokens) {
     				CompleteTokenDefinition previousToken = findTokenWithSameName(allImportedTokens, importedToken);
     				if (previousToken == null) {
-    					// no token with the same name was found
-    					allImportedTokens.add(importedToken);
+    					// no token with the same name was found, let's look for a token
+    					// with the same regular expression
+        				CompleteTokenDefinition compatibleToken = findCompatibleToken(allImportedTokens, importedToken);
+	    				if (compatibleToken != null) {
+	    					redirect(importedToken, compatibleToken);
+	    				} else {
+	    					allImportedTokens.add(importedToken);
+	    				}
     				} else {
 	    				if (isCompatible(previousToken, importedToken)) {
-	    					//allImportedTokens.add(importedToken);
-	    					
 	    					// we must redirect all placeholders that use the
 	    					// duplicate token to use the previousToken
 	    					redirect(importedToken, previousToken);
@@ -82,16 +87,22 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     	
 		List<String> overriddenTokens = new ArrayList<String>();
     	// now handle token overriding
-    	for (TokenDirective importedToken : allImportedTokens) {
+    	for (CompleteTokenDefinition importedToken : allImportedTokens) {
 			CompleteTokenDefinition previousToken = findTokenWithSameName(mergeResult, importedToken);
 			if (previousToken == null) {
-				// no token with the same name was found
-				// search for a redefinition
-				TokenRedefinition redefinition = findRedefinition(mergeResult, importedToken);
-				if (redefinition != null) {
-					redirect(redefinition.getRedefinedToken(), redefinition);
+				// no token with the same name was found, let's look for a token
+				// with the same regular expression
+				CompleteTokenDefinition compatibleToken = findCompatibleToken(mergeResult, importedToken);
+				if (compatibleToken != null) {
+					redirect(importedToken, compatibleToken);
 				} else {
-					mergeResult.add(importedToken);
+					// search for a redefinition
+					TokenRedefinition redefinition = findRedefinition(mergeResult, importedToken);
+					if (redefinition != null) {
+						redirect(redefinition.getRedefinedToken(), redefinition);
+					} else {
+						mergeResult.add(importedToken);
+					}
 				}
 			} else {
 				// there is a token with this name which overrides the
@@ -138,6 +149,20 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		}
 	}
 
+	private CompleteTokenDefinition findCompatibleToken(
+			List<? extends TokenDirective> allTokens,
+			CompleteTokenDefinition token) {
+		for (TokenDirective tokenDirective : allTokens) {
+			if (tokenDirective instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition completeDefinition = (CompleteTokenDefinition) tokenDirective;
+				if (isCompatible(token, completeDefinition)) {
+					return completeDefinition;
+				}
+			}
+		}
+		return null;
+	}
+
 	private TokenRedefinition findRedefinition(List<TokenDirective> allTokens, TokenDirective redefinedToken) {
 		for (TokenDirective tokenDirective : allTokens) {
 			if (tokenDirective instanceof TokenRedefinition) {
@@ -182,16 +207,16 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	}
 
 	private CompleteTokenDefinition findTokenWithSameName(
-			List<TokenDirective> allTokens,
-			TokenDirective tokenToSearchFor) {
+			List<? extends TokenDirective> allTokens,
+			NamedTokenDefinition tokenToSearchFor) {
 		for (TokenDirective nextToken : allTokens) {
-			if (!(nextToken instanceof CompleteTokenDefinition)) {
-				continue;
-			}
-			CompleteTokenDefinition token = (CompleteTokenDefinition) tokenToSearchFor;
-			CompleteTokenDefinition nextDefinition = (CompleteTokenDefinition) nextToken;
-			if (token.getName().equals(nextDefinition.getName())) {
-				return nextDefinition;
+			if (nextToken instanceof CompleteTokenDefinition) {
+				//CompleteTokenDefinition token = (CompleteTokenDefinition) tokenToSearchFor;
+				//CompleteTokenDefinition nextDefinition = (CompleteTokenDefinition) nextToken;
+				CompleteTokenDefinition completeToken = (CompleteTokenDefinition) nextToken;
+				if (tokenToSearchFor.getName().equals(completeToken.getName())) {
+					return completeToken;
+				}
 			}
 		}
 		return null;
