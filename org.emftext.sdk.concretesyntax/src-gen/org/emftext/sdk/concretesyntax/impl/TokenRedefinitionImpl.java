@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
@@ -48,6 +49,7 @@ import org.emftext.sdk.concretesyntax.TokenRedefinition;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getRegexParts <em>Regex Parts</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getRedefinedToken <em>Redefined Token</em>}</li>
  * </ul>
  * </p>
@@ -104,6 +106,26 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @ordered
 	 */
 	protected EList<Placeholder> attributeReferences;
+
+	/**
+	 * The default value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributeName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ATTRIBUTE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributeName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String attributeName = ATTRIBUTE_NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRedefinedToken() <em>Redefined Token</em>}' reference.
@@ -198,6 +220,27 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAttributeName(String newAttributeName) {
+		String oldAttributeName = attributeName;
+		attributeName = newAttributeName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CompleteTokenDefinition getRedefinedToken() {
 		if (redefinedToken != null && redefinedToken.eIsProxy()) {
 			InternalEObject oldRedefinedToken = (InternalEObject)redefinedToken;
@@ -229,6 +272,54 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 		redefinedToken = newRedefinedToken;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN, oldRedefinedToken, redefinedToken));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isHidden() {
+		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
+		boolean isCollectInToken = getAttributeName ( ) != null ; 
+		return ! isReferenced || isCollectInToken ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isUsed() {
+		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
+		boolean isCollectInToken = getAttributeName ( ) != null ; 
+		return isReferenced || isCollectInToken ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isImported(ConcreteSyntax syntax) {
+		return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; 
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
+		org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; 
+		if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { 
+			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; 
+		} 
+		return syntax ; 
+		
 	}
 
 	/**
@@ -278,6 +369,8 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				return getName();
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
 				return getAttributeReferences();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME:
+				return getAttributeName();
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				if (resolve) return getRedefinedToken();
 				return basicGetRedefinedToken();
@@ -305,6 +398,9 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				getAttributeReferences().clear();
 				getAttributeReferences().addAll((Collection<? extends Placeholder>)newValue);
 				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME:
+				setAttributeName((String)newValue);
+				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				setRedefinedToken((CompleteTokenDefinition)newValue);
 				return;
@@ -329,6 +425,9 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
 				getAttributeReferences().clear();
 				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME:
+				setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
+				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				setRedefinedToken((CompleteTokenDefinition)null);
 				return;
@@ -352,6 +451,8 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
 				return attributeReferences != null && !attributeReferences.isEmpty();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME:
+				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				return redefinedToken != null;
 		}
@@ -377,6 +478,11 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				default: return -1;
 			}
 		}
+		if (baseClass == TokenDirective.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
 		if (baseClass == AbstractTokenDefinition.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
@@ -394,8 +500,9 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				default: return -1;
 			}
 		}
-		if (baseClass == TokenDirective.class) {
+		if (baseClass == CompleteTokenDefinition.class) {
 			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME: return ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 				default: return -1;
 			}
 		}
@@ -421,6 +528,11 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				default: return -1;
 			}
 		}
+		if (baseClass == TokenDirective.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
 		if (baseClass == AbstractTokenDefinition.class) {
 			switch (baseFeatureID) {
 				default: return -1;
@@ -438,8 +550,9 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				default: return -1;
 			}
 		}
-		if (baseClass == TokenDirective.class) {
+		if (baseClass == CompleteTokenDefinition.class) {
 			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME: return ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME;
 				default: return -1;
 			}
 		}
@@ -458,6 +571,8 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", attributeName: ");
+		result.append(attributeName);
 		result.append(')');
 		return result.toString();
 	}

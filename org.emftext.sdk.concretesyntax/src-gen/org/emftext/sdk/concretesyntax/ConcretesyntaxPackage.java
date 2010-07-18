@@ -1400,13 +1400,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES = ANNOTABLE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_REDEFINITION__ATTRIBUTE_NAME = ANNOTABLE_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>Redefined Token</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION__REDEFINED_TOKEN = ANNOTABLE_FEATURE_COUNT + 4;
+	int TOKEN_REDEFINITION__REDEFINED_TOKEN = ANNOTABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Token Redefinition</em>' class.
@@ -1415,7 +1424,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION_FEATURE_COUNT = ANNOTABLE_FEATURE_COUNT + 5;
+	int TOKEN_REDEFINITION_FEATURE_COUNT = ANNOTABLE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl <em>Quoted Token Definition</em>}' class.

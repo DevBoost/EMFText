@@ -72,6 +72,7 @@ public class TokenRedefinitionItemProvider
 			addRegexPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addAttributeReferencesPropertyDescriptor(object);
+			addAttributeNamePropertyDescriptor(object);
 			addRedefinedTokenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -139,6 +140,28 @@ public class TokenRedefinitionItemProvider
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Attribute Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAttributeNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CompleteTokenDefinition_attributeName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CompleteTokenDefinition_attributeName_feature", "_UI_CompleteTokenDefinition_type"),
+				 ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -234,6 +257,7 @@ public class TokenRedefinitionItemProvider
 		switch (notification.getFeatureID(TokenRedefinition.class)) {
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX:
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:

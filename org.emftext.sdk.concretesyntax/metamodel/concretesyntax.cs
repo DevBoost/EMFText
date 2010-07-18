@@ -99,7 +99,7 @@ RULES {
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= tab[TABNUMBER] #1;
 	
-	TokenRedefinition      ::= (annotations !0)* "REDEFINE" #1 redefinedToken[] #1 regexParts (#1 "+" #1 regexParts)*;
+	TokenRedefinition      ::= (annotations !0)* "REDEFINE" #1 redefinedToken[] "AS" name[] #1 regexParts (#1 "+" #1 regexParts)*;
 	NormalTokenDefinition  ::= (annotations !0)* "DEFINE" #1 name[] #1 regexParts (#1 "+" #1 regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
 	PartialTokenDefinition ::= "DEFINE" #1 "FRAGMENT" #1 name[] #1 regexParts (#1 "+" #1 regexParts)*;
 	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];

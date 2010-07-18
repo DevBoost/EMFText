@@ -456,6 +456,11 @@ public class ConcreteSyntaxItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS,
+				 ConcretesyntaxFactory.eINSTANCE.createTokenRedefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS,
 				 ConcretesyntaxFactory.eINSTANCE.createQuotedTokenDefinition()));
 
 		newChildDescriptors.add
