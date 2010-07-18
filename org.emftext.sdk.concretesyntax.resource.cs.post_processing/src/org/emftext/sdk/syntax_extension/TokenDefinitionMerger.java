@@ -22,6 +22,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
@@ -149,7 +150,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		return null;
 	}
 
-	private void redirect(CompleteTokenDefinition oldToken, CompleteTokenDefinition newToken) {
+	private void redirect(ReferencableTokenDefinition oldToken, ReferencableTokenDefinition newToken) {
 		List<Placeholder> references = oldToken.getAttributeReferences();
 		List<Placeholder> referencesToRedirect = new ArrayList<Placeholder>();
 		referencesToRedirect.addAll(references);
