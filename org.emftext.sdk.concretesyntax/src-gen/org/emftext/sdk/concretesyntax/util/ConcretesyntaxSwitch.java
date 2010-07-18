@@ -375,11 +375,13 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION: {
 				TokenRedefinition tokenRedefinition = (TokenRedefinition)theEObject;
 				T result = caseTokenRedefinition(tokenRedefinition);
-				if (result == null) result = caseTokenDirective(tokenRedefinition);
-				if (result == null) result = caseRegexComposite(tokenRedefinition);
+				if (result == null) result = caseCompleteTokenDefinition(tokenRedefinition);
 				if (result == null) result = caseAnnotable(tokenRedefinition);
-				if (result == null) result = caseAbstractTokenDefinition(tokenRedefinition);
+				if (result == null) result = caseRegexComposite(tokenRedefinition);
+				if (result == null) result = caseNamedTokenDefinition(tokenRedefinition);
+				if (result == null) result = caseTokenDirective(tokenRedefinition);
 				if (result == null) result = caseRegexOwner(tokenRedefinition);
+				if (result == null) result = caseAbstractTokenDefinition(tokenRedefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

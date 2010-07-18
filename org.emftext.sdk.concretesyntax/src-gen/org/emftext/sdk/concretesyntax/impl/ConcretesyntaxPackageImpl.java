@@ -1784,10 +1784,9 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getAnnotable());
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getRegexComposite());
-		tokenRedefinitionEClass.getESuperTypes().add(this.getTokenDirective());
-		tokenRedefinitionEClass.getESuperTypes().add(this.getRegexComposite());
+		tokenRedefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		tokenRedefinitionEClass.getESuperTypes().add(this.getAnnotable());
-		tokenRedefinitionEClass.getESuperTypes().add(this.getAbstractTokenDefinition());
+		tokenRedefinitionEClass.getESuperTypes().add(this.getRegexComposite());
 		quotedTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		tokenPriorityDirectiveEClass.getESuperTypes().add(this.getTokenDirective());
 		containmentEClass.getESuperTypes().add(this.getTerminal());

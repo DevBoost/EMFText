@@ -1309,22 +1309,40 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int TOKEN_REDEFINITION = 30;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_REDEFINITION__NAME = COMPLETE_TOKEN_DEFINITION__NAME;
+
+	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION__REGEX = TOKEN_DIRECTIVE_FEATURE_COUNT + 0;
+	int TOKEN_REDEFINITION__REGEX = COMPLETE_TOKEN_DEFINITION__REGEX;
 
 	/**
-	 * The feature id for the '<em><b>Regex Parts</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION__REGEX_PARTS = TOKEN_DIRECTIVE_FEATURE_COUNT + 1;
+	int TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
+
+	/**
+	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_REDEFINITION__ATTRIBUTE_NAME = COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1333,7 +1351,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION__ANNOTATIONS = TOKEN_DIRECTIVE_FEATURE_COUNT + 2;
+	int TOKEN_REDEFINITION__ANNOTATIONS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Regex Parts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_REDEFINITION__REGEX_PARTS = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Token</b></em>' reference.
@@ -1342,7 +1369,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION__REDEFINED_TOKEN = TOKEN_DIRECTIVE_FEATURE_COUNT + 3;
+	int TOKEN_REDEFINITION__REDEFINED_TOKEN = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Token Redefinition</em>' class.
@@ -1351,7 +1378,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_REDEFINITION_FEATURE_COUNT = TOKEN_DIRECTIVE_FEATURE_COUNT + 4;
+	int TOKEN_REDEFINITION_FEATURE_COUNT = COMPLETE_TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenDefinitionImpl <em>Quoted Token Definition</em>}' class.

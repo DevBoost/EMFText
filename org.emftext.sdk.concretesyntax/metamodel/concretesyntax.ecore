@@ -361,7 +361,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TokenRedefinition" eSuperTypes="#//TokenDirective #//RegexComposite #//Annotable #//AbstractTokenDefinition">
+  <eClassifiers xsi:type="ecore:EClass" name="TokenRedefinition" eSuperTypes="#//CompleteTokenDefinition #//Annotable #//RegexComposite">
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
