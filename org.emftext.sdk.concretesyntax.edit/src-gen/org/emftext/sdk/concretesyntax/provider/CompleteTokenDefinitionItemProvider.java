@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  * @generated
  */
 public class CompleteTokenDefinitionItemProvider
-	extends NamedTokenDefinitionItemProvider
+	extends TokenDirectiveItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -60,6 +60,7 @@ public class CompleteTokenDefinitionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addRegexPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 			addAttributeReferencesPropertyDescriptor(object);
 			addAttributeNamePropertyDescriptor(object);
 		}
@@ -89,6 +90,28 @@ public class CompleteTokenDefinitionItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NamedTokenDefinition_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NamedTokenDefinition_name_feature", "_UI_NamedTokenDefinition_type"),
+				 ConcretesyntaxPackage.Literals.NAMED_TOKEN_DEFINITION__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Attribute References feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -99,9 +122,9 @@ public class CompleteTokenDefinitionItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CompleteTokenDefinition_attributeReferences_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CompleteTokenDefinition_attributeReferences_feature", "_UI_CompleteTokenDefinition_type"),
-				 ConcretesyntaxPackage.Literals.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES,
+				 getString("_UI_ReferencableTokenDefinition_attributeReferences_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReferencableTokenDefinition_attributeReferences_feature", "_UI_ReferencableTokenDefinition_type"),
+				 ConcretesyntaxPackage.Literals.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES,
 				 true,
 				 false,
 				 true,
@@ -159,6 +182,7 @@ public class CompleteTokenDefinitionItemProvider
 
 		switch (notification.getFeatureID(CompleteTokenDefinition.class)) {
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__REGEX:
+			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__NAME:
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

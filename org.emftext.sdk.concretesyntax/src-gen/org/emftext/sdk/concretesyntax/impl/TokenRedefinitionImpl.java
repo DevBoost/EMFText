@@ -23,12 +23,16 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.emftext.sdk.concretesyntax.Annotable;
-import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
+import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
+import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
 
@@ -39,24 +43,26 @@ import org.emftext.sdk.concretesyntax.TokenRedefinition;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getRegex <em>Regex</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getRegexParts <em>Regex Parts</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenRedefinitionImpl#getRedefinedToken <em>Redefined Token</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implements TokenRedefinition {
+public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefinition {
 	/**
-	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAnnotations()
+	 * @see #getRegex()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Annotation> annotations;
+	protected static final String REGEX_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getRegexParts() <em>Regex Parts</em>}' containment reference list.
@@ -67,6 +73,36 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 * @ordered
 	 */
 	protected EList<RegexPart> regexParts;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAttributeReferences() <em>Attribute References</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributeReferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Placeholder> attributeReferences;
 
 	/**
 	 * The cached value of the '{@link #getRedefinedToken() <em>Redefined Token</em>}' reference.
@@ -103,8 +139,11 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 * @generated
 	 */
 	public String getRegex() {
-		org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); 
-		return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; 
+		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
+		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
+			result .append ( part .getRegex ( ) ) ; 
+		} 
+		return result .toString ( ) ; 
 		
 	}
 
@@ -125,11 +164,32 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Annotation> getAnnotations() {
-		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS);
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Placeholder> getAttributeReferences() {
+		if (attributeReferences == null) {
+			attributeReferences = new EObjectWithInverseResolvingEList<Placeholder>(Placeholder.class, this, ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
 		}
-		return annotations;
+		return attributeReferences;
 	}
 
 	/**
@@ -175,13 +235,28 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferences()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
-				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
 				return ((InternalEList<?>)getRegexParts()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				return ((InternalEList<?>)getAttributeReferences()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -194,10 +269,14 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
-				return getAnnotations();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX:
+				return getRegex();
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
 				return getRegexParts();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
+				return getName();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				return getAttributeReferences();
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				if (resolve) return getRedefinedToken();
 				return basicGetRedefinedToken();
@@ -214,13 +293,16 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
-				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
-				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
 				getRegexParts().clear();
 				getRegexParts().addAll((Collection<? extends RegexPart>)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
+				setName((String)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				getAttributeReferences().clear();
+				getAttributeReferences().addAll((Collection<? extends Placeholder>)newValue);
 				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				setRedefinedToken((CompleteTokenDefinition)newValue);
@@ -237,11 +319,14 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
-				getAnnotations().clear();
-				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
 				getRegexParts().clear();
+				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				getAttributeReferences().clear();
 				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				setRedefinedToken((CompleteTokenDefinition)null);
@@ -258,10 +343,14 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
-				return annotations != null && !annotations.isEmpty();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX:
+				return REGEX_EDEFAULT == null ? getRegex() != null : !REGEX_EDEFAULT.equals(getRegex());
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
 				return regexParts != null && !regexParts.isEmpty();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES:
+				return attributeReferences != null && !attributeReferences.isEmpty();
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN:
 				return redefinedToken != null;
 		}
@@ -275,15 +364,32 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == Annotable.class) {
+		if (baseClass == RegexOwner.class) {
 			switch (derivedFeatureID) {
-				case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
+				case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX: return ConcretesyntaxPackage.REGEX_OWNER__REGEX;
 				default: return -1;
 			}
 		}
 		if (baseClass == RegexComposite.class) {
 			switch (derivedFeatureID) {
 				case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS: return ConcretesyntaxPackage.REGEX_COMPOSITE__REGEX_PARTS;
+				default: return -1;
+			}
+		}
+		if (baseClass == AbstractTokenDefinition.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == NamedTokenDefinition.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME: return ConcretesyntaxPackage.NAMED_TOKEN_DEFINITION__NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == ReferencableTokenDefinition.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES: return ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
 				default: return -1;
 			}
 		}
@@ -297,9 +403,9 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == Annotable.class) {
+		if (baseClass == RegexOwner.class) {
 			switch (baseFeatureID) {
-				case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS: return ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS;
+				case ConcretesyntaxPackage.REGEX_OWNER__REGEX: return ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX;
 				default: return -1;
 			}
 		}
@@ -309,7 +415,40 @@ public class TokenRedefinitionImpl extends CompleteTokenDefinitionImpl implement
 				default: return -1;
 			}
 		}
+		if (baseClass == AbstractTokenDefinition.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == NamedTokenDefinition.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.NAMED_TOKEN_DEFINITION__NAME: return ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == ReferencableTokenDefinition.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES: return ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES;
+				default: return -1;
+			}
+		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TokenRedefinitionImpl

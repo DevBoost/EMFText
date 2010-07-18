@@ -63,6 +63,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposer;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
@@ -273,6 +274,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass namedTokenDefinitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referencableTokenDefinitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1076,6 +1084,24 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getReferencableTokenDefinition() {
+		return referencableTokenDefinitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReferencableTokenDefinition_AttributeReferences() {
+		return (EReference)referencableTokenDefinitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPartialTokenDefinition() {
 		return partialTokenDefinitionEClass;
 	}
@@ -1094,17 +1120,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCompleteTokenDefinition_AttributeReferences() {
-		return (EReference)completeTokenDefinitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getCompleteTokenDefinition_AttributeName() {
-		return (EAttribute)completeTokenDefinitionEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)completeTokenDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1624,8 +1641,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		compoundDefinitionEClass = createEClass(COMPOUND_DEFINITION);
 
-		tokenDirectiveEClass = createEClass(TOKEN_DIRECTIVE);
-
 		regexComposerEClass = createEClass(REGEX_COMPOSER);
 
 		regexOwnerEClass = createEClass(REGEX_OWNER);
@@ -1642,15 +1657,19 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		regexReferenceEClass = createEClass(REGEX_REFERENCE);
 		createEReference(regexReferenceEClass, REGEX_REFERENCE__TARGET);
 
+		tokenDirectiveEClass = createEClass(TOKEN_DIRECTIVE);
+
 		abstractTokenDefinitionEClass = createEClass(ABSTRACT_TOKEN_DEFINITION);
 
 		namedTokenDefinitionEClass = createEClass(NAMED_TOKEN_DEFINITION);
 		createEAttribute(namedTokenDefinitionEClass, NAMED_TOKEN_DEFINITION__NAME);
 
+		referencableTokenDefinitionEClass = createEClass(REFERENCABLE_TOKEN_DEFINITION);
+		createEReference(referencableTokenDefinitionEClass, REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES);
+
 		partialTokenDefinitionEClass = createEClass(PARTIAL_TOKEN_DEFINITION);
 
 		completeTokenDefinitionEClass = createEClass(COMPLETE_TOKEN_DEFINITION);
-		createEReference(completeTokenDefinitionEClass, COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES);
 		createEAttribute(completeTokenDefinitionEClass, COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_NAME);
 
 		normalTokenDefinitionEClass = createEClass(NORMAL_TOKEN_DEFINITION);
@@ -1775,18 +1794,19 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		atomicRegexEClass.getESuperTypes().add(this.getRegexPart());
 		regexReferenceEClass.getESuperTypes().add(this.getRegexPart());
 		namedTokenDefinitionEClass.getESuperTypes().add(this.getAbstractTokenDefinition());
+		referencableTokenDefinitionEClass.getESuperTypes().add(this.getNamedTokenDefinition());
 		partialTokenDefinitionEClass.getESuperTypes().add(this.getNamedTokenDefinition());
 		partialTokenDefinitionEClass.getESuperTypes().add(this.getTokenDirective());
 		partialTokenDefinitionEClass.getESuperTypes().add(this.getRegexComposite());
-		completeTokenDefinitionEClass.getESuperTypes().add(this.getNamedTokenDefinition());
 		completeTokenDefinitionEClass.getESuperTypes().add(this.getTokenDirective());
 		completeTokenDefinitionEClass.getESuperTypes().add(this.getRegexOwner());
+		completeTokenDefinitionEClass.getESuperTypes().add(this.getReferencableTokenDefinition());
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getAnnotable());
 		normalTokenDefinitionEClass.getESuperTypes().add(this.getRegexComposite());
-		tokenRedefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		tokenRedefinitionEClass.getESuperTypes().add(this.getAnnotable());
 		tokenRedefinitionEClass.getESuperTypes().add(this.getRegexComposite());
+		tokenRedefinitionEClass.getESuperTypes().add(this.getReferencableTokenDefinition());
 		quotedTokenDefinitionEClass.getESuperTypes().add(this.getCompleteTokenDefinition());
 		tokenPriorityDirectiveEClass.getESuperTypes().add(this.getTokenDirective());
 		containmentEClass.getESuperTypes().add(this.getTerminal());
@@ -1925,8 +1945,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(compoundDefinitionEClass, this.getChoice(), "getDefinition", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		initEClass(tokenDirectiveEClass, TokenDirective.class, "TokenDirective", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(regexComposerEClass, RegexComposer.class, "RegexComposer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(regexComposerEClass, theEcorePackage.getEString(), "getComposedRegex", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1953,17 +1971,21 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(regexReferenceEClass, theEcorePackage.getEString(), "getRegex", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		initEClass(tokenDirectiveEClass, TokenDirective.class, "TokenDirective", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(abstractTokenDefinitionEClass, AbstractTokenDefinition.class, "AbstractTokenDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(namedTokenDefinitionEClass, NamedTokenDefinition.class, "NamedTokenDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNamedTokenDefinition_Name(), theEcorePackage.getEString(), "name", null, 1, 1, NamedTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referencableTokenDefinitionEClass, ReferencableTokenDefinition.class, "ReferencableTokenDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getReferencableTokenDefinition_AttributeReferences(), this.getPlaceholder(), this.getPlaceholder_Token(), "attributeReferences", null, 0, -1, ReferencableTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(partialTokenDefinitionEClass, PartialTokenDefinition.class, "PartialTokenDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(partialTokenDefinitionEClass, theEcorePackage.getEString(), "getRegex", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(completeTokenDefinitionEClass, CompleteTokenDefinition.class, "CompleteTokenDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompleteTokenDefinition_AttributeReferences(), this.getPlaceholder(), this.getPlaceholder_Token(), "attributeReferences", null, 0, -1, CompleteTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompleteTokenDefinition_AttributeName(), theEcorePackage.getEString(), "attributeName", null, 0, 1, CompleteTokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(completeTokenDefinitionEClass, theEcorePackage.getEBoolean(), "isHidden", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -2002,7 +2024,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(containmentEClass, theGenModelPackage.getGenClass(), "getAllowedSubTypes", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(placeholderEClass, Placeholder.class, "Placeholder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPlaceholder_Token(), this.getCompleteTokenDefinition(), this.getCompleteTokenDefinition_AttributeReferences(), "token", null, 1, 1, Placeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPlaceholder_Token(), this.getReferencableTokenDefinition(), this.getReferencableTokenDefinition_AttributeReferences(), "token", null, 1, 1, Placeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(placeholderUsingSpecifiedTokenEClass, PlaceholderUsingSpecifiedToken.class, "PlaceholderUsingSpecifiedToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

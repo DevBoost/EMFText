@@ -21,9 +21,9 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +47,7 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	 * @generated
 	 * @ordered
 	 */
-	protected CompleteTokenDefinition token;
+	protected ReferencableTokenDefinition token;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,10 +73,10 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CompleteTokenDefinition getToken() {
+	public ReferencableTokenDefinition getToken() {
 		if (token != null && token.eIsProxy()) {
 			InternalEObject oldToken = (InternalEObject)token;
-			token = (CompleteTokenDefinition)eResolveProxy(oldToken);
+			token = (ReferencableTokenDefinition)eResolveProxy(oldToken);
 			if (token != oldToken) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.PLACEHOLDER__TOKEN, oldToken, token));
@@ -90,7 +90,7 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CompleteTokenDefinition basicGetToken() {
+	public ReferencableTokenDefinition basicGetToken() {
 		return token;
 	}
 
@@ -99,8 +99,8 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetToken(CompleteTokenDefinition newToken, NotificationChain msgs) {
-		CompleteTokenDefinition oldToken = token;
+	public NotificationChain basicSetToken(ReferencableTokenDefinition newToken, NotificationChain msgs) {
+		ReferencableTokenDefinition oldToken = token;
 		token = newToken;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.PLACEHOLDER__TOKEN, oldToken, newToken);
@@ -114,13 +114,13 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setToken(CompleteTokenDefinition newToken) {
+	public void setToken(ReferencableTokenDefinition newToken) {
 		if (newToken != token) {
 			NotificationChain msgs = null;
 			if (token != null)
-				msgs = ((InternalEObject)token).eInverseRemove(this, ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, CompleteTokenDefinition.class, msgs);
+				msgs = ((InternalEObject)token).eInverseRemove(this, ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ReferencableTokenDefinition.class, msgs);
 			if (newToken != null)
-				msgs = ((InternalEObject)newToken).eInverseAdd(this, ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, CompleteTokenDefinition.class, msgs);
+				msgs = ((InternalEObject)newToken).eInverseAdd(this, ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ReferencableTokenDefinition.class, msgs);
 			msgs = basicSetToken(newToken, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -138,8 +138,8 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 		switch (featureID) {
 			case ConcretesyntaxPackage.PLACEHOLDER__TOKEN:
 				if (token != null)
-					msgs = ((InternalEObject)token).eInverseRemove(this, ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, CompleteTokenDefinition.class, msgs);
-				return basicSetToken((CompleteTokenDefinition)otherEnd, msgs);
+					msgs = ((InternalEObject)token).eInverseRemove(this, ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ReferencableTokenDefinition.class, msgs);
+				return basicSetToken((ReferencableTokenDefinition)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -182,7 +182,7 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.PLACEHOLDER__TOKEN:
-				setToken((CompleteTokenDefinition)newValue);
+				setToken((ReferencableTokenDefinition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -197,7 +197,7 @@ public abstract class PlaceholderImpl extends TerminalImpl implements Placeholde
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.PLACEHOLDER__TOKEN:
-				setToken((CompleteTokenDefinition)null);
+				setToken((ReferencableTokenDefinition)null);
 				return;
 		}
 		super.eUnset(featureID);

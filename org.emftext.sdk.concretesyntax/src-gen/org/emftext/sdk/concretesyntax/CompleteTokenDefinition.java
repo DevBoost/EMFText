@@ -16,7 +16,6 @@
  */
 package org.emftext.sdk.concretesyntax;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +25,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition#getAttributeName <em>Attribute Name</em>}</li>
  * </ul>
  * </p>
@@ -35,25 +33,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface CompleteTokenDefinition extends NamedTokenDefinition, TokenDirective, RegexOwner {
-	/**
-	 * Returns the value of the '<em><b>Attribute References</b></em>' reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Placeholder}.
-	 * It is bidirectional and its opposite is '{@link org.emftext.sdk.concretesyntax.Placeholder#getToken <em>Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Attribute References</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attribute References</em>' reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompleteTokenDefinition_AttributeReferences()
-	 * @see org.emftext.sdk.concretesyntax.Placeholder#getToken
-	 * @model opposite="token"
-	 * @generated
-	 */
-	EList<Placeholder> getAttributeReferences();
-
+public interface CompleteTokenDefinition extends TokenDirective, RegexOwner, ReferencableTokenDefinition {
 	/**
 	 * Returns the value of the '<em><b>Attribute Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

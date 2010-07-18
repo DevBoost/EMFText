@@ -41,7 +41,7 @@ import org.emftext.sdk.concretesyntax.TokenRedefinition;
  * @generated
  */
 public class TokenRedefinitionItemProvider
-	extends TokenDirectiveItemProvider
+	extends AnnotableItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -70,6 +70,8 @@ public class TokenRedefinitionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addRegexPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addAttributeReferencesPropertyDescriptor(object);
 			addRedefinedTokenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -93,6 +95,50 @@ public class TokenRedefinitionItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NamedTokenDefinition_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NamedTokenDefinition_name_feature", "_UI_NamedTokenDefinition_type"),
+				 ConcretesyntaxPackage.Literals.NAMED_TOKEN_DEFINITION__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Attribute References feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAttributeReferencesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ReferencableTokenDefinition_attributeReferences_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ReferencableTokenDefinition_attributeReferences_feature", "_UI_ReferencableTokenDefinition_type"),
+				 ConcretesyntaxPackage.Literals.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -132,7 +178,6 @@ public class TokenRedefinitionItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.REGEX_COMPOSITE__REGEX_PARTS);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS);
 		}
 		return childrenFeatures;
 	}
@@ -169,7 +214,7 @@ public class TokenRedefinitionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TokenRedefinition)object).getRegex();
+		String label = ((TokenRedefinition)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_TokenRedefinition_type") :
 			getString("_UI_TokenRedefinition_type") + " " + label;
@@ -188,10 +233,10 @@ public class TokenRedefinitionItemProvider
 
 		switch (notification.getFeatureID(TokenRedefinition.class)) {
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX:
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS:
-			case ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -218,11 +263,6 @@ public class TokenRedefinitionItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.REGEX_COMPOSITE__REGEX_PARTS,
 				 ConcretesyntaxFactory.eINSTANCE.createRegexReference()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS,
-				 ConcretesyntaxFactory.eINSTANCE.createAnnotation()));
 	}
 
 }

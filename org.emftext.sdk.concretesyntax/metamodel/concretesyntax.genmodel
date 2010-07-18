@@ -338,7 +338,6 @@
     <genClasses ecoreClass="concretesyntax.ecore#//CompoundDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//CompoundDefinition/getDefinition"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="concretesyntax.ecore#//TokenDirective"/>
     <genClasses ecoreClass="concretesyntax.ecore#//RegexComposer">
       <genOperations ecoreOperation="concretesyntax.ecore#//RegexComposer/getComposedRegex">
         <genParameters ecoreParameter="concretesyntax.ecore#//RegexComposer/getComposedRegex/token"/>
@@ -361,15 +360,18 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//RegexReference/target"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//RegexReference/getRegex"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//TokenDirective"/>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//AbstractTokenDefinition"/>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//NamedTokenDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//NamedTokenDefinition/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//ReferencableTokenDefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ReferencableTokenDefinition/attributeReferences"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//PartialTokenDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//PartialTokenDefinition/getRegex"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//CompleteTokenDefinition">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CompleteTokenDefinition/attributeReferences"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CompleteTokenDefinition/attributeName"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isHidden"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CompleteTokenDefinition/isUsed"/>

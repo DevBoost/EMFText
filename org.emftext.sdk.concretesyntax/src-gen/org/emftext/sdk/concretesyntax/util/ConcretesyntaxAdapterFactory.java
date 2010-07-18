@@ -55,6 +55,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposer;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
@@ -200,10 +201,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createCompoundDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseTokenDirective(TokenDirective object) {
-				return createTokenDirectiveAdapter();
-			}
-			@Override
 			public Adapter caseRegexComposer(RegexComposer object) {
 				return createRegexComposerAdapter();
 			}
@@ -228,12 +225,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createRegexReferenceAdapter();
 			}
 			@Override
+			public Adapter caseTokenDirective(TokenDirective object) {
+				return createTokenDirectiveAdapter();
+			}
+			@Override
 			public Adapter caseAbstractTokenDefinition(AbstractTokenDefinition object) {
 				return createAbstractTokenDefinitionAdapter();
 			}
 			@Override
 			public Adapter caseNamedTokenDefinition(NamedTokenDefinition object) {
 				return createNamedTokenDefinitionAdapter();
+			}
+			@Override
+			public Adapter caseReferencableTokenDefinition(ReferencableTokenDefinition object) {
+				return createReferencableTokenDefinitionAdapter();
 			}
 			@Override
 			public Adapter casePartialTokenDefinition(PartialTokenDefinition object) {
@@ -710,6 +715,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNamedTokenDefinitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.ReferencableTokenDefinition <em>Referencable Token Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.ReferencableTokenDefinition
+	 * @generated
+	 */
+	public Adapter createReferencableTokenDefinitionAdapter() {
 		return null;
 	}
 

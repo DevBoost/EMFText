@@ -11,6 +11,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -63,7 +64,7 @@ public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<PlaceholderInQuotes> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholders) {
-				CompleteTokenDefinition token = placeholder.getToken();
+				ReferencableTokenDefinition token = placeholder.getToken();
 				if (token == null) {
 					continue;
 				}

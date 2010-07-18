@@ -172,6 +172,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) {
+			result = interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition((org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.NamedTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition((org.emftext.sdk.concretesyntax.NamedTokenDefinition) object, context);
 		}
@@ -180,6 +186,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		}
 		if (object instanceof org.emftext.sdk.concretesyntax.AbstractTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_AbstractTokenDefinition((org.emftext.sdk.concretesyntax.AbstractTokenDefinition) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof org.emftext.sdk.concretesyntax.TokenDirective) {
+			result = interprete_org_emftext_sdk_concretesyntax_TokenDirective((org.emftext.sdk.concretesyntax.TokenDirective) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -216,12 +228,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		}
 		if (object instanceof org.emftext.sdk.concretesyntax.RegexComposer) {
 			result = interprete_org_emftext_sdk_concretesyntax_RegexComposer((org.emftext.sdk.concretesyntax.RegexComposer) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof org.emftext.sdk.concretesyntax.TokenDirective) {
-			result = interprete_org_emftext_sdk_concretesyntax_TokenDirective((org.emftext.sdk.concretesyntax.TokenDirective) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -409,10 +415,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenDirective(org.emftext.sdk.concretesyntax.TokenDirective object, ContextType context) {
-		return null;
-	}
-	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposer(org.emftext.sdk.concretesyntax.RegexComposer object, ContextType context) {
 		return null;
 	}
@@ -437,11 +439,19 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenDirective(org.emftext.sdk.concretesyntax.TokenDirective object, ContextType context) {
+		return null;
+	}
+	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_AbstractTokenDefinition(org.emftext.sdk.concretesyntax.AbstractTokenDefinition object, ContextType context) {
 		return null;
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition(org.emftext.sdk.concretesyntax.NamedTokenDefinition object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition(org.emftext.sdk.concretesyntax.ReferencableTokenDefinition object, ContextType context) {
 		return null;
 	}
 	

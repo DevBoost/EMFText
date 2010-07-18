@@ -54,6 +54,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposer;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
@@ -277,12 +278,6 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ConcretesyntaxPackage.TOKEN_DIRECTIVE: {
-				TokenDirective tokenDirective = (TokenDirective)theEObject;
-				T result = caseTokenDirective(tokenDirective);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ConcretesyntaxPackage.REGEX_COMPOSER: {
 				RegexComposer regexComposer = (RegexComposer)theEObject;
 				T result = caseRegexComposer(regexComposer);
@@ -325,6 +320,12 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.TOKEN_DIRECTIVE: {
+				TokenDirective tokenDirective = (TokenDirective)theEObject;
+				T result = caseTokenDirective(tokenDirective);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.ABSTRACT_TOKEN_DEFINITION: {
 				AbstractTokenDefinition abstractTokenDefinition = (AbstractTokenDefinition)theEObject;
 				T result = caseAbstractTokenDefinition(abstractTokenDefinition);
@@ -335,6 +336,14 @@ public class ConcretesyntaxSwitch<T> {
 				NamedTokenDefinition namedTokenDefinition = (NamedTokenDefinition)theEObject;
 				T result = caseNamedTokenDefinition(namedTokenDefinition);
 				if (result == null) result = caseAbstractTokenDefinition(namedTokenDefinition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION: {
+				ReferencableTokenDefinition referencableTokenDefinition = (ReferencableTokenDefinition)theEObject;
+				T result = caseReferencableTokenDefinition(referencableTokenDefinition);
+				if (result == null) result = caseNamedTokenDefinition(referencableTokenDefinition);
+				if (result == null) result = caseAbstractTokenDefinition(referencableTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -352,9 +361,10 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.COMPLETE_TOKEN_DEFINITION: {
 				CompleteTokenDefinition completeTokenDefinition = (CompleteTokenDefinition)theEObject;
 				T result = caseCompleteTokenDefinition(completeTokenDefinition);
-				if (result == null) result = caseNamedTokenDefinition(completeTokenDefinition);
 				if (result == null) result = caseTokenDirective(completeTokenDefinition);
 				if (result == null) result = caseRegexOwner(completeTokenDefinition);
+				if (result == null) result = caseReferencableTokenDefinition(completeTokenDefinition);
+				if (result == null) result = caseNamedTokenDefinition(completeTokenDefinition);
 				if (result == null) result = caseAbstractTokenDefinition(completeTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -365,9 +375,10 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseCompleteTokenDefinition(normalTokenDefinition);
 				if (result == null) result = caseAnnotable(normalTokenDefinition);
 				if (result == null) result = caseRegexComposite(normalTokenDefinition);
-				if (result == null) result = caseNamedTokenDefinition(normalTokenDefinition);
 				if (result == null) result = caseTokenDirective(normalTokenDefinition);
 				if (result == null) result = caseRegexOwner(normalTokenDefinition);
+				if (result == null) result = caseReferencableTokenDefinition(normalTokenDefinition);
+				if (result == null) result = caseNamedTokenDefinition(normalTokenDefinition);
 				if (result == null) result = caseAbstractTokenDefinition(normalTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -375,12 +386,11 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.TOKEN_REDEFINITION: {
 				TokenRedefinition tokenRedefinition = (TokenRedefinition)theEObject;
 				T result = caseTokenRedefinition(tokenRedefinition);
-				if (result == null) result = caseCompleteTokenDefinition(tokenRedefinition);
 				if (result == null) result = caseAnnotable(tokenRedefinition);
 				if (result == null) result = caseRegexComposite(tokenRedefinition);
-				if (result == null) result = caseNamedTokenDefinition(tokenRedefinition);
-				if (result == null) result = caseTokenDirective(tokenRedefinition);
+				if (result == null) result = caseReferencableTokenDefinition(tokenRedefinition);
 				if (result == null) result = caseRegexOwner(tokenRedefinition);
+				if (result == null) result = caseNamedTokenDefinition(tokenRedefinition);
 				if (result == null) result = caseAbstractTokenDefinition(tokenRedefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -389,9 +399,10 @@ public class ConcretesyntaxSwitch<T> {
 				QuotedTokenDefinition quotedTokenDefinition = (QuotedTokenDefinition)theEObject;
 				T result = caseQuotedTokenDefinition(quotedTokenDefinition);
 				if (result == null) result = caseCompleteTokenDefinition(quotedTokenDefinition);
-				if (result == null) result = caseNamedTokenDefinition(quotedTokenDefinition);
 				if (result == null) result = caseTokenDirective(quotedTokenDefinition);
 				if (result == null) result = caseRegexOwner(quotedTokenDefinition);
+				if (result == null) result = caseReferencableTokenDefinition(quotedTokenDefinition);
+				if (result == null) result = caseNamedTokenDefinition(quotedTokenDefinition);
 				if (result == null) result = caseAbstractTokenDefinition(quotedTokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -916,6 +927,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseNamedTokenDefinition(NamedTokenDefinition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Referencable Token Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Referencable Token Definition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReferencableTokenDefinition(ReferencableTokenDefinition object) {
 		return null;
 	}
 

@@ -22,16 +22,17 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, CompleteTokenDefinition> {
+public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, ReferencableTokenDefinition> {
 
 	public void resolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
-			ICsReferenceResolveResult<CompleteTokenDefinition> result) {
+			ICsReferenceResolveResult<ReferencableTokenDefinition> result) {
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -47,13 +48,13 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 		searchForToken(identifier, resolveFuzzy, result, syntax);
 	}
 
-	public String deResolve(CompleteTokenDefinition element, Placeholder container,
+	public String deResolve(ReferencableTokenDefinition element, Placeholder container,
 			EReference reference) {
 		return element.getName();
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<CompleteTokenDefinition> result) {
+			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<ReferencableTokenDefinition> result) {
 		EObject root = CsEObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;
@@ -73,7 +74,7 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 	}
 
 	private boolean searchForToken(String identifier, boolean resolveFuzzy,
-			ICsReferenceResolveResult<CompleteTokenDefinition> result,
+			ICsReferenceResolveResult<ReferencableTokenDefinition> result,
 			ConcreteSyntax syntax) {
 		EList<? extends TokenDirective> tokens = syntax.getActiveTokens();
 		// for fuzzy resolution we must use getTokens(), because getActiveTokens()

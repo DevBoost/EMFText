@@ -20,6 +20,7 @@ import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -35,16 +36,19 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<Placeholder> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
-				CompleteTokenDefinition token = placeholder.getToken();
+				ReferencableTokenDefinition token = placeholder.getToken();
 				if (token == null) {
 					continue;
 				}
-				if (token.getAttributeName() != null) {
-					addProblem(
-							resource,
-							ECsProblemType.COLLECT_IN_TOKEN_USED_IN_RULE,
-							String.format(COLLECT_IN_TOKEN_USED_IN_RULE_WARNING, token.getName()),
-							placeholder);
+				if (token instanceof CompleteTokenDefinition) {
+					CompleteTokenDefinition completeDefinition = (CompleteTokenDefinition) token;
+					if (completeDefinition.getAttributeName() != null) {
+						addProblem(
+								resource,
+								ECsProblemType.COLLECT_IN_TOKEN_USED_IN_RULE,
+								String.format(COLLECT_IN_TOKEN_USED_IN_RULE_WARNING, token.getName()),
+								placeholder);
+					}
 				}
 			}
 		}
