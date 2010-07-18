@@ -8,6 +8,7 @@ import java.util.Set;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
@@ -26,8 +27,8 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		Collection<AbstractTokenDefinition> cyclicTokens = findCyclicTokens(syntax);
-		for (AbstractTokenDefinition cyclicToken : cyclicTokens) {
+		Collection<NamedTokenDefinition> cyclicTokens = findCyclicTokens(syntax);
+		for (NamedTokenDefinition cyclicToken : cyclicTokens) {
 			addProblem(
 					resource,
 					ECsProblemType.CYCLIC_TOKEN_DEFINITION,
@@ -42,13 +43,13 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 		return true;
 	}
 
-	private Collection<AbstractTokenDefinition> findCyclicTokens(ConcreteSyntax syntax) {
-		Set<AbstractTokenDefinition> cyclicTokens = new LinkedHashSet<AbstractTokenDefinition>();
+	private Collection<NamedTokenDefinition> findCyclicTokens(ConcreteSyntax syntax) {
+		Set<NamedTokenDefinition> cyclicTokens = new LinkedHashSet<NamedTokenDefinition>();
 		
 		List<TokenDirective> tokenDirectives = syntax.getTokens();
 		for (TokenDirective directive : tokenDirectives) {
-			if (directive instanceof AbstractTokenDefinition) {
-				AbstractTokenDefinition tokenDefinition = (AbstractTokenDefinition) directive;
+			if (directive instanceof NamedTokenDefinition) {
+				NamedTokenDefinition tokenDefinition = (NamedTokenDefinition) directive;
 				if (hasReferenceTo(tokenDefinition, tokenDefinition)) {
 					cyclicTokens.add(tokenDefinition);
 				}

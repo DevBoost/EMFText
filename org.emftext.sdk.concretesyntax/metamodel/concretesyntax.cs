@@ -37,6 +37,7 @@ TOKENSTYLES {
 	"HEXNUMBER" COLOR #00D0FF;
 	"TABNUMBER" COLOR #00D0FF;
 	"DEFINE" COLOR #FF9000, BOLD;
+	"REDEFINE" COLOR #FF9000, BOLD;
 	"FRAGMENT" COLOR #FF9000, BOLD;
 	"COLLECT" COLOR #FF9000, BOLD;
 	"IN" COLOR #FF9000, BOLD;
@@ -98,6 +99,7 @@ RULES {
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= tab[TABNUMBER] #1;
 	
+	TokenRedefinition      ::= (annotations !0)* "REDEFINE" #1 redefinedToken[] #1 regexParts (#1 "+" #1 regexParts)*;
 	NormalTokenDefinition  ::= (annotations !0)* "DEFINE" #1 name[] #1 regexParts (#1 "+" #1 regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
 	PartialTokenDefinition ::= "DEFINE" #1 "FRAGMENT" #1 name[] #1 regexParts (#1 "+" #1 regexParts)*;
 	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];

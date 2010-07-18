@@ -58,9 +58,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	 */
 	private boolean startedPrintingObject = false;
 	/**
-	 * The number of tab characters the were printed before the current line. This
+	 * The number of tab characters that were printed before the current line. This
 	 * number is used to calculate the relative indendation when printing contained
-	 * objects.
+	 * objects, because all contained objects must start with this indendation
+	 * (tabsBeforeCurrentObject + currentTabs).
 	 */
 	private int currentTabs;
 	/**
@@ -156,52 +157,56 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.NormalTokenDefinition) {
+		if (element instanceof org.emftext.sdk.concretesyntax.TokenRedefinition) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
+		if (element instanceof org.emftext.sdk.concretesyntax.NormalTokenDefinition) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
+		if (element instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_16, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.AtomicRegex) {
+		if (element instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.RegexReference) {
+		if (element instanceof org.emftext.sdk.concretesyntax.AtomicRegex) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.PLUS) {
+		if (element instanceof org.emftext.sdk.concretesyntax.RegexReference) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.STAR) {
+		if (element instanceof org.emftext.sdk.concretesyntax.PLUS) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
+		if (element instanceof org.emftext.sdk.concretesyntax.STAR) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_21, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
+		if (element instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
+		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
+		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
+		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25, foundFormattingElements);
+			return;
+		}
+		if (element instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_26, foundFormattingElements);
 			return;
 		}
 		

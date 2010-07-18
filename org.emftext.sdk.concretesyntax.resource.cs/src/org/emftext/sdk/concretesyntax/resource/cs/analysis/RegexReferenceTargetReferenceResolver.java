@@ -19,23 +19,23 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolver<RegexReference, AbstractTokenDefinition> {
+public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolver<RegexReference, NamedTokenDefinition> {
 	
-	public void resolve(String identifier, RegexReference container, EReference reference, int position, boolean resolveFuzzy, final ICsReferenceResolveResult<AbstractTokenDefinition> result) {
+	public void resolve(String identifier, RegexReference container, EReference reference, int position, boolean resolveFuzzy, final ICsReferenceResolveResult<NamedTokenDefinition> result) {
 		ConcreteSyntax syntax = findRoot(container);
 		if (syntax == null) {
 			return;
 		}
-		Collection<AbstractTokenDefinition> tokenDefinitions = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getAbstractTokenDefinition());
-		for (AbstractTokenDefinition tokenDefinition : tokenDefinitions) {
+		Collection<NamedTokenDefinition> tokenDefinitions = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getNamedTokenDefinition());
+		for (NamedTokenDefinition tokenDefinition : tokenDefinitions) {
 			String name = tokenDefinition.getName();
 			if (resolveFuzzy) {
 				result.addMapping(name, tokenDefinition);
@@ -61,7 +61,7 @@ public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolv
 		}
 	}
 
-	public String deResolve(AbstractTokenDefinition element, RegexReference container, EReference reference) {
+	public String deResolve(NamedTokenDefinition element, RegexReference container, EReference reference) {
 		return element.getName();
 	}
 	

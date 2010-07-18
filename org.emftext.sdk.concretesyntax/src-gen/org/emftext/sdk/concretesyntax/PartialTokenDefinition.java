@@ -27,7 +27,7 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface PartialTokenDefinition extends AbstractTokenDefinition, TokenDirective, RegexComposite {
+public interface PartialTokenDefinition extends NamedTokenDefinition, TokenDirective, RegexComposite {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

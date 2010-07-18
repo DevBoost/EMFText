@@ -361,8 +361,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//RegexReference/target"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//RegexReference/getRegex"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="concretesyntax.ecore#//AbstractTokenDefinition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//AbstractTokenDefinition/name"/>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//AbstractTokenDefinition"/>
+    <genClasses image="false" ecoreClass="concretesyntax.ecore#//NamedTokenDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//NamedTokenDefinition/name"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//PartialTokenDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//PartialTokenDefinition/getRegex"/>
@@ -381,6 +382,10 @@
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//NormalTokenDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//NormalTokenDefinition/getRegex"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//TokenRedefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//TokenRedefinition/redefinedToken"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//TokenRedefinition/getRegex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//QuotedTokenDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedTokenDefinition/prefix"/>

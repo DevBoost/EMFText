@@ -24,6 +24,7 @@ import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -154,6 +155,8 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			mergeResult.add(tokenDirective);
 		} else if (tokenDirective instanceof PartialTokenDefinition) {
 			// ignore partial token definitions
+		} else if (tokenDirective instanceof TokenRedefinition) {
+			// TODO mseifert: ignore token redefinitions?
 		} else {
 			throw new RuntimeException("Found unknown TokenDirective (" + tokenDirective.getClass().getName() + ").");
 		}

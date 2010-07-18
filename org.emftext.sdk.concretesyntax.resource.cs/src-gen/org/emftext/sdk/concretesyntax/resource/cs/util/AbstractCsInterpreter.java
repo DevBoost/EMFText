@@ -148,6 +148,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof org.emftext.sdk.concretesyntax.TokenRedefinition) {
+			result = interprete_org_emftext_sdk_concretesyntax_TokenRedefinition((org.emftext.sdk.concretesyntax.TokenRedefinition) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.NormalTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_NormalTokenDefinition((org.emftext.sdk.concretesyntax.NormalTokenDefinition) object, context);
 		}
@@ -162,6 +168,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		}
 		if (object instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_PartialTokenDefinition((org.emftext.sdk.concretesyntax.PartialTokenDefinition) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof org.emftext.sdk.concretesyntax.NamedTokenDefinition) {
+			result = interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition((org.emftext.sdk.concretesyntax.NamedTokenDefinition) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -429,6 +441,10 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition(org.emftext.sdk.concretesyntax.NamedTokenDefinition object, ContextType context) {
+		return null;
+	}
+	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition object, ContextType context) {
 		return null;
 	}
@@ -438,6 +454,10 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_NormalTokenDefinition(org.emftext.sdk.concretesyntax.NormalTokenDefinition object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenRedefinition(org.emftext.sdk.concretesyntax.TokenRedefinition object, ContextType context) {
 		return null;
 	}
 	

@@ -48,7 +48,7 @@ import org.emftext.sdk.concretesyntax.TokenDirective;
  *
  * @generated
  */
-public abstract class CompleteTokenDefinitionImpl extends AbstractTokenDefinitionImpl implements CompleteTokenDefinition {
+public abstract class CompleteTokenDefinitionImpl extends NamedTokenDefinitionImpl implements CompleteTokenDefinition {
 	/**
 	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
 	 * <!-- begin-user-doc -->

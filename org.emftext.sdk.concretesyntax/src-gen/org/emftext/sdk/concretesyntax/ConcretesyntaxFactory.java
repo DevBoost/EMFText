@@ -189,6 +189,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	NormalTokenDefinition createNormalTokenDefinition();
 
 	/**
+	 * Returns a new object of class '<em>Token Redefinition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Token Redefinition</em>'.
+	 * @generated
+	 */
+	TokenRedefinition createTokenRedefinition();
+
+	/**
 	 * Returns a new object of class '<em>Quoted Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

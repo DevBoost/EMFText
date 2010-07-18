@@ -43,12 +43,12 @@ public interface RegexReference extends RegexPart {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(AbstractTokenDefinition)
+	 * @see #setTarget(NamedTokenDefinition)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getRegexReference_Target()
 	 * @model required="true"
 	 * @generated
 	 */
-	AbstractTokenDefinition getTarget();
+	NamedTokenDefinition getTarget();
 
 	/**
 	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.RegexReference#getTarget <em>Target</em>}' reference.
@@ -58,7 +58,7 @@ public interface RegexReference extends RegexPart {
 	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTarget(AbstractTokenDefinition value);
+	void setTarget(NamedTokenDefinition value);
 
 	/**
 	 * <!-- begin-user-doc -->

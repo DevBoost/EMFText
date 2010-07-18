@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface CompleteTokenDefinition extends AbstractTokenDefinition, TokenDirective, RegexOwner {
+public interface CompleteTokenDefinition extends NamedTokenDefinition, TokenDirective, RegexOwner {
 	/**
 	 * Returns the value of the '<em><b>Attribute References</b></em>' reference list.
 	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Placeholder}.

@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
  * @generated
  */
 public class PartialTokenDefinitionItemProvider
-	extends AbstractTokenDefinitionItemProvider
+	extends NamedTokenDefinitionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

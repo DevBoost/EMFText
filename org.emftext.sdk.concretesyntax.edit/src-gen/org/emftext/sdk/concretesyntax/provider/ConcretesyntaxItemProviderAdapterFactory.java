@@ -472,6 +472,29 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.TokenRedefinition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TokenRedefinitionItemProvider tokenRedefinitionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.TokenRedefinition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTokenRedefinitionAdapter() {
+		if (tokenRedefinitionItemProvider == null) {
+			tokenRedefinitionItemProvider = new TokenRedefinitionItemProvider(this);
+		}
+
+		return tokenRedefinitionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.QuotedTokenDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -909,6 +932,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (regexReferenceItemProvider != null) regexReferenceItemProvider.dispose();
 		if (partialTokenDefinitionItemProvider != null) partialTokenDefinitionItemProvider.dispose();
 		if (normalTokenDefinitionItemProvider != null) normalTokenDefinitionItemProvider.dispose();
+		if (tokenRedefinitionItemProvider != null) tokenRedefinitionItemProvider.dispose();
 		if (quotedTokenDefinitionItemProvider != null) quotedTokenDefinitionItemProvider.dispose();
 		if (tokenPriorityDirectiveItemProvider != null) tokenPriorityDirectiveItemProvider.dispose();
 		if (containmentItemProvider != null) containmentItemProvider.dispose();

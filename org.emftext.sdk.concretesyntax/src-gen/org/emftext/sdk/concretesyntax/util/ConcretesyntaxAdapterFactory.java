@@ -44,6 +44,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -66,6 +67,7 @@ import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
@@ -230,6 +232,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createAbstractTokenDefinitionAdapter();
 			}
 			@Override
+			public Adapter caseNamedTokenDefinition(NamedTokenDefinition object) {
+				return createNamedTokenDefinitionAdapter();
+			}
+			@Override
 			public Adapter casePartialTokenDefinition(PartialTokenDefinition object) {
 				return createPartialTokenDefinitionAdapter();
 			}
@@ -240,6 +246,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseNormalTokenDefinition(NormalTokenDefinition object) {
 				return createNormalTokenDefinitionAdapter();
+			}
+			@Override
+			public Adapter caseTokenRedefinition(TokenRedefinition object) {
+				return createTokenRedefinitionAdapter();
 			}
 			@Override
 			public Adapter caseQuotedTokenDefinition(QuotedTokenDefinition object) {
@@ -690,6 +700,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NamedTokenDefinition <em>Named Token Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.NamedTokenDefinition
+	 * @generated
+	 */
+	public Adapter createNamedTokenDefinitionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PartialTokenDefinition <em>Partial Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -728,6 +752,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNormalTokenDefinitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenRedefinition <em>Token Redefinition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.TokenRedefinition
+	 * @generated
+	 */
+	public Adapter createTokenRedefinitionAdapter() {
 		return null;
 	}
 

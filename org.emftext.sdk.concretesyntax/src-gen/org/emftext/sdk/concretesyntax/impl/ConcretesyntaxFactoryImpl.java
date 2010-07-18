@@ -60,6 +60,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
@@ -124,6 +125,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.REGEX_REFERENCE: return createRegexReference();
 			case ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION: return createPartialTokenDefinition();
 			case ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION: return createNormalTokenDefinition();
+			case ConcretesyntaxPackage.TOKEN_REDEFINITION: return createTokenRedefinition();
 			case ConcretesyntaxPackage.QUOTED_TOKEN_DEFINITION: return createQuotedTokenDefinition();
 			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE: return createTokenPriorityDirective();
 			case ConcretesyntaxPackage.CONTAINMENT: return createContainment();
@@ -357,6 +359,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public NormalTokenDefinition createNormalTokenDefinition() {
 		NormalTokenDefinitionImpl normalTokenDefinition = new NormalTokenDefinitionImpl();
 		return normalTokenDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TokenRedefinition createTokenRedefinition() {
+		TokenRedefinitionImpl tokenRedefinition = new TokenRedefinitionImpl();
+		return tokenRedefinition;
 	}
 
 	/**
