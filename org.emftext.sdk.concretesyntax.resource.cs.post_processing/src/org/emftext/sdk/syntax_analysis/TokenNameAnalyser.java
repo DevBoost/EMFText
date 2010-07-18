@@ -19,6 +19,7 @@ import java.util.List;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -44,6 +45,9 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 	private List<CompleteTokenDefinition> getTokenDefinitionsWithInvalidCapitalization(ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> result = new ArrayList<CompleteTokenDefinition>();
 		for (CompleteTokenDefinition definition : syntax.getActiveTokens()) {
+			if (definition instanceof TokenRedefinition) {
+				continue;
+			}
 			char firstLetter = definition.getName().charAt(0);
 			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
 				result.add(definition);

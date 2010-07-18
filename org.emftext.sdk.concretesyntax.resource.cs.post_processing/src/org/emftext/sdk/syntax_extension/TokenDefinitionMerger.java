@@ -85,7 +85,13 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			CompleteTokenDefinition previousToken = findTokenWithSameName(mergeResult, importedToken);
 			if (previousToken == null) {
 				// no token with the same name was found
-				mergeResult.add(importedToken);
+				// search for a redefinition
+				TokenRedefinition redefinition = findRedefinition(mergeResult, importedToken);
+				if (redefinition != null) {
+					redirect(redefinition.getRedefinedToken(), redefinition);
+				} else {
+					mergeResult.add(importedToken);
+				}
 			} else {
 				// there is a token with this name which overrides the
 				// imported token
@@ -131,6 +137,18 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		}
 	}
 
+	private TokenRedefinition findRedefinition(List<TokenDirective> allTokens, TokenDirective redefinedToken) {
+		for (TokenDirective tokenDirective : allTokens) {
+			if (tokenDirective instanceof TokenRedefinition) {
+				TokenRedefinition redefinition = (TokenRedefinition) tokenDirective;
+				if (redefinedToken == redefinition.getRedefinedToken()) {
+					return redefinition;
+				}
+			}
+		}
+		return null;
+	}
+
 	private void redirect(CompleteTokenDefinition oldToken, CompleteTokenDefinition newToken) {
 		List<Placeholder> references = oldToken.getAttributeReferences();
 		List<Placeholder> referencesToRedirect = new ArrayList<Placeholder>();
@@ -156,7 +174,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		} else if (tokenDirective instanceof PartialTokenDefinition) {
 			// ignore partial token definitions
 		} else if (tokenDirective instanceof TokenRedefinition) {
-			// TODO mseifert: ignore token redefinitions?
+			mergeResult.add(tokenDirective);
 		} else {
 			throw new RuntimeException("Found unknown TokenDirective (" + tokenDirective.getClass().getName() + ").");
 		}
@@ -179,6 +197,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	}
 
 	private boolean isCompatible(CompleteTokenDefinition previousToken, CompleteTokenDefinition newToken) {
+		// TODO use automata here instead of comparing the regular expression via string comparison
 		String existingRegex = previousToken.getRegex();
 		String importedRegex = newToken.getRegex();
 		if (existingRegex.equals(importedRegex)) {

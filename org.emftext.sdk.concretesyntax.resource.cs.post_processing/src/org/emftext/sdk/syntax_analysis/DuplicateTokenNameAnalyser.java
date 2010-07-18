@@ -19,6 +19,7 @@ import java.util.List;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -41,6 +42,9 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
 		for (int i = 0; i < tokens.size(); i++) {
 			CompleteTokenDefinition token_i = tokens.get(i);
+			if (token_i instanceof TokenRedefinition) {
+				continue;
+			}
 			String token_i_name = token_i.getName();
 			if (foundTokenNames.contains(token_i_name.toLowerCase())) {
 				continue;
