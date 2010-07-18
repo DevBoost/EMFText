@@ -31,7 +31,7 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface TokenRedefinition extends Annotable, RegexComposite, ReferencableTokenDefinition {
+public interface TokenRedefinition extends Annotable, RegexComposite, ReferencableTokenDefinition, TokenDirective {
 	/**
 	 * Returns the value of the '<em><b>Redefined Token</b></em>' reference.
 	 * <!-- begin-user-doc -->

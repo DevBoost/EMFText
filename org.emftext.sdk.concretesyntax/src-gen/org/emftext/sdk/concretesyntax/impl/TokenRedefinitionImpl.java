@@ -34,6 +34,7 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
+import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
 
 /**
@@ -393,6 +394,11 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 				default: return -1;
 			}
 		}
+		if (baseClass == TokenDirective.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -429,6 +435,11 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 		if (baseClass == ReferencableTokenDefinition.class) {
 			switch (baseFeatureID) {
 				case ConcretesyntaxPackage.REFERENCABLE_TOKEN_DEFINITION__ATTRIBUTE_REFERENCES: return ConcretesyntaxPackage.TOKEN_REDEFINITION__ATTRIBUTE_REFERENCES;
+				default: return -1;
+			}
+		}
+		if (baseClass == TokenDirective.class) {
+			switch (baseFeatureID) {
 				default: return -1;
 			}
 		}

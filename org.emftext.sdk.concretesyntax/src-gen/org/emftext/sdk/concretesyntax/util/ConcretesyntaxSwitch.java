@@ -390,6 +390,7 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseAnnotable(tokenRedefinition);
 				if (result == null) result = caseRegexComposite(tokenRedefinition);
 				if (result == null) result = caseReferencableTokenDefinition(tokenRedefinition);
+				if (result == null) result = caseTokenDirective(tokenRedefinition);
 				if (result == null) result = caseRegexOwner(tokenRedefinition);
 				if (result == null) result = caseNamedTokenDefinition(tokenRedefinition);
 				if (result == null) result = caseAbstractTokenDefinition(tokenRedefinition);
