@@ -75,6 +75,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -1011,7 +1012,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("private final static " + STRING + "[] tokenNames = new " + STRING + "[] {" + StringUtil.explode(tokenNames, ",") + "};");
 	}
 
-	private String getFieldName(CompleteTokenDefinition tokenDefinition) {
+	private String getFieldName(ReferencableTokenDefinition tokenDefinition) {
 		return "TOKEN_" + tokenDefinition.getName();
 	}
 
@@ -1342,7 +1343,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addCodeForTerminal(JavaComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Terminal terminal) {
 		if (terminal instanceof Placeholder) {
 			Placeholder defaultTokenTerminal = (Placeholder) terminal;
-			CompleteTokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
+			ReferencableTokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
 			sc.addComment("match regexp \"" + regexp.replaceAll("\n", "").replace("\r", "") + "\"");
 			String fieldName = getFieldName(tokenDefinition);

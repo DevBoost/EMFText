@@ -110,6 +110,7 @@ import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -1831,7 +1832,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		} else {
 			assert terminal instanceof Placeholder;
 			Placeholder placeholder = (Placeholder) terminal;
-			CompleteTokenDefinition token = placeholder.getToken();
+			ReferencableTokenDefinition token = placeholder.getToken();
 			String tokenName = token.getName();
 
 			sc.add(ident + " = " + tokenName);
