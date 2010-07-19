@@ -45,7 +45,7 @@ public class JavaStyleGenerationProcess extends AbstractSyntaxGenerationProcess 
 	/**
 	 * Checks whether the given feature has a type which is also referenced by
 	 * another feature in the same GenClass. If the feature's type is a sub type
-	 * of another feature's type this is alos considered problematic.
+	 * of another feature's type this is also considered problematic.
 	 * 
 	 * @param genFeature
 	 */
