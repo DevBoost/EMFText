@@ -14,7 +14,9 @@
 package org.emftext.sdk.syntax_extension;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -41,7 +43,6 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> allImportedTokens = new ArrayList<CompleteTokenDefinition>();
-		List<String> mustOverrideTokenNames = new ArrayList<String>();
 		
 		// first we add the (merged) tokens from the imported syntax
     	for (Import nextImport : syntax.getImports()) {
@@ -68,7 +69,11 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	    					// duplicate token to use the previousToken
 	    					redirect(importedToken, previousToken);
 	    				} else {
-	    					mustOverrideTokenNames.add(importedToken.getName());
+	    					// found two tokens with the same name, but incompatible
+	    					// regular expressions. these tokens must be overridden,
+	    					// which is detected later on by searching for tokens with
+	    					// the same name, but different regular expression
+	    					allImportedTokens.add(importedToken);
 	    				}
     				}
     			}
@@ -85,7 +90,6 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     		handleTokenDirective(mergeResult, tokenDirective);
     	}
     	
-		List<String> overriddenTokens = new ArrayList<String>();
     	// now handle token overriding
     	for (CompleteTokenDefinition importedToken : allImportedTokens) {
 			CompleteTokenDefinition previousToken = findTokenWithSameName(mergeResult, importedToken);
@@ -109,19 +113,49 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				// imported token
 				assert importedToken instanceof CompleteTokenDefinition;
 				CompleteTokenDefinition importedTokenDefinition = (CompleteTokenDefinition) importedToken;
-				overriddenTokens.add(importedTokenDefinition.getName());
 				redirect(importedTokenDefinition, previousToken);
 				continue;
 			}
 		}
     	
-    	// then check whether all tokens that needed to be overridden because they had
-    	// mismatching regular expressions are overridden indeed
-    	for (String mustOverrideTokenName : mustOverrideTokenNames) {
-    		if (!overriddenTokens.contains(mustOverrideTokenName)) {
-    			addProblem(resource, ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + mustOverrideTokenName + " must be overridden, because it has different definitions.", syntax);
-    		}
-    	}
+		// merge tokens with same name and same regular expression
+		List<TokenDirective> mergeResultCopy = new ArrayList<TokenDirective>();
+		mergeResultCopy.addAll(mergeResult);
+		Set<TokenDirective> handledTokens = new LinkedHashSet<TokenDirective>();
+		for (TokenDirective nextToken : mergeResult) {
+			if (handledTokens.contains(nextToken)) {
+				continue;
+			}
+			if (nextToken instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition namedToken = (CompleteTokenDefinition) nextToken;
+				Set<CompleteTokenDefinition> tokensWithSameName = getTokensByName(mergeResult, namedToken.getName());
+				for (CompleteTokenDefinition otherToken : tokensWithSameName) {
+					if (otherToken != nextToken) {
+						if (isCompatible(otherToken, namedToken)) {
+							redirect(otherToken, namedToken);
+							mergeResultCopy.remove(otherToken);
+							handledTokens.add(otherToken);
+						}
+					}
+				}
+			}
+		}
+		mergeResult = mergeResultCopy;
+		
+		// check whether there is still tokens with the same name
+		Set<String> handledTokenNames = new LinkedHashSet<String>();
+		for (TokenDirective nextToken : mergeResult) {
+			if (nextToken instanceof NamedTokenDefinition) {
+				NamedTokenDefinition namedToken = (NamedTokenDefinition) nextToken;
+				if (handledTokenNames.contains(namedToken.getName())) {
+					continue;
+				}
+				if (countOccurrences(mergeResult, namedToken) > 1) {
+	    			addProblem(resource, ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + namedToken.getName() + " must be overridden, because it has different definitions.", syntax);
+				}
+				handledTokenNames.add(namedToken.getName());
+			}
+		}
     	
     	// finally set the merged tokens in the syntax model
     	List<TokenDirective> allTokenDirectives = syntax.getAllTokenDirectives();
@@ -147,6 +181,35 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
 			}
 		}
+	}
+
+	private Set<CompleteTokenDefinition> getTokensByName(
+			List<TokenDirective> mergeResult, String name) {
+		Set<CompleteTokenDefinition> tokensWithSameName = new LinkedHashSet<CompleteTokenDefinition>();
+		for (TokenDirective nextToken : mergeResult) {
+			if (nextToken instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition namedToken = (CompleteTokenDefinition) nextToken;
+				if (namedToken.getName().equals(name)) {
+					tokensWithSameName.add(namedToken);
+				}
+			}
+		}
+		return tokensWithSameName;
+	}
+
+	private int countOccurrences(List<TokenDirective> mergeResult,
+			NamedTokenDefinition namedToken) {
+		String name = namedToken.getName();
+		int count = 0;
+		for (TokenDirective tokenDirective : mergeResult) {
+			if (tokenDirective instanceof CompleteTokenDefinition) {
+				CompleteTokenDefinition nextToken = (CompleteTokenDefinition) tokenDirective;
+				if (name.equals(nextToken.getName())) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 
 	private CompleteTokenDefinition findCompatibleToken(

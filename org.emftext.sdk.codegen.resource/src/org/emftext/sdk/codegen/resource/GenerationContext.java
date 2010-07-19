@@ -271,8 +271,13 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return getPackageName(artifact) + "." + getClassName(artifact);
 	}
 
-	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact, ConcreteSyntax syntax) {
-		return artifact.getPackage().getName(this) + "." + getClassName(artifact, syntax);
+	public String getQualifiedClassName(ArtifactDescriptor<GenerationContext, ?> artifact, final ConcreteSyntax syntax) {
+		return artifact.getPackage().getName(new ISyntaxContext() {
+			
+			public ConcreteSyntax getConcreteSyntax() {
+				return syntax;
+			}
+		}) + "." + getClassName(artifact, syntax);
 	}
 
 	public File getFile(IPluginDescriptor plugin, ArtifactDescriptor<GenerationContext, ?> artifact) {

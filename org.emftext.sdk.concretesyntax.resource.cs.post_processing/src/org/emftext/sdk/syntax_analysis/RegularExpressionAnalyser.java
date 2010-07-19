@@ -31,6 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
@@ -89,7 +90,7 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 		
 		// add the found errors (if any) to the resource
 		for (String error : errors) {
-			if (tokenDefinition instanceof NormalTokenDefinition) {
+			if (tokenDefinition instanceof NormalTokenDefinition || tokenDefinition instanceof TokenRedefinition) {
 				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
 			} else if (tokenDefinition instanceof QuotedTokenDefinition) {
 				// actually this should never happen, because the regular expressions

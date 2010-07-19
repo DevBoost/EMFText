@@ -23,6 +23,7 @@ import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.TokenReferenceResolver;
 
 public class TokenPriorityDirectiveTokenReferenceResolver implements ICsReferenceResolver<TokenPriorityDirective, CompleteTokenDefinition> {
 	
@@ -36,16 +37,24 @@ public class TokenPriorityDirectiveTokenReferenceResolver implements ICsReferenc
 		for (TokenDirective tokenDirective : tokens) {
 			if (tokenDirective instanceof CompleteTokenDefinition) {
 				CompleteTokenDefinition token = (CompleteTokenDefinition) tokenDirective;
-				if (resolveFuzzy) {
-					if (token.getName().startsWith(identifier)) {
-						result.addMapping(identifier, token);
-					}
-				} else {
-					if (token.getName().equals(identifier)) {
-						result.addMapping(identifier, token);
+				String tokenName = token.getName();
+				if (resolveFuzzy || tokenName.equals(identifier)) {
+					result.addMapping(tokenName, token);
+					if (!resolveFuzzy) {
+						return;
 					}
 				}
 			}
+		}
+		if (identifier.contains(".")) {
+			String[] parts = identifier.split("\\.");
+			if (parts.length != 2) {
+				return;
+			}
+			String syntaxName = parts[0];
+			String tokenName = parts[1];
+			new TokenReferenceResolver().resolveImportedToken(syntax, syntaxName, tokenName, result,
+					resolveFuzzy);
 		}
 	}
 

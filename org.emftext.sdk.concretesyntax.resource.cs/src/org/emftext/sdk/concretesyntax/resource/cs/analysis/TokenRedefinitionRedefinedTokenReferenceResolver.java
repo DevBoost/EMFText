@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.TokenReferenceResolver;
 
 public class TokenRedefinitionRedefinedTokenReferenceResolver implements ICsReferenceResolver<TokenRedefinition, CompleteTokenDefinition> {
 	
@@ -51,24 +51,10 @@ public class TokenRedefinitionRedefinedTokenReferenceResolver implements ICsRefe
 			return;
 		}
 		ConcreteSyntax syntax = (ConcreteSyntax) redefinitionContainer;
-		EList<Import> imports = syntax.getImports();
-		for (Import nextImport : imports) {
-			ConcreteSyntax nextImportedSyntax = nextImport.getConcreteSyntax();
-			if ((resolveFuzzy || syntaxName.equals(nextImport.getPrefix())) && nextImportedSyntax != null) {
-				EList<TokenDirective> allTokenDirectives = nextImportedSyntax.getAllTokenDirectives();
-				for (TokenDirective tokenDirective : allTokenDirectives) {
-					if (tokenDirective instanceof CompleteTokenDefinition) {
-						CompleteTokenDefinition completeDefinition = (CompleteTokenDefinition) tokenDirective;
-						String name = completeDefinition.getName();
-						if (resolveFuzzy || tokenName.equals(name)) {
-							result.addMapping(nextImport.getPrefix() + "." + name, completeDefinition);
-						}
-					}
-				}
-			}
-		}
+		new TokenReferenceResolver().resolveImportedToken(syntax, syntaxName, tokenName, result,
+				resolveFuzzy);
 	}
-	
+
 	public String deResolve(CompleteTokenDefinition element, TokenRedefinition container, EReference reference) {
 		ConcreteSyntax importingSyntax = (ConcreteSyntax) container.eContainer();
 		ConcreteSyntax importedSyntax = (ConcreteSyntax) element.eContainer();
