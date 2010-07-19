@@ -9,6 +9,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax" eSuperTypes="#//GenPackageDependentElement #//Annotable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A specification of the concrete syntax for an Ecore metamodel."/>
+    </eAnnotations>
     <eOperations name="getOperatorRuleSubset" upperBound="-1" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Rule > ( ) ; &#xD;&#xA;if ( identifier == null ) { &#xD;&#xA;&#x9;return subset ; &#xD;&#xA;} &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.Annotation annotation = rule .getOperatorAnnotation ( ) ; &#xD;&#xA;&#x9;java.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; &#xD;&#xA;&#x9;if ( identifier .equals ( value ) ) { &#xD;&#xA;&#x9;&#x9;subset .add ( rule ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return subset ; &#xD;&#xA;"/>

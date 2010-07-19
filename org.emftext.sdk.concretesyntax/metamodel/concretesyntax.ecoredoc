@@ -1,0 +1,492 @@
+documentation for <platform:/resource/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore>
+
+ConcreteSyntax : "A specification of the concrete syntax for an Ecore metamodel."
+
+ConcreteSyntax.isImportedRule : "
+ Returns true if the given rule was defined in the given syntax.
+ If the rule is defined in an imported syntax, this method returns
+ false.
+ 
+ @param syntax the syntax that refers to the rule
+ @param rule the rule to check
+ @return true if the rule is contained, false if it is imported
+"
+
+ConcreteSyntax.getClassesWithSyntax : "
+ Collects all the subclasses for which concrete syntax is defined.
+"
+
+ConcreteSyntax.getSubClassesWithSyntax : "
+ Collects all the subclasses for which concrete syntax is defined.
+"
+
+Rule.getOperatorWeight : "
+ Returns the weight of this rule if it is an operator rule.
+ If the rule is not an operator rule or the specified weight
+ in the operator annotation is not a number, Integer.MIN_VALUE 
+ is returned.
+"
+
+Rule.hasAnnotation : "
+ Checks whether this rule is annotated with the given AnnotationType.
+ If a key and a value is given it is further checked whether the
+ annotation specifies this key and value. 
+"
+
+Rule.isOverrideRemoveRule : "
+ Checks whether this rule is annotated with @Override(remove=\"true\").
+"
+
+Rule.isOverrideRule : "
+ Checks whether this rule is annotated with @Override.
+"
+
+Definition.computeCardinalityString : "
+ Returns a string representation of the cardinality of the
+' or the
+ empty string.
+ 
+ @param definition
+ @return
+"
+
+Containment.getAllowedSubTypes : "
+ Returns all types that are allowed for the given containment.
+ If type restrictions are specified in the syntax rule, this
+ list contains the allowed types. If no restriction are present
+ the type of the feature references by the containment is 
+ returned.
+ 
+ @param containment
+ @return
+"
+
+OptionTypes.GENERATE_TEST_ACTION : "If set to true, EMFText generate a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>."
+
+OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL : "If set to true, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_PLUGIN_XML : "If set to true, the plugin.xml file will be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MANIFEST : "If set to false, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PARSER : "If set to true, the Parser class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TOKEN_RESOLVERS : "If set to true, the token resolver classes will be overridden. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_REFERENCE_RESOLVERS : "If set to true, the reference resolver classes will be overridden. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH : "If set to true, the reference resolver switch will be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY : "If set to true, the token resolver factory class will be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PRINTER : "If set to true, the printer will be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.ANTLR_BACKTRACKING : "If set to true, the Antlr-backtracking is activated for parser generation. The default value for this option is <code>true</code>."
+
+OptionTypes.ANTLR_MEMOIZE : "If set to true, the Antlr-memoize is activated for parser generation. The default value for this option is <code>true</code>."
+
+OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION : "If set to true, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>."
+
+OptionTypes.FORCE_EOF : "If set to true, EMFText will generate a parser that expects an EOF signal at the end of the input stream. The default value for this option is <code>true</code>."
+
+OptionTypes.DEFAULT_TOKEN_NAME : "This option can be used to specify the name of the token that is used for non-containment references. A declaration like <code>featureX[]</code> in a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>."
+
+OptionTypes.USE_PREDEFINED_TOKENS : "If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>."
+
+OptionTypes.TOKENSPACE : "The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules."
+
+OptionTypes.RELOAD_GENERATOR_MODEL : "If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_DOT_CLASSPATH : "If set to false, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DOT_PROJECT : "If set to false, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TEXT_RESOURCE : "If set to false, the text resource class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_RESOURCE_FACTORY : "If set to false, the resource factory class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_NEW_FILE_WIZARD : "If set to false, the new file wizard class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.PARSER_GENERATOR : "The name of the parser generator to use."
+
+OptionTypes.SOURCE_FOLDER : "The name of the folder EMFText shall store the overridable classes of the resource plug-in in."
+
+OptionTypes.BASE_PACKAGE : "The name of the base package EMFText shall store the generated classes or the resource plug-in in."
+
+OptionTypes.RESOURCE_PLUGIN_ID : "The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID."
+
+OptionTypes.OVERRIDE_BUILD_PROPERTIES : "If set to false, the build.properties file will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_META_INFORMATION : "If set to true, the MetaInformation class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE : "If set to true, the default resolver class will be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PROBLEM_CLASS : "If set to true, the ProblemClass class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SCANNER : "If set to true, the Scanner class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT : "If set to true, the ContextDependentUriFragment class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY : "If set to true, the ContextDependentUriFragmentFactory class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT : "If set to true, the DelegatingResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DUMMY_E_OBJECT : "If set to true, the DummyEObject class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ELEMENT_MAPPING : "If set to true, the ElementMapping class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT : "If set to true, the FuzzyResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER : "If set to true, the DefaultTokenResolver class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LOCATION_MAP : "If set to true, the LocationMap class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_REFERENCE_RESOLVE_RESULT : "If set to true, the ReferenceResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT : "If set to true, the TokenResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_URI_MAPPING : "If set to true, the UriMapping class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER : "If set to true, the HoverTextProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PARSE_RESULT : "If set to true, the ParseResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER : "If set to true, the AntlrTokenHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BRACKET_SET : "If set to true, the BracketSet class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL : "If set to true, the BrowserInformationControl class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER : "If set to true, the CodeFoldingManager class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COLOR_MANAGER : "If set to true, the ColorManager class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COMPLETION_PROCESSOR : "If set to true, the CompletionProcessor class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PARSING_STRATEGY : "If set to true, the ParsingStrategy class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT : "If set to true, the DocBrowserInformationControlInput class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EDITOR_CONFIGURATION : "If set to true, the EditorConfiguration class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EDITOR : "If set to true, the Editor class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_E_OBJECT_SELECTION : "If set to true, the EObjectSelection class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_HIGHLIGHTING : "If set to true, the Highlighting class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_HTML_PRINTER : "If set to true, the HtmlPrinter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_HYPERLINK : "If set to true, the Hyperlink class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_HYPERLINK_DETECTOR : "If set to true, the HyperlinkDetector class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MARKER_HELPER : "If set to true, the MarkerHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OCCURENCE : "If set to true, the Occurence class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE : "If set to true, the OutlinePage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER : "If set to true, the OutlinePageTreeViewer class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR : "If set to true, the PluginActivator class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_POSITION_CATEGORY : "If set to true, the PositionCategory class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_POSITION_HELPER : "If set to true, the PositionHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PROPERTY_SHEET_PAGE : "If set to true, the PropertySheetPage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TEXT_HOVER : "If set to true, the TextHover class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TOKEN_SCANNER : "If set to true, the TokenScanner class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE : "If set to true, the BracketPreferencePage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS : "If set to true, the PreferenceConstants class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE : "If set to true, the OccurencePreferencePage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PIXEL_CONVERTER : "If set to true, the PixelConverter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER : "If set to true, the PreferenceInitializer class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER : "If set to true, the SyntaxColoringHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE : "If set to true, the SyntaxColoringPreferencePage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER : "If set to true, the IInputStreamProcessorProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR : "If set to true, the InputStreamProcessor class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_OPTION_PROVIDER : "If set to true, the IOptionProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_OPTIONS : "If set to true, the IOptions class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_RESOURCE_POST_PROCESSOR : "If set to true, the IResourcePostProcessor class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER : "If set to true, the IResourcePostProcessorProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_BRACKET_PAIR : "If set to true, the IBracketPair class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_COMMAND : "If set to true, the ICommand class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_CONFIGURABLE : "If set to true, the IConfigurable class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT : "If set to true, the IContextDependentUriFragment class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY : "If set to true, the IContextDependentUriFragmentFactory class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_ELEMENT_MAPPING : "If set to true, the IElementMapping class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_EXPECTED_ELEMENT : "If set to true, the IExpectedElement class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_HOVER_TEXT_PROVIDER : "If set to true, the IHoverTextProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_LOCATION_MAP : "If set to true, the ILocationMap class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_PARSE_RESULT : "If set to true, the IParseResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_PROBLEM : "If set to true, the IProblem class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_REFERENCE_MAPPING : "If set to true, the IReferenceMapping class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_REFERENCE_RESOLVER : "If set to true, the IReferenceResolver class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_REFERENCE_RESOLVE_RESULT : "If set to true, the IReferenceResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_REFERENCE_RESOLVER_SWITCH : "If set to true, the IReferenceResolverSwitch class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_DIAGNOSTIC : "If set to true, the ITextDiagnostic class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_PARSER : "If set to true, the ITextParser class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_PRINTER : "If set to true, the ITextPrinter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_RESOURCE : "If set to true, the ITextResource class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_META_INFORMATION : "If set to true, the IMetaInformation class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART : "If set to true, the ITextResourcePluginPart class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_SCANNER : "If set to true, the ITextScanner class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TEXT_TOKEN : "If set to true, the ITextToken class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TOKEN_RESOLVER : "If set to true, the ITokenResolver class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TOKEN_RESOLVE_RESULT : "If set to true, the ITokenResolveResult class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TOKEN_RESOLVER_FACTORY : "If set to true, the ITokenResolverFactory class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_TOKEN_STYLE : "If set to true, the ITokenStyle class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_URI_MAPPING : "If set to true, the IUriMapping class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_E_PROBLEM_TYPE : "If set to true, the EProblemType class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER : "If set to true, the CodeCompletionHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EXPECTED_CS_STRING : "If set to true, the ExpectedCsString class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE : "If set to true, the ExpectedStructuralFeature class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CAST_UTIL : "If set to true, the CastUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COPIED_E_LIST : "If set to true, the CopiedEList class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST : "If set to true, the CopiedEObjectInternalEList class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_E_CLASS_UTIL : "If set to true, the EClassUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_E_OBJECT_UTIL : "If set to true, the EObjectUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LIST_UTIL : "If set to true, the ListUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MAP_UTIL : "If set to true, the MapUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER : "If set to true, the MinimalModelHelper class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_RESOURCE_UTIL : "If set to true, the ResourceUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_STREAM_UTIL : "If set to true, the StreamUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_STRING_UTIL : "If set to true, the StringUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL : "If set to true, the TextResourceUtil class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UNICODE_CONVERTER : "If set to true, the UnicodeConverter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT : "If set to true, the AbstractExpectedElement class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE : "If set to true, the NewFileWizardPage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_BACKGROUND_PARSING_LISTENER : "If set to true, the IBackgroundParsingListener class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION : "If set to true, the TerminateParsingException class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION : "If set to true, the UnexpectedContentTypeException class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TEXT_TOKEN : "If set to true, the TextToken class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.SOURCE_GEN_FOLDER : "The name of the folder EMFText shall store the generated classes of the resource plug-in in."
+
+OptionTypes.OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA : "If set to false, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA : "If set to false, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR : "If set to true, the ResourceFactoryDelegator class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.BASE_RESOURCE_PLUGIN : "The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in)."
+
+OptionTypes.OVERRIDE_PREFERENCE_PAGE : "If set to true, the PreferencePage class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.ANTLR_PLUGIN_ID : "Sets the ID for the generated common ANTLR runtime plug-in."
+
+OptionTypes.OVERRIDE_ANTLR_PLUGIN : "If set to false, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER : "If set to true, the TokenStyleInformationProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER : "If set to true, the FoldingInformationProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER : "If set to true, the BracketInformationProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER : "If set to true, the SyntaxCoverageInformationProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.SAVE_CHANGED_RESOURCES_ONLY : "If set to true, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER : "If set to true, the NewFileContentProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.LICENCE_HEADER : "A URI pointing to a text file that contains a header which shall be added to all generated Java files."
+
+OptionTypes.OVERRIDE_EXPECTED_TERMINAL : "If set to true, the ExpectedTerminal class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COMPLETION_PROPOSAL : "If set to true, the CompletionProposal class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BUILDER : "If set to true, the Builder class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BUILDER_ADAPTER : "If set to true, the BuilderAdapter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_BUILDER : "If set to true, the IBuilder class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_NATURE : "If set to true, the Nature class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.ADDITIONAL_DEPENDENCIES : "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in."
+
+OptionTypes.DISABLE_BUILDER : "If set to true, the builder that is generated and registed by default will not be registed anymore. The default value for this option is <code>false</code>."
+
+OptionTypes.ADDITIONAL_EXPORTS : "A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in."
+
+OptionTypes.OVERRIDE_PAIR : "If set to true, the Pair class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER : "If set to true, the AbstractInterpreter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER : "If set to true, the GrammarInformationProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER : "If set to true, the AttributeValueProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER : "If set to true, the FollowSetProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SYNTAX_ELEMENT : "If set to true, the SyntaxElement class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_KEYWORD : "If set to true, the Keyword class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PLACEHOLDER : "If set to true, the Placeholder class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CARDINALITY : "If set to true, the Cardinality class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PRINTER2 : "If set to true, the Printer2 class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CHOICE : "If set to true, the Choice class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_COMPOUND : "If set to true, the Compound class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CONTAINMENT : "If set to true, the Containment class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LINE_BREAK : "If set to true, the LineBreak class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SEQUENCE : "If set to true, the Sequence class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_WHITE_SPACE : "If set to true, the WhiteSpace class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR : "If set to true, the SyntaxElementDecorator class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_REFERENCE_CACHE : "If set to true, the IReferenceCache class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER : "If set to true, the DefaultHoverTextProvider class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_FORMATTING_ELEMENT : "If set to true, the FormattingElement class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TERMINAL : "If set to true, the Terminal class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LAYOUT_INFORMATION_ADAPTER : "If set to true, the LayoutInformationAdapter class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LAYOUT_INFORMATION : "If set to true, the LayoutInformation class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.USE_CLASSIC_PRINTER : "If set to false, the classic printer (i.e., the used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. The default value for this option is <code>false</code>."
+
+OptionTypes.DISABLE_E_VALIDATORS : "If set to true, constraint validation using registered EValidators is disabled. The default value for this option is <code>true</code>."
+
+OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS : "If set to true, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_UI_META_INFORMATION : "If set to false, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.RESOURCE_UI_PLUGIN_ID : "The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID."
+
+OptionTypes.OVERRIDE_UI_PLUGIN_ACTIVATOR : "If set to false, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.UI_BASE_PACKAGE : "The package where to store all clasess of the resource UI plug-in in."
+
+OptionTypes.ADDITIONAL_UI_DEPENDENCIES : "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in."
+
+OptionTypes.ADDITIONAL_UI_EXPORTS : "A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in."
+
+OptionTypes.OVERRIDE_UI_MANIFEST : "If set to false, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UI_BUILD_PROPERTIES : "If set to false, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UI_DOT_CLASSPATH : "If set to false, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UI_DOT_PROJECT : "If set to false, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.UI_SOURCE_FOLDER : "The name of the folder EMFText shall store the overridable classes of the resource UI plug-in in."
+
+OptionTypes.UI_SOURCE_GEN_FOLDER : "The name of the folder EMFText shall store the generated classes of the resource UI plug-in in."
+
+OptionTypes.GENERATE_UI_PLUGIN : "If set to false, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_BRACKET_HANDLER : "If set to true, the IBracketHandler class will not be overriden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_UI_PLUGIN_XML : "If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
+Annotation.getValue : "
+ Returns the annotation value for the given key.
+"
+
+GenClassCache.getQualifiedInterfaceName : "
+ Return the qualified name of the interface for the given GenClass.
+"
+
+GenClassCache.getEscapedTypeName : "
+ Return an esacped version of the qualified name of the interface for 
+ the given GenClass. Underscores and dots are replaced to be able to use 
+ the returned name, for example, as method name.
+"
+
+GenClassCache.hasMapType : "
+ Checks whether the given GenClass has a map type.
+"
+
+GenClassCache.containsEqualByName : "
+ Checks whether the given list of GenClasses contains a GenClass
+ with the same name and namespace URI as the given GenClass. 
+"
+
+EClassUtil.getSubClasses : "
+ Returns all subclasses of 'superClass' that are contained
+ in 'availableClasses'.
+ 
+ @param superClass the superclass
+ @param availableClasses the set of classes to search in
+ @return a list of all subclasses of 'superClass'
+"
