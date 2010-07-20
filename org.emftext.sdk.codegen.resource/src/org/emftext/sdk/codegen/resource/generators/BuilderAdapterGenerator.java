@@ -56,6 +56,9 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.add("delta.accept(new " + I_RESOURCE_DELTA_VISITOR + "() {");
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
+		sc.add("if (delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED) {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
 		sc.add("if (resource instanceof " + I_FILE + " && \"" + getContext().getConcreteSyntax().getName() + "\".equals(resource.getFileExtension())) {");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
