@@ -23,7 +23,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_DIAGNOSTIC;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -54,8 +53,14 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		addUnmarkMethod(sc);
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("public static final String MARKER_TYPE = " + uiPluginActivatorClassName + ".PLUGIN_ID + \".problem\";");
+		sc.addJavadoc(
+			"The total number of markers per file is restricted with this constant. " +
+			"Restriction is needed because the performance of Eclipse decreases drastically " +
+			"if large amounts of markes are added to files."
+		);
+		sc.add("public static int MAXIMUM_MARKERS = 500;");
 		sc.addLineBreak();
 	}
 
@@ -74,8 +79,9 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
+		sc.add("private static void createMarkersFromDiagnostics(" + I_FILE + " file, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
 		sc.addLineBreak();
+		sc.add("int createdMarkers = 0;");
 		sc.add("for (" + RESOURCE_DIAGNOSTIC + " diagnostic : diagnostics) {");
 		sc.add("try {");
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
@@ -98,6 +104,10 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("ce.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
+		sc.add("createdMarkers++;");
+		sc.add("if (createdMarkers >= MAXIMUM_MARKERS) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -118,8 +128,8 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("createMarkersFromDiagnostics(resource, file, resource.getErrors(), " + I_MARKER + ".SEVERITY_ERROR);");
-		sc.add("createMarkersFromDiagnostics(resource, file, resource.getWarnings(), " + I_MARKER + ".SEVERITY_WARNING);");
+		sc.add("createMarkersFromDiagnostics(file, resource.getErrors(), " + I_MARKER + ".SEVERITY_ERROR);");
+		sc.add("createMarkersFromDiagnostics(file, resource.getWarnings(), " + I_MARKER + ".SEVERITY_WARNING);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
