@@ -25,18 +25,18 @@ import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * A class which can be overridden to customize code completion proposals.
+ * A class that customizes code completion proposals to the CS language.
  */
 public class CsProposalPostProcessor {
 	
 	public CsCompletionProposal[] process(CsCompletionProposal[] proposals) {
 		List<CsCompletionProposal> newProposals = new ArrayList<CsCompletionProposal>();
-		// change proposal for boolean options from "someValue" to "true"
 		for (int i = 0; i < proposals.length; i++) {
 			CsCompletionProposal proposal = proposals[i];
 			newProposals.add(proposal);
 			EStructuralFeature feature = proposal.getStructuralFeature();
 			EObject container = proposal.getContainer();
+			// change proposal for boolean options from "someValue" to "true", "false"
 			if (ConcretesyntaxPackage.eINSTANCE.getOption_Value() == feature) {
 				if (container instanceof Option) {
 					Option option = (Option) container;
@@ -59,6 +59,7 @@ public class CsProposalPostProcessor {
 						));
 					}
 				}
+			// change proposal for keywords from "someValue" to "keyword"
 			} else if (ConcretesyntaxPackage.eINSTANCE.getCsString_Value() == feature) {
 				newProposals.remove(newProposals.size() - 1);
 				newProposals.add(new CsCompletionProposal(
