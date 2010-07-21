@@ -135,6 +135,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE)));
 
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.CODE_COMPLETION_HELPER)));
+	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.COMPLETION_PROPOSAL)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_META_INFORMATION)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR)));

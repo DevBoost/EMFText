@@ -1624,7 +1624,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_PLUGIN_XML(200, "OVERRIDE_UI_PLUGIN_XML", "overrideUIPluginXML");
+	OVERRIDE_UI_PLUGIN_XML(200, "OVERRIDE_UI_PLUGIN_XML", "overrideUIPluginXML"), /**
+	 * The '<em><b>OVERRIDE PROPOSAL POST PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PROPOSAL_POST_PROCESSOR(201, "OVERRIDE_PROPOSAL_POST_PROCESSOR", "overrideProposalPostProcessor");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5010,6 +5018,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_UI_PLUGIN_XML_VALUE = 200;
 /**
+	 * The '<em><b>OVERRIDE PROPOSAL POST PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PROPOSAL POST PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPOSAL_POST_PROCESSOR
+	 * @model literal="overrideProposalPostProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE = 201;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5216,6 +5238,7 @@ public enum OptionTypes implements Enumerator {
 			GENERATE_UI_PLUGIN,
 			OVERRIDE_IBRACKET_HANDLER,
 			OVERRIDE_UI_PLUGIN_XML,
+			OVERRIDE_PROPOSAL_POST_PROCESSOR,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5463,6 +5486,7 @@ public enum OptionTypes implements Enumerator {
 			case GENERATE_UI_PLUGIN_VALUE: return GENERATE_UI_PLUGIN;
 			case OVERRIDE_IBRACKET_HANDLER_VALUE: return OVERRIDE_IBRACKET_HANDLER;
 			case OVERRIDE_UI_PLUGIN_XML_VALUE: return OVERRIDE_UI_PLUGIN_XML;
+			case OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE: return OVERRIDE_PROPOSAL_POST_PROCESSOR;
 		}
 		return null;
 	}

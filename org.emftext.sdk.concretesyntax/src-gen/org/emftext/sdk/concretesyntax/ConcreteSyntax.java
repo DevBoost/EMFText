@@ -24,6 +24,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Concrete Syntax</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * A specification of the concrete syntax for an Ecore metamodel.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

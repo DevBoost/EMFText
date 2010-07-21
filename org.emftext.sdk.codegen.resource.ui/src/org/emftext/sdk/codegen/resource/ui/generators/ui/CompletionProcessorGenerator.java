@@ -103,6 +103,9 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] proposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
+		sc.addComment("call completion proposal post processor to allow for customizing the proposals");
+		sc.add(proposalPostProcessorClassName + " proposalPostProcessor = new " + proposalPostProcessorClassName + "();");
+		sc.add("proposals = proposalPostProcessor.process(proposals);");
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.length];");
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");

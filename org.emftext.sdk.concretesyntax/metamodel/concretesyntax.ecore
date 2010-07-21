@@ -1447,6 +1447,7 @@
         <details key="documentation" value="If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_PROPOSAL_POST_PROCESSOR" value="201" literal="overrideProposalPostProcessor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

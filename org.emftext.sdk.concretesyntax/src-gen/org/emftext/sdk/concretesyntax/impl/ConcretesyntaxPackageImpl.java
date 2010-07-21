@@ -2318,6 +2318,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_UI_PLUGIN);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IBRACKET_HANDLER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_UI_PLUGIN_XML);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PROPOSAL_POST_PROCESSOR);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -2359,6 +2360,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	protected void createGenModelAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		addAnnotation
+		  (concreteSyntaxEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A specification of the concrete syntax for an Ecore metamodel."
+		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(0), 
 		   source, 

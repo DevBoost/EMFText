@@ -147,11 +147,11 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addDeriveProposalMethod1(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposal(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("if (matches(proposal, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), false));");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), null, null));");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
@@ -176,7 +176,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());");
 		sc.add("String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);");
 		sc.add("if (matches(resolvedLiteral, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(resolvedLiteral, prefix, !\"\".equals(prefix), true));");
+		sc.add("result.add(new " + completionProposalClassName + "(resolvedLiteral, prefix, !\"\".equals(prefix), expectedFeature.getFeature(), container));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return result;");
@@ -198,7 +198,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (tokenResolver != null) {");
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
 		sc.add("if (matches(defaultValueAsString, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, !\"\".equals(prefix), true));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, !\"\".equals(prefix), expectedFeature.getFeature(), container));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -236,7 +236,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addComment("check the prefix. return only matching references");
 		sc.add("if (matches(identifier, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, true, image));");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, reference, container, image));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -254,7 +254,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
-		sc.add("return deriveProposal(csString, content, expectedTerminal.getPrefix(), cursorOffset);");
+		sc.add("return handleKeyword(csString, content, expectedTerminal.getPrefix(), cursorOffset);");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
 		sc.add(expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");

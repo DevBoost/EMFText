@@ -41,6 +41,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String preferenceConstantsClassName;
 	protected String preferenceInitializerClassName;
 	protected String preferencePageClassName;
+	protected String proposalPostProcessorClassName;
 	protected String propertySheetPageClassName;
 	protected String syntaxColoringHelperClassName;
 	protected String syntaxColoringPreferencePageClassName;
@@ -87,6 +88,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		preferenceConstantsClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
 		preferenceInitializerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
 		preferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE);
+		proposalPostProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
 		propertySheetPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
 		syntaxColoringHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
 		syntaxColoringPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);

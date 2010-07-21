@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -31,7 +32,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		addGetPrefixMethod(sc);
 		addGetStartsWithPrefixMethod(sc);
 		addImageMethod(sc);
-		addIsStructuralFeaturemethod(sc);
+		addIsStructuralFeatureMethod(sc);
+		addGetStructuralFeatureMethod(sc);
+		addGetContainerMethod(sc);
 		addEqualsMethod(sc);
 		addHashCodeMethod(sc);
 	}
@@ -65,9 +68,23 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addIsStructuralFeaturemethod(StringComposite sc) {
+	private void addIsStructuralFeatureMethod(StringComposite sc) {
 		sc.add("public boolean isStructuralFeature() {");
+		sc.add("return structuralFeature != null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetStructuralFeatureMethod(StringComposite sc) {
+		sc.add("public " + E_STRUCTURAL_FEATURE + " getStructuralFeature() {");
 		sc.add("return structuralFeature;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetContainerMethod(StringComposite sc) {
+		sc.add("public " + E_OBJECT + " getContainer() {");
+		sc.add("return container;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -101,20 +118,21 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor1(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, boolean structuralFeature, " + IMAGE + " image) {");
-		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature);");
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
+		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addConstructor2(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, boolean structuralFeature) {");
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
 		sc.add("super();");
 		sc.add("this.insertString = insertString;");
 		sc.add("this.prefix = prefix;");
 		sc.add("this.startsWithPrefix = startsWithPrefix;");
 		sc.add("this.structuralFeature = structuralFeature;");
+		sc.add("this.container = container;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -123,7 +141,8 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("private " + STRING + " insertString;");
 		sc.add("private " + STRING + " prefix;");
 		sc.add("private boolean startsWithPrefix;");
-		sc.add("private boolean structuralFeature;");
+		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
+		sc.add("private " + E_OBJECT + " container;");
 		sc.add("private " + IMAGE + " image;");
 		sc.addLineBreak();
 	}

@@ -49,6 +49,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferenceConstantsGene
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferenceInitializerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PropertySheetPageGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ProposalPostProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TextHoverGenerator;
@@ -69,6 +70,7 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_COMPLETION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeCompletionHelper", CodeCompletionHelperGenerator.class, OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROPOSAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProposal", CompletionProposalGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROPOSAL); 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROPOSAL_POST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ProposalPostProcessor", ProposalPostProcessorGenerator.class, OptionTypes.OVERRIDE_PROPOSAL_POST_PROCESSOR); 
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HoverTextProvider", HoverTextProviderGenerator.class, OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DefaultHoverTextProvider", DefaultHoverTextProviderGenerator.class, OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER);
