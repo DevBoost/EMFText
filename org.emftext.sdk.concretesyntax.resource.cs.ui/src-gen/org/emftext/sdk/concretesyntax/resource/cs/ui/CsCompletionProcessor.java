@@ -30,6 +30,9 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] proposals = helper.computeCompletionProposals(textResource, content, offset);
 		
+		// call completion proposal post processor to allow for customizing the proposals
+		org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor proposalPostProcessor = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor();
+		proposals = proposalPostProcessor.process(proposals);
 		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[proposals.length];
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : proposals) {

@@ -11,6 +11,7 @@ OPTIONS {
 	overrideManifest = "false";
 	overrideHoverTextProvider = "false";
 	overrideProblemClass = "false";
+	overrideProposalPostProcessor = "false";
 	disableBuilder = "true";
 	// we need to disable the use of the EMF validation framework, because
 	// it does not run outside of Eclipse properly, which conflicts with
@@ -19,6 +20,7 @@ OPTIONS {
 	// we also need to disable the EValidators since they do cause problems
 	// as well 
 	disableEValidators = "true";
+	additionalUIDependencies = "org.emftext.sdk";
 }
 
 TOKENS {

@@ -148,7 +148,7 @@ public class CsCodeCompletionHelper {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement) expectedTerminal.getTerminal();
 		if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) expectedElement;
-			return deriveProposal(csString, content, expectedTerminal.getPrefix(), cursorOffset);
+			return handleKeyword(csString, content, expectedTerminal.getPrefix(), cursorOffset);
 		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
 			org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
@@ -240,7 +240,7 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());
 			String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);
 			if (matches(resolvedLiteral, prefix)) {
-				result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(resolvedLiteral, prefix, !"".equals(prefix), true));
+				result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(resolvedLiteral, prefix, !"".equals(prefix), expectedFeature.getFeature(), container));
 			}
 		}
 		return result;
@@ -269,7 +269,7 @@ public class CsCodeCompletionHelper {
 					}
 					// check the prefix. return only matching references
 					if (matches(identifier, prefix)) {
-						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(identifier, prefix, true, true, image));
+						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(identifier, prefix, true, reference, container, image));
 					}
 				}
 			}
@@ -291,7 +291,7 @@ public class CsCodeCompletionHelper {
 						if (tokenResolver != null) {
 							String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
 							if (matches(defaultValueAsString, prefix)) {
-								resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(defaultValueAsString, prefix, !"".equals(prefix), true));
+								resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(defaultValueAsString, prefix, !"".equals(prefix), expectedFeature.getFeature(), container));
 							}
 						}
 					}
@@ -301,11 +301,11 @@ public class CsCodeCompletionHelper {
 		return resultSet;
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> deriveProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleKeyword(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		if (matches(proposal, prefix)) {
-			result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(proposal, prefix, !"".equals(prefix), false));
+			result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(proposal, prefix, !"".equals(prefix), null, null));
 		}
 		return result;
 	}

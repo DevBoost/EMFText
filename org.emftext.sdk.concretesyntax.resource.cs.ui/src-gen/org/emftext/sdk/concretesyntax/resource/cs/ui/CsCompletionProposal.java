@@ -21,20 +21,22 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	private java.lang.String insertString;
 	private java.lang.String prefix;
 	private boolean startsWithPrefix;
-	private boolean structuralFeature;
+	private org.eclipse.emf.ecore.EStructuralFeature structuralFeature;
+	private org.eclipse.emf.ecore.EObject container;
 	private org.eclipse.swt.graphics.Image image;
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, boolean structuralFeature, org.eclipse.swt.graphics.Image image) {
-		this(insertString, prefix, startsWithPrefix, structuralFeature);
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+		this(insertString, prefix, startsWithPrefix, structuralFeature, container);
 		this.image = image;
 	}
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, boolean structuralFeature) {
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
 		this.insertString = insertString;
 		this.prefix = prefix;
 		this.startsWithPrefix = startsWithPrefix;
 		this.structuralFeature = structuralFeature;
+		this.container = container;
 	}
 	
 	public java.lang.String getInsertString() {
@@ -54,7 +56,15 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	}
 	
 	public boolean isStructuralFeature() {
+		return structuralFeature != null;
+	}
+	
+	public org.eclipse.emf.ecore.EStructuralFeature getStructuralFeature() {
 		return structuralFeature;
+	}
+	
+	public org.eclipse.emf.ecore.EObject getContainer() {
+		return container;
 	}
 	
 	public boolean equals(Object object) {
