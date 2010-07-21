@@ -31,6 +31,8 @@ import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.regex.SorterException;
+import org.emftext.sdk.regex.TokenSorter;
 
 /**
  * The TokenDefinitionMerger is responsible to derive a list of all
@@ -156,14 +158,13 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				handledTokenNames.add(namedToken.getName());
 			}
 		}
-    	
+		
     	// finally set the merged tokens in the syntax model
     	List<TokenDirective> allTokenDirectives = syntax.getAllTokenDirectives();
 		allTokenDirectives.clear();
     	allTokenDirectives.addAll(mergeResult);
     	
-    	List<CompleteTokenDefinition> activeTokens = syntax.getActiveTokens();
-    	activeTokens.clear();
+    	List<CompleteTokenDefinition> activeTokens = new ArrayList<CompleteTokenDefinition>();
 
     	List<TokenDirective> handledDirectives = new ArrayList<TokenDirective>();
     	// replace the priority directive with the actual tokens
@@ -181,6 +182,30 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
 			}
 		}
+
+    	// this is a potential fix for bug 1458. it is not activated yet,
+    	// because sorting the tokens of the current syntax (and not only
+    	// the imported ones, may confuse developers)
+    	//activeTokens = sortTokens(activeTokens);
+		
+		// set active tokens in syntax model
+    	List<CompleteTokenDefinition> currentActiveTokens = syntax.getActiveTokens();
+    	currentActiveTokens.clear();
+    	currentActiveTokens.addAll(activeTokens);
+	}
+
+	private List<CompleteTokenDefinition> sortTokens(
+			List<CompleteTokenDefinition> tokens) {
+		// sort resulting list of active tokens (includes tokens both from 
+    	// imported syntax files and the current CS file)
+		TokenSorter sorter = new TokenSorter();
+		try {
+			tokens = sorter.sortTokens(tokens, true);
+		} catch (SorterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tokens;
 	}
 
 	private Set<CompleteTokenDefinition> getTokensByName(
