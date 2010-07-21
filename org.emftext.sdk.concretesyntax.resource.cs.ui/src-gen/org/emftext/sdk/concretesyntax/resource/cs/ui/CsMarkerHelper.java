@@ -24,6 +24,12 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsMarkerHelper {
 	
 	public static final String MARKER_TYPE = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID + ".problem";
+	/**
+	 * The total number of markers per file is restricted with this constant.
+	 * Restriction is needed because the performance of Eclipse decreases drastically
+	 * if large amounts of markes are added to files.
+	 */
+	public static int MAXIMUM_MARKERS = 500;
 	
 	/**
 	 * Marks a file with markers.
@@ -41,12 +47,13 @@ public class CsMarkerHelper {
 		if (file == null) {
 			return;
 		}
-		createMarkersFromDiagnostics(resource, file, resource.getErrors(), org.eclipse.core.resources.IMarker.SEVERITY_ERROR);
-		createMarkersFromDiagnostics(resource, file, resource.getWarnings(), org.eclipse.core.resources.IMarker.SEVERITY_WARNING);
+		createMarkersFromDiagnostics(file, resource.getErrors(), org.eclipse.core.resources.IMarker.SEVERITY_ERROR);
+		createMarkersFromDiagnostics(file, resource.getWarnings(), org.eclipse.core.resources.IMarker.SEVERITY_WARNING);
 	}
 	
-	private static void createMarkersFromDiagnostics(org.eclipse.emf.ecore.resource.Resource resource, org.eclipse.core.resources.IFile file, java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics, int markerSeverity) throws org.eclipse.core.runtime.CoreException {
+	private static void createMarkersFromDiagnostics(org.eclipse.core.resources.IFile file, java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics, int markerSeverity) throws org.eclipse.core.runtime.CoreException {
 		
+		int createdMarkers = 0;
 		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic : diagnostics) {
 			try {
 				org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
@@ -68,6 +75,10 @@ public class CsMarkerHelper {
 				} else {
 					ce.printStackTrace();
 				}
+			}
+			createdMarkers++;
+			if (createdMarkers >= MAXIMUM_MARKERS) {
+				return;
 			}
 		}
 	}
