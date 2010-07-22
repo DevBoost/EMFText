@@ -15,7 +15,9 @@ package org.emftext.sdk.syntax_analysis;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -39,7 +41,7 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		// maps references that have syntax and a non-containment opposite to
 		// the rule which defined the syntax for the reference
-		Map<EReference, Rule> referencesWithSyntaxAndNCOpposite = new LinkedHashMap<EReference, Rule>();
+		Map<EReference, Set<Rule>> referencesWithSyntaxAndNCOpposite = new LinkedHashMap<EReference, Set<Rule>>();
 		
 		Iterator<EObject> iterator = syntax.eAllContents();
 		while (iterator.hasNext()) {
@@ -52,7 +54,10 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 					EReference opposite = reference.getEOpposite();
 					if (opposite != null) {
 						if (!opposite.isContainment()) {
-							referencesWithSyntaxAndNCOpposite.put(reference, placeholder.getContainingRule());
+							if (!referencesWithSyntaxAndNCOpposite.containsKey(reference)) {
+								referencesWithSyntaxAndNCOpposite.put(reference, new LinkedHashSet<Rule>());
+							}
+							referencesWithSyntaxAndNCOpposite.get(reference).add(placeholder.getContainingRule());
 						}
 					}
 				}
@@ -64,17 +69,19 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 			EReference opposite = reference.getEOpposite();
 			//it is ok, if the opposite itself has syntax through which a proxy is produced during parsing
 			if (!referencesWithSyntaxAndNCOpposite.keySet().contains(opposite)) {
-				Rule containingRule = referencesWithSyntaxAndNCOpposite.get(reference);
+				Set<Rule> containingRules = referencesWithSyntaxAndNCOpposite.get(reference);
 				String message = String.format(
 						NON_CONTAINMENT_OPPOSITE_WARNING, 
 						reference.getName(),
 						opposite.getEContainingClass().getName() + "." + opposite.getName()
 				);
-				addProblem(
-						resource,
-						ECsProblemType.NON_CONTAINMENT_OPPOSITE,
-						message,
-						containingRule);
+				for (Rule containingRule : containingRules) {
+					addProblem(
+							resource,
+							ECsProblemType.NON_CONTAINMENT_OPPOSITE,
+							message,
+							containingRule);
+				}
 			}
 		}
 	}
