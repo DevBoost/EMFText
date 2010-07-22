@@ -19,10 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
@@ -44,7 +46,9 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		List<CompleteTokenDefinition> allImportedTokens = new ArrayList<CompleteTokenDefinition>();
+    	boolean disableTokenSorting = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.DISABLE_TOKEN_SORTING);
+
+    	List<CompleteTokenDefinition> allImportedTokens = new ArrayList<CompleteTokenDefinition>();
 		
 		// first we add the (merged) tokens from the imported syntax
     	for (Import nextImport : syntax.getImports()) {
@@ -178,15 +182,30 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				CompleteTokenDefinition prioritizedToken = priorityDirective.getToken();
 				activeTokens.add(prioritizedToken);
 				handledDirectives.add(prioritizedToken);
+				if (!disableTokenSorting) {
+					String message = 
+						"Prioritizing tokens is ignore since token sorting is enabled. " + 
+						"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting.";
+					addProblem(resource, ECsProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
+				}
 			} else {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
 			}
 		}
 
-    	// this is a potential fix for bug 1458. it is not activated yet,
-    	// because sorting the tokens of the current syntax (and not only
-    	// the imported ones, may confuse developers)
-    	//activeTokens = sortTokens(activeTokens);
+		// this is a fix for bug 1458
+    	if (!disableTokenSorting) {
+    		try {
+    			activeTokens = sortTokens(activeTokens);
+    		} catch (SorterException e) {
+    			// Can't sort tokens automatically, user must define token order
+    			// manually.
+    			String message = 
+    				"Automatic token sorting failed. " +
+					"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting and define token order manually.";
+				addProblem(resource, ECsProblemType.TOKEN_SORTING_FAILED, message, syntax);
+    		}
+		}
 		
 		// set active tokens in syntax model
     	List<CompleteTokenDefinition> currentActiveTokens = syntax.getActiveTokens();
@@ -195,16 +214,11 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	}
 
 	private List<CompleteTokenDefinition> sortTokens(
-			List<CompleteTokenDefinition> tokens) {
+			List<CompleteTokenDefinition> tokens) throws SorterException {
 		// sort resulting list of active tokens (includes tokens both from 
     	// imported syntax files and the current CS file)
 		TokenSorter sorter = new TokenSorter();
-		try {
-			tokens = sorter.sortTokens(tokens, true);
-		} catch (SorterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tokens = sorter.sortTokens(tokens, false);
 		return tokens;
 	}
 

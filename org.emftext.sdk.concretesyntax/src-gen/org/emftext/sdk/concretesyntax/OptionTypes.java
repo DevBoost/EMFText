@@ -1632,7 +1632,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PROPOSAL_POST_PROCESSOR(201, "OVERRIDE_PROPOSAL_POST_PROCESSOR", "overrideProposalPostProcessor");
+	OVERRIDE_PROPOSAL_POST_PROCESSOR(201, "OVERRIDE_PROPOSAL_POST_PROCESSOR", "overrideProposalPostProcessor"), /**
+	 * The '<em><b>DISABLE TOKEN SORTING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_TOKEN_SORTING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_TOKEN_SORTING(202, "DISABLE_TOKEN_SORTING", "disableTokenSorting");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5032,6 +5040,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE = 201;
 /**
+	 * The '<em><b>DISABLE TOKEN SORTING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE TOKEN SORTING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_TOKEN_SORTING
+	 * @model literal="disableTokenSorting"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_TOKEN_SORTING_VALUE = 202;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5239,6 +5261,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IBRACKET_HANDLER,
 			OVERRIDE_UI_PLUGIN_XML,
 			OVERRIDE_PROPOSAL_POST_PROCESSOR,
+			DISABLE_TOKEN_SORTING,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5487,6 +5510,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IBRACKET_HANDLER_VALUE: return OVERRIDE_IBRACKET_HANDLER;
 			case OVERRIDE_UI_PLUGIN_XML_VALUE: return OVERRIDE_UI_PLUGIN_XML;
 			case OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE: return OVERRIDE_PROPOSAL_POST_PROCESSOR;
+			case DISABLE_TOKEN_SORTING_VALUE: return DISABLE_TOKEN_SORTING;
 		}
 		return null;
 	}

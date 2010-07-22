@@ -2319,6 +2319,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IBRACKET_HANDLER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_UI_PLUGIN_XML);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PROPOSAL_POST_PROCESSOR);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.DISABLE_TOKEN_SORTING);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

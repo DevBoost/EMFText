@@ -1448,6 +1448,7 @@
       </eAnnotations>
     </eLiterals>
     <eLiterals name="OVERRIDE_PROPOSAL_POST_PROCESSOR" value="201" literal="overrideProposalPostProcessor"/>
+    <eLiterals name="DISABLE_TOKEN_SORTING" value="202" literal="disableTokenSorting"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
