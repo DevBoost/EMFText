@@ -19,16 +19,12 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
 	private java.lang.String insertString;
+	private java.lang.String displayString;
 	private java.lang.String prefix;
 	private boolean startsWithPrefix;
 	private org.eclipse.emf.ecore.EStructuralFeature structuralFeature;
 	private org.eclipse.emf.ecore.EObject container;
 	private org.eclipse.swt.graphics.Image image;
-	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
-		this(insertString, prefix, startsWithPrefix, structuralFeature, container);
-		this.image = image;
-	}
 	
 	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
@@ -39,8 +35,22 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		this.container = container;
 	}
 	
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+		this(insertString, prefix, startsWithPrefix, structuralFeature, container);
+		this.image = image;
+	}
+	
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
+		this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);
+		this.displayString = displayString;
+	}
+	
 	public java.lang.String getInsertString() {
 		return insertString;
+	}
+	
+	public java.lang.String getDisplayString() {
+		return displayString;
 	}
 	
 	public java.lang.String getPrefix() {

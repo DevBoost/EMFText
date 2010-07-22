@@ -37,6 +37,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : proposals) {
 			java.lang.String proposalString = proposal.getInsertString();
+			java.lang.String displayString = proposal.getDisplayString();
 			java.lang.String prefix = proposal.getPrefix();
 			org.eclipse.swt.graphics.Image image = proposal.getImage();
 			org.eclipse.jface.text.contentassist.IContextInformation info;
@@ -50,7 +51,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 			if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {
 				replacementLength += closingBracket.length();
 			}
-			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, proposalString, info, proposalString);
+			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);
 		}
 		return result;
 	}

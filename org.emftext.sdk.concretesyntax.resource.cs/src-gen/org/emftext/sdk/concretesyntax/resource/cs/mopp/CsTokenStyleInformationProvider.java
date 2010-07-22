@@ -55,9 +55,6 @@ public class CsTokenStyleInformationProvider {
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDefaultTokenStyle(java.lang.String tokenName) {
-		if ("NUMBER".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
-		}
 		if ("HEXNUMBER".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
 		}
