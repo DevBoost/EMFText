@@ -118,11 +118,11 @@ public class CsTokenStyleInformationProvider {
 		if ("STRING".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
-		if ("QUOTED_60_62".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0x00, 0x00, 0x00}, false, false, false, false);
-		}
 		if ("QUOTED_39_39_92".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
+		}
+		if ("QUOTED_60_62".equals(tokenName)) {
+			return new TokenStyleImpl(new int[] {0x00, 0x00, 0x00}, false, false, false, false);
 		}
 		if ("WITH".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x55}, true, false, false, false);
