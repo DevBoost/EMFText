@@ -8,12 +8,11 @@ import java.util.HashMap;
 @SuppressWarnings("unused")
 public class CsParser extends CsANTLRParserBase {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUALIFIED_NAME", "QUOTED_60_62", "STRING", "QUOTED_39_39_92", "HEXNUMBER", "TABNUMBER", "QUOTED_36_36", "COMMENTS", "NUMBER", "WHITESPACE", "LINEBREAK", "'SYNTAXDEF'", "'FOR'", "'START'", "','", "'IMPORTS'", "'{'", "'}'", "'OPTIONS'", "';'", "'TOKENS'", "'TOKENSTYLES'", "'RULES'", "':'", "'WITH'", "'SYNTAX'", "'='", "'::='", "'|'", "'['", "']'", "'('", "')'", "'REDEFINE'", "'AS'", "'+'", "'DEFINE'", "'COLLECT'", "'IN'", "'FRAGMENT'", "'PRIORITIZE'", "'*'", "'?'", "'ABSTRACT'", "'COLOR'", "'@'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUALIFIED_NAME", "QUOTED_60_62", "STRING", "QUOTED_39_39_92", "HEXNUMBER", "TABNUMBER", "QUOTED_36_36", "COMMENTS", "WHITESPACE", "LINEBREAK", "'SYNTAXDEF'", "'FOR'", "'START'", "','", "'IMPORTS'", "'{'", "'}'", "'OPTIONS'", "';'", "'TOKENS'", "'TOKENSTYLES'", "'RULES'", "':'", "'WITH'", "'SYNTAX'", "'='", "'::='", "'|'", "'['", "']'", "'('", "')'", "'REDEFINE'", "'AS'", "'+'", "'DEFINE'", "'COLLECT'", "'IN'", "'FRAGMENT'", "'PRIORITIZE'", "'*'", "'?'", "'ABSTRACT'", "'COLOR'", "'@'"
     };
     public static final int T__42=42;
     public static final int T__28=28;
     public static final int T__23=23;
-    public static final int NUMBER=12;
     public static final int T__47=47;
     public static final int T__21=21;
     public static final int HEXNUMBER=8;
@@ -25,7 +24,6 @@ public class CsParser extends CsANTLRParserBase {
     public static final int T__17=17;
     public static final int T__27=27;
     public static final int T__24=24;
-    public static final int T__49=49;
     public static final int QUALIFIED_NAME=4;
     public static final int T__48=48;
     public static final int T__34=34;
@@ -37,10 +35,11 @@ public class CsParser extends CsANTLRParserBase {
     public static final int TABNUMBER=9;
     public static final int STRING=6;
     public static final int T__44=44;
+    public static final int T__14=14;
     public static final int T__33=33;
     public static final int T__22=22;
     public static final int QUOTED_60_62=5;
-    public static final int WHITESPACE=13;
+    public static final int WHITESPACE=12;
     public static final int T__29=29;
     public static final int T__45=45;
     public static final int T__43=43;
@@ -51,7 +50,7 @@ public class CsParser extends CsANTLRParserBase {
     public static final int T__16=16;
     public static final int T__32=32;
     public static final int T__38=38;
-    public static final int LINEBREAK=14;
+    public static final int LINEBREAK=13;
     public static final int T__37=37;
     public static final int T__26=26;
     public static final int T__25=25;
@@ -878,7 +877,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==49) ) {
+                if ( (LA1_0==48) ) {
                     alt1=1;
                 }
 
@@ -952,7 +951,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( (LA2_0==47) ) {
+            if ( (LA2_0==46) ) {
                 alt2=1;
             }
             switch (alt2) {
@@ -1013,7 +1012,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_2, 4));
               	
             }
-            a2=(Token)match(input,15,FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax224); if (state.failed) return element;
+            a2=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax224); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -1072,7 +1071,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_4, 6));
               	
             }
-            a4=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax263); if (state.failed) return element;
+            a4=(Token)match(input,15,FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax263); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -1225,7 +1224,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt5=2;
             int LA5_0 = input.LA(1);
 
-            if ( (LA5_0==17) ) {
+            if ( (LA5_0==16) ) {
                 alt5=1;
             }
             switch (alt5) {
@@ -1235,7 +1234,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:964:3: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
                     // Cs.g:965:4: a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
                     {
-                    a7=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax372); if (state.failed) return element;
+                    a7=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax372); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1326,7 +1325,7 @@ public class CsParser extends CsANTLRParserBase {
                         int alt4=2;
                         int LA4_0 = input.LA(1);
 
-                        if ( (LA4_0==18) ) {
+                        if ( (LA4_0==17) ) {
                             alt4=1;
                         }
 
@@ -1338,7 +1337,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    // Cs.g:1035:5: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
                     	    // Cs.g:1036:6: a9= ',' ( (a10= QUALIFIED_NAME ) )
                     	    {
-                    	    a9=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax470); if (state.failed) return element;
+                    	    a9=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax470); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
                     	      						if (element == null) {
@@ -1469,7 +1468,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt7=2;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==19) ) {
+            if ( (LA7_0==18) ) {
                 alt7=1;
             }
             switch (alt7) {
@@ -1479,7 +1478,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:1129:3: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
                     // Cs.g:1130:4: a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}'
                     {
-                    a11=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax628); if (state.failed) return element;
+                    a11=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax628); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1497,7 +1496,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_16, 19));
                       			
                     }
-                    a12=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax648); if (state.failed) return element;
+                    a12=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax648); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1590,7 +1589,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_18, 22));
                       			
                     }
-                    a14=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax750); if (state.failed) return element;
+                    a14=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax750); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1633,7 +1632,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==22) ) {
+            if ( (LA9_0==21) ) {
                 alt9=1;
             }
             switch (alt9) {
@@ -1643,7 +1642,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:1222:3: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
                     // Cs.g:1223:4: a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}'
                     {
-                    a15=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax792); if (state.failed) return element;
+                    a15=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax792); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1661,7 +1660,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_19, 25));
                       			
                     }
-                    a16=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax812); if (state.failed) return element;
+                    a16=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax812); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1734,7 +1733,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_22, 27));
                     	      					
                     	    }
-                    	    a18=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax891); if (state.failed) return element;
+                    	    a18=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax891); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
                     	      						if (element == null) {
@@ -1772,7 +1771,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_21, 29));
                       			
                     }
-                    a19=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax940); if (state.failed) return element;
+                    a19=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax940); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1813,7 +1812,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( (LA11_0==24) ) {
+            if ( (LA11_0==23) ) {
                 alt11=1;
             }
             switch (alt11) {
@@ -1823,7 +1822,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:1327:3: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
                     // Cs.g:1328:4: a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}'
                     {
-                    a20=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax982); if (state.failed) return element;
+                    a20=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax982); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1841,7 +1840,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_23, 32));
                       			
                     }
-                    a21=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1002); if (state.failed) return element;
+                    a21=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1002); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -1870,7 +1869,7 @@ public class CsParser extends CsANTLRParserBase {
                         int alt10=2;
                         int LA10_0 = input.LA(1);
 
-                        if ( (LA10_0==37||LA10_0==40||LA10_0==44||LA10_0==49) ) {
+                        if ( (LA10_0==36||LA10_0==39||LA10_0==43||LA10_0==48) ) {
                             alt10=1;
                         }
 
@@ -1918,7 +1917,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_29, 34));
                     	      					
                     	    }
-                    	    a23=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1081); if (state.failed) return element;
+                    	    a23=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1081); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
                     	      						if (element == null) {
@@ -1964,7 +1963,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_28, 36));
                       			
                     }
-                    a24=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1130); if (state.failed) return element;
+                    a24=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1130); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2003,7 +2002,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( (LA13_0==25) ) {
+            if ( (LA13_0==24) ) {
                 alt13=1;
             }
             switch (alt13) {
@@ -2013,7 +2012,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:1442:3: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
                     // Cs.g:1443:4: a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}'
                     {
-                    a25=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1172); if (state.failed) return element;
+                    a25=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1172); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2031,7 +2030,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_30, 39));
                       			
                     }
-                    a26=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1192); if (state.failed) return element;
+                    a26=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1192); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2124,7 +2123,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_32, 42));
                       			
                     }
-                    a28=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1294); if (state.failed) return element;
+                    a28=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1294); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2157,7 +2156,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_12, 44));
               	
             }
-            a29=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1327); if (state.failed) return element;
+            a29=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1327); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -2175,7 +2174,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_33, 45));
               	
             }
-            a30=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1341); if (state.failed) return element;
+            a30=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1341); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -2201,7 +2200,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt14=2;
                 int LA14_0 = input.LA(1);
 
-                if ( (LA14_0==QUALIFIED_NAME||LA14_0==49) ) {
+                if ( (LA14_0==QUALIFIED_NAME||LA14_0==48) ) {
                     alt14=1;
                 }
 
@@ -2271,7 +2270,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_35, 48));
               	
             }
-            a32=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1411); if (state.failed) return element;
+            a32=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1411); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -2366,7 +2365,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_36, 50));
               	
             }
-            a1=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1465); if (state.failed) return element;
+            a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Import1465); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -2510,7 +2509,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==28) ) {
+            if ( (LA17_0==27) ) {
                 alt17=1;
             }
             switch (alt17) {
@@ -2520,7 +2519,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:1751:3: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
                     // Cs.g:1752:4: a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )?
                     {
-                    a4=(Token)match(input,28,FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_Import1574); if (state.failed) return element;
+                    a4=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1574); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2538,7 +2537,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_40, 55));
                       			
                     }
-                    a5=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_Import1594); if (state.failed) return element;
+                    a5=(Token)match(input,28,FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_Import1594); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -2764,7 +2763,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_43, 61));
               	
             }
-            a1=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_Option1795); if (state.failed) return element;
+            a1=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_Option1795); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -2865,7 +2864,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt18=2;
                 int LA18_0 = input.LA(1);
 
-                if ( (LA18_0==49) ) {
+                if ( (LA18_0==48) ) {
                     alt18=1;
                 }
 
@@ -2978,7 +2977,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_45, 66));
               	
             }
-            a2=(Token)match(input,31,FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Rule1930); if (state.failed) return element;
+            a2=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_Rule1930); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3039,7 +3038,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_54, 68));
               	
             }
-            a4=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_Rule1966); if (state.failed) return element;
+            a4=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_Rule1966); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3097,7 +3096,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt19=2;
                 int LA19_0 = input.LA(1);
 
-                if ( (LA19_0==QUALIFIED_NAME||LA19_0==STRING||(LA19_0>=HEXNUMBER && LA19_0<=TABNUMBER)||LA19_0==35) ) {
+                if ( (LA19_0==QUALIFIED_NAME||LA19_0==STRING||(LA19_0>=HEXNUMBER && LA19_0<=TABNUMBER)||LA19_0==34) ) {
                     alt19=1;
                 }
 
@@ -3244,7 +3243,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt20=2;
                 int LA20_0 = input.LA(1);
 
-                if ( (LA20_0==32) ) {
+                if ( (LA20_0==31) ) {
                     alt20=1;
                 }
 
@@ -3256,7 +3255,7 @@ public class CsParser extends CsANTLRParserBase {
             	    // Cs.g:2176:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
             	    // Cs.g:2177:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
             	    {
-            	    a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_Choice2076); if (state.failed) return element;
+            	    a1=(Token)match(input,31,FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Choice2076); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
             	      				if (element == null) {
@@ -3500,7 +3499,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_57, 76));
               	
             }
-            a1=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2223); if (state.failed) return element;
+            a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2223); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3563,7 +3562,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_59, 78));
               	
             }
-            a3=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2262); if (state.failed) return element;
+            a3=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2262); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3598,7 +3597,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt21=2;
             int LA21_0 = input.LA(1);
 
-            if ( (LA21_0==39||(LA21_0>=45 && LA21_0<=46)) ) {
+            if ( (LA21_0==38||(LA21_0>=44 && LA21_0<=45)) ) {
                 alt21=1;
             }
             switch (alt21) {
@@ -3736,7 +3735,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_63, 81));
               	
             }
-            a1=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2351); if (state.failed) return element;
+            a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2351); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3754,7 +3753,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_64, 82));
               	
             }
-            a2=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2365); if (state.failed) return element;
+            a2=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2365); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3789,7 +3788,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt22=2;
             int LA22_0 = input.LA(1);
 
-            if ( (LA22_0==39||(LA22_0>=45 && LA22_0<=46)) ) {
+            if ( (LA22_0==38||(LA22_0>=44 && LA22_0<=45)) ) {
                 alt22=1;
             }
             switch (alt22) {
@@ -3932,7 +3931,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_65, 85));
               	
             }
-            a1=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2454); if (state.failed) return element;
+            a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2454); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -3991,7 +3990,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_67, 87));
               	
             }
-            a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2493); if (state.failed) return element;
+            a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2493); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -4055,7 +4054,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt23=2;
             int LA23_0 = input.LA(1);
 
-            if ( (LA23_0==18) ) {
+            if ( (LA23_0==17) ) {
                 alt23=1;
             }
             switch (alt23) {
@@ -4065,7 +4064,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:2705:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
                     // Cs.g:2706:4: a5= ',' (a6= QUOTED_39_39_92 )
                     {
-                    a5=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2541); if (state.failed) return element;
+                    a5=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2541); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -4139,7 +4138,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_70, 92));
               	
             }
-            a7=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2613); if (state.failed) return element;
+            a7=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2613); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -4174,7 +4173,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt24=2;
             int LA24_0 = input.LA(1);
 
-            if ( (LA24_0==39||(LA24_0>=45 && LA24_0<=46)) ) {
+            if ( (LA24_0==38||(LA24_0>=44 && LA24_0<=45)) ) {
                 alt24=1;
             }
             switch (alt24) {
@@ -4332,7 +4331,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( (LA26_0==27) ) {
+            if ( (LA26_0==26) ) {
                 alt26=1;
             }
             switch (alt26) {
@@ -4342,7 +4341,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:2883:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
                     // Cs.g:2884:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     {
-                    a1=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Containment2711); if (state.failed) return element;
+                    a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Containment2711); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -4425,7 +4424,7 @@ public class CsParser extends CsANTLRParserBase {
                         int alt25=2;
                         int LA25_0 = input.LA(1);
 
-                        if ( (LA25_0==18) ) {
+                        if ( (LA25_0==17) ) {
                             alt25=1;
                         }
 
@@ -4437,7 +4436,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    // Cs.g:2951:5: (a3= ',' (a4= QUALIFIED_NAME ) )
                     	    // Cs.g:2952:6: a3= ',' (a4= QUALIFIED_NAME )
                     	    {
-                    	    a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Containment2783); if (state.failed) return element;
+                    	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment2783); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
                     	      						if (element == null) {
@@ -4578,7 +4577,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt27=2;
             int LA27_0 = input.LA(1);
 
-            if ( (LA27_0==39||(LA27_0>=45 && LA27_0<=46)) ) {
+            if ( (LA27_0==38||(LA27_0>=44 && LA27_0<=45)) ) {
                 alt27=1;
             }
             switch (alt27) {
@@ -4672,7 +4671,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:3100:1: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
             // Cs.g:3101:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
-            a0=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2948); if (state.failed) return element;
+            a0=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2948); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -4733,7 +4732,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_56, 104));
               	
             }
-            a2=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2984); if (state.failed) return element;
+            a2=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2984); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -4768,7 +4767,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt28=2;
             int LA28_0 = input.LA(1);
 
-            if ( (LA28_0==39||(LA28_0>=45 && LA28_0<=46)) ) {
+            if ( (LA28_0==38||(LA28_0>=44 && LA28_0<=45)) ) {
                 alt28=1;
             }
             switch (alt28) {
@@ -5035,7 +5034,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt29=2;
                 int LA29_0 = input.LA(1);
 
-                if ( (LA29_0==49) ) {
+                if ( (LA29_0==48) ) {
                     alt29=1;
                 }
 
@@ -5103,7 +5102,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_24, 110));
               	
             }
-            a1=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3184); if (state.failed) return element;
+            a1=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3184); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -5166,7 +5165,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_77, 112));
               	
             }
-            a3=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3223); if (state.failed) return element;
+            a3=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3223); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -5269,7 +5268,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt30=2;
                 int LA30_0 = input.LA(1);
 
-                if ( (LA30_0==39) ) {
+                if ( (LA30_0==38) ) {
                     alt30=1;
                 }
 
@@ -5281,7 +5280,7 @@ public class CsParser extends CsANTLRParserBase {
             	    // Cs.g:3477:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    // Cs.g:3478:4: a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
-            	    a6=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3293); if (state.failed) return element;
+            	    a6=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3293); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
             	      				if (element == null) {
@@ -5403,7 +5402,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt31=2;
                 int LA31_0 = input.LA(1);
 
-                if ( (LA31_0==49) ) {
+                if ( (LA31_0==48) ) {
                     alt31=1;
                 }
 
@@ -5471,7 +5470,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_25, 120));
               	
             }
-            a1=(Token)match(input,40,FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3431); if (state.failed) return element;
+            a1=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3431); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -5575,7 +5574,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt32=2;
                 int LA32_0 = input.LA(1);
 
-                if ( (LA32_0==39) ) {
+                if ( (LA32_0==38) ) {
                     alt32=1;
                 }
 
@@ -5587,7 +5586,7 @@ public class CsParser extends CsANTLRParserBase {
             	    // Cs.g:3643:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    // Cs.g:3644:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
-            	    a4=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3501); if (state.failed) return element;
+            	    a4=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3501); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
             	      				if (element == null) {
@@ -5668,7 +5667,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==41) ) {
+            if ( (LA33_0==40) ) {
                 alt33=1;
             }
             switch (alt33) {
@@ -5678,7 +5677,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:3695:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
                     // Cs.g:3696:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
                     {
-                    a6=(Token)match(input,41,FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3577); if (state.failed) return element;
+                    a6=(Token)match(input,40,FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3577); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -5696,7 +5695,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_85, 127));
                       			
                     }
-                    a7=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3597); if (state.failed) return element;
+                    a7=(Token)match(input,41,FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3597); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -5807,7 +5806,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:3770:1: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
             // Cs.g:3771:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
-            a0=(Token)match(input,40,FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3684); if (state.failed) return element;
+            a0=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3684); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -5825,7 +5824,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_87, 131));
               	
             }
-            a1=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3698); if (state.failed) return element;
+            a1=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3698); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -5928,7 +5927,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt34=2;
                 int LA34_0 = input.LA(1);
 
-                if ( (LA34_0==39) ) {
+                if ( (LA34_0==38) ) {
                     alt34=1;
                 }
 
@@ -5940,7 +5939,7 @@ public class CsParser extends CsANTLRParserBase {
             	    // Cs.g:3860:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    // Cs.g:3861:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
-            	    a4=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3768); if (state.failed) return element;
+            	    a4=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3768); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
             	      				if (element == null) {
@@ -6046,7 +6045,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:3914:1: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
             // Cs.g:3915:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
             {
-            a0=(Token)match(input,44,FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3850); if (state.failed) return element;
+            a0=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3850); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6293,7 +6292,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4064:1: (a0= '+' )
             // Cs.g:4065:2: a0= '+'
             {
-            a0=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PLUS3984); if (state.failed) return element;
+            a0=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PLUS3984); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6351,7 +6350,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4094:1: (a0= '*' )
             // Cs.g:4095:2: a0= '*'
             {
-            a0=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_STAR4013); if (state.failed) return element;
+            a0=(Token)match(input,44,FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_STAR4013); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6409,7 +6408,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4124:1: (a0= '?' )
             // Cs.g:4125:2: a0= '?'
             {
-            a0=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK4042); if (state.failed) return element;
+            a0=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK4042); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6467,7 +6466,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4154:1: (a0= 'ABSTRACT' )
             // Cs.g:4155:2: a0= 'ABSTRACT'
             {
-            a0=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_Abstract4071); if (state.failed) return element;
+            a0=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_Abstract4071); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6561,7 +6560,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_91, 146));
               	
             }
-            a1=(Token)match(input,48,FOLLOW_48_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4125); if (state.failed) return element;
+            a1=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4125); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6627,7 +6626,7 @@ public class CsParser extends CsANTLRParserBase {
                 int alt35=2;
                 int LA35_0 = input.LA(1);
 
-                if ( (LA35_0==18) ) {
+                if ( (LA35_0==17) ) {
                     alt35=1;
                 }
 
@@ -6639,7 +6638,7 @@ public class CsParser extends CsANTLRParserBase {
             	    // Cs.g:4259:3: (a3= ',' (a4= QUALIFIED_NAME ) )
             	    // Cs.g:4260:4: a3= ',' (a4= QUALIFIED_NAME )
             	    {
-            	    a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4173); if (state.failed) return element;
+            	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4173); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
             	      				if (element == null) {
@@ -6718,7 +6717,7 @@ public class CsParser extends CsANTLRParserBase {
               		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_94, 151));
               	
             }
-            a5=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4245); if (state.failed) return element;
+            a5=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4245); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6775,7 +6774,7 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4337:1: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
             // Cs.g:4338:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             {
-            a0=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_Annotation4274); if (state.failed) return element;
+            a0=(Token)match(input,48,FOLLOW_48_in_parse_org_emftext_sdk_concretesyntax_Annotation4274); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
               		if (element == null) {
@@ -6844,7 +6843,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt37=2;
             int LA37_0 = input.LA(1);
 
-            if ( (LA37_0==35) ) {
+            if ( (LA37_0==34) ) {
                 alt37=1;
             }
             switch (alt37) {
@@ -6854,7 +6853,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:4393:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
                     // Cs.g:4394:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
                     {
-                    a2=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation4322); if (state.failed) return element;
+                    a2=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_Annotation4322); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -6915,7 +6914,7 @@ public class CsParser extends CsANTLRParserBase {
                         int alt36=2;
                         int LA36_0 = input.LA(1);
 
-                        if ( (LA36_0==18) ) {
+                        if ( (LA36_0==17) ) {
                             alt36=1;
                         }
 
@@ -6927,7 +6926,7 @@ public class CsParser extends CsANTLRParserBase {
                     	    // Cs.g:4434:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
                     	    // Cs.g:4435:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
                     	    {
-                    	    a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Annotation4389); if (state.failed) return element;
+                    	    a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Annotation4389); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
                     	      						if (element == null) {
@@ -7001,7 +7000,7 @@ public class CsParser extends CsANTLRParserBase {
                       				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFollowSetProvider.TERMINAL_100, 159));
                       			
                     }
-                    a6=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_Annotation4484); if (state.failed) return element;
+                    a6=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation4484); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -7123,7 +7122,7 @@ public class CsParser extends CsANTLRParserBase {
             int alt38=2;
             int LA38_0 = input.LA(1);
 
-            if ( (LA38_0==30) ) {
+            if ( (LA38_0==29) ) {
                 alt38=1;
             }
             switch (alt38) {
@@ -7133,7 +7132,7 @@ public class CsParser extends CsANTLRParserBase {
                     // Cs.g:4556:3: (a1= '=' (a2= STRING ) )
                     // Cs.g:4557:4: a1= '=' (a2= STRING )
                     {
-                    a1=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4566); if (state.failed) return element;
+                    a1=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4566); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
                       				if (element == null) {
@@ -7488,17 +7487,17 @@ public class CsParser extends CsANTLRParserBase {
             // Cs.g:4639:1: (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK )
             int alt41=3;
             switch ( input.LA(1) ) {
-            case 39:
+            case 38:
                 {
                 alt41=1;
                 }
                 break;
-            case 45:
+            case 44:
                 {
                 alt41=2;
                 }
                 break;
-            case 46:
+            case 45:
                 {
                 alt41=3;
                 }
@@ -7651,11 +7650,11 @@ public class CsParser extends CsANTLRParserBase {
     static final String DFA39_eofS =
         "\21\uffff";
     static final String DFA39_minS =
-        "\1\45\1\4\1\uffff\1\4\1\uffff\1\43\2\uffff\1\4\1\22\1\6\1\4\1\45"+
-        "\2\22\1\6\1\22";
+        "\1\44\1\4\1\uffff\1\4\1\uffff\1\42\2\uffff\1\4\1\21\1\6\1\4\1\44"+
+        "\2\21\1\6\1\21";
     static final String DFA39_maxS =
-        "\1\61\1\4\1\uffff\1\53\1\uffff\1\61\2\uffff\1\4\1\44\1\6\1\4\1"+
-        "\61\2\44\1\6\1\44";
+        "\1\60\1\4\1\uffff\1\52\1\uffff\1\60\2\uffff\1\4\1\43\1\6\1\4\1"+
+        "\60\2\43\1\6\1\43";
     static final String DFA39_acceptS =
         "\2\uffff\1\1\1\uffff\1\4\1\uffff\1\3\1\2\11\uffff";
     static final String DFA39_specialS =
@@ -7664,7 +7663,7 @@ public class CsParser extends CsANTLRParserBase {
             "\1\2\2\uffff\1\3\3\uffff\1\4\4\uffff\1\1",
             "\1\5",
             "",
-            "\1\7\46\uffff\1\6",
+            "\1\7\45\uffff\1\6",
             "",
             "\1\10\1\uffff\1\2\2\uffff\1\7\10\uffff\1\1",
             "",
@@ -7720,21 +7719,21 @@ public class CsParser extends CsANTLRParserBase {
     static final String DFA40_minS =
         "\1\4\1\uffff\1\4\4\uffff\1\4\3\uffff";
     static final String DFA40_maxS =
-        "\1\43\1\uffff\1\56\4\uffff\1\42\3\uffff";
+        "\1\42\1\uffff\1\55\4\uffff\1\41\3\uffff";
     static final String DFA40_acceptS =
         "\1\uffff\1\1\1\uffff\1\6\1\7\1\10\1\5\1\uffff\1\4\1\2\1\3";
     static final String DFA40_specialS =
         "\13\uffff}>";
     static final String[] DFA40_transitionS = {
-            "\1\2\1\uffff\1\1\1\uffff\1\4\1\5\31\uffff\1\3",
+            "\1\2\1\uffff\1\1\1\uffff\1\4\1\5\30\uffff\1\3",
             "",
-            "\1\6\1\uffff\1\6\1\uffff\2\6\15\uffff\1\6\3\uffff\1\6\4\uffff"+
+            "\1\6\1\uffff\1\6\1\uffff\2\6\14\uffff\1\6\3\uffff\1\6\4\uffff"+
             "\1\6\1\7\1\uffff\2\6\2\uffff\1\6\5\uffff\2\6",
             "",
             "",
             "",
             "",
-            "\1\11\2\uffff\1\10\32\uffff\1\12",
+            "\1\11\2\uffff\1\10\31\uffff\1\12",
             "",
             "",
             ""
@@ -7777,136 +7776,136 @@ public class CsParser extends CsANTLRParserBase {
 
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_in_start82 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_start89 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax127 = new BitSet(new long[]{0x0002800000008000L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Abstract_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax183 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax224 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax242 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax263 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax281 = new BitSet(new long[]{0x00000000074A0020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax317 = new BitSet(new long[]{0x00000000074A0000L});
-    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax372 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax405 = new BitSet(new long[]{0x00000000074C0000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax470 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax513 = new BitSet(new long[]{0x00000000074C0000L});
-    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax628 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax648 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax689 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax750 = new BitSet(new long[]{0x0000000007400000L});
-    public static final BitSet FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax792 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax812 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax853 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax891 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax940 = new BitSet(new long[]{0x0000000007000000L});
-    public static final BitSet FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax982 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1002 = new BitSet(new long[]{0x0002912000208000L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1043 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1081 = new BitSet(new long[]{0x0002912000208000L});
-    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1130 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1172 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1192 = new BitSet(new long[]{0x0000000000200040L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1233 = new BitSet(new long[]{0x0000000000200040L});
-    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1294 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1327 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1341 = new BitSet(new long[]{0x0002800000208010L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1370 = new BitSet(new long[]{0x0002800000208010L});
-    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1444 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1465 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1483 = new BitSet(new long[]{0x0000000010000022L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1519 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_Import1574 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_Import1594 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax127 = new BitSet(new long[]{0x0001400000004000L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Abstract_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax183 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax224 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax242 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax263 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax281 = new BitSet(new long[]{0x0000000003A50020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax317 = new BitSet(new long[]{0x0000000003A50000L});
+    public static final BitSet FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax372 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax405 = new BitSet(new long[]{0x0000000003A60000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax470 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax513 = new BitSet(new long[]{0x0000000003A60000L});
+    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax628 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax648 = new BitSet(new long[]{0x0000000000100010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax689 = new BitSet(new long[]{0x0000000000100010L});
+    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax750 = new BitSet(new long[]{0x0000000003A00000L});
+    public static final BitSet FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax792 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax812 = new BitSet(new long[]{0x0000000000100010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax853 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax891 = new BitSet(new long[]{0x0000000000100010L});
+    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax940 = new BitSet(new long[]{0x0000000003800000L});
+    public static final BitSet FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax982 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1002 = new BitSet(new long[]{0x0001489000104000L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1043 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1081 = new BitSet(new long[]{0x0001489000104000L});
+    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1130 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1172 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1192 = new BitSet(new long[]{0x0000000000100040L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1233 = new BitSet(new long[]{0x0000000000100040L});
+    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1294 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1327 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1341 = new BitSet(new long[]{0x0001400000104010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1370 = new BitSet(new long[]{0x0001400000104010L});
+    public static final BitSet FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1411 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1444 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Import1465 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1483 = new BitSet(new long[]{0x0000000008000022L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1519 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1574 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_Import1594 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1620 = new BitSet(new long[]{0x0000000000000022L});
     public static final BitSet FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1674 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1774 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_Option1795 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1774 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_Option1795 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_Option1813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1864 = new BitSet(new long[]{0x0002800000008010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1909 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Rule1930 = new BitSet(new long[]{0x0000000800000350L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1948 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_Rule1966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2004 = new BitSet(new long[]{0x0000000800000352L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2049 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_Choice2076 = new BitSet(new long[]{0x0000000800000350L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2102 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1864 = new BitSet(new long[]{0x0001400000004010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1909 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_Rule1930 = new BitSet(new long[]{0x0000000400000350L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1948 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_Rule1966 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2004 = new BitSet(new long[]{0x0000000400000352L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2049 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Choice2076 = new BitSet(new long[]{0x0000000400000350L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2102 = new BitSet(new long[]{0x0000000080000002L});
     public static final BitSet FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_CsString2162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2202 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2223 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2241 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2262 = new BitSet(new long[]{0x0000608000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2202 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2223 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2241 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2262 = new BitSet(new long[]{0x0000304000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2330 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2351 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2365 = new BitSet(new long[]{0x0000608000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2330 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2351 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2365 = new BitSet(new long[]{0x0000304000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2433 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2454 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2472 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2493 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2511 = new BitSet(new long[]{0x0000000400040000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2541 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2567 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2613 = new BitSet(new long[]{0x0000608000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2433 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2454 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2472 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2493 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2511 = new BitSet(new long[]{0x0000000200020000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2541 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2567 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2613 = new BitSet(new long[]{0x0000304000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2681 = new BitSet(new long[]{0x0000608008000002L});
-    public static final BitSet FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Containment2711 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2737 = new BitSet(new long[]{0x0000608000040002L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Containment2783 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2817 = new BitSet(new long[]{0x0000608000040002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2681 = new BitSet(new long[]{0x0000304004000002L});
+    public static final BitSet FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Containment2711 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2737 = new BitSet(new long[]{0x0000304000020002L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment2783 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2817 = new BitSet(new long[]{0x0000304000020002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_Containment2907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2948 = new BitSet(new long[]{0x0000000800000350L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2966 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2984 = new BitSet(new long[]{0x0000608000000002L});
+    public static final BitSet FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2948 = new BitSet(new long[]{0x0000000400000350L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2966 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2984 = new BitSet(new long[]{0x0000304000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3007 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_WhiteSpaces3052 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_TABNUMBER_in_parse_org_emftext_sdk_concretesyntax_LineBreak3092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3143 = new BitSet(new long[]{0x0002802000008000L});
-    public static final BitSet FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3184 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3202 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3223 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3143 = new BitSet(new long[]{0x0001401000004000L});
+    public static final BitSet FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3184 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3202 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3223 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3241 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3266 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3293 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3319 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3390 = new BitSet(new long[]{0x0002810000008000L});
-    public static final BitSet FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3431 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3266 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3293 = new BitSet(new long[]{0x0000000000000410L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3319 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3390 = new BitSet(new long[]{0x0001408000004000L});
+    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3431 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3449 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3474 = new BitSet(new long[]{0x0000028000000002L});
-    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3501 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3527 = new BitSet(new long[]{0x0000028000000002L});
-    public static final BitSet FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3577 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3597 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3474 = new BitSet(new long[]{0x0000014000000002L});
+    public static final BitSet FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3501 = new BitSet(new long[]{0x0000000000000410L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3527 = new BitSet(new long[]{0x0000014000000002L});
+    public static final BitSet FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3577 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3597 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition3623 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3684 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3698 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3684 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3698 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3716 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3741 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3768 = new BitSet(new long[]{0x0000000000000410L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3794 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3850 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3741 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3768 = new BitSet(new long[]{0x0000000000000410L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition3794 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3850 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective3868 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_QUOTED_36_36_in_parse_org_emftext_sdk_concretesyntax_AtomicRegex3908 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_RegexReference3948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_PLUS3984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_STAR4013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK4042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_Abstract4071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4104 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_48_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4125 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4143 = new BitSet(new long[]{0x0000000000840000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4173 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4199 = new BitSet(new long[]{0x0000000000840000L});
-    public static final BitSet FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_Annotation4274 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation4292 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation4322 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4348 = new BitSet(new long[]{0x0000001000040000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Annotation4389 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4423 = new BitSet(new long[]{0x0000001000040000L});
-    public static final BitSet FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_Annotation4484 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4536 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4566 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_PLUS3984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_STAR4013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK4042 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_Abstract4071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4104 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4125 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4143 = new BitSet(new long[]{0x0000000000420000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4173 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4199 = new BitSet(new long[]{0x0000000000420000L});
+    public static final BitSet FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4245 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_parse_org_emftext_sdk_concretesyntax_Annotation4274 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation4292 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_Annotation4322 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4348 = new BitSet(new long[]{0x0000000800020000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Annotation4389 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation4423 = new BitSet(new long[]{0x0000000800020000L});
+    public static final BitSet FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation4484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4536 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4566 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair4592 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenRedefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective4649 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective4659 = new BitSet(new long[]{0x0000000000000002L});

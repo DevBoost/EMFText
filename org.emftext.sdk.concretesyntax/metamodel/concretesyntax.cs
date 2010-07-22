@@ -26,7 +26,7 @@ OPTIONS {
 TOKENS {
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$;
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
-	DEFINE NUMBER $('0'..'9')+$;
+	DEFINE FRAGMENT NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
 	DEFINE TABNUMBER $'!'$ + NUMBER;
 	DEFINE STRING $'"'('\\'('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')|('\\''u'('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F')('0'..'9'|'a'..'f'|'A'..'F'))|'\\'('0'..'7')|~('\\'|'"'))*'"'$;
