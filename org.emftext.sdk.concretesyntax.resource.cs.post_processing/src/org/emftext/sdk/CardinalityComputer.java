@@ -82,19 +82,28 @@ public class CardinalityComputer {
 		}
 	}
 
-	private void or(Map<GenFeature, MinMax> oldFeatureToMinMaxMap,
-			Map<GenFeature, MinMax> newFeatureToCountMap) {
+	private void or(
+			Map<GenFeature, MinMax> oldFeatureToMinMaxMap,
+			Map<GenFeature, MinMax> newFeatureToMinMaxMap) {
 
 		for (GenFeature oldFeature : oldFeatureToMinMaxMap.keySet()) {
-			if (newFeatureToCountMap.containsKey(oldFeature)) {
+			if (newFeatureToMinMaxMap.containsKey(oldFeature)) {
 				// feature is in both maps - do OR
-				oldFeatureToMinMaxMap.put(oldFeature, or(oldFeatureToMinMaxMap.get(oldFeature), newFeatureToCountMap.get(oldFeature)));
+				oldFeatureToMinMaxMap.put(oldFeature, or(oldFeatureToMinMaxMap.get(oldFeature), newFeatureToMinMaxMap.get(oldFeature)));
+			} else {
+				// features which are found in the left (old) map, but not in the
+				// right (new) map must receive a minimal cardinality of 0 
+				MinMax minMax = oldFeatureToMinMaxMap.get(oldFeature);
+				minMax.setMin(0);
+				oldFeatureToMinMaxMap.put(oldFeature, minMax);
 			}
 		}
 		// copy new feature to old map
-		for (GenFeature newFeature : newFeatureToCountMap.keySet()) {
+		for (GenFeature newFeature : newFeatureToMinMaxMap.keySet()) {
 			if (!oldFeatureToMinMaxMap.containsKey(newFeature)) {
-				oldFeatureToMinMaxMap.put(newFeature, newFeatureToCountMap.get(newFeature));
+				MinMax minMax = newFeatureToMinMaxMap.get(newFeature);
+				minMax.setMin(0);
+				oldFeatureToMinMaxMap.put(newFeature, minMax);
 			}
 		}
 	}
