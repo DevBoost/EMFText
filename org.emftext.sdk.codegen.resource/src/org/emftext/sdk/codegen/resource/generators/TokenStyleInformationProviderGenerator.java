@@ -49,16 +49,17 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 		
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		for (TokenStyle nextStyle : styles) {
-			String name = nextStyle.getTokenName();
-			sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");
-			String rgb = nextStyle.getRgb();
-			String color = "new int[] {0x" + rgb.substring(0, 2)+ ", 0x" + rgb.substring(2, 4) + ", 0x" + rgb.substring(4, 6) + "}";
-			String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));
-			String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
-			String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));
-			String underline = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.UNDERLINE));
-			sc.add("return new TokenStyleImpl(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
-			sc.add("}");
+			for (String name : nextStyle.getTokenNames()) {
+				sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");
+				String rgb = nextStyle.getRgb();
+				String color = "new int[] {0x" + rgb.substring(0, 2)+ ", 0x" + rgb.substring(2, 4) + ", 0x" + rgb.substring(4, 6) + "}";
+				String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));
+				String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
+				String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));
+				String underline = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.UNDERLINE));
+				sc.add("return new TokenStyleImpl(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
+				sc.add("}");
+			}
 		}
 		sc.add("return null;");
 		sc.add("}");

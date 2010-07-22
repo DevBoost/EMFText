@@ -139,7 +139,9 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 		TreeIterator<EObject> allContents = cSyntax.eAllContents();
 		HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
 		for (TokenStyle style : cSyntax.getTokenStyles()) {
-			cachedStyles.put(style.getTokenName(), style);
+			for (String tokenName : style.getTokenNames()) {
+				cachedStyles.put(tokenName, style);
+			}
 		}
 		 
 		while (allContents.hasNext()) {
@@ -150,7 +152,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 				if(! s.getValue().matches("\\w*")) continue;
 				
 				TokenStyle tokenStyle = CS_FACTORY.createTokenStyle();
-				tokenStyle.setTokenName(s.getValue());
+				tokenStyle.getTokenNames().add(s.getValue());
 				tokenStyle.setRgb(KEYWORD_VIOLETT);
 				tokenStyle.getFontStyles().add(FontStyle.BOLD);
 				
