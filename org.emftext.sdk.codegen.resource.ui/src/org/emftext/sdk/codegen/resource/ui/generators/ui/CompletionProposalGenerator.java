@@ -23,12 +23,14 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		addFields(sc);
 		addConstructor1(sc);
 		addConstructor2(sc);
+		addConstructor3(sc);
 		addMethods(sc);
 		sc.add("}");
 	}
 
 	private void addMethods(JavaComposite sc) {
 		addGetInsertStringMethod(sc);
+		addGetDisplayStringMethod(sc);
 		addGetPrefixMethod(sc);
 		addGetStartsWithPrefixMethod(sc);
 		addImageMethod(sc);
@@ -103,6 +105,13 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
+	private void addGetDisplayStringMethod(StringComposite sc) {
+		sc.add("public " + STRING + " getDisplayString() {");
+		sc.add("return displayString;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addGetPrefixMethod(StringComposite sc) {
 		sc.add("public " + STRING + " getPrefix() {");
 		sc.add("return prefix;");
@@ -117,7 +126,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addConstructor1(StringComposite sc) {
+	private void addConstructor2(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
 		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
@@ -125,7 +134,15 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 	
-	private void addConstructor2(StringComposite sc) {
+	private void addConstructor3(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
+		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);");
+		sc.add("this.displayString = displayString;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addConstructor1(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
 		sc.add("super();");
 		sc.add("this.insertString = insertString;");
@@ -139,6 +156,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STRING + " insertString;");
+		sc.add("private " + STRING + " displayString;");
 		sc.add("private " + STRING + " prefix;");
 		sc.add("private boolean startsWithPrefix;");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");

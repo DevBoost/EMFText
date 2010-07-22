@@ -110,6 +110,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");
 		sc.add(STRING + " proposalString = proposal.getInsertString();");
+		sc.add(STRING + " displayString = proposal.getDisplayString();");
 		sc.add(STRING + " prefix = proposal.getPrefix();");
 		sc.add(IMAGE + " image = proposal.getImage();");
 		sc.add(I_CONTEXT_INFORMATION + " info;");
@@ -125,7 +126,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {");
 		sc.add("replacementLength += closingBracket.length();");
 		sc.add("}");
-		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, replacementLength, proposalString.length(), image, proposalString, info, proposalString);");
+		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
