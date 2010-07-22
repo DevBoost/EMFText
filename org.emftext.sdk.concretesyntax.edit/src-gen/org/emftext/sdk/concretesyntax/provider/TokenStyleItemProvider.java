@@ -32,6 +32,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.TokenStyle;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.TokenStyle} object.
@@ -68,7 +69,7 @@ public class TokenStyleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTokenNamePropertyDescriptor(object);
+			addTokenNamesPropertyDescriptor(object);
 			addRgbPropertyDescriptor(object);
 			addFontStylesPropertyDescriptor(object);
 		}
@@ -76,19 +77,19 @@ public class TokenStyleItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Token Name feature.
+	 * This adds a property descriptor for the Token Names feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTokenNamePropertyDescriptor(Object object) {
+	protected void addTokenNamesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TokenStyle_tokenName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenStyle_tokenName_feature", "_UI_TokenStyle_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_STYLE__TOKEN_NAME,
+				 getString("_UI_TokenStyle_tokenNames_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TokenStyle_tokenNames_feature", "_UI_TokenStyle_type"),
+				 ConcretesyntaxPackage.Literals.TOKEN_STYLE__TOKEN_NAMES,
 				 true,
 				 false,
 				 false,
@@ -160,7 +161,7 @@ public class TokenStyleItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TokenStyle)object).getTokenName();
+		String label = StringUtil.explode(((TokenStyle)object).getTokenNames(), ", ");
 		return label;
 	}
 
@@ -176,7 +177,7 @@ public class TokenStyleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TokenStyle.class)) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
+			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES:
 			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
 			case ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

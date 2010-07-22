@@ -49,21 +49,22 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 		// definition or CsString
 		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
 		for (TokenStyle tokenStyle : styles) {
-			if (!refersToExistingToken(syntax, csStrings, tokenStyle)) {
-				addProblem(resource, ECsProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token.", tokenStyle);
+			for (String tokenName : tokenStyle.getTokenNames()) {
+				if (!refersToExistingToken(syntax, csStrings, tokenName)) {
+					addProblem(resource, ECsProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
+				}
 			}
 		}
 	}
 
-	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, TokenStyle tokenStyle) {
-		String name = tokenStyle.getTokenName();
+	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, String tokenName) {
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			if (name.equals(tokenDefinition.getName())) {
+			if (tokenName.equals(tokenDefinition.getName())) {
 				return true;
 			}
 		}
 		for (CsString csString : csStrings) {
-			if (name.equals(csString.getValue())) {
+			if (tokenName.equals(csString.getValue())) {
 				return true;
 			}
 		}

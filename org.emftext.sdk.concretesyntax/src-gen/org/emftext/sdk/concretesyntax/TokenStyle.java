@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenName <em>Token Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenNames <em>Token Names</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenStyle#getRgb <em>Rgb</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.TokenStyle#getFontStyles <em>Font Styles</em>}</li>
  * </ul>
@@ -39,30 +39,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface TokenStyle extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Token Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Token Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Token Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Token Names</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Token Name</em>' attribute.
-	 * @see #setTokenName(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_TokenName()
+	 * @return the value of the '<em>Token Names</em>' attribute list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_TokenNames()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getTokenName();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenName <em>Token Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Token Name</em>' attribute.
-	 * @see #getTokenName()
-	 * @generated
-	 */
-	void setTokenName(String value);
+	EList<String> getTokenNames();
 
 	/**
 	 * Returns the value of the '<em><b>Rgb</b></em>' attribute.

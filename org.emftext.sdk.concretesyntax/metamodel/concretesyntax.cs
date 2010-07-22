@@ -115,7 +115,7 @@ RULES {
 	
 	Abstract ::= "ABSTRACT";
 	
-	TokenStyle ::= tokenName[STRING] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
+	TokenStyle ::= tokenNames[STRING] ("," #1 tokenNames[STRING])* #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
 	
 	Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
 	

@@ -1354,7 +1354,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTokenStyle_TokenName() {
+	public EAttribute getTokenStyle_TokenNames() {
 		return (EAttribute)tokenStyleEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1708,7 +1708,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		abstractEClass = createEClass(ABSTRACT);
 
 		tokenStyleEClass = createEClass(TOKEN_STYLE);
-		createEAttribute(tokenStyleEClass, TOKEN_STYLE__TOKEN_NAME);
+		createEAttribute(tokenStyleEClass, TOKEN_STYLE__TOKEN_NAMES);
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__RGB);
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__FONT_STYLES);
 
@@ -2051,7 +2051,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(abstractEClass, Abstract.class, "Abstract", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(tokenStyleEClass, TokenStyle.class, "TokenStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTokenStyle_TokenName(), theEcorePackage.getEString(), "tokenName", null, 1, 1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenStyle_TokenNames(), theEcorePackage.getEString(), "tokenNames", null, 1, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTokenStyle_Rgb(), theEcorePackage.getEString(), "rgb", null, 1, 1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTokenStyle_FontStyles(), this.getFontStyle(), "fontStyles", null, 0, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -35,7 +35,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl#getTokenName <em>Token Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl#getTokenNames <em>Token Names</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl#getRgb <em>Rgb</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl#getFontStyles <em>Font Styles</em>}</li>
  * </ul>
@@ -45,24 +45,14 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  */
 public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	/**
-	 * The default value of the '{@link #getTokenName() <em>Token Name</em>}' attribute.
+	 * The cached value of the '{@link #getTokenNames() <em>Token Names</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTokenName()
+	 * @see #getTokenNames()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TOKEN_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTokenName() <em>Token Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTokenName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String tokenName = TOKEN_NAME_EDEFAULT;
+	protected EList<String> tokenNames;
 
 	/**
 	 * The default value of the '{@link #getRgb() <em>Rgb</em>}' attribute.
@@ -118,20 +108,11 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTokenName() {
-		return tokenName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTokenName(String newTokenName) {
-		String oldTokenName = tokenName;
-		tokenName = newTokenName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME, oldTokenName, tokenName));
+	public EList<String> getTokenNames() {
+		if (tokenNames == null) {
+			tokenNames = new EDataTypeUniqueEList<String>(String.class, this, ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES);
+		}
+		return tokenNames;
 	}
 
 	/**
@@ -175,8 +156,8 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
-				return getTokenName();
+			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES:
+				return getTokenNames();
 			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
 				return getRgb();
 			case ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES:
@@ -194,8 +175,9 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
-				setTokenName((String)newValue);
+			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES:
+				getTokenNames().clear();
+				getTokenNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
 				setRgb((String)newValue);
@@ -216,8 +198,8 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
-				setTokenName(TOKEN_NAME_EDEFAULT);
+			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES:
+				getTokenNames().clear();
 				return;
 			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
 				setRgb(RGB_EDEFAULT);
@@ -237,8 +219,8 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
-				return TOKEN_NAME_EDEFAULT == null ? tokenName != null : !TOKEN_NAME_EDEFAULT.equals(tokenName);
+			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES:
+				return tokenNames != null && !tokenNames.isEmpty();
 			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
 				return RGB_EDEFAULT == null ? rgb != null : !RGB_EDEFAULT.equals(rgb);
 			case ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES:
@@ -257,8 +239,8 @@ public class TokenStyleImpl extends EObjectImpl implements TokenStyle {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (tokenName: ");
-		result.append(tokenName);
+		result.append(" (tokenNames: ");
+		result.append(tokenNames);
 		result.append(", rgb: ");
 		result.append(rgb);
 		result.append(", fontStyles: ");

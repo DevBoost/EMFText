@@ -425,7 +425,7 @@
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Abstract"/>
     <genClasses ecoreClass="concretesyntax.ecore#//TokenStyle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/tokenName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/tokenNames"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/rgb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/fontStyles"/>
     </genClasses>

@@ -1914,13 +1914,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int TOKEN_STYLE = 41;
 
 	/**
-	 * The feature id for the '<em><b>Token Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Token Names</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_STYLE__TOKEN_NAME = 0;
+	int TOKEN_STYLE__TOKEN_NAMES = 0;
 
 	/**
 	 * The feature id for the '<em><b>Rgb</b></em>' attribute.
@@ -3129,15 +3129,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getTokenStyle();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenName <em>Token Name</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenNames <em>Token Names</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Token Name</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenStyle#getTokenName()
+	 * @return the meta object for the attribute list '<em>Token Names</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle#getTokenNames()
 	 * @see #getTokenStyle()
 	 * @generated
 	 */
-	EAttribute getTokenStyle_TokenName();
+	EAttribute getTokenStyle_TokenNames();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenStyle#getRgb <em>Rgb</em>}'.
@@ -4204,12 +4204,12 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass TOKEN_STYLE = eINSTANCE.getTokenStyle();
 
 		/**
-		 * The meta object literal for the '<em><b>Token Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Token Names</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TOKEN_STYLE__TOKEN_NAME = eINSTANCE.getTokenStyle_TokenName();
+		EAttribute TOKEN_STYLE__TOKEN_NAMES = eINSTANCE.getTokenStyle_TokenNames();
 
 		/**
 		 * The meta object literal for the '<em><b>Rgb</b></em>' attribute feature.

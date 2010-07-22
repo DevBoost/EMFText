@@ -13,10 +13,13 @@ Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.concretesyntax.provider
-Require-Bundle: org.eclipse.core.runtime,org.emftext.sdk.concretesynta
- x;visibility:=reexport,org.eclipse.emf.edit;visibility:=reexport,org.
- eclipse.emf.ecore;visibility:=reexport,org.eclipse.emf.ecore.edit;vis
- ibility:=reexport,org.eclipse.emf.codegen.ecore;visibility:=reexport,
- org.eclipse.emf.codegen.ecore.ui;visibility:=reexport
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.edit;visibility:=reexport,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.edit;visibility:=reexport,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport,
+ org.eclipse.emf.codegen.ecore.ui;visibility:=reexport,
+ org.emftext.sdk,
+ org.emftext.sdk.concretesyntax;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 

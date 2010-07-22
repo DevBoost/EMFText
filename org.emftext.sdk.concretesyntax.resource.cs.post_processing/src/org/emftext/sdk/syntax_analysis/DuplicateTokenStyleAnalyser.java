@@ -14,7 +14,11 @@
 package org.emftext.sdk.syntax_analysis;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -32,23 +36,29 @@ public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		List<String> tokenNames = new ArrayList<String>();
-		List<TokenStyle> duplicates = new ArrayList<TokenStyle>();
+		Map<String, Set<TokenStyle>> duplicates = new LinkedHashMap<String, Set<TokenStyle>>();
 		
 		// search for duplicate
 		List<TokenStyle> allTokenStyles = syntax.getAllTokenStyles();
 		for (TokenStyle nextStyle : allTokenStyles) {
-			String nextName = nextStyle.getTokenName();
-			if (tokenNames.contains(nextName)) {
-				// found duplicate
-				duplicates.add(nextStyle);
-			} else {
-				tokenNames.add(nextName);
+			for (String nextName : nextStyle.getTokenNames()) {
+				if (tokenNames.contains(nextName)) {
+					// found duplicate
+					if (!duplicates.containsKey(nextName)) {
+						duplicates.put(nextName, new LinkedHashSet<TokenStyle>());
+					}
+					duplicates.get(nextName).add(nextStyle);
+				} else {
+					tokenNames.add(nextName);
+				}
 			}
 		}
 		
 		// add warnings
-		for (TokenStyle nextDuplicate : duplicates) {
-			addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + nextDuplicate.getTokenName() + "\" is already defined (potentially in imported syntax).", nextDuplicate);
+		for (String duplicateName : duplicates.keySet()) {
+			for (TokenStyle tokenStyle : duplicates.get(duplicateName)) {
+				addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + duplicateName + "\" is already defined (potentially in imported syntax).", tokenStyle);
+			}
 		}
 	}
 }

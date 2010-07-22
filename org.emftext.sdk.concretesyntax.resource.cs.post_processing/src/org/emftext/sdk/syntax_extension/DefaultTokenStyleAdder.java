@@ -50,7 +50,7 @@ public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 			if (isCommentPattern(regex)) {
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				newStyle.setRgb("3F805D");
-				newStyle.setTokenName(tokenDefinition.getName());
+				newStyle.getTokenNames().add(tokenDefinition.getName());
 				addStyle(allStyles, newStyle);
 			}
 		}
@@ -72,7 +72,7 @@ public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				newStyle.setRgb("2A00FF");
-				newStyle.setTokenName(tokenName);
+				newStyle.getTokenNames().add(tokenName);
 				addStyle(allStyles, newStyle);
 			}
 		}
@@ -85,7 +85,7 @@ public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
 				if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
 					TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 					newStyle.setRgb("800055");
-					newStyle.setTokenName(csString.getValue());
+					newStyle.getTokenNames().add(csString.getValue());
 					newStyle.getFontStyles().add(FontStyle.BOLD);
 					addStyle(allStyles, newStyle);
 				}
