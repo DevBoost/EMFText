@@ -126,6 +126,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
 	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
+	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 	
 	public CsResource() {
 		super();
@@ -413,6 +414,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element));
+		org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = problem.getQuickFix();
+		if (quickFix != null) {
+			quickFixMap.put(quickFix.getContextAsString(), quickFix);
+		}
 	}
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
@@ -521,6 +526,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private void runValidators(org.eclipse.emf.ecore.EObject root) {
 		// checking constraints provided by EMF validator classes was disabled
 		// checking EMF validation constraints was disabled
+	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix(String quickFixContext) {
+		return quickFixMap.get(quickFixContext);
 	}
 	
 }

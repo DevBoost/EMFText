@@ -117,6 +117,9 @@ options {
 					public java.lang.String getMessage() {
 						return errorMessage;
 					}
+					public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix() {
+						return null;
+					}
 				}, line, charPositionInLine, startIndex, stopIndex);
 				return true;
 			}
@@ -145,8 +148,14 @@ options {
 	
 	@SuppressWarnings("unchecked")
 	
-	public boolean addObjectToList(org.eclipse.emf.ecore.EObject element, int featureID, java.lang.Object proxy) {
-		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);
+	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, int featureID, java.lang.Object object) {
+		return ((java.util.List<java.lang.Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);
+	}
+	
+	@SuppressWarnings("unchecked")
+	
+	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EStructuralFeature feature, java.lang.Object object) {
+		return ((java.util.List<java.lang.Object>) container.eGet(feature)).add(object);
 	}
 	
 	protected org.eclipse.emf.ecore.EObject apply(org.eclipse.emf.ecore.EObject target, java.util.List<org.eclipse.emf.ecore.EObject> dummyEObjects) {

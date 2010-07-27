@@ -82,4 +82,6 @@ public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource
 	 */
 	public void addError(java.lang.String message, org.eclipse.emf.ecore.EObject cause);
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix(String quickFixContext);
+	
 }
