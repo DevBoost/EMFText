@@ -134,11 +134,20 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addAddObjectToListMethod(StringComposite sc) {
+	public void addAddObjectToListMethod1(StringComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("public boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
-        sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
+        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, int featureID, " + OBJECT + " object) {");
+        sc.add("return ((" + LIST + "<" + OBJECT + ">) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	public void addAddObjectToListMethod2(StringComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.addLineBreak();
+        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, " + E_STRUCTURAL_FEATURE + " feature, " + OBJECT + " object) {");
+        sc.add("return ((" + LIST + "<" + OBJECT + ">) container.eGet(feature)).add(object);");
         sc.add("}");
         sc.addLineBreak();
 	}

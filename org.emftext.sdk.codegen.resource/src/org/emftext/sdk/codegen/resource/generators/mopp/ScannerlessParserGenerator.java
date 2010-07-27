@@ -461,7 +461,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc, getContext());
-		generatorUtil.addAddObjectToListMethod(sc);
+		generatorUtil.addAddObjectToListMethod1(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
 		getContext().addGetMetaInformationMethod(sc);

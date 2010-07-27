@@ -286,7 +286,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddExpectedElementMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc, context);
-		generatorUtil.addAddObjectToListMethod(sc);
+		generatorUtil.addAddObjectToListMethod1(sc);
+		generatorUtil.addAddObjectToListMethod2(sc);
 		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
@@ -622,9 +623,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				sc.add("}");
 				sc.add("if (java.lang.String.class.isInstance("
 						+ resolvedObjectIdentifier + ")) {");
-				sc.add("((" + LIST
-						+ ") element.eGet(feature)).add((java.lang.String) "
-						+ resolvedObjectIdentifier + ");");
+				sc.add("addObjectToList(element, feature, " + resolvedObjectIdentifier + ");");
 				sc.add("} else {");
 				sc
 						.add("System.out.println(\"WARNING: Attribute "
