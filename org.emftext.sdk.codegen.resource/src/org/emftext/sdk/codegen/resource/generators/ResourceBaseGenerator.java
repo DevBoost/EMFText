@@ -134,6 +134,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String unicodeConverterClassName;
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
+	protected String quickFixClassName;
+	protected String iQuickFixClassName;
 
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -259,6 +261,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		unicodeConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);
 		uriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_MAPPING);
 		whiteSpaceClassName = context.getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
+		iQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
+		quickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.QUICK_FIX);
 	}
 
 	protected String getResourceClassName() {

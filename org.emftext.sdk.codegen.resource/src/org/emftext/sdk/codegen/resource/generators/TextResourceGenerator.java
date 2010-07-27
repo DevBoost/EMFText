@@ -144,6 +144,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	addGetWarningsMethod(sc);
     	addGetErrorsMethod(sc);
     	addRunValidatorsMethods(sc);
+    	addGetQuickFixMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -424,6 +425,17 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addAddProblemMethod1(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element));");
+    	sc.add(iQuickFixClassName + " quickFix = problem.getQuickFix();");
+    	sc.add("if (quickFix != null) {");
+    	sc.add("quickFixMap.put(quickFix.getContextAsString(), quickFix);");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addGetQuickFixMethod(StringComposite sc) {
+		sc.add("public " + iQuickFixClassName + " getQuickFix(String quickFixContext) {");
+    	sc.add("return quickFixMap.get(quickFixContext);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -710,7 +722,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + iTextParserClassName + " parser;");
     	sc.add("private " + MAP + "<" + STRING + ", " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">>();");
-        if(saveChangedResourcesOnly) {
+    	sc.add("private " + MAP + "<" + STRING + ", " + iQuickFixClassName + "> quickFixMap = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iQuickFixClassName + ">();");
+        if (saveChangedResourcesOnly) {
         	sc.add("private String textPrintAfterLoading = null;");
         }
     	sc.addLineBreak();

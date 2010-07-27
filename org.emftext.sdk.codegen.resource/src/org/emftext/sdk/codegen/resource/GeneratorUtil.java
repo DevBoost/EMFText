@@ -198,6 +198,7 @@ public class GeneratorUtil {
 		String iCommand = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
 		String iTextResource = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
 		String iProblem = context.getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
+		String iQuickFix = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
 		String eProblemType = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
@@ -214,6 +215,9 @@ public class GeneratorUtil {
 		sc.add("}");
 		sc.add("public " + STRING + " getMessage() {");
 		sc.add("return errorMessage;");
+		sc.add("}");
+		sc.add("public " + iQuickFix + " getQuickFix() {");
+		sc.add("return null;");
 		sc.add("}");
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("return true;");

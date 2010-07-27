@@ -1640,7 +1640,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_TOKEN_SORTING(202, "DISABLE_TOKEN_SORTING", "disableTokenSorting");
+	DISABLE_TOKEN_SORTING(202, "DISABLE_TOKEN_SORTING", "disableTokenSorting"), /**
+	 * The '<em><b>OVERRIDE IQUICK FIX</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IQUICK_FIX_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IQUICK_FIX(203, "OVERRIDE_I_QUICK_FIX", "overrideIQuickFix"), /**
+	 * The '<em><b>OVERRIDE QUICK FIX</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_FIX_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_QUICK_FIX(204, "OVERRIDE_QUICK_FIX", "overrideQuickFix");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5054,6 +5070,34 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int DISABLE_TOKEN_SORTING_VALUE = 202;
 /**
+	 * The '<em><b>OVERRIDE IQUICK FIX</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IQUICK FIX</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IQUICK_FIX
+	 * @model name="OVERRIDE_I_QUICK_FIX" literal="overrideIQuickFix"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IQUICK_FIX_VALUE = 203;
+/**
+	 * The '<em><b>OVERRIDE QUICK FIX</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE QUICK FIX</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_FIX
+	 * @model literal="overrideQuickFix"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_QUICK_FIX_VALUE = 204;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5262,6 +5306,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UI_PLUGIN_XML,
 			OVERRIDE_PROPOSAL_POST_PROCESSOR,
 			DISABLE_TOKEN_SORTING,
+			OVERRIDE_IQUICK_FIX,
+			OVERRIDE_QUICK_FIX,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5511,6 +5557,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UI_PLUGIN_XML_VALUE: return OVERRIDE_UI_PLUGIN_XML;
 			case OVERRIDE_PROPOSAL_POST_PROCESSOR_VALUE: return OVERRIDE_PROPOSAL_POST_PROCESSOR;
 			case DISABLE_TOKEN_SORTING_VALUE: return DISABLE_TOKEN_SORTING;
+			case OVERRIDE_IQUICK_FIX_VALUE: return OVERRIDE_IQUICK_FIX;
+			case OVERRIDE_QUICK_FIX_VALUE: return OVERRIDE_QUICK_FIX;
 		}
 		return null;
 	}

@@ -96,6 +96,10 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc("Attaches an error with the given message to object 'cause'.");
 		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
+		
+		// TODO mseifert: add comment
+		sc.add("public " + iQuickFixClassName + " getQuickFix(String quickFixContext);");
+		sc.addLineBreak();
 
 		sc.add("}");
 	}
