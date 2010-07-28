@@ -69,7 +69,15 @@ public class CsBackgroundParsingStrategy {
 					} catch (java.io.IOException e) {
 						e.printStackTrace();
 					}
-					editor.notifyBackgroundParsingFinished();
+					// the post parsing stuff must be executed in a separate job to avoid deadlocks on
+					// the document
+					org.eclipse.core.runtime.jobs.Job finishJob = new org.eclipse.core.runtime.jobs.Job("refreshing views") {
+						protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
+							editor.notifyBackgroundParsingFinished();
+							return org.eclipse.core.runtime.Status.OK_STATUS;
+						}
+					};
+					finishJob.schedule(10);
 					return org.eclipse.core.runtime.Status.OK_STATUS;
 				}
 				
