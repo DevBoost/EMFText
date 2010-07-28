@@ -13,13 +13,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_MARKER_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BASIC_COMMAND_STACK;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CELL_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
@@ -28,10 +31,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITING_DOMAIN;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ENUMERATION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_DOCUMENT_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_ACCESS_EXTENSION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT_LISTENER;
@@ -50,10 +56,14 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOUR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA_VISITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_EDITOR_ACTION_CONSTANTS;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_OPERATION_TARGET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_PRESENTATION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VERTICAL_RULER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_SUPPORT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY_DESCRIPTOR;
@@ -61,9 +71,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RUNNABLE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
@@ -121,6 +133,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addRefreshMarkersMethod(sc);
 		addGetBracketHandlerMethod(sc);
 		addSetBracketHandlerMethod(sc);
+		addCreateActionsMethod(sc);
 	}
 
 	private void addGetBracketHandlerMethod(JavaComposite sc) {
@@ -468,11 +481,81 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
-		sc.add("setDocumentProvider(new " + FILE_DOCUMENT_PROVIDER + "());");
 		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, colorManager));");
 		sc.add("initializeEditingDomain();");
 		sc.add("addBackgroundParsingListener(new MarkerUpdateListener());");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateActionsMethod(StringComposite sc) {
+		sc.add("public void createActions() {");
+		sc.add("super.createActions();");
+		sc.add(RESOURCE_BUNDLE + " resourceBundle = new " + RESOURCE_BUNDLE + "() {");
+		sc.add("public " + ENUMERATION + "<String> getKeys() {");
+		sc.add(LIST + "<String> keys = new " + ARRAY_LIST + "<String>(3);");
+		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.label\");");
+		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.tooltip\");");
+		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.description\");");
+		sc.add("return " + COLLECTIONS + ".enumeration(keys);");
+		sc.add("}");
+		sc.add("public Object handleGetObject(String key) {");
+		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.label\")) return \"&Quick Fix\";");
+		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.tooltip\")) return \"Quick Fix\";");
+		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.description\")) return \"Runs Quick Fix on the annotation's line\";");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("};");
+		sc.add("setAction(" + I_TEXT_EDITOR_ACTION_CONSTANTS + ".RULER_CLICK, new " + SELECT_MARKER_RULES_ACTION + "(resourceBundle, \"SelectAnnotationRulerAction.\", this, getVerticalRuler()) {");
+		sc.add("public void run() {");
+		sc.add("runWithEvent(null);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void runWithEvent(" + EVENT + " event) {");
+		sc.add(I_TEXT_OPERATION_TARGET + " operation = (" + I_TEXT_OPERATION_TARGET + ") getAdapter(" + I_TEXT_OPERATION_TARGET + ".class);");
+		sc.add("final int opCode = " + I_SOURCE_VIEWER + ".QUICK_ASSIST;");
+		sc.add("if (operation != null && operation.canDoOperation(opCode)) {");
+		sc.add(POSITION + " position = getPosition();");
+		sc.add("if (position != null) {");
+		sc.add("selectAndReveal(position.getOffset(), position.getLength());");
+		sc.add("}");
+		sc.add("operation.doOperation(opCode);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private " + POSITION + " getPosition() {");
+		sc.add(ABSTRACT_MARKER_ANNOTATION_MODEL + " model = getAnnotationModel();");
+		sc.add(I_ANNOTATION_ACCESS_EXTENSION + "  annotationAccess = getAnnotationAccessExtension();");
+		sc.addLineBreak();
+		sc.add(I_DOCUMENT + " document = getDocument();");
+		sc.add("if (model == null)");
+		sc.add("return null;");
+		sc.addLineBreak();
+		sc.add(ITERATOR + "<?> iter = model.getAnnotationIterator();");
+		sc.add("int layer = Integer.MIN_VALUE;");
+		sc.addLineBreak();
+		sc.add("while (iter.hasNext()) {");
+		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") iter.next();");
+		sc.add("if (annotation.isMarkedDeleted())");
+		sc.add("continue;");
+		sc.addLineBreak();
+		sc.add("int annotationLayer = annotationAccess.getLayer(annotation);");
+		sc.add("if (annotationAccess != null)");
+		sc.add("if (annotationLayer < layer)");
+		sc.add("continue;");
+		sc.addLineBreak();
+		sc.add(POSITION + " position = model.getPosition(annotation);");
+		sc.add("if (!includesRulerLine(position, document)) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("return position;");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}

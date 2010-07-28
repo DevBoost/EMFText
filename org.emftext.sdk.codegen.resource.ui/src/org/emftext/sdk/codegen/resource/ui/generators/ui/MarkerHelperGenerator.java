@@ -92,6 +92,10 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, textDiagnostic.getCharStart());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");
+		sc.add(iQuickFixClassName + " quickFix = textDiagnostic.getProblem().getQuickFix();");
+		sc.add("if (quickFix != null) {");
+		sc.add("marker.setAttribute(" + I_MARKER + ".SOURCE_ID, quickFix.getContextAsString());");
+		sc.add("}");
 		sc.add("}");
 		sc.add("else {");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, 0);");

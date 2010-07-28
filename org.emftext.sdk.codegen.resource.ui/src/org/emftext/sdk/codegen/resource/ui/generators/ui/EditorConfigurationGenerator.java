@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_H
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PRESENTATION_RECONCILER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -60,6 +61,17 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		addGetAnnotationHoverMethod(sc);
 		addGetTextHoverMethod(sc);
 		addGetHyperlinkDetectorsMethod(sc);
+		addGetQuickAssistAssistantMethod(sc);
+	}
+
+	private void addGetQuickAssistAssistantMethod(JavaComposite sc) {
+		sc.add("public " + I_QUICK_ASSIST_ASSISTANT + " getQuickAssistAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
+		sc.add("if (quickAssistAssistant == null) {");
+		sc.add("quickAssistAssistant = new " + quickAssistAssistantClassName + "(theEditor);");
+		sc.add("}");
+		sc.add("return quickAssistAssistant;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetHyperlinkDetectorsMethod(StringComposite sc) {
@@ -148,6 +160,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 	private void addFields(StringComposite sc) {
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + editorClassName + " theEditor;");
+		sc.add("private " + quickAssistAssistantClassName + " quickAssistAssistant;");
 		sc.addLineBreak();
 	}
 

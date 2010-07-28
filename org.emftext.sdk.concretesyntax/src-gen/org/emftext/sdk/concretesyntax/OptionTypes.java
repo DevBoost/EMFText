@@ -1656,7 +1656,55 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_QUICK_FIX(204, "OVERRIDE_QUICK_FIX", "overrideQuickFix");
+	OVERRIDE_QUICK_FIX(204, "OVERRIDE_QUICK_FIX", "overrideQuickFix"), /**
+	 * The '<em><b>OVERRIDE ANNOTATION MODEL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANNOTATION_MODEL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ANNOTATION_MODEL(205, "OVERRIDE_ANNOTATION_MODEL", "overrideAnnotationModel"), /**
+	 * The '<em><b>OVERRIDE ANNOTATION MODEL FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANNOTATION_MODEL_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ANNOTATION_MODEL_FACTORY(206, "OVERRIDE_ANNOTATION_MODEL_FACTORY", "overrideAnnotationModelFactory"), /**
+	 * The '<em><b>OVERRIDE MARKER ANNOTATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_ANNOTATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_MARKER_ANNOTATION(208, "OVERRIDE_MARKER_ANNOTATION", "overrideMarkerAnnotation"), /**
+	 * The '<em><b>OVERRIDE MARKER RESOLUTION GENERATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_RESOLUTION_GENERATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_MARKER_RESOLUTION_GENERATOR(209, "OVERRIDE_MARKER_RESOLUTION_GENERATOR", "overrideMarkerResolutionGenerator"), /**
+	 * The '<em><b>OVERRIDE QUICK ASSIST ASSISTANT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_ASSIST_ASSISTANT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_QUICK_ASSIST_ASSISTANT(211, "OVERRIDE_QUICK_ASSIST_ASSISTANT", "overrideQuickAssistAssistant"), /**
+	 * The '<em><b>OVERRIDE QUICK ASSIST PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_QUICK_ASSIST_PROCESSOR(212, "OVERRIDE_QUICK_ASSIST_PROCESSOR", "overrideQuickAssistProcessor");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5098,6 +5146,90 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_QUICK_FIX_VALUE = 204;
 /**
+	 * The '<em><b>OVERRIDE ANNOTATION MODEL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ANNOTATION MODEL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANNOTATION_MODEL
+	 * @model literal="overrideAnnotationModel"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ANNOTATION_MODEL_VALUE = 205;
+/**
+	 * The '<em><b>OVERRIDE ANNOTATION MODEL FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ANNOTATION MODEL FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANNOTATION_MODEL_FACTORY
+	 * @model literal="overrideAnnotationModelFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ANNOTATION_MODEL_FACTORY_VALUE = 206;
+/**
+	 * The '<em><b>OVERRIDE MARKER ANNOTATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE MARKER ANNOTATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_ANNOTATION
+	 * @model literal="overrideMarkerAnnotation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_MARKER_ANNOTATION_VALUE = 208;
+/**
+	 * The '<em><b>OVERRIDE MARKER RESOLUTION GENERATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE MARKER RESOLUTION GENERATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_RESOLUTION_GENERATOR
+	 * @model literal="overrideMarkerResolutionGenerator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_MARKER_RESOLUTION_GENERATOR_VALUE = 209;
+/**
+	 * The '<em><b>OVERRIDE QUICK ASSIST ASSISTANT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE QUICK ASSIST ASSISTANT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_ASSIST_ASSISTANT
+	 * @model literal="overrideQuickAssistAssistant"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_QUICK_ASSIST_ASSISTANT_VALUE = 211;
+/**
+	 * The '<em><b>OVERRIDE QUICK ASSIST PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE QUICK ASSIST PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_QUICK_ASSIST_PROCESSOR
+	 * @model literal="overrideQuickAssistProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE = 212;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5308,6 +5440,12 @@ public enum OptionTypes implements Enumerator {
 			DISABLE_TOKEN_SORTING,
 			OVERRIDE_IQUICK_FIX,
 			OVERRIDE_QUICK_FIX,
+			OVERRIDE_ANNOTATION_MODEL,
+			OVERRIDE_ANNOTATION_MODEL_FACTORY,
+			OVERRIDE_MARKER_ANNOTATION,
+			OVERRIDE_MARKER_RESOLUTION_GENERATOR,
+			OVERRIDE_QUICK_ASSIST_ASSISTANT,
+			OVERRIDE_QUICK_ASSIST_PROCESSOR,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5559,6 +5697,12 @@ public enum OptionTypes implements Enumerator {
 			case DISABLE_TOKEN_SORTING_VALUE: return DISABLE_TOKEN_SORTING;
 			case OVERRIDE_IQUICK_FIX_VALUE: return OVERRIDE_IQUICK_FIX;
 			case OVERRIDE_QUICK_FIX_VALUE: return OVERRIDE_QUICK_FIX;
+			case OVERRIDE_ANNOTATION_MODEL_VALUE: return OVERRIDE_ANNOTATION_MODEL;
+			case OVERRIDE_ANNOTATION_MODEL_FACTORY_VALUE: return OVERRIDE_ANNOTATION_MODEL_FACTORY;
+			case OVERRIDE_MARKER_ANNOTATION_VALUE: return OVERRIDE_MARKER_ANNOTATION;
+			case OVERRIDE_MARKER_RESOLUTION_GENERATOR_VALUE: return OVERRIDE_MARKER_RESOLUTION_GENERATOR;
+			case OVERRIDE_QUICK_ASSIST_ASSISTANT_VALUE: return OVERRIDE_QUICK_ASSIST_ASSISTANT;
+			case OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE: return OVERRIDE_QUICK_ASSIST_PROCESSOR;
 		}
 		return null;
 	}

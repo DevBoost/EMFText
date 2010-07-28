@@ -1451,6 +1451,12 @@
     <eLiterals name="DISABLE_TOKEN_SORTING" value="202" literal="disableTokenSorting"/>
     <eLiterals name="OVERRIDE_I_QUICK_FIX" value="203" literal="overrideIQuickFix"/>
     <eLiterals name="OVERRIDE_QUICK_FIX" value="204" literal="overrideQuickFix"/>
+    <eLiterals name="OVERRIDE_ANNOTATION_MODEL" value="205" literal="overrideAnnotationModel"/>
+    <eLiterals name="OVERRIDE_ANNOTATION_MODEL_FACTORY" value="206" literal="overrideAnnotationModelFactory"/>
+    <eLiterals name="OVERRIDE_MARKER_ANNOTATION" value="208" literal="overrideMarkerAnnotation"/>
+    <eLiterals name="OVERRIDE_MARKER_RESOLUTION_GENERATOR" value="209" literal="overrideMarkerResolutionGenerator"/>
+    <eLiterals name="OVERRIDE_QUICK_ASSIST_ASSISTANT" value="211" literal="overrideQuickAssistAssistant"/>
+    <eLiterals name="OVERRIDE_QUICK_ASSIST_PROCESSOR" value="212" literal="overrideQuickAssistProcessor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

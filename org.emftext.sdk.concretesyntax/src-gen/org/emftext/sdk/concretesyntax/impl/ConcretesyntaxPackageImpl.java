@@ -2322,6 +2322,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.DISABLE_TOKEN_SORTING);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IQUICK_FIX);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_QUICK_FIX);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ANNOTATION_MODEL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MARKER_ANNOTATION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MARKER_RESOLUTION_GENERATOR);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

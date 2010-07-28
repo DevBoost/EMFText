@@ -7,6 +7,8 @@ import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
+	protected String annotationModelClassName;
+	protected String annotationModelFactoryClassName;
 	protected String antlrTokenHelperClassName;
 	protected String backgroundParsingStrategyClassName;
 	protected String bracketPreferencePageClassName;
@@ -28,7 +30,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String hyperlinkClassName;
 	protected String hyperlinkDetectorClassName;
 	protected String iBracketHandlerClassName;
+	protected String markerAnnotationClassName;
 	protected String markerHelperClassName;
+	protected String markerResolutionGeneratorClassName;
 	protected String newFileWizardClassName;
 	protected String newFileWizardPageClassName;
 	protected String occurenceClassName;
@@ -41,8 +45,10 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String preferenceConstantsClassName;
 	protected String preferenceInitializerClassName;
 	protected String preferencePageClassName;
-	protected String proposalPostProcessorClassName;
 	protected String propertySheetPageClassName;
+	protected String proposalPostProcessorClassName;
+	protected String quickAssistAssistantClassName;
+	protected String quickAssistProcessorClassName;
 	protected String syntaxColoringHelperClassName;
 	protected String syntaxColoringPreferencePageClassName;
 	protected String textHoverClassName;
@@ -54,6 +60,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected void initilizeClassNames() {
 		super.initilizeClassNames();
 		GenerationContext context = getContext();
+
+		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
+		annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 		antlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 		backgroundParsingStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY);
 		bracketPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
@@ -75,7 +84,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		hyperlinkClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HYPERLINK);
 		hyperlinkDetectorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HYPERLINK_DETECTOR);
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
+		markerAnnotationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_ANNOTATION);
 		markerHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_HELPER);
+		markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 		newFileWizardClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
 		newFileWizardPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
 		occurenceClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURENCE);
@@ -88,8 +99,10 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		preferenceConstantsClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
 		preferenceInitializerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
 		preferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE);
-		proposalPostProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
 		propertySheetPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
+		proposalPostProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
+		quickAssistAssistantClassName = context.getQualifiedClassName(TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
+		quickAssistProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 		syntaxColoringHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
 		syntaxColoringPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 		textHoverClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TEXT_HOVER);

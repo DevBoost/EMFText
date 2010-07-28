@@ -21,7 +21,6 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -31,7 +30,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * TODO mseifert: make this generator reusable
  */
-public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void doGenerate(PrintWriter out) {
@@ -49,7 +48,9 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		GenerationContext context = getContext();
 		final ConcreteSyntax concreteSyntax = context .getConcreteSyntax();
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
+		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
+		String resourcePluginID = resourcePlugin.getName();
 		String uiPluginID = resourceUIPlugin.getName();
 
 		StringComposite sc = new XMLComposite();
@@ -74,11 +75,14 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 				"icon=\"icons/editor_icon.gif\" " +
 				"id=\"" + editorName + "\" " + 
 				"name=\"EMFText " + concreteSyntax.getName() + " Editor\">");
+		sc.add("<contentTypeBinding contentTypeId=\"" + resourcePluginID + "\"/>");
 		sc.add("</editor>");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
-		sc.add("<extension id=\"" + uiPluginID + ".problem\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
+		String problemID = uiPluginID + ".problem";
+		
+		sc.add("<extension id=\"" + problemID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
 		sc.add("<persistent value=\"true\">");
 		sc.add("</persistent>");
 		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
@@ -129,6 +133,29 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
+		// TODO the marker resolution generator is not registered yet, because it is not fully implemented
+		/*
+		sc.add("<extension point=\"org.eclipse.ui.ide.markerResolution\">");
+		sc.add("<markerResolutionGenerator class=\"" + markerResolutionGeneratorClassName + "\" markerType=\"" + problemID + "\" />");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		*/
+		
+		sc.add("<extension point=\"org.eclipse.core.filebuffers.annotationModelCreation\">");
+		sc.add("<factory class=\"" + annotationModelFactoryClassName + "\" extensions=\"" + primaryConcreteSyntaxName + "\" />");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		sc.add("<extension point=\"org.eclipse.core.contenttype.contentTypes\">");
+		sc.add("<content-type id=\"" + resourcePluginID + "\" name=\"." + primaryConcreteSyntaxName + " File\" base-type=\"org.eclipse.core.runtime.text\" file-extensions=\"" + primaryConcreteSyntaxName + "\"/>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		sc.add("<extension point=\"org.eclipse.ui.editors.documentProviders\">");
+		sc.add("<provider class=\"org.eclipse.ui.editors.text.TextFileDocumentProvider\" extensions=\"" + primaryConcreteSyntaxName + "\" id=\"" + uiPluginID + ".provider\" />");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
 		if (context.isGenerateTestActionEnabled()) {
 			sc.add(generateTestActionExtension());
 		}
@@ -166,8 +193,6 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		s.add("</extension>");
 		return s;
 	}
-
-	
 
 	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into

@@ -90,58 +90,70 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		manifestParameters.setBundleName("EMFText UI Plugin: " + context.getConcreteSyntax().getName());
 		creators.add(new ManifestCreator<GenerationContext>(manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_UI_MANIFEST)));
 		
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.NEW_FILE_WIZARD)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE)));
+	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD);
+	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context)));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context)));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context)));
 
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.HOVER_TEXT_PROVIDER)));
-	    
 	    // add UI generators
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.BRACKET_SET)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.CODE_FOLDING_MANAGER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.COLOR_MANAGER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.COMPLETION_PROCESSOR)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.EDITOR_CONFIGURATION)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.EDITOR)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.E_OBJECT_SELECTION)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.HIGHLIGHTING)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.HTML_PRINTER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.HYPERLINK)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.HYPERLINK_DETECTOR)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.MARKER_HELPER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.OCCURENCE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.OUTLINE_PAGE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.POSITION_CATEGORY)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.POSITION_HELPER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PROPERTY_SHEET_PAGE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.TEXT_HOVER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.TOKEN_SCANNER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER)));
+		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
+	    add(creators, TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
+	    add(creators, TextResourceUIArtifacts.BRACKET_SET);
+	    add(creators, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
+	    add(creators, TextResourceUIArtifacts.CODE_FOLDING_MANAGER);
+	    add(creators, TextResourceUIArtifacts.COLOR_MANAGER);
+	    add(creators, TextResourceUIArtifacts.COMPLETION_PROCESSOR);
+	    add(creators, TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY);
+	    add(creators, TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
+	    add(creators, TextResourceUIArtifacts.EDITOR_CONFIGURATION);
+	    add(creators, TextResourceUIArtifacts.EDITOR);
+	    add(creators, TextResourceUIArtifacts.E_OBJECT_SELECTION);
+	    add(creators, TextResourceUIArtifacts.HIGHLIGHTING);
+	    add(creators, TextResourceUIArtifacts.HTML_PRINTER);
+	    add(creators, TextResourceUIArtifacts.HYPERLINK);
+	    add(creators, TextResourceUIArtifacts.HYPERLINK_DETECTOR);
+	    add(creators, TextResourceUIArtifacts.MARKER_HELPER);
+	    add(creators, TextResourceUIArtifacts.OCCURENCE);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
+	    add(creators, TextResourceUIArtifacts.POSITION_CATEGORY);
+	    add(creators, TextResourceUIArtifacts.POSITION_HELPER);
+	    add(creators, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
+	    add(creators, TextResourceUIArtifacts.TEXT_HOVER);
+	    add(creators, TextResourceUIArtifacts.TOKEN_SCANNER);
+	    add(creators, TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 	    
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PREFERENCE_PAGE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PREFERENCE_CONSTANTS)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PIXEL_CONVERTER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PREFERENCE_INITIALIZER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.SYNTAX_COLORING_HELPER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE)));
+	    add(creators, TextResourceUIArtifacts.PREFERENCE_PAGE);
+	    add(creators, TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
+	    add(creators, TextResourceUIArtifacts.PREFERENCE_CONSTANTS);
+	    add(creators, TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE);
+	    add(creators, TextResourceUIArtifacts.PIXEL_CONVERTER);
+	    add(creators, TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
+	    add(creators, TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
+	    add(creators, TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.CODE_COMPLETION_HELPER)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.COMPLETION_PROPOSAL)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_META_INFORMATION)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR)));
-	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceUIArtifacts.I_BACKET_HANDLER)));
+	    add(creators, TextResourceUIArtifacts.CODE_COMPLETION_HELPER);
+	    add(creators, TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
+	    add(creators, TextResourceUIArtifacts.COMPLETION_PROPOSAL);
+	    add(creators, TextResourceUIArtifacts.UI_META_INFORMATION);
+	    add(creators, TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
+	    add(creators, TextResourceUIArtifacts.I_BACKET_HANDLER);
+
+	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL);
+	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
+	    add(creators, TextResourceUIArtifacts.MARKER_ANNOTATION);
+	    add(creators, TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
+	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
+	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 	    creators.add(new PluginXMLCreator());
 	    return creators;
+	}
+
+	private void add(
+			List<IArtifactCreator<GenerationContext>> creators,
+			ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> hoverTextProvider) {
+		creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(hoverTextProvider)));
 	}
 
 	private boolean doOverride(

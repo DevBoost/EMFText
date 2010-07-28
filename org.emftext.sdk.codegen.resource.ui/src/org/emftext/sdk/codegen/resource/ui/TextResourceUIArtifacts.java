@@ -14,6 +14,8 @@ import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.creators.PluginXMLCreator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketPreferencePageGenerator;
@@ -35,7 +37,9 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.HoverTextProviderGenera
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerHelperGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardPageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.OccurrenceGenerator;
@@ -50,6 +54,8 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferenceInitializerGe
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PropertySheetPageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ProposalPostProcessorGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistAssistantGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TextHoverGenerator;
@@ -114,4 +120,11 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_META_INFORMATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIMetaInformation", UIMetaInformationGenerator.class, OptionTypes.OVERRIDE_UI_META_INFORMATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_PLUGIN_ACTIVATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIPlugin", UIPluginActivatorGenerator.class, OptionTypes.OVERRIDE_UI_PLUGIN_ACTIVATOR);
+
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModelFactory", AnnotationModelFactoryGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModel", AnnotationModelGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_ANNOTATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "MarkerAnnotation", MarkerAnnotationGenerator.class, OptionTypes.OVERRIDE_MARKER_ANNOTATION);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_RESOLUTION_GENERATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "MarkerResolutionGenerator", MarkerResolutionGeneratorGenerator.class, OptionTypes.OVERRIDE_MARKER_RESOLUTION_GENERATOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_ASSISTANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistAssistant", QuickAssistAssistantGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistProcessor", QuickAssistProcessorGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR);
 }
