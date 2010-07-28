@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
@@ -75,6 +76,11 @@ public abstract class AbstractPostProcessor implements ICsResourcePostProcessorP
 	protected void addProblem(CsResource resource, ECsProblemType problemType,
 			final String message, EObject cause) {
 		resource.addProblem(new CsProblem(message, problemType), cause);
+	}
+
+	protected void addProblem(CsResource resource, ECsProblemType problemType,
+			final String message, EObject cause, ICsQuickFix quickFix) {
+		resource.addProblem(new CsProblem(message, problemType, quickFix), cause);
 	}
 
 	protected void addProblem(CsResource resource, ECsProblemType problemType,

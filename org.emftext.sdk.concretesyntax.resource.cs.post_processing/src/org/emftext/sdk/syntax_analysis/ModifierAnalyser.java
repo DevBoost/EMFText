@@ -21,6 +21,7 @@ import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.MakeSyntaxConcreteFix;
 
 /**
  * An analyser that checks whether the modifier ABSTRACT is used
@@ -37,7 +38,7 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 			// assert there is no start symbol (not a 
 			// declared one and not an imported one)
 			if (symbols.size() > 0) {
-				addProblem(resource, ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, "Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", modifier);
+				addProblem(resource, ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, "Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", modifier, new MakeSyntaxConcreteFix(syntax));
 			}
 		} else {
 			// assert the is at least one start symbol (either a 
