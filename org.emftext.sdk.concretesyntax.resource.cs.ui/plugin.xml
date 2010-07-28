@@ -8,6 +8,7 @@
 	
 	<extension point="org.eclipse.ui.editors">
 		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cs" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
+			<contentTypeBinding contentTypeId="org.emftext.sdk.concretesyntax.resource.cs"/>
 		</editor>
 	</extension>
 	
@@ -41,6 +42,18 @@
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" name="EMFText .cs file">
 		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsAnnotationModelFactory" extensions="cs" />
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.sdk.concretesyntax.resource.cs" name=".cs File" base-type="org.eclipse.core.runtime.text" file-extensions="cs"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cs" id="org.emftext.sdk.concretesyntax.resource.cs.ui.provider" />
 	</extension>
 	
 </plugin>

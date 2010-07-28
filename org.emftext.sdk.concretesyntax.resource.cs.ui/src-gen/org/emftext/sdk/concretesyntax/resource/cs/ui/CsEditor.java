@@ -36,7 +36,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public CsEditor() {
 		super();
-		setDocumentProvider(new org.eclipse.ui.editors.text.FileDocumentProvider());
 		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, colorManager));
 		initializeEditingDomain();
 		addBackgroundParsingListener(new MarkerUpdateListener());
@@ -410,6 +409,70 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void setBracketHandler(org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler) {
 		this.bracketHandler = bracketHandler;
+	}
+	
+	public void createActions() {
+		super.createActions();
+		java.util.ResourceBundle resourceBundle = new java.util.ResourceBundle() {
+			public java.util.Enumeration<String> getKeys() {
+				java.util.List<String> keys = new java.util.ArrayList<String>(3);
+				keys.add("SelectAnnotationRulerAction.QuickFix.label");
+				keys.add("SelectAnnotationRulerAction.QuickFix.tooltip");
+				keys.add("SelectAnnotationRulerAction.QuickFix.description");
+				return java.util.Collections.enumeration(keys);
+			}
+			public Object handleGetObject(String key) {
+				if (key.equals("SelectAnnotationRulerAction.QuickFix.label")) return "&Quick Fix";
+				if (key.equals("SelectAnnotationRulerAction.QuickFix.tooltip")) return "Quick Fix";
+				if (key.equals("SelectAnnotationRulerAction.QuickFix.description")) return "Runs Quick Fix on the annotation's line";
+				return null;
+			}
+		};
+		setAction(org.eclipse.ui.texteditor.ITextEditorActionConstants.RULER_CLICK, new org.eclipse.ui.texteditor.SelectMarkerRulerAction(resourceBundle, "SelectAnnotationRulerAction.", this, getVerticalRuler()) {
+			public void run() {
+				runWithEvent(null);
+			}
+			
+			public void runWithEvent(org.eclipse.swt.widgets.Event event) {
+				org.eclipse.jface.text.ITextOperationTarget operation = (org.eclipse.jface.text.ITextOperationTarget) getAdapter(org.eclipse.jface.text.ITextOperationTarget.class);
+				final int opCode = org.eclipse.jface.text.source.ISourceViewer.QUICK_ASSIST;
+				if (operation != null && operation.canDoOperation(opCode)) {
+					org.eclipse.jface.text.Position position = getPosition();
+					if (position != null) {
+						selectAndReveal(position.getOffset(), position.getLength());
+					}
+					operation.doOperation(opCode);
+				}
+			}
+			
+			private org.eclipse.jface.text.Position getPosition() {
+				org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel model = getAnnotationModel();
+				org.eclipse.jface.text.source.IAnnotationAccessExtension  annotationAccess = getAnnotationAccessExtension();
+				
+				org.eclipse.jface.text.IDocument document = getDocument();
+				if (model == null)				return null;
+				
+				java.util.Iterator<?> iter = model.getAnnotationIterator();
+				int layer = Integer.MIN_VALUE;
+				
+				while (iter.hasNext()) {
+					org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) iter.next();
+					if (annotation.isMarkedDeleted())					continue;
+					
+					int annotationLayer = annotationAccess.getLayer(annotation);
+					if (annotationAccess != null)					if (annotationLayer < layer)					continue;
+					
+					org.eclipse.jface.text.Position position = model.getPosition(annotation);
+					if (!includesRulerLine(position, document)) {
+						continue;
+					}
+					
+					return position;
+				}
+				return null;
+			}
+			
+		});
 	}
 	
 }

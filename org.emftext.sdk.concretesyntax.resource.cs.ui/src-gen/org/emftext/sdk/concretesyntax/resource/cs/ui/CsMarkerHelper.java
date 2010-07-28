@@ -64,6 +64,10 @@ public class CsMarkerHelper {
 					marker.setAttribute(org.eclipse.core.resources.IMarker.LINE_NUMBER, textDiagnostic.getLine());
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_START, textDiagnostic.getCharStart());
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);
+					org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = textDiagnostic.getProblem().getQuickFix();
+					if (quickFix != null) {
+						marker.setAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID, quickFix.getContextAsString());
+					}
 				}
 				else {
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_START, 0);

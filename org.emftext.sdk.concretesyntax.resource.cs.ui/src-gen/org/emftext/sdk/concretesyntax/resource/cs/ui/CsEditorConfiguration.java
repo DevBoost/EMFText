@@ -22,6 +22,7 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor theEditor;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant quickAssistAssistant;
 	
 	/**
 	 * Creates a new editor configuration.
@@ -81,6 +82,13 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 			return null;
 		}
 		return new org.eclipse.jface.text.hyperlink.IHyperlinkDetector[] { new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlinkDetector(theEditor.getResource()) };
+	}
+	
+	public org.eclipse.jface.text.quickassist.IQuickAssistAssistant getQuickAssistAssistant(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+		if (quickAssistAssistant == null) {
+			quickAssistAssistant = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant(theEditor);
+		}
+		return quickAssistAssistant;
 	}
 	
 }
