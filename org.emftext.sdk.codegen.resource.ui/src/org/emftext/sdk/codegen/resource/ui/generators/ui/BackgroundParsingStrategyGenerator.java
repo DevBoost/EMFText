@@ -102,7 +102,17 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
+		sc.addComment(
+			"the post parsing stuff must be executed in a separate job to avoid " +
+			"deadlocks on the document"
+		);
+		sc.add(JOB + " finishJob = new " + JOB + "(\"refreshing views\") {");
+		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
 		sc.add("editor.notifyBackgroundParsingFinished();");
+		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("}");
+		sc.add("};");
+		sc.add("finishJob.schedule(10);");
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
