@@ -20,6 +20,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Token Redefinition</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Redefines the regular expression of an imported token. Also, a new name is assigned to the token.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

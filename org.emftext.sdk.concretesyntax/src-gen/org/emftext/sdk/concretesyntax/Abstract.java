@@ -23,6 +23,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Abstract</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Modifier that is used to tag syntax definitions as abstract.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getAbstract()
  * @model

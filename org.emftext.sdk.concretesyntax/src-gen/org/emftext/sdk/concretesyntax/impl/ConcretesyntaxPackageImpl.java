@@ -2436,7 +2436,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return rule .getSyntax ( ) != this ; \r\n",
-			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
+			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\nIf the rule is defined in an imported syntax, this method returns false.\r\n \r\n@param syntax the syntax that refers to the rule\r\n@param rule the rule to check\r\n@return true if the rule is contained, false if it is imported"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(9), 
@@ -2450,14 +2450,32 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "java.util.Collection < org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; \r\norg.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { \r\n\tif ( excludeOperatorRules && rule .getOperatorAnnotation ( ) != null ) { \r\n\t\tcontinue ; \r\n\t} \r\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; \r\n\tfoundGenClasses .add ( subClassCand ) ; \r\n} \r\nreturn foundGenClasses ; \r\n",
-			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
+			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\norg.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; \r\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; \r\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { \r\n\tif ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { \r\n\t\tsubClasses .add ( subClassCand ) ; \r\n\t} \r\n} \r\nreturn subClasses ; \r\n",
-			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
+			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+		   });		
+		addAnnotation
+		  (importEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Import statements allow to reuse existing metamodels and syntax definitions."
+		   });		
+		addAnnotation
+		  (getImport_Prefix(), 
+		   source, 
+		   new String[] {
+			 "documentation", "A short prefix that is used to reference the imported elements."
+		   });		
+		addAnnotation
+		  (getImport_CsLocationHint(), 
+		   source, 
+		   new String[] {
+			 "documentation", "A URI where the concrete syntax definition to import is located."
 		   });		
 		addAnnotation
 		  (syntaxElementEClass.getEOperations().get(0), 
@@ -2465,6 +2483,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.Rule rule = null ; \r\norg.eclipse.emf.ecore.EObject o = this ; \r\ndo { \r\n\tif ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { \r\n\t\trule = ( org.emftext.sdk.concretesyntax.Rule ) o ; \r\n\t} else { \r\n\t\to = o .eContainer ( ) ; \r\n\t} \r\n} while ( rule == null && o != null ) ; \r\nreturn rule ; \r\n",
 			 "documentation", ""
+		   });		
+		addAnnotation
+		  (ruleEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Defines the concrete textual syntax for a metaclass."
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(0), 
@@ -2507,6 +2531,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   new String[] {
 			 "body", "// TODO figure out why \'metaClass == null\' is needed\nif ( metaClass == null || getMetaclass ( ) == metaClass ) { \r\n\tif ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override.\r\n"
+		   });		
+		addAnnotation
+		  (choiceEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Defines alternative syntax for an element of parts of it."
 		   });		
 		addAnnotation
 		  (choiceEClass.getEOperations().get(0), 
@@ -2558,6 +2588,36 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", ""
 		   });		
 		addAnnotation
+		  (csStringEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A keyword that is used to represent instance of a metaclass."
+		   });		
+		addAnnotation
+		  (plusEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Allows to repeat the preceding syntax element multiple times."
+		   });		
+		addAnnotation
+		  (starEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Allows to repeat the preceding syntax element multiple times (including zero times)."
+		   });		
+		addAnnotation
+		  (questionmarkEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Tags the preceding syntax element as optional."
+		   });		
+		addAnnotation
+		  (compoundDefinitionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A group of syntax elements the must appear together."
+		   });		
+		addAnnotation
 		  (compoundDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
@@ -2591,6 +2651,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget ( ) ; \r\nif ( target == null || target .eIsProxy ( ) ) { \r\n\treturn \"\" ; \r\n} else { \r\n\tassert target instanceof org.emftext.sdk.concretesyntax.RegexOwner ; \r\n\treturn ( ( org.emftext.sdk.concretesyntax.RegexOwner ) target ) .getRegex ( ) ; \r\n} \r\n",
 			 "documentation", ""
+		   });		
+		addAnnotation
+		  (partialTokenDefinitionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A fragment of a token definition. Can be used in other token definitions to avoid duplication."
 		   });		
 		addAnnotation
 		  (partialTokenDefinitionEClass.getEOperations().get(0), 
@@ -2628,11 +2694,23 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", ""
 		   });		
 		addAnnotation
+		  (normalTokenDefinitionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Defines a token with a name and a regular expression."
+		   });		
+		addAnnotation
 		  (normalTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); \r\nreturn composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; \r\n",
 			 "documentation", ""
+		   });		
+		addAnnotation
+		  (tokenRedefinitionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Redefines the regular expression of an imported token. Also, a new name is assigned to the token."
 		   });		
 		addAnnotation
 		  (tokenRedefinitionEClass.getEOperations().get(0), 
@@ -2647,6 +2725,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   new String[] {
 			 "body", "return getSynthesizedRegex ( ) ; \r\n",
 			 "documentation", ""
+		   });		
+		addAnnotation
+		  (tokenPriorityDirectiveEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Prioritizes a token over the subsequent tokens."
+		   });		
+		addAnnotation
+		  (containmentEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Calls the syntax rules of the type of the containment reference."
 		   });		
 		addAnnotation
 		  (containmentEClass.getEOperations().get(0), 
@@ -2682,6 +2772,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   new String[] {
 			 "body", "if ( eIsProxy ( ) ) return super .toString ( ) ; \r\njava.lang.StringBuffer result = new java.lang.StringBuffer ( ) ; \r\norg.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature ( ) ; \r\nif ( feature != null && feature .getEcoreFeature ( ) != null ) { \r\n\tresult .append ( feature .getName ( ) ) ; \r\n} \r\nresult .append ( \"[\\\'\" ) ; \r\nresult .append ( getPrefix ( ) ) ; \r\nresult .append ( \"\\\', \\\'\" ) ; \r\nresult .append ( getSuffix ( ) ) ; \r\nresult .append ( \"\\\']\" ) ; \r\nreturn result .toString ( ) ; \r\n",
 			 "documentation", ""
+		   });		
+		addAnnotation
+		  (optionEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "A configuration option that parameterizes the code generation process."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(0), 
@@ -2783,7 +2879,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(16), 
 		   source, 
 		   new String[] {
-			 "documentation", "The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules."
+			 "documentation", "The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(17), 
@@ -3878,18 +3974,48 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (abstractEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Modifier that is used to tag syntax definitions as abstract."
+		   });		
+		addAnnotation
+		  (tokenStyleEClass, 
+		   source, 
+		   new String[] {
+			 "documentation", "Defines syntax highlighting for tokens or keywords."
+		   });		
+		addAnnotation
+		  (getTokenStyle_TokenNames(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The names of the tokens or the keywords this style is applied to."
+		   });		
+		addAnnotation
+		  (getTokenStyle_Rgb(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The color to show the tokens and keywords in."
+		   });		
+		addAnnotation
+		  (getTokenStyle_FontStyles(), 
+		   source, 
+		   new String[] {
+			 "documentation", "The font styles to use for the tokens and keywords."
+		   });		
+		addAnnotation
 		  (annotationEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters ( ) ) { \r\n\tif ( key .equals ( parameter .getKey ( ) ) ) { \r\n\t\tjava.lang.String value = parameter .getValue ( ) ; \r\n\t\treturn value ; \r\n\t} \r\n} \r\nreturn null ; \r\n",
-			 "documentation", "\r\n Returns the annotation value for the given key.\r\n"
+			 "documentation", "Returns the annotation value for the given key."
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { \r\n\tjava.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; \r\n\tget_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; \r\n} \r\nreturn get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; \r\n",
-			 "documentation", "\r\n Return the qualified name of the interface for the given GenClass.\r\n"
+			 "documentation", "Return the qualified name of the interface for the given GenClass."
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(1), 
@@ -3903,14 +4029,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; \r\n",
-			 "documentation", "\r\n Checks whether the given GenClass has a map type.\r\n"
+			 "documentation", "Checks whether the given GenClass has a map type."
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { \r\n\torg.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; \r\n\torg.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; \r\n\tif ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n",
-			 "documentation", "\r\n Checks whether the given list of GenClasses contains a GenClass\r\n with the same name and namespace URI as the given GenClass. \r\n"
+			 "documentation", "Checks whether the given list of GenClasses contains a GenClass\r\nwith the same name and namespace URI as the given GenClass."
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(0), 

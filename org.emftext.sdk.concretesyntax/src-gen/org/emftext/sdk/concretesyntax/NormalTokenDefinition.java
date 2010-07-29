@@ -22,6 +22,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Normal Token Definition</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Defines a token with a name and a regular expression.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getNormalTokenDefinition()
  * @model

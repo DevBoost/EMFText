@@ -1987,7 +1987,7 @@ public enum OptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules.
+	 * The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules.
 	 * <!-- end-model-doc -->
 	 * @see #TOKENSPACE
 	 * @model literal="tokenspace"

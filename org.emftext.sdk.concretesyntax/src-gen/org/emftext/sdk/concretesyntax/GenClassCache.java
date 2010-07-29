@@ -59,9 +59,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Return the qualified name of the interface for the given GenClass.
-	 * 
+	 * Return the qualified name of the interface for the given GenClass.
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { \r\n\tjava.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; \r\n\tget_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; \r\n} \r\nreturn get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; \r\n'"
 	 * @generated
@@ -87,9 +85,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether the given GenClass has a map type.
-	 * 
+	 * Checks whether the given GenClass has a map type.
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; \r\n'"
 	 * @generated
@@ -100,10 +96,8 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether the given list of GenClasses contains a GenClass
-	 *  with the same name and namespace URI as the given GenClass. 
-	 * 
+	 * Checks whether the given list of GenClasses contains a GenClass
+	 * with the same name and namespace URI as the given GenClass.
 	 * <!-- end-model-doc -->
 	 * @model listMany="true"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { \r\n\torg.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; \r\n\torg.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; \r\n\tif ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n'"

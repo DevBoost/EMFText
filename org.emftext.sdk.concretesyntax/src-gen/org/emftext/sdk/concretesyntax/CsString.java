@@ -22,6 +22,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Cs String</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * A keyword that is used to represent instance of a metaclass.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

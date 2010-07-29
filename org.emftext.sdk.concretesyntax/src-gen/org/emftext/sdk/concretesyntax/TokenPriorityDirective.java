@@ -22,6 +22,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Token Priority Directive</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Prioritizes a token over the subsequent tokens.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

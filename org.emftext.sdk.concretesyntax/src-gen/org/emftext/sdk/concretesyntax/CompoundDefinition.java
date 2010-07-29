@@ -23,6 +23,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Compound Definition</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * A group of syntax elements the must appear together.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompoundDefinition()
  * @model

@@ -22,6 +22,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>PLUS</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Allows to repeat the preceding syntax element multiple times.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getPLUS()
  * @model

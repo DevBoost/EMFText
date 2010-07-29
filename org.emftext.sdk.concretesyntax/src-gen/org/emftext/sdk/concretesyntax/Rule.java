@@ -23,6 +23,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * A representation of the model object '<em><b>Rule</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Defines the concrete textual syntax for a metaclass.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

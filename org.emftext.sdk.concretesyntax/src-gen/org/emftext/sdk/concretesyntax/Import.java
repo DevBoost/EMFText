@@ -22,6 +22,10 @@ package org.emftext.sdk.concretesyntax;
  * A representation of the model object '<em><b>Import</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Import statements allow to reuse existing metamodels and syntax definitions.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -44,6 +48,9 @@ public interface Import extends GenPackageDependentElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A short prefix that is used to reference the imported elements.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Prefix</em>' attribute.
 	 * @see #setPrefix(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getImport_Prefix()
@@ -96,6 +103,9 @@ public interface Import extends GenPackageDependentElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A URI where the concrete syntax definition to import is located.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cs Location Hint</em>' attribute.
 	 * @see #setCsLocationHint(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getImport_CsLocationHint()

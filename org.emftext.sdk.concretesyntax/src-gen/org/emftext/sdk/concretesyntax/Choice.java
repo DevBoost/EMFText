@@ -23,6 +23,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Choice</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Defines alternative syntax for an element of parts of it.
+ * <!-- end-model-doc -->
+ *
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getChoice()
  * @model

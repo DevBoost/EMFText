@@ -23,6 +23,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Option</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * A configuration option that parameterizes the code generation process.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

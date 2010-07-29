@@ -24,6 +24,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Token Style</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Defines syntax highlighting for tokens or keywords.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -47,6 +51,9 @@ public interface TokenStyle extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The names of the tokens or the keywords this style is applied to.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Token Names</em>' attribute list.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_TokenNames()
 	 * @model required="true"
@@ -62,6 +69,9 @@ public interface TokenStyle extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The color to show the tokens and keywords in.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rgb</em>' attribute.
 	 * @see #setRgb(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_Rgb()
@@ -90,6 +100,9 @@ public interface TokenStyle extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The font styles to use for the tokens and keywords.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Font Styles</em>' attribute list.
 	 * @see org.emftext.sdk.concretesyntax.FontStyle
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_FontStyles()
