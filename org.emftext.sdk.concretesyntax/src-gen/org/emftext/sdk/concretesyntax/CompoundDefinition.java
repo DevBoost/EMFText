@@ -24,7 +24,7 @@ package org.emftext.sdk.concretesyntax;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A group of syntax elements the must appear together.
+ * A group of syntax elements that must appear together.
  * <!-- end-model-doc -->
  *
  *

@@ -23,7 +23,7 @@ package org.emftext.sdk.concretesyntax;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * A keyword that is used to represent instance of a metaclass.
+ * A keyword that is used to represent instances of a metaclass.
  * <!-- end-model-doc -->
  *
  * <p>
