@@ -33,7 +33,7 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
-		addGetHoverTestMethod(sc);
+		addGetHoverTextMethod(sc);
 		sc.add("}");
 	}
 
@@ -42,7 +42,7 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverTestMethod(JavaComposite sc) {
+	private void addGetHoverTextMethod(JavaComposite sc) {
 		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
 		sc.addComment(
 			"Set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain " +
