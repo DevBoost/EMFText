@@ -105,7 +105,9 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 		if (eObject instanceof EStructuralFeature) {
 			EStructuralFeature eFeature = (EStructuralFeature) eObject;
 			int upperBound = eFeature.getUpperBound();
-			return "<strong>" + eClass.getName() + "</strong> " + eFeature.getName() + " : " + 
+			String documentation = EcoreUtil.getDocumentation(eFeature);
+			String documentationHTML = documentation == null ? "" : " (" + documentation +")";
+			return "<strong>" + eClass.getName() + "</strong> " + eFeature.getName() + documentationHTML + " : " + 
 				eFeature.getEType().getName() + " " + eFeature.getLowerBound() + ".." + 
 				(upperBound >= 0 ? upperBound : "*") + getBooleanString(eObject);
 		}
@@ -156,7 +158,9 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 		if (nameValue.length() > 0) {
 			nameValue = " " + nameValue;
 		}
-		String label = "<strong>" + eClass.getName() + "</strong>" + nameValue + booleanAttributeValue;
+		String documentation = EcoreUtil.getDocumentation(eClass);
+		String documentationHTML = documentation == null ? "" : " (" + documentation +")";
+		String label = "<strong>" + eClass.getName() + "</strong>" + nameValue + booleanAttributeValue + documentationHTML;
 		label += nonBooleanAttributes.toString();
 		label += referencesHTML;
 		return label;
