@@ -20,8 +20,8 @@ Import.csLocationHint : "A URI where the concrete syntax definition to import is
 Import.prefix : "A short prefix that is used to reference the imported elements."
 
 Rule : "Defines the concrete textual syntax for a metaclass."
-CompoundDefinition : "A group of syntax elements the must appear together."
-CsString: "A keyword that is used to represent instance of a metaclass."
+CompoundDefinition : "A group of syntax elements that must appear together."
+CsString: "A keyword that is used to represent instances of a metaclass."
 Containment : "Calls the syntax rules of the type of the containment reference."
 Choice : "Defines alternative syntax for an element of parts of it."
 
