@@ -64,7 +64,7 @@
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return rule .getSyntax ( ) != this ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported&#xD;&#xA;"/>
+        <details key="documentation" value="Returns true if the given rule was defined in the given syntax.&#xD;&#xA;If the rule is defined in an imported syntax, this method returns false.&#xD;&#xA; &#xD;&#xA;@param syntax the syntax that refers to the rule&#xD;&#xA;@param rule the rule to check&#xD;&#xA;@return true if the rule is contained, false if it is imported"/>
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
@@ -77,14 +77,14 @@
     <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="java.util.Collection &lt; org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; &#xD;&#xA;org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { &#xD;&#xA;&#x9;if ( excludeOperatorRules &amp;&amp; rule .getOperatorAnnotation ( ) != null ) { &#xD;&#xA;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;} &#xD;&#xA;&#x9;org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; &#xD;&#xA;&#x9;foundGenClasses .add ( subClassCand ) ; &#xD;&#xA;} &#xD;&#xA;return foundGenClasses ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
       </eAnnotations>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
     <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;org.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; &#xD;&#xA;org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; &#xD;&#xA;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { &#xD;&#xA;&#x9;if ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { &#xD;&#xA;&#x9;&#x9;subClasses .add ( subClassCand ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return subClasses ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -125,10 +125,21 @@
         transient="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//GenPackageDependentElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Import statements allow to reuse existing metamodels and syntax definitions."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A short prefix that is used to reference the imported elements."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="concreteSyntax" eType="#//ConcreteSyntax"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="csLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="csLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A URI where the concrete syntax definition to import is located."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SyntaxElement" abstract="true">
     <eOperations name="getContainingRule" eType="#//Rule">
@@ -141,6 +152,9 @@
         eType="#//SyntaxElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//Annotable #//SyntaxElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines the concrete textual syntax for a metaclass."/>
+    </eAnnotations>
     <eOperations name="getOperatorAnnotation" eType="#//Annotation">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { &#xD;&#xA;&#x9;&#x9;return annotation ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
@@ -187,6 +201,9 @@
         eType="#//ConcreteSyntax" eOpposite="#//ConcreteSyntax/rules"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Choice" eSuperTypes="#//SyntaxElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines alternative syntax for an element of parts of it."/>
+    </eAnnotations>
     <eOperations name="getOptions" upperBound="-1" eType="#//Sequence">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Sequence > options = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Sequence > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { &#xD;&#xA;&#x9;if ( child instanceof org.emftext.sdk.concretesyntax.Sequence ) { &#xD;&#xA;&#x9;&#x9;options .add ( ( org.emftext.sdk.concretesyntax.Sequence ) child ) ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no elements other than Sequence elements in the&#xA;// list of children&#xA;assert false ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return options ; &#xD;&#xA;"/>
@@ -244,6 +261,9 @@
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CsString" eSuperTypes="#//Definition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A keyword that is used to represent instance of a metaclass."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WhiteSpaces" eSuperTypes="#//Definition">
@@ -254,10 +274,25 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tab" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cardinality" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PLUS" eSuperTypes="#//Cardinality"/>
-  <eClassifiers xsi:type="ecore:EClass" name="STAR" eSuperTypes="#//Cardinality"/>
-  <eClassifiers xsi:type="ecore:EClass" name="QUESTIONMARK" eSuperTypes="#//Cardinality"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PLUS" eSuperTypes="#//Cardinality">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Allows to repeat the preceding syntax element multiple times."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="STAR" eSuperTypes="#//Cardinality">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Allows to repeat the preceding syntax element multiple times (including zero times)."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QUESTIONMARK" eSuperTypes="#//Cardinality">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Tags the preceding syntax element as optional."/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//CardinalityDefinition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A group of syntax elements the must appear together."/>
+    </eAnnotations>
     <eOperations name="getDefinition" eType="#//Choice">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
@@ -322,6 +357,9 @@
         eType="#//Placeholder" eOpposite="#//Placeholder/token"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PartialTokenDefinition" eSuperTypes="#//NamedTokenDefinition #//TokenDirective #//RegexComposite">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A fragment of a token definition. Can be used in other token definitions to avoid duplication."/>
+    </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
@@ -360,6 +398,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NormalTokenDefinition" eSuperTypes="#//CompleteTokenDefinition #//Annotable #//RegexComposite">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines a token with a name and a regular expression."/>
+    </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
@@ -368,6 +409,9 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenRedefinition" eSuperTypes="#//Annotable #//RegexComposite #//CompleteTokenDefinition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Redefines the regular expression of an imported token. Also, a new name is assigned to the token."/>
+    </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
@@ -393,9 +437,15 @@
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenPriorityDirective" eSuperTypes="#//TokenDirective">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Prioritizes a token over the subsequent tokens."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//CompleteTokenDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Calls the syntax rules of the type of the containment reference."/>
+    </eAnnotations>
     <eOperations name="getAllowedSubTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;// is there an explicit type defined?&#xA;if ( ! getTypes ( ) .isEmpty ( ) ) { &#xD;&#xA;&#x9;types = getTypes ( ) ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;&#x9;types .add ( getFeature ( ) .getTypeGenClass ( ) ) ; &#xD;&#xA;} &#xD;&#xA;return types ; &#xD;&#xA;"/>
@@ -445,6 +495,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="escapeCharacter" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Option">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A configuration option that parameterizes the code generation process."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//OptionTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -1458,13 +1511,32 @@
     <eLiterals name="OVERRIDE_QUICK_ASSIST_ASSISTANT" value="211" literal="overrideQuickAssistAssistant"/>
     <eLiterals name="OVERRIDE_QUICK_ASSIST_PROCESSOR" value="212" literal="overrideQuickAssistProcessor"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Abstract">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Modifier that is used to tag syntax definitions as abstract."/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Defines syntax highlighting for tokens or keywords."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenNames" lowerBound="1"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rgb" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The names of the tokens or the keywords this style is applied to."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rgb" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The color to show the tokens and keywords in."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fontStyles" upperBound="-1"
-        eType="#//FontStyle"/>
+        eType="#//FontStyle">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The font styles to use for the tokens and keywords."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FontStyle">
     <eLiterals name="BOLD"/>
@@ -1476,7 +1548,7 @@
     <eOperations name="getValue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters ( ) ) { &#xD;&#xA;&#x9;if ( key .equals ( parameter .getKey ( ) ) ) { &#xD;&#xA;&#x9;&#x9;java.lang.String value = parameter .getValue ( ) ; &#xD;&#xA;&#x9;&#x9;return value ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Returns the annotation value for the given key.&#xD;&#xA;"/>
+        <details key="documentation" value="Returns the annotation value for the given key."/>
       </eAnnotations>
       <eParameters name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     </eOperations>
@@ -1514,7 +1586,7 @@
     <eOperations name="getQualifiedInterfaceName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { &#xD;&#xA;&#x9;java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; &#xD;&#xA;&#x9;get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; &#xD;&#xA;} &#xD;&#xA;return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Return the qualified name of the interface for the given GenClass.&#xD;&#xA;"/>
+        <details key="documentation" value="Return the qualified name of the interface for the given GenClass."/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
@@ -1528,14 +1600,14 @@
     <eOperations name="hasMapType" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Checks whether the given GenClass has a map type.&#xD;&#xA;"/>
+        <details key="documentation" value="Checks whether the given GenClass has a map type."/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="containsEqualByName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; &#xD;&#xA;&#x9;if ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) &amp;&amp; entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Checks whether the given list of GenClasses contains a GenClass&#xD;&#xA; with the same name and namespace URI as the given GenClass. &#xD;&#xA;"/>
+        <details key="documentation" value="Checks whether the given list of GenClasses contains a GenClass&#xD;&#xA;with the same name and namespace URI as the given GenClass."/>
       </eAnnotations>
       <eParameters name="list" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
