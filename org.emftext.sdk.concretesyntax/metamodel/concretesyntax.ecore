@@ -584,7 +584,7 @@
     </eLiterals>
     <eLiterals name="TOKENSPACE" value="18" literal="tokenspace">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules."/>
+        <details key="documentation" value="The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="RELOAD_GENERATOR_MODEL" value="19" literal="reloadGeneratorModel">

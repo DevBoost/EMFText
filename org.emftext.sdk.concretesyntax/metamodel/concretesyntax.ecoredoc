@@ -114,7 +114,7 @@ OptionTypes.DEFAULT_TOKEN_NAME : "This option can be used to specify the name of
 
 OptionTypes.USE_PREDEFINED_TOKENS : "If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>."
 
-OptionTypes.TOKENSPACE : "The (numerical) value of this option defined how many whitespace should be printed between tokens if no whitespace information is given in CS rules."
+OptionTypes.TOKENSPACE : "The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules."
 
 OptionTypes.RELOAD_GENERATOR_MODEL : "If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>."
 
