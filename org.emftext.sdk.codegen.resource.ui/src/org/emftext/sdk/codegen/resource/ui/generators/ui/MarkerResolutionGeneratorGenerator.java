@@ -39,6 +39,7 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("Object sourceIdObject = marker.getAttribute(" + I_MARKER + ".SOURCE_ID);");
 		sc.add("String quickFixContext = null;");
 		sc.add("if (sourceIdObject instanceof String) {");
+		// TODO mseifert: split context
 		sc.add("quickFixContext = (String) sourceIdObject;");
 		//sc.add("System.out.println(this + \".getResolutions() \" + quickFixContext);");
 		sc.add("}");
