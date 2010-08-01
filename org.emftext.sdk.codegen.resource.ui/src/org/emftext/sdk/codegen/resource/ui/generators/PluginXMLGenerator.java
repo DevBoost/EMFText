@@ -133,13 +133,10 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
-		// TODO the marker resolution generator is not registered yet, because it is not fully implemented
-		/*
 		sc.add("<extension point=\"org.eclipse.ui.ide.markerResolution\">");
 		sc.add("<markerResolutionGenerator class=\"" + markerResolutionGeneratorClassName + "\" markerType=\"" + problemID + "\" />");
 		sc.add("</extension>");
 		sc.addLineBreak();
-		*/
 		
 		sc.add("<extension point=\"org.eclipse.core.filebuffers.annotationModelCreation\">");
 		sc.add("<factory class=\"" + annotationModelFactoryClassName + "\" extensions=\"" + primaryConcreteSyntaxName + "\" />");
