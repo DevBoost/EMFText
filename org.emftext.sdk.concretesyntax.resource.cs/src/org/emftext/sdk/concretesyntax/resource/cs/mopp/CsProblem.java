@@ -16,6 +16,9 @@
  */
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
@@ -25,7 +28,7 @@ public class CsProblem implements ICsProblem {
 	private String message;
 	private ECsProblemType csProblemType;
 	private CsEProblemType problemType;
-	private ICsQuickFix quickFix;
+	private Collection<ICsQuickFix> quickFixes;
 
 	public CsProblem(String message, ECsProblemType type) {
 		this.message = message;
@@ -37,7 +40,16 @@ public class CsProblem implements ICsProblem {
 		this.message = message;
 		this.csProblemType = type;
 		this.problemType = csProblemType.getProblemType();
-		this.quickFix = quickFix;
+		this.quickFixes = new LinkedHashSet<ICsQuickFix>();
+		this.quickFixes.add(quickFix);
+	}
+
+	public CsProblem(String message, ECsProblemType type, Collection<ICsQuickFix> quickFixes) {
+		this.message = message;
+		this.csProblemType = type;
+		this.problemType = csProblemType.getProblemType();
+		this.quickFixes = new LinkedHashSet<ICsQuickFix>();
+		this.quickFixes.addAll(quickFixes);
 	}
 
 	public CsProblem(String message, CsEProblemType type) {
@@ -57,7 +69,7 @@ public class CsProblem implements ICsProblem {
 		return message;
 	}
 
-	public ICsQuickFix getQuickFix() {
-		return quickFix;
+	public Collection<ICsQuickFix> getQuickFixes() {
+		return quickFixes;
 	}
 }
