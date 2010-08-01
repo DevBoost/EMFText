@@ -101,7 +101,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addGetNameMethod(sc);
 		addHasCorrectTypeMethod(sc);
 		addLoadResourceMethod(sc);
-		addIsUriMethod(sc);
+		addGetUriMethod(sc);
 		addGetCacheMethod(sc);
 	}
 
@@ -122,9 +122,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addLoadResourceMethod(JavaComposite sc) {
-		sc.add("private " + E_OBJECT + " loadResource(" + RESOURCE_SET + " resourceSet, " + STRING + " uriString) {");
+		sc.add("private " + E_OBJECT + " loadResource(" + RESOURCE_SET + " resourceSet, " + URI + " uri) {");
 		sc.add("try {");
-		sc.add(URI + " uri = " + URI + ".createURI(uriString);");
 		sc.add(RESOURCE + " resource = resourceSet.getResource(uri, true);");
 		sc.add(E_LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
 		sc.add("if (contents.size() > 0) {");
@@ -138,18 +137,21 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addIsUriMethod(JavaComposite sc) {
-		sc.add("private boolean isURI(" + STRING + " identifier) {");
+	private void addGetUriMethod(JavaComposite sc) {
+		sc.add("private " + URI + " getURI(" + STRING + " identifier, " + URI + " baseURI) {");
 		sc.add("if (identifier == null) {");
-		sc.add("return false;");
+		sc.add("return null;");
 		sc.add("}");
 		sc.add("try {");
-		sc.add(URI + ".createURI(identifier);");
+		sc.add(URI + " uri = " + URI + ".createURI(identifier);");
+		sc.add("if (uri.isRelative()) {");
+		sc.add("uri = uri.resolve(baseURI);");
+		sc.add("}");
+		sc.add("return uri;");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
 		sc.addComment("the identifier string is not a valid URI");
-		sc.add("return false;");
+		sc.add("return null;");
 		sc.add("}");
-		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -344,10 +346,11 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (isURI(identifier)) {");
 		sc.add(RESOURCE + " resource = container.eResource();");
 		sc.add("if (resource != null) {");
-		sc.add(E_OBJECT + " element = loadResource(container.eResource().getResourceSet(), identifier);");
+		sc.add(URI + " uri = getURI(identifier, resource.getURI());");
+		sc.add("if (uri != null) {");
+		sc.add(E_OBJECT + " element = loadResource(container.eResource().getResourceSet(), uri);");
 		sc.add("if (element == null) {");
 		sc.add("return;");
 		sc.add("}");
