@@ -15,7 +15,9 @@ package org.emftext.sdk.syntax_analysis;
 
 import static org.emftext.sdk.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.OptionManager;
@@ -24,6 +26,7 @@ import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 
 /**
  * A post processor that checks whether the values for all code generation
@@ -32,6 +35,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class OptionsAnalyser extends AbstractPostProcessor {
 
 	private static final String TOKEN_SPACE_VALUE_ERROR_MESSAGE = "Value must be positive integers or '" + TOKEN_SPACE_VALUE_AUTOMATIC + "'.";
+
+	private static final String DUPLICATE_OPTION_FOUND = "Found duplicate option '%s' with %s value.";
 	
 	private final List<OptionTypes> BOOLEAN_OPTIONS;
 	private final List<OptionTypes> STRING_OPTIONS;
@@ -52,6 +57,31 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		}
 		// second, analyze option conflicts
 		analyseOptionConflicts(resource, syntax, options);
+		// third, analyze that options are set at most once
+		analyseDuplicateOption(resource, syntax, options);
+	}
+
+	private void analyseDuplicateOption(CsResource resource,
+			ConcreteSyntax syntax, List<Option> options) {
+		Map<OptionTypes, Option> setOptions = new LinkedHashMap<OptionTypes, Option>();
+		for (Option option : options) {
+			OptionTypes type = option.getType();
+			if (setOptions.keySet().contains(type)) {
+				// option was set before - compare values
+				Option optionBefore = setOptions.get(type);
+				String valueBefore = optionBefore.getValue();
+				if (valueBefore.equals(option.getValue())) {
+					// values are the same - issues a warning
+					String message = String.format(DUPLICATE_OPTION_FOUND, option.getType().getLiteral(), "same");
+					addProblem(resource, ECsProblemType.DUPLICATE_OPTION_WITH_SAME_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
+				} else {
+					// values are different - issues an error
+					String message = String.format(DUPLICATE_OPTION_FOUND, option.getType().getLiteral(), "different");
+					addProblem(resource, ECsProblemType.DUPLICATE_OPTION_WITH_DIFFERENT_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
+				}
+			}
+			setOptions.put(type, option);
+		}
 	}
 
 	/**
