@@ -69,10 +69,11 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 					return;
 				}
 			}
-			if (isURI(identifier)) {
-				org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
-				if (resource != null) {
-					org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), identifier);
+			org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
+			if (resource != null) {
+				org.eclipse.emf.common.util.URI uri = getURI(identifier, resource.getURI());
+				if (uri != null) {
+					org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), uri);
 					if (element == null) {
 						return;
 					}
@@ -226,9 +227,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return expectedTypeClass.isInstance(element);
 	}
 	
-	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, java.lang.String uriString) {
+	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.emf.common.util.URI uri) {
 		try {
-			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(uriString);
 			org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
 			org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
 			if (contents.size() > 0) {
@@ -241,17 +241,20 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return null;
 	}
 	
-	private boolean isURI(java.lang.String identifier) {
+	private org.eclipse.emf.common.util.URI getURI(java.lang.String identifier, org.eclipse.emf.common.util.URI baseURI) {
 		if (identifier == null) {
-			return false;
+			return null;
 		}
 		try {
-			org.eclipse.emf.common.util.URI.createURI(identifier);
+			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI(identifier);
+			if (uri.isRelative()) {
+				uri = uri.resolve(baseURI);
+			}
+			return uri;
 		} catch (java.lang.IllegalArgumentException iae) {
 			// the identifier string is not a valid URI
-			return false;
+			return null;
 		}
-		return true;
 	}
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {

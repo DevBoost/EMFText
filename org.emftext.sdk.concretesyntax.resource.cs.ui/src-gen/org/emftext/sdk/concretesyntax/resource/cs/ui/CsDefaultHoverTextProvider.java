@@ -22,6 +22,9 @@ public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesynta
 		}
 		org.eclipse.emf.ecore.EClass eClass = object.eClass();
 		String label = "<strong>" + eClass.getName() + "</strong>";
+		String documentation = org.eclipse.emf.ecore.util.EcoreUtil.getDocumentation(eClass);
+		String documentationHTML = documentation == null ? "" : " (" + documentation +")";
+		label += documentationHTML;
 		for (org.eclipse.emf.ecore.EAttribute attribute : eClass.getEAllAttributes()) {
 			java.lang.Object value = null;
 			try {

@@ -414,9 +414,13 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element));
-		org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = problem.getQuickFix();
-		if (quickFix != null) {
-			quickFixMap.put(quickFix.getContextAsString(), quickFix);
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = problem.getQuickFixes();
+		if (quickFixes != null) {
+			for (org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
+				if (quickFix != null) {
+					quickFixMap.put(quickFix.getContextAsString(), quickFix);
+				}
+			}
 		}
 	}
 	

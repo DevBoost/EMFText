@@ -169,7 +169,7 @@ public class CsParser extends CsANTLRParserBase {
     					public java.lang.String getMessage() {
     						return errorMessage;
     					}
-    					public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix() {
+    					public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
     						return null;
     					}
     				}, line, charPositionInLine, startIndex, stopIndex);

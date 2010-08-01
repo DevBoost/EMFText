@@ -28,8 +28,8 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 	}
 	
 	public boolean canFix(org.eclipse.jface.text.source.Annotation annotation) {
-		org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = getQuickFix(annotation);
-		return quickFix != null;
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = getQuickFixes(annotation);
+		return quickFixes.size() > 0;
 	}
 	
 	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeQuickAssistProposals(	org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext invocationContext) {
@@ -105,9 +105,9 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 					continue;
 				}
 			}
-			org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = getQuickFix(annotation);
-			if (quickFix != null) {
-				foundFixes.add(quickFix);
+			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = getQuickFixes(annotation);
+			if (quickFixes != null) {
+				foundFixes.addAll(quickFixes);
 			}
 		}
 		return foundFixes;
@@ -117,10 +117,11 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 		return editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
 	}
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix(org.eclipse.jface.text.source.Annotation annotation) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes(org.eclipse.jface.text.source.Annotation annotation) {
 		
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> foundQuickFixes = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		if (annotation.isMarkedDeleted()) {
-			return null;
+			return foundQuickFixes;
 		}
 		
 		if (annotation instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation) {
@@ -129,11 +130,13 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 			try {
 				Object quickFixValue = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
 				if (quickFixValue != null && quickFixValue instanceof String) {
-					String quickFixContext = (String) quickFixValue;
-					org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = editor.getResource().getQuickFix(quickFixContext);
-					if (quickFix != null) {
-						System.out.println("getQuickFixes() found " + quickFix);
-						return quickFix;
+					String quickFixContexts = (String) quickFixValue;
+					String[] quickFixContextParts = quickFixContexts.split("\\|");
+					for (String quickFixContext : quickFixContextParts) {
+						org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = editor.getResource().getQuickFix(quickFixContext);
+						if (quickFix != null) {
+							foundQuickFixes.add(quickFix);
+						}
 					}
 				}
 			} catch (org.eclipse.core.runtime.CoreException ce) {
@@ -145,7 +148,7 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 				}
 			}
 		}
-		return null;
+		return foundQuickFixes;
 	}
 	
 	public String getErrorMessage() {

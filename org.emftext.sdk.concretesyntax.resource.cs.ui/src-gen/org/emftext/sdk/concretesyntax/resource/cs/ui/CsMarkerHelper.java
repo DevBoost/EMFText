@@ -64,9 +64,17 @@ public class CsMarkerHelper {
 					marker.setAttribute(org.eclipse.core.resources.IMarker.LINE_NUMBER, textDiagnostic.getLine());
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_START, textDiagnostic.getCharStart());
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);
-					org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = textDiagnostic.getProblem().getQuickFix();
-					if (quickFix != null) {
-						marker.setAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID, quickFix.getContextAsString());
+					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = textDiagnostic.getProblem().getQuickFixes();
+					java.util.Collection<Object> sourceIDs = new java.util.ArrayList<Object>();
+					if (quickFixes != null) {
+						for (org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
+							if (quickFix != null) {
+								sourceIDs.add(quickFix.getContextAsString());
+							}
+						}
+					}
+					if (!sourceIDs.isEmpty()) {
+						marker.setAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID, org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(sourceIDs, "|"));
 					}
 				}
 				else {
