@@ -68,7 +68,6 @@ public class CardinalityComputer {
 	private void countOccurences(Sequence sequence, Map<GenFeature, MinMax> newFeatureToCountMap) {
 		List<Definition> parts = sequence.getParts();
 		for (Definition part : parts) {
-			System.out.println(part.getContainingRule().getMetaclass().getName() + ": analyzing part " + part);
 			if (part instanceof Terminal) {
 				Terminal terminal = (Terminal) part;
 				GenFeature feature = terminal.getFeature();
