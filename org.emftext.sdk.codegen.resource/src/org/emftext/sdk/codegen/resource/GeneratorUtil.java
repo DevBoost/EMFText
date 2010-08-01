@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource;
 
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
@@ -216,7 +217,7 @@ public class GeneratorUtil {
 		sc.add("public " + STRING + " getMessage() {");
 		sc.add("return errorMessage;");
 		sc.add("}");
-		sc.add("public " + iQuickFix + " getQuickFix() {");
+		sc.add("public " + COLLECTION + "<" + iQuickFix + "> getQuickFixes() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");

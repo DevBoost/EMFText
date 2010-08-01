@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_INVOCATION_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -69,8 +70,8 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addCanFixMethod(JavaComposite sc) {
 		sc.add("public boolean canFix(" + ANNOTATION + " annotation) {");
-		sc.add(iQuickFixClassName + " quickFix = getQuickFix(annotation);");
-		sc.add("return quickFix != null;");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
+		sc.add("return quickFixes.size() > 0;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -156,9 +157,9 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(iQuickFixClassName + " quickFix = getQuickFix(annotation);");
-		sc.add("if (quickFix != null) {");
-		sc.add("foundFixes.add(quickFix);");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
+		sc.add("if (quickFixes != null) {");
+		sc.add("foundFixes.addAll(quickFixes);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return foundFixes;");
@@ -174,10 +175,11 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetQuickFixMethod(JavaComposite sc) {
-		sc.add("private " + iQuickFixClassName + " getQuickFix(" + ANNOTATION + " annotation) {");
+		sc.add("private " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + ANNOTATION + " annotation) {");
 		sc.addLineBreak();
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> foundQuickFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
 		sc.add("if (annotation.isMarkedDeleted()) {");
-		sc.add("return null;");
+		sc.add("return foundQuickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (annotation instanceof " + markerAnnotationClassName + ") {");
@@ -186,11 +188,14 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("try {");
 		sc.add("Object quickFixValue = marker.getAttribute(" + I_MARKER + ".SOURCE_ID);");
 		sc.add("if (quickFixValue != null && quickFixValue instanceof String) {");
-		sc.add("String quickFixContext = (String) quickFixValue;");
+		sc.add("String quickFixContexts = (String) quickFixValue;");
+		sc.add("String[] quickFixContextParts = quickFixContexts.split(\"\\\\|\");");
+		sc.add("for (String quickFixContext : quickFixContextParts) {");
 		sc.add(iQuickFixClassName + " quickFix = editor.getResource().getQuickFix(quickFixContext);");
 		sc.add("if (quickFix != null) {");
-		sc.add("System.out.println(\"getQuickFixes() found \" + quickFix);");
-		sc.add("return quickFix;");
+		//sc.add("System.out.println(\"getQuickFixes() found \" + quickFix);");
+		sc.add("foundQuickFixes.add(quickFix);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
@@ -202,7 +207,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return null;");
+		sc.add("return foundQuickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

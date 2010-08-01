@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
@@ -92,9 +94,18 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, textDiagnostic.getCharStart());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");
-		sc.add(iQuickFixClassName + " quickFix = textDiagnostic.getProblem().getQuickFix();");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = textDiagnostic.getProblem().getQuickFixes();");
+
+		sc.add(COLLECTION + "<Object> sourceIDs = new " + ARRAY_LIST + "<Object>();");
+		sc.add("if (quickFixes != null) {");
+		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
 		sc.add("if (quickFix != null) {");
-		sc.add("marker.setAttribute(" + I_MARKER + ".SOURCE_ID, quickFix.getContextAsString());");
+		sc.add("sourceIDs.add(quickFix.getContextAsString());");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (!sourceIDs.isEmpty()) {");
+		sc.add("marker.setAttribute(" + I_MARKER + ".SOURCE_ID, " + stringUtilClassName + ".explode(sourceIDs, \"|\"));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("else {");

@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +30,7 @@ public class IProblemGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.add("public String getMessage();");
 		sc.add("public " + eProblemTypeClassName + " getType();");
-		sc.add("public " + iQuickFixClassName + " getQuickFix();");
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes();");
 		sc.add("}");
 	}
 }

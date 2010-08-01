@@ -425,9 +425,13 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addAddProblemMethod1(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element));");
-    	sc.add(iQuickFixClassName + " quickFix = problem.getQuickFix();");
+    	sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
+    	sc.add("if (quickFixes != null) {");
+    	sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
     	sc.add("if (quickFix != null) {");
     	sc.add("quickFixMap.put(quickFix.getContextAsString(), quickFix);");
+    	sc.add("}");
+    	sc.add("}");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();

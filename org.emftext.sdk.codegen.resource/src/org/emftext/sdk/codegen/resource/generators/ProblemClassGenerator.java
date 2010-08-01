@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -32,11 +33,16 @@ public class ProblemClassGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		
 		addFields(sc);
-		addConstructor1(sc);
-		addConstructor2(sc);
+		addConstructor(sc);
 		addMethods(sc);
 		
 		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		addConstructor1(sc);
+		addConstructor2(sc);
+		addConstructor3(sc);
 	}
 
 	private void addMethods(StringComposite sc) {
@@ -48,23 +54,31 @@ public class ProblemClassGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STRING + " message;");
 		sc.add("private " + eProblemTypeClassName + " type;");
-		sc.add("private " + iQuickFixClassName + " quickFix;");
+		sc.add("private " + COLLECTION + "<" + iQuickFixClassName + "> quickFixes;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor1(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " message, " + eProblemTypeClassName + " type) {");
-		sc.add("this(message, type, null);");
+		sc.add("this(message, type, " + COLLECTIONS + ".<" + iQuickFixClassName + ">emptySet());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor2(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " message, " + eProblemTypeClassName + " type, " + iQuickFixClassName + " quickFix) {");
+		sc.add("this(message, type, " + COLLECTIONS + ".singleton(quickFix));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor3(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + STRING + " message, " + eProblemTypeClassName + " type, " + COLLECTION + "<" + iQuickFixClassName + "> quickFixes) {");
 		sc.add("super();");
 		sc.add("this.message = message;");
 		sc.add("this.type = type;");
-		sc.add("this.quickFix = quickFix;");
+		sc.add("this.quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
+		sc.add("this.quickFixes.addAll(quickFixes);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -84,8 +98,8 @@ public class ProblemClassGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetQuickFixMethod(StringComposite sc) {
-		sc.add("public " + iQuickFixClassName + " getQuickFix() {");
-		sc.add("return quickFix;");
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("return quickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
