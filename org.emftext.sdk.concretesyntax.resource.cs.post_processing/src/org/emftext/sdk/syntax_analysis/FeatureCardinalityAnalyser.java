@@ -25,6 +25,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.SetFeatureBoundsQuickFix;
 
 /**
  * An analyser that checks whether the cardinality of a feature
@@ -51,8 +52,8 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 		for (GenFeature feature : featureToCountMap.keySet()) {
 			String lowerBoundString = feature.getLowerBound();
 			String upperBoundString = feature.getUpperBound();
-			int upperBound = Integer.parseInt(upperBoundString);
 			int lowerBound = Integer.parseInt(lowerBoundString);
+			int upperBound = Integer.parseInt(upperBoundString);
 			
 			// min/max cardinality in CS
 			MinMax minMax = featureToCountMap.get(feature);
@@ -61,11 +62,21 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			
 			int max = minMax.getMax();
 			if (!metaMinMax.enclosesMax(minMax)) {
-				addProblem(resource, ECsProblemType.MAX_OCCURENCE_MISMATCH, "Maximum occurences (" + max + ") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", rule);
+				addProblem(
+						resource, 
+						ECsProblemType.MAX_OCCURENCE_MISMATCH, 
+						"Maximum occurences (" + max + ") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", 
+						rule, 
+						new SetFeatureBoundsQuickFix(rule, feature, lowerBound, minMax.getMax()));
 			}
 			int min = minMax.getMin();
 			if (metaMinMax.getMin() != minMax.getMin()) {
-				addProblem(resource, ECsProblemType.MIN_OCCURENCE_MISMATCH, "Minimum occurences (" + min + ") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", rule);
+				addProblem(
+						resource, 
+						ECsProblemType.MIN_OCCURENCE_MISMATCH, 
+						"Minimum occurences (" + min + ") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", 
+						rule, 
+						new SetFeatureBoundsQuickFix(rule, feature, minMax.getMin(), upperBound));
 			}
 		}
 	}

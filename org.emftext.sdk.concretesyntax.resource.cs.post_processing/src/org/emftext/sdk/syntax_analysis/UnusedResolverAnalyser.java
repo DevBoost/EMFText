@@ -14,6 +14,7 @@
 package org.emftext.sdk.syntax_analysis;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -25,8 +26,11 @@ import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
+import org.emftext.sdk.quickfixes.RemoveResolverQuickFix;
 
 /**
  * An analyser that checks whether the analysis package in generated
@@ -47,6 +51,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		if (!Platform.isRunning()) {
 			return;
 		}
+		final ECsProblemType problemType = ECsProblemType.UNUSED_RESOLVER_CLASS;
 		Collection<String> resolverFileNames = nameUtil.getResolverFileNames(syntax);
 		String workspaceRootFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
 		
@@ -64,9 +69,18 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 				String fileName = member.getName();
 				boolean isDefaultResolver = (nameUtil.getDefaultResolverDelegateName(syntax) + Constants.JAVA_FILE_EXTENSION).equals(fileName);
 				if (!resolverFileNames.contains(fileName) &&!isDefaultResolver) {
+					// create quick fixes
+					Collection<ICsQuickFix> quickFixes = new ArrayList<ICsQuickFix>(2);
+					quickFixes.add(new RemoveResolverQuickFix(syntax, member));
+					quickFixes.add(new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
 					// issue warning about unused resolver
-					final CsResource textResource = (CsResource) syntax.eResource();
-					addProblem(textResource, ECsProblemType.UNUSED_RESOLVER_CLASS, "Found unused class '" + fileName + "' in analysis package.", null);
+					addProblem(
+							resource, 
+							problemType, 
+							"Found unused class '" + fileName + "' in analysis package.", 
+							syntax, 
+							quickFixes
+					);
 				}
 			}
 		}

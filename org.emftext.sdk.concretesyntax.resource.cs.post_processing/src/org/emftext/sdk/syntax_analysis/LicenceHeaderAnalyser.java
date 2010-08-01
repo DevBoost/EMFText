@@ -9,6 +9,12 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.util.LicenceHeaderUtil;
 
+/**
+ * An analyser that checks whether the license header file (specified
+ * by the 'licenceHeader' option) does exist.
+ * 
+ * There is no quick fix available to solve this problem.
+ */
 public class LicenceHeaderAnalyser extends AbstractPostProcessor {
 	
 	private LicenceHeaderUtil headerUtil = new LicenceHeaderUtil();
@@ -17,12 +23,12 @@ public class LicenceHeaderAnalyser extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		String licenceLocation = headerUtil.getLicenceLocation(syntax);
 		if (licenceLocation == null) {
-			// no licence option given
+			// no license option given
 			return;
 		}
 		String licenceText = headerUtil.loadLicenceHeaderText(syntax);
 		if (licenceText == null) {
-			// licence option was given, but the licence file can not be found
+			// license option was given, but the license file can not be found
 			EList<Option> options = syntax.getOptions();
 			for (Option option : options) {
 				if (option.getType().equals(OptionTypes.LICENCE_HEADER)) {

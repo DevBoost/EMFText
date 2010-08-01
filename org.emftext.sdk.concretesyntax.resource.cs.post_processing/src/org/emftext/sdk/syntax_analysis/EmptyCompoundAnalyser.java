@@ -18,6 +18,7 @@ import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 
 /**
  * The EmptyCompoundAnalyser searches for compounds with an unlimited
@@ -30,6 +31,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  * This analyzer was created as a response to bug 1183.
  */
 public class EmptyCompoundAnalyser extends AbstractPostProcessor {
+
+	private static final String EMPTY_COMPOUND_MESSAGE = "Compounds with * or + must not allow empty syntax.";
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
@@ -49,7 +52,7 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 					compound.getCardinality() instanceof STAR) {
 					// check whether the compound allows the empty sentence
 					if (canBeEmpty(compound.getDefinition())) {
-						addProblem(resource, ECsProblemType.EMPTY_COMPOUND, "Compounds with * or + must not allow empty syntax.", compound);
+						addProblem(resource, ECsProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
 					}
 				}
 			}

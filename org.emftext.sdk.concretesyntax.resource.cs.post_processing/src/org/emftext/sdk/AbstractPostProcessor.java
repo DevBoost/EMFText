@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -84,8 +85,23 @@ public abstract class AbstractPostProcessor implements ICsResourcePostProcessorP
 	}
 
 	protected void addProblem(CsResource resource, ECsProblemType problemType,
+			final String message, EObject cause, Collection<ICsQuickFix> quickFixes) {
+		resource.addProblem(new CsProblem(message, problemType, quickFixes), cause);
+	}
+
+	protected void addProblem(CsResource resource, ECsProblemType problemType,
 			final String message, int i1, int i2, int i3, int i4) {
-		resource.addProblem(new CsProblem(message, problemType), i1, i2, i3 ,i4);
+		resource.addProblem(new CsProblem(message, problemType), i1, i2, i3, i4);
+	}
+
+	protected void addProblem(CsResource resource, ECsProblemType problemType,
+			final String message, int i1, int i2, int i3, int i4, ICsQuickFix quickFix) {
+		resource.addProblem(new CsProblem(message, problemType, quickFix), i1, i2, i3, i4);
+	}
+
+	protected void addProblem(CsResource resource, ECsProblemType problemType,
+			final String message, int i1, int i2, int i3, int i4, List<ICsQuickFix> quickFixes) {
+		resource.addProblem(new CsProblem(message, problemType, quickFixes), i1, i2, i3, i4);
 	}
 
 	public abstract void analyse(CsResource resource, ConcreteSyntax syntax);

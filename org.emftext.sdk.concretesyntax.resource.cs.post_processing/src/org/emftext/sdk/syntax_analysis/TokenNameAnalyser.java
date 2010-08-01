@@ -25,7 +25,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * A analyser that checks that all token names start with a capital letter
- * and that they do not contain dashes.
+ * and that they do not contain dashes. This is required by ANTLR.
  */
 public class TokenNameAnalyser extends AbstractPostProcessor {
 

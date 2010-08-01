@@ -14,7 +14,7 @@
 package org.emftext.sdk.syntax_analysis;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +35,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 
 /**
  * A analyser that looks for features defined in the meta model that do
@@ -46,7 +47,7 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		// get collect-in feature to tag them as used
 
-		Map<EStructuralFeature, Rule> unusedReferencesWithOpposite = new HashMap<EStructuralFeature, Rule>();
+		Map<EStructuralFeature, Rule> unusedReferencesWithOpposite = new LinkedHashMap<EStructuralFeature, Rule>();
 
 		final EList<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
@@ -72,7 +73,14 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					if (opposite != null) {
 						unusedReferencesWithOpposite.put(ecoreFeature, rule);
 					} else {
-						addProblem(resource, ECsProblemType.FEATURE_WITHOUT_SYNTAX, "Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
+						ECsProblemType problemType = ECsProblemType.FEATURE_WITHOUT_SYNTAX;
+						addProblem(
+								resource, 
+								problemType, 
+								"Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", 
+								rule,
+								new AddSuppressWarningsAnnotationQuickFix(rule, problemType)
+						);
 					}
 				}
 			}
@@ -135,8 +143,8 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 		return false;
 	}
 
-	private String getFeatureString(EStructuralFeature f) {
-		EClass containerClass = f.getEContainingClass();
-		return containerClass.getName() + "." + f.getName();
+	private String getFeatureString(EStructuralFeature feature) {
+		EClass containerClass = feature.getEContainingClass();
+		return containerClass.getName() + "." + feature.getName();
 	}
 }

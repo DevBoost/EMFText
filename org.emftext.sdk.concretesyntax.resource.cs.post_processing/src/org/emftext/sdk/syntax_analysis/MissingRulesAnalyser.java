@@ -27,10 +27,11 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 
 /**
  * An analyser that checks whether there is a syntax rule for
- * each meta class.
+ * each concrete meta class.
  */
 public class MissingRulesAnalyser extends AbstractPostProcessor {
 
@@ -68,7 +69,8 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 				}
 			}
 			if (!foundRuleForClass) {
-				addProblem(resource, ECsProblemType.NO_RULE_FOR_META_CLASS, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1);
+				ECsProblemType problemType = ECsProblemType.NO_RULE_FOR_META_CLASS;
+				addProblem(resource, problemType, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1, new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
 			}
 		}
 	}

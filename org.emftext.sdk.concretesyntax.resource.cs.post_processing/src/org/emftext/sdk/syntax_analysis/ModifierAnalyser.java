@@ -13,15 +13,20 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.MakeSyntaxConcreteFix;
+import org.emftext.sdk.quickfixes.RemoveReferenceQuickFix;
 
 /**
  * An analyser that checks whether the modifier ABSTRACT is used
@@ -35,16 +40,30 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 		Abstract modifier = syntax.getModifier();
 		boolean isDeclaredAbstract = modifier != null;
 		if (isDeclaredAbstract) {
+			Collection<ICsQuickFix> quickFixes = new ArrayList<ICsQuickFix>(2);
+			quickFixes.add(new MakeSyntaxConcreteFix(syntax));
+			quickFixes.add(new RemoveReferenceQuickFix("Remove start symbols", syntax, ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax_StartSymbols(), symbols));
 			// assert there is no start symbol (not a 
 			// declared one and not an imported one)
 			if (symbols.size() > 0) {
-				addProblem(resource, ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, "Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", modifier, new MakeSyntaxConcreteFix(syntax));
+				addProblem(
+						resource, 
+						ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, 
+						"Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", 
+						modifier, 
+						quickFixes
+				);
 			}
 		} else {
 			// assert the is at least one start symbol (either a 
 			// declared one or an imported one)
 			if (symbols.size() == 0) {
-				addProblem(resource, ECsProblemType.CONCRETE_SYNTAX_HAS_NO_START_SYMBOLS, "Syntax has no start symbols, but is not declared abstract.", syntax);
+				addProblem(
+						resource, 
+						ECsProblemType.CONCRETE_SYNTAX_HAS_NO_START_SYMBOLS, 
+						"Syntax has no start symbols, but is not declared abstract.", 
+						syntax
+				);
 			}
 		}
 	}

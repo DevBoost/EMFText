@@ -21,17 +21,22 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
- * An analyser that checks if the "baseResourcePlugin" 
- * option is set if the syntax name contains one dot. And the the extension does
- * not contain more than one dot.
+ * An analyser that checks that the "baseResourcePlugin" option is set if the 
+ * syntax name contains a dot. This is needed, because the dot indicates a
+ * secondary syntax that needs to be selected explicitly by a custom 
+ * ResourceFactory. Such ResourceFactory implementation must reside in the
+ * base resource plug-in.
+ * 
+ * The analyser does also check that the syntax does not contain more than 
+ * one dot.
  */
 public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 
 	private static final String SYNTAX_NAME_MAY_CONTAIN_ONE_DOT_MAX = 
-		"The syntax name contains more than one dot.";
+		"The syntax name must not contain more than one dot.";
 	
 	private static final String BASE_RESOURCE_PLUGIN_OPTION_MISSING = 
-		"If the syntax contains one dot, the 'baseResourcePlugin' needs to be specified.";
+		"If the syntax contains one dot, the option '" + OptionTypes.BASE_RESOURCE_PLUGIN.getLiteral() + "' needs to be specified.";
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
