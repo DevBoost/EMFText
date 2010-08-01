@@ -55,30 +55,57 @@ public class CardinalityComputer {
 				newFeatureToCountMap = featureToMinMaxMap;
 			}
 
-			List<Definition> parts = sequence.getParts();
-			for (Definition part : parts) {
-				if (part instanceof Terminal) {
-					Terminal terminal = (Terminal) part;
-					GenFeature feature = terminal.getFeature();
-					// ignore anonymous features
-					if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-						continue;
-					}
-					MinMax currentMinMax = getTotalCardinality(terminal);
-					MinMax previousMinMax = getMinMax(newFeatureToCountMap, feature);
-					newFeatureToCountMap.put(feature, add(previousMinMax, currentMinMax));
-				} else if (part instanceof CompoundDefinition) {
-					CompoundDefinition compound = (CompoundDefinition) part;
-					Choice subChoices = compound.getDefinition();
-					countOccurences(subChoices, newFeatureToCountMap);
-				}
-			}
+			countOccurences(sequence, newFeatureToCountMap);
 			// merge the min/max values found for the current option with 
 			// the previous options
 			if (optionCount > 0) {
 				or(featureToMinMaxMap, newFeatureToCountMap);
 			}
 			optionCount++;
+		}
+	}
+
+	private void countOccurences(Sequence sequence, Map<GenFeature, MinMax> newFeatureToCountMap) {
+		List<Definition> parts = sequence.getParts();
+		for (Definition part : parts) {
+			System.out.println(part.getContainingRule().getMetaclass().getName() + ": analyzing part " + part);
+			if (part instanceof Terminal) {
+				Terminal terminal = (Terminal) part;
+				GenFeature feature = terminal.getFeature();
+				// ignore anonymous features
+				if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+					continue;
+				}
+				MinMax currentMinMax = getTotalCardinality(terminal);
+				MinMax previousMinMax = getMinMax(newFeatureToCountMap, feature);
+				newFeatureToCountMap.put(feature, add(previousMinMax, currentMinMax));
+			} else if (part instanceof CompoundDefinition) {
+				CompoundDefinition compound = (CompoundDefinition) part;
+				Choice subChoices = compound.getDefinition();
+				Map<GenFeature, MinMax> subFeatureToCountMap = new LinkedHashMap<GenFeature, MinMax>();
+				countOccurences(subChoices, subFeatureToCountMap);
+				add(newFeatureToCountMap, subFeatureToCountMap);
+			}
+		}
+	}
+
+	private void add(
+			Map<GenFeature, MinMax> oldFeatureToMinMaxMap,
+			Map<GenFeature, MinMax> newFeatureToMinMaxMap) {
+		
+		for (GenFeature oldFeature : oldFeatureToMinMaxMap.keySet()) {
+			if (newFeatureToMinMaxMap.containsKey(oldFeature)) {
+				// feature is in both maps - do ADD
+				oldFeatureToMinMaxMap.put(oldFeature, add(oldFeatureToMinMaxMap.get(oldFeature), newFeatureToMinMaxMap.get(oldFeature)));
+			} else {
+			}
+		}
+		// copy new feature to old map
+		for (GenFeature newFeature : newFeatureToMinMaxMap.keySet()) {
+			if (!oldFeatureToMinMaxMap.containsKey(newFeature)) {
+				MinMax minMax = newFeatureToMinMaxMap.get(newFeature);
+				oldFeatureToMinMaxMap.put(newFeature, minMax);
+			}
 		}
 	}
 
