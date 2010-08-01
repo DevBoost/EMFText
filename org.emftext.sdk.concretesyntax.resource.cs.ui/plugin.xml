@@ -44,6 +44,10 @@
 		</wizard>
 	</extension>
 	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator" markerType="org.emftext.sdk.concretesyntax.resource.cs.ui.problem" />
+	</extension>
+	
 	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
 		<factory class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsAnnotationModelFactory" extensions="cs" />
 	</extension>
