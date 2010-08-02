@@ -29,9 +29,9 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) emfResource;
 					org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(customResource);
 					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = getQuickFixes(customResource, marker);
-					java.util.List<org.eclipse.ui.IMarkerResolution> resolutions = new java.util.ArrayList<org.eclipse.ui.IMarkerResolution>();
+					java.util.List<org.eclipse.ui.IMarkerResolution2> resolutions = new java.util.ArrayList<org.eclipse.ui.IMarkerResolution2>();
 					for (final org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
-						resolutions.add(new org.eclipse.ui.IMarkerResolution() {
+						resolutions.add(new org.eclipse.ui.IMarkerResolution2() {
 							
 							public void run(org.eclipse.core.resources.IMarker marker) {
 								String newText = quickFix.apply(null);
@@ -46,6 +46,15 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 							public String getLabel() {
 								return quickFix.getDisplayString();
 							}
+							
+							public org.eclipse.swt.graphics.Image getImage() {
+								return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().getImageProvider().getImage(quickFix.getImageKey());
+							}
+							
+							public String getDescription() {
+								return null;
+							}
+							
 						});
 					}
 					return resolutions.toArray(new org.eclipse.ui.IMarkerResolution[resolutions.size()]);

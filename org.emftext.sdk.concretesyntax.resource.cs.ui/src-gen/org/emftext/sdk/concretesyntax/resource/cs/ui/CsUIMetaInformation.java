@@ -20,6 +20,10 @@ public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHoverTextProvider();
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsImageProvider getImageProvider() {
+		return org.emftext.sdk.concretesyntax.resource.cs.ui.CsImageProvider.INSTANCE;
+	}
+	
 	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager createColorManager() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	}

@@ -58,8 +58,7 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 			}
 			
 			public org.eclipse.swt.graphics.Image getImage() {
-				// TODO Auto-generated method stub
-				return null;
+				return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().getImageProvider().getImage(quickFix.getImageKey());
 			}
 			
 			public String getDisplayString() {

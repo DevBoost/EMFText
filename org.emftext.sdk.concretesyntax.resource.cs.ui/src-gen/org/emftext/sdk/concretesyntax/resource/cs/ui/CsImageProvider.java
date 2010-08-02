@@ -21,6 +21,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsImageProvider {
 	
+	public final static CsImageProvider INSTANCE = new CsImageProvider();
+	
 	/**
 	 * Returns the image associated with the given key. The key can be either a path
 	 * to an image file in the resource bundle or a shared image from
