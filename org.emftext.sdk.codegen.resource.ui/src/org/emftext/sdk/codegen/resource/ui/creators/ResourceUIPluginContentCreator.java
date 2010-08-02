@@ -146,6 +146,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
+	    add(creators, TextResourceUIArtifacts.IMAGE_PROVIDER);
 	    creators.add(new PluginXMLCreator());
 	    return creators;
 	}

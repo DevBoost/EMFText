@@ -37,6 +37,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.HoverTextProviderGenera
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
@@ -127,4 +128,5 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_RESOLUTION_GENERATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "MarkerResolutionGenerator", MarkerResolutionGeneratorGenerator.class, OptionTypes.OVERRIDE_MARKER_RESOLUTION_GENERATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_ASSISTANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistAssistant", QuickAssistAssistantGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistProcessor", QuickAssistProcessorGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> IMAGE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ImageProvider", ImageProviderGenerator.class, OptionTypes.OVERRIDE_IMAGE_PROVIDER);
 }

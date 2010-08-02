@@ -1510,6 +1510,7 @@
     <eLiterals name="OVERRIDE_MARKER_RESOLUTION_GENERATOR" value="209" literal="overrideMarkerResolutionGenerator"/>
     <eLiterals name="OVERRIDE_QUICK_ASSIST_ASSISTANT" value="211" literal="overrideQuickAssistAssistant"/>
     <eLiterals name="OVERRIDE_QUICK_ASSIST_PROCESSOR" value="212" literal="overrideQuickAssistProcessor"/>
+    <eLiterals name="OVERRIDE_IMAGE_PROVIDER" value="213" literal="overrideImageProvider"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

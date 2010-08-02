@@ -28,6 +28,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		addApplyChangesMethod(sc);
 		addGetResourceMethod(sc);
 		addGetDisplayStringMethod(sc);
+		addGetImageKeyMethod(sc);
 		addGetContextObjectsMethod(sc);
 		addGetContextAsStringMethod(sc);
 		addGetTypeMethod(sc);
@@ -41,49 +42,28 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private String displayString;");
+		sc.add("private String imageKey;");
 		sc.add("private " + RESOURCE + " resource;");
 		sc.add("private " + COLLECTION + "<" + E_OBJECT + "> contextObjects;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor1(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, " + E_OBJECT + " contextObject) {");
-		sc.add("super();");
-		sc.add("if (displayString == null) {");
-		sc.add("throw new IllegalArgumentException(\"displayString must not be null.\");");
-		sc.add("}");
-		sc.add("if (contextObject == null) {");
-		sc.add("throw new IllegalArgumentException(\"contextObject must not be null.\");");
-		sc.add("}");
-		sc.add("this.displayString = displayString;");
-		sc.add("this.contextObjects = new " + ARRAY_LIST + "<" + E_OBJECT + ">(1);");
-		sc.add("this.contextObjects.add(contextObject);");
-		sc.add("this.resource = contextObject.eResource();");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + E_OBJECT + " contextObject) {");
+		sc.add("this(displayString, imageKey, " + COLLECTIONS + ".singleton(contextObject), contextObject.eResource());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor2(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, " + COLLECTION + "<" + E_OBJECT + "> contextObjects) {");
-		sc.add("super();");
-		sc.add("if (displayString == null) {");
-		sc.add("throw new IllegalArgumentException(\"displayString must not be null.\");");
-		sc.add("}");
-		sc.add("if (contextObjects == null) {");
-		sc.add("throw new IllegalArgumentException(\"contextObjects must not be null.\");");
-		sc.add("}");
-		sc.add("if (contextObjects.isEmpty()) {");
-		sc.add("throw new IllegalArgumentException(\"contextObjects must not be empty.\");");
-		sc.add("}");
-		sc.add("this.displayString = displayString;");
-		sc.add("this.contextObjects = contextObjects;");
-		sc.add("this.resource = contextObjects.iterator().next().eResource();");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION + "<" + E_OBJECT + "> contextObjects) {");
+		sc.add("this(displayString, imageKey, contextObjects, contextObjects.iterator().next().eResource());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor3(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, " + COLLECTION + "<" + E_OBJECT + "> contextObjects, " + RESOURCE + " resource) {");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION + "<" + E_OBJECT + "> contextObjects, " + RESOURCE + " resource) {");
 		sc.add("super();");
 		sc.add("if (displayString == null) {");
 		sc.add("throw new IllegalArgumentException(\"displayString must not be null.\");");
@@ -95,6 +75,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("throw new IllegalArgumentException(\"contextObjects must not be empty.\");");
 		sc.add("}");
 		sc.add("this.displayString = displayString;");
+		sc.add("this.imageKey = imageKey;");
 		sc.add("this.contextObjects = contextObjects;");
 		sc.add("this.resource = resource;");
 		sc.add("}");
@@ -109,8 +90,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("getResource().save(output, null);");
 		sc.add("return output.toString();");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add("// TODO Auto-generated catch block");
-		sc.add("e.printStackTrace();");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while applying quick fix\", e);");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
@@ -136,6 +116,13 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
+	private void addGetImageKeyMethod(JavaComposite sc) {
+		sc.add("public String getImageKey() {");
+		sc.add("return imageKey;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addGetContextObjectsMethod(JavaComposite sc) {
 		sc.add("public " + COLLECTION + "<" + E_OBJECT + "> getContextObjects() {");
 		sc.add("return contextObjects;");
@@ -145,14 +132,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addGetContextAsStringMethod(JavaComposite sc) {
 		sc.add("public String getContextAsString() {");
-		sc.add(STRING_BUILDER + " result = new " + STRING_BUILDER + "();");
-		sc.add("result.append(getType());");
-		sc.add("result.append(\",\");");
-		sc.add("for (" + E_OBJECT + " contextObject : contextObjects) {");
-		sc.add("result.append(" + ECORE_UTIL + ".getURI(contextObject));");
-		sc.add("result.append(\",\");");
-		sc.add("}");
-		sc.add("return result.toString();");
+		sc.add("return getType() + \",\" + " + stringUtilClassName + ".explode(contextObjects, \",\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

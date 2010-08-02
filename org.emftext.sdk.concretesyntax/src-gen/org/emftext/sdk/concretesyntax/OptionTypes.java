@@ -1704,7 +1704,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_QUICK_ASSIST_PROCESSOR(212, "OVERRIDE_QUICK_ASSIST_PROCESSOR", "overrideQuickAssistProcessor");
+	OVERRIDE_QUICK_ASSIST_PROCESSOR(212, "OVERRIDE_QUICK_ASSIST_PROCESSOR", "overrideQuickAssistProcessor"), /**
+	 * The '<em><b>OVERRIDE IMAGE PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IMAGE_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IMAGE_PROVIDER(213, "OVERRIDE_IMAGE_PROVIDER", "overrideImageProvider");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5230,6 +5238,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE = 212;
 /**
+	 * The '<em><b>OVERRIDE IMAGE PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IMAGE PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IMAGE_PROVIDER
+	 * @model literal="overrideImageProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IMAGE_PROVIDER_VALUE = 213;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5446,6 +5468,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_MARKER_RESOLUTION_GENERATOR,
 			OVERRIDE_QUICK_ASSIST_ASSISTANT,
 			OVERRIDE_QUICK_ASSIST_PROCESSOR,
+			OVERRIDE_IMAGE_PROVIDER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5703,6 +5726,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_MARKER_RESOLUTION_GENERATOR_VALUE: return OVERRIDE_MARKER_RESOLUTION_GENERATOR;
 			case OVERRIDE_QUICK_ASSIST_ASSISTANT_VALUE: return OVERRIDE_QUICK_ASSIST_ASSISTANT;
 			case OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE: return OVERRIDE_QUICK_ASSIST_PROCESSOR;
+			case OVERRIDE_IMAGE_PROVIDER_VALUE: return OVERRIDE_IMAGE_PROVIDER;
 		}
 		return null;
 	}

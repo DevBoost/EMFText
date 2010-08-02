@@ -153,7 +153,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addExplodeMethod(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
-		sc.add("public static String explode(" + COLLECTION + "<Object> parts, String glue) {");
+		sc.add("public static String explode(" + COLLECTION + "<? extends Object> parts, String glue) {");
 		sc.add("return explode(parts.toArray(new Object[parts.size()]), glue);");
 		sc.add("}");
 		sc.addLineBreak();
