@@ -51,11 +51,13 @@ public class CsImageProvider {
 		if (image != null) {
 			return image;
 		}
+		
 		// try cache
 		if (imageCache.containsKey(key)) {
 			return imageCache.get(key);
 		}
 		
+		// try loading image from UI bundle
 		org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path(key);
 		org.eclipse.jface.resource.ImageDescriptor desriptor = org.eclipse.jface.resource.ImageDescriptor.createFromURL(org.eclipse.core.runtime.FileLocator.find(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getBundle(), path, null));
 		image = desriptor.createImage();

@@ -23,11 +23,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsMarkerHelper {
 	
+	/**
+	 * The extension id of the custom marker type that is used by this text resource.
+	 */
 	public static final String MARKER_TYPE = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID + ".problem";
+	
 	/**
 	 * The total number of markers per file is restricted with this constant.
 	 * Restriction is needed because the performance of Eclipse decreases drastically
-	 * if large amounts of markes are added to files.
+	 * if large amounts of markers are added to files.
 	 */
 	public static int MAXIMUM_MARKERS = 500;
 	
