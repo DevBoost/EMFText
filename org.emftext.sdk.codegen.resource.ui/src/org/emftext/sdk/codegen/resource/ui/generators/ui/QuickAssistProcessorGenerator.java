@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
@@ -17,7 +17,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_INVOCATION_CONTEXT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -42,9 +41,9 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		addCanFixMethod(sc);
 		addComputeQuickAssistProposalsMethod(sc);
 		addCreateCompletionProposalMethod(sc);
-		addGetQuickFixesMethod(sc);
+		addGetQuickFixesMethod1(sc);
+		addGetQuickFixesMethod2(sc);
 		addGetAnnotationModelMethod(sc);
-		addGetQuickFixMethod(sc);
 		addGetErrorMessageMethod(sc);
 	}
 
@@ -139,7 +138,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetQuickFixesMethod(JavaComposite sc) {
+	private void addGetQuickFixesMethod1(JavaComposite sc) {
 		sc.add("private " + LIST + "<" + iQuickFixClassName + "> getQuickFixes(" + I_SOURCE_VIEWER + " sourceViewer, int offset, int length) {");
 		sc.add(LIST + "<" + iQuickFixClassName + "> foundFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
 		sc.add(I_ANNOTATION_MODEL + " model = getAnnotationModel();");
@@ -174,7 +173,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetQuickFixMethod(JavaComposite sc) {
+	private void addGetQuickFixesMethod2(JavaComposite sc) {
 		sc.add("private " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + ANNOTATION + " annotation) {");
 		sc.addLineBreak();
 		sc.add(COLLECTION + "<" + iQuickFixClassName + "> foundQuickFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
@@ -185,27 +184,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (annotation instanceof " + markerAnnotationClassName + ") {");
 		sc.add(markerAnnotationClassName + " markerAnnotation = (" + markerAnnotationClassName + ") annotation;");
 		sc.add(I_MARKER + " marker = markerAnnotation.getMarker();");
-		sc.add("try {");
-		sc.add("Object quickFixValue = marker.getAttribute(" + I_MARKER + ".SOURCE_ID);");
-		sc.add("if (quickFixValue != null && quickFixValue instanceof String) {");
-		sc.add("String quickFixContexts = (String) quickFixValue;");
-		sc.add("String[] quickFixContextParts = quickFixContexts.split(\"\\\\|\");");
-		sc.add("for (String quickFixContext : quickFixContextParts) {");
-		sc.add(iQuickFixClassName + " quickFix = editor.getResource().getQuickFix(quickFixContext);");
-		sc.add("if (quickFix != null) {");
-		//sc.add("System.out.println(\"getQuickFixes() found \" + quickFix);");
-		sc.add("foundQuickFixes.add(quickFix);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
-		sc.add("// ignore");
-		sc.add("System.out.println(\"getQuickFixes() marker not found: \" + ce.getMessage());");
-		sc.add("} else {");
-		sc.add("ce.printStackTrace();");
-		sc.add("}");
-		sc.add("}");
+		sc.add("foundQuickFixes.addAll(new " + markerResolutionGeneratorClassName + "().getQuickFixes(editor.getResource(), marker));");
 		sc.add("}");
 		sc.add("return foundQuickFixes;");
 		sc.add("}");

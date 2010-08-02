@@ -18,8 +18,13 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_MARKER_RESOLUTION_GENERATOR + " {");
 		sc.addLineBreak();
-		addGetResolutionsMethod(sc);
+		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetResolutionsMethod(sc);
+		addGetQuickFixesMethod(sc);
 	}
 
 	private void addGetResolutionsMethod(JavaComposite sc) {
@@ -35,18 +40,10 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("if (emfResource instanceof " + textResourceClassName + ") {");
 		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") emfResource;");
 		sc.add(ECORE_UTIL + ".resolveAll(customResource);");
-		sc.addComment("get data from marker (quick fix type and context object URIs)");
-		sc.add("Object sourceIdObject = marker.getAttribute(" + I_MARKER + ".SOURCE_ID);");
-		sc.add("String quickFixContext = null;");
-		sc.add("if (sourceIdObject instanceof String) {");
-		// TODO mseifert: split context
-		sc.add("quickFixContext = (String) sourceIdObject;");
-		//sc.add("System.out.println(this + \".getResolutions() \" + quickFixContext);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("final " + iQuickFixClassName + " quickFix = customResource.getQuickFix(quickFixContext);");
-		sc.add("return new " + I_MARKER_RESOLUTION + "[] {");
-		sc.add("new " + I_MARKER_RESOLUTION + "() {");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(customResource, marker);");
+		sc.add(LIST + "<" + I_MARKER_RESOLUTION + "> resolutions = new " + ARRAY_LIST + "<" + I_MARKER_RESOLUTION + ">();");
+		sc.add("for (final " + iQuickFixClassName + " quickFix : quickFixes) {");
+		sc.add("resolutions.add(new " + I_MARKER_RESOLUTION + "() {");
 		sc.addLineBreak();
 		sc.add("public void run(" + I_MARKER + " marker) {");
 		// TODO do we need to pass the old text here?
@@ -62,15 +59,45 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("public String getLabel() {");
 		sc.add("return quickFix.getDisplayString();");
 		sc.add("}");
+		sc.add("});");
 		sc.add("}");
-		sc.add("};");
+		sc.add("return resolutions.toArray(new " + I_MARKER_RESOLUTION + "[resolutions.size()]);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while applying quick fix\", e);");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while computing quick fix resolutions\", e);");
 		sc.add("}");
 		sc.add("return new " + I_MARKER_RESOLUTION + "[] {};");
+		sc.add("}");
 		sc.addLineBreak();
+	}
+
+
+	private void addGetQuickFixesMethod(JavaComposite sc) {
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + iTextResourceClassName + " resource, " + I_MARKER + " marker) {");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> foundQuickFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
+		sc.add("try {");
+		sc.add("Object quickFixValue = marker.getAttribute(" + I_MARKER + ".SOURCE_ID);");
+		sc.add("if (quickFixValue != null && quickFixValue instanceof String) {");
+		sc.add("String quickFixContexts = (String) quickFixValue;");
+		sc.add("String[] quickFixContextParts = quickFixContexts.split(\"\\\\|\");");
+		sc.add("for (String quickFixContext : quickFixContextParts) {");
+		sc.add(iQuickFixClassName + " quickFix = resource.getQuickFix(quickFixContext);");
+		sc.add("if (quickFix != null) {");
+		//sc.add("System.out.println(\"getQuickFixes() found \" + quickFix);");
+		sc.add("foundQuickFixes.add(quickFix);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
+		sc.add("// ignore");
+		sc.add("System.out.println(\"getQuickFixes() marker not found: \" + ce.getMessage());");
+		sc.add("} else {");
+		sc.add("ce.printStackTrace();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return foundQuickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
