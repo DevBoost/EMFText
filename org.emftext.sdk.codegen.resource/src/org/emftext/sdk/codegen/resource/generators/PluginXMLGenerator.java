@@ -79,6 +79,17 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
+		String problemID = pluginID + ".problem";
+		sc.add("<extension id=\"" + problemID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
+		sc.add("<persistent value=\"true\">");
+		sc.add("</persistent>");
+		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
+		sc.add("</super>");
+		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
+		sc.add("</super>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
 		sc.add("<extension id=\"" + nameUtil.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
 		sc.add("<runtime>");
 		sc.add("<run class=\"" + getContext().getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 

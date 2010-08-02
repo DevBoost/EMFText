@@ -79,19 +79,7 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		sc.add("</editor>");
 		sc.add("</extension>");
 		sc.addLineBreak();
-		
-		String problemID = uiPluginID + ".problem";
-		
-		sc.add("<extension id=\"" + problemID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
-		sc.add("<persistent value=\"true\">");
-		sc.add("</persistent>");
-		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
-		sc.add("</super>");
-		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
-		sc.add("</super>");
-		sc.add("</extension>");
-		sc.addLineBreak();
-		
+
 		sc.add("<extension point=\"org.eclipse.core.runtime.preferences\">");
 		sc.add("<initializer class=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_INITIALIZER) + "\">");
 		sc.add("</initializer>");
@@ -133,6 +121,7 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
+		String problemID = resourcePluginID + ".problem";
 		sc.add("<extension point=\"org.eclipse.ui.ide.markerResolution\">");
 		sc.add("<markerResolutionGenerator class=\"" + markerResolutionGeneratorClassName + "\" markerType=\"" + problemID + "\" />");
 		sc.add("</extension>");

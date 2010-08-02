@@ -32,7 +32,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String iBracketHandlerClassName;
 	protected String imageProviderClassName;
 	protected String markerAnnotationClassName;
-	protected String markerHelperClassName;
 	protected String markerResolutionGeneratorClassName;
 	protected String newFileWizardClassName;
 	protected String newFileWizardPageClassName;
@@ -87,7 +86,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
 		imageProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IMAGE_PROVIDER);
 		markerAnnotationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_ANNOTATION);
-		markerHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_HELPER);
 		markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 		newFileWizardClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
 		newFileWizardPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);

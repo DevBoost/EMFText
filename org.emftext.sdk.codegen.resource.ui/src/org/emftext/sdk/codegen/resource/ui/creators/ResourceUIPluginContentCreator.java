@@ -113,7 +113,6 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.HTML_PRINTER);
 	    add(creators, TextResourceUIArtifacts.HYPERLINK);
 	    add(creators, TextResourceUIArtifacts.HYPERLINK_DETECTOR);
-	    add(creators, TextResourceUIArtifacts.MARKER_HELPER);
 	    add(creators, TextResourceUIArtifacts.OCCURENCE);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);

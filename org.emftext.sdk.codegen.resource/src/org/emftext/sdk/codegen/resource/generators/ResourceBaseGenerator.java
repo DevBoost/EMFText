@@ -96,6 +96,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String lineBreakClassName;
 	protected String listUtilClassName;
 	protected String locationMapClassName;
+	protected String markerHelperClassName;
 	protected String mapUtilClassName;
 	protected String metaInformationClassName;
 	protected String minimalModelHelperClassName;
@@ -224,6 +225,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		listUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
 		locationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
 		mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
+		markerHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.MARKER_HELPER);
 		metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
 		minimalModelHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 		natureClassName = context.getQualifiedClassName(TextResourceArtifacts.NATURE);

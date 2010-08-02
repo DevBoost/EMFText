@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
@@ -74,7 +73,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RUNNABLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIEWER;
@@ -107,7 +105,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addMarkerUpdateListenerClass(sc);
 		addDocumentListenerClass(sc);
 		addModelResourceChangeListenerClass(sc);
 		addInitializeEditorMethod(sc);
@@ -130,7 +127,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addCreateSourceViewerMethod(sc);
 		addAddBackgroundParsingListenerMethod(sc);
 		addNotifyBackgroundParsingFinishedMethod(sc);
-		addRefreshMarkersMethod(sc);
 		addGetBracketHandlerMethod(sc);
 		addSetBracketHandlerMethod(sc);
 		addCreateActionsMethod(sc);
@@ -299,7 +295,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("if (this.resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(this.resource);");
 		sc.add("}");
-		sc.add("refreshMarkers(this.resource);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -379,8 +374,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("protected void performSave(boolean overwrite, " + I_PROGRESS_MONITOR + " progressMonitor) {");
 		sc.addLineBreak();
 		sc.add("super.performSave(overwrite, progressMonitor);");
-		sc.addComment("update markers after the resource has been reloaded");
-		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
 		sc.addComment("Save code folding state");
 		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
@@ -449,12 +442,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addCreatePartControlMethod(JavaComposite sc) {
 		sc.add("public void createPartControl(" + COMPOSITE + " parent) {");
 		sc.add("super.createPartControl(parent);");
-		sc.add("display = parent.getShell().getDisplay();");
-		sc.addComment(
-			"we might need to refresh the markers, because the display was not set before, which " +
-			"prevents updates of the markers"
-		);
-		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
 		sc.addComment("Code Folding");
 		sc.add(PROJECTION_VIEWER + " viewer = (" + PROJECTION_VIEWER + ") getSourceViewer();");
@@ -483,7 +470,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("super();");
 		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, colorManager));");
 		sc.add("initializeEditingDomain();");
-		sc.add("addBackgroundParsingListener(new MarkerUpdateListener());");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -606,7 +592,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("if (currentResource != null && currentResource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(currentResource);");
 		sc.add("}");
-		sc.add("refreshMarkers(currentResource);");
 		sc.addComment("reset the selected element in outline and properties by text position");
 		sc.add("if (highlighting != null) {");
 		sc.add("highlighting.setEObjectSelection();");
@@ -642,40 +627,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addMarkerUpdateListenerClass(StringComposite sc) {
-		sc.add("private final class MarkerUpdateListener implements " + iBackgroundParsingListenerClassName + " {");
-		sc.add("public void parsingCompleted(" + RESOURCE + " parsedResource) {");
-		// TODO again: this is the same code as in setResource()?
-		sc.add("if (parsedResource != null && parsedResource.getErrors().isEmpty()) {");
-		sc.add(ECORE_UTIL + ".resolveAll(parsedResource);");
-		sc.add("}");
-		sc.add("refreshMarkers(parsedResource);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
-	private void addRefreshMarkersMethod(StringComposite sc) {
-		sc.add("private void refreshMarkers(final " + RESOURCE + " resourceToRefresh) {");
-		sc.add("if (resourceToRefresh == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("if (display != null) {");
-		sc.add("display.asyncExec(new " + RUNNABLE + "() {");
-		sc.add("public void run() {");
-		sc.add("try {");
-		sc.add(markerHelperClassName + ".unmark(resourceToRefresh);");
-		sc.add(markerHelperClassName + ".mark(resourceToRefresh);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while updating markers on resource\", e);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("});");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addFields(StringComposite sc) {
 		sc.add("private " + highlightingClassName + " highlighting;");
 		sc.add("private " + PROJECTION_SUPPORT + " projectionSupport;");
@@ -689,7 +640,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
-		sc.add("private " + DISPLAY + " display;");
 		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
 		sc.addLineBreak();
 	}

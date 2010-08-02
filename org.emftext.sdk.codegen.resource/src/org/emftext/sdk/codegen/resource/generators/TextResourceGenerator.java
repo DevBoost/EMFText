@@ -424,7 +424,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addAddProblemMethod1(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element) {");
-    	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element));");
+    	sc.add(ELEMENT_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element);");
+    	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
+    	sc.add(markerHelperClassName + ".mark(this, diagnostic);");
     	sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
     	sc.add("if (quickFixes != null) {");
     	sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
@@ -446,7 +448,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addAddProblemMethod2(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, int column, int line, int charStart, int charEnd) {");
-    	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd));");
+    	sc.add(POSITION_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd);");
+    	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
+    	sc.add(markerHelperClassName + ".mark(this, diagnostic);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -549,6 +553,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("internalURIFragmentMap.clear();");
     	sc.add("getErrors().clear();");
     	sc.add("getWarnings().clear();");
+    	sc.add(markerHelperClassName + ".unmark(this);");
     	sc.add("proxyCounter = 0;");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	sc.add("}");

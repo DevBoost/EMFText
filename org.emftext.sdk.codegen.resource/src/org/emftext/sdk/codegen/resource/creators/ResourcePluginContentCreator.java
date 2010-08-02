@@ -167,6 +167,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
 	    add(creators, TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 	    add(creators, TextResourceArtifacts.PROBLEM);
+	    add(creators, TextResourceArtifacts.MARKER_HELPER);
 	    add(creators, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
 	    add(creators, TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	    add(creators, TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);

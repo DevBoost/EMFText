@@ -130,6 +130,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.BabylonSpecificationGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.MarkerHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.Printer2Generator;
 import org.emftext.sdk.codegen.resource.generators.mopp.PrinterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.QuickFixGenerator;
@@ -183,6 +184,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SCANNERLESS_SCANNER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ScannerlessScanner", ScannerlessScannerGenerator.class, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SCANNERLESS_PARSER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ScannerlessParser", ScannerlessParserGenerator.class, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROBLEM = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Problem", ProblemClassGenerator.class, OptionTypes.OVERRIDE_PROBLEM_CLASS);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "MarkerHelper", MarkerHelperGenerator.class, OptionTypes.OVERRIDE_MARKER_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PRINTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Printer", PrinterGenerator.class, OptionTypes.OVERRIDE_PRINTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PRINTER2 = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Printer2", Printer2Generator.class, OptionTypes.OVERRIDE_PRINTER2);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SYNTAX_ELEMENT_DECORATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "SyntaxElementDecorator", SyntaxElementDecoratorGenerator.class, OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR);
