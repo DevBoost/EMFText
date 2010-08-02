@@ -106,8 +106,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + IMAGE + " getImage() {");
-		sc.add("// TODO Auto-generated method stub");
-		sc.add("return null;");
+		sc.add("return new " + uiMetaInformationClassName + "().getImageProvider().getImage(quickFix.getImageKey());");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String getDisplayString() {");

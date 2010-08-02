@@ -22,6 +22,7 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
 
 	public void addMethods(StringComposite sc) {
     	addGetHoverTextProviderMethod(sc);
+    	addGetImageProviderMethod(sc);
 		addCreateColorManagerMethod(sc);
         addCreateTokenScannerMethod(sc);
         addCreateCodeCompletionHelperMethod(sc);
@@ -51,6 +52,13 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
 	private void addGetHoverTextProviderMethod(StringComposite sc) {
 		sc.add("public " + iHoverTextProviderClassName + " getHoverTextProvider() {");
 		sc.add("return new " + hoverTextProviderClassName + "();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetImageProviderMethod(StringComposite sc) {
+		sc.add("public " + imageProviderClassName + " getImageProvider() {");
+		sc.add("return " + imageProviderClassName + ".INSTANCE;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

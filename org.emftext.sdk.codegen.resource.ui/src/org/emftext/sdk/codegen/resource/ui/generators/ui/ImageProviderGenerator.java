@@ -20,8 +20,14 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addFields(sc);
 		addGetImageMethod(sc);
 		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("public final static " + getResourceClassName() + " INSTANCE = new " + getResourceClassName() + "();");
+		sc.addLineBreak();
 	}
 
 	private void addGetImageMethod(JavaComposite sc) {

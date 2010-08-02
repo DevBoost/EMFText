@@ -306,6 +306,7 @@ import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IMarkerResolution;
+import org.eclipse.ui.IMarkerResolution2;
 import org.eclipse.ui.IMarkerResolutionGenerator;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.INewWizard;
@@ -350,6 +351,7 @@ import org.osgi.framework.BundleContext;
 public class IUIClassNameConstants extends IClassNameConstants {
 	
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
+	public static String ABSTRACT_MARKER_ANNOTATION_MODEL = AbstractMarkerAnnotationModel.class.getName();
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR = AbstractReusableInformationControlCreator.class.getName();
 	public static String ABSTRACT_UI_PLUGIN = AbstractUIPlugin.class.getName();
@@ -420,7 +422,9 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String EDITOR = Editor.class.getName();
 	public static String EDITORS_UI = EditorsUI.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String ENUMERATION = Enumeration.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
+	public static String EVENT = Event.class.getName();
 	public static String EXCEPTION = Exception.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
@@ -469,7 +473,10 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String ITERATOR = Iterator.class.getName();
 	public static String I_ACTION = IAction.class.getName();
 	public static String I_ADAPTABLE = org.eclipse.core.runtime.IAdaptable.class.getName();
+	public static String I_ANNOTATION_ACCESS_EXTENSION = IAnnotationAccessExtension.class.getName();
 	public static String I_ANNOTATION_HOVER = IAnnotationHover.class.getName();
+	public static String I_ANNOTATION_MODEL = IAnnotationModel.class.getName();
+	public static String I_ANNOTATION_MODEL_FACTORY = IAnnotationModelFactory.class.getName();
 	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
 	public static String I_COMMAND = ICommand.class.getName();
 	public static String I_COMPLETION_PROPOSAL = ICompletionProposal.class.getName();
@@ -496,11 +503,15 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String I_INFORMATION_CONTROL_CREATOR = IInformationControlCreator.class.getName();
 	public static String I_INFORMATION_CONTROL_EXTENSION2 = IInformationControlExtension2.class.getName();
 	public static String I_INFORMATION_CONTROL_EXTENSION4 = IInformationControlExtension4.class.getName();
+	public static String I_INFORMATION_PRESENTER = org.eclipse.jface.text.DefaultInformationControl.IInformationPresenter.class.getCanonicalName();
 	public static String I_INPUT_CHANGED_LISTENER = IInputChangedListener.class.getName();
 	public static String I_ITEM_LABEL_PROVIDER = IItemLabelProvider.class.getName();
 	public static String I_ITEM_PROPERTY_DESCRIPTOR = IItemPropertyDescriptor.class.getName();
 	public static String I_ITEM_PROPERTY_SOURCE = IItemPropertySource.class.getName();
 	public static String I_MARKER = IMarker.class.getName();
+	public static String I_MARKER_RESOLUTION = IMarkerResolution.class.getName();
+	public static String I_MARKER_RESOLUTION2 = IMarkerResolution2.class.getName();
+	public static String I_MARKER_RESOLUTION_GENERATOR = IMarkerResolutionGenerator.class.getName();
 	public static String I_MEMENTO = IMemento.class.getName();
 	public static String I_NEW_WIZARD = INewWizard.class.getName();
 	public static String I_PAGE_SITE = IPageSite.class.getName();
@@ -515,6 +526,10 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String I_PROPERTY_DESCRIPTOR = IPropertyDescriptor.class.getName();
 	public static String I_PROPERTY_SHEET_PAGE = IPropertySheetPage.class.getName();
 	public static String I_PROPERTY_SOURCE = IPropertySource.class.getName();
+	public static String I_QUICK_ASSIST_ASSISTANT = IQuickAssistAssistant.class.getName();
+	public static String I_QUICK_ASSIST_INVOCATION_CONTEXT = IQuickAssistInvocationContext.class.getName();
+	public static String I_QUICK_ASSIST_PROCESSOR = IQuickAssistProcessor.class.getName();
+	public static String I_QUICK_FIXABLE_ANNOTATION = IQuickFixableAnnotation.class.getName();
 	public static String I_REGION = IRegion.class.getName();
 	public static String I_RESOURCE = IResource.class.getName();
 	public static String I_RESOURCE_CHANGE_EVENT = IResourceChangeEvent.class.getName();
@@ -529,10 +544,12 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String I_SOURCE_VIEWER = ISourceViewer.class.getName();
 	public static String I_STATUS = IStatus.class.getName();
 	public static String I_STRUCTURED_SELECTION = IStructuredSelection.class.getName();
+	public static String I_TEXT_EDITOR_ACTION_CONSTANTS = ITextEditorActionConstants.class.getName();
 	public static String I_TEXT_EDITOR_ACTION_DEFINITION_IDS = ITextEditorActionDefinitionIds.class.getName();
 	public static String I_TEXT_HOVER = ITextHover.class.getName();
 	public static String I_TEXT_HOVER_EXTENSION = ITextHoverExtension.class.getName();
 	public static String I_TEXT_HOVER_EXTENSION2 = ITextHoverExtension2.class.getName();
+	public static String I_TEXT_OPERATION_TARGET = ITextOperationTarget.class.getName();
 	public static String I_TEXT_PRESENTATION_LISTENER = ITextPresentationListener.class.getName();
 	public static String I_TEXT_VIEWER = ITextViewer.class.getName();
 	public static String I_TOKEN = IToken.class.getName();
@@ -569,6 +586,7 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getCanonicalName();
 	public static String MAP = Map.class.getName();
 	public static String MAP_ENTRY = Map.Entry.class.getCanonicalName();
+	public static String MARKER_ANNOTATION = MarkerAnnotation.class.getName();
 	public static String MATCHER = Matcher.class.getName();
 	public static String MATH = Math.class.getName();
 	public static String MENU = Menu.class.getName();
@@ -621,6 +639,7 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String PROPERTY_SOURCE = PropertySource.class.getName();
 	public static String PROXY = Proxy.class.getName();
 	public static String PUSHBACK_READER = PushbackReader.class.getName();
+	public static String QUICK_ASSIST_ASSISTANT = QuickAssistAssistant.class.getName();
 	public static String READER = Reader.class.getName();
 	public static String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
 	public static String RECOGNIZER_SHARED_STATE = org.antlr.runtime3_2_0.RecognizerSharedState.class.getName();
@@ -635,6 +654,7 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String RESOURCE_FACTORY = Resource.Factory.class.getCanonicalName();
 	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY = ResourceItemProviderAdapterFactory.class.getName();
+	public static String RESOURCE_MARKER_ANNOTATION_MODEL = ResourceMarkerAnnotationModel.class.getName();
 	public static String RESOURCE_SET = ResourceSet.class.getName();
 	public static String RESOURCE_SET_IMPL = ResourceSetImpl.class.getName();
 	public static String RGB = RGB.class.getName();
@@ -648,6 +668,7 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String SELECTION_CHANGED_EVENT = SelectionChangedEvent.class.getName();
 	public static String SELECTION_EVENT = SelectionEvent.class.getName();
 	public static String SELECTION_LISTENER = SelectionListener.class.getName();
+	public static String SELECT_MARKER_RULES_ACTION = SelectMarkerRulerAction.class.getName();
 	public static String SET = Set.class.getName();
 	public static String SHELL = Shell.class.getName();
 	public static String SLIDER = Slider.class.getName();
@@ -668,6 +689,7 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String TEXT = org.eclipse.swt.widgets.Text.class.getName();
 	public static String TEXT_ATTRIBUTE = TextAttribute.class.getName();
 	public static String TEXT_EDITOR = TextEditor.class.getName();
+	public static String TEXT_INVOCATION_CONTEXT = TextInvocationContext.class.getName();
 	public static String TEXT_LAYOUT = TextLayout.class.getName();
 	public static String TEXT_PRESENTATION = TextPresentation.class.getName();
 	public static String TEXT_SELECTION = TextSelection.class.getName();
@@ -692,30 +714,4 @@ public class IUIClassNameConstants extends IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
-
-	
-	public static String I_ANNOTATION_MODEL_FACTORY = IAnnotationModelFactory.class.getName();
-	public static String I_ANNOTATION_MODEL = IAnnotationModel.class.getName();
-	public static String RESOURCE_MARKER_ANNOTATION_MODEL = ResourceMarkerAnnotationModel.class.getName();
-	public static String MARKER_ANNOTATION = MarkerAnnotation.class.getName();
-	public static String I_QUICK_FIXABLE_ANNOTATION = IQuickFixableAnnotation.class.getName();
-	public static String I_MARKER_RESOLUTION_GENERATOR = IMarkerResolutionGenerator.class.getName();
-	public static String I_MARKER_RESOLUTION = IMarkerResolution.class.getName();
-
-	public static String I_QUICK_ASSIST_ASSISTANT = IQuickAssistAssistant.class.getName();
-	public static String I_QUICK_ASSIST_PROCESSOR = IQuickAssistProcessor.class.getName();
-	
-	public static String QUICK_ASSIST_ASSISTANT = QuickAssistAssistant.class.getName();
-	public static String I_INFORMATION_PRESENTER = org.eclipse.jface.text.DefaultInformationControl.IInformationPresenter.class.getCanonicalName();
-	
-	public static String I_QUICK_ASSIST_INVOCATION_CONTEXT = IQuickAssistInvocationContext.class.getName();
-	public static String TEXT_INVOCATION_CONTEXT = TextInvocationContext.class.getName();
-
-	public static String I_TEXT_EDITOR_ACTION_CONSTANTS = ITextEditorActionConstants.class.getName();
-	public static String SELECT_MARKER_RULES_ACTION = SelectMarkerRulerAction.class.getName();
-	public static String EVENT = Event.class.getName();
-	public static String I_TEXT_OPERATION_TARGET = ITextOperationTarget.class.getName();
-	public static String ABSTRACT_MARKER_ANNOTATION_MODEL = AbstractMarkerAnnotationModel.class.getName();
-	public static String I_ANNOTATION_ACCESS_EXTENSION = IAnnotationAccessExtension.class.getName();
-	public static String ENUMERATION = Enumeration.class.getName();
 }

@@ -41,9 +41,9 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") emfResource;");
 		sc.add(ECORE_UTIL + ".resolveAll(customResource);");
 		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(customResource, marker);");
-		sc.add(LIST + "<" + I_MARKER_RESOLUTION + "> resolutions = new " + ARRAY_LIST + "<" + I_MARKER_RESOLUTION + ">();");
+		sc.add(LIST + "<" + I_MARKER_RESOLUTION2 + "> resolutions = new " + ARRAY_LIST + "<" + I_MARKER_RESOLUTION2 + ">();");
 		sc.add("for (final " + iQuickFixClassName + " quickFix : quickFixes) {");
-		sc.add("resolutions.add(new " + I_MARKER_RESOLUTION + "() {");
+		sc.add("resolutions.add(new " + I_MARKER_RESOLUTION2 + "() {");
 		sc.addLineBreak();
 		sc.add("public void run(" + I_MARKER + " marker) {");
 		// TODO do we need to pass the old text here?
@@ -59,6 +59,15 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("public String getLabel() {");
 		sc.add("return quickFix.getDisplayString();");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + IMAGE + " getImage() {");
+		sc.add("return new " + uiMetaInformationClassName + "().getImageProvider().getImage(quickFix.getImageKey());");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getDescription() {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("});");
 		sc.add("}");
 		sc.add("return resolutions.toArray(new " + I_MARKER_RESOLUTION + "[resolutions.size()]);");
