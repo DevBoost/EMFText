@@ -8,7 +8,7 @@ public class MakeSyntaxConcreteFix extends CsQuickFix {
 	private ConcreteSyntax syntax;
 
 	public MakeSyntaxConcreteFix(ConcreteSyntax syntax) {
-		super("Remove modifier ABSTRACT", "IMG_ELCL_REMOVE", syntax);
+		super("Remove modifier ABSTRACT", "IMG_ETOOL_DELETE", syntax);
 		this.syntax = syntax;
 	}
 
