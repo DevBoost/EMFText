@@ -30,6 +30,7 @@ import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
@@ -92,6 +93,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
@@ -316,4 +318,10 @@ public class IClassNameConstants {
 	public static String URI = org.eclipse.emf.common.util.URI.class.getName();
 	public static String URI_CONVERTER = URIConverter.class.getName();
 	public static String URL = URL.class.getName();
+
+	public static String FIELD = Field.class.getName();
+	public static String SECURITY_EXCEPTION = SecurityException.class.getName();
+	public static String NO_SUCH_FIELD_EXCEPTION = NoSuchFieldException.class.getName();
+	public static String ILLEGAL_ACCESS_EXCEPTION = IllegalAccessException.class.getName();
+	public static String FILE_LOCATOR = FileLocator.class.getName();
 }
