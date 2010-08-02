@@ -20,7 +20,8 @@ public class SetFeatureBoundsQuickFix extends CsQuickFix {
 	private int upperBound;
 
 	public SetFeatureBoundsQuickFix(Rule rule, GenFeature feature, int lowerBound, int upperBound) {
-		super("Adjust bounds in metamodel", rule);
+		// TODO add image for this quick fix
+		super("Adjust bounds in metamodel", null, rule);
 		this.feature = feature;
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;

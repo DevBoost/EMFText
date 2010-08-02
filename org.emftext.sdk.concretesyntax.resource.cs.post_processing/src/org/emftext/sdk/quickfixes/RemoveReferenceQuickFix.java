@@ -22,7 +22,7 @@ public class RemoveReferenceQuickFix extends CsQuickFix {
 			EObject container,
 			EReference reference, 
 			List<? extends EObject> targets) {
-		super(label, container);
+		super(label, "IMG_ELCL_REMOVE", container);
 		this.container = container;
 		this.reference = reference;
 		this.targets = targets;

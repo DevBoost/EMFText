@@ -20,7 +20,8 @@ public class AddSuppressWarningsAnnotationQuickFix extends CsQuickFix {
 
 	public AddSuppressWarningsAnnotationQuickFix(Annotable annotableElement,
 			ECsProblemType problemType) {
-		super("Add @" + AnnotationType.SUPPRESS_WARNINGS.getLiteral() + "(" + problemType.getName() + ")", annotableElement);
+		// TODO set image for this quick fix
+		super("Add @" + AnnotationType.SUPPRESS_WARNINGS.getLiteral() + "(" + problemType.getName() + ")", null, annotableElement);
 		// only warnings can be suppressed
 		assert problemType.getProblemType() == CsEProblemType.WARNING;
 		this.annotableElement = annotableElement;

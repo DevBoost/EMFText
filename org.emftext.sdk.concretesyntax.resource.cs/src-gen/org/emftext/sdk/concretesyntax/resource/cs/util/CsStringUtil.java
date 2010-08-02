@@ -94,7 +94,7 @@ public class CsStringUtil {
 	/**
 	 * Concatenates the given parts and puts 'glue' between them.
 	 */
-	public static String explode(java.util.Collection<Object> parts, String glue) {
+	public static String explode(java.util.Collection<? extends Object> parts, String glue) {
 		return explode(parts.toArray(new Object[parts.size()]), glue);
 	}
 	

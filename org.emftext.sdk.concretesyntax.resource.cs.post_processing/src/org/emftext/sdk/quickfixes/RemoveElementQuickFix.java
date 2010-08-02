@@ -14,7 +14,7 @@ public class RemoveElementQuickFix extends CsQuickFix implements ICsQuickFix {
 	private EObject objectToRemove;
 
 	public RemoveElementQuickFix(String message, EObject objectToRemove) {
-		super(message, objectToRemove);
+		super(message, "IMG_ELCL_REMOVE", objectToRemove);
 		this.objectToRemove = objectToRemove;
 	}
 

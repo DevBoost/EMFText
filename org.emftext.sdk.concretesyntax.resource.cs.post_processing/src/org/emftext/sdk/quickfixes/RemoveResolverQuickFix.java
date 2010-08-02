@@ -14,7 +14,7 @@ public class RemoveResolverQuickFix extends CsQuickFix implements ICsQuickFix {
 	private File resolverFile;
 
 	public RemoveResolverQuickFix(ConcreteSyntax syntax, File resolverFile) {
-		super("Remove unused resolver class", syntax);
+		super("Remove unused resolver class", "IMG_ELCL_REMOVE", syntax);
 		this.resolverFile = resolverFile;
 	}
 
