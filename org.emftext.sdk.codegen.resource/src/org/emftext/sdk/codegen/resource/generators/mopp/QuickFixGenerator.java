@@ -132,7 +132,14 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addGetContextAsStringMethod(JavaComposite sc) {
 		sc.add("public String getContextAsString() {");
-		sc.add("return getType() + \",\" + " + stringUtilClassName + ".explode(contextObjects, \",\");");
+		sc.add(STRING_BUILDER + " result = new " + STRING_BUILDER + "();");
+		sc.add("result.append(getType());");
+		sc.add("result.append(\",\");");
+		sc.add("for (" + E_OBJECT + " contextObject : contextObjects) {");
+		sc.add("result.append(" + ECORE_UTIL + ".getURI(contextObject));");
+		sc.add("result.append(\",\");");
+		sc.add("}");
+		sc.add("return result.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

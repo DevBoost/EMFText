@@ -56,11 +56,16 @@ public class MarkerHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addFields(JavaComposite sc) {
+		sc.addJavadoc(
+			"The extension id of the custom marker type that is used by this text resource."
+		);
 		sc.add("public static final String MARKER_TYPE = " + uiPluginActivatorClassName + ".PLUGIN_ID + \".problem\";");
+		sc.addLineBreak();
+
 		sc.addJavadoc(
 			"The total number of markers per file is restricted with this constant. " +
 			"Restriction is needed because the performance of Eclipse decreases drastically " +
-			"if large amounts of markes are added to files."
+			"if large amounts of markers are added to files."
 		);
 		sc.add("public static int MAXIMUM_MARKERS = 500;");
 		sc.addLineBreak();
