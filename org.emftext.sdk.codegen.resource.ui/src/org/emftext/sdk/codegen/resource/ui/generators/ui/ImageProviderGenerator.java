@@ -56,7 +56,7 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("return null;");
 		sc.add("}");
 		sc.add(IMAGE + " image = null;");
-		sc.add("// try shared images");
+		sc.addComment("try shared images");
 		sc.add("try {");
 		sc.add(FIELD + " declaredField = " + I_SHARED_IMAGES + ".class.getDeclaredField(key);");
 		sc.add("Object valueObject = declaredField.get(null);");
@@ -72,11 +72,13 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("if (image != null) {");
 		sc.add("return image;");
 		sc.add("}");
-		sc.add("// try cache");
+		sc.addLineBreak();
+		sc.addComment("try cache");
 		sc.add("if (imageCache.containsKey(key)) {");
 		sc.add("return imageCache.get(key);");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.addComment("try loading image from UI bundle");
 		sc.add(I_PATH + " path = new " + PATH + "(key);");
 		sc.add(IMAGE_DESCRIPTOR + " desriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
 		sc.add("image = desriptor.createImage();");
