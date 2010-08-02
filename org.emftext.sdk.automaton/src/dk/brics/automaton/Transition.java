@@ -1,7 +1,7 @@
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2009 Anders Moeller
+ * Copyright (c) 2001-2010 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ import java.io.Serializable;
  * <p>
  * A transition, which belongs to a source state, consists of a Unicode character interval
  * and a destination state.
- * @author Anders M&oslash;ller &lt;<a href="mailto:amoeller@brics.dk">amoeller@brics.dk</a>&gt;
+ * @author Anders M&oslash;ller &lt;<a href="mailto:amoeller@cs.au.dk">amoeller@cs.au.dk</a>&gt;
  */
 public class Transition implements Serializable, Cloneable {
 	

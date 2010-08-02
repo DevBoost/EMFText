@@ -1,7 +1,7 @@
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2009 Anders Moeller
+ * Copyright (c) 2001-2010 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,7 @@ import java.util.Set;
  * and {@link #setDeterministic(boolean)} methods should be used afterwards to restore 
  * representation invariants that are assumed by the built-in automata operations.
  * 
- * @author Anders M&oslash;ller &lt;<a href="mailto:amoeller@brics.dk">amoeller@brics.dk</a>&gt;
+ * @author Anders M&oslash;ller &lt;<a href="mailto:amoeller@cs.au.dk">amoeller@cs.au.dk</a>&gt;
  */
 public class Automaton implements Serializable, Cloneable {
 	
@@ -384,6 +384,7 @@ public class Automaton implements Serializable, Cloneable {
 			if (p != null)
 				s.transitions.add(new Transition((char)min, (char)max, p));
 		}
+		clearHashCode();
 	}
 	
 	/** 
@@ -535,6 +536,16 @@ public class Automaton implements Serializable, Cloneable {
 		if (hash_code == 0)
 			minimize();
 		return hash_code;
+	}
+	
+	/**
+	 * Recomputes the hash code.
+	 * The automaton must be minimal when this operation is performed.
+	 */
+	void recomputeHashCode() {
+		hash_code = getNumberOfStates() * 3 + getNumberOfTransitions() * 2;
+		if (hash_code == 0)
+			hash_code = 1;
 	}
 	
 	/**
@@ -752,6 +763,13 @@ public class Automaton implements Serializable, Cloneable {
 		return BasicAutomata.makeString(s);
 	}
 	
+    /** 
+     * See {@link BasicAutomata#makeStringUnion(CharSequence...)}.
+     */
+    public static Automaton makeStringUnion(CharSequence... strings) {
+        return BasicAutomata.makeStringUnion(strings);
+    }
+
 	/**
 	 * See {@link BasicAutomata#makeMaxInteger(String)}.
 	 */

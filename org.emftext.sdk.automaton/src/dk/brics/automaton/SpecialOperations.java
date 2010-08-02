@@ -1,7 +1,7 @@
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2009 Anders Moeller
+ * Copyright (c) 2001-2010 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ final public class SpecialOperations {
 	 * Reverses the language of the given (non-singleton) automaton while returning
 	 * the set of new initial states.
 	 */
-	static Set<State> reverse(Automaton a) {
+	public static Set<State> reverse(Automaton a) {
 		// reverse all edges
 		HashMap<State, HashSet<Transition>> m = new HashMap<State, HashSet<Transition>>();
 		Set<State> states = a.getStates();

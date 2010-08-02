@@ -1,3 +1,11 @@
+1.11-2 -> 1.11-3
+================
+- added Automaton.makeStringUnion (Daciuk et al.'s algorithm for constructing 
+  a minimal automaton that accepts a union of strings) - contributed by D. Weiss
+- added call to clearHashCode in Automaton.reduce - thanks to D. Weiss 
+- minimization is now optional in RegExp.toAutomaton - suggested by H. Zauner
+- SpecialOperations.reverse made public - suggested by Daniel Lowe
+
 1.11-1 -> 1.11-2
 ================
 - fixed bug in RegExp parser - thanks to A. Meyer

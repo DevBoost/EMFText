@@ -1,7 +1,7 @@
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2009 Anders Moeller
+ * Copyright (c) 2001-2010 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -58,10 +58,7 @@ final public class MinimizationOperations {
 				minimizeHopcroft(a);
 			}
 		}
-		// recompute hash code
-		a.hash_code = a.getNumberOfStates() * 3 + a.getNumberOfTransitions() * 2;
-		if (a.hash_code == 0)
-			a.hash_code = 1;
+		a.recomputeHashCode();
 	}
 	
 	private static boolean statesAgree(Transition[][] transitions, boolean[][] mark, int n1, int n2) {

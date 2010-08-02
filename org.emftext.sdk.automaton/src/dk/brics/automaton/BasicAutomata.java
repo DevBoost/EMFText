@@ -1,7 +1,7 @@
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2009 Anders Moeller
+ * Copyright (c) 2001-2010 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -262,6 +262,24 @@ final public class BasicAutomata {
 		return a;
 	}
 	
+    /**
+     * Returns a new (deterministic and minimal) automaton that accepts the union of the
+     * given set of strings. The input character sequences are internally sorted in-place,
+     * so the input array is modified. 
+     * @see StringUnionOperations
+     */
+    public static Automaton makeStringUnion(CharSequence... strings) {
+        if (strings.length == 0)
+            return makeEmpty();
+        Arrays.sort(strings, StringUnionOperations.LEXICOGRAPHIC_ORDER);
+        Automaton a = new Automaton();
+        a.setInitialState(StringUnionOperations.build(strings));
+        a.setDeterministic(true);
+        a.reduce();
+        a.recomputeHashCode();
+        return a;
+    }
+
 	/**
 	 * Constructs automaton that accept strings representing nonnegative integers
 	 * that are not larger than the given value.
