@@ -28,16 +28,10 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 				if (emfResource instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) {
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) emfResource;
 					org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(customResource);
-					// get data from marker (quick fix type and context object URIs)
-					Object sourceIdObject = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
-					String quickFixContext = null;
-					if (sourceIdObject instanceof String) {
-						quickFixContext = (String) sourceIdObject;
-					}
-					
-					final org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = customResource.getQuickFix(quickFixContext);
-					return new org.eclipse.ui.IMarkerResolution[] {
-						new org.eclipse.ui.IMarkerResolution() {
+					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = getQuickFixes(customResource, marker);
+					java.util.List<org.eclipse.ui.IMarkerResolution> resolutions = new java.util.ArrayList<org.eclipse.ui.IMarkerResolution>();
+					for (final org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
+						resolutions.add(new org.eclipse.ui.IMarkerResolution() {
 							
 							public void run(org.eclipse.core.resources.IMarker marker) {
 								String newText = quickFix.apply(null);
@@ -52,15 +46,40 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 							public String getLabel() {
 								return quickFix.getDisplayString();
 							}
-						}
-					};
+						});
+					}
+					return resolutions.toArray(new org.eclipse.ui.IMarkerResolution[resolutions.size()]);
 				}
 			}
 		} catch (java.lang.Exception e) {
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while applying quick fix", e);
+			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while computing quick fix resolutions", e);
 		}
 		return new org.eclipse.ui.IMarkerResolution[] {};
-		
+	}
+	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.core.resources.IMarker marker) {
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> foundQuickFixes = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+		try {
+			Object quickFixValue = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
+			if (quickFixValue != null && quickFixValue instanceof String) {
+				String quickFixContexts = (String) quickFixValue;
+				String[] quickFixContextParts = quickFixContexts.split("\\|");
+				for (String quickFixContext : quickFixContextParts) {
+					org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = resource.getQuickFix(quickFixContext);
+					if (quickFix != null) {
+						foundQuickFixes.add(quickFix);
+					}
+				}
+			}
+		} catch (org.eclipse.core.runtime.CoreException ce) {
+			if (ce.getMessage().matches("Marker.*not found.")) {
+				// ignore
+				System.out.println("getQuickFixes() marker not found: " + ce.getMessage());
+			} else {
+				ce.printStackTrace();
+			}
+		}
+		return foundQuickFixes;
 	}
 	
 }

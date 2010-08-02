@@ -113,10 +113,6 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 		return foundFixes;
 	}
 	
-	private org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
-		return editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
-	}
-	
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes(org.eclipse.jface.text.source.Annotation annotation) {
 		
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> foundQuickFixes = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
@@ -127,28 +123,13 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 		if (annotation instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation) {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation markerAnnotation = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation) annotation;
 			org.eclipse.core.resources.IMarker marker = markerAnnotation.getMarker();
-			try {
-				Object quickFixValue = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
-				if (quickFixValue != null && quickFixValue instanceof String) {
-					String quickFixContexts = (String) quickFixValue;
-					String[] quickFixContextParts = quickFixContexts.split("\\|");
-					for (String quickFixContext : quickFixContextParts) {
-						org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = editor.getResource().getQuickFix(quickFixContext);
-						if (quickFix != null) {
-							foundQuickFixes.add(quickFix);
-						}
-					}
-				}
-			} catch (org.eclipse.core.runtime.CoreException ce) {
-				if (ce.getMessage().matches("Marker.*not found.")) {
-					// ignore
-					System.out.println("getQuickFixes() marker not found: " + ce.getMessage());
-				} else {
-					ce.printStackTrace();
-				}
-			}
+			foundQuickFixes.addAll(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator().getQuickFixes(editor.getResource(), marker));
 		}
 		return foundQuickFixes;
+	}
+	
+	private org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
+		return editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
 	}
 	
 	public String getErrorMessage() {
