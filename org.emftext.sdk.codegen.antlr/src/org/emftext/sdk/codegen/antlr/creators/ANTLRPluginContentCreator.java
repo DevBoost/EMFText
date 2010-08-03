@@ -196,7 +196,7 @@ public class ANTLRPluginContentCreator {
 			urlString = urlString.replace(packagePath + "/", "");
 			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
 			creators.add(new FileCopier<ANTLRGenerationContext>(new URL(pathToSourceFile).openStream(), 
-					new File(sourceFolderPath + pathFile)));
+					new File(sourceFolderPath + pathFile), true));
 	    }
 	    
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {

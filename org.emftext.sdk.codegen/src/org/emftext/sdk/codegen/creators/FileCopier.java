@@ -31,13 +31,18 @@ public class FileCopier<ContextType extends IContext<ContextType>> implements IA
 
 	private InputStream inputStream;
 	private File targetFile;
+	private boolean override;
 
-	public FileCopier(InputStream inputStream, File targetFile) {
+	public FileCopier(InputStream inputStream, File targetFile, boolean override) {
 		this.inputStream = inputStream;
 		this.targetFile = targetFile;
+		this.override = override;
 	}
 
 	public void createArtifacts(IPluginDescriptor plugin, ContextType context) {
+		if (!override && targetFile.exists()) {
+			return;
+		}
 		try {
 			StreamUtil.storeContentIfChanged(targetFile, inputStream);
 		} catch (IOException e) {

@@ -92,9 +92,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD);
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context)));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context)));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context)));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
 	    // add UI generators
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
