@@ -31,8 +31,13 @@ public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 	 */
 	public static final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
 	public static final Pattern KEYWORD_PATTERN = Pattern.compile(KEYWORD_REGEX);
+	
 	private static final String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
 	private static final String ML_COMMENT = "'/*'.*'*/'";
+	
+	private static final String KEYWORD_COLOR = "800055";
+	private static final String QUOTED_TOKEN_COLOR = "2A00FF";
+	private static final String COMMENT_COLOR = "3F805D";
 	
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
@@ -49,7 +54,7 @@ public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 			String regex = tokenDefinition.getRegex();
 			if (isCommentPattern(regex)) {
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
-				newStyle.setRgb("3F805D");
+				newStyle.setRgb(COMMENT_COLOR);
 				newStyle.getTokenNames().add(tokenDefinition.getName());
 				addStyle(allStyles, newStyle);
 			}
@@ -71,7 +76,7 @@ public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 				String tokenName = token.getName();
 
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
-				newStyle.setRgb("2A00FF");
+				newStyle.setRgb(QUOTED_TOKEN_COLOR);
 				newStyle.getTokenNames().add(tokenName);
 				addStyle(allStyles, newStyle);
 			}
@@ -84,7 +89,7 @@ public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 			for (CsString csString : csStrings) {
 				if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
 					TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
-					newStyle.setRgb("800055");
+					newStyle.setRgb(KEYWORD_COLOR);
 					newStyle.getTokenNames().add(csString.getValue());
 					newStyle.getFontStyles().add(FontStyle.BOLD);
 					addStyle(allStyles, newStyle);
