@@ -13,17 +13,19 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_extension;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
+import java.util.Collection;
+
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.EPredefinedTokens;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.util.EObjectUtil;
 
 /**
  * The DefaultTokenConnector looks for PlaceholderUsingDefaultToken. 
@@ -38,27 +40,23 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 		if (standardTokenName == null) {
 			standardTokenName = EPredefinedTokens.STANDARD.getTokenName();
 		}
+
+		CompleteTokenDefinition definition = findToken(syntax, standardTokenName);
 		
-		TreeIterator<EObject> allObjectsIterator = syntax.eAllContents();
-		while (allObjectsIterator.hasNext()) {
-			EObject next = allObjectsIterator.next();
-			if (next instanceof PlaceholderUsingDefaultToken) {
-				PlaceholderUsingDefaultToken placeholder = (PlaceholderUsingDefaultToken) next;
-				// this placeholder must use the standard token
-				CompleteTokenDefinition definition = findToken(syntax, standardTokenName);
-				if (definition == null) {
-					addProblem(resource, ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
-				} else {
-					placeholder.setToken(definition);
-				}
+		Collection<PlaceholderUsingDefaultToken> placeholders = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken());
+		for (PlaceholderUsingDefaultToken placeholder : placeholders) {
+			// this placeholder must use the standard token
+			if (definition == null) {
+				addProblem(resource, ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
+			} else {
+				placeholder.setToken(definition);
 			}
 		}
 	}
 
-	private CompleteTokenDefinition findToken(ConcreteSyntax syntax,
-			String standardTokenName) {
+	private CompleteTokenDefinition findToken(ConcreteSyntax syntax, String tokenName) {
 		for (CompleteTokenDefinition next : syntax.getActiveTokens()) {
-			if (standardTokenName.equals(next.getName())) {
+			if (tokenName.equals(next.getName())) {
 				return next;
 			}
 		}
