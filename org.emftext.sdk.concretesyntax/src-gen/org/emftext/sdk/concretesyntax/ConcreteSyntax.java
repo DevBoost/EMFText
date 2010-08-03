@@ -197,6 +197,9 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Synthetic Tokens</em>' containment reference list.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_SyntheticTokens()
 	 * @model containment="true" transient="true"

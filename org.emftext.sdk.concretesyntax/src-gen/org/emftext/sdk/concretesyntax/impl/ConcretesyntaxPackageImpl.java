@@ -2461,6 +2461,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
 		   });		
 		addAnnotation
+		  (getConcreteSyntax_SyntheticTokens(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens."
+		   });		
+		addAnnotation
 		  (importEClass, 
 		   source, 
 		   new String[] {

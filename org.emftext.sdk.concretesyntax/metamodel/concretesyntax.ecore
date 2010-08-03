@@ -103,7 +103,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TokenDirective" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntheticTokens" upperBound="-1"
-        eType="#//CompleteTokenDefinition" transient="true" containment="true"/>
+        eType="#//CompleteTokenDefinition" transient="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
         eType="#//TokenStyle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allTokenStyles" upperBound="-1"

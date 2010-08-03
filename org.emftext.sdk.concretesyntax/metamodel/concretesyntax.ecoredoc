@@ -13,6 +13,8 @@ ConcreteSyntax.getClassesWithSyntax : "Collects all the subclasses for which con
 
 ConcreteSyntax.getSubClassesWithSyntax : "Collects all the subclasses for which concrete syntax is defined."
 
+ConcreteSyntax.syntheticTokens : "Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens."
+
 Abstract : "Modifier that is used to tag syntax definitions as abstract."
 
 Import : "Import statements allow to reuse existing metamodels and syntax definitions."
