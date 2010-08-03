@@ -13,21 +13,24 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_extension;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
+import java.util.Collection;
+
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.AntlrTokenDerivator;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.util.EObjectUtil;
+
 /**
- * The DerivedTokenCreator searches for DerivedPlaceholders in the
+ * The DerivedTokenCreator searches for quoted placeholders in the
  * syntax definition. For each placeholder that has a prefix and a
- * suffix, a new TokenDefinition is created and added to the syntax.
+ * suffix, a new TokenDefinition is created and added to the list of
+ * synthetic tokens of the syntax.
  */
 public class DerivedTokenCreator extends AbstractPostProcessor {
 
@@ -35,41 +38,59 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		AntlrTokenDerivator tokenDerivator = new AntlrTokenDerivator();
 
-		TreeIterator<EObject> allObjectsIterator = syntax.eAllContents();
-		while (allObjectsIterator.hasNext()) {
-			EObject next = allObjectsIterator.next();
-			if (next instanceof PlaceholderInQuotes) {
-				PlaceholderInQuotes placeholder = (PlaceholderInQuotes) next;
-				boolean hasPrefix = placeholder.getNormalizedPrefix() != null;
-				boolean hasSuffix = placeholder.getNormalizedSuffix() != null;
-				if (hasPrefix && hasSuffix) {
-					CompleteTokenDefinition definition = findToken(syntax, tokenDerivator, placeholder);
-					if (definition == null) {
-						definition = createNewToken(syntax, tokenDerivator, placeholder);
-					}
-					placeholder.setToken(definition);
+		Collection<PlaceholderInQuotes> quotedPlaceholders = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
+		for (PlaceholderInQuotes placeholder : quotedPlaceholders) {
+			boolean hasPrefix = placeholder.getNormalizedPrefix() != null;
+			boolean hasSuffix = placeholder.getNormalizedSuffix() != null;
+			if (hasPrefix && hasSuffix) {
+				CompleteTokenDefinition definition = findToken(syntax, tokenDerivator, placeholder);
+				if (definition == null) {
+					definition = createNewToken(syntax, tokenDerivator, placeholder);
 				}
+				placeholder.setToken(definition);
 			}
 		}
 	}
 
-	private CompleteTokenDefinition findToken(ConcreteSyntax syntax,
-			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
+	/**
+	 * Searches in the list of the synthetic tokens of the given syntax for
+	 * a token definition that has the same regular expression as the given
+	 * quoted placeholder.
+	 * 
+	 * @param syntax the syntax to search in
+	 * @param tokenDerivator a helper class that can derive regular expressions for quoted tokens
+	 * @param placeholder
+	 * 
+	 * @return a token with the same regular expression or null if no token is found
+	 */
+	private CompleteTokenDefinition findToken(
+			ConcreteSyntax syntax,
+			AntlrTokenDerivator tokenDerivator, 
+			PlaceholderInQuotes placeholder) {
 		
-		for (TokenDirective next : syntax.getSyntheticTokens()) {
-			String expression = tokenDerivator.deriveTokenExpression(placeholder);
-			if (next instanceof CompleteTokenDefinition) {
-				CompleteTokenDefinition token = (CompleteTokenDefinition) next;
-				if (expression.equals(token.getRegex())) {
-					return token;
-				}
+		String tokenExpression = tokenDerivator.deriveTokenExpression(placeholder);
+		for (CompleteTokenDefinition token : syntax.getSyntheticTokens()) {
+			String expression = tokenExpression;
+			if (expression.equals(token.getRegex())) {
+				return token;
 			}
 		}
 		return null;
 	}
 
-	private CompleteTokenDefinition createNewToken(ConcreteSyntax syntax,
-			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
+	/**
+	 * Creates a new token definition for the quoted placeholder and adds it
+	 * to the list of synthetic tokens of the given syntax specification.
+	 * 
+	 * @param syntax
+	 * @param tokenDerivator
+	 * @param placeholder
+	 * @return
+	 */
+	private CompleteTokenDefinition createNewToken(
+			ConcreteSyntax syntax,
+			AntlrTokenDerivator tokenDerivator, 
+			PlaceholderInQuotes placeholder) {
 		// a token definition must be created
 		QuotedTokenDefinition newToken = ConcretesyntaxFactory.eINSTANCE.createQuotedTokenDefinition();
 		
