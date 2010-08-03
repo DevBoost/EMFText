@@ -22,7 +22,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
  * and quoted tokens. Comments are recognized heuristically by their regular
  * expression and keywords are by their value.
  */
-public class DefaultTokenStyleAdder extends TokenStylePostProcessor {
+public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 
 	/**
 	 * All CsStrings that match this regular expression will be recognized

@@ -25,7 +25,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
  * styles exists both in an imported and in the current syntax the one from
  * the current syntax overrides the imported one.
  */
-public class TokenStyleMerger extends TokenStylePostProcessor {
+public class TokenStyleMerger extends AbstractTokenStylePostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {

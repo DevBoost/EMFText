@@ -7,7 +7,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
-public abstract class TokenStylePostProcessor extends AbstractPostProcessor {
+public abstract class AbstractTokenStylePostProcessor extends AbstractPostProcessor {
 
 	protected void addStyle(EList<TokenStyle> allStyles, TokenStyle style) {
 		for (String tokenName : style.getTokenNames()) {
