@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_extension;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.EPredefinedTokens;
 import org.emftext.sdk.OptionManager;
@@ -32,20 +30,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
  */
 public class PredefinedTokenAdder extends AbstractPostProcessor {
 
-	/**
-	 * We override process() because we do not want to resolve all proxies before
-	 * running this processor.
-	 */
-	@Override
-	public void process(CsResource resource) {
-		EList<EObject> objects = resource.getContents();
-		for (EObject next : objects) {
-			if (next instanceof ConcreteSyntax) {
-				analyse(resource, (ConcreteSyntax) next);
-			}
-		}
-	}
-	
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		boolean usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.USE_PREDEFINED_TOKENS);
 		if (!usePredefinedTokens) {
@@ -53,7 +37,7 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 		}
 		
 		for (EPredefinedTokens predefinedToken : EPredefinedTokens.values()) {
-			// first look whether there is a PreDefinedToken
+			// first look whether there is a predefined token
 			boolean found = searchForPredefinedTokenDeclaration(syntax, predefinedToken);
 			if (found) {
 				continue;
