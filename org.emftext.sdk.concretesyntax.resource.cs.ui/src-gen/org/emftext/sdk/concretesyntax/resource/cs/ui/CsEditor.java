@@ -31,24 +31,13 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage propertySheetPage;
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
-	private org.eclipse.swt.widgets.Display display;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler;
 	
 	public CsEditor() {
 		super();
 		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, colorManager));
 		initializeEditingDomain();
-		addBackgroundParsingListener(new MarkerUpdateListener());
 		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
-	}
-	
-	private final class MarkerUpdateListener implements org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
-		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource parsedResource) {
-			if (parsedResource != null && parsedResource.getErrors().isEmpty()) {
-				org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(parsedResource);
-			}
-			refreshMarkers(parsedResource);
-		}
 	}
 	
 	/**
@@ -95,7 +84,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 								if (currentResource != null && currentResource.getErrors().isEmpty()) {
 									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(currentResource);
 								}
-								refreshMarkers(currentResource);
 								// reset the selected element in outline and properties by text position
 								if (highlighting != null) {
 									highlighting.setEObjectSelection();
@@ -131,10 +119,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
 		super.createPartControl(parent);
-		display = parent.getShell().getDisplay();
-		// we might need to refresh the markers, because the display was not set before,
-		// which prevents updates of the markers
-		refreshMarkers(getResource());
 		
 		// Code Folding
 		org.eclipse.jface.text.source.projection.ProjectionViewer viewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
@@ -199,8 +183,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	protected void performSave(boolean overwrite, org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
 		
 		super.performSave(overwrite, progressMonitor);
-		// update markers after the resource has been reloaded
-		refreshMarkers(getResource());
 		
 		// Save code folding state
 		codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());
@@ -276,7 +258,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		if (this.resource.getErrors().isEmpty()) {
 			org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(this.resource);
 		}
-		refreshMarkers(this.resource);
 	}
 	
 	private java.lang.Object getOutlinePage() {
@@ -382,24 +363,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	public void notifyBackgroundParsingFinished() {
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener listener : bgParsingListeners) {
 			listener.parsingCompleted(getResource());
-		}
-	}
-	
-	private void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resourceToRefresh) {
-		if (resourceToRefresh == null) {
-			return;
-		}
-		if (display != null) {
-			display.asyncExec(new java.lang.Runnable() {
-				public void run() {
-					try {
-						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resourceToRefresh);
-						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resourceToRefresh);
-					} catch (org.eclipse.core.runtime.CoreException e) {
-						org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while updating markers on resource", e);
-					}
-				}
-			});
 		}
 	}
 	

@@ -12,15 +12,6 @@
 		</editor>
 	</extension>
 	
-	<extension id="org.emftext.sdk.concretesyntax.resource.cs.ui.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
-		<persistent value="true">
-		</persistent>
-		<super type="org.eclipse.core.resources.problemmarker">
-		</super>
-		<super type="org.eclipse.core.resources.textmarker">
-		</super>
-	</extension>
-	
 	<extension point="org.eclipse.core.runtime.preferences">
 		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
 		</initializer>
@@ -45,7 +36,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.ide.markerResolution">
-		<markerResolutionGenerator class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator" markerType="org.emftext.sdk.concretesyntax.resource.cs.ui.problem" />
+		<markerResolutionGenerator class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator" markerType="org.emftext.sdk.concretesyntax.resource.cs.problem" />
 	</extension>
 	
 	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">

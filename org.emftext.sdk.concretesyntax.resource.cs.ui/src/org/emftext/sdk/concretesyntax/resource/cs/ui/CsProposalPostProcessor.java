@@ -39,10 +39,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
  */
 public class CsProposalPostProcessor {
 	
-	public CsCompletionProposal[] process(CsCompletionProposal[] proposals) {
+	public List<CsCompletionProposal> process(List<CsCompletionProposal> proposals) {
 		List<CsCompletionProposal> newProposals = new ArrayList<CsCompletionProposal>();
-		for (int i = 0; i < proposals.length; i++) {
-			CsCompletionProposal proposal = proposals[i];
+		for (int i = 0; i < proposals.size(); i++) {
+			CsCompletionProposal proposal = proposals.get(i);
 			newProposals.add(proposal);
 			EStructuralFeature feature = proposal.getStructuralFeature();
 			EObject container = proposal.getContainer();
@@ -56,14 +56,14 @@ public class CsProposalPostProcessor {
 						newProposals.add(new CsCompletionProposal(
 								"\"true\"",
 								proposal.getPrefix(), 
-								proposal.getStartsWithPrefix(), 
+								proposal.getMatchesPrefix(), 
 								feature, 
 								container 
 						));
 						newProposals.add(new CsCompletionProposal(
 								"\"false\"",
 								proposal.getPrefix(), 
-								proposal.getStartsWithPrefix(), 
+								proposal.getMatchesPrefix(), 
 								feature, 
 								container 
 						));
@@ -75,7 +75,7 @@ public class CsProposalPostProcessor {
 				newProposals.add(new CsCompletionProposal(
 						"\"keyword\"",
 						proposal.getPrefix(), 
-						proposal.getStartsWithPrefix(), 
+						proposal.getMatchesPrefix(), 
 						feature, 
 						container 
 				));
@@ -84,7 +84,7 @@ public class CsProposalPostProcessor {
 				newProposals.add(new CsCompletionProposal(
 						"TOKEN_NAME",
 						proposal.getPrefix(), 
-						proposal.getStartsWithPrefix(), 
+						proposal.getMatchesPrefix(), 
 						feature, 
 						container 
 				));
@@ -93,7 +93,7 @@ public class CsProposalPostProcessor {
 				addColorProposals(
 						newProposals, 
 						proposal.getPrefix(), 
-						proposal.getStartsWithPrefix(), 
+						proposal.getMatchesPrefix(), 
 						feature, 
 						container
 				);
@@ -111,7 +111,7 @@ public class CsProposalPostProcessor {
 									newProposals.add(new CsCompletionProposal(
 											problemType.getName(),
 											proposal.getPrefix(), 
-											proposal.getStartsWithPrefix(), 
+											proposal.getMatchesPrefix(), 
 											feature, 
 											container 
 									));
@@ -143,13 +143,13 @@ public class CsProposalPostProcessor {
 				newProposals.add(new CsCompletionProposal(
 						insertString,
 						proposal.getPrefix(), 
-						proposal.getStartsWithPrefix(), 
+						proposal.getMatchesPrefix(), 
 						feature, 
 						container 
 				));
 			}
 		}
-		return newProposals.toArray(new CsCompletionProposal[newProposals.size()]);
+		return newProposals;
 	}
 
 	private void addColorProposals(List<CsCompletionProposal> newProposals,

@@ -21,16 +21,16 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	private java.lang.String insertString;
 	private java.lang.String displayString;
 	private java.lang.String prefix;
-	private boolean startsWithPrefix;
+	private boolean matchesPrefix;
 	private org.eclipse.emf.ecore.EStructuralFeature structuralFeature;
 	private org.eclipse.emf.ecore.EObject container;
 	private org.eclipse.swt.graphics.Image image;
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
+	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
 		this.insertString = insertString;
 		this.prefix = prefix;
-		this.startsWithPrefix = startsWithPrefix;
+		this.matchesPrefix = matchesPrefix;
 		this.structuralFeature = structuralFeature;
 		this.container = container;
 	}
@@ -57,8 +57,14 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		return prefix;
 	}
 	
-	public boolean getStartsWithPrefix() {
-		return startsWithPrefix;
+	/**
+	 * Returns true if this proposal matched the prefix. This does not imply that the
+	 * proposal exactly starts with the prefix, it can also match case-insensitive or
+	 * using the camel case style. Only proposals that return true will be considered
+	 * for the final list of proposals that is presented in the editor.
+	 */
+	public boolean getMatchesPrefix() {
+		return matchesPrefix;
 	}
 	
 	public org.eclipse.swt.graphics.Image getImage() {
@@ -93,7 +99,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		if (object instanceof CsCompletionProposal) {
 			CsCompletionProposal other = (CsCompletionProposal) object;
 			// proposals that start with the prefix are preferred over the ones that do not
-			int startCompare = (startsWithPrefix ? 1 : 0) - (other.getStartsWithPrefix() ? 1 : 0);
+			int startCompare = (matchesPrefix ? 1 : 0) - (other.getMatchesPrefix() ? 1 : 0);
 			// if both proposals start with the prefix of both do not the insert string is
 			// compared
 			return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;

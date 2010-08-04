@@ -54,22 +54,23 @@ public class CsCodeCompletionHelper {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedBeforeCursor = java.util.Arrays.asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));
 		setPrefixes(expectedAfterCursor, content, cursorOffset);
 		setPrefixes(expectedBeforeCursor, content, cursorOffset);
-		// first we derive all possible proposals from the set of elements that are
-		// expected at the cursor position
+		// First, we derive all possible proposals from the set of elements that are
+		// expected at the cursor position.
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> allProposals = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);
-		// second, the set of left proposals (i.e., the ones before the cursor) is checked
-		// for emptiness. if the set is empty, the right proposals (i.e., the ones after
-		// the cursor are removed, because it does not make sense to propose them until
-		// the element before the cursor was completed
+		// Second, the set of left proposals (i.e., the ones before the cursor) is checked
+		// for emptiness. If the set is empty, the right proposals (i.e., the ones after
+		// the cursor) are also considered. If the set is not empty, the right proposal
+		// are discarded, because it does not make sense to propose them until the element
+		// before the cursor was completed.
 		allProposals.addAll(leftProposals);
 		if (leftProposals.isEmpty()) {
 			allProposals.addAll(rightProposals);
 		}
-		// third, the proposals are sorted according to their relevance proposals that
-		// matched the prefix are preferred over ones that did not afterward proposals are
-		// sorted alphabetically
+		// Third, the proposals are sorted according to their relevance. Proposals that
+		// matched the prefix are preferred over ones that did not. Finally, proposals are
+		// sorted alphabetically.
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> sortedProposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>(allProposals);
 		java.util.Collections.sort(sortedProposals);
 		return sortedProposals.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[sortedProposals.size()]);
@@ -239,9 +240,8 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = metaInformation.getTokenResolverFactory();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());
 			String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);
-			if (matches(resolvedLiteral, prefix)) {
-				result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(resolvedLiteral, prefix, !"".equals(prefix), expectedFeature.getFeature(), container));
-			}
+			boolean matchesPrefix = matches(resolvedLiteral, prefix);
+			result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(resolvedLiteral, prefix, matchesPrefix, expectedFeature.getFeature(), container));
 		}
 		return result;
 	}
@@ -267,10 +267,8 @@ public class CsCodeCompletionHelper {
 					if (target instanceof org.eclipse.emf.ecore.EObject) {
 						image = getImage((org.eclipse.emf.ecore.EObject) target);
 					}
-					// check the prefix. return only matching references
-					if (matches(identifier, prefix)) {
-						resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(identifier, prefix, true, reference, container, image));
-					}
+					boolean matchesPrefix = matches(identifier, prefix);
+					resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(identifier, prefix, matchesPrefix, reference, container, image));
 				}
 			}
 			return resultSet;
@@ -290,9 +288,8 @@ public class CsCodeCompletionHelper {
 						org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 						if (tokenResolver != null) {
 							String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
-							if (matches(defaultValueAsString, prefix)) {
-								resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(defaultValueAsString, prefix, !"".equals(prefix), expectedFeature.getFeature(), container));
-							}
+							boolean matchesPrefix = matches(defaultValueAsString, prefix);
+							resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(defaultValueAsString, prefix, matchesPrefix, expectedFeature.getFeature(), container));
 						}
 					}
 				}
@@ -304,9 +301,8 @@ public class CsCodeCompletionHelper {
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleKeyword(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String content, String prefix, int cursorOffset) {
 		String proposal = csString.getValue();
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
-		if (matches(proposal, prefix)) {
-			result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(proposal, prefix, !"".equals(prefix), null, null));
-		}
+		boolean matchesPrefix = matches(proposal, prefix);
+		result.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(proposal, prefix, matchesPrefix, null, null));
 		return result;
 	}
 	
