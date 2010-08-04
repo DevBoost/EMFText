@@ -150,9 +150,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add("if (matches(proposal, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, !\"\".equals(prefix), null, null));");
-		sc.add("}");
+		sc.add("boolean matchesPrefix = matches(proposal, prefix);");
+		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, matchesPrefix, null, null));");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -175,9 +174,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(expectedFeature.getTokenName());");
 		sc.add("String resolvedLiteral = tokenResolver.deResolve(unResolvedLiteral, expectedFeature.getFeature(), container);");
-		sc.add("if (matches(resolvedLiteral, prefix)) {");
-		sc.add("result.add(new " + completionProposalClassName + "(resolvedLiteral, prefix, !\"\".equals(prefix), expectedFeature.getFeature(), container));");
-		sc.add("}");
+		sc.add("boolean matchesPrefix = matches(resolvedLiteral, prefix);");
+		sc.add("result.add(new " + completionProposalClassName + "(resolvedLiteral, prefix, matchesPrefix, expectedFeature.getFeature(), container));");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
@@ -197,9 +195,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("if (tokenResolver != null) {");
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
-		sc.add("if (matches(defaultValueAsString, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, !\"\".equals(prefix), expectedFeature.getFeature(), container));");
-		sc.add("}");
+		sc.add("boolean matchesPrefix = matches(defaultValueAsString, prefix);");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(defaultValueAsString, prefix, matchesPrefix, expectedFeature.getFeature(), container));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -234,10 +231,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (target instanceof " + E_OBJECT + ") {");
 		sc.add("image = getImage((" + E_OBJECT + ") target);");
 		sc.add("}");
-		sc.addComment("check the prefix. return only matching references");
-		sc.add("if (matches(identifier, prefix)) {");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, true, reference, container, image));");
-		sc.add("}");
+		sc.add("boolean matchesPrefix = matches(identifier, prefix);");
+		sc.add("resultSet.add(new " + completionProposalClassName + "(identifier, prefix, matchesPrefix, reference, container, image));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return resultSet;");
@@ -460,24 +455,25 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("setPrefixes(expectedAfterCursor, content, cursorOffset);");
 		sc.add("setPrefixes(expectedBeforeCursor, content, cursorOffset);");
 
-		sc.addComment("first we derive all possible proposals from the set of elements that are expected at the cursor position");
+		sc.addComment("First, we derive all possible proposals from the set of elements that are expected at the cursor position.");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);");
 		sc.addComment(
-			"second, the set of left proposals (i.e., the ones before the cursor) is " +
-			"checked for emptiness. if the set is empty, the right proposals (i.e., " +
-			"the ones after the cursor are removed, because it does not make sense to " +
-			"propose them until the element before the cursor was completed"
+			"Second, the set of left proposals (i.e., the ones before the cursor) is " +
+			"checked for emptiness. If the set is empty, the right proposals (i.e., " +
+			"the ones after the cursor) are also considered. If the set is not empty, " + 
+			"the right proposal are discarded, because it does not make sense to " +
+			"propose them until the element before the cursor was completed."
 		);
 		sc.add("allProposals.addAll(leftProposals);");
 		sc.add("if (leftProposals.isEmpty()) {");
 		sc.add("allProposals.addAll(rightProposals);");
 		sc.add("}");
 		sc.addComment(
-			"third, the proposals are sorted according to their relevance " +
-			"proposals that matched the prefix are preferred over ones that did not " +
-			"afterward proposals are sorted alphabetically"
+			"Third, the proposals are sorted according to their relevance. " +
+			"Proposals that matched the prefix are preferred over ones that did not. " +
+			"Finally, proposals are sorted alphabetically."
 		);
 		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(allProposals);");
 		sc.add(COLLECTIONS + ".sort(sortedProposals);");

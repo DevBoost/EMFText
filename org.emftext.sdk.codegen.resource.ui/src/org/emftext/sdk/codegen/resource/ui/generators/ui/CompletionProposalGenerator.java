@@ -50,7 +50,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("if (object instanceof " + getResourceClassName() + ") {");
 		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
 		sc.addComment("proposals that start with the prefix are preferred over the ones that do not");
-		sc.add("int startCompare = (startsWithPrefix ? 1 : 0) - (other.getStartsWithPrefix() ? 1 : 0);");
+		sc.add("int startCompare = (matchesPrefix ? 1 : 0) - (other.getMatchesPrefix() ? 1 : 0);");
 		sc.addComment("if both proposals start with the prefix of both do not the insert string is compared");
 		sc.add("return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;");
 		sc.add("}");
@@ -91,9 +91,16 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addGetStartsWithPrefixMethod(StringComposite sc) {
-		sc.add("public boolean getStartsWithPrefix() {");
-		sc.add("return startsWithPrefix;");
+	private void addGetStartsWithPrefixMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns true if this proposal matched the prefix. " +
+			"This does not imply that the proposal exactly starts with the prefix, " +
+			"it can also match case-insensitive or using the camel case style. " +
+			"Only proposals that return true will be considered for the final list " +
+			"of proposals that is presented in the editor."
+		);
+		sc.add("public boolean getMatchesPrefix() {");
+		sc.add("return matchesPrefix;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -126,6 +133,18 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
+	private void addConstructor1(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
+		sc.add("super();");
+		sc.add("this.insertString = insertString;");
+		sc.add("this.prefix = prefix;");
+		sc.add("this.matchesPrefix = matchesPrefix;");
+		sc.add("this.structuralFeature = structuralFeature;");
+		sc.add("this.container = container;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addConstructor2(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
 		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container);");
@@ -142,23 +161,11 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 	
-	private void addConstructor1(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
-		sc.add("super();");
-		sc.add("this.insertString = insertString;");
-		sc.add("this.prefix = prefix;");
-		sc.add("this.startsWithPrefix = startsWithPrefix;");
-		sc.add("this.structuralFeature = structuralFeature;");
-		sc.add("this.container = container;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STRING + " insertString;");
 		sc.add("private " + STRING + " displayString;");
 		sc.add("private " + STRING + " prefix;");
-		sc.add("private boolean startsWithPrefix;");
+		sc.add("private boolean matchesPrefix;");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
 		sc.add("private " + E_OBJECT + " container;");
 		sc.add("private " + IMAGE + " image;");
