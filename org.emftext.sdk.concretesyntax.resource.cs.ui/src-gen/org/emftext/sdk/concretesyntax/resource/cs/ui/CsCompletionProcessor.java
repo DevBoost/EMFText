@@ -32,7 +32,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		
 		// call completion proposal post processor to allow for customizing the proposals
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor proposalPostProcessor = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor();
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> computedProposalList = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>(computedProposals.length);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> computedProposalList = java.util.Arrays.asList(computedProposals);
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> extendedProposalList = proposalPostProcessor.process(computedProposalList);
 		if (extendedProposalList == null) {
 			extendedProposalList = java.util.Collections.emptyList();
