@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPLETION_PROPOSAL;
@@ -108,7 +109,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 		sc.addComment("call completion proposal post processor to allow for customizing the proposals");
 		sc.add(proposalPostProcessorClassName + " proposalPostProcessor = new " + proposalPostProcessorClassName + "();");
-		sc.add(LIST + "<" + completionProposalClassName + "> computedProposalList = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(computedProposals.length);");
+		sc.add(LIST + "<" + completionProposalClassName + "> computedProposalList = " + ARRAYS + ".asList(computedProposals);");
 		sc.add(LIST + "<" + completionProposalClassName + "> extendedProposalList = proposalPostProcessor.process(computedProposalList);");
 		sc.add("if (extendedProposalList == null) {");
 		sc.add("extendedProposalList = " + COLLECTIONS + ".emptyList();");
