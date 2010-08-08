@@ -135,9 +135,9 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
@@ -324,4 +324,6 @@ public class IClassNameConstants {
 	public static String NO_SUCH_FIELD_EXCEPTION = NoSuchFieldException.class.getName();
 	public static String ILLEGAL_ACCESS_EXCEPTION = IllegalAccessException.class.getName();
 	public static String FILE_LOCATOR = FileLocator.class.getName();
+	@SuppressWarnings("restriction")
+	public static String EMF_MODEL_VALIDATION_PLUGIN = org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class.getName();
 }
