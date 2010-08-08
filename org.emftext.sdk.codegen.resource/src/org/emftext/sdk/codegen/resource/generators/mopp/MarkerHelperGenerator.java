@@ -83,7 +83,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
+		sc.add("String platformString = resource.getURI().toPlatformString(true);");
+		sc.add("if (platformString == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -106,7 +110,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private static void createMarkersFromDiagnostics(" + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
+		sc.add("private static void createMarkerFromDiagnostic(" + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
 		sc.add("try {");
 		sc.add("if (file.findMarkers(MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
 		sc.add("return;");
@@ -158,7 +162,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
+		sc.add("String platformString = resource.getURI().toPlatformString(true);");
+		sc.add("if (platformString == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
 		sc.addComment("URI might not point at a platform file");
 		sc.add("if (file == null) {");
 		sc.add("return;");
@@ -166,7 +174,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("new " + JOB + "(\"marking\") {");	
 		sc.add("@Override");sc.addLineBreak();	
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
-		sc.add("createMarkersFromDiagnostics(file, diagnostic);");	
+		sc.add("createMarkerFromDiagnostic(file, diagnostic);");	
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.add("}.schedule();");
