@@ -44,7 +44,11 @@ public class CsMarkerHelper {
 		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
 			return;
 		}
-		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
+		String platformString = resource.getURI().toPlatformString(true);
+		if (platformString == null) {
+			return;
+		}
+		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 		// URI might not point at a platform file
 		if (file == null) {
 			return;
@@ -52,13 +56,13 @@ public class CsMarkerHelper {
 		new org.eclipse.core.runtime.jobs.Job("marking") {
 			@Override			
 			protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-				createMarkersFromDiagnostics(file, diagnostic);
+				createMarkerFromDiagnostic(file, diagnostic);
 				return org.eclipse.core.runtime.Status.OK_STATUS;
 			}
 		}.schedule();
 	}
 	
-	private static void createMarkersFromDiagnostics(org.eclipse.core.resources.IFile file, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
+	private static void createMarkerFromDiagnostic(org.eclipse.core.resources.IFile file, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
 		try {
 			if (file.findMarkers(MARKER_TYPE, false, org.eclipse.core.resources.IResource.DEPTH_ZERO).length >= MAXIMUM_MARKERS) {
 				return;
@@ -106,7 +110,11 @@ public class CsMarkerHelper {
 		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
 			return;
 		}
-		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
+		String platformString = resource.getURI().toPlatformString(true);
+		if (platformString == null) {
+			return;
+		}
+		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 		if (file == null) {
 			return;
 		}
