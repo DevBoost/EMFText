@@ -14,9 +14,12 @@
 package org.emftext.sdk.ui.jobs;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.sdk.codegen.IResourceMarker;
-import org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper;
 
 /**
  * Adds errors and warning contained in the given resource as
@@ -26,7 +29,16 @@ import org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper;
 public class WorkspaceMarker implements IResourceMarker {
 
 	public void mark(Resource resource) throws CoreException {
-		CsMarkerHelper.mark(resource);
+		mark(resource, resource.getErrors());
+		mark(resource, resource.getWarnings());
+	}
+
+	private void mark(Resource resource, EList<Diagnostic> diagnostics) {
+		for (Resource.Diagnostic diagnostic : diagnostics) {
+			if (diagnostic instanceof ICsTextDiagnostic) {
+				CsMarkerHelper.mark(resource, (ICsTextDiagnostic) diagnostic);
+			}
+		}
 	}
 
 	public void unmark(Resource resource) throws CoreException {
