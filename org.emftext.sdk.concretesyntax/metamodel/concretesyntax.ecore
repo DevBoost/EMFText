@@ -1504,17 +1504,61 @@
         <details key="documentation" value="If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_PROPOSAL_POST_PROCESSOR" value="201" literal="overrideProposalPostProcessor"/>
-    <eLiterals name="DISABLE_TOKEN_SORTING" value="202" literal="disableTokenSorting"/>
-    <eLiterals name="OVERRIDE_I_QUICK_FIX" value="203" literal="overrideIQuickFix"/>
-    <eLiterals name="OVERRIDE_QUICK_FIX" value="204" literal="overrideQuickFix"/>
-    <eLiterals name="OVERRIDE_ANNOTATION_MODEL" value="205" literal="overrideAnnotationModel"/>
-    <eLiterals name="OVERRIDE_ANNOTATION_MODEL_FACTORY" value="206" literal="overrideAnnotationModelFactory"/>
-    <eLiterals name="OVERRIDE_MARKER_ANNOTATION" value="208" literal="overrideMarkerAnnotation"/>
-    <eLiterals name="OVERRIDE_MARKER_RESOLUTION_GENERATOR" value="209" literal="overrideMarkerResolutionGenerator"/>
-    <eLiterals name="OVERRIDE_QUICK_ASSIST_ASSISTANT" value="211" literal="overrideQuickAssistAssistant"/>
-    <eLiterals name="OVERRIDE_QUICK_ASSIST_PROCESSOR" value="212" literal="overrideQuickAssistProcessor"/>
-    <eLiterals name="OVERRIDE_IMAGE_PROVIDER" value="213" literal="overrideImageProvider"/>
+    <eLiterals name="OVERRIDE_PROPOSAL_POST_PROCESSOR" value="201" literal="overrideProposalPostProcessor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DISABLE_TOKEN_SORTING" value="202" literal="disableTokenSorting">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Disables the automatic sorting of tokens. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_QUICK_FIX" value="203" literal="overrideIQuickFix">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the IQuickFix class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_QUICK_FIX" value="204" literal="overrideQuickFix">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the QuickFix class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ANNOTATION_MODEL" value="205" literal="overrideAnnotationModel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the AnnotationModel class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ANNOTATION_MODEL_FACTORY" value="206" literal="overrideAnnotationModelFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MARKER_ANNOTATION" value="208" literal="overrideMarkerAnnotation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_MARKER_RESOLUTION_GENERATOR" value="209" literal="overrideMarkerResolutionGenerator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_QUICK_ASSIST_ASSISTANT" value="211" literal="overrideQuickAssistAssistant">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_QUICK_ASSIST_PROCESSOR" value="212" literal="overrideQuickAssistProcessor">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_IMAGE_PROVIDER" value="213" literal="overrideImageProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to false, the ImageProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

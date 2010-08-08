@@ -5105,6 +5105,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PROPOSAL_POST_PROCESSOR
 	 * @model literal="overrideProposalPostProcessor"
 	 * @generated
@@ -5119,6 +5122,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Disables the automatic sorting of tokens. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_TOKEN_SORTING
 	 * @model literal="disableTokenSorting"
 	 * @generated
@@ -5133,6 +5139,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IQUICK_FIX
 	 * @model name="OVERRIDE_I_QUICK_FIX" literal="overrideIQuickFix"
 	 * @generated
@@ -5147,6 +5156,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the QuickFix class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_QUICK_FIX
 	 * @model literal="overrideQuickFix"
 	 * @generated
@@ -5161,6 +5173,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ANNOTATION_MODEL
 	 * @model literal="overrideAnnotationModel"
 	 * @generated
@@ -5175,6 +5190,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ANNOTATION_MODEL_FACTORY
 	 * @model literal="overrideAnnotationModelFactory"
 	 * @generated
@@ -5189,6 +5207,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MARKER_ANNOTATION
 	 * @model literal="overrideMarkerAnnotation"
 	 * @generated
@@ -5203,6 +5224,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_MARKER_RESOLUTION_GENERATOR
 	 * @model literal="overrideMarkerResolutionGenerator"
 	 * @generated
@@ -5217,6 +5241,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_QUICK_ASSIST_ASSISTANT
 	 * @model literal="overrideQuickAssistAssistant"
 	 * @generated
@@ -5231,6 +5258,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_QUICK_ASSIST_PROCESSOR
 	 * @model literal="overrideQuickAssistProcessor"
 	 * @generated
@@ -5245,6 +5275,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to false, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IMAGE_PROVIDER
 	 * @model literal="overrideImageProvider"
 	 * @generated

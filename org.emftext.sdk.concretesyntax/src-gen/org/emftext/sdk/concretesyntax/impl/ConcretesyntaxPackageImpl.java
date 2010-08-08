@@ -3981,6 +3981,72 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(199), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(200), 
+		   source, 
+		   new String[] {
+			 "documentation", "Disables the automatic sorting of tokens. The default value for this option is <code>false</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(201), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(202), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the QuickFix class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(203), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(204), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(205), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(206), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(207), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(208), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(209), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to false, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (abstractEClass, 
 		   source, 
 		   new String[] {

@@ -482,6 +482,28 @@ OptionTypes.OVERRIDE_I_BRACKET_HANDLER : "If set to false, the IBracketHandler c
 
 OptionTypes.OVERRIDE_UI_PLUGIN_XML : "If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_PROPOSAL_POST_PROCESSOR : "If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.DISABLE_TOKEN_SORTING : "Disables the automatic sorting of tokens. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_I_QUICK_FIX : "If set to false, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_QUICK_FIX : "If set to false, the QuickFix class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ANNOTATION_MODEL : "If set to false, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY : "If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MARKER_ANNOTATION : "If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_MARKER_RESOLUTION_GENERATOR : "If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT : "If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR : "If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_IMAGE_PROVIDER : "If set to false, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
