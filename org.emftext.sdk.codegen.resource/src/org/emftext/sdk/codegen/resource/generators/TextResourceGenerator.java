@@ -24,6 +24,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTICIAN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EVALUATION_MODE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
@@ -151,23 +152,33 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		boolean disableEValidators = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_EVALIDATORS);
 		boolean disableEMFValidationConstraints = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
 		
+		if (!disableEMFValidationConstraints) {
+			sc.add("@SuppressWarnings(\"restriction\")");
+			sc.addLineBreak();
+		}
 		sc.add("private void runValidators(" + E_OBJECT + " root) {");
 		if (!disableEValidators) {
-			sc.addComment("check constraints provided by EMF validator classes");
+			sc.addComment("check constraints provided by EMF Validator classes");
 			sc.add(DIAGNOSTIC + " diagnostics = " + DIAGNOSTICIAN + ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
 		} else {
 			sc.addComment("checking constraints provided by EMF validator classes was disabled");
 		}
+		sc.addLineBreak();
 		if (!disableEMFValidationConstraints) {
 			sc.addComment("check EMF validation constraints");
 			sc.addComment("EMF validation does not work if OSGi is not running");
+			sc.addComment(
+					"The EMF validation framework code throws a NPE if the validation plug-in is not loaded. " +
+					"This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the " +
+					"exception here."
+				);
 			sc.add("if (" + PLATFORM + ".isRunning()) {");
 			sc.addComment(
-				"The EMF validation framework code throws a NPE if the validation plug-in is not loaded. " +
-				"This is a bug, which is fixed in the helios release. Nonetheless, we need to catch the " +
-				"exception here."
-			);
+					"The EMF validation framework code throws a NPE if the validation plug-in is not loaded. " +
+					"This is a workaround for bug 322079."
+				);
+			sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");
 			sc.add("try {");
 			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
 			sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
@@ -176,6 +187,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			sc.add("addStatus(status, root);");
 			sc.add("} catch (" + THROWABLE + " t) {");
 			sc.add(pluginActivatorClassName + ".logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
+			sc.add("}");
 			sc.add("}");
 			sc.add("}");
 		} else {
