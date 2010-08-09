@@ -6,6 +6,8 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{abbrevs}
+\input{Abbreviations}
 
 % For tables
 \usepackage{array}
@@ -66,6 +68,12 @@
 
 \tableofcontents
 
+\mainmatter
+% ===
+\input{Overview}
+\input{Process}
+\input{CSSpec}
+
 \renewcommand{\listfigurename}{List of Figures}
 \listoffigures
 \cleardoublepage
@@ -74,17 +82,9 @@
 \lstlistoflistings
 \cleardoublepage
 
-\mainmatter
-% ===
-
-\chapter{Introduction}
-
-\chapter{Chap2}
-
 %APPENDIX
-\begin{appendix}
-
-\end{appendix}
+%\begin{appendix}
+%\end{appendix}
 
 \bibliography{biblio} % specify the database files
 \bibliographystyle{alpha}

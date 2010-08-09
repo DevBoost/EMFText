@@ -1,0 +1,47 @@
+\chapter{Development Process}
+
+Creating parsers, printers and editors with EMFText is easy! It involves some
+necessary steps which are roughly depicted in the activity diagram below.
+
+% TODO [[Image:emftext_process.png|center|thumb|800px]]
+
+The starting point usually is the '''Ecore-based model''' serving as an abstract 
+syntax and as a skeleton for concrete syntax. The model can be a graph or tree 
+definition. Although Ecore models are specified as XML files, it is recommended 
+to use the Ecore model editor or an other graphical editor. Additionally, a unique 
+namespace (property NS URI in the .ecore file) for the models as well as a package 
+name needs to be specified. To enable EMFText to use models at runtime, a model 
+plug-in must be generated. For this, EMF provides a \emph{generation
+metamodel} (GenModel) allowing to enrich Ecore models with specific information
+for code generation. The EMF Model wizard facilitates the creation of GenModels.
+
+The next step is to define the base package name which will be the common prefix 
+for all subsequently generated Java packages. After finishing configuration, the 
+\emph{EMF model plug-in} is ready to be generated. EMFText will later use
+these classes to construct a model instance.
+
+Since our metamodel is now defined, we can start specifying our \emph{concrete
+syntax}. As a starting point, EMFText provides a syntax generator that can
+automatically create a concrete-syntax specification using HUTN (Human-Useable Textual Notation) from the 
+metamodel. To manually specify the concrete syntax, a textual specification has to 
+be written, which has the ending \texttt{cs} (from \texttt{c}oncrete
+\texttt{s}yntax). It consists of four sections: In the first part, a unique
+name refers to the syntax as a specific resource type. Furthermore, the metamodel, whose textual syntax shall be defined, has 
+to be referenced by its  unique namespace URI and a start symbol must be selected from 
+the model elements. In the second part, productions from other concrete syntax 
+specifications can be imported. This is especially useful if the metamodel is 
+compositionally structured, e.g. reuses large parts from other models which have an 
+already specified concrete syntax.  The third part allows for specifying token types as
+ it is usual for parser generators, but in contrast, EMFText also allows to leave them 
+ out: If no token definitions are given, default rules are used. Another specialty for 
+ token definitions are optional pre- and suffixes which are transparently removed (after 
+ parsing) and added (before printing)  by the generated token resolvers. And last but 
+ not least, EBNF-like productions have to be defined for each non-abstract model element 
+ reachable from the start symbol. They have to be defined with respect to the attributes 
+ and references of the model element and thus do not contain nonterminals in the classic 
+ sense.
+
+The context menu on concrete syntax specification files offers an item to generate the 
+actual \emph{resource plug-in} which contains the parser, printer and the
+editor for the language. In an optional last step, the generated token resolvers and the printer can be 
+tailored to specific needs.

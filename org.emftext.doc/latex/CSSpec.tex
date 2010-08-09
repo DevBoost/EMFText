@@ -1,0 +1,349 @@
+\chapter{Concrete Syntax Specification Language (CS)}
+
+An EMFText syntax specification must be contained in a file with the extension
+\texttt{.cs} and consists of three main blocks:
+
+\begin{enumerate}
+  \item a configuration block, which contains the name, the basemodel and the
+        root meta class (startsymbol). Optionally other syntaxes and metamodels
+        can be imported and generation options can be specified,
+  \item a (optional) TOKEN section. Here, tokens for the lexical analyser can be
+        specified,
+  \item a (optional) TOKENSTYLE section. Here, the default style (color, font
+        style) for tokens and keywords can be specified,
+  \item a RULES section, which defines the syntax for each concrete meta class.
+\end{enumerate}
+
+In the following sections we will glance at the four main blocks in more detail.
+
+\section{Configuration Block}
+
+\subsection{Required General Information}
+
+Specify which files will contain your synax (required):
+
+\begin{lstlisting}
+SYNTAXDEF fileExtension
+\end{lstlisting} 
+
+Specify the EMF Genmodel that contains the meta classes for which the syntax will be used. The genmodel is found using its URI. 
+ 
+\begin{lstlisting}
+FOR <genModelURI> <locationOfYourGenmodel>
+\end{lstlisting}
+
+Giving the location of the genmodel is optional. If it is not given,
+EMFText searches at two different places for the genmodel. First, in the EMF Registry, second, it looks for a genmodel in the folder that contains your .cs file, which has the same name, but the extension '.genmodel'.
+
+The root element (startsymbol) must be an element in the metamodel:
+
+\begin{lstlisting}
+START nameOfAMetaClass
+\end{lstlisting}
+
+A CS specification can also have multiple root elements, which must be separated by a comma.
+
+\subsection{Importing other Models and Syntaxes}
+
+Models and syntaxes can be imported in a dedicated import section:
+
+\begin{lstlisting}
+IMPORTS {
+    // imports go here
+}
+\end{lstlisting}
+
+The list of imports must contain at least contain one entry. If no imports are needed the whole section can be left out. An import entry consists of a prefix that can be used to refer imported elements in productions, the model URI and optionally the name of a concrete syntax defined for that model. If a syntax is imported all its rules are reused and need not to be specified in the current CS specification.
+ 
+\begin{lstlisting}
+prefix : <genModelURI> <locationOfTheGenmodel> WITH SYNTAX syntaxURI <locationOfTheSyntax>;
+\end{lstlisting}
+
+The two locations are optional.
+
+\subsection{Code Generation Options}
+
+As the imports, options are specified in a dedicated optional section:
+
+\begin{lstlisting}
+OPTIONS {
+    // options go here in the following form:
+    optionName = "optionValue";
+}
+\end{lstlisting}
+
+The list of valid options can be found in the Javadoc of the enumeration
+OptionTypes\footnote{http://svn-st.inf.tu-dresden.de/svn/reuseware/tags/current\_release/EMFText/org.emftext.sdk.concretesyntax/src-gen/org/emftext/sdk/concretesyntax/OptionTypes.java}.
+
+\section{Tokens}
+
+EMFText allows to specify an ordered set of token definitions. During runtime, 
+input characters are converted to tokens. They form the smallest unit processed by 
+the generated parser. ''Note'': By default, EMFText implicitly uses a set of standard 
+tokens, namingly:
+
+\begin{itemize}
+  \item TEXT : ('A'..'Z'|'a'..'z'|'0'..'9'|'\_'|'-')+,
+  \item LINEBREAK : ('\\r\\n'|'\\r'|'\\n'),
+  \item WHITESPACE : (' '|'\\t'|'\\f').
+\end{itemize}
+
+Default tokens can be switched off using the \texttt{usePredefinedTokens}
+option.
+
+\subsection{Simple, custom tokens}
+
+To define custom tokens, a TOKEN section must be added to the .cs file. This section has the following form:
+
+\begin{lstlisting}
+TOKENS {
+    // token definition go here in the form:
+    DEFINE MY_TOKEN $someRegularExpression$;
+}
+\end{lstlisting}
+
+Every token name has to start with a capital letter. A regular expression must
+conform to the ANTLRv3 syntax for regular expressions without semantic annotations.
+
+\subsection{Composed tokens}
+
+Sometimes, the regular expression are quite repetitive and one wants to reuse 
+simple expressions to compose them to more complex ones. To do so, one can refer 
+to other token definition by their name. For example:
+
+\begin{lstlisting}
+// simple token
+DEFINE CHAR $('a'..'z'|'A'..'Z')$;
+// simple token
+DEFINE DIGIT $('0'..'9')$;
+// composed token
+DEFINE IDENTIFIER CHAR + $($ + CHAR + $|$ + DIGIT + $)*$;
+\end{lstlisting}
+
+\subsection{Tokens priorities}
+
+Token definitions might be ambiguous, i.e. the languages defined for two different 
+token may be not disjoint. In such cases EMFText will always prefer the token defined 
+first in the specification. By default, the predefined tokens (TEXT, WS and LB) have 
+lower precedence than any defined token. However, they can be given a higher priority 
+be redefining them before other token using the following directive:
+
+\begin{lstlisting}
+PREDEFINED nameOfPredefinedToken;
+\end{lstlisting}
+
+\section{Token Styles}
+
+To define the default syntax highlighting for a language a special section '''TOKENSTYLES''' can be used. For each token or keyword the color and style (BOLD, ITALIC, STRIKETHROUGH, UNDERLINE) can be defined as follows:
+
+\begin{lstlisting}
+TOKENSTYLES {
+    // show MY_TOKEN in black
+    "MY_TOKEN" COLOR #000000;
+    // show keyword public in red and bold font face
+    "public" COLOR #FF0000, BOLD;
+}
+\end{lstlisting}
+
+\section{Syntax Rules}
+
+For each conrete meta class you can define a syntax rule. The rule specifies what the text that represents instances of the class looks like. Rule have two sides - a left and right-hand side. The left side denotes the name of the meta class, while the right-hand side defines the syntax elements. 
+
+\subsection{Simple Syntax}
+
+The most basic form of a syntax rule is:
+
+\begin{lstlisting}
+MyMetaClass ::= someKeyword ;
+\end{lstlisting}
+
+This rule states that whenever the text "someKeyword" is found, an instance of
+MyMetaClass must be created. Besides text elements that are expected "as is", parts 
+of the syntax can be optional or repeating. For example the syntax rule:
+
+\begin{lstlisting}
+ '''MyMetaClassWithOptionalSyntax''' ::= ("#")? "someKeyword" ;
+\end{lstlisting}
+
+states the instances of MyMetaClassWithOptionalSyntax can be represented both by
+"\#someKeyword" and "someKeyword". Similar behavior can be definied using a star 
+instead of a question mark. The syntax enclosed in the paranthesis can then be 
+repeated.
+
+\subsection{Syntax for attributes}
+
+If meta classes have attributes we can also specify syntax for the value of these attributes. To do so simple add brackets after the name of the attribute:
+
+\begin{lstlisting}
+ '''MyMetaClassWithAttributes''' ::= myAttribute[] ;
+\end{lstlisting}
+
+Optionally one can specify the name of a token inside the brackets. For example:
+
+\begin{lstlisting}
+ '''MyMetaClassWithAttributes''' ::= myAttribute[MY_TOKEN] ;
+\end{lstlisting}
+
+If this name is omitted (as in the first example) EMFText uses the token TEXT, which includes alphanumeric characters. The found text is automatically converted to the type of the attribute. If this conversion is not successfull an error is raised when opening a file containing wrong syntax.
+
+Another possibility to specify the token definition that shall be used to match the text for the attribute value is do it inline. For example
+
+\begin{lstlisting}
+ '''MyMetaClassWithAttributes''' ::= myAttribute['(',')'] ;
+\end{lstlisting}
+
+can be used to express that the text for the attribute value must be enclosed in round brackets. Between the brackets arbitrary characters (except the closing bracket) are allowed. Other characters can be used as prefix and suffix here as well.
+
+By default the suffix character (in the example above this was the closing bracket) can not be part of the text for the attribute value. To allow this an escape character needs to be supplied:
+
+\begin{lstlisting}
+ '''MyMetaClassWithAttributes''' ::= myAttribute['(',')','\'] ;
+\end{lstlisting}
+
+Here the backslash can be used inside the brackets to escape the closing bracket. It must then also be used to escape itself. For example,
+
+\begin{lstlisting}
+ (some text (some more\))
+\end{lstlisting}
+
+yields the value 
+ 
+\begin{lstlisting}
+ some text (somemore)
+\end{lstlisting}
+
+\subsection{Syntax for references}
+
+Meta classes can have references and consequently there is a way to specify syntax for these. EMF distinguished between "containment" and "non-containment" references. In an EMF model, the elements that are references with the former type are contained in the parent elements. EMFText thus expects the syntax of the referenced elements (children) to be also contained in the parent syntax. The latter (non-containment) references are referenced only and are contained in another (parent) element. Analogous to the containment references, EMFText expectes the actual syntax for those elements to be contained in the parent. The referenced elements are represented by some symbolic name only.
+
+\subsubsection{Syntax for containment references}
+
+A basic example for defining a rule for a meta class that has a containment reference look like this:
+
+\begin{lstlisting}
+ '''MyContainerMetaClass''' ::= "CONTAINER" myContainmentReference ;
+\end{lstlisting}
+
+It allows to represent instances of MyContainerMetaClass using the keyword "CONTAINER" followed by one instance of the type that "myContainmentReference" points to. If multiple children need to be contained the following rule can be used:
+
+\begin{lstlisting}
+ '''MyContainerMetaClass''' ::= "CONTAINER" myContainmentReference* ;
+\end{lstlisting}
+
+In addition, each containment reference can be restricted to allow only certain types, for example:
+
+\begin{lstlisting}
+ '''MyContainerMetaClass''' ::= "CONTAINER" myContainmentReference : MySubClass ;
+\end{lstlisting}
+
+does allow only instances of "MySubClass" after the keyword "CONTAINER" even though "myContainmentReference" may have a more general type.
+
+\subsubsection{Syntax for non-containment references}
+
+A basic example for defining a rule for a meta class that has a non-containment reference look like this:
+
+\begin{lstlisting}
+ '''MyPointerMetaClass''' ::= "POINTER" myNonContainmentReference[] ;
+\end{lstlisting}
+
+The rule is very similar to the one for containment references, but used the additional brackets after the name of the reference. The brackets defined the token that the symbolic name must match. In the case above, the default token (TEXT) is used. So the syntax for an example instance of class MyPointerMetaClass can be:
+
+\begin{lstlisting}
+ ''POINTER a''
+\end{lstlisting}
+
+Since "a" is just a symbolic name that must be resolved to an actual model element, EMFText generates a Java class that implements the interface IReferenceResolver. This class be customized to specify how symbolic names are resolved to model elements. The default implementation of the resolver looks for all model elements that have the correct type (the type of "myNonContainmentReference") and that have a name or id attribute that matches the symbolic name.
+
+\subsection{Syntax for printing instructions}
+
+To print models to text, some additional information is required by EMFText. This information includes the numher of whitespaces and line breaks to be inserted between keywords, attribute values, references and contained elements. If you do not want to print models to text, printing instructions are not needed in your CS file.
+
+\subsubsection{Syntax for printing whitespace}
+
+To explicitly print whitespace characters, the \# Operator can be used:
+
+\begin{lstlisting}
+ ''#<NUMBER>''
+\end{lstlisting}
+
+It is followed by a number that determines the number of whitespaces to be printed.
+
+\subsubsection{Syntax for printing line breaks}
+
+To explicitly print line breaks, the ! Operator can be used:
+
+\begin{lstlisting}
+ ''!<NUMBER>''
+\end{lstlisting}
+
+It is followed by a number that determines the number of tab characters that shall be printed after the line break.
+
+\subsection{Syntax for expressions}
+
+To define syntax for metaclasses that represent expressions (e.g., binary, unary
+expressions like additive or multiplicative expressions) one can use the
+\@Operator annotation. This annotation can be added to all rules, which refer to 
+expression metaclasses. For example, the rule:
+
+\begin{lstlisting}
+ @Operator(type="binary_left_associative", weight="1", superclass="Expression")
+ Additive ::= left "+" right;
+\end{lstlisting}
+
+can be used to define syntax for a metaclass "Additive". The references "left"
+and "right" must be containment references and have type "Expression", which is
+the abstract supertype for all metaclasses of the expression metamodel.
+
+The type attribute specifies the kind of expression at hand, which can be binary (either 
+left\_associative or right\_associative), unary or primitive.
+
+The weight attribute specified the priority of on expression type over another.
+For example, if a second rule:
+
+\begin{lstlisting}
+ @Operator(type="binary_left_associative", weight="2", superclass="Expression")
+ Multiplicative ::= left "*" right;
+\end{lstlisting}
+
+is present, EMFText will create an expression tree, where Multiplicative nodes are 
+created last (i.e., multiplicative expressions take precedence over additive expressions).
+
+Unary expressions can be defined as follows:
+
+\begin{lstlisting}
+ @Operator(type="unary_prefix", weight="4", superclass="Expression")	
+ Negation ::= "-" body;
+\end{lstlisting}
+
+There is also the option to defined unary\_postfix rules.
+
+Primitive expressions can be defined as follows:
+
+\begin{lstlisting}
+ @Operator(type="primitive", weight="5", superclass="Expression")
+ IntegerLiteralExp ::= intValue[INTEGER_LITERAL];
+\end{lstlisting}
+
+They should be used for literals (e.g., numbers, constants or variables).
+
+For examples how to use the \@Operator rules see the SimpleMath language in the
+EMFText Syntax Zoo\footnote{TODO} and the ThreeValuedLogic DSL\footnote{TODO}. 
+These do also come with an interpreter which shows how expression trees can be 
+evaluated.
+
+\section{Suppressing warnings}
+
+To suppress warnings issues by EMFText in \texttt{.cs} files one can use the
+@SuppressWarnings annotation. This annotation can be added to rules, token 
+definitions or complete syntax definitions. One can either suppress all 
+warnings or just specific types. A list of all types can be found 
+% TODO
+% [http://svn-st.inf.tu-dresden.de/svn/reuseware/tags/current_release/EMFText/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/mopp/ECsProblemType.java
+
+here. Please use lower camel-case syntax to specify the kind of option to suppress. 
+For example, to suppress warnings about features without syntax, you may use:
+
+\begin{lstlisting}
+ @SuppressWarnings(featureWithoutSyntax)
+ MyMetaClass ::= "someKeyword";
+\end{lstlisting}
