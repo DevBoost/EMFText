@@ -1,0 +1,1050 @@
+\noindent\texttt{additionalDependencies}
+\begin{myindentpar}{1cm}
+A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in.
+\end{myindentpar}
+
+\noindent\texttt{additionalExports}
+\begin{myindentpar}{1cm}
+A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in.
+\end{myindentpar}
+
+\noindent\texttt{additionalUIDependencies}
+\begin{myindentpar}{1cm}
+A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in.
+\end{myindentpar}
+
+\noindent\texttt{additionalUIExports}
+\begin{myindentpar}{1cm}
+A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in.
+\end{myindentpar}
+
+\noindent\texttt{antlrPluginID}
+\begin{myindentpar}{1cm}
+Sets the ID for the generated common ANTLR runtime plug-in.
+\end{myindentpar}
+
+\noindent\texttt{autofixSimpleLeftrecursion}
+\begin{myindentpar}{1cm}
+If set to true, EMFText will try to fix rules that contain simple left recursion. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{backtracking}
+\begin{myindentpar}{1cm}
+If set to false, the Antlr-backtracking is deactivated for parser generation. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{basePackage}
+\begin{myindentpar}{1cm}
+The name of the base package EMFText shall store the generated classes or the resource plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{baseResourcePlugin}
+\begin{myindentpar}{1cm}
+The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in).
+\end{myindentpar}
+
+\noindent\texttt{defaultTokenName}
+\begin{myindentpar}{1cm}
+This option can be used to specify the name of the token that is used for non-containment references. A declaration like \textbf{featureX[]</code> in a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y}.
+\end{myindentpar}
+
+\noindent\texttt{disableBuilder}
+\begin{myindentpar}{1cm}
+If set to true, the builder that is generated and registered by default will not be registered anymore. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{disableEMFValidationConstraints}
+\begin{myindentpar}{1cm}
+If set to true, constraint validation using the EMF Validation Framework is disabled. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{disableEValidators}
+\begin{myindentpar}{1cm}
+If set to false, constraint validation using registered EValidators will be enabled. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{disableTokenSorting}
+\begin{myindentpar}{1cm}
+Disables the automatic sorting of tokens. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{forceEOF}
+\begin{myindentpar}{1cm}
+If set to false, EMFText will generate a parser that does not expect an EOF signal at the end of the input stream. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{generateCodeFromGeneratorModel}
+\begin{myindentpar}{1cm}
+If set to true, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{generateTestAction}
+\begin{myindentpar}{1cm}
+If set to true, EMFText generate a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{generateUIPlugin}
+\begin{myindentpar}{1cm}
+If set to false, EMFText will not generate the resource UI plug-in. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{licenceHeader}
+\begin{myindentpar}{1cm}
+A URI pointing to a text file that contains a header which shall be added to all generated Java files.
+\end{myindentpar}
+
+\noindent\texttt{memoize}
+\begin{myindentpar}{1cm}
+If set to false, the Antlr-memoize is deactivated for parser generation. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAbstractExpectedElement}
+\begin{myindentpar}{1cm}
+If set to false, the AbstractExpectedElement class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAbstractInterpreter}
+\begin{myindentpar}{1cm}
+If set to false, the AbstractInterpreter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAdditionalExtensionParserExtensionPointSchema}
+\begin{myindentpar}{1cm}
+If set to false, the extension point schema for additional parsers is not overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAnnotationModel}
+\begin{myindentpar}{1cm}
+If set to false, the AnnotationModel class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAnnotationModelFactory}
+\begin{myindentpar}{1cm}
+If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAntlrPlugin}
+\begin{myindentpar}{1cm}
+If set to false, no ANTLR common runtime plug-in is generated. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAntlrTokenHelper}
+\begin{myindentpar}{1cm}
+If set to false, the AntlrTokenHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAttributeValueProvider}
+\begin{myindentpar}{1cm}
+If set to false, the AttributeValueProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBracketInformationProvider}
+\begin{myindentpar}{1cm}
+If set to false, the BracketInformationProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBracketPreferencePage}
+\begin{myindentpar}{1cm}
+If set to false, the BracketPreferencePage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBracketSet}
+\begin{myindentpar}{1cm}
+If set to false, the BracketSet class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBrowserInformationControl}
+\begin{myindentpar}{1cm}
+If set to false, the BrowserInformationControl class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBuildProperties}
+\begin{myindentpar}{1cm}
+If set to false, the build.properties file will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBuilder}
+\begin{myindentpar}{1cm}
+If set to false, the Builder class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBuilderAdapter}
+\begin{myindentpar}{1cm}
+If set to false, the BuilderAdapter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCardinality}
+\begin{myindentpar}{1cm}
+If set to false, the Cardinality class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCastUtil}
+\begin{myindentpar}{1cm}
+If set to false, the CastUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideChoice}
+\begin{myindentpar}{1cm}
+If set to false, the Choice class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideClasspath}
+\begin{myindentpar}{1cm}
+If set to false, the .classpath file of the resource plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCodeCompletionHelper}
+\begin{myindentpar}{1cm}
+If set to false, the CodeCompletionHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCodeFoldingManager}
+\begin{myindentpar}{1cm}
+If set to false, the CodeFoldingManager class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideColorManager}
+\begin{myindentpar}{1cm}
+If set to false, the ColorManager class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCompletionProcessor}
+\begin{myindentpar}{1cm}
+If set to false, the CompletionProcessor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCompletionProposal}
+\begin{myindentpar}{1cm}
+If set to false, the CompletionProposal class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCompound}
+\begin{myindentpar}{1cm}
+If set to false, the Compound class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideContainment}
+\begin{myindentpar}{1cm}
+If set to false, the Containment class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideContextDependentURIFragment}
+\begin{myindentpar}{1cm}
+If set to false, the ContextDependentUriFragment class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideContextDependentURIFragmentFactory}
+\begin{myindentpar}{1cm}
+If set to false, the ContextDependentUriFragmentFactory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCopiedEList}
+\begin{myindentpar}{1cm}
+If set to false, the CopiedEList class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideCopiedEObjectInternalEList}
+\begin{myindentpar}{1cm}
+If set to false, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDefaultHoverTextProvider}
+\begin{myindentpar}{1cm}
+If set to false, the DefaultHoverTextProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDefaultLoadOptionsExtensionPointSchema}
+\begin{myindentpar}{1cm}
+If set to false, the extension point schema for default load options is not overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDefaultResolverDelegate}
+\begin{myindentpar}{1cm}
+If set to false, the default resolver class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDefaultTokenResolver}
+\begin{myindentpar}{1cm}
+If set to false, the DefaultTokenResolver class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDelegatingResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the DelegatingResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDocBrowserInformationControlInput}
+\begin{myindentpar}{1cm}
+If set to false, the DocBrowserInformationControlInput class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDummyEObject}
+\begin{myindentpar}{1cm}
+If set to false, the DummyEObject class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEClassUtil}
+\begin{myindentpar}{1cm}
+If set to false, the EClassUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEObjectSelection}
+\begin{myindentpar}{1cm}
+If set to false, the EObjectSelection class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEObjectUtil}
+\begin{myindentpar}{1cm}
+If set to false, the EObjectUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEProblemType}
+\begin{myindentpar}{1cm}
+If set to false, the EProblemType class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEditor}
+\begin{myindentpar}{1cm}
+If set to false, the Editor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEditorConfiguration}
+\begin{myindentpar}{1cm}
+If set to false, the EditorConfiguration class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideElementMapping}
+\begin{myindentpar}{1cm}
+If set to false, the ElementMapping class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideExpectedCsString}
+\begin{myindentpar}{1cm}
+If set to false, the ExpectedCsString class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideExpectedStructuralFeature}
+\begin{myindentpar}{1cm}
+If set to false, the ExpectedStructuralFeature class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideExpectedTerminal}
+\begin{myindentpar}{1cm}
+If set to false, the ExpectedTerminal class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideFoldingInformationProvider}
+\begin{myindentpar}{1cm}
+If set to false, the FoldingInformationProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideFollowSetProvider}
+\begin{myindentpar}{1cm}
+If set to false, the FollowSetProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideFormattingElement}
+\begin{myindentpar}{1cm}
+If set to false, the FormattingElement class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideFuzzyResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the FuzzyResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideGrammarInformationProvider}
+\begin{myindentpar}{1cm}
+If set to false, the GrammarInformationProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideHTMLPrinter}
+\begin{myindentpar}{1cm}
+If set to false, the HtmlPrinter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideHighlighting}
+\begin{myindentpar}{1cm}
+If set to false, the Highlighting class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideHoverTextProvider}
+\begin{myindentpar}{1cm}
+If set to false, the HoverTextProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideHyperlink}
+\begin{myindentpar}{1cm}
+If set to false, the Hyperlink class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideHyperlinkDetector}
+\begin{myindentpar}{1cm}
+If set to false, the HyperlinkDetector class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIBackgroundParsingListener}
+\begin{myindentpar}{1cm}
+If set to false, the IBackgroundParsingListener class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIBracketHandler}
+\begin{myindentpar}{1cm}
+If set to false, the IBracketHandler class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIBracketPair}
+\begin{myindentpar}{1cm}
+If set to false, the IBracketPair class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIBuilder}
+\begin{myindentpar}{1cm}
+If set to false, the IBuilder class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideICommand}
+\begin{myindentpar}{1cm}
+If set to false, the ICommand class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIConfigurable}
+\begin{myindentpar}{1cm}
+If set to false, the IConfigurable class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIContextDependentURIFragment}
+\begin{myindentpar}{1cm}
+If set to false, the IContextDependentUriFragment class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIContextDependentURIFragmentFactory}
+\begin{myindentpar}{1cm}
+If set to false, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIElementMapping}
+\begin{myindentpar}{1cm}
+If set to false, the IElementMapping class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIExpectedElement}
+\begin{myindentpar}{1cm}
+If set to false, the IExpectedElement class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIHoverTextProvider}
+\begin{myindentpar}{1cm}
+If set to false, the IHoverTextProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIInputStreamProcessorProvider}
+\begin{myindentpar}{1cm}
+If set to false, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideILocationMap}
+\begin{myindentpar}{1cm}
+If set to false, the ILocationMap class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIMetaInformation}
+\begin{myindentpar}{1cm}
+If set to false, the IMetaInformation class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIOptionProvider}
+\begin{myindentpar}{1cm}
+If set to false, the IOptionProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIOptions}
+\begin{myindentpar}{1cm}
+If set to false, the IOptions class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIParseResult}
+\begin{myindentpar}{1cm}
+If set to false, the IParseResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIProblem}
+\begin{myindentpar}{1cm}
+If set to false, the IProblem class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIQuickFix}
+\begin{myindentpar}{1cm}
+If set to false, the IQuickFix class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIReferenceCache}
+\begin{myindentpar}{1cm}
+If set to false, the IReferenceCache class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIReferenceMapping}
+\begin{myindentpar}{1cm}
+If set to false, the IReferenceMapping class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIReferenceResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the IReferenceResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIReferenceResolver}
+\begin{myindentpar}{1cm}
+If set to false, the IReferenceResolver class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIReferenceResolverSwitch}
+\begin{myindentpar}{1cm}
+If set to false, the IReferenceResolverSwitch class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIResourcePostProcessor}
+\begin{myindentpar}{1cm}
+If set to false, the IResourcePostProcessor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIResourcePostProcessorProvider}
+\begin{myindentpar}{1cm}
+If set to false, the IResourcePostProcessorProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextDiagnostic}
+\begin{myindentpar}{1cm}
+If set to false, the ITextDiagnostic class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextParser}
+\begin{myindentpar}{1cm}
+If set to false, the ITextParser class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextPrinter}
+\begin{myindentpar}{1cm}
+If set to false, the ITextPrinter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextResource}
+\begin{myindentpar}{1cm}
+If set to false, the ITextResource class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextResourcePluginPart}
+\begin{myindentpar}{1cm}
+If set to false, the ITextResourcePluginPart class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextScanner}
+\begin{myindentpar}{1cm}
+If set to false, the ITextScanner class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITextToken}
+\begin{myindentpar}{1cm}
+If set to false, the ITextToken class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITokenResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the ITokenResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITokenResolver}
+\begin{myindentpar}{1cm}
+If set to false, the ITokenResolver class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITokenResolverFactory}
+\begin{myindentpar}{1cm}
+If set to false, the ITokenResolverFactory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideITokenStyle}
+\begin{myindentpar}{1cm}
+If set to false, the ITokenStyle class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIURIMapping}
+\begin{myindentpar}{1cm}
+If set to false, the IUriMapping class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideImageProvider}
+\begin{myindentpar}{1cm}
+If set to false, the ImageProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideInputStreamProcessor}
+\begin{myindentpar}{1cm}
+If set to false, the InputStreamProcessor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideKeyword}
+\begin{myindentpar}{1cm}
+If set to false, the Keyword class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLayoutInformation}
+\begin{myindentpar}{1cm}
+If set to false, the LayoutInformation class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLayoutInformationAdapter}
+\begin{myindentpar}{1cm}
+If set to false, the LayoutInformationAdapter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLineBreak}
+\begin{myindentpar}{1cm}
+If set to false, the LineBreak class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideListUtil}
+\begin{myindentpar}{1cm}
+If set to false, the ListUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLocationMap}
+\begin{myindentpar}{1cm}
+If set to false, the LocationMap class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideManifest}
+\begin{myindentpar}{1cm}
+If set to false, the manifest of the resource plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMapUtil}
+\begin{myindentpar}{1cm}
+If set to false, the MapUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMarkerAnnotation}
+\begin{myindentpar}{1cm}
+If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMarkerHelper}
+\begin{myindentpar}{1cm}
+If set to false, the MarkerHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMarkerResolutionGenerator}
+\begin{myindentpar}{1cm}
+If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMetaInformation}
+\begin{myindentpar}{1cm}
+If set to false, the MetaInformation class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideMinimalModelHelper}
+\begin{myindentpar}{1cm}
+If set to false, the MinimalModelHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideNature}
+\begin{myindentpar}{1cm}
+If set to false, the Nature class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideNewFileContentProvider}
+\begin{myindentpar}{1cm}
+If set to false, the NewFileContentProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideNewFileWizard}
+\begin{myindentpar}{1cm}
+If set to false, the new file wizard class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideNewFileWizardPage}
+\begin{myindentpar}{1cm}
+If set to false, the NewFileWizardPage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOccurencePreferencePage}
+\begin{myindentpar}{1cm}
+If set to false, the OccurencePreferencePage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOccurrence}
+\begin{myindentpar}{1cm}
+If set to false, the Occurence class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePage}
+\begin{myindentpar}{1cm}
+If set to false, the OutlinePage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageTreeViewer}
+\begin{myindentpar}{1cm}
+If set to false, the OutlinePageTreeViewer class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePair}
+\begin{myindentpar}{1cm}
+If set to false, the Pair class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideParseResult}
+\begin{myindentpar}{1cm}
+If set to false, the ParseResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideParser}
+\begin{myindentpar}{1cm}
+If set to false, the Parser class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideParsingStrategy}
+\begin{myindentpar}{1cm}
+If set to false, the ParsingStrategy class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePixelConverter}
+\begin{myindentpar}{1cm}
+If set to false, the PixelConverter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePlaceholder}
+\begin{myindentpar}{1cm}
+If set to false, the Placeholder class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePluginActivator}
+\begin{myindentpar}{1cm}
+If set to false, the PluginActivator class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePluginXML}
+\begin{myindentpar}{1cm}
+If set to true, the plugin.xml file will be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePositionCategory}
+\begin{myindentpar}{1cm}
+If set to false, the PositionCategory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePositionHelper}
+\begin{myindentpar}{1cm}
+If set to false, the PositionHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePreferenceConstants}
+\begin{myindentpar}{1cm}
+If set to false, the PreferenceConstants class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePreferenceInitializer}
+\begin{myindentpar}{1cm}
+If set to false, the PreferenceInitializer class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePreferencePage}
+\begin{myindentpar}{1cm}
+If set to false, the PreferencePage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePrinter}
+\begin{myindentpar}{1cm}
+If set to false, the printer will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePrinter2}
+\begin{myindentpar}{1cm}
+If set to false, the Printer2 class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideProblemClass}
+\begin{myindentpar}{1cm}
+If set to false, the problem class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideProjectFile}
+\begin{myindentpar}{1cm}
+If set to false, the .project file of the resource plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePropertySheetPage}
+\begin{myindentpar}{1cm}
+If set to false, the PropertySheetPage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideProposalPostProcessor}
+\begin{myindentpar}{1cm}
+If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideQuickAssistAssistant}
+\begin{myindentpar}{1cm}
+If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideQuickAssistProcessor}
+\begin{myindentpar}{1cm}
+If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideQuickFix}
+\begin{myindentpar}{1cm}
+If set to false, the QuickFix class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideReferenceResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the ReferenceResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideReferenceResolverSwitch}
+\begin{myindentpar}{1cm}
+If set to false, the reference resolver switch will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideReferenceResolvers}
+\begin{myindentpar}{1cm}
+If set to true, the reference resolver classes will be overridden. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{overrideResourceFactory}
+\begin{myindentpar}{1cm}
+If set to false, the resource factory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideResourceFactoryDelegator}
+\begin{myindentpar}{1cm}
+If set to false, the ResourceFactoryDelegator class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideResourceUtil}
+\begin{myindentpar}{1cm}
+If set to false, the ResourceUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideScanner}
+\begin{myindentpar}{1cm}
+If set to false, the Scanner class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSequence}
+\begin{myindentpar}{1cm}
+If set to false, the Sequence class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideStreamUtil}
+\begin{myindentpar}{1cm}
+If set to false, the StreamUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideStringUtil}
+\begin{myindentpar}{1cm}
+If set to false, the StringUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSyntaxColoringHelper}
+\begin{myindentpar}{1cm}
+If set to false, the SyntaxColoringHelper class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSyntaxColoringPreferencePage}
+\begin{myindentpar}{1cm}
+If set to false, the SyntaxColoringPreferencePage class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSyntaxCoverageInformationProvider}
+\begin{myindentpar}{1cm}
+If set to false, the SyntaxCoverageInformationProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSyntaxElement}
+\begin{myindentpar}{1cm}
+If set to false, the SyntaxElement class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSyntaxElementDecorator}
+\begin{myindentpar}{1cm}
+If set to false, the SyntaxElementDecorator class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTerminal}
+\begin{myindentpar}{1cm}
+If set to false, the Terminal class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTerminateParsingException}
+\begin{myindentpar}{1cm}
+If set to false, the TerminateParsingException class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTextHover}
+\begin{myindentpar}{1cm}
+If set to false, the TextHover class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTextResource}
+\begin{myindentpar}{1cm}
+If set to false, the text resource class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTextResourceUtil}
+\begin{myindentpar}{1cm}
+If set to false, the TextResourceUtil class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTextToken}
+\begin{myindentpar}{1cm}
+If set to false, the TextToken class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTokenResolveResult}
+\begin{myindentpar}{1cm}
+If set to false, the TokenResolveResult class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTokenResolverFactory}
+\begin{myindentpar}{1cm}
+If set to false, the token resolver factory class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTokenResolvers}
+\begin{myindentpar}{1cm}
+If set to true, the token resolver classes will be overridden. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTokenScanner}
+\begin{myindentpar}{1cm}
+If set to false, the TokenScanner class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideTokenStyleInformationProvider}
+\begin{myindentpar}{1cm}
+If set to false, the TokenStyleInformationProvider class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIBuildProperties}
+\begin{myindentpar}{1cm}
+If set to false, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIDotClasspath}
+\begin{myindentpar}{1cm}
+If set to false, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIDotProject}
+\begin{myindentpar}{1cm}
+If set to false, the .project file of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIManifest}
+\begin{myindentpar}{1cm}
+If set to false, the manifest of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIMetaInformation}
+\begin{myindentpar}{1cm}
+If set to false, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIPluginActivator}
+\begin{myindentpar}{1cm}
+If set to false, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIPluginXML}
+\begin{myindentpar}{1cm}
+If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideURIMapping}
+\begin{myindentpar}{1cm}
+If set to false, the UriMapping class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUnexpectedContentTypeException}
+\begin{myindentpar}{1cm}
+If set to false, the UnexpectedContentTypeException class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUnicodeConverter}
+\begin{myindentpar}{1cm}
+If set to false, the UnicodeConverter class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideWhiteSpace}
+\begin{myindentpar}{1cm}
+If set to false, the WhiteSpace class will not be overridden. The default value for this option is \textbf{true}.
+\end{myindentpar}
+
+\noindent\texttt{parserGenerator}
+\begin{myindentpar}{1cm}
+The name of the parser generator to use.
+\end{myindentpar}
+
+\noindent\texttt{reloadGeneratorModel}
+\begin{myindentpar}{1cm}
+If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{resourcePluginID}
+\begin{myindentpar}{1cm}
+The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID.
+\end{myindentpar}
+
+\noindent\texttt{resourceUIPluginID}
+\begin{myindentpar}{1cm}
+The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID.
+\end{myindentpar}
+
+\noindent\texttt{saveChangedResourcesOnly}
+\begin{myindentpar}{1cm}
+If set to true, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{srcFolder}
+\begin{myindentpar}{1cm}
+The name of the folder EMFText shall store the overridable classes of the resource plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{srcGenFolder}
+\begin{myindentpar}{1cm}
+The name of the folder EMFText shall store the generated classes of the resource plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{tokenspace}
+\begin{myindentpar}{1cm}
+The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules. This option should only be used with the classic printer.
+\end{myindentpar}
+
+\noindent\texttt{uiBasePackage}
+\begin{myindentpar}{1cm}
+The package where to store all clasess of the resource UI plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{uiSrcFolder}
+\begin{myindentpar}{1cm}
+The name of the folder EMFText shall store the overridable classes of the resource UI plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{uiSrcGenFolder}
+\begin{myindentpar}{1cm}
+The name of the folder EMFText shall store the generated classes of the resource UI plug-in in.
+\end{myindentpar}
+
+\noindent\texttt{useClassicPrinter}
+\begin{myindentpar}{1cm}
+If set to false, the classic printer (i.e., the used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. The default value for this option is \textbf{false}.
+\end{myindentpar}
+
+\noindent\texttt{usePredefinedTokens}
+\begin{myindentpar}{1cm}
+If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is \textbf{true}.
+\end{myindentpar}
+
