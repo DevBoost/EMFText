@@ -37,7 +37,7 @@ public class AppendixGenerator {
 			EEnumLiteral enumLiteral = ConcretesyntaxPackage.eINSTANCE.getOptionTypes().getEEnumLiteral(optionType.getName());
 			String literal = optionType.getLiteral();
 			String documentation = EcoreUtil.getDocumentation(enumLiteral);
-			documentation = documentation.replaceAll("<code>(.*)</code>", "\\\\textbf{$1}");
+			documentation = documentation.replaceAll("<code>(.[^<]*)</code>", "\\\\textbf{$1}");
 			System.out.println(literal + " : " + documentation);
 			latexCode.append("\\noindent\\texttt{" + literal + "}\n");
 			latexCode.append("\\begin{myindentpar}{1cm}\n");
