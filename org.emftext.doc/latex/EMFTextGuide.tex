@@ -4,10 +4,13 @@
 \usepackage[colorlinks,linkcolor=black,citecolor=black,urlcolor=black,plainpages=false,pdfpagelabels]{hyperref} 
 \usepackage[nottoc,notlof]{tocbibind} %bib in toc
 \usepackage{listings}
+\lstset{basicstyle=\ttfamily} 
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{abbrevs}
 \input{Abbreviations}
+
+\newcommand{\todo}[1]{\color{red}\textbf{TODO #1}\color{black}}
 
 % For tables
 \usepackage{array}
@@ -17,6 +20,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 \usepackage[scaled]{luximono}
+
+\newcommand{\changefont}[3]{\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
 
 \typearea{12}
 \clubpenalty = 10000
@@ -49,8 +54,8 @@
 
 \vspace{3cm}
 {
-\fontsize{60}{60}
-\textsc{User Guide}
+\fontsize{40}{40}
+\changefont{phv}{m}{n}{User Guide}
 }
 \end{center}
 
