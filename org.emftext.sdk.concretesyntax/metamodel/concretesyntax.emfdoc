@@ -492,7 +492,7 @@ OptionTypes.OVERRIDE_QUICK_FIX : "If set to false, the QuickFix class will not b
 
 OptionTypes.OVERRIDE_ANNOTATION_MODEL : "If set to false, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
 
-OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY : "If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is <code>true</code>."
+OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY : "If set to false, AnnotationModelFactory class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.OVERRIDE_MARKER_ANNOTATION : "If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
 
