@@ -2790,157 +2790,157 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(0), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, EMFText generate a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, EMFText generates a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(2), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, the plugin.xml file will be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>true</code>, the plugin.xml file will be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(3), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(4), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Parser class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Parser class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(5), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, the token resolver classes will be overridden. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, the token resolver classes will be overridden. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(6), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, the reference resolver classes will be overridden. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, the reference resolver classes will be overridden. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(7), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the reference resolver switch will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the reference resolver switch will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(8), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the token resolver factory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the token resolver factory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(9), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the printer will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the printer will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(10), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Antlr-backtracking is deactivated for parser generation. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ANTLR-backtracking is deactivated for parser generation. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(11), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Antlr-memoize is deactivated for parser generation. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ANTLR-memoize is deactivated for parser generation. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(12), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(13), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, EMFText will generate a parser that does not expect an EOF signal at the end of the input stream. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, EMFText will generate a parser that does not expect an EOF signal at the end of the input stream. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(14), 
 		   source, 
 		   new String[] {
-			 "documentation", "This option can be used to specify the name of the token that is used for non-containment references. A declaration like <code>featureX[]</code> in a CS rule with be replaced by <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>."
+			 "documentation", "This option can be used to specify the name of the token that is used when no token is given for attributes or non-containment references in syntax rules. Declarations like <code>featureX[]</code> in CS rules will automatically be expanded to <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>. The default value for this option is <code>TEXT</code>, which makes the predefined token <code>TEXT</code> the default token."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(15), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(16), 
 		   source, 
 		   new String[] {
-			 "documentation", "The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules. This option should only be used with the classic printer."
+			 "documentation", "The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules. This option should only be used with the classic printer. The default value of this option is <code>1</code> if the classic printer is used (see option <code>useClassicPrinter</code>) and <code>automatic</code> otherwise."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(17), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(18), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(19), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(20), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the text resource class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the text resource class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(21), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the resource factory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the resource factory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(22), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the new file wizard class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the new file wizard class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(23), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the parser generator to use."
+			 "documentation", "The name of the parser generator to use. The default value for this option is <code>antlr</code>, which is also the only valid value. This is a non-standard option, which might be removed in future releases of EMFText."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(24), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the folder EMFText shall store the overridable classes of the resource plug-in in."
+			 "documentation", "The name of the folder where EMFText shall store the customizable classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(25), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the base package EMFText shall store the generated classes or the resource plug-in in."
+			 "documentation", "The name of the base package EMFText shall store the generated classes or the resource plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION</code> to the base package of the generator model."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(26), 
@@ -2952,949 +2952,949 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(27), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the build.properties file will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the build.properties file will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(28), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MetaInformation class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MetaInformation class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(29), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the default resolver class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the default resolver class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(30), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the problem class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the problem class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(31), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Scanner class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Scanner class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(32), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(33), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(34), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the DelegatingResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the DelegatingResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(35), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the DummyEObject class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the DummyEObject class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(36), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ElementMapping class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ElementMapping class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(37), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the FuzzyResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the FuzzyResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(38), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the DefaultTokenResolver class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the DefaultTokenResolver class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(39), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the LocationMap class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the LocationMap class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(40), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(41), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(42), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the UriMapping class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the UriMapping class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(43), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the HoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the HoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(44), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ParseResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ParseResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(45), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the AntlrTokenHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the AntlrTokenHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(46), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the BracketSet class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the BracketSet class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(47), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the BrowserInformationControl class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the BrowserInformationControl class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(48), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CodeFoldingManager class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CodeFoldingManager class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(49), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ColorManager class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ColorManager class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(50), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CompletionProcessor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CompletionProcessor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(51), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ParsingStrategy class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ParsingStrategy class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(52), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the DocBrowserInformationControlInput class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the DocBrowserInformationControlInput class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(53), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the EditorConfiguration class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the EditorConfiguration class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(54), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Editor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Editor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(55), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the EObjectSelection class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the EObjectSelection class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(56), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Highlighting class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Highlighting class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(57), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the HtmlPrinter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the HtmlPrinter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(58), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Hyperlink class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Hyperlink class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(59), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the HyperlinkDetector class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the HyperlinkDetector class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(60), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MarkerHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MarkerHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(61), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Occurence class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Occurence class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(62), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the OutlinePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the OutlinePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(63), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the OutlinePageTreeViewer class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the OutlinePageTreeViewer class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(64), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PluginActivator class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PluginActivator class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(65), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PositionCategory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PositionCategory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(66), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PositionHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PositionHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(67), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PropertySheetPage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PropertySheetPage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(68), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TextHover class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TextHover class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(69), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TokenScanner class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TokenScanner class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(70), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the BracketPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the BracketPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(71), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PreferenceConstants class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PreferenceConstants class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(72), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the OccurencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the OccurencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(73), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PixelConverter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PixelConverter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(74), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PreferenceInitializer class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PreferenceInitializer class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(75), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the SyntaxColoringHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the SyntaxColoringHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(76), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the SyntaxColoringPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the SyntaxColoringPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(77), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(78), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the InputStreamProcessor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the InputStreamProcessor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(79), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IOptionProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IOptionProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(80), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IOptions class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IOptions class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(81), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(82), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IResourcePostProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IResourcePostProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(83), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IBracketPair class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IBracketPair class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(84), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ICommand class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ICommand class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(85), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IConfigurable class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IConfigurable class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(86), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(87), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(88), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IElementMapping class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IElementMapping class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(89), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(90), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(91), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ILocationMap class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ILocationMap class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(92), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IParseResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IParseResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(93), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IProblem class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IProblem class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(94), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IReferenceMapping class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IReferenceMapping class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(95), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IReferenceResolver class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IReferenceResolver class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(96), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(97), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IReferenceResolverSwitch class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IReferenceResolverSwitch class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(98), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextDiagnostic class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextDiagnostic class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(99), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextParser class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextParser class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(100), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextPrinter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextPrinter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(101), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextResource class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextResource class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(102), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IMetaInformation class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IMetaInformation class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(103), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextResourcePluginPart class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextResourcePluginPart class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(104), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextScanner class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextScanner class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(105), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITextToken class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITextToken class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(106), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITokenResolver class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITokenResolver class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(107), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(108), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITokenResolverFactory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITokenResolverFactory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(109), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ITokenStyle class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ITokenStyle class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(110), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IUriMapping class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IUriMapping class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(111), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the EProblemType class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the EProblemType class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(112), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CodeCompletionHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CodeCompletionHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(113), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ExpectedCsString class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ExpectedCsString class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(114), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ExpectedStructuralFeature class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ExpectedStructuralFeature class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(115), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CastUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CastUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(116), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CopiedEList class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CopiedEList class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(117), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(118), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the EClassUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the EClassUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(119), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the EObjectUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the EObjectUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(120), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ListUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ListUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(121), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MapUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MapUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(122), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MinimalModelHelper class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MinimalModelHelper class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(123), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(124), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the StreamUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the StreamUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(125), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the StringUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the StringUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(126), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TextResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TextResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(127), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the UnicodeConverter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the UnicodeConverter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(128), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the AbstractExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the AbstractExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(129), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the NewFileWizardPage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the NewFileWizardPage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(130), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IBackgroundParsingListener class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IBackgroundParsingListener class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(131), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TerminateParsingException class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TerminateParsingException class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(132), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the UnexpectedContentTypeException class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the UnexpectedContentTypeException class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(133), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TextToken class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TextToken class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(134), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the folder EMFText shall store the generated classes of the resource plug-in in."
+			 "documentation", "The name of the folder where EMFText shall store the generated classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(135), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(136), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(137), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ResourceFactoryDelegator class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ResourceFactoryDelegator class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(138), 
 		   source, 
 		   new String[] {
-			 "documentation", "The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in)."
+			 "documentation", "The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in). By default this option is not set, which means that the generated resource plug-in provides the resource implementation."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(139), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the PreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the PreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(140), 
 		   source, 
 		   new String[] {
-			 "documentation", "Sets the ID for the generated common ANTLR runtime plug-in."
+			 "documentation", "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_2_0</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(141), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(142), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the TokenStyleInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the TokenStyleInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(143), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the FoldingInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the FoldingInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(144), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the BracketInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the BracketInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(145), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the SyntaxCoverageInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the SyntaxCoverageInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(146), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(147), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the NewFileContentProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the NewFileContentProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(148), 
 		   source, 
 		   new String[] {
-			 "documentation", "A URI pointing to a text file that contains a header which shall be added to all generated Java files."
+			 "documentation", "A URI pointing to a text file that contains a header which shall be added to all generated Java files. This option is useful to include copyright statements in the generated classes. If this option is not set, a default (empty) header is added to all generated Java classes."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(149), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ExpectedTerminal class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ExpectedTerminal class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(150), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the CompletionProposal class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the CompletionProposal class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(151), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Builder class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Builder class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(152), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the BuilderAdapter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the BuilderAdapter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(153), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IBuilder class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IBuilder class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(154), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Nature class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Nature class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(155), 
 		   source, 
 		   new String[] {
-			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in."
+			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(156), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, the builder that is generated and registered by default will not be registered anymore. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, the builder that is generated and registered by default will not be registered anymore. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(157), 
 		   source, 
 		   new String[] {
-			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in."
+			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(158), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Pair class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Pair class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(159), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the AbstractInterpreter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the AbstractInterpreter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(160), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the GrammarInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the GrammarInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(161), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the AttributeValueProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the AttributeValueProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(162), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the FollowSetProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the FollowSetProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(163), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the SyntaxElement class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the SyntaxElement class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(164), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Keyword class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Keyword class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(165), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Placeholder class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Placeholder class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(166), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Cardinality class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Cardinality class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(167), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Printer2 class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Printer2 class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(168), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Choice class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Choice class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(169), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Compound class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Compound class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(170), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Containment class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Containment class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(171), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the LineBreak class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the LineBreak class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(172), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Sequence class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Sequence class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(173), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the WhiteSpace class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the WhiteSpace class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(174), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the SyntaxElementDecorator class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the SyntaxElementDecorator class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(175), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(176), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the DefaultHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the DefaultHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(177), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the FormattingElement class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the FormattingElement class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(178), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the Terminal class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Terminal class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(179), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the LayoutInformationAdapter class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the LayoutInformationAdapter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(180), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the LayoutInformation class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the LayoutInformation class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(181), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the classic printer (i.e., the used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>false</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(182), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, constraint validation using registered EValidators will be enabled. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, constraint validation using registered EValidators will be enabled. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(183), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to true, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(184), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(185), 
@@ -3906,85 +3906,85 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(186), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(187), 
 		   source, 
 		   new String[] {
-			 "documentation", "The package where to store all clasess of the resource UI plug-in in."
+			 "documentation", "The package where to store all classes of the resource UI plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION.ui</code> to the base package of the generator model."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(188), 
 		   source, 
 		   new String[] {
-			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in."
+			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(189), 
 		   source, 
 		   new String[] {
-			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in."
+			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(190), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(191), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(192), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(193), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(194), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the folder EMFText shall store the overridable classes of the resource UI plug-in in."
+			 "documentation", "The name of the folder where EMFText shall store the customizable classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(195), 
 		   source, 
 		   new String[] {
-			 "documentation", "The name of the folder EMFText shall store the generated classes of the resource UI plug-in in."
+			 "documentation", "The name of the folder EMFText shall store the generated classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(196), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(197), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IBracketHandler class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IBracketHandler class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(198), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(199), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(200), 
@@ -3996,55 +3996,55 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(201), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(202), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the QuickFix class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the QuickFix class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(203), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(204), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, AnnotatioModelFactory class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, AnnotationModelFactory class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(205), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(206), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(207), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(208), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(209), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to false, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (abstractEClass, 
