@@ -32,6 +32,17 @@ public class AppendixGenerator {
 				return o1.getLiteral().compareTo(o2.getLiteral());
 			}
 		});
+		int overrideOptions = 0;
+		for (OptionTypes optionTypes : values) {
+			if (optionTypes.getLiteral().startsWith("override")) {
+				overrideOptions++;
+			}
+		}
+		latexCode.append(
+			"EMFText currently supports " + values.size() + " code generation options. " +
+			"However, most of them (" + overrideOptions + ") are only used to specify which generated artifacts shall be customized. " +
+			"Subsequently, a list of all options and their description can be found.\n\n"
+		);
 		
 		for (OptionTypes optionType : values) {
 			EEnumLiteral enumLiteral = ConcretesyntaxPackage.eINSTANCE.getOptionTypes().getEEnumLiteral(optionType.getName());
