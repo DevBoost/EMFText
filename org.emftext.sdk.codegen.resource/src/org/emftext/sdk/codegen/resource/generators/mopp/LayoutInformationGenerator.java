@@ -2,8 +2,6 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -29,15 +27,15 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addFields(StringComposite sc) {
 		sc.add("private final " + syntaxElementClassName + " syntaxElement;");
 		sc.add("private final int startOffset;");
-		sc.add("private final " + STRING + " hiddenTokenText;");
-		sc.add("private final " + STRING + " visibleTokenText;");
-		sc.add("private " + OBJECT + " object;");
+		sc.add("private final String hiddenTokenText;");
+		sc.add("private final String visibleTokenText;");
+		sc.add("private Object object;");
 		sc.add("private boolean wasResolved;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, " + OBJECT + " object, int startOffset, " + STRING + " hiddenTokenText, " + STRING + " visibleTokenText) {");
+		sc.add("public " + getResourceClassName() + "(" + syntaxElementClassName + " syntaxElement, Object object, int startOffset, String hiddenTokenText, String visibleTokenText) {");
 		sc.add("super();");
 		sc.add("this.syntaxElement = syntaxElement;");
 		sc.add("this.object = object;");
@@ -72,7 +70,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addGetObjectMethod(JavaComposite sc) {
-		sc.add("public " + OBJECT + " getObject(" + E_OBJECT + " container) {");
+		sc.add("public Object getObject(" + E_OBJECT + " container) {");
 		sc.add("if (wasResolved) {");
 		sc.add("return object;");
 		sc.add("}");
@@ -102,14 +100,14 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addGetHiddenTokenTextMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getHiddenTokenText() {");
+		sc.add("public String getHiddenTokenText() {");
 		sc.add("return hiddenTokenText;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetVisibleTokenTextMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getVisibleTokenText() {");
+		sc.add("public String getVisibleTokenText() {");
 		sc.add("return visibleTokenText;");
 		sc.add("}");
 		sc.addLineBreak();

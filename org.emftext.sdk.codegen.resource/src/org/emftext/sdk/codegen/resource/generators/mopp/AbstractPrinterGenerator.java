@@ -2,7 +2,6 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -42,7 +41,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	protected void addAddWarningToResourceMethod(JavaComposite sc) {
-		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
+		sc.add("protected void addWarningToResource(final String errorMessage, " + E_OBJECT + " cause) {");
 		sc.add(iTextResourceClassName + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the printer is used stand alone");

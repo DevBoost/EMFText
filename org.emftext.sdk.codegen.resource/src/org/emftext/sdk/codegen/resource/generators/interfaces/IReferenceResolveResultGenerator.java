@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -52,7 +51,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 			"afterwards, the error message is also discarded.",
 			"@param message the error that prevented resolving the reference"
 		);
-		sc.add("public void setErrorMessage(" + STRING + " message);");
+		sc.add("public void setErrorMessage(String message);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -68,11 +67,11 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 			"Optionally a warning can be passed to this method if resolving " +
 			"the reference was successful, but not accurate."
 		);
-		sc.add("public void addMapping(" + STRING + " identifier, ReferenceType target, " + STRING + " warning);");
+		sc.add("public void addMapping(String identifier, ReferenceType target, String warning);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@see addMapping(String, ReferenceType, String)");
-		sc.add("public void addMapping(" + STRING + " identifier, ReferenceType target);");
+		sc.add("public void addMapping(String identifier, ReferenceType target);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -84,11 +83,11 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 			"reference was successful, but not accurate.",
 			"@param identifier",
 			"@param newIdentifier");
-		sc.add("public void addMapping(" + STRING + " identifier, " + URI + " newIdentifier, " + STRING + " warning);");
+		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier, String warning);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@see addMapping(String, " + URI + ", String)");
-		sc.add("public void addMapping(" + STRING + " identifier, " + URI + " newIdentifier);");
+		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

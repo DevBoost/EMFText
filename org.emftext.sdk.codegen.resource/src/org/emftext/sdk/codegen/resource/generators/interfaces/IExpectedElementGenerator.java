@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -35,7 +34,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addJavadoc("An element that is expected at a given position in a resource stream.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("public " + STRING +" getTokenName();");
+		sc.add("public String getTokenName();");
 		sc.add("public " + E_CLASS +" getRuleMetaclass();");
 		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path);");
 		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers();");

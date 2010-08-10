@@ -21,7 +21,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IT
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION_CHAIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -48,7 +47,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("this.copy.addAll(this.original);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean basicContains(" + OBJECT + " object) {");
+		sc.add("public boolean basicContains(Object object) {");
 		sc.add("return copy.basicContains(object);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -60,7 +59,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("return copy.basicGet(index);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public int basicIndexOf(" + OBJECT + " object) {");
+		sc.add("public int basicIndexOf(Object object) {");
 		sc.add("return copy.basicIndexOf(object);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -68,7 +67,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("return copy.basicIterator();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public int basicLastIndexOf(" + OBJECT + " object) {");
+		sc.add("public int basicLastIndexOf(Object object) {");
 		sc.add("return copy.basicLastIndexOf(object);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -84,7 +83,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("return copy.basicListIterator(index);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + OBJECT + "[] basicToArray() {");
+		sc.add("public Object[] basicToArray() {");
 		sc.add("return copy.basicToArray();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -92,7 +91,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("return copy.basicToArray(array);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean equals(" + OBJECT + " o) {");
+		sc.add("public boolean equals(Object o) {");
 		sc.add("return copy.equals(o);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -125,7 +124,7 @@ public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator<Artif
 		sc.add("return original.basicAdd(object, notifications);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + NOTIFICATION_CHAIN + " basicRemove(" + OBJECT + " object,");
+		sc.add("public " + NOTIFICATION_CHAIN + " basicRemove(Object object,");
 		sc.add(NOTIFICATION_CHAIN + " notifications) {");
 		sc.add("copy.basicRemove(object, notifications);");
 		sc.add("return original.basicRemove(object, notifications);");

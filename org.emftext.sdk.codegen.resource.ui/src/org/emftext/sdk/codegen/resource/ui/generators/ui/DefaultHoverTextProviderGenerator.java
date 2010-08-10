@@ -5,8 +5,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTIO
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -22,7 +20,12 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
-		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
+		addGetHoverTextMethod(sc);
+		sc.add("}");
+	}
+
+	private void addGetHoverTextMethod(JavaComposite sc) {
+		sc.add("public String getHoverText(" + E_OBJECT + " object) {");
 		sc.add("if (object == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -32,7 +35,7 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.add("String documentationHTML = documentation == null ? \"\" : \" (\" + documentation +\")\";");
 		sc.add("label += documentationHTML;");
 		sc.add("for (" + E_ATTRIBUTE + " attribute : eClass.getEAllAttributes()) {");
-		sc.add(OBJECT + " value = null;");
+		sc.add("Object value = null;");
 		sc.add("try {");
 		sc.add("value = object.eGet(attribute);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
@@ -44,8 +47,6 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.add("}");
 		sc.add("return label;");
 		sc.add("}");
-		sc.add("}");
+		sc.addLineBreak();
 	}
-
-	
 }

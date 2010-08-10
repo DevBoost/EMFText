@@ -1,7 +1,6 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -44,7 +43,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		
 		sc.addJavadoc("a list of the indices that must be printed");
-		sc.add("private " + LIST + "<" + INTEGER+ "> indicesToPrint = new " + ARRAY_LIST + "<" + INTEGER+ ">();");
+		sc.add("private " + LIST + "<Integer> indicesToPrint = new " + ARRAY_LIST + "<Integer>();");
 		sc.addLineBreak();
 	}
 
@@ -73,7 +72,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetNextIndexToPrintMethod(StringComposite sc) {
-		sc.add("public " + INTEGER + " getNextIndexToPrint() {");
+		sc.add("public Integer getNextIndexToPrint() {");
 		sc.add("if (indicesToPrint.size() == 0) {");
 		sc.add("return null;"); 
 		sc.add("}");
@@ -83,7 +82,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addAddIndexToPrintMethod(StringComposite sc) {
-		sc.add("public void addIndexToPrint(" + INTEGER + " index) {");
+		sc.add("public void addIndexToPrint(Integer index) {");
 		sc.add("indicesToPrint.add(index);"); 
 		sc.add("}"); 
 		sc.addLineBreak();

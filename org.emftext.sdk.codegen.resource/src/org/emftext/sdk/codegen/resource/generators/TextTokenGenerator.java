@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -60,7 +59,7 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 	}
 
 	private void addGetNameMethod(JavaComposite sc) {
-		sc.add("public " + STRING + " getName() {");
+		sc.add("public String getName() {");
 		sc.add("return getTokenName(metaInformation.getTokenNames(), antlrToken.getType());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -104,18 +103,18 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 	}
 
 	private void addGetTextMethod(JavaComposite sc) {
-		sc.add("public " + STRING + " getText() {");
+		sc.add("public String getText() {");
 		sc.add("return antlrToken.getText();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetTokenNameMethod(JavaComposite sc) {
-		sc.add("public " + STRING + " getTokenName(" + STRING + "[] tokenNames, int index) {");
+		sc.add("public String getTokenName(String[] tokenNames, int index) {");
 		sc.add("if (tokenNames == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(STRING + " tokenName = tokenNames[index];");
+		sc.add("String tokenName = tokenNames[index];");
 		sc.add("if (tokenName != null && tokenName.startsWith(\"'\")) {");
 		sc.add("tokenName = tokenName.substring(1, tokenName.length() - 1).trim();");
 		sc.add("}");

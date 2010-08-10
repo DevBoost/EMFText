@@ -29,11 +29,9 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
@@ -139,7 +137,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return;");
 		sc.add("}");
 		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
-		sc.add(STRING + " prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);");
+		sc.add("String prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);");
 		sc.add("expectedElement.setPrefix(prefix);");
 		sc.add("}");
 		sc.add("}");
@@ -158,7 +156,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addMatchesMethod(StringComposite sc) {
-		sc.add("private boolean matches(" + STRING + " proposal, " + STRING + " prefix) {");
+		sc.add("private boolean matches(String proposal, String prefix) {");
 		sc.add("return (proposal.toLowerCase().startsWith(prefix.toLowerCase()) || " + stringUtilClassName + ".matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -183,9 +181,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addHandleAttributeMethod(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleAttribute(" + iMetaInformationClassName + " metaInformation, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT + " container, " + E_ATTRIBUTE + " attribute, " + STRING + " prefix) {");
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleAttribute(" + iMetaInformationClassName + " metaInformation, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT + " container, " + E_ATTRIBUTE + " attribute, String prefix) {");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add(OBJECT + "[] defaultValues = attributeValueProvider.getDefaultValues(attribute);");
+		sc.add("Object[] defaultValues = attributeValueProvider.getDefaultValues(attribute);");
 		sc.add("if (defaultValues != null) {");
 		sc.add("for (Object defaultValue : defaultValues) {");
 		sc.add("if (defaultValue != null) {");
@@ -208,7 +206,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addHandleNCReferenceMethod(JavaComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleNCReference(" + iMetaInformationClassName + " metaInformation, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + STRING + " prefix, " + STRING + " tokenName) {");
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleNCReference(" + iMetaInformationClassName + " metaInformation, " + E_OBJECT + " container, " + E_REFERENCE + " reference, String prefix, String tokenName) {");
 		sc.addComment(
 			"proposals for non-containment references are derived by calling the " + 
 			"reference resolver switch in fuzzy mode."
@@ -224,7 +222,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(IMAGE + " image = null;");
 		sc.add("if (mapping instanceof " + elementMappingClassName + "<?>) {");
 		sc.add(elementMappingClassName + "<?> elementMapping = (" + elementMappingClassName + "<?>) mapping;");
-		sc.add(OBJECT + " target = elementMapping.getTargetElement();");
+		sc.add("Object target = elementMapping.getTargetElement();");
 		sc.addComment("de-resolve reference to obtain correct identifier");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("final String identifier = tokenResolver.deResolve(elementMapping.getIdentifier(), reference, container);");

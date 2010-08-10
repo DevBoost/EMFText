@@ -21,7 +21,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -104,7 +103,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addDeResolveMethod(StringComposite sc) {
-		sc.add("public String deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
 		sc.add("if (value == null) {");
 		sc.add("return \"null\";");
 		sc.add("}");

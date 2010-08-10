@@ -1,8 +1,6 @@
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -49,14 +47,14 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addSetPrefixMethod(StringComposite sc) {
-		sc.add("public void setPrefix(" + STRING + " prefix) {");
+		sc.add("public void setPrefix(String prefix) {");
 		sc.add("this.prefix = prefix;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetPrefixMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getPrefix() {");
+		sc.add("public String getPrefix() {");
 		sc.add("return prefix;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -87,14 +85,14 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
-		sc.add("public boolean equals(" + OBJECT + " o) {");
+		sc.add("public boolean equals(Object o) {");
 		sc.add("return this.terminal.equals(((" + getResourceClassName() + ") o).terminal);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addToStringMethod(StringComposite sc) {
-		sc.add("public " + STRING + " toString() {");
+		sc.add("public String toString() {");
 		sc.add("return terminal == null ? \"null\" : terminal.toString();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -136,7 +134,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("private " + iExpectedElementClassName + " terminal;");
 		sc.add("private int startIncludingHiddenTokens;");
 		sc.add("private int startExcludingHiddenTokens;");
-		sc.add("private " + STRING + " prefix;");
+		sc.add("private String prefix;");
 		sc.add("private " + E_STRUCTURAL_FEATURE + "[] containmentTrace;");
 		sc.addLineBreak();
 	}

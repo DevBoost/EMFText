@@ -6,7 +6,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFIER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -52,7 +51,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	private void addIsAdapterForTypeMethod(StringComposite sc) {
-		sc.add("public boolean isAdapterForType(" + OBJECT + " type) {");
+		sc.add("public boolean isAdapterForType(Object type) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -61,7 +60,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addInternalRegisterTokenResolverMethod(StringComposite sc) {
-		sc.add("private boolean internalRegisterTokenResolver(" + MAP + "<" + STRING + ", " + iTokenResolverClassName + "> resolverMap, " + STRING + " key, " + iTokenResolverClassName + " resolver) {");
+		sc.add("private boolean internalRegisterTokenResolver(" + MAP + "<String, " + iTokenResolverClassName + "> resolverMap, String key, " + iTokenResolverClassName + " resolver) {");
 		sc.add("if (!resolverMap.containsKey(key)) {");
 		sc.add("resolverMap.put(key,resolver);");
 		sc.add("return true;");
@@ -72,7 +71,7 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addInternalCreateResolverMethod(StringComposite sc) {
-		sc.add("private " + iTokenResolverClassName + " internalCreateResolver(" + MAP + "<" + STRING + ", " + iTokenResolverClassName + "> resolverMap, String key) {");
+		sc.add("private " + iTokenResolverClassName + " internalCreateResolver(" + MAP + "<String, " + iTokenResolverClassName + "> resolverMap, String key) {");
 		sc.add("if (resolverMap.containsKey(key)){");
 		sc.add("return resolverMap.get(key);");
 		sc.add("} else {");
@@ -83,51 +82,51 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addDeRegisterTokenResolverMethod(StringComposite sc) {
-		sc.add("protected " + iTokenResolverClassName + " deRegisterTokenResolver(" + STRING + " tokenName){");
+		sc.add("protected " + iTokenResolverClassName + " deRegisterTokenResolver(String tokenName){");
 		sc.add("return tokenName2TokenResolver.remove(tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRegisterCollectInTokenResolverMethod(StringComposite sc) {
-		sc.add("protected boolean registerCollectInTokenResolver(" + STRING + " featureName, " + iTokenResolverClassName + " resolver){");
+		sc.add("protected boolean registerCollectInTokenResolver(String featureName, " + iTokenResolverClassName + " resolver){");
 		sc.add("return internalRegisterTokenResolver(featureName2CollectInTokenResolver, featureName, resolver);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRegisterTokenResolverMethod(StringComposite sc) {
-		sc.add("protected boolean registerTokenResolver(" + STRING + " tokenName, " + iTokenResolverClassName + " resolver){");
+		sc.add("protected boolean registerTokenResolver(String tokenName, " + iTokenResolverClassName + " resolver){");
 		sc.add("return internalRegisterTokenResolver(tokenName2TokenResolver, tokenName, resolver);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateCollectInTokenResolverMethod(StringComposite sc) {
-		sc.add("public " + iTokenResolverClassName + " createCollectInTokenResolver(" + STRING + " featureName) {");
+		sc.add("public " + iTokenResolverClassName + " createCollectInTokenResolver(String featureName) {");
 		sc.add("return internalCreateResolver(featureName2CollectInTokenResolver, featureName);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateTokenResolverMethod(StringComposite sc) {
-		sc.add("public " + iTokenResolverClassName + " createTokenResolver(" + STRING + " tokenName) {");
+		sc.add("public " + iTokenResolverClassName + " createTokenResolver(String tokenName) {");
 		sc.add("return internalCreateResolver(tokenName2TokenResolver, tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + MAP + "<" + STRING + ", " + iTokenResolverClassName + "> tokenName2TokenResolver;");
-		sc.add("private " + MAP + "<" + STRING + ", " + iTokenResolverClassName + "> featureName2CollectInTokenResolver;");
+		sc.add("private " + MAP + "<String, " + iTokenResolverClassName + "> tokenName2TokenResolver;");
+		sc.add("private " + MAP + "<String, " + iTokenResolverClassName + "> featureName2CollectInTokenResolver;");
 		sc.add("private static " + iTokenResolverClassName + " defaultResolver = new " + defaultTokenResolverClassName + "();");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("tokenName2TokenResolver = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iTokenResolverClassName + ">();");
-		sc.add("featureName2CollectInTokenResolver = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iTokenResolverClassName + ">();");
+		sc.add("tokenName2TokenResolver = new " + LINKED_HASH_MAP + "<String, " + iTokenResolverClassName + ">();");
+		sc.add("featureName2CollectInTokenResolver = new " + LINKED_HASH_MAP + "<String, " + iTokenResolverClassName + ">();");
 		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
 		for (CompleteTokenDefinition definition : concreteSyntax.getActiveTokens()) {
 			if (!definition.isUsed()) {

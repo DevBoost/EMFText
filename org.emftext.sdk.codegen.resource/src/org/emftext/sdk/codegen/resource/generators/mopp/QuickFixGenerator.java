@@ -1,8 +1,12 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -132,7 +136,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addGetContextAsStringMethod(JavaComposite sc) {
 		sc.add("public String getContextAsString() {");
-		sc.add(STRING_BUILDER + " result = new " + STRING_BUILDER + "();");
+		sc.add("StringBuilder result = new StringBuilder();");
 		sc.add("result.append(getType());");
 		sc.add("result.append(\",\");");
 		sc.add("for (" + E_OBJECT + " contextObject : contextObjects) {");

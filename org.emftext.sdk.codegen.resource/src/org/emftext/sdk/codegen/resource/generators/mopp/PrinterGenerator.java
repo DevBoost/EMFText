@@ -20,15 +20,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_WRITER;
 
 import java.util.Collection;
@@ -216,7 +213,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	protected void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
+		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, String globaltab) {");
 		sc.add("if (element == null) {");
 		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
 		sc.add("}");
@@ -273,9 +270,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 		sc.add("public void " + getMethodName(rule) + "("
 				+ getMetaClassName(rule)
-				+ " element, " + STRING + " outertab, " + PRINTER_WRITER + " out) {");
+				+ " element, String outertab, " + PRINTER_WRITER + " out) {");
 
-		sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
+		sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
 
 		printCountingMapIntialization(sc, genClass);
 		addPrintCollectedTokensCode(sc, rule);
@@ -293,9 +290,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 							+ choice2Name.get(choice)
 							+ "("
 							+ getMetaClassName(rule)
-							+ " element, " + STRING + " outertab, " + PRINTER_WRITER + " out, " + MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap){");
+							+ " element, String outertab, " + PRINTER_WRITER + " out, " + MAP + "<String, Integer> printCountingMap){");
 
-			sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
+			sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
 			printChoice(choice, sc, rule.getMetaclass());
 			sc.add("}");
 		}
@@ -312,9 +309,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
 				sc.add(E_STRUCTURAL_FEATURE + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
-				sc.add(OBJECT + " value = element.eGet(feature);");
+				sc.add("Object value = element.eGet(feature);");
 				sc.add("if (value instanceof " + LIST + ") {");
-				sc.add("for (" + OBJECT + " next : (" + LIST + "<?>) value) {");
+				sc.add("for (Object next : (" + LIST + "<?>) value) {");
 				sc.add("out.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
 				sc.add("}");
 				sc.add("}");
@@ -392,7 +389,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		String out1Name = "out1";
 		sc.add(new StringComponent(PRINTER_WRITER + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
-		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
+		sc.add(new StringComponent(MAP + "<String, Integer> " + printCountingMap1Name + " = null;", printCountingMap1Name));
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
@@ -456,7 +453,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix
-										+ "resolver.deResolve((" + OBJECT + ") o, element.eClass().getEStructuralFeature("
+										+ "resolver.deResolve((Object) o, element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ "), element));");
 							}
@@ -523,7 +520,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								sc.add("}");
 								sc.add(LIST_ITERATOR + "<?> it  = list.listIterator(index);");
 								sc.add("while (it.hasNext()) {");
-								sc.add(OBJECT + " o = it.next();");
+								sc.add("Object o = it.next();");
 								if (cardinality instanceof STAR
 										&& neededFeatures.contains(featureName)) {
 									sc.add("if(!it.hasNext())");
@@ -534,7 +531,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\", 0);");
 							} else if (cardinality instanceof PLUS) {
-								sc.add(OBJECT + " o = element."
+								sc.add("Object o = element."
 										+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
@@ -594,7 +591,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			}
 			sc.add("sWriter = new " + STRING_WRITER + "();");
 			sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
-			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
+			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP + "<String, Integer>(printCountingMap);");
 			//compoundDeclaration.enable();
 			
 			sc.add(choice2Name.get(compound
@@ -717,11 +714,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 
 	private void addMatchCountMethod(StringComposite sc) {
-		sc.add("protected static int matchCount(" + MAP + "<" + STRING + ", " + INTEGER + "> featureCounter, " + COLLECTION + "<" + STRING+ "> needed){");
+		sc.add("protected static int matchCount(" + MAP + "<String, Integer> featureCounter, " + COLLECTION + "<String> needed){");
 		sc.add("int pos = 0;");
 		sc.add("int neg = 0;");
 		sc.addLineBreak();
-		sc.add("for(" + STRING + " featureName:featureCounter.keySet()){");
+		sc.add("for(String featureName:featureCounter.keySet()){");
 		sc.add("if(needed.contains(featureName)){");
 		sc.add("int value = featureCounter.get(featureName);");
 		sc.add("if (value == 0) {");
@@ -752,11 +749,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			"feature. For lists this is the list size. For non-multiple features it is either " +
 			"1 (if the feature is set) or 0 (if the feature is null)."
 		);
-		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
+		sc.add(new StringComponent(MAP + "<String, Integer> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<String, Integer>("
 				+ featureList.size() + ");", printCountingMapName));
 		
 		if (featureList.size() > 0) {
-			sc.add(OBJECT + " temp;");
+			sc.add("Object temp;");
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();

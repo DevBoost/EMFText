@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.resource.generators.util;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATTERN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_BUILDER;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -62,7 +61,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addGetRepeatingStringMethod(JavaComposite sc) {
 		sc.add("public static String getRepeatingString(int count, char character) {");
-		sc.add(STRING_BUILDER + " result = new " + STRING_BUILDER + "();");
+		sc.add("StringBuilder result = new StringBuilder();");
 		sc.add("for (int i = 0; i < count; i++) {");
 		sc.add("result.append(character);");
 		sc.add("}");
@@ -291,7 +290,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"replace(\"\\r\", \"\\\\r\")." +
 			"replace(\"\\t\", \"\\\\t\");");
 		
-		sc.add(STRING_BUILDER + " complete = new " + STRING_BUILDER + "();");
+		sc.add("StringBuilder complete = new StringBuilder();");
 		sc.add("for (int i = 0; i < result.length(); i++) {");
 		sc.add("int codePointI = result.codePointAt(i);");
 		sc.add("if (codePointI >= 32 && codePointI <= 127) {");

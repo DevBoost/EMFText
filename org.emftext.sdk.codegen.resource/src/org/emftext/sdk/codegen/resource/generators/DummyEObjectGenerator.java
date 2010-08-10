@@ -19,7 +19,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -70,7 +69,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addESetMethod(StringComposite sc) {
-		sc.add("public void eSet(" + E_STRUCTURAL_FEATURE + " structuralFeature, " + OBJECT + " a0) {");
+		sc.add("public void eSet(" + E_STRUCTURAL_FEATURE + " structuralFeature, Object a0) {");
 		sc.add("this.keyValueMap.put(structuralFeature, a0);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -85,7 +84,7 @@ public class DummyEObjectGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetValueByNameMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getValueByName(String name) {");
+		sc.add("public Object getValueByName(String name) {");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " f : this.keyValueMap.keySet()) {");
 		sc.add("if (f.getName().equals(name)) return this.keyValueMap.get(f);");
 		sc.add("}");
@@ -113,13 +112,13 @@ public class DummyEObjectGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " type, String recurseFeatureName) {");
 		sc.add("this.recurseFeatureName = recurseFeatureName;");
 		sc.add("this.type = type;");
-		sc.add("keyValueMap = new " + LINKED_HASH_MAP + "<" + E_STRUCTURAL_FEATURE + ", " + OBJECT + ">();");
+		sc.add("keyValueMap = new " + LINKED_HASH_MAP + "<" + E_STRUCTURAL_FEATURE + ", Object>();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + MAP + "<" + E_STRUCTURAL_FEATURE + ", " + OBJECT + "> keyValueMap;");
+		sc.add("private " + MAP + "<" + E_STRUCTURAL_FEATURE + ", Object> keyValueMap;");
 		sc.add("private String recurseFeatureName;");
 		sc.add("private " + E_CLASS + " type;");
 		sc.addLineBreak();

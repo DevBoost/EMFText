@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -40,7 +39,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Converts a token into an " + OBJECT + " (the value of the attribute).",
+			"Converts a token into an Object (the value of the attribute).",
 			"@param lexem the text of the parsed token",
 			"@param feature the corresponding feature in the meta model",
 			"@param result the result of resolving the lexem, can be used to add processing errors"
@@ -49,13 +48,13 @@ public class ITokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Converts an " + OBJECT + " (the value of an attribute) to a string which can be printed. " +
+			"Converts an Object (the value of an attribute) to a string which can be printed. " +
 			"This is the inverse of resolving a token with a call to resolve().",
-			"@param value the " + OBJECT + " to be printed as String",
+			"@param value the Object to be printed as String",
 			"@param feature the corresponding feature (EAttribute)",
 			"@param container the container of the object",
 			"@return the String representation or null if a problem occurred");
-		sc.add("public String deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container);");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container);");
 		sc.addLineBreak();
 		
 		sc.add("}");

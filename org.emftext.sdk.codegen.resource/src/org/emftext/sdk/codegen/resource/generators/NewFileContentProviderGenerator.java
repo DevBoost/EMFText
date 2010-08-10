@@ -5,7 +5,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +63,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 	private void addGetNewFileContentMethod(StringComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
-		sc.add("public " + STRING + " getNewFileContent(" + STRING + " newFileName) {");
+		sc.add("public String getNewFileContent(String newFileName) {");
 		sc.add("return getExampleContent(new " + E_CLASS + "[] {");
 		for (GenClass startSymbol : startSymbols) {
 			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
@@ -75,7 +74,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetExampleContentMethod2(JavaComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, " + STRING + " newFileName) {");
+		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, String newFileName) {");
 		sc.addComment("create a minimal model");
 		sc.add(E_OBJECT + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
 		sc.addComment("use printer to get text for model");
@@ -92,7 +91,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetExampleContentMethod1(StringComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + "[] startClasses, " + E_CLASS + "[] allClassesWithSyntax, " + STRING + " newFileName) {");
+		sc.add("protected String getExampleContent(" + E_CLASS + "[] startClasses, " + E_CLASS + "[] allClassesWithSyntax, String newFileName) {");
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		Resource resource = syntax.eResource();
 		URI newFileURI = resource.getURI().trimFileExtension().appendFileExtension("newfile").appendFileExtension(syntax.getName());

@@ -31,17 +31,26 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER + " implements " + iTextParserClassName + " {");
 		sc.addLineBreak();
-		
+		addConstructors(sc);
+		sc.add("}");
+	}
+
+	private void addConstructors(JavaComposite sc) {
+		addConstructor1(sc);
+		addConstructor2(sc);
+	}
+
+	private void addConstructor1(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM +" input) {");
 		sc.add("super(input);");
 		sc.add("}");
 		sc.addLineBreak();
-	    
+	}
+
+	private void addConstructor2(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM +" input, " + RECOGNIZER_SHARED_STATE + " state) {");
 		sc.add("super(input, state);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("}");
 	}
 }

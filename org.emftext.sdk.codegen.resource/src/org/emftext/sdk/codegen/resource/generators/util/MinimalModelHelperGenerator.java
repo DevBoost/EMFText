@@ -24,7 +24,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -138,7 +137,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("continue;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(OBJECT + " value = root.eGet(reference);");
+		sc.add("Object value = root.eGet(reference);");
 		sc.add("if (value instanceof " + LIST + "<?>) {");
 		sc.add(LIST + "<" + E_OBJECT + "> list = " + listUtilClassName + ".castListUnchecked(value);");
 		sc.add("list.add(subModel);");
@@ -157,7 +156,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("else {");
 		sc.add("initialValue = \"some\" + " + stringUtilClassName + ".capitalize(attribute.getName());");
 		sc.add("}");
-		sc.add(OBJECT + " value = root.eGet(attribute);");
+		sc.add("Object value = root.eGet(attribute);");
 		sc.add("if (value instanceof " + LIST + "<?>) {");
 		sc.add(LIST + "<String> list = " + listUtilClassName + ".castListUnchecked(value);");
 		sc.add("list.add(initialValue);");

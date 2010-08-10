@@ -1,8 +1,8 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -106,21 +106,21 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addGetInsertStringMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getInsertString() {");
+		sc.add("public String getInsertString() {");
 		sc.add("return insertString;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetDisplayStringMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getDisplayString() {");
+		sc.add("public String getDisplayString() {");
 		sc.add("return displayString;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetPrefixMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getPrefix() {");
+		sc.add("public String getPrefix() {");
 		sc.add("return prefix;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -134,7 +134,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor1(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
+		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
 		sc.add("super();");
 		sc.add("this.insertString = insertString;");
 		sc.add("this.prefix = prefix;");
@@ -146,7 +146,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor2(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
+		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
 		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
@@ -154,7 +154,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 	
 	private void addConstructor3(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + STRING + " insertString, " + STRING + " prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
+		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
 		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);");
 		sc.add("this.displayString = displayString;");
 		sc.add("}");
@@ -162,9 +162,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 	
 	private void addFields(StringComposite sc) {
-		sc.add("private " + STRING + " insertString;");
-		sc.add("private " + STRING + " displayString;");
-		sc.add("private " + STRING + " prefix;");
+		sc.add("private String insertString;");
+		sc.add("private String displayString;");
+		sc.add("private String prefix;");
 		sc.add("private boolean matchesPrefix;");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
 		sc.add("private " + E_OBJECT + " container;");

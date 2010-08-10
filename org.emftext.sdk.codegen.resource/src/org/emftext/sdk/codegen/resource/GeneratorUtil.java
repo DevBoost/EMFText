@@ -22,8 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import java.io.File;
 import java.util.Collection;
@@ -122,11 +120,11 @@ public class GeneratorUtil {
 		String mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
 
 		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + dummyEObjectClassName + " dummy) {");
-		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
-		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
-		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
+		sc.add("Object value = element.eGet(structuralFeature);");
+		sc.add("Object mapKey = dummy.getValueByName(\"key\");");
+		sc.add("Object mapValue = dummy.getValueByName(\"value\");");
 		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + mapUtilClassName  + ".castToEMap(value);");
+		sc.add(E_MAP + "<Object, Object> valueMap = " + mapUtilClassName  + ".castToEMap(value);");
 		sc.add("if (mapKey != null && mapValue != null) {");
 		sc.add("valueMap.put(mapKey, mapValue);");
 		sc.add("}");
@@ -138,8 +136,8 @@ public class GeneratorUtil {
 	public void addAddObjectToListMethod1(StringComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, int featureID, " + OBJECT + " object) {");
-        sc.add("return ((" + LIST + "<" + OBJECT + ">) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
+        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, int featureID, Object object) {");
+        sc.add("return ((" + LIST + "<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -147,8 +145,8 @@ public class GeneratorUtil {
 	public void addAddObjectToListMethod2(StringComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, " + E_STRUCTURAL_FEATURE + " feature, " + OBJECT + " object) {");
-        sc.add("return ((" + LIST + "<" + OBJECT + ">) container.eGet(feature)).add(object);");
+        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, " + E_STRUCTURAL_FEATURE + " feature, Object object) {");
+        sc.add("return ((" + LIST + "<Object>) container.eGet(feature)).add(object);");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -202,7 +200,7 @@ public class GeneratorUtil {
 		String iQuickFix = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
 		String eProblemType = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 
-		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
+		sc.add("protected void addErrorToResource(final String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 
 		sc.add("postParseCommands.add(new " + iCommand + "<" + iTextResource + ">() {");
 		sc.add("public boolean execute(" + iTextResource + " resource) {");
@@ -214,7 +212,7 @@ public class GeneratorUtil {
 		sc.add("public " + eProblemType + " getType() {");
 		sc.add("return " + eProblemType + ".ERROR;");
 		sc.add("}");
-		sc.add("public " + STRING + " getMessage() {");
+		sc.add("public String getMessage() {");
 		sc.add("return errorMessage;");
 		sc.add("}");
 		sc.add("public " + COLLECTION + "<" + iQuickFix + "> getQuickFixes() {");

@@ -15,8 +15,6 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -79,8 +77,8 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 	}
 
 	private void generateDeResolveMethod1(StringComposite sc) {
-		sc.add("public " + STRING + " deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
-		sc.add(STRING + " result = defaultTokenResolver.deResolve(value, feature, container);");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("String result = defaultTokenResolver.deResolve(value, feature, container);");
 		String suffix = getSuffix();
 		String prefix = getPrefix();
 		
@@ -105,15 +103,15 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 	}
 
 	private void generateDeResolveMethod2(StringComposite sc) {
-		sc.add("public " + STRING + " deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
-		sc.add(STRING + " result = importedResolver.deResolve(value, feature, container);");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("String result = importedResolver.deResolve(value, feature, container);");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void generateResolveMethod1(StringComposite sc) {
-		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
 
 		String suffix = getSuffix();
 		String prefix = getPrefix();
@@ -143,7 +141,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		ConcreteSyntax containingSyntax = definition.getContainingSyntax(syntax);
 		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT, containingSyntax);
-		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
 		sc.add("importedResolver.resolve(lexem, feature, new " + importedTokenResolveResultClassName + "() {");
 		sc.add("public String getErrorMessage() {");
 		sc.add("return result.getErrorMessage();");

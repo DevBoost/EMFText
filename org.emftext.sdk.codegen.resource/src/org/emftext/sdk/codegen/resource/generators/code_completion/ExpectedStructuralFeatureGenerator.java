@@ -14,8 +14,6 @@
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -60,7 +58,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
-		sc.add("public boolean equals(" + OBJECT + " o) {");
+		sc.add("public boolean equals(Object o) {");
 		sc.add("if (o instanceof " + getResourceClassName() + ") {");
 		sc.add("return getFeature().equals(((" + getResourceClassName() + ") o).getFeature());");
 		sc.add("}");
@@ -69,7 +67,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addToStringMethod(StringComposite sc) {
-		sc.add("public " + STRING + " toString() {");
+		sc.add("public String toString() {");
 		sc.add("return \"EFeature \" + getFeature().getEContainingClass().getName() + \".\" + getFeature().getName();");
 		sc.add("}");
 		sc.addLineBreak();

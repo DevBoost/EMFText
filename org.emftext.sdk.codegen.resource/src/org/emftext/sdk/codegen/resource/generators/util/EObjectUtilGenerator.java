@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OPERATION;
@@ -24,7 +23,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -64,7 +62,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add(E_CLASSIFIER + " type) {");
 		sc.add(COLLECTION + "<T> result = new " + ARRAY_LIST + "<T>();");
 		sc.add("while (iterator.hasNext()) {");
-		sc.add(OBJECT + " object = iterator.next();");
+		sc.add("Object object = iterator.next();");
 		sc.add("if (type.isInstance(object)) {");
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("T t = (T) object;");
@@ -78,12 +76,12 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addSetFeatureMethod(StringComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
-		sc.add("public static void setFeature(" + E_OBJECT + " object, " + E_STRUCTURAL_FEATURE + " eFeature, " + OBJECT + " value, boolean clearIfList) {");
+		sc.add("public static void setFeature(" + E_OBJECT + " object, " + E_STRUCTURAL_FEATURE + " eFeature, Object value, boolean clearIfList) {");
 		sc.add("int upperBound = eFeature.getUpperBound();");
 		sc.add("if (upperBound > 1 || upperBound < 0) {");
 		sc.add("Object oldValue = object.eGet(eFeature);");
 		sc.add("if (oldValue instanceof " + LIST + "<?>) {");
-		sc.add(LIST + "<" + OBJECT + "> list = (" + LIST + "<" + OBJECT + ">) oldValue;");
+		sc.add(LIST + "<Object> list = (" + LIST + "<Object>) oldValue;");
 		sc.add("if (clearIfList) {");
 		sc.add("list.clear();");
 		sc.add("}");
@@ -111,24 +109,24 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addInvokeOperationMethod(StringComposite sc) {
-		sc.add("public static " + OBJECT + " invokeOperation(" + E_OBJECT + " element, " + E_OPERATION + " o) {");
+		sc.add("public static Object invokeOperation(" + E_OBJECT + " element, " + E_OPERATION + " o) {");
 		sc.add(METHOD + " method;");
 		sc.add("try {");
 		sc.add("method = element.getClass().getMethod(o.getName(), new Class[]{});");
 		sc.add("if (method != null) {");
-		sc.add(OBJECT + " result = method.invoke(element, new " + OBJECT + "[]{});");
+		sc.add("Object result = method.invoke(element, new Object[]{});");
 		sc.add("return result;");
 		sc.add("}");
 		sc.add("} catch (SecurityException e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while matching proxy URI.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("} catch (NoSuchMethodException e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while matching proxy URI.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("} catch (IllegalArgumentException e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while matching proxy URI.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("} catch (IllegalAccessException e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while matching proxy URI.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION + " e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"" + EXCEPTION + " while matching proxy URI.\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");

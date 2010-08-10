@@ -19,7 +19,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IDENTITY_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
@@ -86,8 +85,8 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("for (" + E_OBJECT + " next : charStartMap.keySet()) {");
-		sc.add(INTEGER + " start = charStartMap.get(next);");
-		sc.add(INTEGER + " end = charEndMap.get(next);");
+		sc.add("Integer start = charStartMap.get(next);");
+		sc.add("Integer end = charEndMap.get(next);");
 		sc.add("if (start == null || end == null) {");
 		sc.add("continue;");
 		sc.add("}");
@@ -172,7 +171,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addGetMapValueMethod(JavaComposite sc) {
 		sc.add("private int getMapValue(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
 		sc.add("if (!map.containsKey(element)) return -1;");
-		sc.add(INTEGER + " value = map.get(element);");
+		sc.add("Integer value = map.get(element);");
 		sc.add("return value == null ? -1 : value.intValue();");
 		sc.add("}");
 		sc.addLineBreak();

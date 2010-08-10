@@ -154,7 +154,7 @@ import org.osgi.framework.BundleContext;
 /**
  * Constants for class names used in the generated code.
  */
-public class IClassNameConstants {
+public interface IClassNameConstants {
 	
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ADAPTER = Adapter.class.getName();
@@ -176,7 +176,6 @@ public class IClassNameConstants {
 	public static String BUNDLE_CONTEXT = BundleContext.class.getName();
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
-	public static String CLASS = Class.class.getName();
 	public static String COLLECTION = Collection.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COMMON_TOKEN = CommonToken.class.getName();
@@ -194,7 +193,6 @@ public class IClassNameConstants {
 	public static String EDITOR = Editor.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
-	public static String EXCEPTION = Exception.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
 	public static String E_CLASSIFIER = EClassifier.class.getName();
@@ -221,7 +219,6 @@ public class IClassNameConstants {
 	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
 	public static String INPUT_STREAM_READER = InputStreamReader.class.getName();
-	public static String INTEGER = Integer.class.getName();
 	public static String INTERNAL_E_LIST = InternalEList.class.getName();
 	public static String INTERNAL_E_OBJECT = InternalEObject.class.getName();
 	public static String INT_STREAM = IntStream.class.getName();
@@ -262,7 +259,6 @@ public class IClassNameConstants {
 	public static String MAP = Map.class.getName();
 	public static String MAP_ENTRY = Map.Entry.class.getCanonicalName();
 	public static String MATCHER = Matcher.class.getName();
-	public static String MATH = Math.class.getName();
 	public static String MESSAGE_DIGEST = MessageDigest.class.getName();
 	public static String METHOD = java.lang.reflect.Method.class.getName();
 	public static String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
@@ -277,7 +273,6 @@ public class IClassNameConstants {
 	public static String NO_SUCH_ALGORITHM_EXCEPTION = NoSuchAlgorithmException.class.getName();
 	public static String NO_VIABLE_ALT_EXCEPTION = NoViableAltException.class.getName();
 	public static String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
-	public static String OBJECT = Object.class.getName();
 	public static String OUTPUT_STREAM = OutputStream.class.getName();
 	public static String OUTPUT_STREAM_WRITER = OutputStreamWriter.class.getName();
 	public static String PATH = Path.class.getName();
@@ -300,17 +295,13 @@ public class IClassNameConstants {
 	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCE_SET = ResourceSet.class.getName();
 	public static String RESOURCE_SET_IMPL = ResourceSetImpl.class.getName();
-	public static String RUNNABLE = Runnable.class.getName();
 	public static String RUNTIME_EXCEPTION = RuntimeException.class.getName();
 	public static String SAFE_RUNNER = SafeRunner.class.getName();
 	public static String SET = Set.class.getName();
 	public static String STACK = Stack.class.getName();
 	public static String STATUS = Status.class.getName();
-	public static String STRING = String.class.getName();
-	public static String STRING_BUILDER = StringBuilder.class.getName();
 	public static String STRING_READER = StringReader.class.getName();
 	public static String STRING_WRITER = StringWriter.class.getName();
-	public static String THROWABLE = Throwable.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();
 	public static String TOKEN = Token.class.getName();

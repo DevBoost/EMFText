@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -45,7 +44,7 @@ public class ScannerlessScannerGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public void setText(" + STRING + " text) {");
+		sc.add("public void setText(String text) {");
 		String scannerlessParserName = getContext().getClassName(TextResourceArtifacts.SCANNERLESS_PARSER);
 		sc.add(scannerlessParserName + " parser = new " + scannerlessParserName + "(new " + BYTE_ARRAY_INPUT_STREAM + "(text.getBytes()), null);");
 		sc.add("parser.setScanMode();");

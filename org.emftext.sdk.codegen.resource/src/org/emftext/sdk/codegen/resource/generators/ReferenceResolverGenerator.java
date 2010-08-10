@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -112,9 +111,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 	}
 
 	private void addDeResolveMethod(StringComposite sc) {
-		sc.add("public "
-				+ STRING
-				+ " deResolve("
+		sc.add("public String deResolve("
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getTypeGenClass())
 				+ " element, "
@@ -129,9 +126,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 	private void addResolveMethod(StringComposite sc) {
 		String typeClassName = genClassCache
 				.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
-		sc.add("public void resolve("
-				+ STRING
-				+ " identifier, "
+		sc.add("public void resolve(String identifier, "
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
 				+ E_REFERENCE

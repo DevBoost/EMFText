@@ -17,7 +17,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -78,7 +77,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 	private void generateResolveFuzzyMethod(StringComposite sc) {
 		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 		
-		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result) {");
+		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result) {");
 		// this was a temporary workaround to avoid NPEs when this switch is called
 		// and no container was available during code completion. New code completion
 		// helpers do create containers on demand, but still checking for null doesn't
@@ -94,7 +93,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 			
 			sc.add("if (" + accessorName + ".isInstance(container)) {");
 			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
-			sc.add(STRING + " referenceName = reference.getName();");
+			sc.add("String referenceName = reference.getName();");
 			sc.add(E_STRUCTURAL_FEATURE + " feature = container.eClass().getEStructuralFeature(referenceName);");
 			sc.add("if (feature != null && feature instanceof " + E_REFERENCE + " && referenceName != null && referenceName.equals(\"" + StringUtil.escapeToJavaString(proxyReference.getName()) + "\")) {");
 			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassCache.getQualifiedInterfaceName(genClass) + ") container, (" + E_REFERENCE + ") feature, position, true, frr);");

@@ -18,7 +18,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -126,7 +125,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	private void addHandleMultipleResultsMethod(JavaComposite sc) {
 		sc.add("private void handleMultipleResults() {");
 		sc.add(E_LIST + "<" + E_OBJECT + "> list = null;");
-		sc.add(OBJECT + " temp = container.eGet(reference);");
+		sc.add("Object temp = container.eGet(reference);");
 		sc.add("if (temp instanceof " + E_LIST + "<?>) {");
 		sc.add("list = " + castUtilClassName + ".cast(temp);");
 		sc.add("}");

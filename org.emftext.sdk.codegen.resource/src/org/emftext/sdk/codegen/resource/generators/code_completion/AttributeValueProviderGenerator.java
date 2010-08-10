@@ -1,7 +1,6 @@
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -25,16 +24,16 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetDefaultValuesMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + "[] getDefaultValues(" + E_ATTRIBUTE + " attribute) {");
+		sc.add("public Object[] getDefaultValues(" + E_ATTRIBUTE + " attribute) {");
 		sc.add("String typeName = attribute.getEType().getName();");
 		sc.add("if (\"EString\".equals(typeName)) {");
-		sc.add("return new " + OBJECT + "[] {\"some\" + " + stringUtilClassName + ".capitalize(attribute.getName())};");
+		sc.add("return new Object[] {\"some\" + " + stringUtilClassName + ".capitalize(attribute.getName())};");
 		sc.add("}");
 		sc.add("if (\"EBoolean\".equals(typeName)) {");
-		sc.add("return new " + OBJECT + "[] {Boolean.TRUE, Boolean.FALSE};");
+		sc.add("return new Object[] {Boolean.TRUE, Boolean.FALSE};");
 		sc.add("}");
 		// TODO mseifert: add more default values for other types
-		sc.add("return new " + OBJECT + "[] {attribute.getDefaultValue()};");
+		sc.add("return new Object[] {attribute.getDefaultValue()};");
 		sc.add("}");
 		sc.addLineBreak();
 	}

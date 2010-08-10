@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
-
 import java.util.List;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -47,7 +45,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 	private void addGetDefaultStyleMethod(StringComposite sc) {
 		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
 		
-		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
+		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName) {");
 		for (TokenStyle nextStyle : styles) {
 			for (String name : nextStyle.getTokenNames()) {
 				sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");

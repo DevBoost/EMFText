@@ -19,7 +19,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -86,15 +85,15 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"@param id",
 			"@param proxyElement"
 		);
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, " + STRING + " id, " + E_OBJECT + " proxyElement);");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, String id, " + E_OBJECT + " proxyElement);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");
-		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause);");
+		sc.add("public void addWarning(String message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Attaches an error with the given message to object 'cause'.");
-		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause);");
+		sc.add("public void addError(String message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		
 		// TODO mseifert: add comment

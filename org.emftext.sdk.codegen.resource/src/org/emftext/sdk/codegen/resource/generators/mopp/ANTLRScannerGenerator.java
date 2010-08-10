@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LEXER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -51,7 +50,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void setText(" + STRING + " text) {");
+		sc.add("public void setText(String text) {");
 		sc.add("antlrLexer.setCharStream(new " + ANTLR_STRING_STREAM + "(text));");
 		sc.add("}");
 		sc.addLineBreak();

@@ -18,7 +18,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -96,7 +95,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addGetDefaultStyleMethod(StringComposite sc) {
-		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(" + STRING + " tokenName) {");
+		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName) {");
 		sc.add("return new " + tokenStyleInformationProviderClassName + "().getDefaultTokenStyle(tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -121,7 +120,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
-		sc.add("public " + STRING +"[] getTokenNames() {");
+		sc.add("public String[] getTokenNames() {");
 		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
 			sc.add("return new " + scannerlessParserClassName + "().getTokenNames();");
 		} else {
@@ -132,21 +131,21 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addGetPathTOCSDefinitionMethod(StringComposite sc) {
-		sc.add("public " + STRING +" getPathToCSDefinition() {");
+		sc.add("public String getPathToCSDefinition() {");
         sc.add("return \"" + getContext().getSyntaxProjectName() + "/" + getContext().getProjectRelativePathToSyntaxFile() + "\";");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetURIMethod(StringComposite sc) {
-		sc.add("public " + STRING +" getURI() {");
+		sc.add("public String getURI() {");
 		sc.add("return \"" + getContext().getConcreteSyntax().getPackage().getNSURI() + "\";");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetConcreteSyntaxName(StringComposite sc) {
-		sc.add("public " + STRING +" getSyntaxName() {");
+		sc.add("public String getSyntaxName() {");
     	sc.add("return \"" + getContext().getConcreteSyntax().getName() + "\";");
     	sc.add("}");
         sc.addLineBreak();
@@ -158,7 +157,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	    	parserClassName = scannerlessParserClassName;
 	    }
 		
-		sc.add("public " + iTextParserClassName + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
+		sc.add("public " + iTextParserClassName + " createParser(" + INPUT_STREAM + " inputStream, String encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
 		sc.add("}");
         sc.addLineBreak();

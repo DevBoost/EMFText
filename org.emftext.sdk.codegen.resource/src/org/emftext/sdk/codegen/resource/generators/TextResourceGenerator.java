@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EC
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EVALUATION_MODE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
@@ -43,15 +42,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.THROWABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
@@ -185,7 +181,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			sc.add("validator.setIncludeLiveConstraints(true);");
 			sc.add(I_STATUS + " status = validator.validate(root);");
 			sc.add("addStatus(status, root);");
-			sc.add("} catch (" + THROWABLE + " t) {");
+			sc.add("} catch (Throwable t) {");
 			sc.add(pluginActivatorClassName + ".logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
 			sc.add("}");
 			sc.add("}");
@@ -209,7 +205,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add(E_OBJECT + " cause = root;");
 		sc.add(LIST + "<?> data = diagnostics.getData();");
 		sc.add("if (data != null && data.size() > 0) {");
-		sc.add(OBJECT + " causeObject = data.get(0);");
+		sc.add("Object causeObject = data.get(0);");
 		sc.add("if (causeObject instanceof " + E_OBJECT + ") {");
 		sc.add("cause = (" + E_OBJECT + ") causeObject;");
 		sc.add("}");
@@ -299,11 +295,11 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("return line;");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + STRING + " getLocation() {");
+    	sc.add("public String getLocation() {");
     	sc.add("return uri.toString();");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("public String getMessage() {");
     	sc.add("return problem.getMessage();");
     	sc.add("}");
     	sc.addLineBreak();
@@ -330,7 +326,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("this.problem = problem;");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("public String getMessage() {");
     	sc.add("return problem.getMessage();");
     	sc.add("}");
     	sc.addLineBreak();
@@ -338,7 +334,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("return problem;");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + STRING + " getLocation() {");
+    	sc.add("public String getLocation() {");
     	sc.add("return uri.toString();");
     	sc.add("}");
     	sc.addLineBreak();
@@ -374,14 +370,14 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     		"is already an option with the same key, the two values are " +
     		"collected in a list."
     	);
-    	sc.add("private void addLoadOption(" + MAP + "<" + OBJECT + ", " + OBJECT + "> options," + OBJECT + " key, " + OBJECT + " value) {");
+    	sc.add("private void addLoadOption(" + MAP + "<Object, Object> options,Object key, Object value) {");
     	sc.addComment("check if there is already an option set");
     	sc.add("if (options.containsKey(key)) {");
-    	sc.add(OBJECT + " currentValue = options.get(key);");
+    	sc.add("Object currentValue = options.get(key);");
     	sc.add("if (currentValue instanceof " + LIST + "<?>) {");
     	sc.addComment("if the current value is a list, we add the new value to this list");
     	sc.add(LIST + "<?> currentValueAsList = (" + LIST + "<?>) currentValue;");
-    	sc.add(LIST + "<" + OBJECT + "> currentValueAsObjectList = " + listUtilClassName + ".copySafelyToObjectList(currentValueAsList);");
+    	sc.add(LIST + "<Object> currentValueAsObjectList = " + listUtilClassName + ".copySafelyToObjectList(currentValueAsList);");
     	sc.add("if (value instanceof " + COLLECTION + "<?>) {");
     	sc.add("currentValueAsObjectList.addAll((" + COLLECTION + "<?>) value);");
     	sc.add("} else {");
@@ -393,7 +389,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     		"if the current value is not a list, we create a fresh list " +
     		"and add both the old (current) and the new value to this list"
     	);
-    	sc.add(LIST + "<" + OBJECT + "> newValueList = new " + ARRAY_LIST + "<" + OBJECT + ">();");
+    	sc.add(LIST + "<Object> newValueList = new " + ARRAY_LIST + "<Object>();");
     	sc.add("newValueList.add(currentValue);");
     	sc.add("if (value instanceof " + COLLECTION + "<?>) {");
     	sc.add("newValueList.addAll((" + COLLECTION + "<?>) value);");
@@ -410,8 +406,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddDefaultLoadOptionsMethod(JavaComposite sc) {
-		sc.add("protected " + MAP + "<" + OBJECT + ", " + OBJECT + "> addDefaultLoadOptions(" + MAP + "<?, ?> loadOptions) {");
-    	sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptionsCopy = " + mapUtilClassName + ".copySafelyToObjectToObjectMap(loadOptions);");
+		sc.add("protected " + MAP + "<Object, Object> addDefaultLoadOptions(" + MAP + "<?, ?> loadOptions) {");
+    	sc.add(MAP + "<Object, Object> loadOptionsCopy = " + mapUtilClassName + ".copySafelyToObjectToObjectMap(loadOptions);");
     	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.addComment("find default load option providers");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
@@ -421,7 +417,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add(iOptionProviderClassName + " provider = (" + iOptionProviderClassName + ") element.createExecutableExtension(\"class\");");
     	sc.add("final " + MAP + "<?, ?> options = provider.getOptions();");
     	sc.add("final " + COLLECTION + "<?> keys = options.keySet();");
-    	sc.add("for (" + OBJECT + " key : keys) {");
+    	sc.add("for (Object key : keys) {");
     	sc.add("addLoadOption(loadOptionsCopy, key, options.get(key));");
     	sc.add("}");
     	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
@@ -468,14 +464,14 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddErrorMethod(StringComposite sc) {
-		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause) {");
+		sc.add("public void addError(String message, " + E_OBJECT + " cause) {");
     	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".ERROR), cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
 	private void addAddWarningMethod(StringComposite sc) {
-		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause) {");
+		sc.add("public void addWarning(String message, " + E_OBJECT + " cause) {");
     	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".WARNING), cause);");
     	sc.add("}");
     	sc.addLineBreak();
@@ -514,7 +510,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addLoadMethod(StringComposite sc) {
 		sc.add("public void load(" + MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
-    	sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptions = addDefaultLoadOptions(options);");
+    	sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
     	sc.add("super.load(loadOptions);");
     	sc.add("}");
     	sc.addLineBreak();
@@ -525,7 +521,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (loadOptions == null) {");
     	sc.add("return;");
     	sc.add("}");
-		sc.add(OBJECT + " resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
+		sc.add("Object resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
 		sc.add("if (resourcePostProcessorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");
     	sc.add("((" + iResourcePostProcessorProviderClassName + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
@@ -537,7 +533,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add(iResourcePostProcessorClassName + " postProcessor = csProcessorProvider.getResourcePostProcessor();");
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
-    	sc.add("} catch (" + EXCEPTION + " e) {");
+    	sc.add("} catch (Exception e) {");
     	sc.add(pluginActivatorClassName + ".logError(\"Exception while running a post-processor.\", e);");
     	sc.add("}");
     	sc.add("}");
@@ -578,7 +574,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("assert result.wasResolved();");
     	sc.add("if (result.wasResolved()) {");
     	sc.add("for (" + iReferenceMappingClassName + "<? extends " + E_OBJECT + "> mapping : result.getMappings()) {");
-    	sc.add("final " + STRING + " warningMessage = mapping.getWarning();");
+    	sc.add("final String warningMessage = mapping.getWarning();");
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
@@ -593,7 +589,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("private void attachErrors(" + iReferenceResolveResultClassName + "<?> result, " + E_OBJECT + " proxy) {");
     	sc.addComment("attach errors to this resource");
     	sc.add("assert result != null;");
-    	sc.add("final " + STRING + " errorMessage = result.getErrorMessage();");
+    	sc.add("final String errorMessage = result.getErrorMessage();");
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
@@ -618,14 +614,14 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetResultElementMethod(JavaComposite sc) {
-		sc.add("private " + E_OBJECT + " getResultElement(" + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + "> uriFragment, " + iReferenceMappingClassName + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final " + STRING + " errorMessage) {");
+		sc.add("private " + E_OBJECT + " getResultElement(" + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + "> uriFragment, " + iReferenceMappingClassName + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final String errorMessage) {");
     	sc.add("if (mapping instanceof " + iUriMappingClassName + "<?>) {");
     	sc.add(URI + " uri = ((" + iUriMappingClassName + "<? extends " + E_OBJECT + ">)mapping).getTargetIdentifier();");
     	sc.add("if (uri != null) {");
     	sc.add(E_OBJECT + " result = null;");
     	sc.add("try {");
     	sc.add("result = this.getResourceSet().getEObject(uri, true);");
-    	sc.add("} catch (" + EXCEPTION + " e) {");
+    	sc.add("} catch (Exception e) {");
     	sc.addComment("we can catch exceptions here, because EMF will try to resolve again and handle the exception");
     	sc.add("}");
     	sc.add("if (result == null || result.eIsProxy()) {");
@@ -709,13 +705,13 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, " + STRING + " id, " + E_OBJECT + " proxyElement) {");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, String id, " + E_OBJECT + " proxyElement) {");
     	sc.add("int pos = -1;");
     	sc.add("if (reference.isMany()) {");
     	sc.add("pos = ((" + LIST + "<?>)container.eGet(reference)).size();");
     	sc.add("}");
     	sc.add(INTERNAL_E_OBJECT + " proxy = (" + INTERNAL_E_OBJECT + ") proxyElement;");
-    	sc.add(STRING + " internalURIFragment = " + iContextDependentUriFragmentClassName+ ".INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + \"_\" + id;");
+    	sc.add("String internalURIFragment = " + iContextDependentUriFragmentClassName+ ".INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + \"_\" + id;");
     	sc.add(iContextDependentUriFragmentClassName + "<?> uriFragment = factory.create(id, container, reference, pos, proxy);");
     	sc.add("proxy.eSetProxyURI(getURI().appendFragment(internalURIFragment));");
     	sc.add("addURIFragment(internalURIFragment, uriFragment);");
@@ -724,7 +720,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddURIFragmentMethod(StringComposite sc) {
-		sc.add("public void addURIFragment(" + STRING + " internalURIFragment, " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + "> uriFragment) {");
+		sc.add("public void addURIFragment(String internalURIFragment, " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + "> uriFragment) {");
     	sc.add("internalURIFragmentMap.put(internalURIFragment, uriFragment);");
     	sc.add("}");
     	sc.addLineBreak();
@@ -742,8 +738,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("private "+ iLocationMapClassName + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + iTextParserClassName + " parser;");
-    	sc.add("private " + MAP + "<" + STRING + ", " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">>();");
-    	sc.add("private " + MAP + "<" + STRING + ", " + iQuickFixClassName + "> quickFixMap = new " + LINKED_HASH_MAP + "<" + STRING + ", " + iQuickFixClassName + ">();");
+    	sc.add("private " + MAP + "<String, " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + LINKED_HASH_MAP + "<String, " + iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT + ">>();");
+    	sc.add("private " + MAP + "<String, " + iQuickFixClassName + "> quickFixMap = new " + LINKED_HASH_MAP + "<String, " + iQuickFixClassName + ">();");
         if (saveChangedResourcesOnly) {
         	sc.add("private String textPrintAfterLoading = null;");
         }
@@ -816,9 +812,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addDoLoadMethod(StringComposite sc) {
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
-        sc.add(STRING + " encoding = null;");
+        sc.add("String encoding = null;");
         sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
-        sc.add(OBJECT + " inputStreamPreProcessorProvider = null;");
+        sc.add("Object inputStreamPreProcessorProvider = null;");
         sc.add("if (options!=null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get(" + iOptionsClassName + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		sc.add("}");
@@ -870,7 +866,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
         sc.add("try {");
         sc.add("isLoaded = false;");
-        sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptions = addDefaultLoadOptions(options);");
+        sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
         sc.add("doLoad(inputStream, loadOptions);");
         sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
         sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");

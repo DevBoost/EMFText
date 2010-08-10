@@ -1,7 +1,6 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -26,12 +25,12 @@ public class PlaceholderGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private final " + STRING + " tokenName;");
+		sc.add("private final String tokenName;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + STRING + " tokenName, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, String tokenName, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("this.tokenName = tokenName;"); 
 		sc.add("}"); 
@@ -39,7 +38,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetTokenNameMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getTokenName() {");
+		sc.add("public String getTokenName() {");
 		sc.add("return tokenName;");
 		sc.add("}"); 
 		sc.addLineBreak();

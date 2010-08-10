@@ -349,7 +349,7 @@ import org.osgi.framework.BundleContext;
 /**
  * Constants for class names used in the generated code.
  */
-public class IUIClassNameConstants extends IClassNameConstants {
+public interface IUIClassNameConstants extends IClassNameConstants {
 	
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_MARKER_ANNOTATION_MODEL = AbstractMarkerAnnotationModel.class.getName();
