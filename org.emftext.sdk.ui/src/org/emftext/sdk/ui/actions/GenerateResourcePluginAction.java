@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.emftext.sdk.ui.jobs.GenerateResourcePluginJob;
+import org.emftext.sdk.ui.jobs.GenerateResourcePluginsJob;
 
 /**
  * An action that generates a complete resource plug-in from
@@ -58,7 +58,7 @@ public class GenerateResourcePluginAction implements IObjectActionDelegate {
 	 *            The file that contains the concrete syntax definition.
 	 */
 	public void process(final IFile file) {
-		GenerateResourcePluginJob job = new GenerateResourcePluginJob("Generating resource project for " + file.getName(), file);
+		GenerateResourcePluginsJob job = new GenerateResourcePluginsJob("Generating resource project for " + file.getName(), file);
 		job.setUser(true);
 		job.schedule();
 	}

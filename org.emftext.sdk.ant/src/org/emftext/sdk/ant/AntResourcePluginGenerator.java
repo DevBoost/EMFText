@@ -16,7 +16,7 @@ package org.emftext.sdk.ant;
 import org.eclipse.core.runtime.SubMonitor;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
+import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob;
 
 /**
  * This class implements an ResourcePluginGenerator that does NOT create
@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
  * creates all artifacts of the text resource plug-in. So the plug-in is
  * created, but not registered with the current Eclipse workspace.
  */
-public class AntResourcePluginGenerator extends CreateTextResourcePluginsJob {
+public class AntResourcePluginGenerator extends CreateResourcePluginsJob {
 
 	@Override
 	public void createProject(IPluginDescriptor plugin, GenerationContext context, SubMonitor progress) {

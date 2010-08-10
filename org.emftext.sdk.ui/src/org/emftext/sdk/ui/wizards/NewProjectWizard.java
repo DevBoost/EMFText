@@ -11,7 +11,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
-import org.emftext.sdk.ui.jobs.CreateNewProjectJob;
+import org.emftext.sdk.ui.jobs.CreateNewEMFTextProjectJob;
 import org.emftext.sdk.ui.jobs.WorkspaceMarker;
 
 public class NewProjectWizard extends Wizard implements INewWizard {
@@ -50,7 +50,7 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 
 	private void doFinish(NewProjectParameters parameters, IProgressMonitor monitor) {
 		try {
-			new CreateNewProjectJob(parameters, new WorkspaceMarker()).run(monitor);
+			new CreateNewEMFTextProjectJob(parameters, new WorkspaceMarker()).run(monitor);
 		} catch (Exception e) {
 			EMFTextSDKPlugin.logError("Error while creating new EMFText project.", e);
 		}

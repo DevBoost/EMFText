@@ -6,9 +6,11 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.JavaCore;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.AbstractCreatePluginJob;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -19,12 +21,16 @@ import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.newproject.creators.NewProjectContentsCreator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
-public class CreateNewProjectJob extends AbstractCreatePluginJob {
+/**
+ * An Eclipse job that create a new EMFText project. This job runs when using the 
+ * EMFText New Project Wizard.
+ */
+public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 
 	private NewProjectParameters parameters;
 	private IResourceMarker resourceMarker;
 	
-	public CreateNewProjectJob(NewProjectParameters parameters, IResourceMarker resourceMarker) {
+	public CreateNewEMFTextProjectJob(NewProjectParameters parameters, IResourceMarker resourceMarker) {
 		super();
 		this.parameters = parameters;
 		this.resourceMarker = resourceMarker;
@@ -59,9 +65,11 @@ public class CreateNewProjectJob extends AbstractCreatePluginJob {
 		refresh(progress.newChild(2), getProject(generationContext.getResourceUIPlugin().getName()));
 		refresh(progress.newChild(2), getProject(generationContext.getAntlrPlugin().getName()));
 		
-		// TODO mseifert: expose problems to user
+		// write problems to error log
 		for (GenerationProblem problem : problems) {
-			System.out.println("CreateNewProjectJob.run() " + problem);
+			int severity = problem.getSeverity() == GenerationProblem.Severity.WARNING ? IStatus.WARNING : IStatus.ERROR;
+			String message = problem.getMessage();
+			EMFTextSDKPlugin.logProblem(severity, message, null);
 		}
 	}
 

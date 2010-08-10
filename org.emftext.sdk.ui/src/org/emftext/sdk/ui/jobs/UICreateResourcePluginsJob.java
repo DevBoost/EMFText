@@ -25,13 +25,14 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IResourceMarker;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
+import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob;
 
 /**
- * A custom generator that creates adds a new project to the current
- * Eclipse workspace before generating the test resource plug-in.
+ * A custom job that creates adds three new projects to the current
+ * Eclipse workspace before generating the two resource plug-ins and 
+ * the ANTLR commons plug-in.
  */
-public class UICreateResourcePluginJob extends CreateTextResourcePluginsJob {
+public class UICreateResourcePluginsJob extends CreateResourcePluginsJob {
 
 	@Override
 	public Result run(GenerationContext context,
@@ -48,9 +49,10 @@ public class UICreateResourcePluginJob extends CreateTextResourcePluginsJob {
 		return result;
 	}
 
-	public void createProject(IPluginDescriptor plugin, GenerationContext context, SubMonitor progress)
-	//public void createProject(GenerationContext context, SubMonitor progress, PluginDescriptor plugin)
-		throws CoreException, JavaModelException {
+	public void createProject(
+			IPluginDescriptor plugin, 
+			GenerationContext context, 
+			SubMonitor progress) throws CoreException, JavaModelException {
 		
 		String projectName = plugin.getName();
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);

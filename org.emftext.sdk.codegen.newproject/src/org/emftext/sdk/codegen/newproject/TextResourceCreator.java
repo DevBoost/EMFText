@@ -13,8 +13,8 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob;
-import org.emftext.sdk.codegen.resource.ui.CreateTextResourcePluginsJob.Result;
+import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob;
+import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -53,7 +53,7 @@ public class TextResourceCreator implements IArtifactCreator<NewProjectGeneratio
 		context.setGenerationContext(genContext);
 		
 		try {
-			Result result = new CreateTextResourcePluginsJob() {
+			Result result = new CreateResourcePluginsJob() {
 
 				@Override
 				public void createProject(

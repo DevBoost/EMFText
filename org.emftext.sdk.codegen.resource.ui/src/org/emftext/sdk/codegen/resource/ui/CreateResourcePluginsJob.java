@@ -46,7 +46,7 @@ import org.emftext.sdk.util.ResourceUtil;
  * 
  * It delegates tasks to the other creators.
  */
-public abstract class CreateTextResourcePluginsJob extends AbstractCreatePluginJob {
+public abstract class CreateResourcePluginsJob extends AbstractCreatePluginJob {
 	
 	/**
 	 * An enumeration of all possible results of the generation
