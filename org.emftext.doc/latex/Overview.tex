@@ -9,7 +9,16 @@ more Ecore metamodel(s) which implicitly predefine a ''grammar skeleton''.
 Figure~\ref{fig:overview} gives an overview on how the generator part of EMFText
 works and which components are generated.
 
-\todo{Insert figure emftext\_schema.gif.}
+\begin{figure}
+\centering
+\ifpdf
+	\includegraphics[width=1.0\textwidth]{../latex/figures/Overview.pdf}
+\else
+	\includegraphics[width=1.0\textwidth]{../latex/figures/Overview.gif}
+\fi
+\caption{Overview of Specified and Generated Artefacts}
+\label{fig:overview}
+\end{figure}
 
 Through combining metamodel and \texttt{cs} specification, EMFText derives a 
 context-free grammar and exports it as an \ANTLR parser specification. This

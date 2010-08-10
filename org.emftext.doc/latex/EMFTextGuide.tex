@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{abbrevs}
+\usepackage{ifpdf}
 \input{Abbreviations}
 
 \newcommand{\todo}[1]{\color{red}\textbf{TODO #1}\color{black}}
@@ -59,13 +60,16 @@
 
 \begin{center}
 
-\includegraphics[width=0.9\textwidth]{../latex/figures/EMFTextLogo.png}
-
+\ifpdf
+	\includegraphics[width=0.9\textwidth]{../latex/figures/EMFTextLogo.pdf}
+\else
+	\includegraphics[width=0.9\textwidth]{../latex/figures/EMFTextLogo.png}
+\fi
 
 \vspace{3cm}
 {
 \fontsize{40}{40}
-\changefont{phv}{m}{n}{User Guide}
+\changefont{phv}{m}{n}{USER GUIDE}
 }
 \end{center}
 

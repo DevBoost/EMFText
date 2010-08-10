@@ -1,12 +1,17 @@
 \chapter{Development Process}
 
 Creating parsers, printers and editors with EMFText is easy! It involves some
-necessary steps which are roughly depicted by the activity diagram in
-Fig.~\ref{fig:process}.
+necessary steps which are:
+\begin{itemize}
+  \item creating a metamodel,
+  \item specifying concrete syntax,
+  \item generating resource plug-ins,
+  \item customizing the DSL tooling.
+\end{itemize}
 
-\todo{Insert figure emftext\_process.png}
+Each of this steps will be explained in the subsequent sections.
 
-\section{Creating a metamodel}
+\section{Creating a Metamodel}
 
 The starting point usually is the \emph{Ecore model}. It serves as 
 abstract syntax and as a skeleton for concrete syntax. The model can be a graph or tree 
@@ -49,13 +54,13 @@ already specified concrete syntax.  The third part allows for specifying token t
  and references of the model element and thus do not contain nonterminals in the classic 
  sense.
 
-\section{Generate Resource Plug-ins}
+\section{Generating Resource Plug-ins}
 
 The context menu on concrete syntax specification files offers an item to generate the 
 actual \emph{resource plug-in} which contains the parser, printer and the editor
 for the language. In an optional last step, the generated token resolvers and the printer 
 can be tailored to specific needs.
 
-\section{Customize DSL}
+\section{Customizing the DSL Tooling}
 
 \todo{Add content}
