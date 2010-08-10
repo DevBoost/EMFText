@@ -19,14 +19,14 @@ package org.emftext.sdk.concretesyntax.resource.cs.grammar;
  */
 public class CsPlaceholder extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
 	
-	private final java.lang.String tokenName;
+	private final String tokenName;
 	
-	public CsPlaceholder(org.eclipse.emf.ecore.EStructuralFeature feature, java.lang.String tokenName, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
+	public CsPlaceholder(org.eclipse.emf.ecore.EStructuralFeature feature, String tokenName, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
 		super(feature, cardinality, mandatoryOccurencesAfter);
 		this.tokenName = tokenName;
 	}
 	
-	public java.lang.String getTokenName() {
+	public String getTokenName() {
 		return tokenName;
 	}
 	

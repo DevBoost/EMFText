@@ -54,7 +54,7 @@ public class CsLexer extends Lexer {
     public static final int T__18=18;
 
     	public java.util.List<org.antlr.runtime3_2_0.RecognitionException> lexerExceptions  = new java.util.ArrayList<org.antlr.runtime3_2_0.RecognitionException>();
-    	public java.util.List<java.lang.Integer> lexerExceptionsPosition = new java.util.ArrayList<java.lang.Integer>();
+    	public java.util.List<Integer> lexerExceptionsPosition = new java.util.ArrayList<Integer>();
     	
     	public void reportError(org.antlr.runtime3_2_0.RecognitionException e) {
     		lexerExceptions.add(e);

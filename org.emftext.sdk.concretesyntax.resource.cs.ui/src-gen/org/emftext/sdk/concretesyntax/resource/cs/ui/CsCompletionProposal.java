@@ -18,15 +18,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * A proposal for completing an incomplete document.
  */
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
-	private java.lang.String insertString;
-	private java.lang.String displayString;
-	private java.lang.String prefix;
+	private String insertString;
+	private String displayString;
+	private String prefix;
 	private boolean matchesPrefix;
 	private org.eclipse.emf.ecore.EStructuralFeature structuralFeature;
 	private org.eclipse.emf.ecore.EObject container;
 	private org.eclipse.swt.graphics.Image image;
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
+	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
 		this.insertString = insertString;
 		this.prefix = prefix;
@@ -35,25 +35,25 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		this.container = container;
 	}
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+	public CsCompletionProposal(String insertString, String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
 		this(insertString, prefix, startsWithPrefix, structuralFeature, container);
 		this.image = image;
 	}
 	
-	public CsCompletionProposal(java.lang.String insertString, java.lang.String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
+	public CsCompletionProposal(String insertString, String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
 		this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);
 		this.displayString = displayString;
 	}
 	
-	public java.lang.String getInsertString() {
+	public String getInsertString() {
 		return insertString;
 	}
 	
-	public java.lang.String getDisplayString() {
+	public String getDisplayString() {
 		return displayString;
 	}
 	
-	public java.lang.String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 	

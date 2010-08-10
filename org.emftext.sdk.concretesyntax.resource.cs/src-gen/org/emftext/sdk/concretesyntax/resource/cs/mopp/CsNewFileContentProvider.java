@@ -20,18 +20,18 @@ public class CsNewFileContentProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	
-	public java.lang.String getNewFileContent(java.lang.String newFileName) {
+	public String getNewFileContent(String newFileName) {
 		return getExampleContent(new org.eclipse.emf.ecore.EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
 		}, getMetaInformation().getClassesWithSyntax(), newFileName);
 	}
 	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass[] startClasses, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, java.lang.String newFileName) {
+	protected String getExampleContent(org.eclipse.emf.ecore.EClass[] startClasses, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, String newFileName) {
 		String content = "SYNTAXDEF myFileExtension\nFOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\nSTART StartMetaClass\n\nOPTIONS {\n\treloadGeneratorModel = \"true\";\n}\n\nRULES {\n\t// syntax definition for class 'StartMetaClass'\n\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n\t\n\t// syntax definition for class 'AnotherMetaClass'\n\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n}".replace("\n", System.getProperty("line.separator"));
 		return content;
 	}
 	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, java.lang.String newFileName) {
+	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, String newFileName) {
 		// create a minimal model
 		org.eclipse.emf.ecore.EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newFileName);
 		// use printer to get text for model

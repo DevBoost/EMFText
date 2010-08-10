@@ -73,7 +73,7 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 	
 	private void handleMultipleResults() {
 		org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> list = null;
-		java.lang.Object temp = container.eGet(reference);
+		Object temp = container.eGet(reference);
 		if (temp instanceof org.eclipse.emf.common.util.EList<?>) {
 			list = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(temp);
 		}

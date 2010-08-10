@@ -80,7 +80,7 @@ public class CsMinimalModelHelper {
 							continue;
 						}
 						
-						java.lang.Object value = root.eGet(reference);
+						Object value = root.eGet(reference);
 						if (value instanceof java.util.List<?>) {
 							java.util.List<org.eclipse.emf.ecore.EObject> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
 							list.add(subModel);
@@ -99,7 +99,7 @@ public class CsMinimalModelHelper {
 					else {
 						initialValue = "some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(attribute.getName());
 					}
-					java.lang.Object value = root.eGet(attribute);
+					Object value = root.eGet(attribute);
 					if (value instanceof java.util.List<?>) {
 						java.util.List<String> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
 						list.add(initialValue);

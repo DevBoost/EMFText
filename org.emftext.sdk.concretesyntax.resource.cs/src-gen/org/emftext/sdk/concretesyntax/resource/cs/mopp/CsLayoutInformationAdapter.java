@@ -23,7 +23,7 @@ public class CsLayoutInformationAdapter implements org.eclipse.emf.common.notify
 		return target;
 	}
 	
-	public boolean isAdapterForType(java.lang.Object type) {
+	public boolean isAdapterForType(Object type) {
 		return false;
 	}
 	

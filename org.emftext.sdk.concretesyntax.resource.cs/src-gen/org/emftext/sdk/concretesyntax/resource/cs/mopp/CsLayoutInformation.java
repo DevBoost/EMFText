@@ -18,12 +18,12 @@ public class CsLayoutInformation {
 	
 	private final org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement;
 	private final int startOffset;
-	private final java.lang.String hiddenTokenText;
-	private final java.lang.String visibleTokenText;
-	private java.lang.Object object;
+	private final String hiddenTokenText;
+	private final String visibleTokenText;
+	private Object object;
 	private boolean wasResolved;
 	
-	public CsLayoutInformation(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, java.lang.Object object, int startOffset, java.lang.String hiddenTokenText, java.lang.String visibleTokenText) {
+	public CsLayoutInformation(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object, int startOffset, String hiddenTokenText, String visibleTokenText) {
 		super();
 		this.syntaxElement = syntaxElement;
 		this.object = object;
@@ -40,7 +40,7 @@ public class CsLayoutInformation {
 		return startOffset;
 	}
 	
-	public java.lang.Object getObject(org.eclipse.emf.ecore.EObject container) {
+	public Object getObject(org.eclipse.emf.ecore.EObject container) {
 		if (wasResolved) {
 			return object;
 		}
@@ -65,11 +65,11 @@ public class CsLayoutInformation {
 		return object;
 	}
 	
-	public java.lang.String getHiddenTokenText() {
+	public String getHiddenTokenText() {
 		return hiddenTokenText;
 	}
 	
-	public java.lang.String getVisibleTokenText() {
+	public String getVisibleTokenText() {
 		return visibleTokenText;
 	}
 	

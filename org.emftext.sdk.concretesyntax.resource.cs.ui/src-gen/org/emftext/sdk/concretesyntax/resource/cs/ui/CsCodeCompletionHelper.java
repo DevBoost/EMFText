@@ -246,7 +246,7 @@ public class CsCodeCompletionHelper {
 		return result;
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, java.lang.String prefix, java.lang.String tokenName) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleNCReference(org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, String prefix, String tokenName) {
 		// proposals for non-containment references are derived by calling the reference
 		// resolver switch in fuzzy mode.
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
@@ -260,7 +260,7 @@ public class CsCodeCompletionHelper {
 				org.eclipse.swt.graphics.Image image = null;
 				if (mapping instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) {
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?> elementMapping = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<?>) mapping;
-					java.lang.Object target = elementMapping.getTargetElement();
+					Object target = elementMapping.getTargetElement();
 					// de-resolve reference to obtain correct identifier
 					org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 					final String identifier = tokenResolver.deResolve(elementMapping.getIdentifier(), reference, container);
@@ -276,9 +276,9 @@ public class CsCodeCompletionHelper {
 		return java.util.Collections.emptyList();
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleAttribute(org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EAttribute attribute, java.lang.String prefix) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleAttribute(org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EAttribute attribute, String prefix) {
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> resultSet = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
-		java.lang.Object[] defaultValues = attributeValueProvider.getDefaultValues(attribute);
+		Object[] defaultValues = attributeValueProvider.getDefaultValues(attribute);
 		if (defaultValues != null) {
 			for (Object defaultValue : defaultValues) {
 				if (defaultValue != null) {
@@ -316,7 +316,7 @@ public class CsCodeCompletionHelper {
 			return;
 		}
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement : expectedElements) {
-			java.lang.String prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);
+			String prefix = findPrefix(expectedElements, expectedElement, content, cursorOffset);
 			expectedElement.setPrefix(prefix);
 		}
 	}
@@ -349,7 +349,7 @@ public class CsCodeCompletionHelper {
 		return Integer.MAX_VALUE;
 	}
 	
-	private boolean matches(java.lang.String proposal, java.lang.String prefix) {
+	private boolean matches(String proposal, String prefix) {
 		return (proposal.toLowerCase().startsWith(prefix.toLowerCase()) || org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.matchCamelCase(prefix, proposal) != null) && !proposal.equals(prefix);
 	}
 	

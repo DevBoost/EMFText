@@ -27,7 +27,7 @@ public class CsEObjectUtil {
 	org.eclipse.emf.ecore.EClassifier type) {
 		java.util.Collection<T> result = new java.util.ArrayList<T>();
 		while (iterator.hasNext()) {
-			java.lang.Object object = iterator.next();
+			Object object = iterator.next();
 			if (type.isInstance(object)) {
 				@SuppressWarnings("unchecked")				
 				T t = (T) object;
@@ -46,35 +46,35 @@ public class CsEObjectUtil {
 		}
 	}
 	
-	public static java.lang.Object invokeOperation(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EOperation o) {
+	public static Object invokeOperation(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EOperation o) {
 		java.lang.reflect.Method method;
 		try {
 			method = element.getClass().getMethod(o.getName(), new Class[]{});
 			if (method != null) {
-				java.lang.Object result = method.invoke(element, new java.lang.Object[]{});
+				Object result = method.invoke(element, new Object[]{});
 				return result;
 			}
 		} catch (SecurityException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while matching proxy URI.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
 		} catch (NoSuchMethodException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while matching proxy URI.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
 		} catch (IllegalArgumentException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while matching proxy URI.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
 		} catch (IllegalAccessException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while matching proxy URI.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
 		} catch (java.lang.reflect.InvocationTargetException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while matching proxy URI.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
 		}
 		return null;
 	}
 	
 	@SuppressWarnings("unchecked")	
-	public static void setFeature(org.eclipse.emf.ecore.EObject object, org.eclipse.emf.ecore.EStructuralFeature eFeature, java.lang.Object value, boolean clearIfList) {
+	public static void setFeature(org.eclipse.emf.ecore.EObject object, org.eclipse.emf.ecore.EStructuralFeature eFeature, Object value, boolean clearIfList) {
 		int upperBound = eFeature.getUpperBound();
 		if (upperBound > 1 || upperBound < 0) {
 			Object oldValue = object.eGet(eFeature);
 			if (oldValue instanceof java.util.List<?>) {
-				java.util.List<java.lang.Object> list = (java.util.List<java.lang.Object>) oldValue;
+				java.util.List<Object> list = (java.util.List<Object>) oldValue;
 				if (clearIfList) {
 					list.clear();
 				}

@@ -31,7 +31,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			this.problem = problem;
 		}
 		
-		public java.lang.String getMessage() {
+		public String getMessage() {
 			return problem.getMessage();
 		}
 		
@@ -39,7 +39,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			return problem;
 		}
 		
-		public java.lang.String getLocation() {
+		public String getLocation() {
 			return uri.toString();
 		}
 		
@@ -108,11 +108,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			return line;
 		}
 		
-		public java.lang.String getLocation() {
+		public String getLocation() {
 			return uri.toString();
 		}
 		
-		public java.lang.String getMessage() {
+		public String getMessage() {
 			return problem.getMessage();
 		}
 		
@@ -125,8 +125,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
-	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
-	private java.util.Map<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<java.lang.String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
+	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 	
 	public CsResource() {
 		super();
@@ -139,9 +139,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		java.lang.String encoding = null;
+		String encoding = null;
 		java.io.InputStream actualInputStream = inputStream;
-		java.lang.Object inputStreamPreProcessorProvider = null;
+		Object inputStreamPreProcessorProvider = null;
 		if (options!=null) {
 			inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
 		}
@@ -186,7 +186,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		try {
 			isLoaded = false;
-			java.util.Map<java.lang.Object, java.lang.Object> loadOptions = addDefaultLoadOptions(options);
+			java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 			doLoad(inputStream, loadOptions);
 		} catch (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException tpe) {
 			// do nothing - the resource is left unchanged if this exception is thrown
@@ -227,17 +227,17 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
 	}
 	
-	public void addURIFragment(java.lang.String internalURIFragment, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment) {
+	public void addURIFragment(String internalURIFragment, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment) {
 		internalURIFragmentMap.put(internalURIFragment, uriFragment);
 	}
 	
-	public <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, java.lang.String id, org.eclipse.emf.ecore.EObject proxyElement) {
+	public <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, String id, org.eclipse.emf.ecore.EObject proxyElement) {
 		int pos = -1;
 		if (reference.isMany()) {
 			pos = ((java.util.List<?>)container.eGet(reference)).size();
 		}
 		org.eclipse.emf.ecore.InternalEObject proxy = (org.eclipse.emf.ecore.InternalEObject) proxyElement;
-		java.lang.String internalURIFragment = org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + "_" + id;
+		String internalURIFragment = org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + "_" + id;
 		org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<?> uriFragment = factory.create(id, container, reference, pos, proxy);
 		proxy.eSetProxyURI(getURI().appendFragment(internalURIFragment));
 		addURIFragment(internalURIFragment, uriFragment);
@@ -284,14 +284,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	private org.eclipse.emf.ecore.EObject getResultElement(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping, org.eclipse.emf.ecore.EObject proxy, final java.lang.String errorMessage) {
+	private org.eclipse.emf.ecore.EObject getResultElement(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping, org.eclipse.emf.ecore.EObject proxy, final String errorMessage) {
 		if (mapping instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping<?>) {
 			org.eclipse.emf.common.util.URI uri = ((org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping<? extends org.eclipse.emf.ecore.EObject>)mapping).getTargetIdentifier();
 			if (uri != null) {
 				org.eclipse.emf.ecore.EObject result = null;
 				try {
 					result = this.getResourceSet().getEObject(uri, true);
-				} catch (java.lang.Exception e) {
+				} catch (Exception e) {
 					// we can catch exceptions here, because EMF will try to resolve again and handle
 					// the exception
 				}
@@ -340,7 +340,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private void attachErrors(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<?> result, org.eclipse.emf.ecore.EObject proxy) {
 		// attach errors to this resource
 		assert result != null;
-		final java.lang.String errorMessage = result.getErrorMessage();
+		final String errorMessage = result.getErrorMessage();
 		if (errorMessage == null) {
 			assert(false);
 		} else {
@@ -353,7 +353,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		assert result.wasResolved();
 		if (result.wasResolved()) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping : result.getMappings()) {
-				final java.lang.String warningMessage = mapping.getWarning();
+				final String warningMessage = mapping.getWarning();
 				if (warningMessage == null) {
 					continue;
 				}
@@ -375,7 +375,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (loadOptions == null) {
 			return;
 		}
-		java.lang.Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
+		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
 				((org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
@@ -387,7 +387,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor = csProcessorProvider.getResourcePostProcessor();
 						try {
 							postProcessor.process(this);
-						} catch (java.lang.Exception e) {
+						} catch (Exception e) {
 							org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while running a post-processor.", e);
 						}
 					}
@@ -397,7 +397,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	public void load(java.util.Map<?, ?> options) throws java.io.IOException {
-		java.util.Map<java.lang.Object, java.lang.Object> loadOptions = addDefaultLoadOptions(options);
+		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		super.load(loadOptions);
 	}
 	
@@ -432,11 +432,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 	}
 	
-	public void addError(java.lang.String message, org.eclipse.emf.ecore.EObject cause) {
+	public void addError(String message, org.eclipse.emf.ecore.EObject cause) {
 		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), cause);
 	}
 	
-	public void addWarning(java.lang.String message, org.eclipse.emf.ecore.EObject cause) {
+	public void addWarning(String message, org.eclipse.emf.ecore.EObject cause) {
 		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.WARNING), cause);
 	}
 	
@@ -448,8 +448,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	protected java.util.Map<java.lang.Object, java.lang.Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
-		java.util.Map<java.lang.Object, java.lang.Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions);
+	protected java.util.Map<Object, Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
+		java.util.Map<Object, Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions);
 		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			// find default load option providers
 			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
@@ -459,7 +459,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 					org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider provider = (org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider) element.createExecutableExtension("class");
 					final java.util.Map<?, ?> options = provider.getOptions();
 					final java.util.Collection<?> keys = options.keySet();
-					for (java.lang.Object key : keys) {
+					for (Object key : keys) {
 						addLoadOption(loadOptionsCopy, key, options.get(key));
 					}
 				} catch (org.eclipse.core.runtime.CoreException ce) {
@@ -474,14 +474,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * Adds a new key,value pair to the list of options. If there is already an option
 	 * with the same key, the two values are collected in a list.
 	 */
-	private void addLoadOption(java.util.Map<java.lang.Object, java.lang.Object> options,java.lang.Object key, java.lang.Object value) {
+	private void addLoadOption(java.util.Map<Object, Object> options,Object key, Object value) {
 		// check if there is already an option set
 		if (options.containsKey(key)) {
-			java.lang.Object currentValue = options.get(key);
+			Object currentValue = options.get(key);
 			if (currentValue instanceof java.util.List<?>) {
 				// if the current value is a list, we add the new value to this list
 				java.util.List<?> currentValueAsList = (java.util.List<?>) currentValue;
-				java.util.List<java.lang.Object> currentValueAsObjectList = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.copySafelyToObjectList(currentValueAsList);
+				java.util.List<Object> currentValueAsObjectList = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.copySafelyToObjectList(currentValueAsList);
 				if (value instanceof java.util.Collection<?>) {
 					currentValueAsObjectList.addAll((java.util.Collection<?>) value);
 				} else {
@@ -491,7 +491,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} else {
 				// if the current value is not a list, we create a fresh list and add both the old
 				// (current) and the new value to this list
-				java.util.List<java.lang.Object> newValueList = new java.util.ArrayList<java.lang.Object>();
+				java.util.List<Object> newValueList = new java.util.ArrayList<Object>();
 				newValueList.add(currentValue);
 				if (value instanceof java.util.Collection<?>) {
 					newValueList.addAll((java.util.Collection<?>) value);
@@ -534,6 +534,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	private void runValidators(org.eclipse.emf.ecore.EObject root) {
 		// checking constraints provided by EMF validator classes was disabled
+		
 		// checking EMF validation constraints was disabled
 	}
 	

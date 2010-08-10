@@ -25,7 +25,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 public interface ICsTokenResolver extends org.emftext.sdk.concretesyntax.resource.cs.ICsConfigurable {
 	
 	/**
-	 * Converts a token into an java.lang.Object (the value of the attribute).
+	 * Converts a token into an Object (the value of the attribute).
 	 * 
 	 * @param lexem the text of the parsed token
 	 * @param feature the corresponding feature in the meta model
@@ -35,15 +35,15 @@ public interface ICsTokenResolver extends org.emftext.sdk.concretesyntax.resourc
 	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result);
 	
 	/**
-	 * Converts an java.lang.Object (the value of an attribute) to a string which can
-	 * be printed. This is the inverse of resolving a token with a call to resolve().
+	 * Converts an Object (the value of an attribute) to a string which can be
+	 * printed. This is the inverse of resolving a token with a call to resolve().
 	 * 
-	 * @param value the java.lang.Object to be printed as String
+	 * @param value the Object to be printed as String
 	 * @param feature the corresponding feature (EAttribute)
 	 * @param container the container of the object
 	 * 
 	 * @return the String representation or null if a problem occurred
 	 */
-	public String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container);
+	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container);
 	
 }

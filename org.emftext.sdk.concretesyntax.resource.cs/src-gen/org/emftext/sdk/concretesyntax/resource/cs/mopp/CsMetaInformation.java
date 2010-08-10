@@ -16,11 +16,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation {
 	
-	public java.lang.String getSyntaxName() {
+	public String getSyntaxName() {
 		return "cs";
 	}
 	
-	public java.lang.String getURI() {
+	public String getURI() {
 		return "http://www.emftext.org/sdk/concretesyntax";
 	}
 	
@@ -28,7 +28,7 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrScanner(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLexer());
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createParser(java.io.InputStream inputStream, java.lang.String encoding) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createParser(java.io.InputStream inputStream, String encoding) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParser().createInstance(inputStream, encoding);
 	}
 	
@@ -52,15 +52,15 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	}
 	
-	public java.lang.String getPathToCSDefinition() {
+	public String getPathToCSDefinition() {
 		return "org.emftext.sdk.concretesyntax/metamodel/concretesyntax.cs";
 	}
 	
-	public java.lang.String[] getTokenNames() {
+	public String[] getTokenNames() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParser(null).getTokenNames();
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDefaultTokenStyle(java.lang.String tokenName) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDefaultTokenStyle(String tokenName) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyleInformationProvider().getDefaultTokenStyle(tokenName);
 	}
 	

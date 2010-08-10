@@ -31,7 +31,7 @@ public class CsAntlrScanner implements org.emftext.sdk.concretesyntax.resource.c
 		return result;
 	}
 	
-	public void setText(java.lang.String text) {
+	public void setText(String text) {
 		antlrLexer.setCharStream(new org.antlr.runtime3_2_0.ANTLRStringStream(text));
 	}
 	

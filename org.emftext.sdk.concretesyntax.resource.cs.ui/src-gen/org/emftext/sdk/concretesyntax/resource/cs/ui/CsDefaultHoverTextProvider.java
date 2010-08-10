@@ -16,7 +16,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider {
 	
-	public java.lang.String getHoverText(org.eclipse.emf.ecore.EObject object) {
+	public String getHoverText(org.eclipse.emf.ecore.EObject object) {
 		if (object == null) {
 			return null;
 		}
@@ -26,7 +26,7 @@ public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesynta
 		String documentationHTML = documentation == null ? "" : " (" + documentation +")";
 		label += documentationHTML;
 		for (org.eclipse.emf.ecore.EAttribute attribute : eClass.getEAllAttributes()) {
-			java.lang.Object value = null;
+			Object value = null;
 			try {
 				value = object.eGet(attribute);
 			} catch (java.lang.Exception e) {
@@ -38,4 +38,5 @@ public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesynta
 		}
 		return label;
 	}
+	
 }

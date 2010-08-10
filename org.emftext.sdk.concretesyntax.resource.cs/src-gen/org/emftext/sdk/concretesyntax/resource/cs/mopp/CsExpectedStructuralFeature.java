@@ -35,11 +35,11 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 		return placeholder.getTokenName();
 	}
 	
-	public java.lang.String toString() {
+	public String toString() {
 		return "EFeature " + getFeature().getEContainingClass().getName() + "." + getFeature().getName();
 	}
 	
-	public boolean equals(java.lang.Object o) {
+	public boolean equals(Object o) {
 		if (o instanceof CsExpectedStructuralFeature) {
 			return getFeature().equals(((CsExpectedStructuralFeature) o).getFeature());
 		}

@@ -77,7 +77,7 @@ public abstract class CsQuickFix implements org.emftext.sdk.concretesyntax.resou
 	}
 	
 	public String getContextAsString() {
-		java.lang.StringBuilder result = new java.lang.StringBuilder();
+		StringBuilder result = new StringBuilder();
 		result.append(getType());
 		result.append(",");
 		for (org.eclipse.emf.ecore.EObject contextObject : contextObjects) {

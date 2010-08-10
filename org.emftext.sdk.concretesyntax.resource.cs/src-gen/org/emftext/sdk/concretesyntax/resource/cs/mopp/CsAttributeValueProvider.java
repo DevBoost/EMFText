@@ -20,15 +20,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsAttributeValueProvider {
 	
-	public java.lang.Object[] getDefaultValues(org.eclipse.emf.ecore.EAttribute attribute) {
+	public Object[] getDefaultValues(org.eclipse.emf.ecore.EAttribute attribute) {
 		String typeName = attribute.getEType().getName();
 		if ("EString".equals(typeName)) {
-			return new java.lang.Object[] {"some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(attribute.getName())};
+			return new Object[] {"some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(attribute.getName())};
 		}
 		if ("EBoolean".equals(typeName)) {
-			return new java.lang.Object[] {Boolean.TRUE, Boolean.FALSE};
+			return new Object[] {Boolean.TRUE, Boolean.FALSE};
 		}
-		return new java.lang.Object[] {attribute.getDefaultValue()};
+		return new Object[] {attribute.getDefaultValue()};
 	}
 	
 }
