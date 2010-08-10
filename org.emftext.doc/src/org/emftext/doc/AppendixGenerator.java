@@ -41,14 +41,15 @@ public class AppendixGenerator {
 		latexCode.append(
 			"EMFText currently supports " + values.size() + " code generation options. " +
 			"However, most of them (" + overrideOptions + ") are only used to specify which generated artifacts shall be customized. " +
-			"Subsequently, a list of all options and their description can be found.\n\n"
+			"Subsequently, a list of all options and their description can be found." +
+			"\n\n\\vspace{1cm}"
 		);
 		
 		for (OptionTypes optionType : values) {
 			EEnumLiteral enumLiteral = ConcretesyntaxPackage.eINSTANCE.getOptionTypes().getEEnumLiteral(optionType.getName());
 			String literal = optionType.getLiteral();
 			String documentation = EcoreUtil.getDocumentation(enumLiteral);
-			documentation = documentation.replaceAll("<code>(.[^<]*)</code>", "\\\\textbf{$1}");
+			documentation = documentation.replaceAll("<code>(.[^<]*)</code>", "\\\\texttt{$1}");
 			documentation = documentation.replace("_", "\\_");
 			System.out.println(literal + " : " + documentation);
 			latexCode.append("\\noindent\\texttt{" + literal + "}\n");
