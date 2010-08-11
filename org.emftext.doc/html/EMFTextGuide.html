@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-11 13:00:00"> 
+<meta name="date" content="2010-08-11 16:36:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -304,21 +304,21 @@ sense.
 <!--l. 57--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">2.3</span>&#x00A0;&#x00A0;<a 
  id="x1-60002.3"></a>Generating Resource Plug-ins</h3>
-<!--l. 59--><p class="noindent" >
+<!--l. 60--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">2.3.1</span>&#x00A0;&#x00A0;<a 
  id="x1-70002.3.1"></a>Generating Resource Plug-ins in Eclipse</h4>
-<!--l. 61--><p class="noindent" >The context menu on concrete syntax specification files offers an item to generate the actual
+<!--l. 62--><p class="noindent" >The context menu on concrete syntax specification files offers an item to generate the actual
 <span 
 class="aesl-10x-x-109">resource plug-in </span>which contains the parser, printer and the editor for the language. In an
 optional last step, the generated token resolvers and the printer can be tailored to specific
 needs.
-<!--l. 66--><p class="noindent" >
+<!--l. 67--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">2.3.2</span>&#x00A0;&#x00A0;<a 
  id="x1-80002.3.2"></a>Generating Resource Plug-ins with ANT</h4>
-<!--l. 68--><p class="noindent" >
+<!--l. 69--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">2.4</span>&#x00A0;&#x00A0;<a 
  id="x1-90002.4"></a>Customizing the DSL Tooling</h3>
-<!--l. 70--><p class="noindent" ><span 
+<!--l. 71--><p class="noindent" ><span 
 class="aebx-10x-x-109">TODO Add content</span>
                                                                                      
 
@@ -1846,22 +1846,530 @@ class="ul9r8t-x-x-95">";</span>
 <!--l. 23--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.5</span>&#x00A0;&#x00A0;<a 
  id="x1-400004.2.5"></a>Implementing Builders</h4>
-<!--l. 25--><p class="noindent" >
+<!--l. 25--><p class="noindent" >To implement a custom builder for your Domain-specific Language (DSL), basically set the code
+generation option <span 
+class="ul9r8t-x-x-95">overrideBuilder </span>to <span 
+class="ul9r8t-x-x-95">false</span>:
+  <!--l. 28-->
+  <div class="lstlisting" id="listing-36"><span class="label"><a 
+ id="x1-40001r1"></a></span><span 
+class="ul9r8t-x-x-95">OPTIONS</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40002r2"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">overrideBuilder</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">"</span><span 
+class="ul9r8t-x-x-95">false</span><span 
+class="ul9r8t-x-x-95">";</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40003r3"></a></span><span 
+class="ul9r8t-x-x-95">}</span>
+  
+  </div>
+<!--l. 34--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+href="#x1-60002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), you will find a new class <span 
+class="ul9r8t-x-x-95">XyzBuilder </span>in
+the <span 
+class="ul9r8t-x-x-95">src </span>folder of the generated resource plug-in (assuming the file extension of your DSL is <span 
+class="ul9r8t-x-x-95">xyz</span>. If
+you face compilation errors, make sure to the delete the <span 
+class="ul9r8t-x-x-95">XyzBuilder </span>class from the <span 
+class="ul9r8t-x-x-95">src-gen</span>
+folder.
+<!--l. 41--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
+class="ul9r8t-x-x-95">isBuildingNeeded() </span>and <span 
+class="ul9r8t-x-x-95">build()</span>. The first
+one is called to let the builder decide, which resources need to be included in the build process.
+The default implementation returns <span 
+class="ul9r8t-x-x-95">false </span>to avoid unnecessary loading of resources. To
+include all textual resources that contain models of your DSL, change the method to return
+<span 
+class="ul9r8t-x-x-95">true</span>.
+<!--l. 48--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
+arbitrary behavior here. Usually, builders create some kind of derived artifact, for example a
+transformed or compiled version of the DSL model. Since <span 
+class="ul9r8t-x-x-95">build() </span>retrieves the resource as method
+parameter, you can easily access the contents of the resource. To save the derived artifact it is good
+practice to use the URI of the original resource to derive a new URI. This can for example be done
+by removing segments and adding new ones.
+<!--l. 56--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
+resource without making any changes.
+  <!--l. 59-->
+  <div class="lstlisting" id="listing-37"><span class="label"><a 
+ id="x1-40004r1"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">io</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IOException</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40005r2"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">Collection</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40006r3"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40007r4"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">core</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">runtime</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IProgressMonitor</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40008r5"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">core</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">runtime</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IStatus</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40009r6"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">core</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">runtime</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">Status</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40010r7"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">common</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">EList</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40011r8"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">common</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">URI</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40012r9"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ecore</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">EObject</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40013r10"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ecore</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">Resource</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40014r11"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ecore</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">EcoreUtil</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40015r12"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emftext</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">language</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IXyzBuilder</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40016r13"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40017r14"></a></span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">class</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">XyzBuilder</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">implements</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">IXyzBuilder</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40018r15"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40019r16"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">boolean</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">isBuildingNeeded</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">URI</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">uri</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40020r17"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">true</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40021r18"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40022r19"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40023r20"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">IStatus</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">build</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">XyzResource</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">IProgressMonitor</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">monitor</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40024r21"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">//</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">get</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">contents</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">and</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">create</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">copy</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40025r22"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">EList</span><span 
+class="ul9r8t-x-x-95"><</span><span 
+class="ul9r8t-x-x-95">EObject</span><span 
+class="ul9r8t-x-x-95">></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">contents</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">getContents</span><span 
+class="ul9r8t-x-x-95">();</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40026r23"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Collection</span><span 
+class="ul9r8t-x-x-95"><</span><span 
+class="ul9r8t-x-x-95">EObject</span><span 
+class="ul9r8t-x-x-95">></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">contentsCopy</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">EcoreUtil</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">copyAll</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">contents</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40027r24"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40028r25"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">URI</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">newUri</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">URI</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">createURI</span><span 
+class="ul9r8t-x-x-95">("</span><span 
+class="ul9r8t-x-x-95">copy</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">").</span><span 
+class="ul9r8t-x-x-95">resolve</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">getURI</span><span 
+class="ul9r8t-x-x-95">());</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40029r26"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">//</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">create</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">new</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">with</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">different</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">name</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40030r27"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Resource</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">newResource</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">getResourceSet</span><span 
+class="ul9r8t-x-x-95">().</span><span 
+class="ul9r8t-x-x-95">createResource</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">newUri</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40031r28"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">newResource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">getContents</span><span 
+class="ul9r8t-x-x-95">().</span><span 
+class="ul9r8t-x-x-95">addAll</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">contentsCopy</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40032r29"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">try</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40033r30"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">newResource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">save</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">null</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40034r31"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">catch</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">IOException</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">e</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40035r32"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">//</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">handle</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">exception</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40036r33"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40037r34"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Status</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">OK_STATUS</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40038r35"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-40039r36"></a></span><span 
+class="ul9r8t-x-x-95">}</span>
+  
+  </div>
+<!--l. 98--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
+<!--l. 100--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.6</span>&#x00A0;&#x00A0;<a 
  id="x1-410004.2.6"></a>Implementing Interpreters</h4>
-<!--l. 27--><p class="noindent" >
+<!--l. 102--><p class="noindent" >
+                                                                                     
+
+                                                                                     
   <h4 class="subsectionHead"><span class="titlemark">4.2.7</span>&#x00A0;&#x00A0;<a 
  id="x1-420004.2.7"></a>Customizing Text Hovers</h4>
-<!--l. 29--><p class="noindent" >
+<!--l. 104--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.8</span>&#x00A0;&#x00A0;<a 
  id="x1-430004.2.8"></a>Customizing Code Completion Proposals</h4>
                                                                                      
 
                                                                                      
-                                                                                     
-
-                                                                                     
-<!--l. 98--><p class="indent" >
                                                                                      
 
                                                                                      

@@ -22,6 +22,83 @@
 
 \subsection{Implementing Builders}
 
+To implement a custom builder for your \DSL, basically set the code generation
+option \texttt{overrideBuilder} to \texttt{false}:
+
+\begin{lstlisting}
+OPTIONS {
+    overrideBuilder = "false";
+}
+\end{lstlisting}
+
+After regenerating the resource plug-ins (see
+Sect.~\ref{sec:process_generating}), you will find a new class
+\texttt{XyzBuilder} in the \texttt{src} folder of the generated resource 
+plug-in (assuming the file extension of your \DSL is \texttt{xyz}. If you
+face compilation errors, make sure to the delete the \texttt{XyzBuilder} 
+class from the \texttt{src-gen} folder.
+
+The generated builder class contains two methods---\texttt{isBuildingNeeded()} and
+\texttt{build()}. The first one is called to let the builder decide, which
+resources need to be included in the build process. The default implementation
+returns \texttt{false} to avoid unnecessary loading of resources. To include all
+textual resources that contain models of your \DSL, change the method to return
+\texttt{true}.
+
+The second method is called whenever the content of a resource changes. You can
+implement arbitrary behavior here. Usually, builders create some kind of derived
+artifact, for example a transformed or compiled version of the \DSL model. Since
+\texttt{build()} retrieves the resource as method parameter, you can easily
+access the contents of the resource. To save the derived artifact it is good
+practice to use the URI of the original resource to derive a new URI. This can
+for example be done by removing segments and adding new ones.
+
+The following listing shows a simple builder, which copies the contents of the
+resource to a new resource without making any changes.
+
+\begin{lstlisting}
+import java.io.IOException;
+import java.util.Collection;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.language.xyz.resource.xyz.IXyzBuilder;
+
+public class XyzBuilder implements IXyzBuilder {
+  
+  public boolean isBuildingNeeded(URI uri) {
+    return true;
+  }
+  
+  public IStatus build(XyzResource resource, IProgressMonitor monitor) {
+    // get contents and create copy 
+    EList<EObject> contents = resource.getContents();
+    Collection<EObject> contentsCopy = EcoreUtil.copyAll(contents);
+    
+    // create new resource with different name
+    URI newUri = URI.createURI("copy.xyz").resolve(resource.getURI());
+    Resource newResource = resource.getResourceSet().createResource(newUri);
+    // add copy of original content to new resource
+    newResource.getContents().addAll(contentsCopy);
+    // save new resource
+    try {
+      newResource.save(null);
+    } catch (IOException e) {
+      // handle exception
+    }
+    return Status.OK_STATUS;
+  }
+}
+\end{lstlisting}
+
+Alternatively, you can also register builders for your \DSL in other plug-ins.
+
 \subsection{Implementing Interpreters}
 
 \subsection{Customizing Text Hovers}
