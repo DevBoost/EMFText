@@ -60,7 +60,7 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 					return resolutions.toArray(new org.eclipse.ui.IMarkerResolution[resolutions.size()]);
 				}
 			}
-		} catch (java.lang.Exception e) {
+		} catch (Exception e) {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while computing quick fix resolutions", e);
 		}
 		return new org.eclipse.ui.IMarkerResolution[] {};

@@ -58,7 +58,7 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		try {
 			file = getFile(fileName, containerName);
 		} catch (org.eclipse.core.runtime.CoreException e1) {
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("java.lang.Exception while initializing new file", e1);
+			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while initializing new file", e1);
 			return false;
 		}
 		
@@ -91,7 +91,7 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		} catch (java.lang.reflect.InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
 			org.eclipse.jface.dialogs.MessageDialog.openError(getShell(), "Error", realException.getMessage());
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("java.lang.Exception while initializing new file", e);
+			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while initializing new file", e);
 			return false;
 		}
 		return true;
@@ -163,7 +163,7 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		this.selection = selection;
 	}
 	
-	public java.lang.String getFileExtension() {
+	public String getFileExtension() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 	}
 	

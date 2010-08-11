@@ -108,7 +108,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		setEditorContextMenuId("org.emftext.sdk.concretesyntax.resource.cs.EditorContext");
 	}
 	
-	public java.lang.Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 		if (org.eclipse.ui.views.contentoutline.IContentOutlinePage.class.equals(required)) {
 			return getOutlinePage();
 		} else if (required.equals(org.eclipse.ui.views.properties.IPropertySheetPage.class)) {
@@ -167,7 +167,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 					// close this editor because it can not present the resource
 					close(false);
 				}
-			} catch (java.lang.Exception e) {
+			} catch (Exception e) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception while loading resource in " + this.getClass().getSimpleName() + ".", e);
 			}
 		} else {
@@ -237,7 +237,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				if (newFile.getErrors().isEmpty()) {
 					newFile.save(null);
 				}
-			} catch (java.lang.Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -260,7 +260,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
-	private java.lang.Object getOutlinePage() {
+	private Object getOutlinePage() {
 		if (outlinePage == null) {
 			outlinePage = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage(this);
 			outlinePage.addSelectionChangedListener(highlighting);
@@ -275,7 +275,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			// add a slightly modified adapter factory that does not return any editors for
 			// properties. this way, a model can never be modified through the propertiesview.
 			propertySheetPage.setPropertySourceProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(adapterFactory) {
-				protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(java.lang.Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
+				protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
 					return new org.eclipse.emf.edit.ui.provider.PropertySource(object, itemPropertySource) {
 						protected org.eclipse.ui.views.properties.IPropertyDescriptor createPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
 							return new org.eclipse.emf.edit.ui.provider.PropertyDescriptor(object, itemPropertyDescriptor) {
@@ -344,8 +344,8 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				destination = 0;
 			}
 			viewer.getTextWidget().setSelection(destination);
-		} catch (java.lang.Exception e) {
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("java.lang.Exception in setCaret()", e);
+		} catch (Exception e) {
+			org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Exception in setCaret()", e);
 		}
 	}
 	

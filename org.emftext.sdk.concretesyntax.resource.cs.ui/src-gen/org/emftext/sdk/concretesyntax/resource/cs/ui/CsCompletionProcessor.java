@@ -26,7 +26,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		
 		org.eclipse.emf.ecore.resource.Resource resource = editor.getResource();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
-		java.lang.String content = viewer.getDocument().get();
+		String content = viewer.getDocument().get();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);
 		
@@ -46,9 +46,9 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[finalProposalList.size()];
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : finalProposalList) {
-			java.lang.String proposalString = proposal.getInsertString();
-			java.lang.String displayString = proposal.getDisplayString();
-			java.lang.String prefix = proposal.getPrefix();
+			String proposalString = proposal.getInsertString();
+			String displayString = proposal.getDisplayString();
+			String prefix = proposal.getPrefix();
 			org.eclipse.swt.graphics.Image image = proposal.getImage();
 			org.eclipse.jface.text.contentassist.IContextInformation info;
 			info = new org.eclipse.jface.text.contentassist.ContextInformation(image, proposalString, proposalString);
@@ -57,7 +57,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 			// if a closing bracket was automatically inserted right before, we enlarge the
 			// replacement length in order to overwrite the bracket.
 			org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler = editor.getBracketHandler();
-			java.lang.String closingBracket = bracketHandler.getClosingBracket();
+			String closingBracket = bracketHandler.getClosingBracket();
 			if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {
 				replacementLength += closingBracket.length();
 			}

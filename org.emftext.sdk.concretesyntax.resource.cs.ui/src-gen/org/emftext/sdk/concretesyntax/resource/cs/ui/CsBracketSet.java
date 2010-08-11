@@ -23,7 +23,7 @@ public class CsBracketSet {
 	 * the separator between a bracket pair, should not contain escape needed
 	 * character, it will be used as regular expression
 	 */
-	public final static java.lang.String BRACKET_SEPARATOR = " and ";
+	public final static String BRACKET_SEPARATOR = " and ";
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	private java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs;
 	private org.eclipse.jface.text.source.ISourceViewer viewer;
@@ -36,19 +36,19 @@ public class CsBracketSet {
 	 */
 	private class BracketPair implements org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair {
 		
-		private final java.lang.String[] brackets;
+		private final String[] brackets;
 		private boolean closingEnabledInside;
 		
-		public BracketPair(java.lang.String opening, java.lang.String closing, boolean closingEnabledInside) {
-			brackets = new java.lang.String[] { opening, closing };
+		public BracketPair(String opening, String closing, boolean closingEnabledInside) {
+			brackets = new String[] { opening, closing };
 			this.closingEnabledInside = closingEnabledInside;
 		}
 		
-		public java.lang.String getClosingBracket() {
+		public String getClosingBracket() {
 			return brackets[1];
 		}
 		
-		public java.lang.String getOpeningBracket() {
+		public String getOpeningBracket() {
 			return brackets[0];
 		}
 		
@@ -207,7 +207,7 @@ public class CsBracketSet {
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair getBracketPair(int index) {
 		try {
 			return bracketPairs.get(index);
-		} catch (java.lang.Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -336,13 +336,13 @@ public class CsBracketSet {
 	 * 
 	 * @see org.eclipse.jface.preference.IPreferenceStore
 	 */
-	public java.lang.String getBracketString() {
+	public String getBracketString() {
 		if (bracketPairs.size() < 1) {
 			return "";
 		}
-		java.lang.String result = "";
+		String result = "";
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair : bracketPairs) {
-			java.lang.String isClosingStr = "0";
+			String isClosingStr = "0";
 			if (bracketPair.isClosingEnabledInside()) {
 				isClosingStr = "1";
 			}

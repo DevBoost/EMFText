@@ -37,7 +37,7 @@ public class CsEObjectSelection implements org.eclipse.jface.viewers.IStructured
 		return false;
 	}
 	
-	public java.lang.Object getFirstElement() {
+	public Object getFirstElement() {
 		return selectedObject;
 	}
 	
@@ -64,8 +64,8 @@ public class CsEObjectSelection implements org.eclipse.jface.viewers.IStructured
 		return 1;
 	}
 	
-	public java.lang.Object[] toArray() {
-		return new java.lang.Object[] {selectedObject};
+	public Object[] toArray() {
+		return new Object[] {selectedObject};
 	}
 	
 	public java.util.List<?> toList() {

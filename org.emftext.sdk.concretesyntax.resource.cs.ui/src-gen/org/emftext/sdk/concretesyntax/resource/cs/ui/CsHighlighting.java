@@ -318,7 +318,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	
 	private void handleContentOutlineSelection(org.eclipse.jface.viewers.ISelection selection) {
 		if (!selection.isEmpty()) {
-			java.lang.Object selectedElement = ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
+			Object selectedElement = ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 			if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject selectedEObject = (org.eclipse.emf.ecore.EObject) selectedElement;
 				org.eclipse.emf.ecore.resource.Resource resource = selectedEObject.eResource();

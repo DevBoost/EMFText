@@ -29,7 +29,7 @@ public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesynta
 			Object value = null;
 			try {
 				value = object.eGet(attribute);
-			} catch (java.lang.Exception e) {
+			} catch (Exception e) {
 				// Exception in eGet, do nothing
 			}
 			if (value != null && value.toString() != null && !value.toString().equals("[]")) {

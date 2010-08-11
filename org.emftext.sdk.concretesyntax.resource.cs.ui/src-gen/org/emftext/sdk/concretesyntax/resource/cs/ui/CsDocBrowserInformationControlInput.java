@@ -91,8 +91,8 @@ public class CsDocBrowserInformationControlInput {
 		return tokenText;
 	}
 	
-	public java.lang.Object getInputElement() {
-		return element == null ? (java.lang.Object) htmlContent : element;
+	public Object getInputElement() {
+		return element == null ? (Object) htmlContent : element;
 	}
 	
 	public String getInputName() {
