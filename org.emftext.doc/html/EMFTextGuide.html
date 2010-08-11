@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-11 16:50:00"> 
+<meta name="date" content="2010-08-11 19:50:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -2394,17 +2394,68 @@ class="ul9r8t-x-x-95">}</span>
 <!--l. 102--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.6</span>&#x00A0;&#x00A0;<a 
  id="x1-410004.2.6"></a>Implementing Interpreters</h4>
-<!--l. 104--><p class="noindent" >
+<!--l. 104--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
+Assuming the file extension of your DSL is <span 
+class="ul9r8t-x-x-95">xyz </span>the abstract stub class will be named
+<span 
+class="ul9r8t-x-x-95">AbstractXyzInterpreter</span>. To implement concrete interpreters, you can create subclasses of this stub
+class.
+<!--l. 109--><p class="indent" >  For each concrete class found in the metamodel of your DSL, the interpreter stub contains a
                                                                                      
 
                                                                                      
+<span 
+class="ul9r8t-x-x-95">interprete_Classname </span>method. These methods can be overridden in concrete interpreter classes to
+implement the desired interpretation for the objects of each type.
+<!--l. 114--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
+used in different modes. First, models can be interpret using a stack. In this case, the
+<span 
+class="ul9r8t-x-x-95">interprete_Classname </span>methods must perform the interpretation, but should not call other
+<span 
+class="ul9r8t-x-x-95">interprete </span>methods. This is automatically performed by the interpreter. One can put
+objects on the interpretation stack by calling <span 
+class="ul9r8t-x-x-95">addObjectToInterprete() </span>and then start
+interpretation by calling <span 
+class="ul9r8t-x-x-95">interprete()</span>. Interpretation ends when all objects from the stack are
+consumed.
+<!--l. 124--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
+<span 
+class="ul9r8t-x-x-95">interprete_Classname </span>methods call other <span 
+class="ul9r8t-x-x-95">interprete </span>methods to continue interpretation. The
+traversal of the model is more explicit than using the interpreter with the stack in this
+mode.
+<!--l. 129--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
+can simply put all models elements (using <span 
+class="ul9r8t-x-x-95">eAllContents() </span>on the model root element) on the stack
+and then start interpretation. The second, stack-independent interpretation mode is useful to traverse
+models top-down.
+<!--l. 135--><p class="indent" >  The stub class has two type parameters&#8212;<span 
+class="ul9r8t-x-x-95">ResultType </span>and <span 
+class="ul9r8t-x-x-95">ContextType</span>, which concrete subclasses
+must bind. The former parameter (i.e., <span 
+class="ul9r8t-x-x-95">ResultType</span>) specifies the return type of the <span 
+class="ul9r8t-x-x-95">interprete</span>
+methods. The latter parameter (i.e., <span 
+class="ul9r8t-x-x-95">ContextType</span>) defines the type of the parameter that is passed to
+the <span 
+class="ul9r8t-x-x-95">interprete </span>methods. By binding the type parameters one can use arbitrary classes to pass
+interpretation results.
+<!--l. 143--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
+SimpleMath<span class="footnote-mark"><a 
+href="EMFTextGuide6.html#fn1x4"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-41001f1"></a>  and the
+ThreeValuedLogic DSL<span class="footnote-mark"><a 
+href="EMFTextGuide7.html#fn2x4"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x1-41002f2"></a> 
+use the generated interpreter stubs.
+<!--l. 149--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.7</span>&#x00A0;&#x00A0;<a 
  id="x1-420004.2.7"></a>Customizing Text Hovers</h4>
-<!--l. 106--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
+<!--l. 151--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideHoverTextProvider </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 109-->
+  <!--l. 154-->
   <div class="lstlisting" id="listing-38"><span class="label"><a 
  id="x1-42001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
@@ -2428,9 +2479,12 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 115--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 160--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-60002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), a new class <span 
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>can be
+                                                                                     
+
+                                                                                     
 found in the <span 
 class="ul9r8t-x-x-95">src </span>folder of the generated resource UI plug-in (assuming the file extension of your DSL
 is <span 
@@ -2438,7 +2492,7 @@ class="ul9r8t-x-x-95">xyz</span>. If you face compilation errors, make sure to t
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>class from
 the <span 
 class="ul9r8t-x-x-95">src-gen </span>folder.
-<!--l. 122--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
+<!--l. 167--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
 class="ul9r8t-x-x-95">getHoverText()</span>. The default
 implementation of this method delegates calls to a default provider. To customize the hover text
 you can inspect the <span 
@@ -2446,7 +2500,7 @@ class="ul9r8t-x-x-95">EObject </span>passed to the method and return arbitrary H
 The following listing shows a simple customized provider, which returns the type of the
 <span 
 class="ul9r8t-x-x-95">EObject</span>.
-  <!--l. 129-->
+  <!--l. 174-->
   <div class="lstlisting" id="listing-39"><span class="label"><a 
  id="x1-42004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
@@ -2549,12 +2603,16 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 141--><p class="noindent" >
+<!--l. 186--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.8</span>&#x00A0;&#x00A0;<a 
  id="x1-430004.2.8"></a>Customizing Code Completion Proposals</h4>
                                                                                      
 
                                                                                      
+                                                                                     
+
+                                                                                     
+<!--l. 98--><p class="indent" >
                                                                                      
 
                                                                                      

@@ -101,6 +101,51 @@ Alternatively, you can also register builders for your \DSL in other plug-ins.
 
 \subsection{Implementing Interpreters}
 
+To ease the implementation of interpreters for your \DSL, EMFText generates an
+interpreter stub. Assuming the file extension of your \DSL is \texttt{xyz} the
+abstract stub class will be named \texttt{AbstractXyzInterpreter}. To implement
+concrete interpreters, you can create subclasses of this stub class.
+
+For each concrete class found in the metamodel of your \DSL, the interpreter
+stub contains a \texttt{interprete\_Classname} method. These methods can be
+overridden in concrete interpreter classes to implement the desired interpretation for the
+objects of each type.
+
+After implementing the methods for the classes which shall be interpret, the
+interpreter can be used in different modes. First, models can be interpret using
+a stack. In this case, the \texttt{interprete\_Classname} methods must
+perform the interpretation, but should not call other
+\texttt{interprete} methods. This is automatically performed by the
+interpreter. One can put objects on the interpretation stack by calling
+\texttt{addObjectToInterprete()} and then start
+interpretation by calling \texttt{interprete()}. Interpretation ends
+when all objects from the stack are consumed.
+
+Second, the interpretation can be performed without using the stack. In this
+case, the \texttt{interprete\_Classname} methods call other
+\texttt{interprete} methods to continue interpretation. The traversal of the
+model is more explicit than using the interpreter with the stack in this mode.
+
+The first, stack-based interpretation mode is useful to traverse models in a
+bottom-up fashion. One can simply put all models elements (using
+\texttt{eAllContents()} on the model root element) on the stack and then start
+interpretation. The second, stack-independent interpretation mode is useful to
+traverse models top-down.
+
+The stub class has two type parameters---\texttt{ResultType} and
+\texttt{ContextType}, which concrete subclasses must bind. The former
+parameter (i.e., \texttt{ResultType}) specifies the return type of the
+\texttt{interprete} methods. The latter parameter (i.e., \texttt{ContextType})
+defines the type of the parameter that is passed to the \texttt{interprete}
+methods. By binding the type parameters one can use arbitrary classes to pass
+interpretation results.
+
+Examples for interpreters can be found in the EMFText Syntax
+Zoo. Both SimpleMath\footnote{\url{http://www.emftext.org/language/simplemath}}
+and the ThreeValuedLogic
+DSL\footnote{\url{http://www.emftext.org/language/threevaluedlogic}} use the
+generated interpreter stubs.
+
 \subsection{Customizing Text Hovers}
 
 To implement custom text hovers for your \DSL, basically set the code
