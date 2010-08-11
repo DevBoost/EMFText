@@ -103,5 +103,40 @@ Alternatively, you can also register builders for your \DSL in other plug-ins.
 
 \subsection{Customizing Text Hovers}
 
+To implement custom text hovers for your \DSL, basically set the code
+generation option \texttt{overrideHoverTextProvider} to \texttt{false}:
+
+\begin{lstlisting}
+OPTIONS {
+    overrideHoverTextProvider = "false";
+}
+\end{lstlisting}
+
+After regenerating the resource plug-ins (see
+Sect.~\ref{sec:process_generating}), a new class
+\texttt{XyzHoverTextProvider} can be found in the \texttt{src} folder of the
+generated resource UI plug-in (assuming the file extension of your \DSL is \texttt{xyz}.
+If you face compilation errors, make sure to the delete the \texttt{XyzHoverTextProvider} 
+class from the \texttt{src-gen} folder.
+
+The generated hover text provider class contains one
+method---\texttt{getHoverText()}. The default implementation of this
+method delegates calls to a default provider. To customize the
+hover text you can inspect the \texttt{EObject} passed to the method and return arbitrary HTML code. The
+following listing shows a simple customized provider, which returns the type of
+the \texttt{EObject}.
+
+\begin{lstlisting}
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.language.xyz.resource.xyz.IXyzHoverTextProvider;
+
+public class XyzHoverTextProvider implements IXyzHoverTextProvider {
+	
+  public String getHoverText(EObject object) {
+    return "An object of type " + object.eClass().getName();
+  }
+}
+\end{lstlisting}
+
 \subsection{Customizing Code Completion Proposals}
 
