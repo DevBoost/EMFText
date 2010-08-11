@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-11 19:50:00"> 
+<meta name="date" content="2010-08-11 20:49:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -115,26 +115,26 @@ href="#x1-350004.2" id="QQ2-1-36">Concrete Customizations</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.1&#x00A0;&#x00A0;<a 
 href="#x1-360004.2.1" id="QQ2-1-37">Customizing Token Resolving</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.2&#x00A0;&#x00A0;<a 
-href="#x1-370004.2.2" id="QQ2-1-38">Customizing Reference Resolving</a></span>
+href="#x1-390004.2.2" id="QQ2-1-40">Customizing Reference Resolving</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.3&#x00A0;&#x00A0;<a 
-href="#x1-380004.2.3" id="QQ2-1-39">Implementing Post Processors</a></span>
+href="#x1-400004.2.3" id="QQ2-1-41">Implementing Post Processors</a></span>
                                                                                      
 
                                                                                      
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.4&#x00A0;&#x00A0;<a 
-href="#x1-390004.2.4" id="QQ2-1-40">Implementing Quick Fixes</a></span>
+href="#x1-410004.2.4" id="QQ2-1-42">Implementing Quick Fixes</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.5&#x00A0;&#x00A0;<a 
-href="#x1-400004.2.5" id="QQ2-1-41">Implementing Builders</a></span>
+href="#x1-420004.2.5" id="QQ2-1-43">Implementing Builders</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.6&#x00A0;&#x00A0;<a 
-href="#x1-410004.2.6" id="QQ2-1-42">Implementing Interpreters</a></span>
+href="#x1-430004.2.6" id="QQ2-1-44">Implementing Interpreters</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.7&#x00A0;&#x00A0;<a 
-href="#x1-420004.2.7" id="QQ2-1-43">Customizing Text Hovers</a></span>
+href="#x1-440004.2.7" id="QQ2-1-45">Customizing Text Hovers</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >4.2.8&#x00A0;&#x00A0;<a 
-href="#x1-430004.2.8" id="QQ2-1-44">Customizing Code Completion Proposals</a></span>
+href="#x1-450004.2.8" id="QQ2-1-46">Customizing Code Completion Proposals</a></span>
 <br />  <span class="appendixToc" >A&#x00A0;&#x00A0;<a 
-href="#x1-46000A" id="QQ2-1-47">Code Generation Options</a></span>
+href="#x1-48000A" id="QQ2-1-49">Code Generation Options</a></span>
 <br />  <span class="appendixToc" >B&#x00A0;&#x00A0;<a 
-href="#x1-47000B" id="QQ2-1-48">Types of Warnings</a></span>
+href="#x1-49000B" id="QQ2-1-50">Types of Warnings</a></span>
   </div>
                                                                                      
 
@@ -625,7 +625,7 @@ class="ul9r8t-x-x-95">}</span>
   
   </div>
 <!--l. 131--><p class="indent" >  The list of valid options and their documentation can be found in Appendix&#x00A0;<a 
-href="#x1-46000A">A<!--tex4ht:ref: app:options --></a>.
+href="#x1-48000A">A<!--tex4ht:ref: app:options --></a>.
 <!--l. 134--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">3.2</span>&#x00A0;&#x00A0;<a 
  id="x1-150003.2"></a>Tokens</h3>
@@ -1523,7 +1523,7 @@ implementation of the resolver looks for all model elements that have the correc
 class="ul9r8t-x-x-95">yourNonContainmentReference</span>) and that have a name or id attribute that
 matches the symbolic name. For details on how to customize the resolving of references, see
 Sect.&#x00A0;<a 
-href="#x1-370004.2.2">4.2.2<!--tex4ht:ref: sec:cust_reference_resolving --></a>.
+href="#x1-390004.2.2">4.2.2<!--tex4ht:ref: sec:cust_reference_resolving --></a>.
 <!--l. 417--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">3.4.4</span>&#x00A0;&#x00A0;<a 
  id="x1-260003.4.4"></a>Syntax for Printing Instructions</h4>
@@ -1831,33 +1831,729 @@ class="ul9r8t-x-x-95">";</span>
 <!--l. 13--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.1</span>&#x00A0;&#x00A0;<a 
  id="x1-360004.2.1"></a>Customizing Token Resolving</h4>
-<!--l. 16--><p class="noindent" >
-  <h4 class="subsectionHead"><span class="titlemark">4.2.2</span>&#x00A0;&#x00A0;<a 
- id="x1-370004.2.2"></a>Customizing Reference Resolving</h4>
-<!--l. 19--><p class="noindent" >
-  <h4 class="subsectionHead"><span class="titlemark">4.2.3</span>&#x00A0;&#x00A0;<a 
- id="x1-380004.2.3"></a>Implementing Post Processors</h4>
-<!--l. 21--><p class="noindent" >
-  <h4 class="subsectionHead"><span class="titlemark">4.2.4</span>&#x00A0;&#x00A0;<a 
- id="x1-390004.2.4"></a>Implementing Quick Fixes</h4>
+<!--l. 16--><p class="noindent" >To create models from their textual representation, it is necessary to convert the plain text found in
+Domain-specific Language (DSL) documents to data types. For example, if the string <span 
+class="ul9r8t-x-x-95"> 123  </span>is found
+in a text file and shall be used as value for an attribute which has type <span 
+class="ul9r8t-x-x-95">EInt</span>, the string needs to be
+converted to an <span 
+class="ul9r8t-x-x-95">int</span>. Basic conversions, such as the one just mentioned, are handled by the
+generated class <span 
+class="ul9r8t-x-x-95">XyzDefaultTokenResolver </span>(assuming the file extension of your DSL is
+<span 
+class="ul9r8t-x-x-95">xyz</span>). However, if you want to use custom data types in your metamodels, or you need to
+customize the default conversion, there is two ways to change to conversion of text to data
+types.
+<!--l. 26--><p class="noindent" >
+  <h5 class="subsubsectionHead"><a 
+ id="x1-370004.2.1"></a>Customizing TokenResolver Classes</h5>
+<!--l. 28--><p class="noindent" >The first option to customize the conversion of text, is to change the generated token resolver classes.
+EMFText generates one of these classes for each token that is defined in the <span 
+class="ul9r8t-x-x-95">.cs </span>file. All
+classes end up in a package called <span 
+class="ul9r8t-x-x-95">analysis </span>in the <span 
+class="ul9r8t-x-x-95">src </span>folder of the generated resource
+plug-in.
+<!--l. 33--><p class="indent" >  Each token resolver class has two methods&#8212;<span 
+class="ul9r8t-x-x-95">resolve() </span>and <span 
+class="ul9r8t-x-x-95">deResolve()</span>. The first one is used to
                                                                                      
 
                                                                                      
-<!--l. 23--><p class="noindent" >
+convert text to data types. The second one is used to perform the other way around. Consequently,
+<span 
+class="ul9r8t-x-x-95">resolve() </span>is used when models are parsed, while <span 
+class="ul9r8t-x-x-95">deResolve() </span>is used to print models to
+text.
+<!--l. 39--><p class="indent" >  The default implementation for both methods delegates calls to a default token resolver.
+However, this call can be replaced by custom code implementing different behavior. The code
+in the <span 
+class="ul9r8t-x-x-95">resolve() </span>method must convert the text (given by the parameter <span 
+class="ul9r8t-x-x-95">lexem</span>) to an
+object of the data type. This object must be set using <span 
+class="ul9r8t-x-x-95">result.setResolvedToken()</span>. The
+<span 
+class="ul9r8t-x-x-95">deResolve() </span>must implement the opposite behavior by returning a string representation of the
+object.
+<!--l. 47--><p class="indent" >  In the following a custom token resolver class is shown, which converts <span 
+class="ul9r8t-x-x-95">TEXT </span>tokens to
+<span 
+class="ul9r8t-x-x-95">java.util.Date </span>objects:
+  <!--l. 50-->
+  <div class="lstlisting" id="listing-36"><span class="label"><a 
+ id="x1-37001r1"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">text</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ParseException</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37002r2"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">text</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">SimpleDateFormat</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37003r3"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">Date</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37004r4"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">java</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">util</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">Map</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37005r5"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37006r6"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ecore</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">EObject</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37007r7"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">eclipse</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emf</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">ecore</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">EStructuralFeature</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37008r8"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emftext</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">language</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IXyzTokenResolveResult</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37009r9"></a></span><span 
+class="ul9r8t-x-x-95">import</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">org</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">emftext</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">language</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">resource</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">xyz</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">IXyzTokenResolver</span><span 
+class="ul9r8t-x-x-95">;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37010r10"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37011r11"></a></span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">class</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">XyzTEXTTokenResolver</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">implements</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">IXyzTokenResolver</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37012r12"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37013r13"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">private</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">SimpleDateFormat</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">new</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">SimpleDateFormat</span><span 
+class="ul9r8t-x-x-95">("</span><span 
+class="ul9r8t-x-x-95">dd</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">MM</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">yyyy</span><span 
+class="ul9r8t-x-x-95">");</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37014r14"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37015r15"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">String</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">deResolve</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">Object</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">value</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">EStructuralFeature</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">feature</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37016r16"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">EObject</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">container</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37017r17"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">value</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37018r18"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37019r19"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37020r20"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">void</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">resolve</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">String</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">lexem</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">EStructuralFeature</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">feature</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37021r21"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">IXyzTokenResolveResult</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">result</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37022r22"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">try</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37023r23"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Date</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">date</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">parse</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">lexem</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37024r24"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">result</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">setResolvedToken</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">date</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37025r25"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">catch</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">ParseException</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">e</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37026r26"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">result</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">setErrorMessage</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">lexem</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">+</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">"</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">is</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">not</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">a</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">valid</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">date</span><span 
+class="ul9r8t-x-x-95">.");</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37027r27"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37028r28"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37029r29"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37030r30"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">void</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">setOptions</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">Map</span><span 
+class="ul9r8t-x-x-95"><?,?></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">options</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37031r31"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">//</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">can</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">be</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">left</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">empty</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37032r32"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-37033r33"></a></span><span 
+class="ul9r8t-x-x-95">}</span>
+  
+  </div>
+<!--l. 86--><p class="indent" >  The difference between this kind of customization and the one below, is that the implemented
+conversion is local w.r.t.&#x00A0;the textual syntax of the DSL. If you have multiple syntax definition for
+your DSL, each can use completely different algorithms to convert data types.
+<!--l. 91--><p class="noindent" >
+  <h5 class="subsubsectionHead"><a 
+ id="x1-380004.2.1"></a>Customizing the EMF Data Type Handling</h5>
+<!--l. 93--><p class="noindent" >Alternatively, you can customize the data type handling that is built into Eclipse Modeling
+Framework (EMF)&#x00A0;<span class="cite">[<span 
+class="aebx-10x-x-109">?</span>]</span>. To do so, you need to define a custom data type in the metamodel (e.g.,
+<span 
+class="ul9r8t-x-x-95">JavaDate</span>). Then, the instance type name must be set to the actual Java class, which shall be used to
+represent instances of the data type (e.g., <span 
+class="ul9r8t-x-x-95">java.util.Date</span>). When running the EMF code
+generation, the <span 
+class="ul9r8t-x-x-95">FactoryImpl </span>class will contain two methods&#8212;<span 
+class="ul9r8t-x-x-95">createJavaDateFromString() </span>and
+<span 
+class="ul9r8t-x-x-95">convertJavaDateToString()</span>. These need to be customized similar to the token resolver class
+before.
+<!--l. 103--><p class="indent" >  The following code is a snippet from the <span 
+class="ul9r8t-x-x-95">XyzFactoryImpl </span>class and shows how to implement the
+same behavior as above using EMF&#8217;s own data type handling facilities.
+  <!--l. 107-->
+  <div class="lstlisting" id="listing-37"><span class="label"><a 
+ id="x1-38001r1"></a></span><span 
+class="ul9r8t-x-x-95">private</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">SimpleDateFormat</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">new</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">SimpleDateFormat</span><span 
+class="ul9r8t-x-x-95">("</span><span 
+class="ul9r8t-x-x-95">yyyy</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">MM</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">dd</span><span 
+class="ul9r8t-x-x-95">");</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38002r2"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38003r3"></a></span><span 
+class="ul9r8t-x-x-95">/**</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38004r4"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95"><!--</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">begin</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">user</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">doc</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">--></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38005r5"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95"><!--</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">end</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">user</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">doc</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">--></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38006r6"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">@generated</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">NOT</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38007r7"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*/</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38008r8"></a></span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Date</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">createJavaDateFromString</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">EDataType</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">eDataType</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38009r9"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">String</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">initialValue</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38010r10"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">try</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38011r11"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">parse</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">initialValue</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38012r12"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">catch</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">ParseException</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">e</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38013r13"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">//</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">ignore</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38014r14"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38015r15"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">Date</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">super</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">createFromString</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">eDataType</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">initialValue</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38016r16"></a></span><span 
+class="ul9r8t-x-x-95">}</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38017r17"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38018r18"></a></span><span 
+class="ul9r8t-x-x-95">/**</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38019r19"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95"><!--</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">begin</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">user</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">doc</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">--></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38020r20"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95"><!--</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">end</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">user</span><span 
+class="ul9r8t-x-x-95">-</span><span 
+class="ul9r8t-x-x-95">doc</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">--></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38021r21"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">@generated</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">NOT</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38022r22"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">*/</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38023r23"></a></span><span 
+class="ul9r8t-x-x-95">public</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">String</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">convertJavaDateToString</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">EDataType</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">eDataType</span><span 
+class="ul9r8t-x-x-95">,</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38024r24"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">Object</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">instanceValue</span><span 
+class="ul9r8t-x-x-95">)</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">{</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38025r25"></a></span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">return</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">.</span><span 
+class="ul9r8t-x-x-95">format</span><span 
+class="ul9r8t-x-x-95">(</span><span 
+class="ul9r8t-x-x-95">instanceValue</span><span 
+class="ul9r8t-x-x-95">);</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-38026r26"></a></span><span 
+class="ul9r8t-x-x-95">}</span>
+  
+  </div>
+<!--l. 136--><p class="noindent" >
+  <h4 class="subsectionHead"><span class="titlemark">4.2.2</span>&#x00A0;&#x00A0;<a 
+ id="x1-390004.2.2"></a>Customizing Reference Resolving</h4>
+                                                                                     
+
+                                                                                     
+<!--l. 139--><p class="noindent" >
+  <h4 class="subsectionHead"><span class="titlemark">4.2.3</span>&#x00A0;&#x00A0;<a 
+ id="x1-400004.2.3"></a>Implementing Post Processors</h4>
+<!--l. 141--><p class="noindent" >
+  <h4 class="subsectionHead"><span class="titlemark">4.2.4</span>&#x00A0;&#x00A0;<a 
+ id="x1-410004.2.4"></a>Implementing Quick Fixes</h4>
+<!--l. 143--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.5</span>&#x00A0;&#x00A0;<a 
- id="x1-400004.2.5"></a>Implementing Builders</h4>
-<!--l. 25--><p class="noindent" >To implement a custom builder for your Domain-specific Language (DSL), basically set the code
-generation option <span 
+ id="x1-420004.2.5"></a>Implementing Builders</h4>
+<!--l. 145--><p class="noindent" >To implement a custom builder for your DSL, basically set the code generation option
+<span 
 class="ul9r8t-x-x-95">overrideBuilder </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 28-->
-  <div class="lstlisting" id="listing-36"><span class="label"><a 
- id="x1-40001r1"></a></span><span 
+  <!--l. 148-->
+  <div class="lstlisting" id="listing-38"><span class="label"><a 
+ id="x1-42001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40002r2"></a></span><span 
+ id="x1-42002r2"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -1870,11 +2566,11 @@ class="ul9r8t-x-x-95">"</span><span
 class="ul9r8t-x-x-95">false</span><span 
 class="ul9r8t-x-x-95">";</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40003r3"></a></span><span 
+ id="x1-42003r3"></a></span><span 
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 34--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 154--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-60002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), you will find a new class <span 
 class="ul9r8t-x-x-95">XyzBuilder </span>in
 the <span 
@@ -1884,7 +2580,7 @@ you face compilation errors, make sure to the delete the <span
 class="ul9r8t-x-x-95">XyzBuilder </span>class from the <span 
 class="ul9r8t-x-x-95">src-gen</span>
 folder.
-<!--l. 41--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
+<!--l. 161--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
 class="ul9r8t-x-x-95">isBuildingNeeded() </span>and <span 
 class="ul9r8t-x-x-95">build()</span>. The first
 one is called to let the builder decide, which resources need to be included in the build process.
@@ -1893,18 +2589,18 @@ class="ul9r8t-x-x-95">false </span>to avoid unnecessary loading of resources. To
 include all textual resources that contain models of your DSL, change the method to return
 <span 
 class="ul9r8t-x-x-95">true</span>.
-<!--l. 48--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
+<!--l. 168--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
 arbitrary behavior here. Usually, builders create some kind of derived artifact, for example a
 transformed or compiled version of the DSL model. Since <span 
 class="ul9r8t-x-x-95">build() </span>retrieves the resource as method
 parameter, you can easily access the contents of the resource. To save the derived artifact it is good
 practice to use the URI of the original resource to derive a new URI. This can for example be done
 by removing segments and adding new ones.
-<!--l. 56--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
+<!--l. 176--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
 resource without making any changes.
-  <!--l. 59-->
-  <div class="lstlisting" id="listing-37"><span class="label"><a 
- id="x1-40004r1"></a></span><span 
+  <!--l. 179-->
+  <div class="lstlisting" id="listing-39"><span class="label"><a 
+ id="x1-42004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">java</span><span 
@@ -1914,7 +2610,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">IOException</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40005r2"></a></span><span 
+ id="x1-42005r2"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">java</span><span 
@@ -1924,9 +2620,9 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">Collection</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40006r3"></a></span><span 
+ id="x1-42006r3"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40007r4"></a></span><span 
+ id="x1-42007r4"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -1940,7 +2636,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">IProgressMonitor</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40008r5"></a></span><span 
+ id="x1-42008r5"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -1954,7 +2650,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">IStatus</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40009r6"></a></span><span 
+ id="x1-42009r6"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -1968,7 +2664,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">Status</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40010r7"></a></span><span 
+ id="x1-42010r7"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -1984,7 +2680,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">EList</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40011r8"></a></span><span 
+ id="x1-42011r8"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2000,7 +2696,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">URI</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40012r9"></a></span><span 
+ id="x1-42012r9"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2014,7 +2710,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">EObject</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40013r10"></a></span><span 
+ id="x1-42013r10"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2030,7 +2726,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">Resource</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40014r11"></a></span><span 
+ id="x1-42014r11"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2046,7 +2742,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">EcoreUtil</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40015r12"></a></span><span 
+ id="x1-42015r12"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2064,9 +2760,9 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">IXyzBuilder</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40016r13"></a></span><span 
+ id="x1-42016r13"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40017r14"></a></span><span 
+ id="x1-42017r14"></a></span><span 
 class="ul9r8t-x-x-95">public</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">class</span><span 
@@ -2079,9 +2775,9 @@ class="ul9r8t-x-x-95">IXyzBuilder</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40018r15"></a></span><span 
+ id="x1-42018r15"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40019r16"></a></span><span 
+ id="x1-42019r16"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">public</span><span 
@@ -2097,7 +2793,7 @@ class="ul9r8t-x-x-95">)</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40020r17"></a></span><span 
+ id="x1-42020r17"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2107,14 +2803,14 @@ class="ul9r8t-x-x-95">&#x00A0;</span><span
 class="ul9r8t-x-x-95">true</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40021r18"></a></span><span 
+ id="x1-42021r18"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">}</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40022r19"></a></span><span 
+ id="x1-42022r19"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40023r20"></a></span><span 
+ id="x1-42023r20"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">public</span><span 
@@ -2135,7 +2831,7 @@ class="ul9r8t-x-x-95">)</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40024r21"></a></span><span 
+ id="x1-42024r21"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2152,7 +2848,7 @@ class="ul9r8t-x-x-95">create</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">copy</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40025r22"></a></span><span 
+ id="x1-42025r22"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2171,7 +2867,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">getContents</span><span 
 class="ul9r8t-x-x-95">();</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40026r23"></a></span><span 
+ id="x1-42026r23"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2192,9 +2888,9 @@ class="ul9r8t-x-x-95">(</span><span
 class="ul9r8t-x-x-95">contents</span><span 
 class="ul9r8t-x-x-95">);</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40027r24"></a></span><span 
+ id="x1-42027r24"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40028r25"></a></span><span 
+ id="x1-42028r25"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2213,7 +2909,7 @@ class="ul9r8t-x-x-95">different</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">name</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40029r26"></a></span><span 
+ id="x1-42029r26"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2239,7 +2935,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">getURI</span><span 
 class="ul9r8t-x-x-95">());</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40030r27"></a></span><span 
+ id="x1-42030r27"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2259,7 +2955,7 @@ class="ul9r8t-x-x-95">(</span><span
 class="ul9r8t-x-x-95">newUri</span><span 
 class="ul9r8t-x-x-95">);</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40031r28"></a></span><span 
+ id="x1-42031r28"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2282,7 +2978,7 @@ class="ul9r8t-x-x-95">new</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">resource</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40032r29"></a></span><span 
+ id="x1-42032r29"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2296,7 +2992,7 @@ class="ul9r8t-x-x-95">(</span><span
 class="ul9r8t-x-x-95">contentsCopy</span><span 
 class="ul9r8t-x-x-95">);</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40033r30"></a></span><span 
+ id="x1-42033r30"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2309,7 +3005,7 @@ class="ul9r8t-x-x-95">new</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">resource</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40034r31"></a></span><span 
+ id="x1-42034r31"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2318,7 +3014,7 @@ class="ul9r8t-x-x-95">try</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40035r32"></a></span><span 
+ id="x1-42035r32"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2332,7 +3028,7 @@ class="ul9r8t-x-x-95">(</span><span
 class="ul9r8t-x-x-95">null</span><span 
 class="ul9r8t-x-x-95">);</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40036r33"></a></span><span 
+ id="x1-42036r33"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2349,7 +3045,7 @@ class="ul9r8t-x-x-95">)</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40037r34"></a></span><span 
+ id="x1-42037r34"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2362,14 +3058,14 @@ class="ul9r8t-x-x-95">handle</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">exception</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40038r35"></a></span><span 
+ id="x1-42038r35"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">}</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40039r36"></a></span><span 
+ id="x1-42039r36"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2381,33 +3077,33 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">OK_STATUS</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40040r37"></a></span><span 
+ id="x1-42040r37"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">}</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-40041r38"></a></span><span 
+ id="x1-42041r38"></a></span><span 
 class="ul9r8t-x-x-95">}</span>
   
+                                                                                     
+
+                                                                                     
   </div>
-<!--l. 100--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
-<!--l. 102--><p class="noindent" >
+<!--l. 220--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
+<!--l. 222--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.6</span>&#x00A0;&#x00A0;<a 
- id="x1-410004.2.6"></a>Implementing Interpreters</h4>
-<!--l. 104--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
+ id="x1-430004.2.6"></a>Implementing Interpreters</h4>
+<!--l. 224--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
 Assuming the file extension of your DSL is <span 
 class="ul9r8t-x-x-95">xyz </span>the abstract stub class will be named
 <span 
 class="ul9r8t-x-x-95">AbstractXyzInterpreter</span>. To implement concrete interpreters, you can create subclasses of this stub
 class.
-<!--l. 109--><p class="indent" >  For each concrete class found in the metamodel of your DSL, the interpreter stub contains a
-                                                                                     
-
-                                                                                     
+<!--l. 229--><p class="indent" >  For each metaclass found in the metamodel of your DSL, the interpreter stub contains a
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>method. These methods can be overridden in concrete interpreter classes to
 implement the desired interpretation for the objects of each type.
-<!--l. 114--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
+<!--l. 234--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
 used in different modes. First, models can be interpret using a stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods must perform the interpretation, but should not call other
@@ -2418,18 +3114,18 @@ class="ul9r8t-x-x-95">addObjectToInterprete() </span>and then start
 interpretation by calling <span 
 class="ul9r8t-x-x-95">interprete()</span>. Interpretation ends when all objects from the stack are
 consumed.
-<!--l. 124--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
+<!--l. 244--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods call other <span 
 class="ul9r8t-x-x-95">interprete </span>methods to continue interpretation. The
 traversal of the model is more explicit than using the interpreter with the stack in this
 mode.
-<!--l. 129--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
+<!--l. 249--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
 can simply put all models elements (using <span 
 class="ul9r8t-x-x-95">eAllContents() </span>on the model root element) on the stack
 and then start interpretation. The second, stack-independent interpretation mode is useful to traverse
 models top-down.
-<!--l. 135--><p class="indent" >  The stub class has two type parameters&#8212;<span 
+<!--l. 255--><p class="indent" >  The stub class has two type parameters&#8212;<span 
 class="ul9r8t-x-x-95">ResultType </span>and <span 
 class="ul9r8t-x-x-95">ContextType</span>, which concrete subclasses
 must bind. The former parameter (i.e., <span 
@@ -2440,29 +3136,32 @@ class="ul9r8t-x-x-95">ContextType</span>) defines the type of the parameter that
 the <span 
 class="ul9r8t-x-x-95">interprete </span>methods. By binding the type parameters one can use arbitrary classes to pass
 interpretation results.
-<!--l. 143--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
+<!--l. 263--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
 SimpleMath<span class="footnote-mark"><a 
 href="EMFTextGuide6.html#fn1x4"><sup class="textsuperscript">1</sup></a></span><a 
- id="x1-41001f1"></a>  and the
+ id="x1-43001f1"></a>  and the
 ThreeValuedLogic DSL<span class="footnote-mark"><a 
 href="EMFTextGuide7.html#fn2x4"><sup class="textsuperscript">2</sup></a></span><a 
- id="x1-41002f2"></a> 
+ id="x1-43002f2"></a> 
 use the generated interpreter stubs.
-<!--l. 149--><p class="noindent" >
+                                                                                     
+
+                                                                                     
+<!--l. 269--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.7</span>&#x00A0;&#x00A0;<a 
- id="x1-420004.2.7"></a>Customizing Text Hovers</h4>
-<!--l. 151--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
+ id="x1-440004.2.7"></a>Customizing Text Hovers</h4>
+<!--l. 271--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideHoverTextProvider </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 154-->
-  <div class="lstlisting" id="listing-38"><span class="label"><a 
- id="x1-42001r1"></a></span><span 
+  <!--l. 274-->
+  <div class="lstlisting" id="listing-40"><span class="label"><a 
+ id="x1-44001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42002r2"></a></span><span 
+ id="x1-44002r2"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2475,16 +3174,13 @@ class="ul9r8t-x-x-95">"</span><span
 class="ul9r8t-x-x-95">false</span><span 
 class="ul9r8t-x-x-95">";</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42003r3"></a></span><span 
+ id="x1-44003r3"></a></span><span 
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 160--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 280--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-60002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), a new class <span 
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>can be
-                                                                                     
-
-                                                                                     
 found in the <span 
 class="ul9r8t-x-x-95">src </span>folder of the generated resource UI plug-in (assuming the file extension of your DSL
 is <span 
@@ -2492,7 +3188,7 @@ class="ul9r8t-x-x-95">xyz</span>. If you face compilation errors, make sure to t
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>class from
 the <span 
 class="ul9r8t-x-x-95">src-gen </span>folder.
-<!--l. 167--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
+<!--l. 287--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
 class="ul9r8t-x-x-95">getHoverText()</span>. The default
 implementation of this method delegates calls to a default provider. To customize the hover text
 you can inspect the <span 
@@ -2500,9 +3196,9 @@ class="ul9r8t-x-x-95">EObject </span>passed to the method and return arbitrary H
 The following listing shows a simple customized provider, which returns the type of the
 <span 
 class="ul9r8t-x-x-95">EObject</span>.
-  <!--l. 174-->
-  <div class="lstlisting" id="listing-39"><span class="label"><a 
- id="x1-42004r1"></a></span><span 
+  <!--l. 294-->
+  <div class="lstlisting" id="listing-41"><span class="label"><a 
+ id="x1-44004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2516,7 +3212,7 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">EObject</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42005r2"></a></span><span 
+ id="x1-44005r2"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">org</span><span 
@@ -2534,9 +3230,9 @@ class="ul9r8t-x-x-95">.</span><span
 class="ul9r8t-x-x-95">IXyzHoverTextProvider</span><span 
 class="ul9r8t-x-x-95">;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42006r3"></a></span><span 
+ id="x1-44006r3"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42007r4"></a></span><span 
+ id="x1-44007r4"></a></span><span 
 class="ul9r8t-x-x-95">public</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">class</span><span 
@@ -2549,9 +3245,9 @@ class="ul9r8t-x-x-95">IXyzHoverTextProvider</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42008r5"></a></span><span 
+ id="x1-44008r5"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42009r6"></a></span><span 
+ id="x1-44009r6"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">public</span><span 
@@ -2567,7 +3263,7 @@ class="ul9r8t-x-x-95">)</span><span
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">{</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42010r7"></a></span><span 
+ id="x1-44010r7"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2594,30 +3290,26 @@ class="ul9r8t-x-x-95">().</span><span
 class="ul9r8t-x-x-95">getName</span><span 
 class="ul9r8t-x-x-95">();</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42011r8"></a></span><span 
+ id="x1-44011r8"></a></span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
 class="ul9r8t-x-x-95">}</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
- id="x1-42012r9"></a></span><span 
+ id="x1-44012r9"></a></span><span 
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 186--><p class="noindent" >
+<!--l. 306--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.8</span>&#x00A0;&#x00A0;<a 
- id="x1-430004.2.8"></a>Customizing Code Completion Proposals</h4>
+ id="x1-450004.2.8"></a>Customizing Code Completion Proposals</h4>
                                                                                      
 
                                                                                      
-                                                                                     
-
-                                                                                     
-<!--l. 98--><p class="indent" >
                                                                                      
 
                                                                                      
   <h2 class="likechapterHead"><a 
- id="x1-440004.2.8"></a>List of Figures</h2>
+ id="x1-460004.2.8"></a>List of Figures</h2>
 <div class="tableofcontents"><span class="lofToc" >1.1&#x00A0;<a 
 href="#x1-20011">Overview of Specified and Generated Artefacts</a></span><br />
 </div>
@@ -2634,7 +3326,7 @@ href="#x1-20011">Overview of Specified and Generated Artefacts</a></span><br />
 
                                                                                      
   <h2 class="likechapterHead"><a 
- id="x1-450004.2.8"></a>List of Listings</h2>
+ id="x1-470004.2.8"></a>List of Listings</h2>
                                                                                      
 
                                                                                      
@@ -2648,9 +3340,9 @@ href="#x1-20011">Overview of Specified and Generated Artefacts</a></span><br />
 
                                                                                      
 <a 
- id="x1-45001r32"></a>
+ id="x1-47001r32"></a>
   <h2 class="appendixHead"><span class="titlemark">A</span>.&#x00A0;&#x00A0;<a 
- id="x1-46000A"></a>Code Generation Options</h2>  EMFText currently supports 210 code generation options.
+ id="x1-48000A"></a>Code Generation Options</h2>  EMFText currently supports 210 code generation options.
 However, most of them (177) are only used to specify which generated artifacts shall be customized.
 Subsequently, a list of all options and their description can be found.
 <!--l. 3--><p class="noindent" ><span 
@@ -4628,9 +5320,9 @@ class="ul9r8t-x-x-95">true</span>.</dd></dl>
 
                                                                                      
 <a 
- id="x1-46001r32"></a>
+ id="x1-48001r32"></a>
   <h2 class="appendixHead"><span class="titlemark">B</span>.&#x00A0;&#x00A0;<a 
- id="x1-47000B"></a>Types of Warnings</h2>
+ id="x1-49000B"></a>Types of Warnings</h2>
      <ul class="itemize1">
      <li class="itemize"><span 
 class="ul9r8t-x-x-95">abstractSyntaxHasStartSymbols</span>

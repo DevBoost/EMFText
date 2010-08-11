@@ -13,6 +13,126 @@
 \subsection{Customizing Token Resolving}
 \label{sec:cust_token_resolving}
 
+To create models from their textual representation, it is necessary to convert
+the plain text found in \DSL documents to data types. For example, if the string
+\texttt{''123''} is found in a text file and shall be used as value for an
+attribute which has type \texttt{EInt}, the string needs to be converted to an
+\texttt{int}. Basic conversions, such as the one just mentioned, are handled by
+the generated class \texttt{XyzDefaultTokenResolver} (assuming the file
+extension of your \DSL is \texttt{xyz}). However, if you want to use custom data
+types in your metamodels, or you need to customize the default conversion, there
+is two ways to change to conversion of text to data types.
+
+\subsubsection{Customizing TokenResolver Classes}
+
+The first option to customize the conversion of text, is to change the generated
+token resolver classes. EMFText generates one of these classes for each token
+that is defined in the \texttt{.cs} file. All classes end up in a package called
+\texttt{analysis} in the \texttt{src} folder of the generated resource plug-in.
+
+Each token resolver class has two methods---\texttt{resolve()} and
+\texttt{deResolve()}. The first one is used to convert text to data types. The
+second one is used to perform the other way around. Consequently,
+\texttt{resolve()} is used when models are parsed, while \texttt{deResolve()} is
+used to print models to text.
+
+The default implementation for both methods delegates calls to a default token
+resolver. However, this call can be replaced by custom code implementing
+different behavior. The code in the \texttt{resolve()} method must convert the text
+(given by the parameter \texttt{lexem}) to an object of the data type. This
+object must be set using \texttt{result.setResolvedToken()}. The
+\texttt{deResolve()} must implement the opposite behavior by returning a string 
+representation of the object.
+
+In the following a custom token resolver class is shown, which converts
+\texttt{TEXT} tokens to \texttt{java.util.Date} objects:
+
+\begin{lstlisting}
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.language.xyz.resource.xyz.IXyzTokenResolveResult;
+import org.emftext.language.xyz.resource.xyz.IXyzTokenResolver;
+
+public class XyzTEXTTokenResolver implements IXyzTokenResolver {
+  
+  private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+  
+  public String deResolve(Object value, EStructuralFeature feature, 
+      EObject container) {
+    return format.format(value);
+  }
+  
+  public void resolve(String lexem, EStructuralFeature feature, 
+      IXyzTokenResolveResult result) {
+    try {
+      Date date = format.parse(lexem);
+      result.setResolvedToken(date);
+    } catch (ParseException e) {
+      result.setErrorMessage(lexem + " is not a valid date.");
+    }
+  }
+  
+  public void setOptions(Map<?,?> options) {
+    // can be left empty
+  }
+}
+\end{lstlisting}
+
+The difference between this kind of customization and the one below, is
+that the implemented conversion is local w.r.t.~the textual syntax of the \DSL.
+If you have multiple syntax definition for your \DSL, each can use completely
+different algorithms to convert data types.
+
+\subsubsection{Customizing the EMF Data Type Handling}
+
+Alternatively, you can customize the data type handling that is built into \EMF.
+To do so, you need to define a custom data type in the metamodel (e.g.,
+\texttt{JavaDate}). Then, the instance type name must be set to the actual Java
+class, which shall be used to represent instances of the data type (e.g.,
+\texttt{java.util.Date}). When running the \EMF code generation, the
+\texttt{FactoryImpl} class will contain two
+methods---\texttt{createJavaDateFromString()} and
+\texttt{convertJavaDateToString()}. These need to be customized similar to the
+token resolver class before.
+
+The following code is a snippet from the \texttt{XyzFactoryImpl} class and shows
+how to implement the same behavior as above using EMF's own data type handling
+facilities.
+
+\begin{lstlisting}
+private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated NOT
+ */
+public Date createJavaDateFromString(EDataType eDataType, 
+    String initialValue) {
+  try {
+    return format.parse(initialValue);
+  } catch (ParseException e) {
+    // ignore
+  }
+  return (Date)super.createFromString(eDataType, initialValue);
+}
+
+/**
+ * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+ * @generated NOT
+ */
+public String convertJavaDateToString(EDataType eDataType, 
+    Object instanceValue) {
+  return format.format(instanceValue);
+}
+\end{lstlisting}
+
 \subsection{Customizing Reference Resolving}
 \label{sec:cust_reference_resolving}
 
@@ -106,7 +226,7 @@ interpreter stub. Assuming the file extension of your \DSL is \texttt{xyz} the
 abstract stub class will be named \texttt{AbstractXyzInterpreter}. To implement
 concrete interpreters, you can create subclasses of this stub class.
 
-For each concrete class found in the metamodel of your \DSL, the interpreter
+For each metaclass found in the metamodel of your \DSL, the interpreter
 stub contains a \texttt{interprete\_Classname} method. These methods can be
 overridden in concrete interpreter classes to implement the desired interpretation for the
 objects of each type.
