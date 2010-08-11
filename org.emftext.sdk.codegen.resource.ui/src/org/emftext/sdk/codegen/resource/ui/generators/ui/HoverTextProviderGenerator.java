@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -43,7 +42,7 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addGetHoverTextMethod(JavaComposite sc) {
-		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
+		sc.add("public String getHoverText(" + E_OBJECT + " object) {");
 		sc.addComment(
 			"Set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain " +
 			"custom hover texts."

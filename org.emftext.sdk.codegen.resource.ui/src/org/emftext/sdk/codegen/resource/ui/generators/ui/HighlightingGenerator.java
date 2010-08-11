@@ -28,7 +28,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_LIST
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MOUSE_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MOUSE_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
@@ -86,7 +85,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addHandleContentOutlineSelectionMethod(StringComposite sc) {
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION + " selection) {");
 		sc.add("if (!selection.isEmpty()) {");
-		sc.add(OBJECT + " selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
+		sc.add("Object selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
 		sc.add("if (selectedElement instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " selectedEObject = (" + E_OBJECT + ") selectedElement;");
 		sc.add(RESOURCE + " resource = selectedEObject.eResource();");

@@ -18,7 +18,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -62,8 +61,8 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addToArrayMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + "[] toArray() {");
-		sc.add("return new " + OBJECT + "[] {selectedObject};");
+		sc.add("public Object[] toArray() {");
+		sc.add("return new Object[] {selectedObject};");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -98,7 +97,7 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addGetFirstElementMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getFirstElement() {");
+		sc.add("public Object getFirstElement() {");
 		sc.add("return selectedObject;");
 		sc.add("}");
 		sc.addLineBreak();

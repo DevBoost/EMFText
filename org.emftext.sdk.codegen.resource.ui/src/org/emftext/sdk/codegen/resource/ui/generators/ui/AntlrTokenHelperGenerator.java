@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -58,11 +57,11 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + STRING + " getTokenName(" + STRING + "[] tokenNames, int index) {");
+		sc.add("public String getTokenName(String[] tokenNames, int index) {");
 		sc.add("if (tokenNames == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(STRING + " tokenName = tokenNames[index];");
+		sc.add("String tokenName = tokenNames[index];");
 		sc.add("if (tokenName != null && tokenName.startsWith(\"'\")) {");
 		sc.add("tokenName = tokenName.substring(1, tokenName.length() - 1).trim();");
 		sc.add("}");

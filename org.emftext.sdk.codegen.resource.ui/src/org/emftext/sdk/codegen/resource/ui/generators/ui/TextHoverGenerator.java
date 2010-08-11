@@ -41,7 +41,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_V
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.J_FACE_RESOURCES;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
@@ -207,7 +206,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetHoverInfo2Method(StringComposite sc) {
-		sc.add("public " + OBJECT + " getHoverInfo2(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
+		sc.add("public Object getHoverInfo2(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add("return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -350,12 +349,12 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("final SimpleSelectionProvider selectionProvider = new SimpleSelectionProvider();");
 		sc.addLineBreak();
 		sc.add(I_INPUT_CHANGED_LISTENER + " inputChangeListener = new " + I_INPUT_CHANGED_LISTENER + "() {");
-		sc.add("public void inputChanged(" + OBJECT + " newInput) {");
+		sc.add("public void inputChanged(Object newInput) {");
 		sc.add("if (newInput == null) {");
 		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION + "());");
 		sc.add("} else if (newInput instanceof " + docBrowserInformationControlInputClassName + ") {");
 		sc.add(docBrowserInformationControlInputClassName + " input = (" + docBrowserInformationControlInputClassName + ") newInput;");
-		sc.add(OBJECT + " inputElement = input.getInputElement();");
+		sc.add("Object inputElement = input.getInputElement();");
 		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION + "(inputElement));");
 		sc.addComment(
 			"If there is an element of type EObject in the " +
@@ -458,7 +457,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
 		sc.add("this.selection = selection;");
 		sc.addLineBreak();
-		sc.add(OBJECT + "[] listeners = selectionChangedListeners.getListeners();");
+		sc.add("Object[] listeners = selectionChangedListeners.getListeners();");
 		sc.add("for (int i = 0; i < listeners.length; i++) {");
 		sc.add("((" + I_SELECTION_CHANGED_LISTENER + ") listeners[i]).selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
 		sc.add("}");

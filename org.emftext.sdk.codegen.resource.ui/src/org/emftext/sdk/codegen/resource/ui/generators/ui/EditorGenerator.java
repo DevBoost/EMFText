@@ -32,7 +32,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ENUMERATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
@@ -61,7 +60,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_P
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VERTICAL_RULER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_SUPPORT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
@@ -217,8 +215,8 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("destination = 0;");
 		sc.add("}");
 		sc.add("viewer.getTextWidget().setSelection(destination);");
-		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
+		sc.add("} catch (Exception e) {");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception in setCaret()\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -257,7 +255,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 			"view."
 		);
 		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory) {");
-		sc.add("protected " + I_PROPERTY_SOURCE + " createPropertySource(" + OBJECT + " object, " + I_ITEM_PROPERTY_SOURCE + " itemPropertySource) {");
+		sc.add("protected " + I_PROPERTY_SOURCE + " createPropertySource(Object object, " + I_ITEM_PROPERTY_SOURCE + " itemPropertySource) {");
 		sc.add("return new " + PROPERTY_SOURCE + "(object, itemPropertySource) {");
 		sc.add("protected " + I_PROPERTY_DESCRIPTOR + " createPropertyDescriptor(" + I_ITEM_PROPERTY_DESCRIPTOR + " itemPropertyDescriptor) {");
 		sc.add("return new " + PROPERTY_DESCRIPTOR + "(object, itemPropertyDescriptor) {");
@@ -277,7 +275,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetOutlinePageMethod(StringComposite sc) {
-		sc.add("private " + OBJECT + " getOutlinePage() {");
+		sc.add("private Object getOutlinePage() {");
 		sc.add("if (outlinePage == null) {");
 		sc.add("outlinePage = new " + outlinePageClassName + "(this);");
 		sc.add("outlinePage.addSelectionChangedListener(highlighting);");
@@ -343,7 +341,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("if (newFile.getErrors().isEmpty()) {");
 		sc.add("newFile.save(null);");
 		sc.add("}");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
@@ -429,7 +427,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addComment("close this editor because it can not present the resource");
 		sc.add("close(false);");
 		sc.add("}");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
 		sc.add("}");
 		sc.add("} else {");
@@ -547,7 +545,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetAdapterMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getAdapter(@SuppressWarnings(\"rawtypes\") Class required) {");
+		sc.add("public Object getAdapter(@SuppressWarnings(\"rawtypes\") Class required) {");
 		sc.add("if (" + I_CONTENT_OUTLINE_PAGE + ".class.equals(required)) {");
 		sc.add("return getOutlinePage();");
 		sc.add("} else if (required.equals(" + I_PROPERTY_SHEET_PAGE + ".class)) {");

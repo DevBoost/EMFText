@@ -15,14 +15,12 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MODIFY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MODIFY_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLED_TEXT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VERIFY_EVENT;
@@ -153,13 +151,13 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"@return String the bracket set in the form \"()<>[]\"",
 			"@see " + I_PREFERENCE_STORE
 		);
-		sc.add("public " + STRING + " getBracketString() {");
+		sc.add("public String getBracketString() {");
 		sc.add("if (bracketPairs.size() < 1) {");
 		sc.add("return \"\";");
 		sc.add("}");
-		sc.add(STRING + " result = \"\";");
+		sc.add("String result = \"\";");
 		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add(STRING + " isClosingStr = \"0\";");
+		sc.add("String isClosingStr = \"0\";");
 		sc.add("if (bracketPair.isClosingEnabledInside()) {");
 		sc.add("isClosingStr = \"1\";");
 		sc.add("}");
@@ -297,7 +295,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("public " + iBracketPairClassName + " getBracketPair(int index) {");
 		sc.add("try {");
 		sc.add("return bracketPairs.get(index);");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
@@ -462,19 +460,19 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addJavadoc("A single pair of brackets.");
 		sc.add("private class BracketPair implements " + iBracketPairClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final " + STRING + "[] brackets;");
+		sc.add("private final String[] brackets;");
 		sc.add("private boolean closingEnabledInside;");
 		sc.addLineBreak();
-		sc.add("public BracketPair(" + STRING + " opening, " + STRING + " closing, boolean closingEnabledInside) {");
-		sc.add("brackets = new " + STRING + "[] { opening, closing };");
+		sc.add("public BracketPair(String opening, String closing, boolean closingEnabledInside) {");
+		sc.add("brackets = new String[] { opening, closing };");
 		sc.add("this.closingEnabledInside = closingEnabledInside;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + STRING + " getClosingBracket() {");
+		sc.add("public String getClosingBracket() {");
 		sc.add("return brackets[1];");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + STRING + " getOpeningBracket() {");
+		sc.add("public String getOpeningBracket() {");
 		sc.add("return brackets[0];");
 		sc.add("}");
 		sc.addLineBreak();
@@ -494,7 +492,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"the separator between a bracket pair, should not contain escape needed " +
 			"character, it will be used as regular expression"
 		);
-		sc.add("public final static " + STRING + " BRACKET_SEPARATOR = \" and \";");
+		sc.add("public final static String BRACKET_SEPARATOR = \" and \";");
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private " + ARRAY_LIST + "<" + iBracketPairClassName + "> bracketPairs;");
 		sc.add("private " + I_SOURCE_VIEWER + " viewer;");

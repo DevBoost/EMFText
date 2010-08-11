@@ -26,7 +26,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEX
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -103,7 +102,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 		sc.add(RESOURCE + " resource = editor.getResource();");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
-		sc.add(STRING + " content = viewer.getDocument().get();");
+		sc.add("String content = viewer.getDocument().get();");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);");
 		sc.addLineBreak();
@@ -124,9 +123,9 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[finalProposalList.size()];");
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : finalProposalList) {");
-		sc.add(STRING + " proposalString = proposal.getInsertString();");
-		sc.add(STRING + " displayString = proposal.getDisplayString();");
-		sc.add(STRING + " prefix = proposal.getPrefix();");
+		sc.add("String proposalString = proposal.getInsertString();");
+		sc.add("String displayString = proposal.getDisplayString();");
+		sc.add("String prefix = proposal.getPrefix();");
 		sc.add(IMAGE + " image = proposal.getImage();");
 		sc.add(I_CONTEXT_INFORMATION + " info;");
 		sc.add("info = new " + CONTEXT_INFORMATION + "(image, proposalString, proposalString);");
@@ -137,7 +136,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 			"we enlarge the replacement length in order to overwrite the bracket."
 		);
 		sc.add(iBracketHandlerClassName + " bracketHandler = editor.getBracketHandler();");
-		sc.add(STRING + " closingBracket = bracketHandler.getClosingBracket();");
+		sc.add("String closingBracket = bracketHandler.getClosingBracket();");
 		sc.add("if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {");
 		sc.add("replacementLength += closingBracket.length();");
 		sc.add("}");

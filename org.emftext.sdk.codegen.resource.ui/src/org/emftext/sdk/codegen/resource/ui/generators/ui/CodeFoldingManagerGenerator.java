@@ -19,7 +19,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCA
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUFFERED_READER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
@@ -48,7 +47,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RUNNABLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SAFE_RUNNABLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SAFE_RUNNER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
@@ -190,7 +188,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 		sc.add("positions.add(new " + POSITION + "(offset, length));");
 		sc.add("}");
 		sc.add("}");
-		sc.add(DISPLAY + ".getDefault().asyncExec(new " + RUNNABLE + "() {");
+		sc.add(DISPLAY + ".getDefault().asyncExec(new Runnable() {");
 		sc.add("public void run() {");
 		sc.add("updateCodefolding(positions);");
 		sc.add("}");
@@ -291,7 +289,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 		sc.add("return;");
 		sc.add("}");
 		sc.add(SAFE_RUNNER + ".run(new " + SAFE_RUNNABLE + "(\"Unable to read code folding state. The state will be reset.\") {");
-		sc.add("public void run() throws " + EXCEPTION + " {");
+		sc.add("public void run() throws Exception {");
 		sc.add(FILE_INPUT_STREAM + " input = new " + FILE_INPUT_STREAM + "(stateFile);");
 		sc.add(BUFFERED_READER + " reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(input, \"utf-8\"));");
 		sc.add(I_MEMENTO + " memento = " + XML_MEMENTO + ".createReadRoot(reader);");
@@ -551,7 +549,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 		sc.add("addCloseListener(textEditor);");
 		sc.add("try {");
 		sc.add("restoreCodeFoldingStateFromFile(editor.getResource().getURI().toString());");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.add("calculatePositions();");
 		sc.add("}");
 		sc.add("}");

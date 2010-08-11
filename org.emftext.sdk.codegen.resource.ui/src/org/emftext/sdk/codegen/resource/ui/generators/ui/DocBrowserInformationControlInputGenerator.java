@@ -14,7 +14,6 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -69,8 +68,8 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 	}
 
 	private void addGetInputElementMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getInputElement() {");
-		sc.add("return element == null ? (" + OBJECT + ") htmlContent : element;");
+		sc.add("public Object getInputElement() {");
+		sc.add("return element == null ? (Object) htmlContent : element;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

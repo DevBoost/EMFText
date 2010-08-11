@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IDE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INVOCATION_TARGET_EXCEPTION;
@@ -39,7 +38,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
 
@@ -91,7 +89,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addGetFileExtensionMethod(StringComposite sc) {
-		sc.add("public " + STRING + " getFileExtension() {");
+		sc.add("public String getFileExtension() {");
 		sc.add("return new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -193,7 +191,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("try {");
 		sc.add("file = getFile(fileName, containerName);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e1) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"" + EXCEPTION + " while initializing new file\", e1);");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while initializing new file\", e1);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -227,7 +225,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION + " e) {");
 		sc.add("Throwable realException = e.getTargetException();");
 		sc.add(MESSAGE_DIALOG + ".openError(getShell(), \"Error\", realException.getMessage());");
-		sc.add(uiPluginActivatorClassName + ".logError(\"" + EXCEPTION + " while initializing new file\", e);");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while initializing new file\", e);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");

@@ -1,9 +1,22 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER_RESOLUTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER_RESOLUTION2;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER_RESOLUTION_GENERATOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -73,7 +86,7 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("return resolutions.toArray(new " + I_MARKER_RESOLUTION + "[resolutions.size()]);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while computing quick fix resolutions\", e);");
 		sc.add("}");
 		sc.add("return new " + I_MARKER_RESOLUTION + "[] {};");

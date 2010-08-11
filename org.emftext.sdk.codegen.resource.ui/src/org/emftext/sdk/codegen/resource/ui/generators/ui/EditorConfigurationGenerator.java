@@ -21,12 +21,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEN
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK_DETECTOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PRESENTATION_RECONCILER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_ASSISTANT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_HOVER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PRESENTATION_RECONCILER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;

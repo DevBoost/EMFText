@@ -385,7 +385,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
 	public static String CELL_EDITOR = CellEditor.class.getName();
-	public static String CLASS = Class.class.getName();
 	public static String COLLECTION = Collection.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COLOR = Color.class.getName();
@@ -426,7 +425,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String ENUMERATION = Enumeration.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String EVENT = Event.class.getName();
-	public static String EXCEPTION = Exception.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
 	public static String E_CLASSIFIER = EClassifier.class.getName();
@@ -589,7 +587,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String MAP_ENTRY = Map.Entry.class.getCanonicalName();
 	public static String MARKER_ANNOTATION = MarkerAnnotation.class.getName();
 	public static String MATCHER = Matcher.class.getName();
-	public static String MATH = Math.class.getName();
 	public static String MENU = Menu.class.getName();
 	public static String MESSAGE_BOX = MessageBox.class.getName();
 	public static String MESSAGE_DIALOG = MessageDialog.class.getName();
@@ -611,7 +608,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String NO_SUCH_ALGORITHM_EXCEPTION = NoSuchAlgorithmException.class.getName();
 	public static String NO_VIABLE_ALT_EXCEPTION = NoViableAltException.class.getName();
 	public static String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
-	public static String OBJECT = Object.class.getName();
 	public static String OPEN_WINDOW_LISTENER = OpenWindowListener.class.getName();
 	public static String OUTPUT_STREAM = OutputStream.class.getName();
 	public static String OUTPUT_STREAM_WRITER = OutputStreamWriter.class.getName();
@@ -659,8 +655,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String RESOURCE_SET = ResourceSet.class.getName();
 	public static String RESOURCE_SET_IMPL = ResourceSetImpl.class.getName();
 	public static String RGB = RGB.class.getName();
-	public static String RUNNABLE = Runnable.class.getName();
-	public static String RUNTIME_EXCEPTION = RuntimeException.class.getName();
 	public static String SAFE_RUNNABLE = SafeRunnable.class.getName();
 	public static String SAFE_RUNNER = SafeRunner.class.getName();
 	public static String SCROLLABLE = Scrollable.class.getName();
@@ -676,7 +670,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String SOURCE_VIEWER_CONFIGURATION = SourceViewerConfiguration.class.getName();
 	public static String STACK = Stack.class.getName();
 	public static String STATUS = Status.class.getName();
-	public static String STRING = String.class.getName();
 	public static String STRING_BUILDER = StringBuilder.class.getName();
 	public static String STRING_READER = StringReader.class.getName();
 	public static String STRING_WRITER = StringWriter.class.getName();
@@ -696,7 +689,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String TEXT_SELECTION = TextSelection.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
-	public static String THROWABLE = Throwable.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();
 	public static String TOKEN = Token.class.getName();

@@ -1,7 +1,6 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
@@ -38,7 +37,7 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.add("Object value = null;");
 		sc.add("try {");
 		sc.add("value = object.eGet(attribute);");
-		sc.add("} catch (" + EXCEPTION + " e) {");
+		sc.add("} catch (Exception e) {");
 		sc.addComment("Exception in eGet, do nothing");
 		sc.add("}");
 		sc.add("if (value != null && value.toString() != null && !value.toString().equals(\"[]\")) {");
