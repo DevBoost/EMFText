@@ -14,8 +14,8 @@
 \label{sec:cust_token_resolving}
 
 To create models from their textual representation, it is necessary to convert
-the plain text found in \DSL documents to data types. For example, if the string
-\texttt{''123''} is found in a text file and shall be used as value for an
+the plain text found in \DSL documents to attribute values (i.e., data types).
+For example, if the string \texttt{''123''} is found in a text file and shall be used as value for an
 attribute which has type \texttt{EInt}, the string needs to be converted to an
 \texttt{int}. Basic conversions, such as the one just mentioned, are handled by
 the generated class \texttt{XyzDefaultTokenResolver} (assuming the file
@@ -136,14 +136,68 @@ public String convertJavaDateToString(EDataType eDataType,
 \subsection{Customizing Reference Resolving}
 \label{sec:cust_reference_resolving}
 
+If metamodels expose non-containment references (i.e., \texttt{EReference}s
+where the \texttt{containment} attribute is set to \texttt{false}), EMFText
+needs to resolve these references. This basically means that symbolic
+identifiers, which are used to reference other \texttt{EObject}s must be
+replaced by actual references to the respective objects.
+
+Thus, EMFText generates one reference resolver class for each non-containment
+reference that is found in the metamodel of your \DSL and that is actually used
+in the concrete syntax definition. All reference resolver classes end up in a
+package called \texttt{analysis} in the \texttt{src} folder of the generated 
+resource plug-in.
+
+The default implementation delegates calls to the
+\texttt{DefaultResolverDelegate} class. This class uses the following strategy
+to find objects that are referenced by identifiers:
+
+\begin{enumerate}
+  \item the resource is searched for objects that have the correct type (i.e.,
+  the type of the non-containment reference)
+  \item if the objects having the correct type have an ID attribute, or a
+  \texttt{name} attribute, or a single attribute of type \texttt{EString}, the
+  value of this attribute is compared to the symbolic identifier. If the
+  identifier matches the value of the attribute, the object is considered to be
+  referenced.
+  \item if no matching object is found and the symbolic identifier is a valid
+  URI, EMFText tries to load the resource at the URI. If the resource
+  contains a root object with the correct type, this object is assumed to be
+  referenced.
+\end{enumerate}
+
+In cases, where this default resolving strategy is not sufficient, you can
+customize the resolver classes by changing the bodies of the methods
+\texttt{resolve()} and \texttt{deResolve()}. These methods are similar to the
+ones generated for the token resolver classes (see
+Sect.~\ref{sec:cust_token_resolving}). The first one is used to find the object
+referenced by an identifier. The second one does the opposite---it creates a
+symbolic identifier for a referenced object. Again, the former is used after
+parsing. The latter is called when printing models.
+
+The \texttt{resolve()} method must call \texttt{result.addMapping(identifier,
+object)} to set the reference object, if one is found. The
+\texttt{deResolve()} method can simply return the textual representation of the
+referenced object as string.
+
+To enable code completion for references, the \texttt{resolve()} must be
+extended to take care of the \texttt{resolveFuzzy} parameter. If this parameter is
+\texttt{true}, the resolver class is used for code completion and must add all
+referencable object to the result. Thus, instead of checking, whether
+\texttt{identifier} actually references an object, \texttt{resolve()} can
+simply add all objects that have the correct type to the result by calling
+\texttt{result.addMapping()}. However, in this case, the first argument, which
+is passed to \texttt{addMapping()} should not be \texttt{identifier}, but rather
+the string representation of the object.
+
 \subsection{Implementing Post Processors}
 
 \subsection{Implementing Quick Fixes}
 
 \subsection{Implementing Builders}
 
-To implement a custom builder for your \DSL, basically set the code generation
-option \texttt{overrideBuilder} to \texttt{false}:
+To implement a custom builder for your \DSL, you can basically set the code
+generation option \texttt{overrideBuilder} to \texttt{false}:
 
 \begin{lstlisting}
 OPTIONS {
