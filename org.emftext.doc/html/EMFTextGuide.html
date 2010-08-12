@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-12 18:57:00"> 
+<meta name="date" content="2010-08-12 19:33:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -1607,11 +1607,12 @@ class="ul9r8t-x-x-95">EObject</span>), which is printed.
                                                                                      
   <h4 class="subsectionHead"><span class="titlemark">3.4.5</span>&#x00A0;&#x00A0;<a 
  id="x1-290003.4.5"></a>Syntax for Expressions</h4>
-<!--l. 462--><p class="noindent" >When defining syntax for an expression language (e.g., arrimethic expressions) EMFText&#8217;s standard
-mechanisms for specifying syntax can lead to structures that can not be optimally handeled by an
+<!--l. 462--><p class="noindent" >When defining syntax for an expression language (e.g., arithmetic expressions) EMFText&#8217;s standard
+mechanisms for specifying syntax can lead to structures that can not be optimally handled by an
 intepreter or evaluator. Furthermore, the underlying parser generator technology used by EMFText
 causes problems if left recursive rules are required to build an optimal expression tree, which is the
-case for all espression languages with left-associative binary operators (e.g.,-). Therefore, EMFText
+case for all espression languages with left-associative binary operators (e.g.,&#x00A0;<span 
+class="ul9r8t-x-x-95">-</span>). Therefore, EMFText
 provides a special feature called operator precendence annotations (<span 
 class="ul9r8t-x-x-95">@Operator</span>). This annotation can
 be added to all rules, which refer to expression metaclasses with a common superclass. For example,
@@ -1647,11 +1648,11 @@ class="ul9r8t-x-x-95">right</span><span
 class="ul9r8t-x-x-95">;</span>
   
   </div>
-<!--l. 478--><p class="indent" >  can defines syntax for a metaclass <span 
+<!--l. 478--><p class="indent" >  defines syntax for a metaclass <span 
 class="ul9r8t-x-x-95">Additive</span>. The references <span 
 class="ul9r8t-x-x-95">left </span>and <span 
-class="ul9r8t-x-x-95">right </span>must be containments
-and are of type <span 
+class="ul9r8t-x-x-95">right </span>must be containments and
+are of type <span 
 class="ul9r8t-x-x-95">Expression</span>, which is the abstract supertype for all metaclasses of the expression
 metamodel.
 <!--l. 483--><p class="indent" >  The <span 

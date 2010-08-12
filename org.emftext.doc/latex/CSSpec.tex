@@ -459,14 +459,14 @@ is printed after \texttt{keyword}. The number of tabs refers to the current
 model element (i.e., \texttt{EObject}), which is printed.
 
 \subsection{Syntax for Expressions}
-When defining syntax for an expression language (e.g., arrimethic expressions) 
+When defining syntax for an expression language (e.g., arithmetic expressions) 
 EMFText's standard mechanisms for specifying syntax can lead to structures that 
-can not be optimally handeled by an intepreter or evaluator. Furthermore, the 
+can not be optimally handled by an intepreter or evaluator. Furthermore, the 
 underlying parser generator technology used by EMFText causes problems if 
 left recursive rules are required to build an optimal expression tree, which is 
 the case for all espression languages with left-associative binary operators 
-(e.g.,-). Therefore, EMFText provides a special feature called operator 
-precendence annotations (\texttt{@Operator}). This annotation can be added to 
+(e.g.,~\texttt{-}). Therefore, EMFText provides a special feature called
+operator precendence annotations (\texttt{@Operator}). This annotation can be added to 
 all rules, which refer to expression metaclasses with a common superclass. 
 For example, the rule:
 
@@ -475,7 +475,7 @@ For example, the rule:
 Additive ::= left "+" right;
 \end{lstlisting}
 
-can defines syntax for a metaclass \texttt{Additive}. The references
+defines syntax for a metaclass \texttt{Additive}. The references
 \texttt{left} and \texttt{right} must be containments and are of type
 \texttt{Expression}, which is the abstract supertype for all metaclasses of the 
 expression metamodel.
