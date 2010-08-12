@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
@@ -56,7 +57,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		addGetLengthMethod(sc);
 		addHandleOccurrenceHighlightingMethod(sc);
 		addSetHighlightingPositionsMethod(sc);
-		addAddPositionsMethod(sc);
+		addAddAnnotationMethod(sc);
 		addIsToRemoveHighlightingMethod(sc);
 		addIsPositionsChangedMethod(sc);
 		addResetTokenRegionMethod(sc);
@@ -98,11 +99,22 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addAddPositionsMethod(StringComposite sc) {
-		sc.add("private void addPosition(" + I_DOCUMENT + " document, String positionCategory) {");
+	private void addAddAnnotationMethod(JavaComposite sc) {
+		sc.add("private void addAnnotation(" + I_DOCUMENT + " document, " + positionCategoryClassName + " type, String text) {");
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
 		sc.add("int tokenLength = tokenScanner.getTokenLength();");
-		sc.add("positionHelper.addPosition(document, positionCategory, tokenOffset, tokenLength);");
+		sc.addComment("for declarations and occurrences we do not need to add the position to the document ");
+		sc.add(POSITION + " position = positionHelper.createPosition(tokenOffset, tokenLength);");
+		sc.addComment("instead, an annotation is created");
+		sc.add(ANNOTATION + " annotation = new " + ANNOTATION + "(false);");
+		sc.add("if (type == " + positionCategoryClassName + ".DEFINTION) {");
+		sc.add("annotation.setText(\"Declaration of \" + text);");
+		sc.add("annotation.setType(DECLARATION_ANNOTATION_ID);");
+		sc.add("} else {");
+		sc.add("annotation.setText(\"Occurrence of \" + text);");
+		sc.add("annotation.setType(OCCURRENCE_ANNOTATION_ID);");
+		sc.add("}");
+		sc.add("projectionViewer.getAnnotationModel().addAnnotation(annotation, position);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -128,7 +140,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("String text = tokenScanner.getTokenText();");
 		sc.add("if (text.equals(tokenText)) {");
 		sc.add("defPosition = tokenScanner.getTokenOffset();");
-		sc.add("addPosition(document, " + positionCategoryClassName + ".DEFINTION.toString());");
+		sc.add("addAnnotation(document, " + positionCategoryClassName + ".DEFINTION, text);");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("token = tokenScanner.nextToken();");
@@ -143,7 +155,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));");
 		sc.add("if (occEO != null) {");
 		sc.add("if ((isNull && elementsAtDefinition.contains(occEO)) || !isNull && definitionElement.equals(occEO)) {");
-		sc.add("addPosition(document, " + positionCategoryClassName + ".PROXY.toString());");
+		sc.add("addAnnotation(document, " + positionCategoryClassName + ".PROXY, text);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -326,7 +338,11 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addFields(StringComposite sc) {
+		sc.add("public final static String OCCURRENCE_ANNOTATION_ID = \"" + getContext().getOccurrenceAnnotationTypeID() + "\";");
+		sc.add("public final static String DECLARATION_ANNOTATION_ID = \"" + getContext().getDeclarationAnnotationTypeID() + "\";");
+		sc.addLineBreak();
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
+		sc.addLineBreak();
 		sc.add("private " + tokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");

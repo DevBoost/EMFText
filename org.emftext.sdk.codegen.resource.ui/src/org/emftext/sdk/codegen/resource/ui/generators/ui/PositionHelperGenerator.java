@@ -39,9 +39,17 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 
 	private void addMethods(JavaComposite sc) {
 		addAddPositionMethod(sc);
+		addCreatePositionMethod(sc);
 		addGetPositionsMethod(sc);
 		addGetFirstPositionMethod(sc);
 		addRemovePositionsMethod(sc);
+	}
+
+	private void addCreatePositionMethod(JavaComposite sc) {
+		sc.add("public " + POSITION + " createPosition(int offset, int length) {");
+		sc.add("return new " + POSITION + "(offset, length);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRemovePositionsMethod(JavaComposite sc) {

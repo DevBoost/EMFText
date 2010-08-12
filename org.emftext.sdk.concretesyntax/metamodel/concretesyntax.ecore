@@ -811,9 +811,9 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the MarkerHelper class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_OCCURENCE" value="63" literal="overrideOccurrence">
+    <eLiterals name="OVERRIDE_OCCURRENCE" value="63" literal="overrideOccurrence">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the Occurence class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the Occurrence class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="OVERRIDE_OUTLINE_PAGE" value="64" literal="overrideOutlinePage">
@@ -866,9 +866,9 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the PreferenceConstants class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_OCCURENCE_PREFERENCE_PAGE" value="74" literal="overrideOccurencePreferencePage">
+    <eLiterals name="OVERRIDE_OCCURRENCE_PREFERENCE_PAGE" value="74" literal="overrideOccurrencePreferencePage">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OccurencePreferencePage class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="OVERRIDE_PIXEL_CONVERTER" value="75" literal="overridePixelConverter">

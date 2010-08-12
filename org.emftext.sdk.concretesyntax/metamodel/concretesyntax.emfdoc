@@ -206,7 +206,7 @@ OptionTypes.OVERRIDE_HYPERLINK_DETECTOR : "If set to <code>false</code>, the Hyp
 
 OptionTypes.OVERRIDE_MARKER_HELPER : "If set to <code>false</code>, the MarkerHelper class will not be overridden. The default value for this option is <code>true</code>."
 
-OptionTypes.OVERRIDE_OCCURENCE : "If set to <code>false</code>, the Occurence class will not be overridden. The default value for this option is <code>true</code>."
+OptionTypes.OVERRIDE_OCCURRENCE : "If set to <code>false</code>, the Occurrence class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.OVERRIDE_OUTLINE_PAGE : "If set to <code>false</code>, the OutlinePage class will not be overridden. The default value for this option is <code>true</code>."
 
@@ -228,7 +228,7 @@ OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE : "If set to <code>false</code>, th
 
 OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS : "If set to <code>false</code>, the PreferenceConstants class will not be overridden. The default value for this option is <code>true</code>."
 
-OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE : "If set to <code>false</code>, the OccurencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+OptionTypes.OVERRIDE_OCCURRENCE_PREFERENCE_PAGE : "If set to <code>false</code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.OVERRIDE_PIXEL_CONVERTER : "If set to <code>false</code>, the PixelConverter class will not be overridden. The default value for this option is <code>true</code>."
 

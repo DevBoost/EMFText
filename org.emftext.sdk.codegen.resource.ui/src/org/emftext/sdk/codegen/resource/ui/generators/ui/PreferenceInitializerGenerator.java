@@ -45,12 +45,6 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR, \"192,192,192\");");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, true);");
 		sc.addLineBreak();
-		sc.addComment("Set default value for occurrences");
-		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX, true);");
-		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR, \"240,216,168\");");
-		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR, \"212,212,212\");");
-		sc.addLineBreak();
-		sc.addComment("store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);");
 		sc.add("}");
 		sc.addLineBreak();
 		

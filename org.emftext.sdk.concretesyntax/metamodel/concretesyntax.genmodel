@@ -71,7 +71,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_HYPERLINK"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_HYPERLINK_DETECTOR"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_MARKER_HELPER"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OCCURENCE"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OCCURRENCE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OUTLINE_PAGE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OUTLINE_PAGE_TREE_VIEWER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PLUGIN_ACTIVATOR"/>
@@ -82,7 +82,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_TOKEN_SCANNER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_BRACKET_PREFERENCE_PAGE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PREFERENCE_CONSTANTS"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OCCURENCE_PREFERENCE_PAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_OCCURRENCE_PREFERENCE_PAGE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PIXEL_CONVERTER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PREFERENCE_INITIALIZER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_SYNTAX_COLORING_HELPER"/>

@@ -521,14 +521,14 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_MARKER_HELPER(62, "OVERRIDE_MARKER_HELPER", "overrideMarkerHelper"), /**
-	 * The '<em><b>OVERRIDE OCCURENCE</b></em>' literal object.
+	 * The '<em><b>OVERRIDE OCCURRENCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_OCCURENCE_VALUE
+	 * @see #OVERRIDE_OCCURRENCE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OCCURENCE(63, "OVERRIDE_OCCURENCE", "overrideOccurrence"), /**
+	OVERRIDE_OCCURRENCE(63, "OVERRIDE_OCCURRENCE", "overrideOccurrence"), /**
 	 * The '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -609,14 +609,14 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants"), /**
-	 * The '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal object.
+	 * The '<em><b>OVERRIDE OCCURRENCE PREFERENCE PAGE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE
+	 * @see #OVERRIDE_OCCURRENCE_PREFERENCE_PAGE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overrideOccurencePreferencePage"), /**
+	OVERRIDE_OCCURRENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURRENCE_PREFERENCE_PAGE", "overrideOccurrencePreferencePage"), /**
 	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2752,22 +2752,18 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_MARKER_HELPER_VALUE = 62;
 /**
-	 * The '<em><b>OVERRIDE OCCURENCE</b></em>' literal value.
+	 * The '<em><b>OVERRIDE OCCURRENCE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE OCCURENCE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * If set to <code>false</code>, the Occurence class will not be overridden. The default value for this option is <code>true</code>.
+	 * If set to <code>false</code>, the Occurrence class will not be overridden. The default value for this option is <code>true</code>.
 	 * <!-- end-model-doc -->
-	 * @see #OVERRIDE_OCCURENCE
+	 * @see #OVERRIDE_OCCURRENCE
 	 * @model literal="overrideOccurrence"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_OCCURENCE_VALUE = 63;
+	public static final int OVERRIDE_OCCURRENCE_VALUE = 63;
 /**
 	 * The '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -2939,22 +2935,18 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_PREFERENCE_CONSTANTS_VALUE = 73;
 /**
-	 * The '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal value.
+	 * The '<em><b>OVERRIDE OCCURRENCE PREFERENCE PAGE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * If set to <code>false</code>, the OccurencePreferencePage class will not be overridden. The default value for this option is <code>true</code>.
+	 * If set to <code>false</code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is <code>true</code>.
 	 * <!-- end-model-doc -->
-	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE
-	 * @model literal="overrideOccurencePreferencePage"
+	 * @see #OVERRIDE_OCCURRENCE_PREFERENCE_PAGE
+	 * @model literal="overrideOccurrencePreferencePage"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE = 74;
+	public static final int OVERRIDE_OCCURRENCE_PREFERENCE_PAGE_VALUE = 74;
 /**
 	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -5353,7 +5345,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_HYPERLINK,
 			OVERRIDE_HYPERLINK_DETECTOR,
 			OVERRIDE_MARKER_HELPER,
-			OVERRIDE_OCCURENCE,
+			OVERRIDE_OCCURRENCE,
 			OVERRIDE_OUTLINE_PAGE,
 			OVERRIDE_OUTLINE_PAGE_TREE_VIEWER,
 			OVERRIDE_PLUGIN_ACTIVATOR,
@@ -5364,7 +5356,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TOKEN_SCANNER,
 			OVERRIDE_BRACKET_PREFERENCE_PAGE,
 			OVERRIDE_PREFERENCE_CONSTANTS,
-			OVERRIDE_OCCURENCE_PREFERENCE_PAGE,
+			OVERRIDE_OCCURRENCE_PREFERENCE_PAGE,
 			OVERRIDE_PIXEL_CONVERTER,
 			OVERRIDE_PREFERENCE_INITIALIZER,
 			OVERRIDE_SYNTAX_COLORING_HELPER,
@@ -5611,7 +5603,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_HYPERLINK_VALUE: return OVERRIDE_HYPERLINK;
 			case OVERRIDE_HYPERLINK_DETECTOR_VALUE: return OVERRIDE_HYPERLINK_DETECTOR;
 			case OVERRIDE_MARKER_HELPER_VALUE: return OVERRIDE_MARKER_HELPER;
-			case OVERRIDE_OCCURENCE_VALUE: return OVERRIDE_OCCURENCE;
+			case OVERRIDE_OCCURRENCE_VALUE: return OVERRIDE_OCCURRENCE;
 			case OVERRIDE_OUTLINE_PAGE_VALUE: return OVERRIDE_OUTLINE_PAGE;
 			case OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_VALUE: return OVERRIDE_OUTLINE_PAGE_TREE_VIEWER;
 			case OVERRIDE_PLUGIN_ACTIVATOR_VALUE: return OVERRIDE_PLUGIN_ACTIVATOR;
@@ -5622,7 +5614,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TOKEN_SCANNER_VALUE: return OVERRIDE_TOKEN_SCANNER;
 			case OVERRIDE_BRACKET_PREFERENCE_PAGE_VALUE: return OVERRIDE_BRACKET_PREFERENCE_PAGE;
 			case OVERRIDE_PREFERENCE_CONSTANTS_VALUE: return OVERRIDE_PREFERENCE_CONSTANTS;
-			case OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE: return OVERRIDE_OCCURENCE_PREFERENCE_PAGE;
+			case OVERRIDE_OCCURRENCE_PREFERENCE_PAGE_VALUE: return OVERRIDE_OCCURRENCE_PREFERENCE_PAGE;
 			case OVERRIDE_PIXEL_CONVERTER_VALUE: return OVERRIDE_PIXEL_CONVERTER;
 			case OVERRIDE_PREFERENCE_INITIALIZER_VALUE: return OVERRIDE_PREFERENCE_INITIALIZER;
 			case OVERRIDE_SYNTAX_COLORING_HELPER_VALUE: return OVERRIDE_SYNTAX_COLORING_HELPER;

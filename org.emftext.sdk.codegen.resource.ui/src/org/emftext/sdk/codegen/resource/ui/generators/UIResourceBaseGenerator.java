@@ -35,7 +35,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String markerResolutionGeneratorClassName;
 	protected String newFileWizardClassName;
 	protected String newFileWizardPageClassName;
-	protected String occurenceClassName;
+	protected String occurrenceClassName;
 	protected String occurrencePreferencePageClassName;
 	protected String outlinePageClassName;
 	protected String outlinePageTreeViewerClassName;
@@ -89,7 +89,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 		newFileWizardClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
 		newFileWizardPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
-		occurenceClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURENCE);
+		occurrenceClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE);
 		occurrencePreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE);
 		outlinePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE);
 		outlinePageTreeViewerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);

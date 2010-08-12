@@ -23,7 +23,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.creators.TextResourceArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
-import org.emftext.sdk.codegen.resource.ui.generators.PluginXMLGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.UIPluginXMLGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -45,7 +45,7 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<ArtifactParame
 		File project = context.getFileSystemConnector().getProjectFolder(plugin);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<GenerationContext, ArtifactParameter<GenerationContext>> generator = new PluginXMLGenerator();
+		IGenerator<GenerationContext, ArtifactParameter<GenerationContext>> generator = new UIPluginXMLGenerator();
 
 	    return createArtifact(
 	    		context,

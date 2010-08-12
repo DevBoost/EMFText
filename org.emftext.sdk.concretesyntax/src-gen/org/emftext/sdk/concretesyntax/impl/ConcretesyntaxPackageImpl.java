@@ -2180,7 +2180,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_HYPERLINK);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_HYPERLINK_DETECTOR);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MARKER_HELPER);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OCCURENCE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OCCURRENCE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR);
@@ -2191,7 +2191,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_SCANNER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OCCURRENCE_PREFERENCE_PAGE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PIXEL_CONVERTER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER);
@@ -3156,7 +3156,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(61), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the Occurence class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the Occurrence class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(62), 
@@ -3222,7 +3222,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(72), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the OccurencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(73), 

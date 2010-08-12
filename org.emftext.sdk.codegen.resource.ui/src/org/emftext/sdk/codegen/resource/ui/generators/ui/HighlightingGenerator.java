@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
@@ -80,6 +81,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		addGetSelectionMethod(sc);
 		addSelectionChangedMethod(sc);
 		addHandleContentOutlineSelectionMethod(sc);
+		addRemoveAnnotationsMethod(sc);
 	}
 
 	private void addHandleContentOutlineSelectionMethod(StringComposite sc) {
@@ -148,17 +150,14 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("private " + I_SELECTION + " selection = null;");
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private boolean isHighlightBrackets = true;");
-		sc.add("private boolean isHighlightOccurrences = true;");
 		sc.add("private " + tokenScannerClassName + " scanner;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
-		sc.add("private " + COLOR + " definitionColor;");
-		sc.add("private " + COLOR + " proxyColor;");
 		sc.add("private " + COLOR + " bracketColor;");
 		sc.add("private " + COLOR + " black;");
 		sc.add("private " + STYLED_TEXT + " textWidget;");
 		sc.add("private " + I_PREFERENCE_STORE + " preferenceStore;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
-		sc.add("private " + occurenceClassName + " occurrence;");
+		sc.add("private " + occurrenceClassName + " occurrence;");
 		sc.add("private " + bracketSetClassName + " bracketSet;");
 		sc.add("private " + DISPLAY + " display;");
 		sc.addLineBreak();
@@ -201,10 +200,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.addJavadoc("Resets the changed values after setting the preference pages.");
 		sc.add("public void resetValues() {");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
-		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX);");
 		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
-		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR));");
-		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR));");
 		sc.add("bracketSet.resetBrackets();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -225,9 +221,9 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addRemoveHighlightingCategoryMethod(StringComposite sc) {
+		// TODO maybe rename method to removeBracketHighlighting and move call to removeAnnotations() to another method?
 		sc.add("private void removeHighlightingCategory(" + I_DOCUMENT + " document, String category) {");
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
-		sc.add("boolean isOccurrence = (category.equals(" + positionCategoryClassName + ".DEFINTION.toString()) || category.equals(" + positionCategoryClassName + ".PROXY.toString()));");
 		sc.add("if (category.equals(" + positionCategoryClassName + ".BRACKET.toString())) {");
 		sc.add(STYLE_RANGE + " styleRange;");
 		sc.add("for (" + POSITION + " position : positions) {");
@@ -242,67 +238,52 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (isOccurrence) {");
-		sc.add("for (" + POSITION + " position : positions) {");
-		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
-		sc.add("if (tmpPosition != null) {");
-		sc.add("textWidget.setStyleRange(new " + STYLE_RANGE + "(tmpPosition.offset, tmpPosition.length, null, null));");
-		sc.add("projectionViewer.invalidateTextPresentation(tmpPosition.offset, tmpPosition.length);");
-		sc.add("}");
-		sc.add("}");
+		sc.add("removeAnnotations(" + occurrenceClassName + ".OCCURRENCE_ANNOTATION_ID);");
+		sc.add("removeAnnotations(" + occurrenceClassName + ".DECLARATION_ANNOTATION_ID);");
+		sc.add("positionHelper.removePositions(document, category);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("positionHelper.removePositions(document, category);");
+	}
+	
+	private void addRemoveAnnotationsMethod(StringComposite sc) {
+		sc.add("private void removeAnnotations(String annotationTypeID) {");
+		sc.add(LIST + "<" + ANNOTATION + "> annotationsToRemove = new " + ARRAY_LIST + "<" + ANNOTATION + ">();");
+		sc.add(I_ANNOTATION_MODEL + " annotationModel = projectionViewer.getAnnotationModel();");
+		sc.add(ITERATOR + "<?> annotationIterator = annotationModel.getAnnotationIterator();");
+		sc.add("while (annotationIterator.hasNext()) {");
+		sc.add("Object object = (Object) annotationIterator.next();");
+		sc.add("if (object instanceof " + ANNOTATION + ") {");
+		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") object;");
+		sc.add("if (annotationTypeID.equals(annotation.getType())) {");
+		sc.add("annotationsToRemove.add(annotation);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + ANNOTATION + " annotation : annotationsToRemove) {");
+		sc.add("annotationModel.removeAnnotation(annotation);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRemoveHighlightingMethod(StringComposite sc) {
+		// TODO maybe rename method to removeBracketHighlighting?
 		sc.add("private void removeHighlighting() {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
 		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".BRACKET.toString());");
-		sc.add("if (occurrence.isToRemoveHighlighting()) {");
-		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".DEFINTION.toString());");
-		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".PROXY.toString());");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetCategoryHighlightingMethod(StringComposite sc) {
+		// TODO maybe remove the category parameter and rename method to setBracketHighlighting?
 		sc.add("private void setCategoryHighlighting(" + I_DOCUMENT + " document, String category) {");
 		sc.add(STYLE_RANGE + " styleRange = null;");
 		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
 		sc.addLineBreak();
-		sc.add("if (category.equals(" + positionCategoryClassName + ".PROXY.toString())) {");
-		sc.add("if (positions.length > 0) {");
-		sc.add("styleRange = getStyleRangeAtPosition(positions[0]);");
-		sc.add("if (styleRange.foreground == null) {");
-		sc.add("styleRange.foreground = black;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("if (styleRange != null) {");
-		sc.add("styleRange.background = proxyColor;");
-		sc.add("}");
-		sc.add("}");
 		sc.add("for (" + POSITION + " position : positions) {");
 		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
-		sc.add("if (category.equals(" + positionCategoryClassName + ".DEFINTION.toString())) {");
-		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");
-		sc.add("if (styleRange.foreground == null) {");
-		sc.add("styleRange.foreground = black;");
-		sc.add("}");
-		sc.add("styleRange.background = definitionColor;");
-		sc.add("textWidget.setStyleRange(styleRange);");
-		sc.add("}");
-		sc.add("if (category.equals(" + positionCategoryClassName + ".PROXY.toString())) {");
-		sc.add("if (styleRange == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("styleRange.start = tmpPosition.offset;");
-		sc.add("textWidget.setStyleRange(styleRange);");
-		sc.add("}");
 		sc.add("if (category.equals(" + positionCategoryClassName + ".BRACKET.toString())) {");
 		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");
 		sc.add("styleRange.borderStyle = " + SWT + ".BORDER_SOLID;");
@@ -324,15 +305,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("if (isHighlightBrackets) {");
 		sc.add("bracketSet.matchingBrackets();");
 		sc.add("}");
-		sc.add("if (isHighlightOccurrences) {");
 		sc.add("occurrence.handleOccurrenceHighlighting(bracketSet);");
-		sc.add("}");
-		sc.add("if (occurrence.isPositionsChanged()) {");
-		sc.add("setCategoryHighlighting(document,");
-		sc.add(positionCategoryClassName + ".DEFINTION.toString());");
-		sc.add("setCategoryHighlighting(document,");
-		sc.add(positionCategoryClassName + ".PROXY.toString());");
-		sc.add("}");
 		sc.add("setCategoryHighlighting(document, " + positionCategoryClassName + ".BRACKET.toString());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -364,13 +337,10 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
 		sc.add("scanner = new " + tokenScannerClassName + "(colorManager);");
-		sc.add("occurrence = new " + occurenceClassName + "(textResource, sourceviewer, scanner);");
+		sc.add("occurrence = new " + occurrenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(editor, sourceviewer);");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
-		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_OCCURRENCE_CHECKBOX);");
-		sc.add("definitionColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_DEFINITION_COLOR));");
-		sc.add("proxyColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_PROXY_COLOR));");
 		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
 		sc.add("black = colorManager.getColor(new " + RGB + "(0, 0, 0));");
 		sc.addLineBreak();

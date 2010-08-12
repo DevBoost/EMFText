@@ -94,6 +94,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_occurrence_icon.gif"), getOccurrenceIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
 	    // add UI generators
@@ -113,7 +114,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.HTML_PRINTER);
 	    add(creators, TextResourceUIArtifacts.HYPERLINK);
 	    add(creators, TextResourceUIArtifacts.HYPERLINK_DETECTOR);
-	    add(creators, TextResourceUIArtifacts.OCCURENCE);
+	    add(creators, TextResourceUIArtifacts.OCCURRENCE);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
 	    add(creators, TextResourceUIArtifacts.POSITION_CATEGORY);
@@ -216,6 +217,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 	private File getEditorIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_EDITOR_ICON_NAME);
+	}
+
+	private File getOccurrenceIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME);
 	}
 
 	private File getCSSDir(IPluginDescriptor plugin, GenerationContext context) {

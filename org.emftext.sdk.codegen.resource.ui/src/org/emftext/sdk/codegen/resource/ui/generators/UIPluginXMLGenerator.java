@@ -26,11 +26,11 @@ import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * A generator for the plugin.xml file.
+ * A generator for the plugin.xml file of the resource UI plug-in.
  * 
  * TODO mseifert: make this generator reusable
  */
-public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class UIPluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void doGenerate(PrintWriter out) {
@@ -72,7 +72,7 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		sc.add("<editor class=\"" + editorName + 
 				"\" contributorClass=\"org.eclipse.ui.texteditor.BasicTextEditorActionContributor\" " +
 				"extensions=\"" + primaryConcreteSyntaxName + "\" " + 
-				"icon=\"icons/editor_icon.gif\" " +
+				"icon=\"icons/" + UIConstants.DEFAULT_EDITOR_ICON_NAME + "\" " +
 				"id=\"" + editorName + "\" " + 
 				"name=\"EMFText " + concreteSyntax.getName() + " Editor\">");
 		sc.add("<contentTypeBinding contentTypeId=\"" + resourcePluginID + "\"/>");
@@ -102,11 +102,6 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		sc.add("<page name=\"Brackets\" " + 
 				"id=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE) + "\" " +
 				"class=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE) + "\" " + 
-				"category=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE) + "\">");
-		sc.add("</page>");
-		sc.add("<page name=\"Occurrence\" " + 
-				"id=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE)  + "\" " +
-				"class=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE) + "\" " + 
 				"category=\"" + context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE) + "\">");
 		sc.add("</page>");
 		sc.add("</extension>");
@@ -139,6 +134,59 @@ public class PluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParamete
 		
 		sc.add("<extension point=\"org.eclipse.ui.editors.documentProviders\">");
 		sc.add("<provider class=\"org.eclipse.ui.editors.text.TextFileDocumentProvider\" extensions=\"" + primaryConcreteSyntaxName + "\" id=\"" + uiPluginID + ".provider\" />");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		String occurrenceAnnotationTypeID = context.getOccurrenceAnnotationTypeID();
+		String declarationAnnotationTypeID = context.getDeclarationAnnotationTypeID();
+		sc.add("<extension point=\"org.eclipse.ui.editors.annotationTypes\">");
+		sc.add("<type name=\"" + occurrenceAnnotationTypeID + "\" />");
+		sc.add("<type name=\"" + declarationAnnotationTypeID + "\" super=\"" + occurrenceAnnotationTypeID + "\" />");
+		sc.add("</extension>");
+		sc.addLineBreak();
+
+		String syntaxName = context.getConcreteSyntax().getName();
+		sc.add("<extension point=\"org.eclipse.ui.editors.markerAnnotationSpecification\">");
+		sc.add("<specification " +
+		"annotationType=\"" + occurrenceAnnotationTypeID + "\" " +
+		"label=\"Occurrences (in ." + syntaxName + " files)\" " +
+		"icon=\"/icons/" + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME + "\" " +
+		"textPreferenceKey=\"" + syntaxName + ".occurrenceIndication\" " +
+		"textPreferenceValue=\"false\" " +
+		"highlightPreferenceKey=\"" + syntaxName + ".occurrenceHighlighting\" " +
+		"highlightPreferenceValue=\"true\" " +
+		"contributesToHeader=\"false\" " +
+		"overviewRulerPreferenceKey=\"" + syntaxName + ".occurrenceIndicationInOverviewRuler\" " +
+		"overviewRulerPreferenceValue=\"true\" " +
+		"verticalRulerPreferenceKey=\"" + syntaxName + ".occurrenceIndicationInVerticalRuler\" " +
+		"verticalRulerPreferenceValue=\"false\" " +
+		"colorPreferenceKey=\"" + syntaxName + ".occurrenceIndicationColor\" " +
+		"colorPreferenceValue=\"212,212,212\" " +
+		"presentationLayer=\"4\" " +
+		"showInNextPrevDropdownToolbarActionKey=\"" + syntaxName + ".showOccurrenceInNextPrevDropdownToolbarAction\" " +
+		"showInNextPrevDropdownToolbarAction=\"true\" " +
+		"isGoToNextNavigationTargetKey=\"" + syntaxName + ".isOccurrenceGoToNextNavigationTarget\" " +
+		"isGoToNextNavigationTarget=\"false\" " +
+		"isGoToPreviousNavigationTargetKey=\"" + syntaxName + ".isOccurrenceGoToPreviousNavigationTarget\" " +
+		"isGoToPreviousNavigationTarget=\"false\" " +
+		"textStylePreferenceKey=\"" + syntaxName + ".occurrenceTextStyle\" " +
+		"textStylePreferenceValue=\"NONE\" />");
+		sc.add("<specification " +
+		"annotationType=\"" + declarationAnnotationTypeID + "\" " +
+		"label=\"Declarations (in ." + syntaxName + " files)\" " +
+		"textPreferenceKey=\"" + syntaxName + ".declarationIndication\" " +
+		"textPreferenceValue=\"false\" " +
+		"highlightPreferenceKey=\"" + syntaxName + ".declarationHighlighting\" " +
+		"highlightPreferenceValue=\"true\" " +
+		"overviewRulerPreferenceKey=\"" + syntaxName + ".declarationIndicationInOverviewRuler\" " +
+		"overviewRulerPreferenceValue=\"true\" " +
+		"verticalRulerPreferenceKey=\"" + syntaxName + ".declarationIndicationInVerticalRuler\" " +
+		"verticalRulerPreferenceValue=\"false\" " +
+		"colorPreferenceKey=\"" + syntaxName + ".declarationIndicationColor\" " +
+		"colorPreferenceValue=\"240,216,168\" " +
+		"presentationLayer=\"4\" " +
+		"textStylePreferenceKey=\"" + syntaxName + ".declarationTextStyle\" " +
+		"textStylePreferenceValue=\"NONE\" />");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		

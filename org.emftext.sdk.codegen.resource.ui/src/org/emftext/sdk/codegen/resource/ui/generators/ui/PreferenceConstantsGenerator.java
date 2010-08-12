@@ -43,14 +43,6 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("public static final String EDITOR_MATCHING_BRACKETS_CHECKBOX = \"_matchingBracketsCheckbox\";");
 		sc.add("public static final String EDITOR_BRACKETS_SUFFIX = \"_brackets\";");
 		sc.addLineBreak();
-
-		sc.addComment("Constants for occurrence highlighting");
-		sc.add("public static final String EDITOR_OCCURRENCE_CHECKBOX = \"_occurrenceHighlightingCheckbox\";");
-		sc.add("public static final String EDITOR_DEFINITION_COLOR = \"_definition_color\";");
-		sc.add("public static final String EDITOR_PROXY_COLOR = \"_proxy_color\";");
-		sc.addLineBreak();
 		sc.add("}");
 	}
-
-	
 }

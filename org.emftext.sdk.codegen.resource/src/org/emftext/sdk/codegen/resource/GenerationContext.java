@@ -377,4 +377,12 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public void setAntlrPlugin(IPluginDescriptor antlrPlugin) {
 		this.antlrPlugin = antlrPlugin;
 	}
+
+	public String getOccurrenceAnnotationTypeID() {
+		return getResourceUIPlugin().getName() + ".occurences";
+	}
+
+	public String getDeclarationAnnotationTypeID() {
+		return getOccurrenceAnnotationTypeID() + ".declaration";
+	}
 }
