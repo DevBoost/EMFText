@@ -23,11 +23,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private org.eclipse.jface.viewers.ISelection selection = null;
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	private boolean isHighlightBrackets = true;
-	private boolean isHighlightOccurrences = true;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner scanner;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
-	private org.eclipse.swt.graphics.Color definitionColor;
-	private org.eclipse.swt.graphics.Color proxyColor;
 	private org.eclipse.swt.graphics.Color bracketColor;
 	private org.eclipse.swt.graphics.Color black;
 	private org.eclipse.swt.custom.StyledText textWidget;
@@ -123,9 +120,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(editor, sourceviewer);
 		this.colorManager = colorManager;
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		isHighlightOccurrences = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX);
-		definitionColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_DEFINITION_COLOR));
-		proxyColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_PROXY_COLOR));
 		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		
@@ -145,15 +139,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		if (isHighlightBrackets) {
 			bracketSet.matchingBrackets();
 		}
-		if (isHighlightOccurrences) {
-			occurrence.handleOccurrenceHighlighting(bracketSet);
-		}
-		if (occurrence.isPositionsChanged()) {
-			setCategoryHighlighting(document,
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString());
-			setCategoryHighlighting(document,
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString());
-		}
+		occurrence.handleOccurrenceHighlighting(bracketSet);
 		setCategoryHighlighting(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
 	}
 	
@@ -161,35 +147,9 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		org.eclipse.swt.custom.StyleRange styleRange = null;
 		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
 		
-		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString())) {
-			if (positions.length > 0) {
-				styleRange = getStyleRangeAtPosition(positions[0]);
-				if (styleRange.foreground == null) {
-					styleRange.foreground = black;
-				}
-			}
-			if (styleRange != null) {
-				styleRange.background = proxyColor;
-			}
-		}
 		for (org.eclipse.jface.text.Position position : positions) {
 			org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 			if (tmpPosition != null) {
-				if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString())) {
-					styleRange = getStyleRangeAtPosition(tmpPosition);
-					if (styleRange.foreground == null) {
-						styleRange.foreground = black;
-					}
-					styleRange.background = definitionColor;
-					textWidget.setStyleRange(styleRange);
-				}
-				if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString())) {
-					if (styleRange == null) {
-						return;
-					}
-					styleRange.start = tmpPosition.offset;
-					textWidget.setStyleRange(styleRange);
-				}
 				if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					styleRange.borderStyle = org.eclipse.swt.SWT.BORDER_SOLID;
@@ -206,15 +166,10 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private void removeHighlighting() {
 		org.eclipse.jface.text.IDocument document = projectionViewer.getDocument();
 		removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
-		if (occurrence.isToRemoveHighlighting()) {
-			removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString());
-			removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString());
-		}
 	}
 	
 	private void removeHighlightingCategory(org.eclipse.jface.text.IDocument document, String category) {
 		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
-		boolean isOccurrence = (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString()) || category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString()));
 		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
 			org.eclipse.swt.custom.StyleRange styleRange;
 			for (org.eclipse.jface.text.Position position : positions) {
@@ -229,16 +184,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			}
 		}
 		
-		if (isOccurrence) {
-			for (org.eclipse.jface.text.Position position : positions) {
-				org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
-				if (tmpPosition != null) {
-					textWidget.setStyleRange(new org.eclipse.swt.custom.StyleRange(tmpPosition.offset, tmpPosition.length, null, null));
-					projectionViewer.invalidateTextPresentation(tmpPosition.offset, tmpPosition.length);
-				}
-			}
-		}
-		
+		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.OCCURRENCE_ANNOTATION_ID);
+		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.DECLARATION_ANNOTATION_ID);
 		positionHelper.removePositions(document, category);
 	}
 	
@@ -258,10 +205,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	 */
 	public void resetValues() {
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		isHighlightOccurrences = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX);
 		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
-		definitionColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_DEFINITION_COLOR));
-		proxyColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_PROXY_COLOR));
 		bracketSet.resetBrackets();
 	}
 	
@@ -331,6 +275,24 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 					projectionViewer.getSelectionProvider().setSelection(textEditorSelection);
 				}
 			}
+		}
+	}
+	
+	private void removeAnnotations(String annotationTypeID) {
+		java.util.List<org.eclipse.jface.text.source.Annotation> annotationsToRemove = new java.util.ArrayList<org.eclipse.jface.text.source.Annotation>();
+		org.eclipse.jface.text.source.IAnnotationModel annotationModel = projectionViewer.getAnnotationModel();
+		java.util.Iterator<?> annotationIterator = annotationModel.getAnnotationIterator();
+		while (annotationIterator.hasNext()) {
+			Object object = (Object) annotationIterator.next();
+			if (object instanceof org.eclipse.jface.text.source.Annotation) {
+				org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) object;
+				if (annotationTypeID.equals(annotation.getType())) {
+					annotationsToRemove.add(annotation);
+				}
+			}
+		}
+		for (org.eclipse.jface.text.source.Annotation annotation : annotationsToRemove) {
+			annotationModel.removeAnnotation(annotation);
 		}
 	}
 	

@@ -19,7 +19,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsOccurrence {
 	
+	public final static String OCCURRENCE_ANNOTATION_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui.occurences";
+	public final static String DECLARATION_ANNOTATION_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui.occurences.declaration";
+	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
+	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner tokenScanner;
 	private java.util.List<String> quotedTokenArray;
 	private org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer;
@@ -203,7 +207,7 @@ public class CsOccurrence {
 				String text = tokenScanner.getTokenText();
 				if (text.equals(tokenText)) {
 					defPosition = tokenScanner.getTokenOffset();
-					addPosition(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString());
+					addAnnotation(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION, text);
 					break;
 				}
 				token = tokenScanner.nextToken();
@@ -218,7 +222,7 @@ public class CsOccurrence {
 				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
 					if ((isNull && elementsAtDefinition.contains(occEO)) || !isNull && definitionElement.equals(occEO)) {
-						addPosition(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY.toString());
+						addAnnotation(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY, text);
 					}
 				}
 			}
@@ -226,10 +230,22 @@ public class CsOccurrence {
 		}
 	}
 	
-	private void addPosition(org.eclipse.jface.text.IDocument document, String positionCategory) {
+	private void addAnnotation(org.eclipse.jface.text.IDocument document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory type, String text) {
 		int tokenOffset = tokenScanner.getTokenOffset();
 		int tokenLength = tokenScanner.getTokenLength();
-		positionHelper.addPosition(document, positionCategory, tokenOffset, tokenLength);
+		// for declarations and occurrences we do not need to add the position to the
+		// document
+		org.eclipse.jface.text.Position position = positionHelper.createPosition(tokenOffset, tokenLength);
+		// instead, an annotation is created
+		org.eclipse.jface.text.source.Annotation annotation = new org.eclipse.jface.text.source.Annotation(false);
+		if (type == org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION) {
+			annotation.setText("Declaration of " + text);
+			annotation.setType(DECLARATION_ANNOTATION_ID);
+		} else {
+			annotation.setText("Occurrence of " + text);
+			annotation.setType(OCCURRENCE_ANNOTATION_ID);
+		}
+		projectionViewer.getAnnotationModel().addAnnotation(annotation, position);
 	}
 	
 	/**

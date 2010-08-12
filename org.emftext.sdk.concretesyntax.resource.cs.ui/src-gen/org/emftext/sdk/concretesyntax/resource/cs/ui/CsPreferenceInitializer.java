@@ -31,13 +31,6 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "192,192,192");
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
 		
-		// Set default value for occurrences
-		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX, true);
-		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_DEFINITION_COLOR, "240,216,168");
-		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_PROXY_COLOR, "212,212,212");
-		
-		// store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_
-		// RULER, true);
 	}
 	
 	private void initializeDefaultBrackets() {

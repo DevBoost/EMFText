@@ -38,6 +38,10 @@ public class CsPositionHelper {
 		}
 	}
 	
+	public org.eclipse.jface.text.Position createPosition(int offset, int length) {
+		return new org.eclipse.jface.text.Position(offset, length);
+	}
+	
 	/**
 	 * Returns the positions of a specific category of the given document.
 	 * 
