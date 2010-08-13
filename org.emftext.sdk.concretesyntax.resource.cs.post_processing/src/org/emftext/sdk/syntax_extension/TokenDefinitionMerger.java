@@ -184,7 +184,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				handledDirectives.add(prioritizedToken);
 				if (!disableTokenSorting) {
 					String message = 
-						"Prioritizing tokens is ignore since token sorting is enabled. " + 
+						"Token priorities are ignored since token sorting is enabled. " + 
 						"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting.";
 					addProblem(resource, ECsProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
 				}
