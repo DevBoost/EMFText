@@ -36,7 +36,7 @@ public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 		"The syntax name must not contain more than one dot.";
 	
 	private static final String BASE_RESOURCE_PLUGIN_OPTION_MISSING = 
-		"If the syntax contains one dot, the option '" + OptionTypes.BASE_RESOURCE_PLUGIN.getLiteral() + "' needs to be specified.";
+		"If the syntax name contains one dot, the option '" + OptionTypes.BASE_RESOURCE_PLUGIN.getLiteral() + "' needs to be specified.";
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
