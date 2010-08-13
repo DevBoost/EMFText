@@ -86,6 +86,10 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// this is a workaround for Eclipse Bug 317821
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=317821
 			    		//
+			    		// do also ignore FileNotFoundException cased by MOFScript
+			    		// This is a workaround for Eclipse Bug 322642
+			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=322642
+			    		//
 			    		// do also ignore FileNotFoundException caused by some pure::variants plug-ins
 						if (!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmeta.genmodel") &&
 							!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmodel.genmodel") &&
@@ -94,6 +98,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.exportmodel/model/exportmodel.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.m2m.atl.profiler.model/model/ATL-Profiler.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.mofscript.model/src/model/mofscriptmodel.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext/model/xtext.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.builder/model/BuilderState.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.xbase/org/eclipse/xtext/xbase/Xbase.genmodel")
