@@ -212,6 +212,9 @@ public class OptionManager {
 		if (option == OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS) {
 			return false;
 		}
+		if (option == OptionTypes.DISABLE_TOKEN_SORTING) {
+			return false;
+		}
 		return true;
 	}
 
