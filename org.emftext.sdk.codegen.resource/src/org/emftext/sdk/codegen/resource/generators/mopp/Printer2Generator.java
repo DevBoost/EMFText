@@ -255,14 +255,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private boolean startedPrintingObject = false;");
 		sc.addJavadoc(
 			"The number of tab characters that were printed before the current line. " +
-			"This number is used to calculate the relative indendation when printing " +
+			"This number is used to calculate the relative indentation when printing " +
 			"contained objects, because all contained objects must start with this " +
-			"indendation (tabsBeforeCurrentObject + currentTabs)."
+			"indentation (tabsBeforeCurrentObject + currentTabs)."
 		);
 		sc.add("private int currentTabs;");
 		sc.addJavadoc(
 			"The number of tab characters that must be printed before the current object. " +
-			"This number is used to calculate the indendation of new lines, when line breaks " +
+			"This number is used to calculate the indentation of new lines, when line breaks " +
 			"are printed within one object."
 		);
 		sc.add("private int tabsBeforeCurrentObject;");
@@ -602,6 +602,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("doPrint((" + E_OBJECT + ") o, foundFormattingElements);");
 		sc.addComment("restore number of tabs after printing the contained object");
 		sc.add("tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;");
+		sc.add("newTabsBeforeCurrentObject = tabsBeforeCurrentObject;");
 		sc.add("currentTabs = oldCurrentTabs;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -59,14 +59,14 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	private boolean startedPrintingObject = false;
 	/**
 	 * The number of tab characters that were printed before the current line. This
-	 * number is used to calculate the relative indendation when printing contained
-	 * objects, because all contained objects must start with this indendation
+	 * number is used to calculate the relative indentation when printing contained
+	 * objects, because all contained objects must start with this indentation
 	 * (tabsBeforeCurrentObject + currentTabs).
 	 */
 	private int currentTabs;
 	/**
 	 * The number of tab characters that must be printed before the current object.
-	 * This number is used to calculate the indendation of new lines, when line breaks
+	 * This number is used to calculate the indentation of new lines, when line breaks
 	 * are printed within one object.
 	 */
 	private int tabsBeforeCurrentObject;
@@ -461,6 +461,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		doPrint((org.eclipse.emf.ecore.EObject) o, foundFormattingElements);
 		// restore number of tabs after printing the contained object
 		tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;
+		newTabsBeforeCurrentObject = tabsBeforeCurrentObject;
 		currentTabs = oldCurrentTabs;
 	}
 	
