@@ -86,7 +86,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// this is a workaround for Eclipse Bug 317821
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=317821
 			    		//
-			    		// do also ignore FileNotFoundException cased by MOFScript
+			    		// do also ignore FileNotFoundException caused by MOFScript
 			    		// This is a workaround for Eclipse Bug 322642
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=322642
 			    		//
