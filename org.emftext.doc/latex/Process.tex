@@ -29,10 +29,11 @@ for all subsequently generated Java packages. After finishing configuration, the
 these classes to construct a model instance.
 
 \section{Specifying Concrete Syntax}
+\label{sec:process_specification}
 
 After defining a metamodel, we can start specifying our
 \emph{concrete syntax}. As a starting point, EMFText provides a syntax generator that can
-automatically create a concrete-syntax specification using HUTN (Human-Useable Textual Notation) from the 
+automatically create a concrete-syntax specification using HUTN (Human-Useable Textual Notation)~\cite{HUTN} from the 
 metamodel. To manually specify the concrete syntax, a textual specification has to 
 be written, which has the ending \texttt{cs} (from \texttt{c}oncrete
 \texttt{s}yntax). 
@@ -65,6 +66,7 @@ for the language. In an optional last step, the generated token resolvers and th
 can be tailored to specific needs.
 
 \subsection{Generating Resource Plug-ins with ANT}
+\label{sec:process_generating_ant}
 EMFText includes its own tasks for Apache ANT. These tasks are automatically registered 
 to the Eclipse platform via extension point and are named according to the following 
 scheme: \emph{emftext.taskName}. To execute the tasks in your build script, you will

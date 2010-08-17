@@ -195,6 +195,7 @@ the string representation of the object.
 \subsection{Implementing Quick Fixes}
 
 \subsection{Implementing Builders}
+\label{sec:cust_builders}
 
 To implement a custom builder for your \DSL, you can basically set the code
 generation option \texttt{overrideBuilder} to \texttt{false}:
@@ -274,6 +275,7 @@ public class XyzBuilder implements IXyzBuilder {
 Alternatively, you can also register builders for your \DSL in other plug-ins.
 
 \subsection{Implementing Interpreters}
+\label{sec:cust_interpreters}
 
 To ease the implementation of interpreters for your \DSL, EMFText generates an
 interpreter stub. Assuming the file extension of your \DSL is \texttt{xyz} the

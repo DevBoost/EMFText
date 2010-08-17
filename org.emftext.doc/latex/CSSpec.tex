@@ -1,4 +1,5 @@
 \chapter{Concrete Syntax Specification Language (CS)}
+\label{chap:cs}
 
 An EMFText syntax specification must be contained in a file with the 
 extension \texttt{.cs} and consists of four main blocks:
@@ -89,6 +90,7 @@ START YourRootMetaClassName
 \end{lstlisting} 
 
 \subsection{Importing other Metamodels and Syntax Specifications}
+\label{sec:cs_import}
 Sometimes it is required to import additional metamodels, e.g., if they are only
 referenced in the current one and a syntax for some or all of its concepts
 needs to be specified or reused. 
