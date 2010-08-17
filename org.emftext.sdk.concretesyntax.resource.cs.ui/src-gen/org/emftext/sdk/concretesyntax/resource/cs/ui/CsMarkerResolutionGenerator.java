@@ -18,12 +18,16 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 	
 	public org.eclipse.ui.IMarkerResolution[] getResolutions(org.eclipse.core.resources.IMarker marker) {
 		try {
+			if (!hasQuickFixes(marker)) {
+				return new org.eclipse.ui.IMarkerResolution[] {};
+			}
 			org.eclipse.core.resources.IResource resource = marker.getResource();
 			if (resource instanceof org.eclipse.core.resources.IFile) {
 				// load model
 				final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) resource;
 				org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 				org.eclipse.emf.ecore.resource.ResourceSet rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+				rs.getLoadOptions().put(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS, "true");
 				org.eclipse.emf.ecore.resource.Resource emfResource = rs.getResource(uri, true);
 				if (emfResource instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) {
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) emfResource;
@@ -69,9 +73,8 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.core.resources.IMarker marker) {
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> foundQuickFixes = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		try {
-			Object quickFixValue = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
-			if (quickFixValue != null && quickFixValue instanceof String) {
-				String quickFixContexts = (String) quickFixValue;
+			String quickFixContexts = getQuickFixContextString(marker);
+			if (quickFixContexts != null) {
 				String[] quickFixContextParts = quickFixContexts.split("\\|");
 				for (String quickFixContext : quickFixContextParts) {
 					org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix = resource.getQuickFix(quickFixContext);
@@ -91,4 +94,14 @@ public class CsMarkerResolutionGenerator implements org.eclipse.ui.IMarkerResolu
 		return foundQuickFixes;
 	}
 	
+	private String getQuickFixContextString(org.eclipse.core.resources.IMarker marker) throws org.eclipse.core.runtime.CoreException {
+		Object quickFixValue = marker.getAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID);
+		if (quickFixValue != null && quickFixValue instanceof String) {
+			return (String) quickFixValue;
+		}
+		return null;
+	}
+	private boolean hasQuickFixes(org.eclipse.core.resources.IMarker marker) throws org.eclipse.core.runtime.CoreException {
+		return getQuickFixContextString(marker) != null;
+	}
 }

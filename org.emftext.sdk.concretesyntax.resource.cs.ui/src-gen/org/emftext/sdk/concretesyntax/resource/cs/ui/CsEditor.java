@@ -273,7 +273,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		if (propertySheetPage == null) {
 			propertySheetPage = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage();
 			// add a slightly modified adapter factory that does not return any editors for
-			// properties. this way, a model can never be modified through the propertiesview.
+			// properties. this way, a model can never be modified through the properties view.
 			propertySheetPage.setPropertySourceProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(adapterFactory) {
 				protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
 					return new org.eclipse.emf.edit.ui.provider.PropertySource(object, itemPropertySource) {

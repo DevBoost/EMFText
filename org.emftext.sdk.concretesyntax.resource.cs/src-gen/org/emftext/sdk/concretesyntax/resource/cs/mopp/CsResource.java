@@ -127,6 +127,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+	private java.util.Map<?, ?> loadOptions;
 	
 	public CsResource() {
 		super();
@@ -139,6 +140,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
+		this.loadOptions = options;
 		String encoding = null;
 		java.io.InputStream actualInputStream = inputStream;
 		Object inputStreamPreProcessorProvider = null;
@@ -327,7 +329,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private void removeDiagnostics(org.eclipse.emf.ecore.EObject proxy, java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics) {
-		// remove all errors/warnings this resource
+		// remove all errors/warnings from this resource
 		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic errorCand : new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(diagnostics)) {
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(proxy)) {
@@ -369,6 +371,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	protected void doUnload() {
 		super.doUnload();
 		clearState();
+		loadOptions = null;
 	}
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
@@ -415,7 +418,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getType()).add(diagnostic);
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+		if (isMarkerCreationEnabled()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+		}
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = problem.getQuickFixes();
 		if (quickFixes != null) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
@@ -429,7 +434,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
 		getDiagnostics(problem.getType()).add(diagnostic);
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+		if (isMarkerCreationEnabled()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+		}
 	}
 	
 	public void addError(String message, org.eclipse.emf.ecore.EObject cause) {
@@ -515,7 +522,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this);
+		if (isMarkerCreationEnabled()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this);
+		}
 		proxyCounter = 0;
 		resolverSwitch = null;
 	}
@@ -542,4 +551,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return quickFixMap.get(quickFixContext);
 	}
 	
+	public boolean isMarkerCreationEnabled() {
+		if (loadOptions == null) {
+			return true;
+		}
+		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS);
+	}
 }
