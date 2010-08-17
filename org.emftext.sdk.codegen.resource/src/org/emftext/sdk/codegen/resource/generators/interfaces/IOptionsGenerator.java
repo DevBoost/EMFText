@@ -20,6 +20,8 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	public static final String DISABLE_CREATING_MARKERS_FOR_PROBLEMS = "DISABLE_CREATING_MARKERS_FOR_PROBLEMS";
+
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -49,6 +51,17 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 			"given EClass as start symbol instead."
 		);
 		sc.add("public final String RESOURCE_CONTENT_TYPE = \"RESOURCE_CONTENT_TYPE\";");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"The key for the options to disable marker creation for resource problems. " +
+			"If this options is set (the value does not matter) when loading resources, " +
+			"reported problems will not be added as Eclipse workspace markers. " +
+			"This option is used by the MarkerResolutionGenerator class, which will end up " +
+			"in an infinite loop if marker are created when loading resources as this creation " +
+			"triggers the loading of the same resource and so on."
+		);
+		sc.add("public final String " + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + " = \"" + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + "\";");
 		sc.addLineBreak();
 		
 		sc.add("}");

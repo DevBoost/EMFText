@@ -129,12 +129,15 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("break;");
 		sc.add("default:");
 		sc.addComment("this case can never happen if the unicode escape sequences are correct");
-		sc.add("v = 0; // clear the accumulator");
+		sc.add("v = 0;");
+		sc.addComment("clear the accumulator");
 		sc.add("break;");
 		sc.add("}");
-		sc.add("} // for each of the 4 digits");
+		sc.add("}");
+		sc.addComment("for each of the 4 digits");
 		sc.addLineBreak();
-		sc.add("if (complete) { // We got a full conversion");
+		sc.add("if (complete) {");
+		sc.addComment("We got a full conversion");
 		sc.add("return encodePushAndReturn(v);");
 		sc.add("}");
 		sc.add("} else {");

@@ -55,6 +55,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -142,6 +143,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	addGetErrorsMethod(sc);
     	addRunValidatorsMethods(sc);
     	addGetQuickFixMethod(sc);
+    	addIsMarkerCreationEnabledMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -434,7 +436,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element) {");
     	sc.add(ELEMENT_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element);");
     	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
-    	sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+    	sc.add("if (isMarkerCreationEnabled()) {");
+	    sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+	    sc.add("}");
     	sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
     	sc.add("if (quickFixes != null) {");
     	sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
@@ -458,7 +462,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void addProblem(" + iProblemClassName + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.add(POSITION_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd);");
     	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
-    	sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+    	sc.add("if (isMarkerCreationEnabled()) {");
+	    sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+	    sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -549,6 +555,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("protected void doUnload() {");
     	sc.add("super.doUnload();");
     	sc.add("clearState();");
+    	sc.add("loadOptions = null;");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -561,11 +568,22 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("internalURIFragmentMap.clear();");
     	sc.add("getErrors().clear();");
     	sc.add("getWarnings().clear();");
+    	sc.add("if (isMarkerCreationEnabled()) {");
     	sc.add(markerHelperClassName + ".unmark(this);");
+	    sc.add("}");
     	sc.add("proxyCounter = 0;");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	sc.add("}");
     	sc.addLineBreak();
+	}
+	
+	private void addIsMarkerCreationEnabledMethod(StringComposite sc) {
+		sc.add("public boolean isMarkerCreationEnabled() {");
+		sc.add("if (loadOptions == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_CREATING_MARKERS_FOR_PROBLEMS + ");");
+		sc.add("}");
 	}
 
 	private void addAttachWarningsMethod(StringComposite sc) {
@@ -601,7 +619,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
 		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
-    	sc.addComment("remove all errors/warnings this resource");
+    	sc.addComment("remove all errors/warnings from this resource");
     	sc.add("for (" + RESOURCE_DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + RESOURCE_DIAGNOSTIC + ">(diagnostics)) {");
     	sc.add("if (errorCand instanceof " + iTextDiagnosticClassName + ") {");
     	sc.add("if (((" + iTextDiagnosticClassName + ") errorCand).wasCausedBy(proxy)) {");
@@ -743,6 +761,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         if (saveChangedResourcesOnly) {
         	sc.add("private String textPrintAfterLoading = null;");
         }
+    	sc.add("private " + MAP + "<?, ?> loadOptions;");
     	sc.addLineBreak();
 	}
 
@@ -812,7 +831,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addDoLoadMethod(StringComposite sc) {
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
-        sc.add("String encoding = null;");
+		sc.add("this.loadOptions = options;");
+		sc.add("String encoding = null;");
         sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
         sc.add("Object inputStreamPreProcessorProvider = null;");
         sc.add("if (options!=null) {");

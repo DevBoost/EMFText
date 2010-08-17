@@ -251,7 +251,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addComment(
 			"add a slightly modified adapter factory that does not return any " +
 			"editors for properties. " +
-			"this way, a model can never be modified through the properties" +
+			"this way, a model can never be modified through the properties " +
 			"view."
 		);
 		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory) {");
