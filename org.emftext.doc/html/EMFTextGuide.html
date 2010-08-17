@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-17 15:50:00"> 
+<meta name="date" content="2010-08-17 16:36:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -174,6 +174,9 @@ instances.
 following.
   <h3 class="sectionHead"><span class="titlemark">1.1</span>&#x00A0;&#x00A0;<a 
  id="x1-30001.1"></a>Generation features</h3>
+<!--l. 14--><p class="noindent" >EMFText uses a generative approach where all artifacts that form the tooling for a textual language
+are generated. This includes a parser for loading textual models, a printer for storing model instances
+and the editor with all its customizable components.
      <dl class="description"><dt class="description">
 <span 
 class="aessbx-10x-x-109">Generation of independent code</span> </dt><dd 
@@ -189,22 +192,31 @@ class="description">With EMFText, an initial syntax for the textual DSL can be
      standard. From this initial version of generated specification the syntax can be further
      tailored towards specific needs (cf.&#x00A0;Sect.&#x00A0;<a 
 href="#x1-90002.2">2.2<!--tex4ht:ref: sec:process_specification --></a>).
+     </dd><dt class="description">
+<span 
+class="aessbx-10x-x-109">Highly customizable code generation</span> </dt><dd 
+class="description">EMFText provides many options for tailoring its code
+     generation process to specific needs. For example, manually modified code that can be
+     preserved by disallowing its generation or custom license headers can be provided if
+     needed (cf.&#x00A0;Appx.<a 
+href="#x1-56000A">A<!--tex4ht:ref: app:options --></a>).
      </dd></dl>
-<!--l. 32--><p class="noindent" >
+<!--l. 42--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">1.2</span>&#x00A0;&#x00A0;<a 
  id="x1-40001.2"></a>Specification features</h3>
-     <dl class="description"><dt class="description">
+<!--l. 44--><p class="noindent" >EMFText comes with a simple but rich syntax specification language&#8212;the <span 
+class="aesl-10x-x-109">Concrete Syntax</span>
 <span 
-class="aessbx-10x-x-109">Simple and precise syntax specification</span> </dt><dd 
-class="description">EMFText  comes  with  a  simple  but  rich  syntax
-     specification language&#8212;the <span 
-class="aesl-10x-x-109">Concrete Syntax Specification Language (CS)</span>. It is based
-     on EBNF and follows the concept of <span 
-class="aesl-10x-x-109">convention over configuration</span>. This allows for very
-     compact and intuitive syntax specifications, but still supports tweaking specifics where
-     needed (cf.&#x00A0;Chap.&#x00A0;<a 
+class="aesl-10x-x-109">Specification Language (CS)</span>. It is based on EBNF and follows the concept of <span 
+class="aesl-10x-x-109">convention over</span>
+<span 
+class="aesl-10x-x-109">configuration</span>. This allows for very compact and intuitive syntax specifications, but still supports
+tweaking specifics where needed (cf.&#x00A0;Chap.&#x00A0;<a 
 href="#x1-180003">3<!--tex4ht:ref: chap:cs --></a>).
-     </dd><dt class="description">
+     <dl class="description"><dt class="description">
+                                                                                     
+
+                                                                                     
 <span 
 class="aessbx-10x-x-109">Modular specification</span> </dt><dd 
 class="description">EMFText  provides  an  import  mechanism  that  not  only  supports
@@ -216,9 +228,6 @@ href="#x1-210003.1.2">3.1.2<!--tex4ht:ref: sec:cs_import --></a>).
 class="aessbx-10x-x-109">Default reference resolving mechanisms</span> </dt><dd 
 class="description">A default name resolution mechanism for models
      with globally unique names is available out of the box for any syntax. More complex
-                                                                                     
-
-                                                                                     
      resolution mechanisms can be realized by implementing generated resolving methods
      through which also inter-model references can be established (cf.&#x00A0;Sect.&#x00A0;<a 
 href="#x1-470004.2.2">4.2.2<!--tex4ht:ref: sec:cust_reference_resolving --></a>).
@@ -230,31 +239,61 @@ class="description">A  number  of  analyses  of  CS  specifications  inform  the
      (cf.&#x00A0;Appx.&#x00A0;<a 
 href="#x1-57000B">B<!--tex4ht:ref: app:warnings --></a>).
      </dd></dl>
-<!--l. 63--><p class="noindent" >
+<!--l. 72--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">1.3</span>&#x00A0;&#x00A0;<a 
  id="x1-50001.3"></a>Editor features</h3>
-<!--l. 65--><p class="noindent" >EMFText editors provide many advanced features like code completion, customizable syntax and
-occurrence highlighting, advanced bracket handling, hyperlinks and text hovers, an outline view and
-instant error reporting.
-<!--l. 70--><p class="noindent" >
+<!--l. 74--><p class="noindent" >EMFText editors provide many advanced features that are known from, e.g., the Eclipse Java editor.
+This includes code completion (with customizable completion proposals cf.&#x00A0;Sect.&#x00A0;<a 
+href="#x1-470004.2.2">4.2.2<!--tex4ht:ref: sec:cust_reference_resolving --></a> and
+Sect.&#x00A0;<a 
+href="#x1-530004.2.8">4.2.8<!--tex4ht:ref: sec:cust_code_completion --></a>), customizable syntax and occurrence highlighting via preference pages, advanced bracket
+handling, code folding, hyperlinks and text hovers for quick navigation, an outline view and instant
+error reporting.
+<!--l. 82--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">1.4</span>&#x00A0;&#x00A0;<a 
  id="x1-60001.4"></a>Other features</h3>
+<!--l. 84--><p class="noindent" >EMFText provides a number of features that do not fit in any of the categories above but are so nice,
+that they get their own section.
      <dl class="description"><dt class="description">
 <span 
-class="aessbx-10x-x-109">Support for ANT</span> </dt><dd 
-class="description">Dedicated  ANT  task  are  provided  to  all  the  generation  of  text  syntax
-     plug-ins in build scripts (cf.&#x00A0;Sect.&#x00A0;<a 
+class="aessbx-10x-x-109">ANT support</span> </dt><dd 
+class="description">Dedicated ANT task are provided to all the generation of text syntax plug-ins
+     in build scripts (cf.&#x00A0;Sect.&#x00A0;<a 
 href="#x1-120002.3.2">2.3.2<!--tex4ht:ref: sec:process_generating_ant --></a>).
      </dd><dt class="description">
 <span 
-class="aessbx-10x-x-109">Generation of builder and interpreter stubs</span> </dt><dd 
-class="description">EMFText generates a builder stub that can be
-     used  to  process  model  instances  on  changes  and  to  automatically  produce  derived
-     resources when needed (cf.&#x00A0;Sect.&#x00A0;<a 
-href="#x1-500004.2.5">4.2.5<!--tex4ht:ref: sec:cust_builders --></a>). Similarly, interpreters are used to execute model
-     instances (cf.&#x00A0;Sect.&#x00A0;<a 
+class="aessbx-10x-x-109">Generation of post processors</span> </dt><dd 
+class="description">By default, post processors are generated that are called by
+     the tooling after parsing. These post processors can be customized to check consistency
+     of models or perform necessary modifications after parsing in a highly interactive way
+     (cf.&#x00A0;Sect.&#x00A0;<a 
+href="#x1-480004.2.3">4.2.3<!--tex4ht:ref: sec:cust_post_processors --></a>).
+     </dd><dt class="description">
+<span 
+class="aessbx-10x-x-109">Generation of builder stubs</span> </dt><dd 
+class="description">EMFText generates a builder stub that can be used to process
+     model instances on changes and to automatically produce derived resources when needed
+                                                                                     
+
+                                                                                     
+     (cf.&#x00A0;Sect.&#x00A0;<a 
+href="#x1-500004.2.5">4.2.5<!--tex4ht:ref: sec:cust_builders --></a>).
+     </dd><dt class="description">
+<span 
+class="aessbx-10x-x-109">Generation of interpreter stubs</span> </dt><dd 
+class="description">Similarly, interpreters are used to execute model instances
+     (cf.&#x00A0;Sect.&#x00A0;<a 
 href="#x1-510004.2.6">4.2.6<!--tex4ht:ref: sec:cust_interpreters --></a>).
+     </dd><dt class="description">
+<span 
+class="aessbx-10x-x-109">Quick fixes</span> </dt><dd 
+class="description"><span 
+class="aebx-10x-x-109">TODO Add content</span>
      </dd></dl>
+                                                                                     
+
+                                                                                     
+<!--l. 1--><p class="noindent" >
                                                                                      
 
                                                                                      
@@ -2839,17 +2878,17 @@ object.
                                                                                      
   <h4 class="subsectionHead"><span class="titlemark">4.2.3</span>&#x00A0;&#x00A0;<a 
  id="x1-480004.2.3"></a>Implementing Post Processors</h4>
-<!--l. 195--><p class="noindent" >
+<!--l. 196--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.4</span>&#x00A0;&#x00A0;<a 
  id="x1-490004.2.4"></a>Implementing Quick Fixes</h4>
-<!--l. 197--><p class="noindent" >
+<!--l. 198--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.5</span>&#x00A0;&#x00A0;<a 
  id="x1-500004.2.5"></a>Implementing Builders</h4>
-<!--l. 200--><p class="noindent" >To implement a custom builder for your DSL, you can basically set the code generation option
+<!--l. 201--><p class="noindent" >To implement a custom builder for your DSL, you can basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideBuilder </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 203-->
+  <!--l. 204-->
   <div class="lstlisting" id="listing-42"><span class="label"><a 
  id="x1-50001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
@@ -2873,7 +2912,7 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 209--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 210--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-100002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), you will find a new class <span 
 class="ul9r8t-x-x-95">XyzBuilder </span>in
 the <span 
@@ -2883,7 +2922,7 @@ you face compilation errors, make sure to the delete the <span
 class="ul9r8t-x-x-95">XyzBuilder </span>class from the <span 
 class="ul9r8t-x-x-95">src-gen</span>
 folder.
-<!--l. 216--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
+<!--l. 217--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
 class="ul9r8t-x-x-95">isBuildingNeeded() </span>and <span 
 class="ul9r8t-x-x-95">build()</span>. The first
 one is called to let the builder decide, which resources need to be included in the build process.
@@ -2892,16 +2931,16 @@ class="ul9r8t-x-x-95">false </span>to avoid unnecessary loading of resources. To
 include all textual resources that contain models of your DSL, change the method to return
 <span 
 class="ul9r8t-x-x-95">true</span>.
-<!--l. 223--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
+<!--l. 224--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
 arbitrary behavior here. Usually, builders create some kind of derived artifact, for example a
 transformed or compiled version of the DSL model. Since <span 
 class="ul9r8t-x-x-95">build() </span>retrieves the resource as method
 parameter, you can easily access the contents of the resource. To save the derived artifact it is good
 practice to use the URI of the original resource to derive a new URI. This can for example be done
 by removing segments and adding new ones.
-<!--l. 231--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
+<!--l. 232--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
 resource without making any changes.
-  <!--l. 234-->
+  <!--l. 235-->
   <div class="lstlisting" id="listing-43"><span class="label"><a 
  id="x1-50004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
@@ -3389,24 +3428,24 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 275--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
+<!--l. 276--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
                                                                                      
 
                                                                                      
-<!--l. 277--><p class="noindent" >
+<!--l. 278--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.6</span>&#x00A0;&#x00A0;<a 
  id="x1-510004.2.6"></a>Implementing Interpreters</h4>
-<!--l. 280--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
+<!--l. 281--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
 Assuming the file extension of your DSL is <span 
 class="ul9r8t-x-x-95">xyz </span>the abstract stub class will be named
 <span 
 class="ul9r8t-x-x-95">AbstractXyzInterpreter</span>. To implement concrete interpreters, you can create subclasses of this stub
 class.
-<!--l. 285--><p class="indent" >  For each metaclass found in the metamodel of your DSL, the interpreter stub contains a
+<!--l. 286--><p class="indent" >  For each metaclass found in the metamodel of your DSL, the interpreter stub contains a
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>method. These methods can be overridden in concrete interpreter classes to
 implement the desired interpretation for the objects of each type.
-<!--l. 290--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
+<!--l. 291--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
 used in different modes. First, models can be interpret using a stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods must perform the interpretation, but should not call other
@@ -3417,18 +3456,18 @@ class="ul9r8t-x-x-95">addObjectToInterprete() </span>and then start
 interpretation by calling <span 
 class="ul9r8t-x-x-95">interprete()</span>. Interpretation ends when all objects from the stack are
 consumed.
-<!--l. 300--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
+<!--l. 301--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods call other <span 
 class="ul9r8t-x-x-95">interprete </span>methods to continue interpretation. The
 traversal of the model is more explicit than using the interpreter with the stack in this
 mode.
-<!--l. 305--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
+<!--l. 306--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
 can simply put all models elements (using <span 
 class="ul9r8t-x-x-95">eAllContents() </span>on the model root element) on the stack
 and then start interpretation. The second, stack-independent interpretation mode is useful to traverse
 models top-down.
-<!--l. 311--><p class="indent" >  The stub class has two type parameters&#8212;<span 
+<!--l. 312--><p class="indent" >  The stub class has two type parameters&#8212;<span 
 class="ul9r8t-x-x-95">ResultType </span>and <span 
 class="ul9r8t-x-x-95">ContextType</span>, which concrete subclasses
 must bind. The former parameter (i.e., <span 
@@ -3439,7 +3478,7 @@ class="ul9r8t-x-x-95">ContextType</span>) defines the type of the parameter that
 the <span 
 class="ul9r8t-x-x-95">interprete </span>methods. By binding the type parameters one can use arbitrary classes to pass
 interpretation results.
-<!--l. 319--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
+<!--l. 320--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
 SimpleMath<span class="footnote-mark"><a 
 href="EMFTextGuide4.html#fn1x4"><sup class="textsuperscript">1</sup></a></span><a 
  id="x1-51001f1"></a>  and the
@@ -3447,17 +3486,17 @@ ThreeValuedLogic DSL<span class="footnote-mark"><a
 href="EMFTextGuide5.html#fn2x4"><sup class="textsuperscript">2</sup></a></span><a 
  id="x1-51002f2"></a> 
 use the generated interpreter stubs.
-<!--l. 325--><p class="noindent" >
+<!--l. 326--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.7</span>&#x00A0;&#x00A0;<a 
  id="x1-520004.2.7"></a>Customizing Text Hovers</h4>
                                                                                      
 
                                                                                      
-<!--l. 327--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
+<!--l. 328--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideHoverTextProvider </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 330-->
+  <!--l. 331-->
   <div class="lstlisting" id="listing-44"><span class="label"><a 
  id="x1-52001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
@@ -3481,7 +3520,7 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 336--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 337--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-100002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), a new class <span 
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>can be
 found in the <span 
@@ -3491,7 +3530,7 @@ class="ul9r8t-x-x-95">xyz</span>. If you face compilation errors, make sure to t
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>class from
 the <span 
 class="ul9r8t-x-x-95">src-gen </span>folder.
-<!--l. 343--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
+<!--l. 344--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
 class="ul9r8t-x-x-95">getHoverText()</span>. The default
 implementation of this method delegates calls to a default provider. To customize the hover text
 you can inspect the <span 
@@ -3499,7 +3538,7 @@ class="ul9r8t-x-x-95">EObject </span>passed to the method and return arbitrary H
 The following listing shows a simple customized provider, which returns the type of the
 <span 
 class="ul9r8t-x-x-95">EObject</span>.
-  <!--l. 350-->
+  <!--l. 351-->
   <div class="lstlisting" id="listing-45"><span class="label"><a 
  id="x1-52004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
@@ -3602,7 +3641,7 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 362--><p class="noindent" >
+<!--l. 363--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.8</span>&#x00A0;&#x00A0;<a 
  id="x1-530004.2.8"></a>Customizing Code Completion Proposals</h4>
                                                                                      
