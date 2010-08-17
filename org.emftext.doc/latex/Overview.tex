@@ -11,6 +11,10 @@ To give a quick overview, some of the most compelling features of EMFText are
 outlined in the following.
 
 \section{Generation features}
+EMFText uses a generative approach where all artifacts that form the tooling for
+a textual language are generated. This includes a parser for loading textual 
+models, a printer for storing model instances and the editor with all its
+customizable components.
 
 \begin{description}
 
@@ -25,20 +29,25 @@ outlined in the following.
         in one step for any Ecore-based metamodel. This syntax conforms to the 
         HUTN standard. From this initial version of generated specification the 
         syntax can be further tailored towards specific needs (cf.~Sect.~\ref{sec:process_specification}).
+        
+  \item[Highly customizable code generation]
+        EMFText provides many options for tailoring its code generation process
+        to specific needs. For example, manually modified code that can be preserved
+        by disallowing its generation or custom license headers can be provided 
+        if needed (cf.~Appx.\ref{app:options}\label{app:options}).
 
 \end{description}
 
 
 \section{Specification features}
 
-\begin{description}
+EMFText comes with a simple but rich syntax specification language---the
+\emph{Concrete Syntax Specification Language (CS)}. It is based on EBNF 
+and follows the concept of \emph{convention over configuration}. This 
+allows for very compact and intuitive syntax specifications, but still 
+supports tweaking specifics where needed (cf.~Chap.~\ref{chap:cs}).
 
-  \item[Simple and precise syntax specification]
-        EMFText comes with a simple but rich syntax specification language---the
-        \emph{Concrete Syntax Specification Language (CS)}. It is based on EBNF 
-        and follows the concept of \emph{convention over configuration}. This 
-        allows for very compact and intuitive syntax specifications, but still 
-        supports tweaking specifics where needed (cf.~Chap.~\ref{chap:cs}).
+\begin{description}
 
   \item[Modular specification]
         EMFText provides an import mechanism that not only supports specification 
@@ -62,24 +71,41 @@ outlined in the following.
 
 \section{Editor features}
 
-EMFText editors provide many advanced features like code completion, 
-customizable syntax and occurrence highlighting, advanced bracket handling,
-hyperlinks and text hovers, an outline view and instant error reporting.
+EMFText editors provide many advanced features that are known from, e.g., the 
+Eclipse Java editor. This includes code completion (with customizable completion
+proposals cf.~Sect.~\ref{sec:cust_reference_resolving}\label{sec:cust_reference_resolving} 
+and Sect.~\ref{sec:cust_code_completion}), customizable syntax and occurrence 
+highlighting via preference pages, advanced bracket handling, code folding, 
+hyperlinks and text hovers for quick navigation, an outline view and instant error reporting.
 
 
 \section{Other features}
 
+EMFText provides a number of features that do not fit in any of the categories 
+above but are so nice, that they get their own section.
+
 \begin{description}
 
-  \item[Support for ANT]
+  \item[ANT support]
         Dedicated ANT task are provided to all the generation of text syntax 
         plug-ins in build scripts (cf.~Sect.~\ref{sec:process_generating_ant}).
+        
+  \item[Generation of post processors]
+        By default, post processors are generated that are called by the 
+        tooling after parsing. These post processors can be customized to
+        check consistency of models or perform necessary modifications after
+        parsing in a highly interactive way (cf.~Sect.~\ref{sec:cust_post_processors}).
 
-  \item[Generation of builder and interpreter stubs]
+  \item[Generation of builder stubs]
         EMFText generates a builder stub that can be used to process 
         model instances on changes and to automatically produce derived 
-        resources when needed (cf.~Sect.~\ref{sec:cust_builders}). 
+        resources when needed (cf.~Sect.~\ref{sec:cust_builders}).
+        
+  \item[Generation of interpreter stubs]
         Similarly, interpreters are used to execute model instances 
         (cf.~Sect.~\ref{sec:cust_interpreters}).
-        
+  
+  \item[Quick fixes]
+        \todo{Add content}
+      
 \end{description}
