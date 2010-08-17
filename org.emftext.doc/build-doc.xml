@@ -14,10 +14,20 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="bibtex">
+		<sequential>
+			<!-- BibTeX -->
+			<exec executable="${bibtex}" dir="latex">
+				<arg value="../latex/EMFTextGuide.aux" />
+				<env key="PATH" value="${path}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	
 	<target name="build-guide">
 		<property file="path.properties" />
 		<makepdf/>
-		<!-- TODO call bibtext -->
+		<bibtex/>
 		<makepdf/>
 		<makepdf/>
 		<makepdf/>
