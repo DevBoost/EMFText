@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-18 14:32:00"> 
+<meta name="date" content="2010-08-18 15:16:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -384,7 +384,7 @@ class="aesl-10x-x-109">same JRE as the workspace </span>option in the <span
 class="aesl-10x-x-109">JRE </span>tab. EMFText provides the following ANT
 tasks:
 <!--l. 75--><p class="noindent" ><span class="likeparagraphHead"><a 
- id="x1-130002.3.2"></a>GenerateTextResource</span>&#x00A0;will cause EMFText to generate the resource plugin. The following listing
+ id="x1-130002.3.2"></a>GenerateTextResource</span>&#x00A0;will cause EMFText to generate the resource plugins. The following listing
 shows how it should be used including the task&#8217;s obligatory parameters. <!--l. 77-->
   <div class="lstlisting" id="listing-1"><span class="label"><a 
  id="x1-13001r1"></a></span><span 
@@ -457,7 +457,7 @@ class="aesl-10x-x-109">org.emftext.sdk.ant.SyntaxProcessor</span>
                                                                                      
 interface.
 <!--l. 87--><p class="noindent" ><span class="likeparagraphHead"><a 
- id="x1-140002.3.2"></a>RegisterEcoreResourceFactory</span>&#x00A0;allows to register an ecore model&#8217;s resource factory for a certain type.
+ id="x1-140002.3.2"></a>RegisterEcoreResourceFactory</span>&#x00A0;allows to register an Ecore model&#8217;s resource factory for a certain type.
 The following listing shows how the task should be used. <!--l. 89-->
   <div class="lstlisting" id="listing-2"><span class="label"><a 
  id="x1-14001r1"></a></span><span 
@@ -2117,8 +2117,8 @@ class="ul9r8t-x-x-95">int</span>. Basic conversions, such as the one just mentio
 handled by the generated class <span 
 class="ul9r8t-x-x-95">XyzDefaultTokenResolver </span>(assuming the file extension of your DSL
 is <span 
-class="ul9r8t-x-x-95">xyz</span>). However, if you want to use custom data types in your metamodels, or you need to
-customize the default conversion, there is two ways to change to conversion of text to data
+class="ul9r8t-x-x-95">xyz</span>). However, if you want to use custom data types in your metamodels, or if you need to
+customize the default conversion, there are two ways to change the conversion of text to data
 types.
 <!--l. 26--><p class="noindent" >
   <h5 class="subsubsectionHead"><a 
@@ -2535,7 +2535,7 @@ class="ul9r8t-x-x-95">}</span>
   
   </div>
 <!--l. 86--><p class="indent" >  The difference between this kind of customization and the one below, is that the implemented
-conversion is local w.r.t.&#x00A0;the textual syntax of the DSL. If you have multiple syntax definition for
+conversion is local w.r.t.&#x00A0;the textual syntax of the DSL. If you have multiple syntax definitions for
 your DSL, each can use completely different algorithms to convert data types.
 <!--l. 91--><p class="noindent" >
   <h5 class="subsubsectionHead"><a 
@@ -2860,11 +2860,11 @@ object, if one is found. The <span
 class="ul9r8t-x-x-95">deResolve() </span>method can simply return the textual representation of the
 referenced object as string.
 <!--l. 183--><p class="indent" >  To enable code completion for references, the <span 
-class="ul9r8t-x-x-95">resolve() </span>must be extended to take care of the
-<span 
+class="ul9r8t-x-x-95">resolve() </span>method must be extended to take care of
+the <span 
 class="ul9r8t-x-x-95">resolveFuzzy </span>parameter. If this parameter is <span 
-class="ul9r8t-x-x-95">true</span>, the resolver class is used for code completion and
-must add all referencable object to the result. Thus, instead of checking, whether <span 
+class="ul9r8t-x-x-95">true</span>, the resolver class is used for code completion
+and must add all referencable object to the result. Thus, instead of checking, whether <span 
 class="ul9r8t-x-x-95">identifier</span>
 actually references an object, <span 
 class="ul9r8t-x-x-95">resolve() </span>can simply add all objects that have the correct type to the
@@ -3074,7 +3074,7 @@ href="#x1-100002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), you will
 class="ul9r8t-x-x-95">XyzBuilder </span>in
 the <span 
 class="ul9r8t-x-x-95">src </span>folder of the generated resource plug-in (assuming the file extension of your DSL is <span 
-class="ul9r8t-x-x-95">xyz</span>. If
+class="ul9r8t-x-x-95">xyz</span>). If
 you face compilation errors, make sure to the delete the <span 
 class="ul9r8t-x-x-95">XyzBuilder </span>class from the <span 
 class="ul9r8t-x-x-95">src-gen</span>
@@ -3594,7 +3594,7 @@ class="ul9r8t-x-x-95">}</span>
  id="x1-510004.2.6"></a>Implementing Interpreters</h4>
 <!--l. 320--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
 Assuming the file extension of your DSL is <span 
-class="ul9r8t-x-x-95">xyz </span>the abstract stub class will be named
+class="ul9r8t-x-x-95">xyz</span>, the abstract stub class will be named
 <span 
 class="ul9r8t-x-x-95">AbstractXyzInterpreter</span>. To implement concrete interpreters, you can create subclasses of this stub
 class.
@@ -3602,7 +3602,7 @@ class.
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>method. These methods can be overridden in concrete interpreter classes to
 implement the desired interpretation for the objects of each type.
-<!--l. 330--><p class="indent" >  After implementing the methods for the classes which shall be interpret, the interpreter can be
+<!--l. 330--><p class="indent" >  After implementing the methods for the classes which shall be interpreted, the interpreter can be
 used in different modes. First, models can be interpret using a stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods must perform the interpretation, but should not call other
