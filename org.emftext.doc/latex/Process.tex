@@ -72,8 +72,8 @@ to the Eclipse platform via extension point and are named according to the follo
 scheme: \emph{emftext.taskName}. To execute the tasks in your build script, you will
 have to activate the \emph{Run in the same JRE as the workspace} option in the \emph{JRE}
 tab. EMFText provides the following ANT tasks:
-\paragraph*{GenerateTextResource}~will cause EMFText to generate the resource plugin. 
-The following listing shows how it should be used including the task's obligatory parameters.
+\paragraph*{GenerateTextResource}~will cause EMFText to generate the resource
+plugins. The following listing shows how it should be used including the task's obligatory parameters.
 \begin{lstlisting}
 <emftext.GenerateTextResource
 	syntax="pathToCSSpec"
@@ -84,7 +84,7 @@ The following listing shows how it should be used including the task's obligator
 Further parameters are \emph{generateANTLRPlugin="[true|false]"}, which specifies if an additional plugin
 containing the required ANTLR dependencies should be generated, and \emph{preprocessor="[qualified class name]"}
 referring to an implementation of the \emph{org.emftext.sdk.ant.Syntax\-Processor} interface. 
-\paragraph*{RegisterEcoreResourceFactory}~allows to register an ecore model's resource factory for a 
+\paragraph*{RegisterEcoreResourceFactory}~allows to register an Ecore model's resource factory for a 
 certain type. The following listing shows how the task should be used.
 \begin{lstlisting}
 <emftext.RegisterEcoreResourceFactory
