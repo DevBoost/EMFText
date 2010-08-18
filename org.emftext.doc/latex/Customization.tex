@@ -85,7 +85,7 @@ public class XyzTEXTTokenResolver implements IXyzTokenResolver {
 
 The difference between this kind of customization and the one below, is
 that the implemented conversion is local w.r.t.~the textual syntax of the \DSL.
-If you have multiple syntax definition for your \DSL, each can use completely
+If you have multiple syntax definitions for your \DSL, each can use completely
 different algorithms to convert data types.
 
 \subsubsection{Customizing the EMF Data Type Handling}
@@ -180,7 +180,7 @@ object)} to set the reference object, if one is found. The
 \texttt{deResolve()} method can simply return the textual representation of the
 referenced object as string.
 
-To enable code completion for references, the \texttt{resolve()} must be
+To enable code completion for references, the \texttt{resolve()} method must be
 extended to take care of the \texttt{resolveFuzzy} parameter. If this parameter is
 \texttt{true}, the resolver class is used for code completion and must add all
 referencable object to the result. Thus, instead of checking, whether
@@ -249,7 +249,7 @@ OPTIONS {
 After regenerating the resource plug-ins (see
 Sect.~\ref{sec:process_generating}), you will find a new class
 \texttt{XyzBuilder} in the \texttt{src} folder of the generated resource 
-plug-in (assuming the file extension of your \DSL is \texttt{xyz}. If you
+plug-in (assuming the file extension of your \DSL is \texttt{xyz}). If you
 face compilation errors, make sure to the delete the \texttt{XyzBuilder} 
 class from the \texttt{src-gen} folder.
 
@@ -318,7 +318,7 @@ Alternatively, you can also register builders for your \DSL in other plug-ins.
 \label{sec:cust_interpreters}
 
 To ease the implementation of interpreters for your \DSL, EMFText generates an
-interpreter stub. Assuming the file extension of your \DSL is \texttt{xyz} the
+interpreter stub. Assuming the file extension of your \DSL is \texttt{xyz}, the
 abstract stub class will be named \texttt{AbstractXyzInterpreter}. To implement
 concrete interpreters, you can create subclasses of this stub class.
 
@@ -327,7 +327,7 @@ stub contains a \texttt{interprete\_Classname} method. These methods can be
 overridden in concrete interpreter classes to implement the desired interpretation for the
 objects of each type.
 
-After implementing the methods for the classes which shall be interpret, the
+After implementing the methods for the classes which shall be interpreted, the
 interpreter can be used in different modes. First, models can be interpret using
 a stack. In this case, the \texttt{interprete\_Classname} methods must
 perform the interpretation, but should not call other
