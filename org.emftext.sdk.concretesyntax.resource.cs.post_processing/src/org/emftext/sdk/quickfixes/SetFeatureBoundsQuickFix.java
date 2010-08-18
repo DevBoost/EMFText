@@ -9,7 +9,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsQuickFix;
 
 /**
- * A quick fix that adjusts the cardinality of a structural features. This fix 
+ * A quick fix that adjusts the cardinality of a structural feature. This fix 
  * can be applied when the min/max occurrences in the syntax do not match the
  * lower/upper bounds defined in the metamodel.
  */
