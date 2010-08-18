@@ -28,13 +28,13 @@ customizable components.
         With EMFText, an initial syntax for the textual DSL can be generated 
         in one step for any Ecore-based metamodel. This syntax conforms to the 
         HUTN standard. From this initial version of generated specification the 
-        syntax can be further tailored towards specific needs (cf.~Sect.~\ref{sec:process_specification}).
+        syntax can be further tailored towards specific needs (cf.~Section~\ref{sec:process_specification}).
         
   \item[Highly customizable code generation]
         EMFText provides many options for tailoring its code generation process
         to specific needs. For example, manually modified code that can be preserved
         by disallowing its generation or custom license headers can be provided 
-        if needed (cf.~Appx.\ref{app:options}\label{app:options}).
+        if needed (cf.~Appendix~\ref{app:options}\label{app:options}).
 
 \end{description}
 
@@ -45,26 +45,26 @@ EMFText comes with a simple but rich syntax specification language---the
 \emph{Concrete Syntax Specification Language (CS)}. It is based on EBNF 
 and follows the concept of \emph{convention over configuration}. This 
 allows for very compact and intuitive syntax specifications, but still 
-supports tweaking specifics where needed (cf.~Chap.~\ref{chap:cs}).
+supports tweaking specifics where needed (cf.~Chapter~\ref{chap:cs}).
 
 \begin{description}
 
   \item[Modular specification]
         EMFText provides an import mechanism that not only supports specification 
         of a single text syntax for multiple related Ecore models, but also allows 
-        for modularization and extension of CS specifications (cf.~Sect.~\ref{sec:cs_import}).
+        for modularization and extension of CS specifications (cf.~Section~\ref{sec:cs_import}).
 
   \item[Default reference resolving mechanisms]
         A default name resolution mechanism for models with globally unique 
         names is available out of the box for any syntax. More complex resolution 
         mechanisms can be realized by implementing generated resolving methods 
         through which also inter-model references can be established 
-        (cf.~Sect.~\ref{sec:cust_reference_resolving}).
+        (cf.~Section~\ref{sec:cust_reference_resolving}).
 
   \item[Comprehensive syntax analysis]
         A number of analyses of CS specifications inform the developer about 
         potential errors in the syntax---like missing syntax for certain 
-        metaclasses (cf.~Appx.~\ref{app:warnings}).
+        metaclasses (cf.~Appendix~\ref{app:warnings}).
 
 \end{description}
 
@@ -73,8 +73,8 @@ supports tweaking specifics where needed (cf.~Chap.~\ref{chap:cs}).
 
 EMFText editors provide many advanced features that are known from, e.g., the 
 Eclipse Java editor. This includes code completion (with customizable completion
-proposals cf.~Sect.~\ref{sec:cust_reference_resolving}\label{sec:cust_reference_resolving} 
-and Sect.~\ref{sec:cust_code_completion}), customizable syntax and occurrence 
+proposals cf.~Section~\ref{sec:cust_reference_resolving}\label{sec:cust_reference_resolving} 
+and Section~\ref{sec:cust_code_completion}), customizable syntax and occurrence 
 highlighting via preference pages, advanced bracket handling, code folding, 
 hyperlinks and text hovers for quick navigation, an outline view and instant error reporting.
 
@@ -88,24 +88,27 @@ above but are so nice, that they get their own section.
 
   \item[ANT support]
         Dedicated ANT task are provided to all the generation of text syntax 
-        plug-ins in build scripts (cf.~Sect.~\ref{sec:process_generating_ant}).
+        plug-ins in build scripts (cf.~Section~\ref{sec:process_generating_ant}).
         
   \item[Generation of post processors]
         By default, post processors are generated that are called by the 
         tooling after parsing. These post processors can be customized to
         check consistency of models or perform necessary modifications after
-        parsing in a highly interactive way (cf.~Sect.~\ref{sec:cust_post_processors}).
+        parsing in a highly interactive way (cf.~Section~\ref{sec:cust_post_processors}).
 
   \item[Generation of builder stubs]
         EMFText generates a builder stub that can be used to process 
         model instances on changes and to automatically produce derived 
-        resources when needed (cf.~Sect.~\ref{sec:cust_builders}).
+        resources when needed (cf.~Section~\ref{sec:cust_builders}).
         
   \item[Generation of interpreter stubs]
         Similarly, interpreters are used to execute model instances 
-        (cf.~Sect.~\ref{sec:cust_interpreters}).
+        (cf.~Section~\ref{sec:cust_interpreters}).
   
   \item[Quick fixes]
-        \todo{Add content}
+        Quick fixes provide actions that can automatically solve problems found during
+        analysis of model instances. EMFText provides means to attach quick fixes to
+        reported problems which then can be fixed by the developer in a convenient way 
+        (cf.~Section~\ref{sec:cust_quick_fixes}).
       
 \end{description}

@@ -194,6 +194,45 @@ the string representation of the object.
 \label{sec:cust_post_processors}
 
 \subsection{Implementing Quick Fixes}
+\label{sec:cust_quick_fixes}
+
+If a problem is added to a resource (e.g., by a post processor, cf.~Section~\ref{sec:cust_post_processors}), 
+problem markers are automatically created in the editor. Markers are a convenient 
+way to inspect the cause of the problem directly from the editor. By providing an 
+instance of \texttt{IXyzQuickFix} while creating an \texttt{IXyzProblem}, actions 
+are specified that can automatically solve the reported problem.
+
+To implement a custom quick fix \texttt{CustomQuickFix} for a specific problem, 
+\texttt{XyzQuickFix} must be subclassed. Normally, the context object (i.e., the 
+object where the action is applied to) is provided as a parameter to the constructor 
+of \texttt{CustomQuickFix}. The method \texttt{applyChanges()} performs the actual
+fix of the problem on the context object.
+
+This context object is also passed to the constructor of \texttt{XyzQuickFix} along
+with an image key that references an image for the quick fix and a brief description
+of the quick fix.
+
+The following listing shows a simple quick fix, which removes a given element from
+the resource.
+
+\begin{lstlisting}
+public class RemoveElementQuickFix extends XyzQuickFix
+    implements IXyzQuickFix {
+
+  private EObject objectToRemove;
+
+  public RemoveElementQuickFix(String message, EObject objectToRemove) {
+    super(message, "IMG_ETOOL_DELETE", objectToRemove);
+    this.objectToRemove = objectToRemove;
+  }
+
+  @Override
+  public void applyChanges() {
+    EcoreUtil.delete(objectToRemove);
+  }
+}
+\end{lstlisting}
+
 
 \subsection{Implementing Builders}
 \label{sec:cust_builders}
