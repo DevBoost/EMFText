@@ -458,7 +458,18 @@ YourMetaclass ::= "keyword" !0 attribute[];
 It is followed by a number that determines the number of tab characters that
 shall be printed after the line break. In the example above, a line break
 is printed after \texttt{keyword}. The number of tabs refers to the current
-model element (i.e., \texttt{EObject}), which is printed.
+model element (i.e., \texttt{EObject}), which is printed. To print contained
+objects with an indendation of one tab, you can use a rule like this:
+
+\begin{lstlisting}
+YourMetaclass ::= "keyword" "{" (!1 containmentRef)* !0 "}";
+\end{lstlisting}
+
+Here, the first line break operator (\texttt{!1}) makes sure that all the
+contained objects appear on a new line and that they are preceded by one tab
+character. The second line break operator (\texttt{!0}) tells EMFText to print
+the closing parenthesis (\texttt{\}}) also on a new line, but without a leading
+tab.
 
 \subsection{Syntax for Expressions}
 When defining syntax for an expression language (e.g., arithmetic expressions) 

@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-08-18 15:16:00"> 
+<meta name="date" content="2010-08-19 14:18:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -32,7 +32,7 @@ class="phvr8t-x-x-400">USER GUIDE</span>
 >
 <!--l. 77--><p class="noindent" > 
 <span 
-class="aer12-">August 18, 2010</span></div>
+class="aer12-">August 19, 2010</span></div>
                                                                                      
 
                                                                                      
@@ -1861,14 +1861,45 @@ class="ul9r8t-x-x-95">[];</span>
 the line break. In the example above, a line break is printed after <span 
 class="ul9r8t-x-x-95">keyword</span>. The number of tabs refers
 to the current model element (i.e., <span 
-class="ul9r8t-x-x-95">EObject</span>), which is printed.
-<!--l. 463--><p class="noindent" >
+class="ul9r8t-x-x-95">EObject</span>), which is printed. To print contained objects with an
+indendation of one tab, you can use a rule like this:
+  <!--l. 464-->
+  <div class="lstlisting" id="listing-34"><span class="label"><a 
+ id="x1-36002r1"></a></span><span 
+class="ul9r8t-x-x-95">YourMetaclass</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">::=</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">"</span><span 
+class="ul9r8t-x-x-95">keyword</span><span 
+class="ul9r8t-x-x-95">"</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">"{"</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">(!1</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">containmentRef</span><span 
+class="ul9r8t-x-x-95">)*</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">!0</span><span 
+class="ul9r8t-x-x-95">&#x00A0;</span><span 
+class="ul9r8t-x-x-95">"}";</span>
+  
                                                                                      
 
                                                                                      
+  </div>
+<!--l. 468--><p class="indent" >  Here, the first line break operator (<span 
+class="ul9r8t-x-x-95">!1</span>) makes sure that all the contained objects appear on a new
+line and that they are preceded by one tab character. The second line break operator (<span 
+class="ul9r8t-x-x-95">!0</span>) tells
+EMFText to print the closing parenthesis (<span 
+class="ul9r8t-x-x-95">}</span>) also on a new line, but without a leading
+tab.
+<!--l. 474--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">3.4.5</span>&#x00A0;&#x00A0;<a 
  id="x1-370003.4.5"></a>Syntax for Expressions</h4>
-<!--l. 464--><p class="noindent" >When defining syntax for an expression language (e.g., arithmetic expressions) EMFText&#8217;s standard
+<!--l. 475--><p class="noindent" >When defining syntax for an expression language (e.g., arithmetic expressions) EMFText&#8217;s standard
 mechanisms for specifying syntax can lead to structures that can not be optimally handled by an
 intepreter or evaluator. Furthermore, the underlying parser generator technology used by EMFText
 causes problems if left recursive rules are required to build an optimal expression tree, which is the
@@ -1878,8 +1909,8 @@ provides a special feature called operator precendence annotations (<span
 class="ul9r8t-x-x-95">@Operator</span>). This annotation can
 be added to all rules, which refer to expression metaclasses with a common superclass. For example,
 the rule:
-  <!--l. 475-->
-  <div class="lstlisting" id="listing-34"><span class="label"><a 
+  <!--l. 486-->
+  <div class="lstlisting" id="listing-35"><span class="label"><a 
  id="x1-37001r1"></a></span><span 
 class="ul9r8t-x-x-95">@Operator</span><span 
 class="ul9r8t-x-x-95">(</span><span 
@@ -1909,14 +1940,14 @@ class="ul9r8t-x-x-95">right</span><span
 class="ul9r8t-x-x-95">;</span>
   
   </div>
-<!--l. 480--><p class="indent" >  defines syntax for a metaclass <span 
+<!--l. 491--><p class="indent" >  defines syntax for a metaclass <span 
 class="ul9r8t-x-x-95">Additive</span>. The references <span 
 class="ul9r8t-x-x-95">left </span>and <span 
 class="ul9r8t-x-x-95">right </span>must be containments and
 are of type <span 
 class="ul9r8t-x-x-95">Expression</span>, which is the abstract supertype for all metaclasses of the expression
 metamodel.
-<!--l. 485--><p class="indent" >  The <span 
+<!--l. 496--><p class="indent" >  The <span 
 class="ul9r8t-x-x-95">type </span>attribute specifies the kind of expression at hand, which can be binary (either
 <span 
 class="ul9r8t-x-x-95">left_associative </span>or <span 
@@ -1924,11 +1955,11 @@ class="ul9r8t-x-x-95">right_associative</span>), <span
 class="ul9r8t-x-x-95">unary_prefix</span>, <span 
 class="ul9r8t-x-x-95">unary_postfix </span>or <span 
 class="ul9r8t-x-x-95">primitive</span>.
-<!--l. 489--><p class="indent" >  The <span 
+<!--l. 500--><p class="indent" >  The <span 
 class="ul9r8t-x-x-95">weight </span>attribute specifies the priority of one expression type over another. For example, if a
 second rule:
-  <!--l. 492-->
-  <div class="lstlisting" id="listing-35"><span class="label"><a 
+  <!--l. 503-->
+  <div class="lstlisting" id="listing-36"><span class="label"><a 
  id="x1-37003r1"></a></span><span 
 class="ul9r8t-x-x-95">@Operator</span><span 
 class="ul9r8t-x-x-95">(</span><span 
@@ -1958,12 +1989,12 @@ class="ul9r8t-x-x-95">right</span><span
 class="ul9r8t-x-x-95">;</span>
   
   </div>
-<!--l. 497--><p class="indent" >  is present, EMFText will create an expression tree, where <span 
+<!--l. 508--><p class="indent" >  is present, EMFText will create an expression tree, where <span 
 class="ul9r8t-x-x-95">Multiplicative </span>nodes are created last
 (i.e., multiplicative expressions take precedence over additive expressions).
-<!--l. 501--><p class="indent" >  Unary expressions can be defined as follows:
-  <!--l. 503-->
-  <div class="lstlisting" id="listing-36"><span class="label"><a 
+<!--l. 512--><p class="indent" >  Unary expressions can be defined as follows:
+  <!--l. 514-->
+  <div class="lstlisting" id="listing-37"><span class="label"><a 
  id="x1-37005r1"></a></span><span 
 class="ul9r8t-x-x-95">@Operator</span><span 
 class="ul9r8t-x-x-95">(</span><span 
@@ -1991,11 +2022,14 @@ class="ul9r8t-x-x-95">body</span><span
 class="ul9r8t-x-x-95">;</span>
   
   </div>
-<!--l. 508--><p class="indent" >  There is also the option to define <span 
+                                                                                     
+
+                                                                                     
+<!--l. 519--><p class="indent" >  There is also the option to define <span 
 class="ul9r8t-x-x-95">unary_postfix </span>rules.
-<!--l. 510--><p class="indent" >  Primitive expressions can be defined as follows:
-  <!--l. 512-->
-  <div class="lstlisting" id="listing-37"><span class="label"><a 
+<!--l. 521--><p class="indent" >  Primitive expressions can be defined as follows:
+  <!--l. 523-->
+  <div class="lstlisting" id="listing-38"><span class="label"><a 
  id="x1-37007r1"></a></span><span 
 class="ul9r8t-x-x-95">@Operator</span><span 
 class="ul9r8t-x-x-95">(</span><span 
@@ -2023,12 +2057,9 @@ class="ul9r8t-x-x-95">INTEGER_LITERAL</span><span
 class="ul9r8t-x-x-95">];</span>
   
   </div>
-<!--l. 517--><p class="indent" >  They should be used for literals (e.g., numbers, constants or variables).
-<!--l. 519--><p class="indent" >  For examples how to use <span 
+<!--l. 528--><p class="indent" >  They should be used for literals (e.g., numbers, constants or variables).
+<!--l. 530--><p class="indent" >  For examples how to use <span 
 class="ul9r8t-x-x-95">@Operator </span>annotations see the SimpleMath language in the EMFText Syntax
-                                                                                     
-
-                                                                                     
 Zoo<span class="footnote-mark"><a 
 href="EMFTextGuide2.html#fn1x3"><sup class="textsuperscript">1</sup></a></span><a 
  id="x1-37009f1"></a>  and the
@@ -2036,17 +2067,17 @@ ThreeValuedLogic DSL<span class="footnote-mark"><a
 href="EMFTextGuide3.html#fn2x3"><sup class="textsuperscript">2</sup></a></span><a 
  id="x1-37010f2"></a> .
 These do also come with an interpreter which shows how expression trees can be evaluated.
-<!--l. 526--><p class="noindent" >
+<!--l. 537--><p class="noindent" >
   <h3 class="sectionHead"><span class="titlemark">3.5</span>&#x00A0;&#x00A0;<a 
  id="x1-380003.5"></a>Suppressing warnings</h3>
-<!--l. 528--><p class="noindent" >To suppress warnings issued by EMFText in <span 
+<!--l. 539--><p class="noindent" >To suppress warnings issued by EMFText in <span 
 class="ul9r8t-x-x-95">.cs </span>files one can use the <span 
 class="ul9r8t-x-x-95">@SuppressWarnings</span>
 annotation. This annotation can be added to rules, token definitions or complete syntax definitions.
 One can either suppress all warnings or just specific types. To suppress all warning for a syntax use
 the following syntax:
-  <!--l. 534-->
-  <div class="lstlisting" id="listing-38"><span class="label"><a 
+  <!--l. 545-->
+  <div class="lstlisting" id="listing-39"><span class="label"><a 
  id="x1-38001r1"></a></span><span 
 class="ul9r8t-x-x-95">@SuppressWarnings</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a 
@@ -2060,11 +2091,11 @@ class="ul9r8t-x-x-95">someKeyword</span><span
 class="ul9r8t-x-x-95">";</span>
   
   </div>
-<!--l. 539--><p class="indent" >  A list of all warning types can be found in Appendix&#x00A0;<span 
+<!--l. 550--><p class="indent" >  A list of all warning types can be found in Appendix&#x00A0;<span 
 class="aebx-10x-x-109">??</span>. For example, to suppress warnings about
 features without syntax, you may use:
-  <!--l. 542-->
-  <div class="lstlisting" id="listing-39"><span class="label"><a 
+  <!--l. 553-->
+  <div class="lstlisting" id="listing-40"><span class="label"><a 
  id="x1-38003r1"></a></span><span 
 class="ul9r8t-x-x-95">@SuppressWarnings</span><span 
 class="ul9r8t-x-x-95">(</span><span 
@@ -2156,7 +2187,7 @@ class="ul9r8t-x-x-95">TEXT </span>tokens to
 <span 
 class="ul9r8t-x-x-95">java.util.Date </span>objects:
   <!--l. 50-->
-  <div class="lstlisting" id="listing-40"><span class="label"><a 
+  <div class="lstlisting" id="listing-41"><span class="label"><a 
  id="x1-45001r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2557,7 +2588,7 @@ before.
 class="ul9r8t-x-x-95">XyzFactoryImpl </span>class and shows how to implement the
 same behavior as above using EMF&#8217;s own data type handling facilities.
   <!--l. 107-->
-  <div class="lstlisting" id="listing-41"><span class="label"><a 
+  <div class="lstlisting" id="listing-42"><span class="label"><a 
  id="x1-46001r1"></a></span><span 
 class="ul9r8t-x-x-95">private</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -2906,7 +2937,7 @@ fix.
 <!--l. 215--><p class="indent" >  The following listing shows a simple quick fix, which removes a given element from the
 resource.
   <!--l. 218-->
-  <div class="lstlisting" id="listing-42"><span class="label"><a 
+  <div class="lstlisting" id="listing-43"><span class="label"><a 
  id="x1-49001r1"></a></span><span 
 class="ul9r8t-x-x-95">public</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -3046,7 +3077,7 @@ class="ul9r8t-x-x-95">}</span>
 class="ul9r8t-x-x-95">overrideBuilder </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
   <!--l. 243-->
-  <div class="lstlisting" id="listing-43"><span class="label"><a 
+  <div class="lstlisting" id="listing-44"><span class="label"><a 
  id="x1-50001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -3101,7 +3132,7 @@ by removing segments and adding new ones.
 <!--l. 271--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
 resource without making any changes.
   <!--l. 274-->
-  <div class="lstlisting" id="listing-44"><span class="label"><a 
+  <div class="lstlisting" id="listing-45"><span class="label"><a 
  id="x1-50004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -3654,7 +3685,7 @@ use the generated interpreter stubs.
 class="ul9r8t-x-x-95">overrideHoverTextProvider </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
   <!--l. 370-->
-  <div class="lstlisting" id="listing-45"><span class="label"><a 
+  <div class="lstlisting" id="listing-46"><span class="label"><a 
  id="x1-52001r1"></a></span><span 
 class="ul9r8t-x-x-95">OPTIONS</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -3696,7 +3727,7 @@ The following listing shows a simple customized provider, which returns the type
 <span 
 class="ul9r8t-x-x-95">EObject</span>.
   <!--l. 390-->
-  <div class="lstlisting" id="listing-46"><span class="label"><a 
+  <div class="lstlisting" id="listing-47"><span class="label"><a 
  id="x1-52004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
 class="ul9r8t-x-x-95">&#x00A0;</span><span 
@@ -5908,8 +5939,7 @@ class="ul9r8t-x-x-95">unusedToken</span></li></ul>
                                                                                      
   <h2 class="likechapterHead"><a 
  id="x1-58000B"></a>Bibliography</h2>
-<!--l. 1--><p class="noindent" ><a 
- id="likesection.1"></a><a 
+<a 
  id="Q1-1-59"></a>
           <div class="thebibliography">
           <p class="bibitem" ><span class="biblabel">
