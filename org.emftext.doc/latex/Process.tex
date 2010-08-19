@@ -39,22 +39,22 @@
 
 	
 
-	To kick-start the development of a new language you can use the \EMFText project
+	To kick-start the development of a new language you can use the EMFText project
 	wizard. Select \emph{File > New > Other... > EMFText Project}. In the Wizard
-	(cf. Fig. \ref{fig:wizard}) you just enter the language name and \EMFText
+	(cf. Fig. \ref{fig:wizard}) you just enter the language name and EMFText
 	will initialise a new EMFText Project containing a metamodel folder that
 	holds an initial metamodel and syntax specification.
 
 \section{Specifying a Language Metamodel}
 
-	As \EMFText is tightly integrated with the \EMF language metamodels are
+	As EMFText is tightly integrated with the \EMF language metamodels are
 	specified using the Ecore Metamodelling Language. The metamodel specifies the abstract
 	syntax of our language. It can be build from \emph{classes} with
 	\emph{attributes} that are related using \emph{references}. References are
 	further distinguished into \emph{containment} references and
 	\emph{non-containment} references. It important to notice this differences, as
 	they have a very different semantics and are also handled differently in
-	\EMFText. Containment references are used relate a parent model element and a
+	EMFText. Containment references are used relate a parent model element and a
 	child model element that is declared in the context of the parent element. An
 	example found for instance in object-oriented programming languages is the
 	declaration of a method within the body of a class declaration. Non-containment
@@ -310,7 +310,7 @@ RULES {
 
 \section{Generating the Language Tooling}
 \label{sec:process_generating}
-	Given a complete syntax specification the \EMFText codegenerator can be used to
+	Given a complete syntax specification the EMFText code generator can be used to
 	derive an advanced textual editor and a accompanying customisable
 	language infrastructure. Basically there are two ways to use the code
 	generator: Manually within Eclipse or from an Apache Ant script.
@@ -327,7 +327,7 @@ RULES {
 	\begin{itemize} 
 	  \item \texttt{org.emftext.commons.antrl3\_2\_0} This projects contributes the
 	  ANTLR parsing runtime that the generated parser for the forms language
-	  depends on. As \EMFText is meant to be runtime free the Antlr runtime is generated
+	  depends on. As EMFText is meant to be runtime free the Antlr runtime is generated
 	  for every new language, of no runtime is found in the current workspace.
 	  \item \texttt{org.emftext.language.forms} This is the basic plug-in of the
 	  language. In the folder \texttt{metamodel} it contains the Ecore metamodel
@@ -369,8 +369,8 @@ RULES {
 
 	\subsection{Generating Resource Plug-ins with ANT}
 	\label{sec:process_generating_ant}
-	A second way of starting the \EMFText code generator is using Apache Ant
-	scripts. Therefore \EMFText contributes a number of tasks for Apache Ant.
+	A second way of starting the EMFText code generator is using Apache Ant
+	scripts. Therefore EMFText contributes a number of tasks for Apache Ant.
 	which are automatically registered to the Eclipse platform using the
 	naming scheme: \emph{emftext.taskName}. The following task are shipped with
 	
@@ -428,7 +428,7 @@ The following listing exemplifies its application:
 	\emph{Run > External Tools > External Tools Configurations...} and select the
 	your Ant script's run configuration. In the \emph{JRE} tab you have to
 	activate the \emph{Run in the same JRE as the workspace} option to make the
-	\EMFText tasks available to the script.
+	EMFText tasks available to the script.
 	
 \section{Optionally Customising the Language Tooling}
 
