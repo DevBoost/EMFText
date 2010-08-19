@@ -3,8 +3,8 @@
 	Generating an advanced Eclipse editor for a new language with EMFText just
 	requires a few specifications and a generation step. 
 	Basically, a language specification for EMFText consists of a language
-	metamodel and a concrete syntax specification. Taking these specification the EMFText
-	generator derives an advanced textual editor, that uses likewise generated
+	metamodel and a concrete syntax specification. Taking these specifications the
+	EMFText generator derives an advanced textual editor, that uses likewise generated
 	parser and printer to parse language expressions to EMF models or to print EMF models to
 	languages expressions respectively. 
 	
@@ -52,12 +52,12 @@
 	syntax of our language. It can be build from \emph{classes} with
 	\emph{attributes} that are related using \emph{references}. References are
 	further distinguished into \emph{containment} references and
-	\emph{non-containment} references. It important to notice this differences, as
-	they have a very different semantics and are also handled differently in
-	EMFText. Containment references are used relate a parent model element and a
+	\emph{non-containment} references. It is important to notice this differences,
+	as they have a very different semantics and are also handled differently in
+	EMFText. Containment references are used to relate a parent model element and a
 	child model element that is declared in the context of the parent element. An
-	example found for instance in object-oriented programming languages is the
-	declaration of a method within the body of a class declaration. Non-containment
+	example which can be found for instance in object-oriented programming
+	languages is the declaration of a method within the body of a class declaration. Non-containment
 	references are used to relate a model element with an element that is declared
 	elsewhere (not as one of its children). An example for programming languages is
 	a method call (declared in a statement in the body of a method declaration) that
@@ -76,13 +76,13 @@
 		  reference) a number of question Groups (class).
 		  \item Each Group has a name (attribute) and contains (containment reference)
 		  a number of question Items (class).
-		  \item Each Item have a question text (attribute), an explanation
+		  \item Each Item has a question text (attribute), an explanation
 		  (attribute).
 		  \item There are various Types of question items (class)  with
 		  regard to the answer types they expect: e.g., Text questions
 		  (subclass), Date questions  (subclass), Number questions  (subclass),
 		  Choices (subclass), or Decisions (subclass).
-		  \item Choices and Decisions declare (containment reference) number of
+		  \item Choices and Decisions declare (containment reference) a number of
 		  selection Options (class).
 		  \item There may be question Items
 		  that are dependent of (non-containment reference) the selection of a 
@@ -206,7 +206,7 @@ language. It consists of five sections:
 		multiplicities (?, +, *), alternative (|), or rounded brackets 
 		to nest sub-rules can be used.
 		
-		Examples: \begin{verbatim}Form := ...;, Group :: ...;\end{verbatim}
+		Examples: \begin{verbatim}Form ::= ...;, Group ::= ...;\end{verbatim}
         
        \item[Keywords] Keywords are purely syntactic elements that are mainly
         used to structure and markup particular language expressions.
@@ -217,7 +217,7 @@ language. It consists of five sections:
        \item[Attribute Terminal] Attribute terminals are used in rule bodies to
         specify the syntactic representation for attributes of the according
         meta class. They can be recognised by the attribute name that is followed
-        square brackets. Within these square brackets an token that specifies
+        square brackets. Within these square brackets a token that specifies
         the syntax allowed for attribute values, or a prefix and a suffix that
         must surround attribute values can be given. If nothing is given a
         default text token is assumed.
@@ -242,7 +242,8 @@ language. It consists of five sections:
        Within these square brackets an token specifies the syntax allowed for
        expressions in the concrete syntax that identify the element the
        non-containment reference relates to. This symbolic reference is later
-       resolved to the actual element (cf. Sect. \ref{sec:cust_reference_resolving})
+       resolved to the actual element (cf.
+       Sect.~\ref{sec:cust_reference_resolving}).
 
        Examples: \begin{verbatim}dependentOf[]\end{verbatim}
        
@@ -251,10 +252,10 @@ language. It consists of five sections:
        layout for printed language expressions. Two forms of printing markup are
        supported: 
        \begin{itemize}
-         \item whitespace markup, introduces a prints a given number of
+         \item whitespace markup, prints a given number of
          whitespaces \texttt{\#<n>}
          \item  and linebreak markup, introduces a linebreak followed by a given 
-         number of tab character \texttt{!<n>}
+         number of tab characters \texttt{!<n>}
        \end{itemize}
     \end{description}
 
@@ -266,10 +267,8 @@ FOR <http://www.emftext.org/language/forms>
 START Form
 
 OPTIONS {
-	licenceHeader ="platform:/resource/org.reuseware/licence.txt";
 	overrideBuilder = "false";
 	additionalDependencies = "org.emftext.language.forms.generator";
-	//useClassicPrinter = "false";
 }
 
 TOKENS {
