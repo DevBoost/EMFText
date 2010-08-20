@@ -4,8 +4,8 @@
 	requires a few specifications and a generation step. 
 	Basically, a language specification for EMFText consists of a language
 	metamodel and a concrete syntax specification. Taking these specifications the
-	EMFText generator derives an advanced textual editor, that uses likewise generated
-	parser and printer to parse language expressions to EMF models or to print EMF models to
+	EMFText generator derives an advanced textual editor, that uses a likewise
+	generated parser and printer to parse language expressions to EMF models or to print EMF models to
 	languages expressions respectively. 
 	
 	\begin{figure}[ht]
@@ -49,12 +49,12 @@
 
 	As EMFText is tightly integrated with the \EMF language metamodels are
 	specified using the Ecore Metamodelling Language. The metamodel specifies the abstract
-	syntax of our language. It can be build from \emph{classes} with
+	syntax of a new language. It can be build from \emph{classes} with
 	\emph{attributes} that are related using \emph{references}. References are
 	further distinguished into \emph{containment} references and
-	\emph{non-containment} references. It is important to notice this differences,
-	as they have a very different semantics and are also handled differently in
-	EMFText. Containment references are used to relate a parent model element and a
+	\emph{non-containment} references. It is important to notice this difference,
+	as is both reference types have different semantics in EMF and are also handled
+	differently in EMFText. Containment references are used to relate a parent model element and a
 	child model element that is declared in the context of the parent element. An
 	example which can be found for instance in object-oriented programming
 	languages is the declaration of a method within the body of a class declaration. Non-containment
@@ -76,10 +76,10 @@
 		  reference) a number of question Groups (class).
 		  \item Each Group has a name (attribute) and contains (containment reference)
 		  a number of question Items (class).
-		  \item Each Item has a question text (attribute), an explanation
+		  \item Each Item has a question text (attribute) and an explanation
 		  (attribute).
-		  \item There are various Types of question items (class)  with
-		  regard to the answer types they expect: e.g., Text questions
+		  \item There are various Types (class) of question items  with
+		  regard to the answer values they expect: e.g., Text questions
 		  (subclass), Date questions  (subclass), Number questions  (subclass),
 		  Choices (subclass), or Decisions (subclass).
 		  \item Choices and Decisions declare (containment reference) a number of
@@ -96,7 +96,7 @@
 	also refines the multiplicities and types. A new text.ecore metamodel is
 	created by selecting \emph{File > New > Other... > EMFText .text.ecore
 	file}. For a detailed introduction on the basics of Ecore metamodelling we
-	refer to \todo{add citation}.
+	refer to \cite{EMF}.
 
 	
 	\lstset{language=textecore}
@@ -149,56 +149,63 @@ package forms // this is the package name
 Each Ecore metamodel is accompanied by an .genmodel. You can create the
 	.genmodel by selecting \emph{File > New > Other... > EMF Generator Model}.
 	The generator model is used to configure various options for EMF code
-	generation (e.g., the target directory). From the root element of the .genmodel
-	you can now start the generation of Java code implementing your metamodel
-	specification.
+	generation (e.g., the targeted Java runtime). From the root element of
+	the .genmodel you can now start the generation of Java code implementing your metamodel
+	specification. By default the generated files can be found in the \texttt{src}
+	folder of the metamodel plug-in, but this can also be configured in the
+	.genmodel. We suggest to change the code generation folder to \texttt{src-gen}
+	to better separate generated code from hand-written.
 
 \section{Specifying the Language's Concrete Syntax}
 \label{sec:process_specification}
 
-After defining a metamodel, we can start specifying our
-\emph{concrete syntax}. The concrete syntax specification specifies 
-the textual representation of all metamodel
-concepts. For that purpose, EMFText provides the cs-language. 
-As a starting point, EMFText provides a syntax generator that can
-automatically create a cs specification conforming to HUTN (Human-Useable
-Textual Notation)~\cite{HUTN} from the language metamodel. 
-To manually specify the concrete syntax create a
-new syntax specification by selecting \emph{File > New > Other... > EMFText .cs
-file}.
+	After defining a metamodel, we can start specifying our
+	\emph{concrete syntax}. The concrete syntax specification defines 
+	the textual representation of all metamodel
+	concepts. For that purpose, EMFText provides the cs-language. 
+	As a starting point, EMFText provides a syntax generator that can
+	automatically create a cs specification conforming to HUTN (Human-Useable
+	Textual Notation)~\cite{HUTN} from the language metamodel. 
+	To manually specify the concrete syntax create a
+	new syntax specification by selecting \emph{File > New > Other... > EMFText .cs
+	file}.
 
-\noindent Listing \ref{lst:formsCs} depicts a syntax specification for the forms
-language. It consists of five sections: 
-\begin{itemize}
-  \item In the first section the language file
-	extension is defined, the syntax specification is bound to the metamodel
-	Furthermore, and the syntax start symbol defined.
-  \item In the second section various EMFText code generation options can be
-  	configured.
-  \item  In the third section basic token types used by the language
-  	lexer to tokenise language expressions are defined. If no token definitions
- 	are given, default token types are used. 	
-  \item In the fourth section token styles are defined that customise syntax
-  	highlighting for specific token types in the generated editor
-  \item In the fifth section the syntax rules for the language are specified.	
-\end{itemize}
+	\noindent Listing \ref{lst:formsCs} depicts a syntax specification for the forms
+	language. It consists of five sections: 
+	\begin{itemize}
+	  \item In the first section the language file
+		extension is defined, the syntax specification is bound to the metamodel, 
+		and the syntax start symbol is defined.
+	  \item In the second section various EMFText code generation options can be
+	  	configured.
+	  \item  In the third section basic token types used by the language
+	  	lexer to tokenise language expressions are defined. If no token definitions
+	 	are given, default token types are used. 	
+	  \item In the fourth section token styles are defined that customise syntax
+	  	highlighting for specific token types in the generated editor.
+	  \item In the fifth section the syntax rules for the language are specified.	
+	\end{itemize}
+	
+		The syntax specification rules used in the cs-language are derived from the
+		EBNF syntax specification language to support arbitrary context-free languages.
+		They are meant to define syntax for EMF-based metamodels and, thus, are
+		specifically related to the Ecore metamodelling concepts. Therefore, it provides
+		Ecore-specific specialisations of classical EBNF constructs like terminals, and
+		non terminals. This specialisation enables EMFText to provide advanced support 
+		during syntax specification, e.g., errors and warnings if the syntax
+		specification is inconsistent with the metamodel. Furthermore, it enables the
+		EMFText parser generator to derive an parser that directly instantiates EMF
+		models from language expressions.
 
-	The syntax specification rules used in the cs-language are derived from the
-	EBNF syntax specification language to support arbitrary context-free languages.
-	They are meant to define syntax for EMF-based metamodels and, thus, are
-	specifically related to the Ecore metamodelling concepts. Therefore, it provides
-	Ecore-specific specialisations of classical EBNF constructs like terminals, and
-	non terminals.
-
-\todo{sketch the benefit of that specialisation}
 
 	In the following we conclude the most important syntax specification
 	constructs found in the cs-language and their relation to EBNF and Ecore
 	metamodels. For an extensive overview on the syntax specification language we
-	refer to Sect. \ref{chap:cs}.
+	refer to Sect. \ref{chap:cs}. Each syntax construct is also related to examples
+	taken from Listing \ref{lst:formsCs}.
 
 	\begin{description}
-       \item[Rule] An cs rule is a is related (by its name) to a specific
+       \item[Rule] An cs rule is always related (by its name) to a specific
 		class from the metamodel. It defines the syntactic representation of this
 		metaclass, its attributes and references. All syntax rules are collected in
 		the rules section of the cs file. Within syntax rules various constructs like
@@ -217,7 +224,7 @@ language. It consists of five sections:
        \item[Attribute Terminal] Attribute terminals are used in rule bodies to
         specify the syntactic representation for attributes of the according
         meta class. They can be recognised by the attribute name that is followed
-        square brackets. Within these square brackets a token that specifies
+        by square brackets. Within these square brackets a token that specifies
         the syntax allowed for attribute values, or a prefix and a suffix that
         must surround attribute values can be given. If nothing is given a
         default text token is assumed.
@@ -228,22 +235,25 @@ language. It consists of five sections:
        \item[Containment Reference Non-Terminals] Containment reference non-terminals
        are used in rule bodies to specify the syntactic representation for
        containment references of the according meta class. They use the
-       reference name and are not followed by a bracket. They are derived from
+       reference name and are not followed by a bracket. Containment reference non-terminals
+        are derived from
        EBNF non-terminals, which means that during parsing the parser descends
        in the syntax rule specified for the class the
-       containment reference points to.
+       containment reference points to. This is in line with the semantics of
+       containment references as used in metamodels. 
 
        Examples: \begin{verbatim}groups, questions\end{verbatim}
 
        \item[Non-Containment Reference Terminals] Non-containment reference
        terminals are used in rule bodies to specify the syntactic
        representation for non-containment references of the according meta
-       class. They use the reference name that is followed square brackets.
-       Within these square brackets an token specifies the syntax allowed for
-       expressions in the concrete syntax that identify the element the
+       class. They use the reference name that is followed by square brackets.
+       Within these square brackets an token can be given specifies the syntax
+       allowed for expressions in the concrete syntax that identify the element the
        non-containment reference relates to. This symbolic reference is later
        resolved to the actual element (cf.
-       Sect.~\ref{sec:cust_reference_resolving}).
+       Sect.~\ref{sec:cust_reference_resolving}). If no token is given, again
+       the default text token is used.
 
        Examples: \begin{verbatim}dependentOf[]\end{verbatim}
        
@@ -253,9 +263,9 @@ language. It consists of five sections:
        supported: 
        \begin{itemize}
          \item whitespace markup, prints a given number of
-         whitespaces \texttt{\#<n>}
-         \item  and linebreak markup, introduces a linebreak followed by a given 
-         number of tab characters \texttt{!<n>}
+         whitespaces: \texttt{\#<n>}
+         \item linebreak markup, introduces a linebreak followed by a given 
+         number of tab characters:\texttt{!<n>}
        \end{itemize}
     \end{description}
 
@@ -310,13 +320,13 @@ RULES {
 \section{Generating the Language Tooling}
 \label{sec:process_generating}
 	Given a complete syntax specification the EMFText code generator can be used to
-	derive an advanced textual editor and a accompanying customisable
-	language infrastructure. Basically there are two ways to use the code
-	generator: Manually within Eclipse or from an Apache Ant script.
+	derive an advanced textual editor and an accompanying customisable
+	language infrastructure. There are two alternative ways to use the
+	code generator: Manually within Eclipse or from an Apache Ant script.
 
 
 	\subsection{Generating Resource Plug-ins in Eclipse}
-	Manual code generation can be triggered form the context menu of the concrete
+	Manual code generation can be triggered from the context menu of the concrete
 	syntax specification. Therefore, right click the cs file and select
 	\emph{Generate Text Resource}. This starts the EMF code generator that produces
 	a number of plug-ins. Fig. \ref{fig:generationResults} depicts the plug-ins
@@ -324,10 +334,10 @@ RULES {
 	their purpose:
 	
 	\begin{itemize} 
-	  \item \texttt{org.emftext.commons.antrl3\_2\_0} This projects contributes the
+	  \item \texttt{org.emftext.commons.antrl3\_2\_0} This project contributes the
 	  ANTLR parsing runtime that the generated parser for the forms language
 	  depends on. As EMFText is meant to be runtime free the Antlr runtime is generated
-	  for every new language, of no runtime is found in the current workspace.
+	  for every new language, if no runtime is found in the current workspace.
 	  \item \texttt{org.emftext.language.forms} This is the basic plug-in of the
 	  language. In the folder \texttt{metamodel} it contains the Ecore metamodel
 	  and the cs specification defined previously. The \texttt{src-gen} folder contains the Java-based implementation that was
@@ -355,23 +365,24 @@ RULES {
 	  
 	  \item \texttt{org.emftext.language.forms.resources.forms.ui} This plug-in 
 	  contains all generated classes related to the Eclipse-based User Interface
-	  (UI). Such separation of implementation belonging to the UI or not, enables
-	  the application of the language backend detached from the Eclipse UI.
+	  (UI). Such separation of implementation classes belonging to the UI or not,
+	  enables the application of the language backend detached from the Eclipse UI.
 	\end{itemize}
 	
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[scale=0.7]{figures/generationResults}
 	\caption{Projects generated by EMFText to implement language tooling.}
-	\label{fig:wizard}
+	\label{fig:generationResults}
 	\end{figure}
 
 	\subsection{Generating Resource Plug-ins with ANT}
 	\label{sec:process_generating_ant}
 	A second way of starting the EMFText code generator is using Apache Ant
-	scripts. Therefore EMFText contributes a number of tasks for Apache Ant.
+	scripts. Therefore EMFText contributes a number of tasks for Apache Ant,
 	which are automatically registered to the Eclipse platform using the
 	naming scheme: \emph{emftext.taskName}. The following task are shipped with
+	EMFText:
 	
 	\paragraph*{GenerateTextResource}~This task can be used to generate all
 	language implementation plug-ins. The following listing exemplifies the
@@ -422,22 +433,22 @@ The following listing exemplifies its application:
 \end{lstlisting}
 	
 	
-	To execute Ant script that use EMFText task from within your Eclipse runtime,
-	you have to adjust the script's run configuration. Therefore, select 
+	To execute an Ant script that use EMFText task from within your Eclipse
+	runtime, you have to adjust the script's run configuration. Therefore, select 
 	\emph{Run > External Tools > External Tools Configurations...} and select the
 	your Ant script's run configuration. In the \emph{JRE} tab you have to
-	activate the \emph{Run in the same JRE as the workspace} option to make the
+	activate the option \emph{Run in the same JRE as the workspace} to make the
 	EMFText tasks available to the script.
 	
 \section{Optionally Customising the Language Tooling}
 
 The previous steps are mandatory to generate an initial implementation of
-advanced language tooling for your language. The generated text editor already
+basic tooling for your language. The generated text editor already
 comes with a number of advanced editing features that help editing language
-expressions a lot. However there are various ways to make your language tooling
-more useful. EMFText will helps you in customising your language tooling with a
+expressions a lot. However, there are various ways to make your language tooling
+more useful. EMFText helps you in customising your language tooling with a
 number of additional functions ranging from semantic validation of language
 expressions, language compilation, language interpretation, or editor functions
 like folding, custom quickfixes, extended code completion, refactoring and more.
-To discover the full spectrum of what is possible please consider Sect.
+To discover the full spectrum of possibilities please consider Sect.
 \ref{chap:customisation}.
