@@ -209,8 +209,12 @@ of \texttt{CustomQuickFix}. The method \texttt{applyChanges()} performs the actu
 fix of the problem on the context object.
 
 This context object is also passed to the constructor of \texttt{XyzQuickFix} along
-with an image key that references an image for the quick fix and a brief description
-of the quick fix.
+with a brief description of the quick fix and an image key that references an image 
+for the quick fix. The image key is used by the \texttt{XyzImageProvider} that either
+takes a key of one of the standard Eclipse images or a path to the image relative to
+the UI project. In case a more sophisticated means for providing images is needed, the
+\texttt{XyzImageProvider} can be manually extended after the option 
+\texttt{overrideImageProvider} has been set to \texttt{false}.
 
 The following listing shows a simple quick fix, which removes a given element from
 the resource.
