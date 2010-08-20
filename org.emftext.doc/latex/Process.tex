@@ -99,7 +99,7 @@
 	refer to \todo{add citation}.
 
 	
-
+	\lstset{language=textecore}
 	\begin{lstlisting}[label=lst:formsMetamodel, caption=Metamodel for the
 	exemplary forms language written in text.ecore] package forms // this is the
 package forms // this is the package name 
@@ -120,7 +120,7 @@ package forms // this is the package name
 	class Item {
 		attribute EString text (0..1);
 		attribute EString explanation (0..1);
-	    containment reference ItemType itemType (1..1);
+		containment reference ItemType itemType (1..1);
 		reference Option dependentOf (0..-1);
 	}
 
@@ -259,7 +259,7 @@ language. It consists of five sections:
        \end{itemize}
     \end{description}
 
- 
+ \lstset{language=cs}
 	\begin{lstlisting}[label=lst:formsCs, caption=Concrete syntax specification for
 	the exemplary forms language written in the cs-language] 
 SYNTAXDEF forms
@@ -294,8 +294,8 @@ RULES {
 	Group ::= !0 "GROUP" name['"','"'] !0 items*;
 	Item ::= "ITEM" text['"','"'] ( explanation['"','"'] )? 
 				("ONLY" "IF" dependentOf[])? ":" itemType !0;
-	Choice ::= "CHOICE" (multiple[MULTIPLE])? "
-				(" options ("," options)* ")";
+	Choice ::= "CHOICE" (multiple[MULTIPLE])? 
+				"(" options ("," options)* ")";
 	Option ::= ( id[] ":")? text['"','"'];
 	Date ::= "DATE";
 	FreeText ::= "FREETEXT";

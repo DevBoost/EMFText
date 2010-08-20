@@ -43,6 +43,15 @@
 \oddsidemargin 0in
 \bibdata{}
 
+
+\lstdefinelanguage{textecore}{
+morekeywords={package,class,extends,attribute,abstract,containment,reference}
+, morecomment=[l]{//}, morecomment=[s]{/*}{*/}, morestring=[b]",
+}
+\lstdefinelanguage{cs}{
+morekeywords={TOKENS,SYNTAXDEF,FOR,START,OPTIONS,TOKENSTYLES,RULES,COLOR,BOLD}
+, morecomment=[l]{//}, morecomment=[s]{/*}{*/}, morestring=[b]",
+}
 % Redefinition of \cleardoublepage. Even pages are left completely blank.
 \let\origdoublepage\cleardoublepage
 \renewcommand{\cleardoublepage}{%
