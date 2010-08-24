@@ -308,6 +308,10 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
     	sc.add("return false;");
     	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public String toString() {");
+    	sc.add("return getMessage() + \" at \" + getLocation() + \" line \" + getLine() + \", column \" + getColumn();");
+    	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -361,6 +365,10 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("return false;");
     	sc.add("}");
     	sc.add("return this.element.equals(element);");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public String toString() {");
+    	sc.add("return getMessage() + \" at \" + getLocation() + \" line \" + getLine() + \", column \" + getColumn();");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
