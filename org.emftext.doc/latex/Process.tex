@@ -398,12 +398,12 @@ RULES {
 	specifies whether the additional plug-in
 	containing the ANTLR parsing runtime should be generated, and
 	\texttt{pre\-processor="[qualified class name]"} referring to an implementation
-	of the \emph{org.emftext.sdk.\-ant.Syntax\-Processor} interface. 
-	\todo{what does this interface?}
+	of the \emph{org.emftext.sdk.\-ant.Syntax\-Processor} interface, which is provided
+	for realising Java-based syntax specification preprocessors. 
 	
 	\paragraph*{RegisterEcoreResourceFactory}~This task registers an Ecore
-	model's resource factory for a certain type. 
-	\todo{why may this be required?}
+	model's resource factory for a certain type. This is especially useful for testing
+	purposes without a running Eclipse platform.  
 	The following listing exemplifies its application:
 \begin{lstlisting}
 <emftext.RegisterEcoreResourceFactory
@@ -412,8 +412,8 @@ RULES {
 />
 \end{lstlisting}
 	\paragraph*{RegisterURIMapping}~This task adds an URI mapping to the EMF URI
-	map. 
-		\todo{why may this be required?}
+	map, which is useful for mapping symbolic namespace URIs to physical locations, i.e., 
+	for locating ecore models. 
 	The following listing exemplifies its application:
 \begin{lstlisting}
 <emftext.RegisterURIMapping
@@ -423,8 +423,7 @@ RULES {
 \end{lstlisting}
 
 \paragraph*{RemoveURIMapping}~This task removes an URI mapping from the EMF's
-URI map. 
-	\todo{why may this be required?}
+URI map, which is useful for removing unwanted symbolic URI mappings from the URI map. 
 The following listing exemplifies its application: 
 \begin{lstlisting}
 <emftext.RemoveURIMapping
