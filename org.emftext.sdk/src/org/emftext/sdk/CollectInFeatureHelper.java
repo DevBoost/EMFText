@@ -14,9 +14,9 @@
 package org.emftext.sdk;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 /**
  * A class that can be used to analyse collect-in features. This class
