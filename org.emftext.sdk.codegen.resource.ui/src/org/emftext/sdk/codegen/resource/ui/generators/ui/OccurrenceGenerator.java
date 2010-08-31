@@ -13,13 +13,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REGION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;

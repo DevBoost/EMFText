@@ -14,6 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.io.PrintWriter;
+
+import org.eclipse.emf.ecore.EObject;
+
 public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();

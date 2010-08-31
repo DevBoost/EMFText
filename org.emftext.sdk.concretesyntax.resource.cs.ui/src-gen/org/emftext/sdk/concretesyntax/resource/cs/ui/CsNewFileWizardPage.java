@@ -14,6 +14,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.dialogs.IDialogPage;
+
 /**
  * The NewWizardPage allows setting the container for the new file, as well as the
  * file name. The page will only accept file names without extension OR with an

@@ -13,11 +13,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;

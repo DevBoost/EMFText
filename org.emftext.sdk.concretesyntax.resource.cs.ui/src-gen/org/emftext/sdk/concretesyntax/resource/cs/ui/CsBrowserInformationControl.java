@@ -14,6 +14,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlExtension;
+import org.eclipse.jface.text.IInformationControlExtension2;
+
 /**
  * Displays HTML information in a {@link org.eclipse.swt.browser.Browser} widget.
  * <p>

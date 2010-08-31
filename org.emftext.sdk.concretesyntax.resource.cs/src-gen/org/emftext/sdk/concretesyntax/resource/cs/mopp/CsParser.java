@@ -3,8 +3,17 @@
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 
-import org.antlr.runtime3_2_0.*;
 import java.util.HashMap;
+
+import org.antlr.runtime3_2_0.BaseRecognizer;
+import org.antlr.runtime3_2_0.BitSet;
+import org.antlr.runtime3_2_0.DFA;
+import org.antlr.runtime3_2_0.EarlyExitException;
+import org.antlr.runtime3_2_0.NoViableAltException;
+import org.antlr.runtime3_2_0.RecognitionException;
+import org.antlr.runtime3_2_0.RecognizerSharedState;
+import org.antlr.runtime3_2_0.Token;
+import org.antlr.runtime3_2_0.TokenStream;
 @SuppressWarnings("unused")
 public class CsParser extends CsANTLRParserBase {
     public static final String[] tokenNames = new String[] {

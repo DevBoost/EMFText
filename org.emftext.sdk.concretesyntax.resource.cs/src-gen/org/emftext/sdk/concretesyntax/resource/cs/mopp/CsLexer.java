@@ -3,7 +3,15 @@
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 
-import org.antlr.runtime3_2_0.*;
+import org.antlr.runtime3_2_0.BaseRecognizer;
+import org.antlr.runtime3_2_0.CharStream;
+import org.antlr.runtime3_2_0.DFA;
+import org.antlr.runtime3_2_0.EarlyExitException;
+import org.antlr.runtime3_2_0.Lexer;
+import org.antlr.runtime3_2_0.MismatchedSetException;
+import org.antlr.runtime3_2_0.NoViableAltException;
+import org.antlr.runtime3_2_0.RecognitionException;
+import org.antlr.runtime3_2_0.RecognizerSharedState;
 
 public class CsLexer extends Lexer {
     public static final int T__42=42;

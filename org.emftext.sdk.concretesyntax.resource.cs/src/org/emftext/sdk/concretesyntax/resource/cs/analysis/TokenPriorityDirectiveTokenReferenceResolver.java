@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;

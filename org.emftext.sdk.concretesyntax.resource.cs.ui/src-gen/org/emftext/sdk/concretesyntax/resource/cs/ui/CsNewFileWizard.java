@@ -14,6 +14,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.ui.IWorkbenchWizard;
+
 public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements org.eclipse.ui.INewWizard {
 	
 	private String categoryId = null;
