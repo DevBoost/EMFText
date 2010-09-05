@@ -30,7 +30,6 @@ public class CsOccurrence {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource;
 	private String tokenText = "";
 	private org.eclipse.jface.text.Region tokenRegion;
-	private boolean isPositionsChanged = true;
 	
 	/**
 	 * Creates the Occurrence class to find position to highlight.
@@ -138,7 +137,6 @@ public class CsOccurrence {
 		}
 		int tokenRegionOffset = tokenRegion.getOffset();
 		if (caretOffset >= tokenRegionOffset && caretOffset <= tokenRegionOffset + tokenRegion.getLength()) {
-			isPositionsChanged = false;
 			return;
 		}
 		tokenRegion = new org.eclipse.jface.text.Region(-1,0);
@@ -167,7 +165,7 @@ public class CsOccurrence {
 				}
 				tokenText = text;
 				tokenRegion = new org.eclipse.jface.text.Region(tokenOffset, tokenLength);
-				isPositionsChanged = true;
+				removeAnnotations();
 				break;
 			}
 			token = tokenScanner.nextToken();
@@ -248,6 +246,29 @@ public class CsOccurrence {
 		projectionViewer.getAnnotationModel().addAnnotation(annotation, position);
 	}
 	
+	private void removeAnnotations() {
+		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.OCCURRENCE_ANNOTATION_ID);
+		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.DECLARATION_ANNOTATION_ID);
+	}
+	
+	private void removeAnnotations(String annotationTypeID) {
+		java.util.List<org.eclipse.jface.text.source.Annotation> annotationsToRemove = new java.util.ArrayList<org.eclipse.jface.text.source.Annotation>();
+		org.eclipse.jface.text.source.IAnnotationModel annotationModel = projectionViewer.getAnnotationModel();
+		java.util.Iterator<?> annotationIterator = annotationModel.getAnnotationIterator();
+		while (annotationIterator.hasNext()) {
+			Object object = (Object) annotationIterator.next();
+			if (object instanceof org.eclipse.jface.text.source.Annotation) {
+				org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) object;
+				if (annotationTypeID.equals(annotation.getType())) {
+					annotationsToRemove.add(annotation);
+				}
+			}
+		}
+		for (org.eclipse.jface.text.source.Annotation annotation : annotationsToRemove) {
+			annotationModel.removeAnnotation(annotation);
+		}
+	}
+	
 	/**
 	 * Check whether it is time to remove the occurrence highlighting.
 	 * 
@@ -261,15 +282,6 @@ public class CsOccurrence {
 			return false;
 		}
 		return true;
-	}
-	
-	/**
-	 * Check whether the token region changed to decide to highlight or not.
-	 * 
-	 * @return <code>true</code> if the occurrences should be highlighted
-	 */
-	public boolean isPositionsChanged() {
-		return isPositionsChanged;
 	}
 	
 	/**

@@ -31,8 +31,8 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 		return keyword.getValue();
 	}
 	
-	public String getTokenName() {
-		return "'" + getValue() + "'";
+	public java.util.Set<String> getTokenNames() {
+		return java.util.Collections.singleton("'" + getValue() + "'");
 	}
 	
 	public String toString() {

@@ -27,16 +27,18 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 	private String languageId;
 	private org.eclipse.jface.preference.IPreferenceStore store;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	
 	/**
 	 * 
 	 * @param colorManager A manager to obtain color objects
 	 */
-	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+		this.resource = resource;
+		this.colorManager = colorManager;
 		this.lexer = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createLexer();
 		this.languageId = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 		this.store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
-		this.colorManager = colorManager;
 	}
 	
 	public int getTokenLength() {
@@ -48,6 +50,7 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 	}
 	
 	public org.eclipse.jface.text.rules.IToken nextToken() {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDynamicTokenStyler dynamicTokenStyler = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDynamicTokenStyler();
 		currentToken = lexer.getNextToken();
 		if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {
 			return org.eclipse.jface.text.rules.Token.EOF;
@@ -56,23 +59,44 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 		String tokenName = currentToken.getName();
 		if (tokenName != null) {
 			String enableKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ENABLE);
-			if (store.getBoolean(enableKey)) {
+			boolean enabled = store.getBoolean(enableKey);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle staticStyle = null;
+			if (enabled) {
 				String colorKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.COLOR);
-				org.eclipse.swt.graphics.Color color = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(store, colorKey));
+				org.eclipse.swt.graphics.RGB foregroundRGB = org.eclipse.jface.preference.PreferenceConverter.getColor(store, colorKey);
+				org.eclipse.swt.graphics.RGB backgroundRGB = null;
+				boolean bold = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.BOLD));
+				boolean italic = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ITALIC));
+				boolean strikethrough = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.STRIKETHROUGH));
+				boolean underline = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.UNDERLINE));
+				// now call dynamic token styler to allow to apply modifications to the static
+				// style
+				staticStyle = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);
+			}
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, tokenName, currentToken.getText(), staticStyle);
+			if (dynamicStyle != null) {
+				int[] foregroundColorArray = dynamicStyle.getColorAsRGB();
+				org.eclipse.swt.graphics.Color foregroundColor = colorManager.getColor(new org.eclipse.swt.graphics.RGB(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));
+				int[] backgroundColorArray = dynamicStyle.getBackgroundColorAsRGB();
+				org.eclipse.swt.graphics.Color backgroundColor = null;
+				if (backgroundColorArray != null) {
+					org.eclipse.swt.graphics.RGB backgroundRGB = new org.eclipse.swt.graphics.RGB(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);
+					backgroundColor = colorManager.getColor(backgroundRGB);
+				}
 				int style = org.eclipse.swt.SWT.NORMAL;
-				if (store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.BOLD))) {
+				if (dynamicStyle.isBold()) {
 					style = style | org.eclipse.swt.SWT.BOLD;
 				}
-				if (store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ITALIC))) {
+				if (dynamicStyle.isItalic()) {
 					style = style | org.eclipse.swt.SWT.ITALIC;
 				}
-				if (store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.STRIKETHROUGH))) {
+				if (dynamicStyle.isStrikethrough()) {
 					style = style | org.eclipse.jface.text.TextAttribute.STRIKETHROUGH;
 				}
-				if (store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.UNDERLINE))) {
+				if (dynamicStyle.isUnderline()) {
 					style = style | org.eclipse.jface.text.TextAttribute.UNDERLINE;
 				}
-				ta = new org.eclipse.jface.text.TextAttribute(color, null, style);
+				ta = new org.eclipse.jface.text.TextAttribute(foregroundColor, backgroundColor, style);
 			}
 		}
 		return new org.eclipse.jface.text.rules.Token(ta);
@@ -91,4 +115,12 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 	public String getTokenText() {
 		return currentToken.getText();
 	}
+	
+	public int[] convertToIntArray(org.eclipse.swt.graphics.RGB rgb) {
+		if (rgb == null) {
+			return null;
+		}
+		return new int[] {rgb.red, rgb.green, rgb.blue};
+	}
+	
 }

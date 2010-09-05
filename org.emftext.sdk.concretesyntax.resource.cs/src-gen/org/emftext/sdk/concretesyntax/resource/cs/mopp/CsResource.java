@@ -65,6 +65,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			return this.element.equals(element);
 		}
+		
+		public String toString() {
+			return getMessage() + " at " + getLocation() + " line " + getLine() + ", column " + getColumn();
+		}
 	}
 	
 	public class PositionBasedTextDiagnostic implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic {
@@ -118,6 +122,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		
 		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
 			return false;
+		}
+		
+		public String toString() {
+			return getMessage() + " at " + getLocation() + " line " + getLine() + ", column " + getColumn();
 		}
 	}
 	
@@ -402,6 +410,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void load(java.util.Map<?, ?> options) throws java.io.IOException {
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		super.load(loadOptions);
+		org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(this);
 	}
 	
 	public void setURI(org.eclipse.emf.common.util.URI uri) {

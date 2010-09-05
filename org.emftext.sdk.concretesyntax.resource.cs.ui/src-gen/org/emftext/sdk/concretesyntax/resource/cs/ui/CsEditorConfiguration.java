@@ -54,7 +54,7 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 	}
 	
 	protected org.eclipse.jface.text.rules.ITokenScanner getScanner(String fileName) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(theEditor.getResource(), colorManager);
 	}
 	
 	public org.eclipse.jface.text.presentation.IPresentationReconciler getPresentationReconciler(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {

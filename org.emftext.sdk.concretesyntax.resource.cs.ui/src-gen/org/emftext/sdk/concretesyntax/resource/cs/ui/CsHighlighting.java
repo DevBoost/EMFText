@@ -115,7 +115,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		textWidget = sourceviewer.getTextWidget();
 		projectionViewer = sourceviewer;
-		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
+		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(textResource, colorManager);
 		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
 		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(editor, sourceviewer);
 		this.colorManager = colorManager;
@@ -140,31 +140,30 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			bracketSet.matchingBrackets();
 		}
 		occurrence.handleOccurrenceHighlighting(bracketSet);
-		setCategoryHighlighting(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
+		setBracketHighlighting(document);
 	}
 	
-	private void setCategoryHighlighting(org.eclipse.jface.text.IDocument document, String category) {
+	private void setBracketHighlighting(org.eclipse.jface.text.IDocument document) {
 		org.eclipse.swt.custom.StyleRange styleRange = null;
-		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
+		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
 		
 		for (org.eclipse.jface.text.Position position : positions) {
 			org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 			if (tmpPosition != null) {
-				if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
-					styleRange = getStyleRangeAtPosition(tmpPosition);
-					styleRange.borderStyle = org.eclipse.swt.SWT.BORDER_SOLID;
-					styleRange.borderColor = bracketColor;
-					if (styleRange.foreground == null) {
-						styleRange.foreground = black;
-					}
-					textWidget.setStyleRange(styleRange);
+				styleRange = getStyleRangeAtPosition(tmpPosition);
+				styleRange.borderStyle = org.eclipse.swt.SWT.BORDER_SOLID;
+				styleRange.borderColor = bracketColor;
+				if (styleRange.foreground == null) {
+					styleRange.foreground = black;
 				}
+				textWidget.setStyleRange(styleRange);
 			}
 		}
 	}
 	
 	private void removeHighlighting() {
 		org.eclipse.jface.text.IDocument document = projectionViewer.getDocument();
+		// remove highlighted matching brackets
 		removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
 	}
 	
@@ -183,9 +182,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 				}
 			}
 		}
-		
-		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.OCCURRENCE_ANNOTATION_ID);
-		removeAnnotations(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence.DECLARATION_ANNOTATION_ID);
 		positionHelper.removePositions(document, category);
 	}
 	
@@ -275,24 +271,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 					projectionViewer.getSelectionProvider().setSelection(textEditorSelection);
 				}
 			}
-		}
-	}
-	
-	private void removeAnnotations(String annotationTypeID) {
-		java.util.List<org.eclipse.jface.text.source.Annotation> annotationsToRemove = new java.util.ArrayList<org.eclipse.jface.text.source.Annotation>();
-		org.eclipse.jface.text.source.IAnnotationModel annotationModel = projectionViewer.getAnnotationModel();
-		java.util.Iterator<?> annotationIterator = annotationModel.getAnnotationIterator();
-		while (annotationIterator.hasNext()) {
-			Object object = (Object) annotationIterator.next();
-			if (object instanceof org.eclipse.jface.text.source.Annotation) {
-				org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) object;
-				if (annotationTypeID.equals(annotation.getType())) {
-					annotationsToRemove.add(annotation);
-				}
-			}
-		}
-		for (org.eclipse.jface.text.source.Annotation annotation : annotationsToRemove) {
-			annotationModel.removeAnnotation(annotation);
 		}
 	}
 	

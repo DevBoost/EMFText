@@ -19,8 +19,24 @@ package org.emftext.sdk.concretesyntax.resource.cs;
  */
 public interface ICsExpectedElement {
 	
-	public String getTokenName();
+	/**
+	 * Returns the names of all tokens that are expected at the given position
+	 */
+	public java.util.Set<String> getTokenNames();
+	
+	/**
+	 * Returns the metaclass of the rule that contains the expected element
+	 */
 	public org.eclipse.emf.ecore.EClass getRuleMetaclass();
+	
+	/**
+	 * Adds an element that is a valid follower for this element
+	 */
 	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower, org.eclipse.emf.ecore.EStructuralFeature[] path);
+	
+	/**
+	 * Returns all valid followers for this element
+	 */
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.eclipse.emf.ecore.EStructuralFeature[]>> getFollowers();
+	
 }

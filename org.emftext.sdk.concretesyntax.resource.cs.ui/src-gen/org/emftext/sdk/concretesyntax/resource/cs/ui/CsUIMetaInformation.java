@@ -28,8 +28,8 @@ public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(resource, colorManager);
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper createCodeCompletionHelper() {

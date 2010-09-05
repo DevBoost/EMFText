@@ -177,8 +177,26 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 	private class ColorListLabelProvider extends org.eclipse.jface.viewers.LabelProvider {
 		
 		public String getText(Object element) {
-			if (element instanceof String)			return (String) element;
-			return ((HighlightingColorListItem) element).getDisplayName();
+			if (element instanceof String) {
+				return (String) element;
+			}
+			String displayName = ((HighlightingColorListItem) element).getDisplayName();
+			if (displayName.startsWith("QUOTED_")) {
+				String[] parts = displayName.split("_");
+				if (parts.length == 3) {
+					if (parts[1].length() == 2 && parts[2].length() == 2) {
+						// Convert decimal ascii codes to string
+						try {
+							char prefix = (char) Integer.parseInt(parts[1]);
+							char suffix = (char) Integer.parseInt(parts[2]);
+							displayName = prefix + "..." + suffix;
+						} catch (NumberFormatException nfe) {
+							// ignore
+						}
+					}
+				}
+			}
+			return displayName;
 		}
 	}
 	
@@ -287,8 +305,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		
 		org.eclipse.swt.widgets.Label label = new org.eclipse.swt.widgets.Label(colorComposite, org.eclipse.swt.SWT.LEFT);
 		label.setText("Element:");
-		label.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL, org.eclipse.swt.layout.GridData.BEGINNING,
-		true, false));
+		label.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL, org.eclipse.swt.layout.GridData.BEGINNING, true, false));
 		
 		org.eclipse.swt.widgets.Composite editorComposite = createEditorComposite(colorComposite);
 		createListViewer(editorComposite);
@@ -329,15 +346,17 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 			}
 		}
 		org.eclipse.swt.widgets.ScrollBar vBar = ((org.eclipse.swt.widgets.Scrollable) fListViewer.getControl()).getVerticalBar();
-		if (vBar != null)		maxWidth += vBar.getSize().x * 3; // scrollbars and tree indentation
-		// guess
+		if (vBar != null) {
+			// scrollbars and tree indentation guess
+			maxWidth += vBar.getSize().x * 3;
+		}
 		gd.widthHint = maxWidth;
 		
 		fListViewer.getControl().setLayoutData(gd);
 		
 		fListViewer.setInput(content);
 		fListViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(content.values().iterator().next()));
-		fListViewer		.addSelectionChangedListener(new org.eclipse.jface.viewers.ISelectionChangedListener() {
+		fListViewer.addSelectionChangedListener(new org.eclipse.jface.viewers.ISelectionChangedListener() {
 			public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
 				handleSyntaxColorListSelection();
 			}
@@ -353,7 +372,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
 				
-				changedPreferences.add(new ChangedRGBPreference(item				.getColorKey(), fSyntaxForegroundColorEditor				.getColorValue()));
+				changedPreferences.add(new ChangedRGBPreference(item.getColorKey(), fSyntaxForegroundColorEditor.getColorValue()));
 			}
 		});
 		
@@ -436,8 +455,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		layout.marginWidth = 0;
 		layout.numColumns = 2;
 		stylesComposite.setLayout(layout);
-		stylesComposite.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.END, org.eclipse.swt.layout.GridData.FILL,
-		false, true));
+		stylesComposite.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.END, org.eclipse.swt.layout.GridData.FILL, false, true));
 		
 		fEnableCheckbox = new org.eclipse.swt.widgets.Button(stylesComposite, org.eclipse.swt.SWT.CHECK);
 		fEnableCheckbox.setText("Enable");
@@ -501,7 +519,9 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 	private HighlightingColorListItem getHighlightingColorListItem() {
 		org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) fListViewer.getSelection();
 		Object element = selection.getFirstElement();
-		if (element instanceof String)		return null;
+		if (element instanceof String) {
+			return null;
+		}
 		return (HighlightingColorListItem) element;
 	}
 	

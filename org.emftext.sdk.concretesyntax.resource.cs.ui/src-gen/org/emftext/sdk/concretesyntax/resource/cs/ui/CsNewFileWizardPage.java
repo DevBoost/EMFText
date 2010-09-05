@@ -14,12 +14,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-import org.eclipse.jface.dialogs.IDialogPage;
-
 /**
- * The NewWizardPage allows setting the container for the new file, as well as the
- * file name. The page will only accept file names without extension OR with an
- * extension that matches the expected one.
+ * The NewFileWizardPage allows setting the container for the new file, as well as
+ * the file name. The page will only accept file names without extension OR with
+ * an extension that matches the expected one.
  */
 public class CsNewFileWizardPage extends org.eclipse.jface.wizard.WizardPage {
 	
@@ -29,7 +27,7 @@ public class CsNewFileWizardPage extends org.eclipse.jface.wizard.WizardPage {
 	private org.eclipse.jface.viewers.ISelection selection;
 	
 	/**
-	 * Constructor for NewWizardPage.
+	 * Constructor for the NewFileWizardPage.
 	 */
 	public CsNewFileWizardPage(org.eclipse.jface.viewers.ISelection selection, String fileExtension) {
 		super("wizardPage");
