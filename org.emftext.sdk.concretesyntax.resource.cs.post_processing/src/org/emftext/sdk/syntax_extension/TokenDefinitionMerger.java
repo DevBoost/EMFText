@@ -34,7 +34,6 @@ import org.emftext.sdk.concretesyntax.TokenRedefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.SorterException;
-import org.emftext.sdk.regex.TokenSorter;
 
 /**
  * The TokenDefinitionMerger is responsible to derive a list of all
@@ -217,8 +216,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 			List<CompleteTokenDefinition> tokens) throws SorterException {
 		// sort resulting list of active tokens (includes tokens both from 
     	// imported syntax files and the current CS file)
-		TokenSorter sorter = new TokenSorter();
-		tokens = sorter.sortTokens(tokens, false);
+		tokens = tokenSorter.sortTokens(tokens, false);
 		return tokens;
 	}
 

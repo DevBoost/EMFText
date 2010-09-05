@@ -34,7 +34,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.emftext.sdk.regex.SorterException;
-import org.emftext.sdk.regex.TokenSorter;
 import org.emftext.sdk.util.StringUtil;
 import org.emftext.sdk.util.ToStringConverter;
 
@@ -42,20 +41,19 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		TokenSorter ts = new TokenSorter();
 		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = Collections.emptyMap();
 		EList<CompleteTokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
 		Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> unreachable = Collections.emptyMap();
 		try {
-			conflicting = ts.getConflicting(allTokenDefinitions);
+			conflicting = tokenSorter.getConflicting(allTokenDefinitions);
 			List<CompleteTokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
 			for (CompleteTokenDefinition tokenDirective : directivesMatchingEmptyString) {
 				addTokenProblem(resource, ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition '" + tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
 			}
-			unreachable = ts.getNonReachables(allTokenDefinitions);
+			unreachable = tokenSorter.getNonReachables(allTokenDefinitions);
 		} catch (Exception e) {
 			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
 					"Error during token conflict analysis. " + e.getMessage(),

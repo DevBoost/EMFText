@@ -33,30 +33,46 @@ import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 
 public class TokenSorter {
-	private class ComparableTokenDefinition implements
-			Comparable<ComparableTokenDefinition> {
-		private Automaton automaton;
-		private CompleteTokenDefinition def;
 
-		public ComparableTokenDefinition(String regString, Automaton aut,
-				CompleteTokenDefinition definition) {
-			automaton = aut;
-			def = definition;
+	/**
+	 * The maximum size of the automaton cache. We restrict the size of the cache to avoid
+	 * filling the memory with automata, which are not used anymore.
+	 */
+	private int MAX_CACHE_SIZE = 30;
+	
+	/**
+	 * A map that caches automata for regular expressions. This is needed, because building
+	 * the automata is quite expensive (in terms of the time needed). Thus, the most frequently
+	 * used automata are cached in this map. 
+	 */
+	// using a LRUMap (LeastRecentlyUsedMap) would be better here, but an implementation of
+	// such a map is only readily available in the Apache Commons Collections framework. we
+	// do emulate a LRUMap by moving entries that are requested to the end of the key set.
+	// when the map exceeds its maximum size, we remove the first entry of the key set. this
+	// we the most frequently used automata are preserved, while still limiting the maximum
+	// number of entries contained in the cache.
+	private Map<String, Automaton> automatonCache = new LinkedHashMap<String, Automaton>();
+	
+	private class ComparableTokenDefinition implements Comparable<ComparableTokenDefinition> {
+		private Automaton automaton;
+		private CompleteTokenDefinition definition;
+
+		public ComparableTokenDefinition(Automaton automaton, CompleteTokenDefinition definition) {
+			this.automaton = automaton;
+			this.definition = definition;
 		}
 
 		public Automaton getAutomaton() {
 			return automaton;
 		}
 
-		public CompleteTokenDefinition getDef() {
-			return def;
+		public CompleteTokenDefinition getDefinition() {
+			return definition;
 		}
 
-		public int compareTo(ComparableTokenDefinition arg0) {
-			boolean firstComparison = isSubLanguage(automaton, arg0
-					.getAutomaton());
-			boolean secondComparison = isSubLanguage(arg0.getAutomaton(),
-					automaton);
+		public int compareTo(ComparableTokenDefinition comparable) {
+			boolean firstComparison = isSubLanguage(automaton, comparable.getAutomaton());
+			boolean secondComparison = isSubLanguage(comparable.getAutomaton(), automaton);
 
 			// The first language is contained in the second.
 			if ((firstComparison == true) && (secondComparison == false))
@@ -95,8 +111,6 @@ public class TokenSorter {
 		Automaton result = firstLanguage.intersection(complementSecond);
 
 		return result.isEmpty();
-
-		// return firstLanguage.subsetOf(secondLanguage);
 	}
 
 	public Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> getNonReachables(List<CompleteTokenDefinition> ds)
@@ -110,15 +124,15 @@ public class TokenSorter {
 			ComparableTokenDefinition comparableI = compareables.get(i);
 			unionPreviousDefinitions = unionPreviousDefinitions
 					.union(comparableI.getAutomaton());
-			previousDefinitions.add(comparableI.getDef());
+			previousDefinitions.add(comparableI.getDefinition());
 			ComparableTokenDefinition currentTokenDefinition = compareables.get(i+1);
 
 			if (isSubLanguage(currentTokenDefinition.getAutomaton(),
 					unionPreviousDefinitions)) {
 				// find the definition in the set of previous definitions
 				// that cause the conflict
-				List<CompleteTokenDefinition> conflictCausingSet = getMinimalCoveringSet(previousDefinitions, currentTokenDefinition.getDef());
-				nonReachables.put(currentTokenDefinition.getDef(), conflictCausingSet);
+				List<CompleteTokenDefinition> conflictCausingSet = getMinimalCoveringSet(previousDefinitions, currentTokenDefinition.getDefinition());
+				nonReachables.put(currentTokenDefinition.getDefinition(), conflictCausingSet);
 			}
 		}
 		return nonReachables;
@@ -177,11 +191,11 @@ public class TokenSorter {
 			for (int j = 0; j < i; j++) {
 				ComparableTokenDefinition cj = compareables.get(j);
 				if (doIntersect(ci.getAutomaton(), cj.getAutomaton())) {
-					previousDefinitions.add(cj.getDef());
+					previousDefinitions.add(cj.getDefinition());
 				}
 			}
 			if (!previousDefinitions.isEmpty()) {
-				conflicting.put(ci.getDef(), previousDefinitions);
+				conflicting.put(ci.getDefinition(), previousDefinitions);
 			}
 		}
 		return conflicting;
@@ -198,7 +212,7 @@ public class TokenSorter {
 
 		List<CompleteTokenDefinition> resultList = new ArrayList<CompleteTokenDefinition>();
 		for (ComparableTokenDefinition directive : compareables) {
-			resultList.add(directive.getDef());
+			resultList.add(directive.getDefinition());
 		}
 		if (!ignoreUnreachables) {
 			Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> conflicting = getNonReachables(resultList);
@@ -228,28 +242,41 @@ public class TokenSorter {
 	}
 
 	private ComparableTokenDefinition createComparableTokenDirective(
-			String original, CompleteTokenDefinition def) throws SorterException {
-		String transformedRegExp = null;
+			String original, CompleteTokenDefinition definition) throws SorterException {
 		try {
-			transformedRegExp = parseRegExp(original);
-			RegExp regExp = new RegExp(transformedRegExp);
-			Automaton automaton = regExp.toAutomaton();
+			Automaton automaton;
+			String transformedRegExp = parseRegExp(original);
+			if (automatonCache.containsKey(transformedRegExp)) {
+				automaton = automatonCache.get(transformedRegExp);
+				// we remove and add the entry to move it to the end of
+				// the key set. this way, the most recently used entries
+				// are always move to the end and will not be removed 
+				// when the maximum size of the map is reached.
+				automatonCache.remove(transformedRegExp);
+				automatonCache.put(transformedRegExp, automaton);
+			} else {
+				RegExp regExp = new RegExp(transformedRegExp);
+				automaton = regExp.toAutomaton();
+				automatonCache.put(transformedRegExp, automaton);
+				if (automatonCache.size() >= MAX_CACHE_SIZE) {
+					// remove the first entry in the key set. this is the least
+					// frequently used entry.
+					automatonCache.remove(automatonCache.keySet().iterator().next());
+				}
+			}
 
-			return new ComparableTokenDefinition(transformedRegExp, automaton,
-					def);
+			return new ComparableTokenDefinition(automaton, definition);
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			throw new SorterException(
 					"An error occurred while parsing a regular expression. The expression was: "
 							+ original);
-
 		}
 	}
 
 	/**
 	 * This method makes a transformation of the regular expression of the
 	 * EMFText to the format of the University of Aarhus automaton package. For
-	 * exmaple: the range operator in EMFText is '..' but in the automaton '-'.
+	 * example: the range operator in EMFText is '..' but in the automaton '-'.
 	 * 
 	 * @param exp
 	 *            regular expression to be transformed

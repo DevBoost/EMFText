@@ -72,9 +72,13 @@ public class SDKOptionProvider implements ICsOptionProvider {
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new LinkedHashMap<String, Object>();
 
+		// TODO instead of adding each post processor individually, we should
+		// use a composite post processor. This would allow to pass information
+		// from processor to processor using a post processing context. Also,
+		// terminating the post processing would be possible.
 		LinkedList<ICsResourcePostProcessorProvider> postProcessors = new LinkedList<ICsResourcePostProcessorProvider>();
 		// first: check the generator model and make sure that there
-		// are not cycles in the imports
+		// are no cycles in the imports
 		postProcessors.add(new GenModelAnalyser());
 		postProcessors.add(new CyclicImportAnalyser());
 

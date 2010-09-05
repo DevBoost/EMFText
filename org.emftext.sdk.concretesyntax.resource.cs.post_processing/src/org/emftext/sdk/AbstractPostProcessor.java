@@ -25,6 +25,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
+import org.emftext.sdk.regex.TokenSorter;
 
 /**
  * An abstract super class for all post processors. It tries to resolve all 
@@ -33,15 +34,18 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
  */
 public abstract class AbstractPostProcessor implements ICsResourcePostProcessorProvider, ICsResourcePostProcessor {
 
+	// We share the token sorter using a static field, which is bad design, but the
+	// only way to globally make use of the shared automaton cache. This cache is
+	// needed to substantially improve loading of concrete syntax files. The cache
+	// has an upper limit for its size, which makes sure that this static field
+	// does not end up as a memory leak.
+	protected static final TokenSorter tokenSorter = new TokenSorter();
+
 	public ICsResourcePostProcessor getResourcePostProcessor() {
 		return this;
 	}
 	
 	public void process(CsResource resource) {
-		if (!(resource instanceof CsResource)) {
-			return;
-		}
-		CsResource csResource = (CsResource) resource;
 		boolean hasErrors = resource.getErrors().size() > 0;
 		if (hasErrors && !doAnalysisAfterPreviousErrors()) {
 			return;
@@ -61,7 +65,7 @@ public abstract class AbstractPostProcessor implements ICsResourcePostProcessorP
 		List<EObject> objects = resource.getContents();
 		for (EObject next : objects) {
 			if (next instanceof ConcreteSyntax) {
-				analyse(csResource, (ConcreteSyntax) next);
+				analyse(resource, (ConcreteSyntax) next);
 			}
 		}
 	}
