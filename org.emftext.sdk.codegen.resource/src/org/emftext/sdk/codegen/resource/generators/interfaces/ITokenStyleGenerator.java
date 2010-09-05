@@ -37,6 +37,13 @@ public class ITokenStyleGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("public int[] getColorAsRGB();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"Returns the background color of the token as array of length 3. " +
+			"This method can return <code>null</code> if no background color is set."
+		);
+		sc.add("public int[] getBackgroundColorAsRGB();");
+		sc.addLineBreak();
+		
 		sc.addJavadoc("Returns true if the token must be displayed in bold face.");
 		sc.add("public boolean isBold();");
 		sc.addLineBreak();

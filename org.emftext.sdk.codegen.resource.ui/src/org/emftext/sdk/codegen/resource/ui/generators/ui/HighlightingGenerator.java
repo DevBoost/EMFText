@@ -338,7 +338,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
-		sc.add("scanner = new " + tokenScannerClassName + "(colorManager);");
+		sc.add("scanner = new " + tokenScannerClassName + "(textResource, colorManager);");
 		sc.add("occurrence = new " + occurrenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(editor, sourceviewer);");
 		sc.add("this.colorManager = colorManager;");

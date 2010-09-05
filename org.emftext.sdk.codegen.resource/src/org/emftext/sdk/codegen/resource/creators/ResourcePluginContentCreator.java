@@ -161,7 +161,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		creators.add(new ManifestCreator<GenerationContext>(manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_MANIFEST)));
 		
 		add(creators, TextResourceArtifacts.META_INFORMATION);
+	    add(creators, TextResourceArtifacts.TOKEN_STYLE);
 	    add(creators, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
+	    add(creators, TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
 	    add(creators, TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
 	    add(creators, TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 	    add(creators, TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);

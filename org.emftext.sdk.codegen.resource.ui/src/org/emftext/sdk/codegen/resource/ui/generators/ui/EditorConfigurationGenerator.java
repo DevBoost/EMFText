@@ -115,7 +115,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	private void addGetScannerMethod(JavaComposite sc) {
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
-		sc.add("return new " + tokenScannerClassName + "(colorManager);");
+		sc.add("return new " + tokenScannerClassName + "(theEditor.getResource(), colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

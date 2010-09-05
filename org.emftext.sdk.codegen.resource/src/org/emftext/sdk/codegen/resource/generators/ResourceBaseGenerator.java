@@ -41,6 +41,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String dotClasspathClassName;
 	protected String dotProjectClassName;
 	protected String dummyEObjectClassName;
+	protected String dynamicTokenStyleClassName;
 	protected String eClassUtilClassName;
 	protected String eObjectUtilClassName;
 	protected String eProblemTypeClassName;
@@ -130,6 +131,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String tokenResolveResultClassName;
 	protected String tokenResolverClassName;
 	protected String tokenResolverFactoryClassName;
+	protected String tokenStyleClassName;
 	protected String tokenStyleInformationProviderClassName;
 	protected String unexpectedContentTypeExceptionClassName;
 	protected String unicodeConverterClassName;
@@ -169,6 +171,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		dotClasspathClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_CLASSPATH);
 		dotProjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_PROJECT);
 		dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
+		dynamicTokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
 		eClassUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
@@ -258,6 +261,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		tokenResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
 		tokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER);
 		tokenResolverFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_RESOLVER_FACTORY);
+		tokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_STYLE);
 		tokenStyleInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
 		unexpectedContentTypeExceptionClassName = context.getQualifiedClassName(TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 		unicodeConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);

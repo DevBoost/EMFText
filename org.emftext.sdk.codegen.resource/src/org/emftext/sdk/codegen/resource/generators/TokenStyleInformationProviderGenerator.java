@@ -27,6 +27,8 @@ import org.emftext.sdk.util.StringUtil;
 /**
  * This generator composes a provider class that can be used to access the 
  * token styles of a syntax.
+ * 
+ * TODO move this class to the generators.mopp package
  */
 @SyntaxDependent
 public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -39,7 +41,6 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
         
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
-		addTokenStyleImplClass(sc);
 		addGetDefaultStyleMethod(sc);
 		sc.add("}");
 	}
@@ -57,7 +58,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 				String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
 				String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));
 				String underline = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.UNDERLINE));
-				sc.add("return new TokenStyleImpl(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
+				sc.add("return new " + tokenStyleClassName + "(" + color + ", null, " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
 				sc.add("}");
 			}
 		}
@@ -65,47 +66,4 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 		sc.add("}");
         sc.addLineBreak();
 	}
-
-	private void addTokenStyleImplClass(StringComposite sc) {
-		sc.add("public class TokenStyleImpl implements " + iTokenStyleClassName + " {");
-        sc.addLineBreak();
-        sc.add("private int[] color;");
-        sc.add("private boolean bold;");
-        sc.add("private boolean italic;");
-        sc.add("private boolean strikethrough;");
-        sc.add("private boolean underline;");
-        sc.addLineBreak();
-        sc.add("public TokenStyleImpl(int[] color, boolean bold, boolean italic, boolean striketrough, boolean underline) {");
-        sc.add("super();");
-        sc.add("this.color = color;");
-        sc.add("this.bold = bold;");
-        sc.add("this.italic = italic;");
-        sc.add("this.strikethrough = striketrough;");
-        sc.add("this.underline = underline;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public int[] getColorAsRGB() {");
-        sc.add("return color;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public boolean isBold() {");
-        sc.add("return bold;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public boolean isItalic() {");
-        sc.add("return italic;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public boolean isStrikethrough() {");
-        sc.add("return strikethrough;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public boolean isUnderline() {");
-        sc.add("return underline;");
-        sc.add("}");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	
 }

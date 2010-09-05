@@ -1712,7 +1712,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IMAGE_PROVIDER(213, "OVERRIDE_IMAGE_PROVIDER", "overrideImageProvider");
+	OVERRIDE_IMAGE_PROVIDER(213, "OVERRIDE_IMAGE_PROVIDER", "overrideImageProvider"), /**
+	 * The '<em><b>OVERRIDE TOKEN STYLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_STYLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TOKEN_STYLE(214, "OVERRIDE_TOKEN_STYLE", "overrideTokenStyle"), /**
+	 * The '<em><b>OVERRIDE DYNAMIC TOKEN STYLER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DYNAMIC_TOKEN_STYLER(215, "OVERRIDE_DYNAMIC_TOKEN_STYLER", "overrideDynamicTokenStyler");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5277,6 +5293,34 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_IMAGE_PROVIDER_VALUE = 213;
 /**
+	 * The '<em><b>OVERRIDE TOKEN STYLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TOKEN STYLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_STYLE
+	 * @model literal="overrideTokenStyle"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TOKEN_STYLE_VALUE = 214;
+/**
+	 * The '<em><b>OVERRIDE DYNAMIC TOKEN STYLER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DYNAMIC TOKEN STYLER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DYNAMIC_TOKEN_STYLER
+	 * @model literal="overrideDynamicTokenStyler"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE = 215;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5494,6 +5538,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_QUICK_ASSIST_ASSISTANT,
 			OVERRIDE_QUICK_ASSIST_PROCESSOR,
 			OVERRIDE_IMAGE_PROVIDER,
+			OVERRIDE_TOKEN_STYLE,
+			OVERRIDE_DYNAMIC_TOKEN_STYLER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5752,6 +5798,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_QUICK_ASSIST_ASSISTANT_VALUE: return OVERRIDE_QUICK_ASSIST_ASSISTANT;
 			case OVERRIDE_QUICK_ASSIST_PROCESSOR_VALUE: return OVERRIDE_QUICK_ASSIST_PROCESSOR;
 			case OVERRIDE_IMAGE_PROVIDER_VALUE: return OVERRIDE_IMAGE_PROVIDER;
+			case OVERRIDE_TOKEN_STYLE_VALUE: return OVERRIDE_TOKEN_STYLE;
+			case OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE: return OVERRIDE_DYNAMIC_TOKEN_STYLER;
 		}
 		return null;
 	}
