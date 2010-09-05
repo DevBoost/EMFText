@@ -180,7 +180,9 @@ public abstract class CreateResourcePluginsJob extends AbstractCreatePluginJob {
 		}
 		
 		// call EMF code generator if specified
-		if (OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
+		boolean generateModelCodeOptionSet = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
+		boolean generateModelCodeEnabled = context.getGeneratorModelCode();
+		if (generateModelCodeOptionSet && generateModelCodeEnabled) {
 			new GenModelUtil().generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {

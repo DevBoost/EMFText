@@ -30,6 +30,7 @@ public class AntGenerationContext extends GenerationContext {
 	private final File workspaceRootFolder;
 	private String syntaxProjectName;
 	private boolean generateANTLRPlugin;
+	private boolean generateModelCode;
 
 	public AntGenerationContext(
 			IFileSystemConnector fileSystemConnector,
@@ -37,11 +38,13 @@ public class AntGenerationContext extends GenerationContext {
 			ConcreteSyntax concreteSyntax,
 			final File workspaceRootFolder,
 			String syntaxProjectName,
-			boolean generateANTLRPlugin) {
+			boolean generateANTLRPlugin,
+			boolean generateModelCode) {
 		super(fileSystemConnector, problemCollector, concreteSyntax);
 		this.workspaceRootFolder = workspaceRootFolder;
 		this.syntaxProjectName = syntaxProjectName;
 		this.generateANTLRPlugin = generateANTLRPlugin;
+		this.generateModelCode = generateModelCode;
 	}
 
 	@Override
@@ -59,5 +62,10 @@ public class AntGenerationContext extends GenerationContext {
 	@Override
 	public boolean getGenerateANTLRPlugin() {
 		return generateANTLRPlugin;
+	}
+
+	@Override
+	public boolean getGeneratorModelCode() {
+		return generateModelCode;
 	}
 }

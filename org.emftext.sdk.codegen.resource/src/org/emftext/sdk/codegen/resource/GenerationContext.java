@@ -385,4 +385,8 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public String getDeclarationAnnotationTypeID() {
 		return getOccurrenceAnnotationTypeID() + ".declaration";
 	}
+
+	public boolean getGeneratorModelCode() {
+		return true;
+	}
 }
