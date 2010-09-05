@@ -14,16 +14,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
-import org.eclipse.jface.text.IInformationControl;
-import org.eclipse.jface.text.IInformationControlExtension;
-import org.eclipse.jface.text.IInformationControlExtension2;
-
 /**
  * Displays HTML information in a {@link org.eclipse.swt.browser.Browser} widget.
  * <p>
- * This {@link IInformationControlExtension2} expects {@link #setInput(Object)} to
- * be called with an argument of type {@link BrowserInformationControlInput}.
+ * This IInformationControlExtension2 expects {@link #setInput(Object)} to be
+ * called with an argument of type BrowserInformationControlInput.
  * </p>
  * <p>Moved into this package from
  * <code>org.eclipse.jface.internal.text.revisions</code>.</p>
@@ -270,10 +265,6 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		}
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControl#setVisible(boolean)
-	 */
 	public void setVisible(boolean visible) {
 		org.eclipse.swt.widgets.Shell shell= getShell();
 		if (shell.isVisible() == visible) {
@@ -357,10 +348,6 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		fTextLayout.setText("");
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControl#dispose()
-	 */
 	public void dispose() {
 		if (fTextLayout != null) {
 			fTextLayout.dispose();
@@ -371,10 +358,6 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		super.dispose();
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControl#computeSizeHint()
-	 */
 	public org.eclipse.swt.graphics.Point computeSizeHint() {
 		org.eclipse.swt.graphics.Point sizeConstraints = getSizeConstraints();
 		org.eclipse.swt.graphics.Rectangle trim = computeTrim();
@@ -465,28 +448,16 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		fBrowser.addLocationListener(listener);
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControl#setForegroundColor(org.eclipse.swt.graphics.Color)
-	 */
 	public void setForegroundColor(org.eclipse.swt.graphics.Color foreground) {
 		super.setForegroundColor(foreground);
 		fBrowser.setForeground(foreground);
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControl#setBackgroundColor(org.eclipse.swt.graphics.Color)
-	 */
 	public void setBackgroundColor(org.eclipse.swt.graphics.Color background) {
 		super.setBackgroundColor(background);
 		fBrowser.setBackground(background);
 	}
 	
-	/**
-	 * 
-	 * @see IInformationControlExtension#hasContents()
-	 */
 	public boolean hasContents() {
 		return fBrowserHasContent;
 	}
