@@ -63,8 +63,8 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addJavadoc(
 			"Displays HTML information in a {@link " + BROWSER + "} widget.",
 			"<p>",
-			"This {@link IInformationControlExtension2} expects {@link #setInput(Object)} to be " +
-			"called with an argument of type {@link BrowserInformationControlInput}.",
+			"This IInformationControlExtension2 expects {@link #setInput(Object)} to be " +
+			"called with an argument of type BrowserInformationControlInput.",
 			"</p>",
 			"<p>Moved into this package from <code>org.eclipse.jface.internal.text.revisions</code>.</p>",
 			"<p>This class may be instantiated; it is not intended to be subclassed.</p>",
@@ -288,7 +288,6 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControl#setVisible(boolean)");
 		sc.add("public void setVisible(boolean visible) {");
 		sc.add(SHELL + " shell= getShell();");
 		sc.add("if (shell.isVisible() == visible) {");
@@ -378,7 +377,6 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControl#dispose()");
 		sc.add("public void dispose() {");
 		sc.add("if (fTextLayout != null) {");
 		sc.add("fTextLayout.dispose();");
@@ -390,7 +388,6 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControl#computeSizeHint()");
 		sc.add("public " + POINT + " computeSizeHint() {");
 		sc.add(POINT + " sizeConstraints = getSizeConstraints();");
 		sc.add(RECTANGLE + " trim = computeTrim();");
@@ -481,21 +478,18 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControl#setForegroundColor(" + COLOR + ")");
 		sc.add("public void setForegroundColor(" + COLOR + " foreground) {");
 		sc.add("super.setForegroundColor(foreground);");
 		sc.add("fBrowser.setForeground(foreground);");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControl#setBackgroundColor(" + COLOR + ")");
 		sc.add("public void setBackgroundColor(" + COLOR + " background) {");
 		sc.add("super.setBackgroundColor(background);");
 		sc.add("fBrowser.setBackground(background);");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see IInformationControlExtension#hasContents()");
 		sc.add("public boolean hasContents() {");
 		sc.add("return fBrowserHasContent;");
 		sc.add("}");
