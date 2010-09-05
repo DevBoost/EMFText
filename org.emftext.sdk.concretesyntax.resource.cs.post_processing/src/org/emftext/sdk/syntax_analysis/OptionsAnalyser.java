@@ -104,14 +104,17 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		String resourcePluginID = optionManager.getStringOptionValue(syntax, OptionTypes.RESOURCE_PLUGIN_ID);
 		String resourceUIPluginID = optionManager.getStringOptionValue(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID);
 		
+		int setPluginIDs = 0;
 		Set<String> pluginIDs = new LinkedHashSet<String>();
 		if (antlrPluginID != null) {
 			pluginIDs.add(antlrPluginID);
+			setPluginIDs++;
 		}
 		if (resourcePluginID != null) {
 			pluginIDs.add(resourcePluginID);
+			setPluginIDs++;
 		}
-		if (pluginIDs.size() == 1) {
+		if (pluginIDs.size() > 0 && pluginIDs.size() < setPluginIDs) {
 			// antlrPluginID == resourcePluginID
 			String message = "The ID for the resource plug-ins must be different from the ANTLR commons plug-in.";
 			addProblem(
@@ -135,8 +138,9 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		} else {
 			if (resourceUIPluginID != null) {
 				pluginIDs.add(resourceUIPluginID);
+				setPluginIDs++;
 			}
-			if (pluginIDs.size() > 0 && pluginIDs.size() < 3) {
+			if (pluginIDs.size() > 0 && pluginIDs.size() < setPluginIDs) {
 				// (antlrPluginID || resourcePluginID) == resourceUIPluginID
 				addProblem(
 						resource, 
