@@ -1043,11 +1043,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(" + expectedTerminalClassName
-				+ " expectedElement) {");
+		sc.add("public void addExpectedElement(" + iExpectedElementClassName + " terminal, int followSetID, " + E_STRUCTURAL_FEATURE + "... containmentTrace) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(terminal, followSetID, containmentTrace);"); 
 		sc.add("setPosition(expectedElement, input.index());");
 		
 		sc.add("int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();");
@@ -1780,9 +1780,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				traceArguments.append(", ");
 				traceArguments.append(followSetProviderClassName + "." + getContext().getFeatureConstantFieldName(genFeature));
 			}
-			sc.add("addExpectedElement(new "
-					+ expectedTerminalClassName + 
-					"(" + terminalID + ", " + followSetID + traceArguments + "));");
+			sc.add("addExpectedElement(" + terminalID + ", " + followSetID + traceArguments + ");");
 		}
 		followSetID++;
 	}
