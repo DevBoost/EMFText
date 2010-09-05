@@ -200,6 +200,11 @@ public class SyntaxElementItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
 				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createBooleanTerminal()));
 	}
 
 	/**

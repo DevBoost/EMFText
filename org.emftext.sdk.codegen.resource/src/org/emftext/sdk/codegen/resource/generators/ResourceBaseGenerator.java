@@ -23,6 +23,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String attributeValueProviderClassName;
 	protected String babylonSpecificationClassName;
 	protected String bracketInformationProviderClassName;
+	protected String booleanTerminalClassName;
 	protected String buildPropertiesClassName;
 	protected String builderAdapterClassName;
 	protected String builderClassName;
@@ -46,6 +47,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String eObjectUtilClassName;
 	protected String eProblemTypeClassName;
 	protected String elementMappingClassName;
+	protected String expectedBooleanTerminalClassName;
 	protected String expectedCsStringClassName;
 	protected String expectedStructuralFeatureClassName;
 	protected String expectedTerminalClassName;
@@ -153,6 +155,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 		babylonSpecificationClassName = context.getQualifiedClassName(TextResourceArtifacts.BABYLON_SPECIFICATION);
 		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
+		booleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.BOOLEAN_TERMINAL);
 		buildPropertiesClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILD_PROPERTIES);
 		builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
 		builderClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER);
@@ -176,6 +179,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 		elementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
+		expectedBooleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_BOOLEAN_TERMINAL);
 		expectedCsStringClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_CS_STRING);
 		expectedStructuralFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 		expectedTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_TERMINAL);

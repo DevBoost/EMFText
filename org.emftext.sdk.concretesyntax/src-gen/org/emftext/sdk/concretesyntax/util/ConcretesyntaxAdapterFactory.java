@@ -23,6 +23,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
@@ -283,6 +284,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePlaceholderInQuotes(PlaceholderInQuotes object) {
 				return createPlaceholderInQuotesAdapter();
+			}
+			@Override
+			public Adapter caseBooleanTerminal(BooleanTerminal object) {
+				return createBooleanTerminalAdapter();
 			}
 			@Override
 			public Adapter caseOption(Option object) {
@@ -883,6 +888,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPlaceholderInQuotesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.BooleanTerminal <em>Boolean Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.BooleanTerminal
+	 * @generated
+	 */
+	public Adapter createBooleanTerminalAdapter() {
 		return null;
 	}
 

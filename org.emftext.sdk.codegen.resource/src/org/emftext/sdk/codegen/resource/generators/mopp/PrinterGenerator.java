@@ -50,6 +50,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -476,6 +477,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 									printStatements.add("out.print(\"" + printSuffix + "\");");
 								}
 							}
+						} else if (terminal instanceof BooleanTerminal) {
+							// TODO implement printing of BooleanTerminals
 						} else {
 							assert terminal instanceof Containment;
 							printStatements.add("doPrint((" + E_OBJECT + ") o, out, localtab);");

@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
@@ -132,6 +133,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN: return createPlaceholderUsingSpecifiedToken();
 			case ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN: return createPlaceholderUsingDefaultToken();
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES: return createPlaceholderInQuotes();
+			case ConcretesyntaxPackage.BOOLEAN_TERMINAL: return createBooleanTerminal();
 			case ConcretesyntaxPackage.OPTION: return createOption();
 			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
@@ -429,6 +431,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public PlaceholderInQuotes createPlaceholderInQuotes() {
 		PlaceholderInQuotesImpl placeholderInQuotes = new PlaceholderInQuotesImpl();
 		return placeholderInQuotes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BooleanTerminal createBooleanTerminal() {
+		BooleanTerminalImpl booleanTerminal = new BooleanTerminalImpl();
+		return booleanTerminal;
 	}
 
 	/**

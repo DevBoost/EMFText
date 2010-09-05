@@ -20,6 +20,7 @@ import java.util.Map;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
+import org.emftext.sdk.syntax_analysis.BooleanTerminalAnalyser;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.CsStringAnalyser;
@@ -122,6 +123,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new OperatorAnnotationsValidator());
 		postProcessors.add(new SyntaxNameWithDotAnalyser());
 		postProcessors.add(new EmptyCompoundAnalyser());
+		postProcessors.add(new BooleanTerminalAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		

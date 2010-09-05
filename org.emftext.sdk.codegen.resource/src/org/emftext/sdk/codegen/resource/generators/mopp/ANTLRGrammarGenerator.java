@@ -90,6 +90,7 @@ import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expec
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -815,9 +816,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A stack for incomplete objects. This stack is used only when the parser is used " +
+			"A stack for incomplete objects. This stack is used filled when the parser is used " +
 			"for code completion. Whenever the parser starts to read an object it is pushed on " +
-			"the stack. Once the element was parser completely it is popped for the stack."
+			"the stack. Once the element was parser completely it is popped from the stack."
 		);
 		sc.add("protected " + STACK + "<" + E_OBJECT
 				+ "> incompleteObjects = new " + STACK + "<" + E_OBJECT
@@ -936,7 +937,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addComment("normal tokens do reduce the follow set - only elements that match the token are kept");
 		sc.add("for (" + expectedTerminalClassName + " nextFollow : currentFollowSet) {");
 		//sc.add("System.out.println(\"CHECKING : \" + nextFollow);");
-		sc.add("if (nextFollow.getTerminal().getTokenName().equals(getTokenNames()[nextToken.getType()])) {");
+		sc.add("if (nextFollow.getTerminal().getTokenNames().contains(getTokenNames()[nextToken.getType()])) {");
 		sc.addComment("keep this one - it matches");
 		//sc.add("System.out.println(\"MATCH! \" + nextFollow);");
 		sc.add(COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
@@ -1790,18 +1791,36 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		String identifier = "a" + count;
 		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
-		sc.add("if (element == null) {");
-		sc.add("element = "
-				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),
-						dummyEObjectClassName) + ";");
-		sc.add("incompleteObjects.push(element);");
-		sc.add("}");
+		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
 		return ++count;
+	}
+
+	private void addCodeToCreateObject(StringComposite sc, Rule rule) {
+		final GenClass metaclass = rule.getMetaclass();
+
+		sc.add("if (element == null) {");
+		sc.add("element = " + genClassUtil.getCreateObjectCall(metaclass, dummyEObjectClassName) + ";");
+		sc.add("incompleteObjects.push(element);");
+		sc.add("// initialize boolean attributes");
+		Collection<BooleanTerminal> booleanTerminals = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getBooleanTerminal());
+		for (BooleanTerminal booleanTerminal : booleanTerminals) {
+			final GenFeature genFeature = booleanTerminal.getFeature();
+			final EStructuralFeature eFeature = genFeature.getEcoreFeature();
+			final String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
+
+			if ("".equals(booleanTerminal.getTrueLiteral())) {
+				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "true", false);
+			}
+			if ("".equals(booleanTerminal.getFalseLiteral())) {
+				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "false", false);
+			}
+		}
+		sc.add("}");
 	}
 
 	private int printTerminal(Terminal terminal, Rule rule, StringComposite sc,
@@ -1847,6 +1866,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 				internalCount++;
 			}
+		} else if (terminal instanceof BooleanTerminal) {
+			BooleanTerminal booleanTerminal = (BooleanTerminal) terminal;
+			count = addCodeForBooleanTerminal(sc, count, booleanTerminal);
 		} else {
 			assert terminal instanceof Placeholder;
 			Placeholder placeholder = (Placeholder) terminal;
@@ -1976,6 +1998,65 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return ++count;
 	}
 
+	// TODO replace parameter 'count' with a counter class
+	private int addCodeForBooleanTerminal(StringComposite sc, int count,
+			BooleanTerminal booleanTerminal) {
+
+		Rule rule = booleanTerminal.getContainingRule();
+		final GenClass metaclass = rule.getMetaclass();
+		final GenFeature genFeature = booleanTerminal.getFeature();
+		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
+		final String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
+		
+		String trueLiteral = booleanTerminal.getTrueLiteral();
+		String falseLiteral = booleanTerminal.getFalseLiteral();
+		boolean trueIsSet = !"".equals(trueLiteral);
+		boolean falseIsSet = !"".equals(falseLiteral);
+
+		sc.add("(");
+		if (trueIsSet) {
+			String identifier = "a" + count;
+			addCodeForBooleanLiteral(sc, booleanTerminal,
+					eFeature, featureConstant, identifier, trueLiteral, "true");
+			count++;
+		}
+
+		if (trueIsSet && falseIsSet) {
+			// if both literals (for false and true) are set, they are alternatives
+			sc.add("|");
+		}
+		
+		if (falseIsSet) {
+			String identifier = "a" + count;
+			addCodeForBooleanLiteral(sc, booleanTerminal, 
+					eFeature, featureConstant, identifier, falseLiteral, "false");
+		}
+		
+		if (!falseIsSet || !trueIsSet) {
+			// if one of the literals is empty, the other one is optional
+			sc.add(")?");
+		} else {
+			sc.add(")");
+		}
+		return ++count;
+	}
+
+	private void addCodeForBooleanLiteral(StringComposite sc,
+			BooleanTerminal booleanTerminal, 
+			EStructuralFeature eFeature, String featureConstant,
+			String identifier, String literal, String value) {
+		Rule rule = booleanTerminal.getContainingRule();
+		String escapedLiteral = StringUtil.escapeToANTLRKeyword(literal);
+		sc.add(identifier + " = '" + escapedLiteral + "' {");
+		addCodeToCreateObject(sc, rule);
+		sc.add("collectHiddenTokens(element);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", null);");
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
+		sc.add("// set value of boolean attribute");
+		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false);
+		sc.add("}");
+	}
+
 	private void printTerminalAction(Terminal terminal, Rule rule,
 			StringComposite sc,
 			String ident, 
@@ -1993,11 +2074,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (terminateParsing) {");
 		sc.add("throw new " + terminateParsingExceptionClassName + "();");
 		sc.add("}");
-		sc.add("if (element == null) {");
-		sc.add("element = "
-				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),
-						dummyEObjectClassName) + ";");
-		sc.add("}");
+		addCodeToCreateObject(sc, rule);
 		sc.add(new StringComponent("String tokenName = \"" + StringUtil.escapeToJavaString(tokenName) + "\";", "tokenName"));
 		sc.add("if (" + ident + " != null) {");
 		if (resolvements != null) {

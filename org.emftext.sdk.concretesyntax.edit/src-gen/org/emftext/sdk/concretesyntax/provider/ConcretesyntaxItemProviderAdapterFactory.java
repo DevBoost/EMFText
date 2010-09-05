@@ -633,6 +633,29 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.BooleanTerminal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BooleanTerminalItemProvider booleanTerminalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.BooleanTerminal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBooleanTerminalAdapter() {
+		if (booleanTerminalItemProvider == null) {
+			booleanTerminalItemProvider = new BooleanTerminalItemProvider(this);
+		}
+
+		return booleanTerminalItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.Option} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -939,6 +962,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (placeholderUsingSpecifiedTokenItemProvider != null) placeholderUsingSpecifiedTokenItemProvider.dispose();
 		if (placeholderUsingDefaultTokenItemProvider != null) placeholderUsingDefaultTokenItemProvider.dispose();
 		if (placeholderInQuotesItemProvider != null) placeholderInQuotesItemProvider.dispose();
+		if (booleanTerminalItemProvider != null) booleanTerminalItemProvider.dispose();
 		if (optionItemProvider != null) optionItemProvider.dispose();
 		if (abstractItemProvider != null) abstractItemProvider.dispose();
 		if (tokenStyleItemProvider != null) tokenStyleItemProvider.dispose();

@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
@@ -467,6 +468,16 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseCardinalityDefinition(placeholderInQuotes);
 				if (result == null) result = caseDefinition(placeholderInQuotes);
 				if (result == null) result = caseSyntaxElement(placeholderInQuotes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.BOOLEAN_TERMINAL: {
+				BooleanTerminal booleanTerminal = (BooleanTerminal)theEObject;
+				T result = caseBooleanTerminal(booleanTerminal);
+				if (result == null) result = caseTerminal(booleanTerminal);
+				if (result == null) result = caseCardinalityDefinition(booleanTerminal);
+				if (result == null) result = caseDefinition(booleanTerminal);
+				if (result == null) result = caseSyntaxElement(booleanTerminal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1110,6 +1121,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T casePlaceholderInQuotes(PlaceholderInQuotes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Boolean Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Boolean Terminal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBooleanTerminal(BooleanTerminal object) {
 		return null;
 	}
 

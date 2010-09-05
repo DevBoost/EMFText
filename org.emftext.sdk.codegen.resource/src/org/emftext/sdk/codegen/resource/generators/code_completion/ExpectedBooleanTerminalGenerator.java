@@ -13,8 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -23,14 +23,14 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("A representation for a range in a document where a structural feature (e.g., a reference) is expected.");
+		sc.addJavadoc("A representation for a range in a document where a boolean attribute is expected.");
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -40,24 +40,24 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + placeholderClassName + " placeholder;");
+		sc.add("private " + booleanTerminalClassName + " booleanTerminal;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + placeholderClassName + " placeholder) {");
-		sc.add("super(placeholder.getMetaclass());");
-		sc.add("this.placeholder = placeholder;");
+		sc.add("public " + getResourceClassName() + "(" + booleanTerminalClassName + " booleanTerminal) {");
+		sc.add("super(booleanTerminal.getMetaclass());");
+		sc.add("this.booleanTerminal = booleanTerminal;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
+		addGetBooleanTerminalMethod(sc);
 		addGetFeatureMethod(sc);
-		addGetTokenNameMethod(sc);
-		addGetTokenNamesMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
+		addGetTokenNameMethod(sc);
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
@@ -67,6 +67,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addToStringMethod(StringComposite sc) {
@@ -76,23 +77,35 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenNamesMethod(StringComposite sc) {
-		sc.add("public " + SET + "<String> getTokenNames() {");
-		sc.add("return " + COLLECTIONS + ".singleton(getTokenName());");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetTokenNameMethod(StringComposite sc) {
-		sc.add("public String getTokenName() {");
-		sc.add("return placeholder.getTokenName();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetFeatureMethod(StringComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
-		sc.add("return placeholder.getFeature();");
+		sc.add("private " + E_STRUCTURAL_FEATURE + " getFeature() {");
+		sc.add("return booleanTerminal.getFeature();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetBooleanTerminalMethod(StringComposite sc) {
+		sc.add("public " + booleanTerminalClassName + " getBooleanTerminal() {");
+		sc.add("return booleanTerminal;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTokenNameMethod(JavaComposite sc) {
+		sc.add("public " + SET + "<String> getTokenNames() {");
+		sc.addComment("BooleanTerminals are associated with two or one token(s)");
+		sc.add(SET + "<String> tokenNames = new " + LINKED_HASH_SET + "<String>(2);");
+		sc.add("String trueLiteral = booleanTerminal.getTrueLiteral();");
+		sc.add("if (!\"\".equals(trueLiteral)) {");
+		// TODO using single quotes here is ANTLR specific
+		sc.add("tokenNames.add(\"'\" + trueLiteral + \"'\");");
+		sc.add("}");
+		sc.add("String falseLiteral = booleanTerminal.getFalseLiteral();");
+		sc.add("if (!\"\".equals(falseLiteral)) {");
+		// TODO using single quotes here is ANTLR specific
+		sc.add("tokenNames.add(\"'\" + falseLiteral + \"'\");");
+		sc.add("}");
+		sc.add("return tokenNames;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

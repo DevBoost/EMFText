@@ -89,7 +89,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		addHandleEnumAttributeMethod(sc);
 		addHandleNCReferenceMethod(sc);
 		addHandleAttributeMethod(sc);
-		addDeriveProposalMethod1(sc);
+		addHandleKeywordMethod(sc);
+		addHandleBooleanTerminalMethod(sc);
+		addHandleBooleanLiteralMethod(sc);
 		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
@@ -144,13 +146,33 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addDeriveProposalMethod1(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedCsStringClassName + " csString, String content, String prefix, int cursorOffset) {");
+	private void addHandleKeywordMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedCsStringClassName + " csString, String prefix) {");
 		sc.add("String proposal = csString.getValue();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("boolean matchesPrefix = matches(proposal, prefix);");
-		sc.add("result.add(new " + completionProposalClassName + "(proposal, prefix, matchesPrefix, null, null));");
+		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(proposal, prefix, matchesPrefix, null, null));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHandleBooleanTerminalMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleBooleanTerminal(" + expectedBooleanTerminalClassName + " expectedBooleanTerminal, String prefix) {");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">(2);");
+		sc.add(booleanTerminalClassName + " booleanTerminal = expectedBooleanTerminal.getBooleanTerminal();");
+		sc.add("result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));");
+		sc.add("result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));");
 		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHandleBooleanLiteralMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleBooleanLiteral(" + E_ATTRIBUTE + " attribute, String prefix, String literal) {");
+		sc.add("if (\"\".equals(literal)) {");
+		sc.add("return " + COLLECTIONS + ".emptySet();");
+		sc.add("}");
+		sc.add("boolean matchesPrefix = matches(literal, prefix);");
+		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(literal, prefix, matchesPrefix, null, null));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -247,7 +269,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
-		sc.add("return handleKeyword(csString, content, expectedTerminal.getPrefix(), cursorOffset);");
+		sc.add("return handleKeyword(csString, expectedTerminal.getPrefix());");
+		sc.add("} else if (expectedElement instanceof " + expectedBooleanTerminalClassName + ") {");
+		sc.add(expectedBooleanTerminalClassName + " expectedBooleanTerminal = (" + expectedBooleanTerminalClassName + ") expectedElement;");
+		sc.add("return handleBooleanTerminal(expectedBooleanTerminal, expectedTerminal.getPrefix());");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
 		sc.add(expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");

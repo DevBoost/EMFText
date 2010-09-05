@@ -97,6 +97,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintKeywordMethod(sc);
 		addPrintFeatureMethod(sc);
 		addPrintAttributeMethod(sc);
+		addPrintBooleanTerminalMethod(sc);
 		addPrintContainedObjectMethod(sc);
 		addPrintFormattingElementsMethod(sc);
 		addGetValueMethod(sc);
@@ -444,6 +445,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(containmentClassName + " containment = (" + containmentClassName + ") printElement;");
 		sc.add("printContainedObject(eObject, containment, indexToPrint, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
+		sc.add("} else if (printElement instanceof " + booleanTerminalClassName + ") {");
+		sc.add(booleanTerminalClassName + " booleanTerminal = (" + booleanTerminalClassName + ") printElement;");
+		sc.add("printBooleanTerminal(eObject, booleanTerminal, indexToPrint, foundFormattingElements, layoutInformations);");
+		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (foundSomethingToPrint) {");
@@ -550,6 +555,34 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addComment("write result to the output stream");
 		sc.add("tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPrintBooleanTerminalMethod(JavaComposite sc) {
+		sc.add("public void printBooleanTerminal(" + E_OBJECT + " eObject, " + booleanTerminalClassName + " booleanTerminal, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add(E_ATTRIBUTE + " attribute = booleanTerminal.getAttribute();");
+		sc.add("String result;");
+		sc.add("Object attributeValue = getValue(eObject, attribute, count);");
+		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, booleanTerminal, attributeValue, eObject);");
+		sc.add("String visibleTokenText = getVisibleTokenText(layoutInformation);");
+		sc.addComment("if there is text for the attribute we use it");
+		sc.add("if (visibleTokenText != null) {");
+		sc.add("result = visibleTokenText;");
+		sc.add("} else {");
+		sc.addComment("if no text is available, the boolean attribute is converted to its textual representation using the literals of the boolean terminal");
+		sc.add("if (Boolean.TRUE.equals(attributeValue)) {");
+		sc.add("result = booleanTerminal.getTrueLiteral();");
+		sc.add("} else {");
+		sc.add("result = booleanTerminal.getFalseLiteral();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (result != null && !\"\".equals(result)) {");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.addComment("write result to the output stream");
+		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
+		sc.add("tokenOutputStream.add(new PrintToken(result, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(result) + \"'\"));");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

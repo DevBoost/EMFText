@@ -36,6 +36,7 @@ import org.emftext.sdk.codegen.ISyntaxContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -309,6 +310,8 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 			}
 			followSetMap.put(getID(definition), expectations);
 		} else if (definition instanceof CsString) {
+			followSetMap.put(getID(definition), expectations);
+		} else if (definition instanceof BooleanTerminal) {
 			followSetMap.put(getID(definition), expectations);
 		}
 	}

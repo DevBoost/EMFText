@@ -252,6 +252,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	PlaceholderInQuotes createPlaceholderInQuotes();
 
 	/**
+	 * Returns a new object of class '<em>Boolean Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Boolean Terminal</em>'.
+	 * @generated
+	 */
+	BooleanTerminal createBooleanTerminal();
+
+	/**
 	 * Returns a new object of class '<em>Option</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

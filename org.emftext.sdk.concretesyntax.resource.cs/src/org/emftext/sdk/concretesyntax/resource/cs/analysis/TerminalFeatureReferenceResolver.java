@@ -21,6 +21,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -208,8 +209,10 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		} else if (container instanceof Placeholder) {
 			//definitely no containment
 			return false;
-		}
-		else {
+		} else if (container instanceof BooleanTerminal) {
+			//definitely no containment
+			return false;
+		} else {
 			//Terminal has no other subclasses
 			assert(false);
 			return false;

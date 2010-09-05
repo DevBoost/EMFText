@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -81,8 +84,9 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetTokenNameMethod(StringComposite sc) {
-		sc.add("public String getTokenName() {");
-		sc.add("return \"'\" + getValue() + \"'\";");
+		sc.add("public " + SET + "<String> getTokenNames() {");
+		// TODO using single quotes here is ANTLR specific
+		sc.add("return " + COLLECTIONS + ".singleton(\"'\" + getValue() + \"'\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

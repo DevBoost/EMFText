@@ -1736,7 +1736,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RESOLVE_PROXY_ELEMENTS_AFTER_PARSING(216, "RESOLVE_PROXY_ELEMENTS_AFTER_PARSING", "resolveProxyElementsAfterParsing");
+	RESOLVE_PROXY_ELEMENTS_AFTER_PARSING(216, "RESOLVE_PROXY_ELEMENTS_AFTER_PARSING", "resolveProxyElementsAfterParsing"), /**
+	 * The '<em><b>OVERRIDE EXPECTED BOOLEAN TERMINAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_BOOLEAN_TERMINAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTED_BOOLEAN_TERMINAL(217, "OVERRIDE_EXPECTED_BOOLEAN_TERMINAL", "overrideExpectedBooleanTerminal"), /**
+	 * The '<em><b>OVERRIDE BOOLEAN TERMINAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BOOLEAN_TERMINAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BOOLEAN_TERMINAL(218, "OVERRIDE_BOOLEAN_TERMINAL", "overrideBooleanTerminal");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5343,6 +5359,34 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE = 216;
 /**
+	 * The '<em><b>OVERRIDE EXPECTED BOOLEAN TERMINAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTED BOOLEAN TERMINAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_BOOLEAN_TERMINAL
+	 * @model literal="overrideExpectedBooleanTerminal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTED_BOOLEAN_TERMINAL_VALUE = 217;
+/**
+	 * The '<em><b>OVERRIDE BOOLEAN TERMINAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BOOLEAN TERMINAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BOOLEAN_TERMINAL
+	 * @model literal="overrideBooleanTerminal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BOOLEAN_TERMINAL_VALUE = 218;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5563,6 +5607,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TOKEN_STYLE,
 			OVERRIDE_DYNAMIC_TOKEN_STYLER,
 			RESOLVE_PROXY_ELEMENTS_AFTER_PARSING,
+			OVERRIDE_EXPECTED_BOOLEAN_TERMINAL,
+			OVERRIDE_BOOLEAN_TERMINAL,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5824,6 +5870,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TOKEN_STYLE_VALUE: return OVERRIDE_TOKEN_STYLE;
 			case OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE: return OVERRIDE_DYNAMIC_TOKEN_STYLER;
 			case RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE: return RESOLVE_PROXY_ELEMENTS_AFTER_PARSING;
+			case OVERRIDE_EXPECTED_BOOLEAN_TERMINAL_VALUE: return OVERRIDE_EXPECTED_BOOLEAN_TERMINAL;
+			case OVERRIDE_BOOLEAN_TERMINAL_VALUE: return OVERRIDE_BOOLEAN_TERMINAL;
 		}
 		return null;
 	}

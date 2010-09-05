@@ -378,7 +378,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 43;
+	int ANNOTABLE = 44;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
@@ -1848,6 +1848,70 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER_IN_QUOTES_FEATURE_COUNT = PLACEHOLDER_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.BooleanTerminalImpl <em>Boolean Terminal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.BooleanTerminalImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getBooleanTerminal()
+	 * @generated
+	 */
+	int BOOLEAN_TERMINAL = 39;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL__CHILDREN = TERMINAL__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL__CARDINALITY = TERMINAL__CARDINALITY;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL__FEATURE = TERMINAL__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>True Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL__TRUE_LITERAL = TERMINAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>False Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL__FALSE_LITERAL = TERMINAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Boolean Terminal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_TERMINAL_FEATURE_COUNT = TERMINAL_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1855,7 +1919,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 39;
+	int OPTION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1892,7 +1956,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 40;
+	int ABSTRACT = 41;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1911,7 +1975,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 41;
+	int TOKEN_STYLE = 42;
 
 	/**
 	 * The feature id for the '<em><b>Token Names</b></em>' attribute list.
@@ -1957,7 +2021,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 42;
+	int ANNOTATION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1994,7 +2058,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 44;
+	int KEY_VALUE_PAIR = 45;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -2031,7 +2095,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE = 45;
+	int GEN_CLASS_CACHE = 46;
 
 	/**
 	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
@@ -2059,7 +2123,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE_ENTRY = 46;
+	int GEN_CLASS_CACHE_ENTRY = 47;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' reference.
@@ -2096,7 +2160,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
 	 * @generated
 	 */
-	int ECLASS_UTIL = 47;
+	int ECLASS_UTIL = 48;
 
 	/**
 	 * The number of structural features of the '<em>EClass Util</em>' class.
@@ -2115,7 +2179,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 48;
+	int OPTION_TYPES = 49;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -2125,7 +2189,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 49;
+	int FONT_STYLE = 50;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -2135,7 +2199,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 50;
+	int ANNOTATION_TYPE = 51;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -2145,7 +2209,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 51;
+	int OPERATOR_ANNOTATION_TYPE = 52;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -2155,7 +2219,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 52;
+	int OPERATOR_ANNOTATION_PROPERTY = 53;
 
 
 	/**
@@ -3075,6 +3139,38 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPlaceholderInQuotes_EscapeCharacter();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.BooleanTerminal <em>Boolean Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Boolean Terminal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.BooleanTerminal
+	 * @generated
+	 */
+	EClass getBooleanTerminal();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.BooleanTerminal#getTrueLiteral <em>True Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>True Literal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.BooleanTerminal#getTrueLiteral()
+	 * @see #getBooleanTerminal()
+	 * @generated
+	 */
+	EAttribute getBooleanTerminal_TrueLiteral();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.BooleanTerminal#getFalseLiteral <em>False Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>False Literal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.BooleanTerminal#getFalseLiteral()
+	 * @see #getBooleanTerminal()
+	 * @generated
+	 */
+	EAttribute getBooleanTerminal_FalseLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Option <em>Option</em>}'.
@@ -4156,6 +4252,32 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER = eINSTANCE.getPlaceholderInQuotes_EscapeCharacter();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.BooleanTerminalImpl <em>Boolean Terminal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.BooleanTerminalImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getBooleanTerminal()
+		 * @generated
+		 */
+		EClass BOOLEAN_TERMINAL = eINSTANCE.getBooleanTerminal();
+
+		/**
+		 * The meta object literal for the '<em><b>True Literal</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOOLEAN_TERMINAL__TRUE_LITERAL = eINSTANCE.getBooleanTerminal_TrueLiteral();
+
+		/**
+		 * The meta object literal for the '<em><b>False Literal</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOOLEAN_TERMINAL__FALSE_LITERAL = eINSTANCE.getBooleanTerminal_FalseLiteral();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.

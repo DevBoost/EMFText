@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
@@ -27,17 +28,29 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("An element that is expected at a given position in a resource stream.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("public String getTokenName();");
+		
+		sc.addJavadoc("Returns the names of all tokens that are expected at the given position");
+		sc.add("public " + SET + "<String> getTokenNames();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns the metaclass of the rule that contains the expected element");
 		sc.add("public " + E_CLASS +" getRuleMetaclass();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Adds an element that is a valid follower for this element");
 		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path);");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns all valid followers for this element");
 		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 	}
 }

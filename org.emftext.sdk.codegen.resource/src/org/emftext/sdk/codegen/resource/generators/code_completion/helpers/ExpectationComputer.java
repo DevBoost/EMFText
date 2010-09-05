@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -333,6 +334,15 @@ public class ExpectationComputer {
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 		if (ecoreFeature instanceof EAttribute) {
+			boolean canBeEmpty = false;
+			if (terminal instanceof BooleanTerminal) {
+				BooleanTerminal booleanTerminal = (BooleanTerminal) terminal;
+				// TODO mseifert: replace with a call to isOptional()
+				canBeEmpty = "".equals(booleanTerminal.getTrueLiteral()) || "".equals(booleanTerminal.getFalseLiteral());
+			}
+			if (canBeEmpty) {
+				firstSet.add(EPSILON);
+			}
 			firstSet.add(new Expectation(terminal));
 			return firstSet;
 		}

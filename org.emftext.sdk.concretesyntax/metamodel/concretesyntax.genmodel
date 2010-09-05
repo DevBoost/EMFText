@@ -223,6 +223,8 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_TOKEN_STYLE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_DYNAMIC_TOKEN_STYLER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/RESOLVE_PROXY_ELEMENTS_AFTER_PARSING"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_EXPECTED_BOOLEAN_TERMINAL"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_BOOLEAN_TERMINAL"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>
@@ -430,6 +432,10 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedSuffix"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedEscapeCharacter"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//BooleanTerminal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/trueLiteral"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/falseLiteral"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Option">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/type"/>

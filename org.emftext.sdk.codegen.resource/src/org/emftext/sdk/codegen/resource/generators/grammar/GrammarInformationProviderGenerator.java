@@ -22,6 +22,7 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.helpers.OccurrenceCountHelper;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -182,6 +183,16 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			String metaClassAccessor = generatorUtil.getClassAccessor(nextAsRule.getMetaclass());
 			String fieldName = nameUtil.getFieldName(nextAsRule);
 			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
+		} else if (next instanceof BooleanTerminal) {
+			BooleanTerminal booleanTerminal = (BooleanTerminal) next;
+			GenFeature genFeature = booleanTerminal.getFeature();
+			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
+			String featureAccessor = getFeatureAccessor;
+			String fieldName = nameUtil.getFieldName(booleanTerminal);
+			int mandatoryOccurencesAfter = occurrenceHelper.getMandatoryOccurencesAfter(booleanTerminal, genFeature);
+			String escapedTrueLiteral = StringUtil.escapeToJavaString(booleanTerminal.getTrueLiteral());
+			String escapedFalseLiteral = StringUtil.escapeToJavaString(booleanTerminal.getFalseLiteral());
+			sc.add("public final static " + booleanTerminalClassName + " " + fieldName + " = new " + booleanTerminalClassName + "(" + featureAccessor + ", \"" + escapedTrueLiteral + "\", \"" + escapedFalseLiteral + "\", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else {
 			assert next instanceof Annotation;
 		}

@@ -15,8 +15,10 @@ import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -53,12 +55,11 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 					continue;
 				}
 
-				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedStructuralFeatureClassName + 
-						"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(placeholder) + ");");
+				addTerminalConstant(sc, terminalID, placeholder, expectedStructuralFeatureClassName);
 			} else if (expectedElement instanceof CsString) {
-				CsString expectedKeyword = (CsString) expectedElement;
-				sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + expectedCsStringClassName +  
-						"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(expectedKeyword) + ");");
+				addTerminalConstant(sc, terminalID, (CsString) expectedElement, expectedCsStringClassName);
+			} else if (expectedElement instanceof BooleanTerminal) {
+				addTerminalConstant(sc, terminalID, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName);
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
@@ -137,5 +138,14 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 			sc.add("wire" + c + "();");
 		}
 		sc.add("}");
+	}
+
+	private void addTerminalConstant(
+			JavaComposite sc, 
+			String terminalID,
+			SyntaxElement syntaxElement,
+			String className) {
+		sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + className + 
+				"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(syntaxElement) + ");");
 	}
 }

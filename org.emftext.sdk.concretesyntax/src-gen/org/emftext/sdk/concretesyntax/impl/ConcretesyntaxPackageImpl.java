@@ -33,6 +33,7 @@ import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -358,6 +359,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass placeholderInQuotesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass booleanTerminalEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1309,6 +1317,33 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBooleanTerminal() {
+		return booleanTerminalEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBooleanTerminal_TrueLiteral() {
+		return (EAttribute)booleanTerminalEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBooleanTerminal_FalseLiteral() {
+		return (EAttribute)booleanTerminalEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOption() {
 		return optionEClass;
 	}
@@ -1701,6 +1736,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__SUFFIX);
 		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER);
 
+		booleanTerminalEClass = createEClass(BOOLEAN_TERMINAL);
+		createEAttribute(booleanTerminalEClass, BOOLEAN_TERMINAL__TRUE_LITERAL);
+		createEAttribute(booleanTerminalEClass, BOOLEAN_TERMINAL__FALSE_LITERAL);
+
 		optionEClass = createEClass(OPTION);
 		createEAttribute(optionEClass, OPTION__TYPE);
 		createEAttribute(optionEClass, OPTION__VALUE);
@@ -1815,6 +1854,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		placeholderUsingSpecifiedTokenEClass.getESuperTypes().add(this.getPlaceholder());
 		placeholderUsingDefaultTokenEClass.getESuperTypes().add(this.getPlaceholder());
 		placeholderInQuotesEClass.getESuperTypes().add(this.getPlaceholder());
+		booleanTerminalEClass.getESuperTypes().add(this.getTerminal());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genPackageDependentElementEClass, GenPackageDependentElement.class, "GenPackageDependentElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2043,6 +2083,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "getNormalizedEscapeCharacter", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "toString", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(booleanTerminalEClass, BooleanTerminal.class, "BooleanTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBooleanTerminal_TrueLiteral(), theEcorePackage.getEString(), "trueLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBooleanTerminal_FalseLiteral(), theEcorePackage.getEString(), "falseLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOption_Type(), this.getOptionTypes(), "type", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2332,6 +2376,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_STYLE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DYNAMIC_TOKEN_STYLER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_BOOLEAN_TERMINAL);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
