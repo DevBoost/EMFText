@@ -37,7 +37,7 @@ public class HUTNGenerationProcess extends AbstractSyntaxGenerationProcess {
 	}
 
 	public void addClosing(GenClass genClass, Sequence sequence) {
-		addOpeningBracket(sequence);
+		addClosingBracket(sequence);
 	}
 
 	public void createFeaturePrefix(GenFeature genFeature, Sequence sequence) {
