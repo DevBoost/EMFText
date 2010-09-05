@@ -78,6 +78,7 @@ public enum ECsProblemType {
 	TOKEN_SORTING_FAILED(CsEProblemType.ERROR), 
 	DUPLICATE_OPTION_WITH_DIFFERENT_VALUE(CsEProblemType.ERROR), 
 	DUPLICATE_OPTION_WITH_SAME_VALUE(CsEProblemType.WARNING), 
+	PLUGIN_ID_CONFLICT(CsEProblemType.ERROR), 
 	;
 
 	private CsEProblemType problemType;

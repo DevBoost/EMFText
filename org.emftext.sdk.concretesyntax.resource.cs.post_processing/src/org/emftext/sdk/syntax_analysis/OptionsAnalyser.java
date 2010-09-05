@@ -16,8 +16,10 @@ package org.emftext.sdk.syntax_analysis;
 import static org.emftext.sdk.OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.OptionManager;
@@ -89,6 +91,63 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	 */
 	private void analyseOptionConflicts(CsResource resource, ConcreteSyntax syntax, List<Option> options) {
 		checkForClassicPrinterAutomaticTokenSpaceConflict(resource, syntax, options);
+		checkPluginIdConflict(resource, syntax, options);
+	}
+
+	private void checkPluginIdConflict(
+			CsResource resource,
+			ConcreteSyntax syntax, 
+			List<Option> options) {
+		
+		OptionManager optionManager = OptionManager.INSTANCE;
+		String antlrPluginID = optionManager.getStringOptionValue(syntax, OptionTypes.ANTLR_PLUGIN_ID);
+		String resourcePluginID = optionManager.getStringOptionValue(syntax, OptionTypes.RESOURCE_PLUGIN_ID);
+		String resourceUIPluginID = optionManager.getStringOptionValue(syntax, OptionTypes.RESOURCE_UI_PLUGIN_ID);
+		
+		Set<String> pluginIDs = new LinkedHashSet<String>();
+		if (antlrPluginID != null) {
+			pluginIDs.add(antlrPluginID);
+		}
+		if (resourcePluginID != null) {
+			pluginIDs.add(resourcePluginID);
+		}
+		if (pluginIDs.size() < 2) {
+			// antlrPluginID == resourcePluginID
+			String message = "The ID for the resource plug-ins must be different from the ANTLR commons plug-in.";
+			addProblem(
+					resource, 
+					ECsProblemType.PLUGIN_ID_CONFLICT, 
+					message, 
+					optionManager.findOptionByType(options, OptionTypes.RESOURCE_PLUGIN_ID)
+			);
+			if (resourceUIPluginID != null) {
+				pluginIDs.add(resourceUIPluginID);
+			}
+			if (pluginIDs.size() < 2) {
+				// antlrPluginID == resourcePluginID == resourceUIPluginID
+				addProblem(
+						resource, 
+						ECsProblemType.PLUGIN_ID_CONFLICT, 
+						message, 
+						optionManager.findOptionByType(options, OptionTypes.RESOURCE_UI_PLUGIN_ID)
+				);
+			}
+		} else {
+			if (resourceUIPluginID != null) {
+				pluginIDs.add(resourceUIPluginID);
+			}
+			if (pluginIDs.size() < 3) {
+				// (antlrPluginID || resourcePluginID) == resourceUIPluginID
+				addProblem(
+						resource, 
+						ECsProblemType.PLUGIN_ID_CONFLICT, 
+						"The ID for the resource UI plug-in must be different from the ANTLR commons plug-in and the resource plug-in.", 
+						optionManager.findOptionByType(options, OptionTypes.RESOURCE_UI_PLUGIN_ID)
+				);
+			} else {
+				// all IDs are different, which is perfectly fine
+			}
+		}
 	}
 
 	private void checkForClassicPrinterAutomaticTokenSpaceConflict(
