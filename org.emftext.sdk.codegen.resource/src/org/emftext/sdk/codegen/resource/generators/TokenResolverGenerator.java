@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -38,6 +39,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
+@SyntaxDependent
 public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParameters> {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();

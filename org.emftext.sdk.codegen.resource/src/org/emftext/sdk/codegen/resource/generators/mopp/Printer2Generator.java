@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Queue;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -37,19 +38,16 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  *      never used. The latter can use the current generator for the class
  *      LayoutInformation.
  */
+@SyntaxDependent
 public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private static ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final static NameUtil nameUtil = new NameUtil();
 	
-	private ConcreteSyntax syntax;
-	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		super.generateJavaContents(sc);
-
-		syntax = getContext().getConcreteSyntax();
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -85,7 +83,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) { 
+	private void addMethods(JavaComposite sc) {
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+
 		addPrintMethod(sc);
 		addDoPrintMethod(sc, syntax.getAllRules());
 		addPrintInternalMethod(sc);

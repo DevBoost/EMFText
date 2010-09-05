@@ -20,12 +20,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OU
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+@SyntaxDependent
 public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -191,6 +193,4 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("}");
         sc.addLineBreak();
 	}
-
-	
 }

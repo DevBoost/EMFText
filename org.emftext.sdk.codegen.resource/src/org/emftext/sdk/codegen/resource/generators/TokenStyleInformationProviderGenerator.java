@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import java.util.List;
 
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -27,6 +28,7 @@ import org.emftext.sdk.util.StringUtil;
  * This generator composes a provider class that can be used to access the 
  * token styles of a syntax.
  */
+@SyntaxDependent
 public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override

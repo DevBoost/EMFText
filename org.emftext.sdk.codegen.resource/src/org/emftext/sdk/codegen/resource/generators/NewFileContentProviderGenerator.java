@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -22,6 +23,7 @@ import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StreamUtil;
 import org.emftext.sdk.util.StringUtil;
 
+@SyntaxDependent
 public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final static GenClassUtil genClassUtil = new GenClassUtil();

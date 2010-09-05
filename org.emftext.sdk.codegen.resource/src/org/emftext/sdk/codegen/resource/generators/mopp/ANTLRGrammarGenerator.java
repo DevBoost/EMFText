@@ -76,6 +76,7 @@ import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
@@ -138,6 +139,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
+@SyntaxDependent
 public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	/**

@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -94,9 +95,8 @@ import org.emftext.sdk.util.StringUtil;
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 // TODO mseifert: enable backtracking for the postParseCommands lists
+@SyntaxDependent
 public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
-	
-	
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();

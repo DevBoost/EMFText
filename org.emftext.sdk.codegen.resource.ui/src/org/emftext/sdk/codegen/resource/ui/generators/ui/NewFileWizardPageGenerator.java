@@ -49,7 +49,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"The NewWizardPage allows setting the container for the new file, as well " +
+			"The NewFileWizardPage allows setting the container for the new file, as well " +
 			"as the file name. The page will only accept file names without extension " +
 			"OR with an extension that matches the expected one."
 		);
@@ -225,10 +225,12 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc("Constructor for NewWizardPage.");
+		String syntaxName = getContext().getConcreteSyntax().getName();
+
+		sc.addJavadoc("Constructor for the NewFileWizardPage.");
 		sc.add("public " + getResourceClassName() + "(" + I_SELECTION + " selection, String fileExtension) {");
 		sc.add("super(\"wizardPage\");");
-		sc.add("setTitle(\"Create new " + getContext().getConcreteSyntax().getName() + " file\");");
+		sc.add("setTitle(\"Create new " + syntaxName + " file\");");
 		sc.add("setDescription(\"This wizard creates a new file with *.\" + fileExtension + \" extension that can be opened with the EMFText editor.\");");
 		sc.add("this.selection = selection;");
 		sc.add("this.fileExtension = fileExtension;");

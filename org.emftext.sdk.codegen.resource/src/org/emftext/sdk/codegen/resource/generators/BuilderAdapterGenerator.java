@@ -12,6 +12,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -19,26 +20,32 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+@SyntaxDependent
 public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + INCREMENTAL_PROJECT_BUILDER + " {");
 		sc.addLineBreak();
-		sc.addJavadoc("the ID of the default, generated builder");
-		sc.add("public final static String BUILDER_ID = \"" + nameUtil.getBuilderID(syntax) + "\";");
-		sc.addLineBreak();
-		sc.add("private " + iBuilderClassName + " builder = new " + builderClassName + "();");
-		sc.addLineBreak();
+		addFields(sc);
 		addBuildMethod1(sc);
 		addBuildMethod2(sc);
 		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		String builderID = nameUtil.getBuilderID(syntax);
+
+		sc.addJavadoc("the ID of the default, generated builder");
+		sc.add("public final static String BUILDER_ID = \"" + builderID + "\";");
+		sc.addLineBreak();
+		sc.add("private " + iBuilderClassName + " builder = new " + builderClassName + "();");
+		sc.addLineBreak();
 	}
 
 	private void addBuildMethod1(StringComposite sc) {

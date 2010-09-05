@@ -12,6 +12,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -44,6 +45,7 @@ import org.emftext.sdk.util.StringUtil;
  * A generator that creates a class that contains the syntax structure given
  * in the CS specification.
  */
+@SyntaxDependent
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static final String ANONYMOUS_FEATURE = "ANONYMOUS_FEATURE";

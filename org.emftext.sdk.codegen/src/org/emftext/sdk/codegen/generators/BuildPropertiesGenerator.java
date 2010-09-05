@@ -35,8 +35,10 @@ public class BuildPropertiesGenerator<ContextType extends IContext<ContextType>>
 
 	@Override
 	public void doGenerate(PrintWriter out) {
-		Collection<String> sourceFolders = getParameters().getSourceFolders();
-		Collection<String> binIncludes = getParameters().getBinIncludes();
+		BuildPropertiesParameters<ContextType> parameters = getParameters();
+		
+		Collection<String> sourceFolders = parameters.getSourceFolders();
+		Collection<String> binIncludes = parameters.getBinIncludes();
 
 		StringBuilder sc = new StringBuilder();
 		sc.append("bin.includes = " + StringUtil.explode(binIncludes, ",\\\n"));

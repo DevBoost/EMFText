@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -30,6 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
+@SyntaxDependent
 public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	private final NameUtil nameUtil = new NameUtil();

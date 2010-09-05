@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -30,6 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * TODO mseifert: make this generator reusable
  */
+@SyntaxDependent
 public class UIPluginXMLGenerator extends UIResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override

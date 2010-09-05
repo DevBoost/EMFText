@@ -18,11 +18,13 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
+@SyntaxDependent
 public class AdditionalExtensionParserExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -30,6 +32,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		super.doGenerate(out);
 		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
 		String resourcePluginName = resourcePlugin.getName();
+		String syntaxName = getContext().getConcreteSyntax().getName();
 
 		StringComposite sc = new XMLComposite();
 		
@@ -40,7 +43,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + ".additional_extension_parser\" name=\"Additional Extension Parser\"/>");
 		sc.add("</appinfo>");
 		sc.add("<documentation>");
-		sc.add("This extension point can be used to add another parser for '" + getContext().getConcreteSyntax().getName() + "' files.");
+		sc.add("This extension point can be used to add another parser for '" + syntaxName + "' files.");
 		sc.add("</documentation>");
 		sc.add("</annotation>");
 		sc.addLineBreak();

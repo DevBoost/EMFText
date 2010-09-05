@@ -6,6 +6,7 @@ Bundle-Name: EMFText SDK Code Generators
 Bundle-SymbolicName: org.emftext.sdk.codegen; singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Export-Package: org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.annotations,
  org.emftext.sdk.codegen.composites,
  org.emftext.sdk.codegen.creators,
  org.emftext.sdk.codegen.generators,

@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -31,6 +32,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * TODO mseifert: make this generator reusable
  */
+@SyntaxDependent
 public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();

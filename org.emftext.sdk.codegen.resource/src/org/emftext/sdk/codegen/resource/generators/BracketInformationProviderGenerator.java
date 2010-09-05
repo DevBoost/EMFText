@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -32,9 +33,8 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
 
+@SyntaxDependent
 public class BracketInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
-
-	
 
 	private static class BracketPair {
 		private final String openingBracket;

@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -43,6 +44,7 @@ import org.emftext.sdk.util.StringUtil;
  * reference resolver.
  * The generated resolver switch is used during code completion.
  */
+@SyntaxDependent
 public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();

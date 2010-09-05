@@ -51,6 +51,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -63,9 +64,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * Generates the resource class. The created <code>doLoad()</code> and 
  * <code>doSave()</code> methods will call the generated parser and 
  * printer.
- * 
- * @see org.emftext.runtime.resource.ITextResource
  */
+@SyntaxDependent
 public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private ConcreteSyntax concreteSyntax;
