@@ -124,8 +124,8 @@ public class AntlrTokenDerivator {
 		String suffix = placeholder.getNormalizedSuffix();
 		String escapeCharacter = placeholder.getNormalizedEscapeCharacter();
 
-    	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
-		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
+    	boolean suffixIsSet = suffix != null && suffix.length() > 0;
+		boolean prefixIsSet = prefix != null && prefix.length() > 0;
 		
 		assert prefixIsSet;
 		assert suffixIsSet;
@@ -138,11 +138,20 @@ public class AntlrTokenDerivator {
 	}
 
     private String deriveCodeSequence(String original) {
+    	// TODO this conversion is only invertible for characters < 100.
+    	// we need some way to have a conversion which is both compatible
+    	// with this one, but does also work for characters >= 100. One
+    	// solution is to use a hex representation and add the prefix '0x'.
+    	// Alternatively, we can add delimiting characters between the 
+    	// decimal representation of the characters. The inverse conversion
+    	// is needed to show quoted tokens correctly in the syntax highlighting
+    	// preference pages
     	char[] chars = original.toCharArray();
     	String result = "";
-    	for(int i=0;i<chars.length;i++){
-    		if(chars[i]<10)
+    	for (int i = 0; i < chars.length; i++) {
+    		if (chars[i] < 10) {
     			result += "0";
+    		}
     		result += (int) chars[i];
     	}
     	return result;

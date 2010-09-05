@@ -59,7 +59,7 @@ public class PreferencePageGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addCreateContentsMethod(JavaComposite sc) {
-		sc.add("@Override");
+		sc.add("@Override").addLineBreak();
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.add(COMPOSITE + " settingComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
 		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
