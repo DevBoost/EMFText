@@ -111,7 +111,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		if (resourcePluginID != null) {
 			pluginIDs.add(resourcePluginID);
 		}
-		if (pluginIDs.size() < 2) {
+		if (pluginIDs.size() == 1) {
 			// antlrPluginID == resourcePluginID
 			String message = "The ID for the resource plug-ins must be different from the ANTLR commons plug-in.";
 			addProblem(
@@ -123,7 +123,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			if (resourceUIPluginID != null) {
 				pluginIDs.add(resourceUIPluginID);
 			}
-			if (pluginIDs.size() < 2) {
+			if (pluginIDs.size() == 1) {
 				// antlrPluginID == resourcePluginID == resourceUIPluginID
 				addProblem(
 						resource, 
@@ -136,7 +136,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			if (resourceUIPluginID != null) {
 				pluginIDs.add(resourceUIPluginID);
 			}
-			if (pluginIDs.size() < 3) {
+			if (pluginIDs.size() > 0 && pluginIDs.size() < 3) {
 				// (antlrPluginID || resourcePluginID) == resourceUIPluginID
 				addProblem(
 						resource, 
@@ -145,7 +145,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 						optionManager.findOptionByType(options, OptionTypes.RESOURCE_UI_PLUGIN_ID)
 				);
 			} else {
-				// all IDs are different, which is perfectly fine
+				// all IDs are different or null, which is perfectly fine
 			}
 		}
 	}
