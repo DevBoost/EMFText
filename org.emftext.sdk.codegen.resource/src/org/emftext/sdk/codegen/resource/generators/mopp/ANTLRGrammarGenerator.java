@@ -779,7 +779,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A flag that indicateds whether the parser should remember all expected elements. " +
+			"A flag that indicates whether the parser should remember all expected elements. " +
 			"This flag is set to true when using the parse for code completion. Otherwise it is " +
 			"set to false."
 		);
@@ -828,7 +828,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("private int stopExcludingHiddenTokens;");
 		
 		sc.addJavadoc(
-			"A collection that is filled with commands to be exectued after parsing. " +
+			"A collection that is filled with commands to be executed after parsing. " +
 			"This collection is cleared before parsing starts and returned as part of " +
 			"the parse result object."
 		);
