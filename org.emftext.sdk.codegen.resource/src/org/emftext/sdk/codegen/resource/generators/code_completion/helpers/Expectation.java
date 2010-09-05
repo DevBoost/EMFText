@@ -63,4 +63,8 @@ public class Expectation {
 		}
 		return true;
 	}
+	
+	public String toString() {
+		return "Expectation(" + expectedElement + ")";
+	}
 }

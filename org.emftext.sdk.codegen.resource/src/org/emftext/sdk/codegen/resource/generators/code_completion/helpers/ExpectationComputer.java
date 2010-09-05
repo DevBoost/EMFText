@@ -1,7 +1,6 @@
 package org.emftext.sdk.codegen.resource.generators.code_completion.helpers;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -41,6 +40,12 @@ import org.emftext.sdk.util.EObjectUtil;
  * elements that can follow a given element in a syntax. It uses
  * the well-known construction of FIRST and FOLLOW sets from
  * context-free grammars.
+ * 
+ * Instances of this class can be reused for multiple computations
+ * of FIRST and FOLLOW sets if the concrete syntax did not change.
+ * If the syntax has changed, a fresh instance must be used, because
+ * the ExpectationComputer does hold internal caches, which can yield
+ * invalid results.
  */
 public class ExpectationComputer {
 
@@ -62,9 +67,21 @@ public class ExpectationComputer {
 	private Map<GenClass, Collection<Rule>> ruleCache = new LinkedHashMap<GenClass, Collection<Rule>>();
 
 	/**
+	 * A cache for the rules of the concrete syntax. This avoids repeating (expensive) calls to
+	 * ConcreteSyntax.getAllRules(). 
+	 */
+	private Map<ConcreteSyntax, List<Rule>> rulesMap = new LinkedHashMap<ConcreteSyntax, List<Rule>>();
+	
+	/**
+	 * A cache for the containment elements of the syntax rules. This avoids repeating (expensive) 
+	 * searches for these elements. 
+	 */
+	private Map<Rule, Collection<Containment>> ruleToContainmentsMap = new LinkedHashMap<Rule, Collection<Containment>>();
+
+	/**
 	 * Computes the list of elements that 'syntaxElement' can start
 	 * with according to the given syntax definition.
-	 * 
+	 *
 	 * @param syntax
 	 * @param syntaxElement
 	 * @return
@@ -72,54 +89,60 @@ public class ExpectationComputer {
 	public Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement) {
 		return computeFirstSet(syntax, syntaxElement, new LinkedHashSet<GenClass>());
 	}
-	
-	
+
+	/**
+	 * Computes the list of elements that can follow after 'syntaxElement' 
+	 * with according to the given syntax definition.
+	 *
+	 * @param syntax
+	 * @param syntaxElement
+	 * @return
+	 */
 	public Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement) {
 		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
 	}
-	
+
 	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
-		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		if (syntaxElement instanceof STAR) {
-			return firstSet;
+			return new LinkedHashSet<Expectation>();
 		}
 		if (syntaxElement instanceof QUESTIONMARK) {
-			return firstSet;
+			return new LinkedHashSet<Expectation>();
 		}
 		if (syntaxElement instanceof PLUS) {
-			return firstSet;
+			return new LinkedHashSet<Expectation>();
 		}
 		Rule rule = syntaxElement.getContainingRule();
-		
+
+		Set<Expectation> firstSet;
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
-			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement, contributingNonterminals));
+			firstSet = computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement, contributingNonterminals);
 		} else if (syntaxElement instanceof Choice) {
-			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement, contributingNonterminals));
+			firstSet = computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement, contributingNonterminals);
 		} else if (syntaxElement instanceof Sequence) {
-			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, contributingNonterminals));
+			firstSet = computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, contributingNonterminals);
 		} else if (syntaxElement instanceof Rule) {
- 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition(), contributingNonterminals));
+ 			firstSet = computeFirstSetForChoice(syntax, rule, rule.getDefinition(), contributingNonterminals);
 		} else {
 			throw new IllegalArgumentException(syntaxElement.toString());
 		}
 		return firstSet;
 	}
-		
+
 	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
-		Set<Expectation> result = new LinkedHashSet<Expectation>();
-		result.addAll(computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals));
 		if (syntaxElement instanceof STAR) {
-			return result;
+			return new LinkedHashSet<Expectation>();
 		}
 		if (syntaxElement instanceof QUESTIONMARK) {
-			return result;
+			return new LinkedHashSet<Expectation>();
 		}
 		if (syntaxElement instanceof PLUS) {
-			return result;
+			return new LinkedHashSet<Expectation>();
 		}
 		
-		EReference reference = syntaxElement.eContainmentFeature();
+		Set<Expectation> result = computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals);
+
 		EObject container = syntaxElement.eContainer();
 		if (container == null) {
 			return result;
@@ -130,9 +153,9 @@ public class ExpectationComputer {
 		if (container instanceof Rule) {
 			// find all containments that refer to this rule and
 			// compute follow set for these containments. finally add them
-			List<Rule> allRules = syntax.getAllRules();
+			List<Rule> allRules = getAllRules(syntax);
 			for (Rule rule : allRules) {
-				Collection<Containment> containments = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
+				Collection<Containment> containments = getContainments(rule);
 				for (Containment containment : containments) {
 					EList<GenClass> allowedSubTypes = containment.getAllowedSubTypes();
 					for (GenClass subType : allowedSubTypes) {
@@ -160,6 +183,7 @@ public class ExpectationComputer {
 			// a choice must not be included in the FOLLOW set
 			result.addAll(computeFollowSet(syntax, (Choice) container, usedRules, contributingNonterminals));
 		} else {
+			EReference reference = syntaxElement.eContainmentFeature();
 			Object children = container.eGet(reference);
 			// search the next element to the right in the syntax rule tree
 			if (children instanceof List<?>) {
@@ -174,13 +198,13 @@ public class ExpectationComputer {
 						result.addAll(computeFollowSet(syntax, nextInList, usedRules, contributingNonterminals));
 					}
 				} else {
-					// object was the last one in the list, 
+					// object was the last one in the list,
 					// we must try one level higher
 					result.addAll(computeFollowSet(syntax, (SyntaxElement) syntaxElement.eContainer(), usedRules, contributingNonterminals));
 				}
 			} else if (children instanceof EObject) {
 				assert syntaxElement == children;
-				// object was the only one stored in the reference, 
+				// object was the only one stored in the reference,
 				// we must try one level higher
 				result.addAll(computeFollowSet(syntax, (SyntaxElement) syntaxElement.eContainer(), usedRules, contributingNonterminals));
 			}
@@ -189,26 +213,45 @@ public class ExpectationComputer {
 		return result;
 	}
 
-	private Collection<Expectation> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
+
+	private Collection<Containment> getContainments(Rule rule) {
+		if (ruleToContainmentsMap.containsKey(rule)) {
+			return ruleToContainmentsMap.get(rule);
+		}
+		Collection<Containment> containments = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getContainment());
+		ruleToContainmentsMap.put(rule, containments);
+		return containments;
+	}
+
+	private List<Rule> getAllRules(ConcreteSyntax syntax) {
+		if (rulesMap.containsKey(syntax)) {
+			return rulesMap.get(syntax);
+		}
+		EList<Rule> allRules = syntax.getAllRules();
+		rulesMap.put(syntax, allRules);
+		return allRules;
+	}
+
+	private Set<Expectation> computeFirstSetIfObjectCanBeRepeated(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
 		if (canBeRepeated(syntaxElement)) {
 			return computeFirstSet(syntax, syntaxElement, contributingNonterminals);
 		} else {
-			return Collections.emptySet();
+			return new LinkedHashSet<Expectation>();
 		}
 	}
 
 	private boolean canBeRepeated(EObject syntaxElement) {
-		String cardinality = "";
+		boolean canBeRepeated = false;
 		if (syntaxElement instanceof Definition) {
 			Definition definition = (Definition) syntaxElement;
-			cardinality = definition.computeCardinalityString();
+			String cardinality = definition.computeCardinalityString();
+			canBeRepeated = "*".equals(cardinality) || "+".equals(cardinality);
 		}
-		boolean canBeEmpty = "*".equals(cardinality) || "+".equals(cardinality);
-		return canBeEmpty;
+		return canBeRepeated;
 	}
 
 	private Set<Expectation> computeFirstSetForCompound(ConcreteSyntax syntax, Rule rule,
-			CompoundDefinition compound,Set<GenClass> contributingNonterminals) {
+			CompoundDefinition compound, Set<GenClass> contributingNonterminals) {
 		Choice choice = compound.getDefinition();
 		Set<Expectation> firstSet = computeFirstSetForChoice(syntax, rule, choice, contributingNonterminals);
 		return firstSet;
@@ -226,7 +269,7 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 
-	private Set<Expectation> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence,Set<GenClass> contributingNonterminals) {
+	private Set<Expectation> computeFirstSetForSequence(ConcreteSyntax syntax, Rule rule, Sequence sequence, Set<GenClass> contributingNonterminals) {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		for (Definition definition : sequence.getParts()) {
 			Set<Expectation> firstSetForDefinition = computeFirstSetForDefinition(syntax, rule, definition, contributingNonterminals);
@@ -243,13 +286,13 @@ public class ExpectationComputer {
 		}
 		return firstSet;
 	}
-	
+
 	private Set<Expectation> computeFirstSetForDefinition(ConcreteSyntax syntax, Rule rule, Definition definition, Set<GenClass> contributingNonterminals) {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		if (definition instanceof CardinalityDefinition) {
 			firstSet.addAll(computeFirstSetForCardinalityDefinition(syntax, rule, (CardinalityDefinition) definition, contributingNonterminals));
 		} else if (definition instanceof CsString) {
-			firstSet.addAll(computeFirstSetForKeyword(syntax, (CsString) definition, contributingNonterminals));
+			firstSet.add(computeFirstSetForKeyword(syntax, (CsString) definition, contributingNonterminals));
 		} else if (definition instanceof WhiteSpaces) {
 			firstSet.add(EPSILON);
 		} else if (definition instanceof LineBreak) {
@@ -261,7 +304,7 @@ public class ExpectationComputer {
 		return firstSet;
 	}
 
-	private Set<Expectation> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition,Set<GenClass> contributingNonterminals) {
+	private Set<Expectation> computeFirstSetForCardinalityDefinition(ConcreteSyntax syntax, Rule rule, CardinalityDefinition definition, Set<GenClass> contributingNonterminals) {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 		String cardinality = definition.computeCardinalityString();
 		if ("?".equals(cardinality) || "*".equals(cardinality)) {
@@ -275,11 +318,9 @@ public class ExpectationComputer {
 		}
 		return firstSet;
 	}
-	
-	private Set<Expectation> computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword, Set<GenClass> contributingNonterminals) {
-		Set<Expectation> firstSet = new LinkedHashSet<Expectation>(1);
-		firstSet.add(new Expectation(keyword));
-		return firstSet;
+
+	private Expectation computeFirstSetForKeyword(ConcreteSyntax syntax, CsString keyword, Set<GenClass> contributingNonterminals) {
+		return new Expectation(keyword);
 	}
 
 	private Set<Expectation> computeFirstSetForTerminal(ConcreteSyntax syntax, Rule rule, Terminal terminal, Set<GenClass> contributingNonterminals) {
@@ -306,14 +347,14 @@ public class ExpectationComputer {
 		if (!ecoreReference.isContainment()) {
 			// for non-containments we add the terminal, but
 			// we do not add it for containments, because the
-			// rules for the concrete subclasses will fill the 
+			// rules for the concrete subclasses will fill the
 			// firstSet
 			firstSet.add(new Expectation(terminal));
 			return firstSet;
 		}
 		assert terminal instanceof Containment;
 		Containment containment = (Containment) terminal;
-		
+
 		// we need to consider subclass restrictions that may
 		// be set for the terminal
 		List<GenClass> subTypes = containment.getAllowedSubTypes();
