@@ -17,6 +17,8 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
@@ -50,6 +52,46 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 	}
 
+	private void addFields(StringComposite sc) {
+		sc.add("public final static String OCCURRENCE_ANNOTATION_ID = \"" + getContext().getOccurrenceAnnotationTypeID() + "\";");
+		sc.add("public final static String DECLARATION_ANNOTATION_ID = \"" + getContext().getDeclarationAnnotationTypeID() + "\";");
+		sc.addLineBreak();
+		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
+		sc.addLineBreak();
+		sc.add("private " + tokenScannerClassName + " tokenScanner;");
+		sc.add("private " + LIST + "<String> quotedTokenArray;");
+		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
+		sc.add("private " + iTextResourceClassName + " textResource;");
+		sc.add("private String tokenText = \"\";");
+		sc.add("private " + REGION + " tokenRegion;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates the Occurrence class to find position to highlight.",
+			"@param textResource the text resource for location",
+			"@param sourceViewer the source viewer for the text",
+			"@param tokenScanner the token scanner helps to find the searched tokens"
+		);
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + tokenScannerClassName + " tokenScanner) {");
+		sc.add("this.textResource = textResource;");
+		sc.add("this.projectionViewer = sourceViewer;");
+		sc.addLineBreak();
+		sc.add("quotedTokenArray = new " + ARRAY_LIST + "<String>();");
+		sc.add("String[] tokenNames = new " + metaInformationClassName + "().getTokenNames();");
+		sc.add("for (String tokenName : tokenNames) {");
+		// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
+		sc.add("if (tokenName.startsWith(\"'\") && tokenName.endsWith(\"'\")) {");
+		sc.add("quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());");
+		sc.add("}");
+		sc.add("}");
+		sc.add("this.tokenScanner = tokenScanner;");
+		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addMethods(JavaComposite sc) {
 		addGetResolvedEObjectMethod(sc);
 		addTryToResolveMethod(sc);
@@ -59,8 +101,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		addHandleOccurrenceHighlightingMethod(sc);
 		addSetHighlightingPositionsMethod(sc);
 		addAddAnnotationMethod(sc);
+		addRemoveAnnotationsMethod1(sc);
+		addRemoveAnnotationsMethod2(sc);
 		addIsToRemoveHighlightingMethod(sc);
-		addIsPositionsChangedMethod(sc);
 		addResetTokenRegionMethod(sc);
 	}
 
@@ -68,17 +111,6 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addJavadoc("Resets the token region to enable remove highlighting if the text is changing.");
 		sc.add("public void resetTokenRegion(){");
 		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addIsPositionsChangedMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Check whether the token region changed to decide to highlight or not.",
-			"@return <code>true</code> if the occurrences should be highlighted"
-		);
-		sc.add("public boolean isPositionsChanged() {");
-		sc.add("return isPositionsChanged;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -183,11 +215,13 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (caretOffset < 0 || caretOffset >= document.getLength()) {");
 		sc.add("return;");
 		sc.add("}");
+
 		sc.add("int tokenRegionOffset = tokenRegion.getOffset();");
 		sc.add("if (caretOffset >= tokenRegionOffset && caretOffset <= tokenRegionOffset + tokenRegion.getLength()) {");
-		sc.add("isPositionsChanged = false;");
+		//sc.add("isPositionsChanged = false;");
 		sc.add("return;");
 		sc.add("}");
+
 		sc.add("tokenRegion = new " + REGION + "(-1,0);");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
@@ -214,7 +248,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("tokenText = text;");
 		sc.add("tokenRegion = new " + REGION + "(tokenOffset, tokenLength);");
-		sc.add("isPositionsChanged = true;");
+		//sc.add("isPositionsChanged = true;");
+		sc.add("removeAnnotations();");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("token = tokenScanner.nextToken();");
@@ -313,46 +348,32 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc(
-			"Creates the Occurrence class to find position to highlight.",
-			"@param textResource the text resource for location",
-			"@param sourceViewer the source viewer for the text",
-			"@param tokenScanner the token scanner helps to find the searched tokens"
-		);
-		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + tokenScannerClassName + " tokenScanner) {");
-		sc.add("this.textResource = textResource;");
-		sc.add("this.projectionViewer = sourceViewer;");
-		sc.addLineBreak();
-		sc.add("quotedTokenArray = new " + ARRAY_LIST + "<String>();");
-		sc.add("String[] tokenNames = new " + metaInformationClassName + "().getTokenNames();");
-		sc.add("for (String tokenName : tokenNames) {");
-		// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
-		sc.add("if (tokenName.startsWith(\"'\") && tokenName.endsWith(\"'\")) {");
-		sc.add("quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());");
-		sc.add("}");
-		sc.add("}");
-		sc.add("this.tokenScanner = tokenScanner;");
-		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
+	private void addRemoveAnnotationsMethod1(StringComposite sc) {
+		sc.add("private void removeAnnotations() {");
+		sc.add("removeAnnotations(" + occurrenceClassName + ".OCCURRENCE_ANNOTATION_ID);");
+		sc.add("removeAnnotations(" + occurrenceClassName + ".DECLARATION_ANNOTATION_ID);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("public final static String OCCURRENCE_ANNOTATION_ID = \"" + getContext().getOccurrenceAnnotationTypeID() + "\";");
-		sc.add("public final static String DECLARATION_ANNOTATION_ID = \"" + getContext().getDeclarationAnnotationTypeID() + "\";");
-		sc.addLineBreak();
-		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
-		sc.addLineBreak();
-		sc.add("private " + tokenScannerClassName + " tokenScanner;");
-		sc.add("private " + LIST + "<String> quotedTokenArray;");
-		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
-		sc.add("private " + iTextResourceClassName + " textResource;");
-		sc.add("private String tokenText = \"\";");
-		sc.add("private " + REGION + " tokenRegion;");
-		sc.add("private boolean isPositionsChanged = true;");
+	private void addRemoveAnnotationsMethod2(StringComposite sc) {
+		sc.add("private void removeAnnotations(String annotationTypeID) {");
+		sc.add(LIST + "<" + ANNOTATION + "> annotationsToRemove = new " + ARRAY_LIST + "<" + ANNOTATION + ">();");
+		sc.add(I_ANNOTATION_MODEL + " annotationModel = projectionViewer.getAnnotationModel();");
+		sc.add(ITERATOR + "<?> annotationIterator = annotationModel.getAnnotationIterator();");
+		sc.add("while (annotationIterator.hasNext()) {");
+		sc.add("Object object = (Object) annotationIterator.next();");
+		sc.add("if (object instanceof " + ANNOTATION + ") {");
+		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") object;");
+		sc.add("if (annotationTypeID.equals(annotation.getType())) {");
+		sc.add("annotationsToRemove.add(annotation);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + ANNOTATION + " annotation : annotationsToRemove) {");
+		sc.add("annotationModel.removeAnnotation(annotation);");
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

@@ -13,13 +13,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
@@ -70,7 +67,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addMethods(JavaComposite sc) {
 		addListenersMethod(sc);
 		addSetHighlightingMethod(sc);
-		addSetCategoryHighlightingMethod(sc);
+		addSetBracketHighlightingMethod(sc);
 		addRemoveHighlightingMethod(sc);
 		addRemoveHighlightingCategoryMethod(sc);
 		addSetEObjectSelectionMethod(sc);
@@ -83,7 +80,6 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		addGetSelectionMethod(sc);
 		addSelectionChangedMethod(sc);
 		addHandleContentOutlineSelectionMethod(sc);
-		addRemoveAnnotationsMethod(sc);
 	}
 
 	private void addHandleContentOutlineSelectionMethod(StringComposite sc) {
@@ -239,54 +235,30 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.addLineBreak();
-		sc.add("removeAnnotations(" + occurrenceClassName + ".OCCURRENCE_ANNOTATION_ID);");
-		sc.add("removeAnnotations(" + occurrenceClassName + ".DECLARATION_ANNOTATION_ID);");
 		sc.add("positionHelper.removePositions(document, category);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
-	
-	private void addRemoveAnnotationsMethod(StringComposite sc) {
-		sc.add("private void removeAnnotations(String annotationTypeID) {");
-		sc.add(LIST + "<" + ANNOTATION + "> annotationsToRemove = new " + ARRAY_LIST + "<" + ANNOTATION + ">();");
-		sc.add(I_ANNOTATION_MODEL + " annotationModel = projectionViewer.getAnnotationModel();");
-		sc.add(ITERATOR + "<?> annotationIterator = annotationModel.getAnnotationIterator();");
-		sc.add("while (annotationIterator.hasNext()) {");
-		sc.add("Object object = (Object) annotationIterator.next();");
-		sc.add("if (object instanceof " + ANNOTATION + ") {");
-		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") object;");
-		sc.add("if (annotationTypeID.equals(annotation.getType())) {");
-		sc.add("annotationsToRemove.add(annotation);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("for (" + ANNOTATION + " annotation : annotationsToRemove) {");
-		sc.add("annotationModel.removeAnnotation(annotation);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
 
-	private void addRemoveHighlightingMethod(StringComposite sc) {
-		// TODO maybe rename method to removeBracketHighlighting?
+	private void addRemoveHighlightingMethod(JavaComposite sc) {
 		sc.add("private void removeHighlighting() {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
+		sc.addComment("remove highlighted matching brackets");
 		sc.add("removeHighlightingCategory(document, " + positionCategoryClassName + ".BRACKET.toString());");
+		//sc.addComment("remove annotations for occurrences and declarations");
+		//sc.add("removeOccurrenceAndDeclarationAnnotations();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSetCategoryHighlightingMethod(StringComposite sc) {
-		// TODO maybe remove the category parameter and rename method to setBracketHighlighting?
-		sc.add("private void setCategoryHighlighting(" + I_DOCUMENT + " document, String category) {");
+	private void addSetBracketHighlightingMethod(StringComposite sc) {
+		sc.add("private void setBracketHighlighting(" + I_DOCUMENT + " document) {");
 		sc.add(STYLE_RANGE + " styleRange = null;");
-		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, category);");
+		sc.add(POSITION + "[] positions = positionHelper.getPositions(document, " + positionCategoryClassName + ".BRACKET.toString());");
 		sc.addLineBreak();
 		sc.add("for (" + POSITION + " position : positions) {");
 		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
-		sc.add("if (category.equals(" + positionCategoryClassName + ".BRACKET.toString())) {");
 		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");
 		sc.add("styleRange.borderStyle = " + SWT + ".BORDER_SOLID;");
 		sc.add("styleRange.borderColor = bracketColor;");
@@ -294,7 +266,6 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("styleRange.foreground = black;");
 		sc.add("}");
 		sc.add("textWidget.setStyleRange(styleRange);");
-		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -308,7 +279,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("bracketSet.matchingBrackets();");
 		sc.add("}");
 		sc.add("occurrence.handleOccurrenceHighlighting(bracketSet);");
-		sc.add("setCategoryHighlighting(document, " + positionCategoryClassName + ".BRACKET.toString());");
+		sc.add("setBracketHighlighting(document);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
