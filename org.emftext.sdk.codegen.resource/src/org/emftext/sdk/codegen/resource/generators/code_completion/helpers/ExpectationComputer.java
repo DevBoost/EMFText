@@ -63,7 +63,7 @@ public class ExpectationComputer {
 	/**
 	 * A cache for the set of rules that are applicable for a certain GenClass.
 	 * This cache is needed because the lookup of the rules is performed very
-	 * often and perform quite bad for large syntax definitions.
+	 * often and performs quite bad for large syntax definitions.
 	 */
 	private Map<GenClass, Collection<Rule>> ruleCache = new LinkedHashMap<GenClass, Collection<Rule>>();
 
