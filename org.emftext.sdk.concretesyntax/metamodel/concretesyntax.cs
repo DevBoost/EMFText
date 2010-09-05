@@ -45,7 +45,7 @@ TOKENSTYLES {
 	// comments
 	"COMMENTS" COLOR #008000;
 
-	// other keyword
+	// other keywords
 	"ABSTRACT", "SYNTAXDEF", "FOR", "START", "IMPORTS",
 	"OPTIONS", "TOKENS", "TOKENSTYLES", "RULES" COLOR #800040, BOLD;
 	
