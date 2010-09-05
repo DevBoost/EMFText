@@ -137,6 +137,9 @@ import org.emftext.sdk.util.StringUtil;
  * (reduction using the next token). this is performed until the cursor position 
  * (end of the document) is reached.
  * 
+ * TODO mseifert: Wrap all fields which are used for code completion only in a 
+ * dedicated class 'ExpectationCollector'.
+ * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 @SyntaxDependent
@@ -855,13 +858,30 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				+ "> anonymousTokens = new " + ARRAY_LIST + "<"
 				+ COMMON_TOKEN + ">();");
 		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"The offset indicating the cursor position when the parser is used for code " +
+			"completion by calling parseToExpectedElements()."
+		);
+		sc.add("private int cursorOffset;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"The offset of the first hidden token of the last expected element. " +
+			"This offset is used to discard expected elements, which are not needed " +
+			"for code completion."
+		);
+		sc.add("private int lastStartIncludingHidden;");
+		sc.addLineBreak();
 	}
 
 	private void addParseToExpectedElementsMethod(ANTLRGrammarComposite sc) {
 		sc.add("public " + LIST + "<" + expectedTerminalClassName
-				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource) {");
-		sc.add("rememberExpectedElements = true;");
-		sc.add("parseToIndexTypeObject = type;");
+				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset) {");
+		sc.add("this.rememberExpectedElements = true;");
+		sc.add("this.parseToIndexTypeObject = type;");
+		sc.add("this.cursorOffset = cursorOffset;");
+		sc.add("this.lastStartIncludingHidden = -1;");
 		sc.add("final " + COMMON_TOKEN_STREAM + " tokenStream = (" + COMMON_TOKEN_STREAM + ") getTokenStream();");
 		sc.add(iParseResultClassName + " result = parse();");
 		sc.add("for (" + E_OBJECT + " incompleteObject : incompleteObjects) {");
@@ -1012,7 +1032,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addAddExpectedElementMethod(StringComposite sc) {
+	private void addAddExpectedElementMethod(ANTLRGrammarComposite sc) {
 		// potential memory consumption improvement:
 		//
 		// we can throw away expected elements that are not important
@@ -1029,7 +1049,15 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("return;");
 		sc.add("}");
 		sc.add("setPosition(expectedElement, input.index());");
-		//sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
+		
+		sc.add("int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();");
+		sc.add("if (lastStartIncludingHidden >= 0 && " +
+			"lastStartIncludingHidden < startIncludingHiddenTokens && " +
+			"cursorOffset > startIncludingHiddenTokens) {");
+		sc.addComment("clear list of expected elements");
+		sc.add("this.expectedElements.clear();");
+		sc.add("}");
+		sc.add("lastStartIncludingHidden = startIncludingHiddenTokens;");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
 		sc.addLineBreak();

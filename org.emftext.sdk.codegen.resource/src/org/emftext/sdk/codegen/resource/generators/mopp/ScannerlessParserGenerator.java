@@ -719,7 +719,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " resource) {");
+		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " resource, int cursorOffset) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();

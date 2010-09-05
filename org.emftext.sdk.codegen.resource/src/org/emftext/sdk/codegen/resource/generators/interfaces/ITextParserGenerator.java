@@ -51,9 +51,12 @@ public class ITextParserGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"elements null can be returned. " +
 			"This method is used by the code completion to figure out " +
 			"which proposals can be shown to users for a given cursor position. " +
-			"The class 'type' is used as start symbol."
+			"The class <code>type</code> is used as start symbol. If <code>type</code> is " +
+			"<code>null</code>, the start symbols from the syntax specification are used. " +
+			"The <code>cursorPosition</code> is used to discard expected elements, " + 
+			"which will not be needed."
 		);
-		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource);");
+		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

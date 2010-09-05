@@ -435,7 +435,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
 		sc.add(iMetaInformationClassName + " metaInformation = resource.getMetaInformation();");
 		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
-		sc.add(expectedTerminalClassName + "[] expectedElements = parseToExpectedElements(parser, resource);");
+		sc.add(expectedTerminalClassName + "[] expectedElements = parseToExpectedElements(parser, resource, cursorOffset);");
 		sc.add("if (expectedElements == null) {");
 		sc.add("return new " + completionProposalClassName + "[0];");
 		sc.add("}");
@@ -481,8 +481,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + expectedTerminalClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser, " + iTextResourceClassName + " resource) {");
-		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = parser.parseToExpectedElements(null, resource);");
+		sc.add("public " + expectedTerminalClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = parser.parseToExpectedElements(null, resource, cursorOffset);");
 		sc.add("if (expectedElements == null) {");
 		sc.add("return new " + expectedTerminalClassName + "[0];");
 		sc.add("}");
