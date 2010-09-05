@@ -523,9 +523,14 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addLoadMethod(StringComposite sc) {
-		sc.add("public void load(" + MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
+    	boolean resolveProxies = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+
+    	sc.add("public void load(" + MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
     	sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
     	sc.add("super.load(loadOptions);");
+    	if (resolveProxies) {
+        	sc.add(ECORE_UTIL + ".resolveAll(this);");
+		}
     	sc.add("}");
     	sc.addLineBreak();
 	}

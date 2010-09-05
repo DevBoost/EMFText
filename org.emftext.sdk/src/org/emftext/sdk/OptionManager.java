@@ -172,7 +172,10 @@ public class OptionManager {
 
 	public boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
-		// documented in class OptionTypes!
+		// documented in concretesyntax.ecoredoc!
+		if (option == OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING) {
+			return true;
+		}
 		if (option == OptionTypes.GENERATE_UI_PLUGIN) {
 			return true;
 		}

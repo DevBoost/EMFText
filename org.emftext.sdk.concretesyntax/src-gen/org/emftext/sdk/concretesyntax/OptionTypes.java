@@ -1728,7 +1728,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DYNAMIC_TOKEN_STYLER(215, "OVERRIDE_DYNAMIC_TOKEN_STYLER", "overrideDynamicTokenStyler");
+	OVERRIDE_DYNAMIC_TOKEN_STYLER(215, "OVERRIDE_DYNAMIC_TOKEN_STYLER", "overrideDynamicTokenStyler"), /**
+	 * The '<em><b>RESOLVE PROXY ELEMENTS AFTER PARSING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESOLVE_PROXY_ELEMENTS_AFTER_PARSING(216, "RESOLVE_PROXY_ELEMENTS_AFTER_PARSING", "resolveProxyElementsAfterParsing");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5321,6 +5329,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE = 215;
 /**
+	 * The '<em><b>RESOLVE PROXY ELEMENTS AFTER PARSING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>RESOLVE PROXY ELEMENTS AFTER PARSING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #RESOLVE_PROXY_ELEMENTS_AFTER_PARSING
+	 * @model literal="resolveProxyElementsAfterParsing"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE = 216;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5540,6 +5562,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IMAGE_PROVIDER,
 			OVERRIDE_TOKEN_STYLE,
 			OVERRIDE_DYNAMIC_TOKEN_STYLER,
+			RESOLVE_PROXY_ELEMENTS_AFTER_PARSING,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5800,6 +5823,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IMAGE_PROVIDER_VALUE: return OVERRIDE_IMAGE_PROVIDER;
 			case OVERRIDE_TOKEN_STYLE_VALUE: return OVERRIDE_TOKEN_STYLE;
 			case OVERRIDE_DYNAMIC_TOKEN_STYLER_VALUE: return OVERRIDE_DYNAMIC_TOKEN_STYLER;
+			case RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE: return RESOLVE_PROXY_ELEMENTS_AFTER_PARSING;
 		}
 		return null;
 	}
