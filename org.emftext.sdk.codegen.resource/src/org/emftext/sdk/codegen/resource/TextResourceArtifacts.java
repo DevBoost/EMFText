@@ -64,7 +64,6 @@ import org.emftext.sdk.codegen.resource.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.resource.generators.TextTokenGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolverFactoryGenerator;
-import org.emftext.sdk.codegen.resource.generators.TokenStyleInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.UnexpectedContentTypeExceptionGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.AbstractExpectedElementGenerator;
@@ -139,6 +138,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessParserGenerat
 import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.SyntaxElementDecoratorGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.TokenStyleGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.TokenStyleInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.CastUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.CopiedEListGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.CopiedEObjectInternalEListGenerator;
