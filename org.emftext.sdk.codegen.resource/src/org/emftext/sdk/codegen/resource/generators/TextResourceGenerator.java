@@ -631,11 +631,11 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
+		sc.add("private void removeDiagnostics(" + E_OBJECT + " cause, " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
     	sc.addComment("remove all errors/warnings from this resource");
     	sc.add("for (" + RESOURCE_DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + RESOURCE_DIAGNOSTIC + ">(diagnostics)) {");
     	sc.add("if (errorCand instanceof " + iTextDiagnosticClassName + ") {");
-    	sc.add("if (((" + iTextDiagnosticClassName + ") errorCand).wasCausedBy(proxy)) {");
+    	sc.add("if (((" + iTextDiagnosticClassName + ") errorCand).wasCausedBy(cause)) {");
     	sc.add("diagnostics.remove(errorCand);");
     	sc.add("}");
     	sc.add("}");
