@@ -410,7 +410,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void load(java.util.Map<?, ?> options) throws java.io.IOException {
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		super.load(loadOptions);
-		org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(this);
 	}
 	
 	public void setURI(org.eclipse.emf.common.util.URI uri) {
