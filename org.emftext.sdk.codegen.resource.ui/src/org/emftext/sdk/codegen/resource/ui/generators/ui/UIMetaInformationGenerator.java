@@ -20,15 +20,26 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
         sc.add("}");
 	}
 
-	public void addMethods(StringComposite sc) {
+	public void addMethods(JavaComposite sc) {
     	addGetHoverTextProviderMethod(sc);
     	addGetImageProviderMethod(sc);
 		addCreateColorManagerMethod(sc);
-        addCreateTokenScannerMethod(sc);
+        addCreateTokenScannerMethod1(sc);
+        addCreateTokenScannerMethod2(sc);
         addCreateCodeCompletionHelperMethod(sc);
 	}
 
-	private void addCreateTokenScannerMethod(StringComposite sc) {
+	private void addCreateTokenScannerMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+				"@deprecated this method is only provided to preserve API compatibility. " +
+				"Use createTokenScanner(" + iTextResourceClassName + ", " + colorManagerClassName + ") instead.");
+		sc.add("public " + tokenScannerClassName + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
+		sc.add("return createTokenScanner(null, colorManager);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addCreateTokenScannerMethod2(StringComposite sc) {
 		sc.add("public " + tokenScannerClassName + " createTokenScanner(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
 		sc.add("return new " + tokenScannerClassName + "(resource, colorManager);");
         sc.add("}");
