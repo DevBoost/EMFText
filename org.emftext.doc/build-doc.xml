@@ -23,7 +23,16 @@
 			</exec>
 		</sequential>
 	</macrodef>
-	
+
+	<macrodef name="htmltex">
+		<sequential>
+			<exec executable="${htlatex}" dir="latex">
+				<arg value="../latex/EMFTextGuide.tex" />
+				<env key="PATH" value="${path}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<target name="build-guide">
 		<property file="path.properties" />
 		<makepdf/>
@@ -36,11 +45,10 @@
 		<copy file="latex/EMFTextGuide.pdf" todir="pdf" />
 		<delete dir="latex/" includes="*.aux,*.log,*.out,*.lol,*.lof,*.toc,*.pdf" />
 
+		<htmltex/>
+		<htmltex/>
+		<htmltex/>
 		<!-- HTML -->
-		<exec executable="${htlatex}" dir="latex">
-			<arg value="../latex/EMFTextGuide.tex" />
-			<env key="PATH" value="${path}" />
-		</exec>
 		<move todir="html">
 			<fileset dir="latex">
 				<include name="*.html" />
@@ -48,6 +56,12 @@
 			</fileset>
 		</move>
 
+		<copy todir="html">
+			<fileset dir="latex">
+				<include name="figures/*.png" />
+			</fileset>
+		</copy>
+		
 		<!-- CLEAN UP -->
 		<delete dir="latex" includes="*.4ct,*.4tc,*.aux,*.bbl,*.blg,*.dvi,*.idv,*.lg,*.log,*.lol,*.tmp,*.xref,*.log" />
 
