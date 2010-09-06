@@ -32,7 +32,6 @@ import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.regex.ANTLRexpLexer;
@@ -45,14 +44,14 @@ import org.emftext.sdk.regex.ANTLRexpParser;
 public class RegularExpressionAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		Collection<CompleteTokenDefinition> completeTokens = CsEObjectUtil.getObjectsByType(resource.getAllContents(), ConcretesyntaxPackage.eINSTANCE.getCompleteTokenDefinition());
+	public void analyse(ConcreteSyntax syntax) {
+		Collection<CompleteTokenDefinition> completeTokens = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCompleteTokenDefinition());
 		for (CompleteTokenDefinition next : completeTokens) {
-			checkRegexp(resource, (CompleteTokenDefinition) next);
+			checkRegexp((CompleteTokenDefinition) next);
 		}
 	}
 
-	private void checkRegexp(CsResource resource, CompleteTokenDefinition tokenDefinition) {
+	private void checkRegexp(CompleteTokenDefinition tokenDefinition) {
 		String expression = tokenDefinition.getRegex();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -91,7 +90,7 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 		// add the found errors (if any) to the resource
 		for (String error : errors) {
 			if (tokenDefinition instanceof NormalTokenDefinition || tokenDefinition instanceof TokenRedefinition) {
-				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
+				addProblem(ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
 			} else if (tokenDefinition instanceof QuotedTokenDefinition) {
 				// actually this should never happen, because the regular expressions
 				// for quoted token definitions are derived and must be correct by
@@ -100,7 +99,7 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 				// quoted token
 				List<Placeholder> placeholders = tokenDefinition.getAttributeReferences();
 				for (Placeholder next : placeholders) {
-					addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, next);
+					addProblem(ECsProblemType.INVALID_REGULAR_EXPRESSION, error, next);
 				}
 			} else {
 				throw new RuntimeException("Found unknown type of token definition (" + tokenDefinition.getClass().getName() + ").");

@@ -23,7 +23,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.finders.GenClassFinder;
 
@@ -35,12 +34,7 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 	private static final String RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO = "The rule is left recursive in relation to rule: ";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
-		// stop if errors have been detected by previous analysis 
-		if (!resource.getErrors().isEmpty()) {
-			return;
-		}
-		
+	public void analyse(ConcreteSyntax syntax) {
 		GenClassFinder genClassFinder = new GenClassFinder();
 		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, true, true);
 		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses, syntax.getGenClassCache());
@@ -51,7 +45,7 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		for (Rule rule : allRules) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
-				addProblem(resource, ECsProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
+				addProblem(ECsProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
 			}
 		}
 	}

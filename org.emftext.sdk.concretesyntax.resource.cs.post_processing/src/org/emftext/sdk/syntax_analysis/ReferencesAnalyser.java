@@ -25,7 +25,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -51,7 +50,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Collection<Containment> cReferencesToAbstractClassesWithoutConcreteSubtypes = new ArrayList<Containment>();
 		Collection<Containment> cReferencesToClassesWithoutSyntax = new ArrayList<Containment>();
 		
@@ -62,13 +61,11 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 		);
 		
 		addDiagnostics(
-				resource, 
 				syntax, 
 				cReferencesToAbstractClassesWithoutConcreteSubtypes,
 				"The type (%s) of containment reference '%s' is abstract and has no concrete sub classes with defined syntax."
 		);
 		addDiagnostics(
-				resource, 
 				syntax, 
 				cReferencesToClassesWithoutSyntax,
 				"There is no syntax for the type (%s) of reference '%s'."
@@ -76,7 +73,6 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 		
 		Collection<Terminal> unchangeableReferences = findUnchangeableReferences(syntax);
 		addDiagnostics(
-				resource, 
 				syntax, 
 				unchangeableReferences,
 				"Reference '%2$s' is not changeable."
@@ -101,7 +97,6 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 	}
 
 	private void addDiagnostics(
-			CsResource resource,
 			ConcreteSyntax syntax,
 			Collection<? extends Terminal> cReferencesToAbstractClassesWithoutConcreteSubtypes,
 			String message) {
@@ -117,9 +112,9 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 			String formattedMessage = String.format(message, typeGenClass.getName(), genFeature.getName());
 			if (syntax.getModifier() != null) {
 				// for abstract syntaxes a warning is sufficient
-				addProblem(resource, ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
+				addProblem(ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
 			} else {
-				addProblem(resource, ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX, formattedMessage, next);
+				addProblem(ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX, formattedMessage, next);
 			}
 		}
 	}

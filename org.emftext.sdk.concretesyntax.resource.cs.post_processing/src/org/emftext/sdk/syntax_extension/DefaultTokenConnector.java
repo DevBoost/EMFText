@@ -23,7 +23,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.util.EObjectUtil;
 
@@ -35,7 +34,7 @@ import org.emftext.sdk.util.EObjectUtil;
 public class DefaultTokenConnector extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		String standardTokenName = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.DEFAULT_TOKEN_NAME);
 		if (standardTokenName == null) {
 			standardTokenName = EPredefinedTokens.STANDARD.getTokenName();
@@ -47,7 +46,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 		for (PlaceholderUsingDefaultToken placeholder : placeholders) {
 			// this placeholder must use the standard token
 			if (definition == null) {
-				addProblem(resource, ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
+				addProblem(ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
 			} else {
 				placeholder.setToken(definition);
 			}

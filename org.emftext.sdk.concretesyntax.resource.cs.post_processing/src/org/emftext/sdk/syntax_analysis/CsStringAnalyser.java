@@ -19,7 +19,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
@@ -30,10 +29,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 public class CsStringAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Collection<CsString> csStrings = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 		for (CsString csString : csStrings) {
-			checkNotEmpty(resource, csString);
+			checkNotEmpty(csString);
 		}
 	}
 
@@ -43,10 +42,10 @@ public class CsStringAnalyser extends AbstractPostProcessor {
 	 * @param resource
 	 * @param csString
 	 */
-	private void checkNotEmpty(CsResource resource, CsString csString) {
+	private void checkNotEmpty(CsString csString) {
 		final String value = csString.getValue();
 		if ("".equals(value)) {
-			addProblem(resource, ECsProblemType.EMPTY_CS_STRING, "Empty strings are not allowed.", csString);
+			addProblem(ECsProblemType.EMPTY_CS_STRING, "Empty strings are not allowed.", csString);
 		}
 	}
 }

@@ -23,7 +23,6 @@ import org.emftext.sdk.MinMax;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.SetFeatureBoundsQuickFix;
 
@@ -34,16 +33,16 @@ import org.emftext.sdk.quickfixes.SetFeatureBoundsQuickFix;
 public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getAllRules()) {
 			if (syntax.isImportedRule(rule)) {
 				continue;
 			}
-			analyse(resource, rule);
+			analyse(rule);
 		}
 	}
 
-	private void analyse(CsResource resource, Rule rule) {
+	private void analyse(Rule rule) {
 		Choice choice = rule.getDefinition();
 		Map<GenFeature, MinMax> featureToCountMap = new LinkedHashMap<GenFeature, MinMax>();
 		new CardinalityComputer().countOccurences(choice, featureToCountMap);
@@ -63,7 +62,6 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			int max = minMax.getMax();
 			if (!metaMinMax.enclosesMax(minMax)) {
 				addProblem(
-						resource, 
 						ECsProblemType.MAX_OCCURENCE_MISMATCH, 
 						"Maximum occurences (" + max + ") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", 
 						rule, 
@@ -72,7 +70,6 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			int min = minMax.getMin();
 			if (metaMinMax.getMin() != minMax.getMin()) {
 				addProblem(
-						resource, 
 						ECsProblemType.MIN_OCCURENCE_MISMATCH, 
 						"Minimum occurences (" + min + ") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", 
 						rule, 

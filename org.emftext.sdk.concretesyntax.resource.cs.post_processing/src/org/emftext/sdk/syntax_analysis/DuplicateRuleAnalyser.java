@@ -22,7 +22,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -32,7 +31,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		GenClassCache genClassCache = syntax.getGenClassCache();
 
 		final EList<Rule> allRules = syntax.getAllRules();
@@ -61,9 +60,9 @@ public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 			}
 			if (duplicates.size() > 0) {
 				final String message = "Found duplicate rule for meta class \"" + genClass_i.getName() + "\" (may be imported).";
-				addProblem(resource, ECsProblemType.DUPLICATE_RULE, message, rule_i);
+				addProblem(ECsProblemType.DUPLICATE_RULE, message, rule_i);
 				for (Rule duplicate : duplicates) {
-					addProblem(resource, ECsProblemType.DUPLICATE_RULE, message, duplicate);
+					addProblem(ECsProblemType.DUPLICATE_RULE, message, duplicate);
 				}
 			}
 		}

@@ -23,7 +23,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil;
 import org.emftext.sdk.finders.GenClassFinder;
@@ -39,7 +38,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 	private static final CsEClassUtil eClassUtil = new CsEClassUtil();
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		GenClassCache genClassCache = syntax.getGenClassCache();
 		GenClassFinder genClassFinder = new GenClassFinder();
 		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false, false);
@@ -70,7 +69,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			}
 			if (!foundRuleForClass) {
 				ECsProblemType problemType = ECsProblemType.NO_RULE_FOR_META_CLASS;
-				addProblem(resource, problemType, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1, new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
+				addProblem(problemType, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1, new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
 			}
 		}
 	}

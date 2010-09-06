@@ -23,7 +23,6 @@ import java.util.Set;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -34,7 +33,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		List<String> tokenNames = new ArrayList<String>();
 		Map<String, Set<TokenStyle>> duplicates = new LinkedHashMap<String, Set<TokenStyle>>();
 		
@@ -57,7 +56,7 @@ public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 		// add warnings
 		for (String duplicateName : duplicates.keySet()) {
 			for (TokenStyle tokenStyle : duplicates.get(duplicateName)) {
-				addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + duplicateName + "\" is already defined (potentially in imported syntax).", tokenStyle);
+				addProblem(ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + duplicateName + "\" is already defined (potentially in imported syntax).", tokenStyle);
 			}
 		}
 	}

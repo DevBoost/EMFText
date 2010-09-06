@@ -13,7 +13,6 @@ import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.TokenDirective;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -26,11 +25,10 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 		"The regular expression for token %s is cyclic.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Collection<NamedTokenDefinition> cyclicTokens = findCyclicTokens(syntax);
 		for (NamedTokenDefinition cyclicToken : cyclicTokens) {
 			addProblem(
-					resource,
 					ECsProblemType.CYCLIC_TOKEN_DEFINITION,
 					String.format(CYCLIC_TOKEN_DEFINITIONS_NOT_ALLOWED, cyclicToken.getName()),
 					cyclicToken);

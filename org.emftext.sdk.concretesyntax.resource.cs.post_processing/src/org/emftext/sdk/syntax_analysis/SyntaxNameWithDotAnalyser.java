@@ -17,7 +17,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -39,7 +38,7 @@ public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 		"If the syntax name contains one dot, the option '" + OptionTypes.BASE_RESOURCE_PLUGIN.getLiteral() + "' needs to be specified.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		int numberOfDots = syntax.getName().split("\\.").length - 1;
 		
 		if (numberOfDots == 1) {
@@ -50,7 +49,6 @@ public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 				}
 			}
 			addProblem(
-					resource,
 					ECsProblemType.SYNTAX_NAME_CONTAINS_DOTS,
 					BASE_RESOURCE_PLUGIN_OPTION_MISSING,
 					syntax);
@@ -58,7 +56,6 @@ public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 		}
 		if (numberOfDots > 1) {
 			addProblem(
-					resource,
 					ECsProblemType.SYNTAX_NAME_CONTAINS_DOTS,
 					SYNTAX_NAME_MAY_CONTAIN_ONE_DOT_MAX,
 					syntax);

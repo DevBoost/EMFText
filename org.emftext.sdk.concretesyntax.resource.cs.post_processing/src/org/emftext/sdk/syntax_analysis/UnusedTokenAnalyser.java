@@ -27,7 +27,6 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
@@ -39,7 +38,7 @@ import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 public class UnusedTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		boolean useClassicPrinter = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.USE_CLASSIC_PRINTER);
 		if (!useClassicPrinter) {
 			// the modern printer (printer2) does not discard unused tokens.
@@ -75,7 +74,6 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 				quickFixes.add(new AddSuppressWarningsAnnotationQuickFix(normalToken, problemType));
 				// add warnings
 				addProblem(
-						resource, 
 						problemType, 
 						"Token " + definition.getName() + " is not used and will be discarded during parsing.", 
 						definition,

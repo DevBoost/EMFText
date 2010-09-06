@@ -25,7 +25,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -38,7 +37,7 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 		"Feature %s has a non-containment opposite feature. The opposite is only established after reference resolving: %s";
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		// maps references that have syntax and a non-containment opposite to
 		// the rule which defined the syntax for the reference
 		Map<EReference, Set<Rule>> referencesWithSyntaxAndNCOpposite = new LinkedHashMap<EReference, Set<Rule>>();
@@ -77,7 +76,6 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 				);
 				for (Rule containingRule : containingRules) {
 					addProblem(
-							resource,
 							ECsProblemType.NON_CONTAINMENT_OPPOSITE,
 							message,
 							containingRule);

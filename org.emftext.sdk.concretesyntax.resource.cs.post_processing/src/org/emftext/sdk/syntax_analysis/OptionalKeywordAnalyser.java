@@ -24,7 +24,6 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -38,7 +37,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 		"The keyword might be used stand alone and will not be reprinted in such case: ";
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		for(Iterator<EObject> i = syntax.eAllContents(); i.hasNext(); ) {
 			EObject next = i.next();
 			if (next instanceof CompoundDefinition) {
@@ -62,7 +61,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 							for (Definition definition : sequence.getParts()) {
 								if (definition instanceof CsString) {
 									CsString csString = (CsString) definition;
-									addProblem(resource,
+									addProblem(
 											ECsProblemType.OPTIONAL_KEYWORD,
 											OPTIONAL_KEYWORD_WARNING + csString.getValue(),
 											definition);

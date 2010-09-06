@@ -40,7 +40,6 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.util.EObjectUtil;
 
@@ -60,7 +59,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 		"The feature is used multiple times. Reprinting may fail for feature: ";
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getRules()) {
 			Collection<Terminal> allTerminals = collectAllTerminals(rule);
 			Map<GenFeature, Set<Terminal>> featureToTerminalsMap = groupTerminalsByFeature(allTerminals);
@@ -80,7 +79,6 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 				if (canCauseReprintProblem(rule.getDefinition(), feature)) {
 					for (Terminal terminal : terminals) {
 						addProblem(
-								resource,
 								ECsProblemType.MULTIPLE_FEATURE_USE,
 								MULTIPLE_FEATURE_WARNING + feature.getName(),
 								terminal);

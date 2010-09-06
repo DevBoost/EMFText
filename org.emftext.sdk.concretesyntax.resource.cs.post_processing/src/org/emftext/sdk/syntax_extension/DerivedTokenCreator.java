@@ -23,7 +23,6 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.util.EObjectUtil;
 
 /**
@@ -35,7 +34,7 @@ import org.emftext.sdk.util.EObjectUtil;
 public class DerivedTokenCreator extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		AntlrTokenDerivator tokenDerivator = new AntlrTokenDerivator();
 
 		Collection<PlaceholderInQuotes> quotedPlaceholders = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());

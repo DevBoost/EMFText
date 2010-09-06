@@ -16,7 +16,6 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 
@@ -35,16 +34,15 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 	private static final String EMPTY_COMPOUND_MESSAGE = "Compounds with * or + must not allow empty syntax.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		EList<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
 			EList<SyntaxElement> children = rule.getChildren();
-			checkCompounds(resource, children);
+			checkCompounds(children);
 		}
 	}
 
-	private void checkCompounds(CsResource resource,
-			EList<SyntaxElement> children) {
+	private void checkCompounds(EList<SyntaxElement> children) {
 		for (SyntaxElement syntaxElement : children) {
 			if (syntaxElement instanceof CompoundDefinition) {
 				CompoundDefinition compound = (CompoundDefinition) syntaxElement;
@@ -52,11 +50,11 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 					compound.getCardinality() instanceof STAR) {
 					// check whether the compound allows the empty sentence
 					if (canBeEmpty(compound.getDefinition())) {
-						addProblem(resource, ECsProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
+						addProblem(ECsProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
 					}
 				}
 			}
-			checkCompounds(resource, syntaxElement.getChildren());
+			checkCompounds(syntaxElement.getChildren());
 		}
 	}
 

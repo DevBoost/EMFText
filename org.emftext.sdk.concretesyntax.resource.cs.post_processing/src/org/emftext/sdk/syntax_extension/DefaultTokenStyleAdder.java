@@ -14,7 +14,6 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
@@ -40,7 +39,7 @@ public class DefaultTokenStyleAdder extends AbstractTokenStylePostProcessor {
 	private static final String COMMENT_COLOR = "3F805D";
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		EList<TokenStyle> allStyles = syntax.getAllTokenStyles();
 		// add default styles
 		addTokenStylesForKeywords(syntax, allStyles);

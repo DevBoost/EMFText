@@ -18,7 +18,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -30,7 +29,7 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel (%s) is invalid. Please reconcile it. Error message is '%s'.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		GenPackage genPackage = syntax.getPackage();
 		if (genPackage == null || genPackage.eIsProxy()) {
 			return;
@@ -40,10 +39,10 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 			return;
 		}
 		IStatus status = genModel.validate();
-		addProblems(genModel, resource, status);
+		addProblems(genModel, status);
 	}
 
-	private void addProblems(GenModel genModel, CsResource resource, IStatus... statusObjects) {
+	private void addProblems(GenModel genModel, IStatus... statusObjects) {
 		for (IStatus status : statusObjects) {
 			if (status.getSeverity() == IStatus.ERROR) {
 				// we give more detailed information about what is wrong
@@ -55,8 +54,8 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 				// caused by missing information.
 				String path = genModel.eResource().getURI().toString();
 				String message = status.getMessage();
-				addProblem(resource, ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path, message), 0, 0, 0, 0);
-				addProblems(genModel, resource, status.getChildren());
+				addProblem(ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path, message), 0, 0, 0, 0);
+				addProblems(genModel, status.getChildren());
 			}
 		}
 	}

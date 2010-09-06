@@ -31,7 +31,6 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.SorterException;
 
@@ -44,7 +43,7 @@ import org.emftext.sdk.regex.SorterException;
 public class TokenDefinitionMerger extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
     	boolean disableTokenSorting = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.DISABLE_TOKEN_SORTING);
 
     	List<CompleteTokenDefinition> allImportedTokens = new ArrayList<CompleteTokenDefinition>();
@@ -156,7 +155,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 					continue;
 				}
 				if (countOccurrences(mergeResult, namedToken) > 1) {
-	    			addProblem(resource, ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + namedToken.getName() + " must be overridden, because it has different definitions.", syntax);
+	    			addProblem(ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + namedToken.getName() + " must be overridden, because it has different definitions.", syntax);
 				}
 				handledTokenNames.add(namedToken.getName());
 			}
@@ -185,7 +184,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 					String message = 
 						"Token priorities are ignored since token sorting is enabled. " + 
 						"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting.";
-					addProblem(resource, ECsProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
+					addProblem(ECsProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
 				}
 			} else {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
@@ -202,7 +201,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     			String message = 
     				"Automatic token sorting failed. " +
 					"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting and define token order manually.";
-				addProblem(resource, ECsProblemType.TOKEN_SORTING_FAILED, message, syntax);
+				addProblem(ECsProblemType.TOKEN_SORTING_FAILED, message, syntax);
     		}
 		}
 		

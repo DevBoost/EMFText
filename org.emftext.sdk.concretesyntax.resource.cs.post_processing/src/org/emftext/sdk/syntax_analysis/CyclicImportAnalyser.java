@@ -19,7 +19,6 @@ import java.util.Collection;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 public class CyclicImportAnalyser extends AbstractPostProcessor {
@@ -28,11 +27,10 @@ public class CyclicImportAnalyser extends AbstractPostProcessor {
 		"The syntax %s is imported cyclic.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Collection<Import> cyclicImports = findCyclicImports(syntax);
 		for (Import cyclicImport : cyclicImports) {
 			addProblem(
-					resource,
 					ECsProblemType.CYCLIC_SYNTAX_IMPORT,
 					String.format(CYCLIC_SYNTAX_IMPORT_IS_NOT_ALLOWED, cyclicImport.getConcreteSyntax().getName()),
 					cyclicImport);

@@ -22,7 +22,6 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
@@ -32,7 +31,7 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 		"Token %s will never be matched here, since it is a collect-in token.";
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<Placeholder> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
@@ -44,7 +43,6 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 					CompleteTokenDefinition completeDefinition = (CompleteTokenDefinition) token;
 					if (completeDefinition.getAttributeName() != null) {
 						addProblem(
-								resource,
 								ECsProblemType.COLLECT_IN_TOKEN_USED_IN_RULE,
 								String.format(COLLECT_IN_TOKEN_USED_IN_RULE_WARNING, token.getName()),
 								placeholder);

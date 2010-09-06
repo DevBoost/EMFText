@@ -21,8 +21,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -40,18 +38,18 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 	public final static String MESSAGE_2 = "The quoted token must be consistently used with the same escape character.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
 		Collection<CompleteTokenDefinition> handledTokens = new LinkedHashSet<CompleteTokenDefinition>(); 
 		for (CompleteTokenDefinition tokenDefinition : tokens) {
 			if (tokenDefinition instanceof QuotedTokenDefinition) {
-				checkEscapeCharacterConsistency(resource, tokens,
+				checkEscapeCharacterConsistency(tokens,
 						handledTokens, tokenDefinition);
 			}
 		}
 	}
 
-	private void checkEscapeCharacterConsistency(CsResource resource,
+	private void checkEscapeCharacterConsistency(
 			List<CompleteTokenDefinition> tokens,
 			Collection<CompleteTokenDefinition> handledTokens,
 			CompleteTokenDefinition tokenDefinition) {
@@ -92,14 +90,14 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 					if (escapeCharacter2 == null) {
 						continue;
 					} else {
-						addProblem(resource, quotedToken, quotedToken2, MESSAGE_1);
+						addProblem(quotedToken, quotedToken2, MESSAGE_1);
 					}
 				} else {
 					if (escapeCharacter2 == null) {
-						addProblem(resource, quotedToken, quotedToken2, MESSAGE_1);
+						addProblem(quotedToken, quotedToken2, MESSAGE_1);
 					} else {
 						if (!escapeCharacter1.equals(escapeCharacter2)) {
-							addProblem(resource, quotedToken, quotedToken2, MESSAGE_2);
+							addProblem(quotedToken, quotedToken2, MESSAGE_2);
 						}
 					}
 				}
@@ -107,8 +105,8 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private void addProblem(CsResource resource, QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
-		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken1.getAttributeReferences().get(0));
-		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken2.getAttributeReferences().get(0));
+	private void addProblem(QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
+		addTokenProblem(ECsProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken1);
+		addTokenProblem(ECsProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken2);
 	}
 }

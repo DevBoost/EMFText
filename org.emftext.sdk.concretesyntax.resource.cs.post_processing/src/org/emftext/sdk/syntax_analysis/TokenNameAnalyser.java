@@ -20,7 +20,6 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -30,15 +29,15 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidCapitalization(syntax);
 		for (CompleteTokenDefinition next : wrongDefinitions) {
-			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
+			addProblem(ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
 		}
 
 		wrongDefinitions = getTokenDefinitionsWithDashes(syntax);
 		for (CompleteTokenDefinition next : wrongDefinitions) {
-			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
+			addProblem(ECsProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
 		}
 	}
 

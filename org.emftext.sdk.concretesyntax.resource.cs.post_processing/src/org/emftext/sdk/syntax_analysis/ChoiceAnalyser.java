@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
@@ -34,7 +33,7 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Iterator<EObject> iterator = syntax.eAllContents();
 		while (iterator.hasNext()) {
 			EObject next = iterator.next();
@@ -42,7 +41,6 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 				Choice choice = (Choice) next;
 				if (choice.getChildren().size() > 1) {
 					addProblem(
-							resource,
 							ECsProblemType.EXPLICIT_SYNTAX_CHOICE,
 							EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS,
 							choice);

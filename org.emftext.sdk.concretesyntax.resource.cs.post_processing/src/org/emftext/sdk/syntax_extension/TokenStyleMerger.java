@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 /**
  * The TokenStyleMerger reads all token styles from imported syntaxes and
@@ -28,7 +27,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 public class TokenStyleMerger extends AbstractTokenStylePostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		EList<TokenStyle> allStyles = syntax.getAllTokenStyles();
 		allStyles.addAll(syntax.getTokenStyles());
 		

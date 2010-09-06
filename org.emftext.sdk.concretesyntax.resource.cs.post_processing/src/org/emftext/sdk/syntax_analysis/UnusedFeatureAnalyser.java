@@ -33,7 +33,6 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 
@@ -44,7 +43,7 @@ import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		// get collect-in feature to tag them as used
 
 		Map<EStructuralFeature, Rule> unusedReferencesWithOpposite = new LinkedHashMap<EStructuralFeature, Rule>();
@@ -75,7 +74,6 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					} else {
 						ECsProblemType problemType = ECsProblemType.FEATURE_WITHOUT_SYNTAX;
 						addProblem(
-								resource, 
 								problemType, 
 								"Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", 
 								rule,
@@ -98,8 +96,8 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 				Rule rule1 = unusedReferencesWithOpposite.get(feature);
 				Rule rule2 = unusedReferencesWithOpposite.get(opposite);
 
-				addProblem(resource, ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
-				addProblem(resource, ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
+				addProblem(ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
+				addProblem(ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
 			}
 		}
 	}

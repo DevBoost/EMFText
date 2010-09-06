@@ -27,7 +27,6 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 import org.emftext.sdk.quickfixes.RemoveResolverQuickFix;
@@ -44,7 +43,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 	private NameUtil nameUtil = new NameUtil();
 	
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		// this analyser does only work when the platform is running, because
 		// it needs the workspace to determine the folder the text resource 
 		// is generated to
@@ -75,7 +74,6 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 					quickFixes.add(new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
 					// issue warning about unused resolver
 					addProblem(
-							resource, 
 							problemType, 
 							"Found unused class '" + fileName + "' in analysis package.", 
 							syntax, 

@@ -18,19 +18,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.antlr.runtime3_2_0.RecognitionException;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.emftext.sdk.regex.SorterException;
@@ -40,7 +36,7 @@ import org.emftext.sdk.util.ToStringConverter;
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = Collections.emptyMap();
 		EList<CompleteTokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
@@ -49,13 +45,13 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 			conflicting = tokenSorter.getConflicting(allTokenDefinitions);
 			List<CompleteTokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
 			for (CompleteTokenDefinition tokenDirective : directivesMatchingEmptyString) {
-				addTokenProblem(resource, ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
+				addTokenProblem(ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition '" + tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
 			}
 			unreachable = tokenSorter.getNonReachables(allTokenDefinitions);
 		} catch (Exception e) {
-			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
+			addProblem(ECsProblemType.TOKEN_UNREACHABLE,
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
@@ -69,7 +65,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 				}
 				
 			});
-			addTokenProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
+			addTokenProblem(ECsProblemType.TOKEN_UNREACHABLE,
 					"The token definition '" + tokenDirective.getRegex()
 							+ "' is not reachable because of previous tokens " + conflictingTokens, tokenDirective);
 
@@ -81,31 +77,10 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 				nameSet.add(nextDefinition.getName());
 			}
 			String names = StringUtil.explode(nameSet, ", ");
-			addTokenProblem(resource, ECsProblemType.TOKEN_OVERLAPPING,
+			addTokenProblem(ECsProblemType.TOKEN_OVERLAPPING,
 					"The token definition " + tokenDirective.getName()
 							+ " overlaps with previous token definition(s) (" + names + ").",
 					tokenDirective);
-		}
-	}
-
-	private void addTokenProblem(
-			CsResource resource,
-			ECsProblemType type, 
-			String message,
-			CompleteTokenDefinition definition) {
-		Set<EObject> causes = new LinkedHashSet<EObject>();
-		// problems that refer to quoted definition must be added to the placeholders,
-		// because the tokens were created automatically and do thus not exist in the
-		// syntax physically
-		if (definition instanceof QuotedTokenDefinition) {
-			QuotedTokenDefinition quotedDefinition = (QuotedTokenDefinition) definition;
-			causes.addAll(quotedDefinition.getAttributeReferences());
-		} else {
-			causes.add(definition);
-		}
-		
-		for (EObject cause : causes) {
-			addProblem(resource, type, message, cause);
 		}
 	}
 

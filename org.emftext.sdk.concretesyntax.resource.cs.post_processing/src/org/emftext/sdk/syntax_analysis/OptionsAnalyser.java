@@ -26,7 +26,6 @@ import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 
@@ -51,20 +50,19 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	}
 
 	@Override
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		// first analyze options individually
 		List<Option> options = syntax.getOptions();
 		for (Option option : options) {
-			analyseOption(resource, option);
+			analyseOption(option);
 		}
 		// second, analyze option conflicts
-		analyseOptionConflicts(resource, syntax, options);
+		analyseOptionConflicts(syntax, options);
 		// third, analyze that options are set at most once
-		analyseDuplicateOption(resource, syntax, options);
+		analyseDuplicateOption(syntax, options);
 	}
 
-	private void analyseDuplicateOption(CsResource resource,
-			ConcreteSyntax syntax, List<Option> options) {
+	private void analyseDuplicateOption(ConcreteSyntax syntax, List<Option> options) {
 		Map<OptionTypes, Option> setOptions = new LinkedHashMap<OptionTypes, Option>();
 		for (Option option : options) {
 			OptionTypes type = option.getType();
@@ -75,11 +73,11 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 				if (valueBefore.equals(option.getValue())) {
 					// values are the same - issues a warning
 					String message = String.format(DUPLICATE_OPTION_FOUND, option.getType().getLiteral(), "same");
-					addProblem(resource, ECsProblemType.DUPLICATE_OPTION_WITH_SAME_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
+					addProblem(ECsProblemType.DUPLICATE_OPTION_WITH_SAME_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
 				} else {
 					// values are different - issues an error
 					String message = String.format(DUPLICATE_OPTION_FOUND, option.getType().getLiteral(), "different");
-					addProblem(resource, ECsProblemType.DUPLICATE_OPTION_WITH_DIFFERENT_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
+					addProblem(ECsProblemType.DUPLICATE_OPTION_WITH_DIFFERENT_VALUE, message, option, new RemoveElementQuickFix("Remove option", option));
 				}
 			}
 			setOptions.put(type, option);
@@ -89,13 +87,12 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	/**
 	 * Checks whether the grammar contains conflicting options.
 	 */
-	private void analyseOptionConflicts(CsResource resource, ConcreteSyntax syntax, List<Option> options) {
-		checkForClassicPrinterAutomaticTokenSpaceConflict(resource, syntax, options);
-		checkPluginIdConflict(resource, syntax, options);
+	private void analyseOptionConflicts(ConcreteSyntax syntax, List<Option> options) {
+		checkForClassicPrinterAutomaticTokenSpaceConflict(syntax, options);
+		checkPluginIdConflict(syntax, options);
 	}
 
 	private void checkPluginIdConflict(
-			CsResource resource,
 			ConcreteSyntax syntax, 
 			List<Option> options) {
 		
@@ -118,7 +115,6 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			// antlrPluginID == resourcePluginID
 			String message = "The ID for the resource plug-ins must be different from the ANTLR commons plug-in.";
 			addProblem(
-					resource, 
 					ECsProblemType.PLUGIN_ID_CONFLICT, 
 					message, 
 					optionManager.findOptionByType(options, OptionTypes.RESOURCE_PLUGIN_ID)
@@ -129,7 +125,6 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			if (pluginIDs.size() == 1) {
 				// antlrPluginID == resourcePluginID == resourceUIPluginID
 				addProblem(
-						resource, 
 						ECsProblemType.PLUGIN_ID_CONFLICT, 
 						message, 
 						optionManager.findOptionByType(options, OptionTypes.RESOURCE_UI_PLUGIN_ID)
@@ -143,7 +138,6 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			if (pluginIDs.size() > 0 && pluginIDs.size() < setPluginIDs) {
 				// (antlrPluginID || resourcePluginID) == resourceUIPluginID
 				addProblem(
-						resource, 
 						ECsProblemType.PLUGIN_ID_CONFLICT, 
 						"The ID for the resource UI plug-in must be different from the ANTLR commons plug-in and the resource plug-in.", 
 						optionManager.findOptionByType(options, OptionTypes.RESOURCE_UI_PLUGIN_ID)
@@ -155,14 +149,13 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	}
 
 	private void checkForClassicPrinterAutomaticTokenSpaceConflict(
-			CsResource resource, ConcreteSyntax syntax, List<Option> options) {
+			ConcreteSyntax syntax, List<Option> options) {
 		OptionManager optionManager = OptionManager.INSTANCE;
 		boolean useClassicPrinter = optionManager.getBooleanOptionValue(syntax, OptionTypes.USE_CLASSIC_PRINTER);
 		if (useClassicPrinter) {
 			String tokenSpace = optionManager.getStringOptionValue(syntax, OptionTypes.TOKENSPACE);
 			if (TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpace)) {
 				addProblem(
-						resource, 
 						ECsProblemType.AUTOMATIC_TOKEN_SPACE_CONFLICT_WITH_CLASSIC_PRINTER, 
 						"Value '" + TOKEN_SPACE_VALUE_AUTOMATIC + "' is not compatible with the classic printer.", 
 						optionManager.findOptionByType(options, OptionTypes.TOKENSPACE)
@@ -171,71 +164,67 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private void analyseOption(CsResource resource, Option option) {
+	private void analyseOption(Option option) {
 		OptionTypes type = option.getType();
 		String value = option.getValue();
-		checkValue(resource, option, type, value);
-		checkForNonStandard(resource, option, type);
+		checkValue(option, type, value);
+		checkForNonStandard(option, type);
 	}
 
-	private void checkForNonStandard(CsResource resource, Option option,
+	private void checkForNonStandard(Option option,
 			OptionTypes type) {
 		if (NON_STANDARD_OPTIONS.contains(type)) {
-			addProblem(resource, ECsProblemType.NON_STANDARD_OPTION, type.getLiteral() + " is a non-standard option, which might not be supported in future versions.", option);
+			addProblem(ECsProblemType.NON_STANDARD_OPTION, type.getLiteral() + " is a non-standard option, which might not be supported in future versions.", option);
 		}
 	}
 
-	private void checkValue(CsResource resource, Option option, OptionTypes type, String value) {
+	private void checkValue(Option option, OptionTypes type, String value) {
 		if (BOOLEAN_OPTIONS.contains(type)) {
-			checkBooleanValue(resource, option, type, value);
+			checkBooleanValue(option, type, value);
 		} else if (type == OptionTypes.PARSER_GENERATOR) {
-			checkParserGeneratorValue(resource, option, value);
+			checkParserGeneratorValue(option, value);
 		} else if (STRING_OPTIONS.contains(type)) {
 			// string values are accepted as they are
 		} else if (type == OptionTypes.TOKENSPACE) {
-			checkTokenspaceValue(resource, option, value);
+			checkTokenspaceValue(option, value);
 		} else if (type == OptionTypes.DEFAULT_TOKEN_NAME) {
-			checkDefaultTokenNameValue(resource, option, value);
+			checkDefaultTokenNameValue(option, value);
 		} else {
-			addProblem(resource, ECsProblemType.UNKNOWN_OPTION, "Unknown option (" + type + ").", option);
+			addProblem(ECsProblemType.UNKNOWN_OPTION, "Unknown option (" + type + ").", option);
 		}
 	}
 
-	private void checkParserGeneratorValue(CsResource resource,
-			Option option, String value) {
+	private void checkParserGeneratorValue(Option option, String value) {
 		if (!OptionManager.ANTLR.equals(value) && !OptionManager.SCALES.equals(value)) {
-			addProblem(resource, ECsProblemType.INVALID_PARSER_GENERATOR, "Invalid parser generator (Valid generators are: " + OptionManager.ANTLR + ", " + OptionManager.SCALES + ").", option);
+			addProblem(ECsProblemType.INVALID_PARSER_GENERATOR, "Invalid parser generator (Valid generators are: " + OptionManager.ANTLR + ", " + OptionManager.SCALES + ").", option);
 		}
 	}
 
-	private void checkDefaultTokenNameValue(CsResource resource,
-			Option option, String value) {
+	private void checkDefaultTokenNameValue(Option option, String value) {
 		if (value == null || value.length() < 2) {
-			addProblem(resource, ECsProblemType.INVALID_DEFAULT_TOKEN_NAME, "Please provide a String with at least two letters.", option);
+			addProblem(ECsProblemType.INVALID_DEFAULT_TOKEN_NAME, "Please provide a String with at least two letters.", option);
 		}
 	}
 
-	private void checkTokenspaceValue(CsResource resource, Option option,
-			String value) {
+	private void checkTokenspaceValue(Option option, String value) {
 		if (TOKEN_SPACE_VALUE_AUTOMATIC.equals(value)) {
 			return;
 		}
 		try {
 			int v = Integer.parseInt(value);
 			if (v < 0) {
-				addProblem(resource, ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_POSITIVE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
+				addProblem(ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_POSITIVE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
 			}
 		} catch (NumberFormatException e) {
-			addProblem(resource, ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
+			addProblem(ECsProblemType.TOKEN_SPACE_VALUE_MUST_BE_INTEGER, TOKEN_SPACE_VALUE_ERROR_MESSAGE, option);
 		}
 	}
 
-	private void checkBooleanValue(CsResource resource, Option option,
-			OptionTypes type, String value) {
+	private void checkBooleanValue(Option option, OptionTypes type, String value) {
 		boolean isTrue = "true".equals(value);
 		boolean isFalse = "false".equals(value);
 		if (!isTrue && !isFalse) {
-			addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_BOOLEAN, "Only boolean values: 'true' or 'false' are supported.", option);
+			addProblem(ECsProblemType.OPTION_VALUE_MUST_BE_BOOLEAN, "Only boolean values: 'true' or 'false' are supported.", option);
 		}
 	}
 }

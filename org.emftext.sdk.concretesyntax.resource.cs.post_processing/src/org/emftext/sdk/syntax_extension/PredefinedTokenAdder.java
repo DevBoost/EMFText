@@ -22,7 +22,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 /**
  * The PreDefinedTokenAdder adds all predefined tokens to the syntax
@@ -30,7 +29,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
  */
 public class PredefinedTokenAdder extends AbstractPostProcessor {
 
-	public void analyse(CsResource resource, ConcreteSyntax syntax) {
+	public void analyse(ConcreteSyntax syntax) {
 		boolean usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.USE_PREDEFINED_TOKENS);
 		if (!usePredefinedTokens) {
 			return;
