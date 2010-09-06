@@ -54,6 +54,7 @@ public class PostProcessingContext {
 		
 		public WrappedPositionBasedProblem(ICsProblem problem, int i1, int i2, int i3, int i4) {
 			super();
+			this.problem = problem;
 			this.i1 = i1;
 			this.i2 = i2;
 			this.i3 = i3;
@@ -107,8 +108,9 @@ public class PostProcessingContext {
 	}
 
 	public boolean hasErrors() {
-		for (IProblemWrapper problem : problems) {
-			if (problem.getProblem().getType() == CsEProblemType.ERROR) {
+		for (IProblemWrapper wrappedProblem : problems) {
+			ICsProblem problem = wrappedProblem.getProblem();
+			if (problem.getType() == CsEProblemType.ERROR) {
 				return true;
 			}
 		}
