@@ -1,4 +1,4 @@
-EMFText currently supports 210 code generation options. However, most of them (177) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 215 code generation options. However, most of them (181) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -138,6 +138,11 @@ If set to \texttt{false}, the AntlrTokenHelper class will not be overridden. The
 \noindent\texttt{overrideAttributeValueProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the AttributeValueProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideBooleanTerminal}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the BooleanTerminal class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideBracketInformationProvider}
@@ -285,6 +290,11 @@ If set to \texttt{false}, the DocBrowserInformationControlInput class will not b
 If set to \texttt{false}, the DummyEObject class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideDynamicTokenStyler}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DynamicTokenStyler class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideEClassUtil}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the EClassUtil class will not be overridden. The default value for this option is \texttt{true}.
@@ -318,6 +328,11 @@ If set to \texttt{false}, the EditorConfiguration class will not be overridden. 
 \noindent\texttt{overrideElementMapping}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the ElementMapping class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideExpectedBooleanTerminal}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideExpectedCsString}
@@ -670,14 +685,14 @@ If set to \texttt{false}, the new file wizard class will not be overridden. The 
 If set to \texttt{false}, the NewFileWizardPage class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
-\noindent\texttt{overrideOccurencePreferencePage}
-\begin{myindentpar}{1cm}
-If set to \texttt{false}, the OccurencePreferencePage class will not be overridden. The default value for this option is \texttt{true}.
-\end{myindentpar}
-
 \noindent\texttt{overrideOccurrence}
 \begin{myindentpar}{1cm}
-If set to \texttt{false}, the Occurence class will not be overridden. The default value for this option is \texttt{true}.
+If set to \texttt{false}, the Occurrence class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOccurrencePreferencePage}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OccurrencePreferencePage class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideOutlinePage}
@@ -925,6 +940,11 @@ If set to \texttt{true}, the token resolver classes will be overridden. The defa
 If set to \texttt{false}, the TokenScanner class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideTokenStyle}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the TokenStyle class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideTokenStyleInformationProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the TokenStyleInformationProvider class will not be overridden. The default value for this option is \texttt{true}.
@@ -993,6 +1013,11 @@ The name of the parser generator to use. The default value for this option is \t
 \noindent\texttt{reloadGeneratorModel}
 \begin{myindentpar}{1cm}
 If set to \texttt{true}, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is \texttt{false}.
+\end{myindentpar}
+
+\noindent\texttt{resolveProxyElementsAfterParsing}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the generated resource class will not resolve references after parsing. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{resourcePluginID}
