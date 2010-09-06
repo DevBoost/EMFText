@@ -83,6 +83,7 @@ public class OptionManager {
 		booleanOptions.add(OptionTypes.DISABLE_EVALIDATORS);
 		booleanOptions.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
 		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
+		booleanOptions.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
