@@ -28,6 +28,15 @@ public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	}
 	
+	/**
+	 * @deprecated this method is only provided to preserve API compatibility. Use
+	 * createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource,
+	 * org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager) instead.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+		return createTokenScanner(null, colorManager);
+	}
+	
 	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(resource, colorManager);
 	}
