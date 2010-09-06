@@ -4096,6 +4096,36 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(210), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the TokenStyle class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(211), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DynamicTokenStyler class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(212), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(213), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(214), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (abstractEClass, 
 		   source, 
 		   new String[] {

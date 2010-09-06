@@ -504,6 +504,16 @@ OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR : "If set to <code>false</code>, the
 
 OptionTypes.OVERRIDE_IMAGE_PROVIDER : "If set to <code>false</code>, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_TOKEN_STYLE : "If set to <code>false</code>, the TokenStyle class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DYNAMIC_TOKEN_STYLER : "If set to <code>false</code>, the DynamicTokenStyler class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL : "If set to <code>false</code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_BOOLEAN_TERMINAL : "If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING : "If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

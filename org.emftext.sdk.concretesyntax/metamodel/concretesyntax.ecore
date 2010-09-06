@@ -1565,11 +1565,31 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ImageProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_TOKEN_STYLE" value="214" literal="overrideTokenStyle"/>
-    <eLiterals name="OVERRIDE_DYNAMIC_TOKEN_STYLER" value="215" literal="overrideDynamicTokenStyler"/>
-    <eLiterals name="RESOLVE_PROXY_ELEMENTS_AFTER_PARSING" value="216" literal="resolveProxyElementsAfterParsing"/>
-    <eLiterals name="OVERRIDE_EXPECTED_BOOLEAN_TERMINAL" value="217" literal="overrideExpectedBooleanTerminal"/>
-    <eLiterals name="OVERRIDE_BOOLEAN_TERMINAL" value="218" literal="overrideBooleanTerminal"/>
+    <eLiterals name="OVERRIDE_TOKEN_STYLE" value="214" literal="overrideTokenStyle">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the TokenStyle class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DYNAMIC_TOKEN_STYLER" value="215" literal="overrideDynamicTokenStyler">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DynamicTokenStyler class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="RESOLVE_PROXY_ELEMENTS_AFTER_PARSING" value="216" literal="resolveProxyElementsAfterParsing">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the generated resource class will not resolve references after parsing. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTED_BOOLEAN_TERMINAL" value="217" literal="overrideExpectedBooleanTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_BOOLEAN_TERMINAL" value="218" literal="overrideBooleanTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the BooleanTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

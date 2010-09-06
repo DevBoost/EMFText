@@ -5324,6 +5324,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the TokenStyle class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_TOKEN_STYLE
 	 * @model literal="overrideTokenStyle"
 	 * @generated
@@ -5338,6 +5341,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DynamicTokenStyler class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DYNAMIC_TOKEN_STYLER
 	 * @model literal="overrideDynamicTokenStyler"
 	 * @generated
@@ -5352,6 +5358,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #RESOLVE_PROXY_ELEMENTS_AFTER_PARSING
 	 * @model literal="resolveProxyElementsAfterParsing"
 	 * @generated
@@ -5366,6 +5375,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EXPECTED_BOOLEAN_TERMINAL
 	 * @model literal="overrideExpectedBooleanTerminal"
 	 * @generated
@@ -5380,6 +5392,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_BOOLEAN_TERMINAL
 	 * @model literal="overrideBooleanTerminal"
 	 * @generated
