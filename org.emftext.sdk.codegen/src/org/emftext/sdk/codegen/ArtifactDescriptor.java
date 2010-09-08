@@ -42,6 +42,10 @@ public class ArtifactDescriptor<ContextType, ParameterType> {
 	public String getClassNameSuffix() {
 		return classNameSuffix;
 	}
+	
+	public Class<? extends IGenerator<ContextType, ParameterType>> getGeneratorClass() {
+		return generatorClass;
+	}
 
 	public IGenerator<ContextType, ParameterType> createGenerator() {
 		try {

@@ -10,5 +10,10 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.emf,
  org.emftext.sdk,
  org.emftext.sdk.concretesyntax,
- org.emftext.sdk.concretesyntax.resource.cs
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.antlr,
+ org.emftext.sdk.codegen.newproject,
+ org.emftext.sdk.codegen.resource,
+ org.emftext.sdk.codegen.resource.ui
 

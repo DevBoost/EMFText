@@ -2,6 +2,8 @@ package org.emftext.doc;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.sdk.codegen.ArtifactDescriptor;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
+import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
@@ -21,6 +26,43 @@ public class AppendixGenerator {
 	public static void main(String[] args) throws IOException {
 		generateOptionsTex();
 		generateWarningsTex();
+		generateSyntaxDependentArtifactsTex();
+	}
+
+	private static void generateSyntaxDependentArtifactsTex() throws IOException {
+		List<String> syntaxDependentClasses = new ArrayList<String>();
+		Field[] fields = TextResourceArtifacts.class.getFields();
+		for (Field field : fields) {
+			try {
+				Object value = field.get(null);
+				if (value instanceof ArtifactDescriptor) {
+					ArtifactDescriptor<?,?> descriptor = (ArtifactDescriptor<?,?>) value;
+					Class<?> generatorClass = descriptor.getGeneratorClass();
+					String artifactName = descriptor.getClassNamePrefix() + descriptor.getClassNameSuffix();
+					if (generatorClass == null) {
+						System.out.println("Artifact " + field.getName() + " has no generator.");
+						continue;
+					}
+					Annotation annotation = generatorClass.getAnnotation(SyntaxDependent.class);
+					if (annotation != null) {
+						System.out.println("Artifact " + artifactName + " is syntax dependent.");
+						syntaxDependentClasses.add(artifactName);
+					}
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		Collections.sort(syntaxDependentClasses);
+		StringBuilder latexCode = new StringBuilder();
+		latexCode.append("\\begin{itemize}\n");
+		for (String className : syntaxDependentClasses) {
+			latexCode.append("\\item \\texttt{" + className+ "}\n");
+		}
+		latexCode.append("\\end{itemize}\n");
+		StreamUtil.setContent(new File("latex" + File.separator + "generated" + File.separator + "SyntaxDependentClasses.tex"), latexCode.toString().getBytes());
 	}
 
 	private static void generateOptionsTex() throws IOException {
