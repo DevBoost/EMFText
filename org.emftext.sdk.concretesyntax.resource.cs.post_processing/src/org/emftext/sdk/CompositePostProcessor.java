@@ -105,7 +105,10 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 	}
 	
 	public ICsResourcePostProcessor getResourcePostProcessor() {
-		return this;
+		// we need to create a fresh instance instead of returning 'this',
+		// because we want to use fresh instances of the individual post
+		// processors
+		return new CompositePostProcessor();
 	}
 
 	public void process(CsResource resource) {

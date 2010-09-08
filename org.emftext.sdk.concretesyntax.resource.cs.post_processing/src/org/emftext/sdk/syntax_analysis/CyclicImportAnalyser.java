@@ -40,7 +40,6 @@ public class CyclicImportAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-
 	@Override
 	protected boolean doResolveProxiesBeforeAnalysis() {
 		// we can not resolve proxies before, because the resolving
