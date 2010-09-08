@@ -292,6 +292,8 @@ once.
 
 \subsection{Syntax for EAttributes}
 
+\subsubsection{Syntax for EAttributes Having an Arbitrary Type}
+
 If metaclasses have attributes, we can also specify syntax for their values. 
 To do so, simply add brackets after the name of the attribute:
 
@@ -342,6 +344,28 @@ To give an example on how escaping works, consider the following text:
 value \texttt{text(more)}. The character sequence \texttt{\textbackslash{})} is
 replaced by \texttt{)}. Note that the opening parenthesis does not need to be
 escaped.
+
+\subsubsection{Syntax for EAttributes of Type EBoolean}
+
+For boolean attributes, EMFText provides a special feature to easy syntax
+specification. All that is required is to give the two strings that represent
+\texttt{true} and \texttt{false}. To give an example consider the following
+syntax rule:
+
+\begin{lstlisting}
+YourMetaClassWithAttribute ::= yourAttribute["yes" : "no"] ;
+\end{lstlisting}
+
+This rules states that \texttt{yes} represents the \texttt{true} value and
+\texttt{no} represents \texttt{false}. You can also use the empty strings for
+one of the values:
+
+\begin{lstlisting}
+YourMetaClassWithAttribute ::= yourAttribute["set" : ""] ;
+\end{lstlisting}
+
+This way, the attribute is set to \texttt{false} by default and set to
+\texttt{true} in the text \texttt{set} is found.
 
 \subsection{Syntax for EReferences}
 
