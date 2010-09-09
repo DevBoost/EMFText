@@ -242,10 +242,15 @@ public class TokenSorter {
 	}
 
 	private ComparableTokenDefinition createComparableTokenDirective(
-			String original, CompleteTokenDefinition definition) throws SorterException {
+			String antlrRegex, CompleteTokenDefinition definition) throws SorterException {
+		Automaton automaton = getAutomaton(antlrRegex);
+		return new ComparableTokenDefinition(automaton, definition);
+	}
+
+	public Automaton getAutomaton(String antlrRegex) throws SorterException {
 		try {
 			Automaton automaton;
-			String transformedRegExp = parseRegExp(original);
+			String transformedRegExp = parseRegExp(antlrRegex);
 			if (automatonCache.containsKey(transformedRegExp)) {
 				automaton = automatonCache.get(transformedRegExp);
 				// we remove and add the entry to move it to the end of
@@ -264,12 +269,11 @@ public class TokenSorter {
 					automatonCache.remove(automatonCache.keySet().iterator().next());
 				}
 			}
-
-			return new ComparableTokenDefinition(automaton, definition);
+			return automaton;
 		} catch (Exception ex) {
 			throw new SorterException(
 					"An error occurred while parsing a regular expression. The expression was: "
-							+ original);
+							+ antlrRegex);
 		}
 	}
 
@@ -285,8 +289,7 @@ public class TokenSorter {
 	 *             occurs if a parser error occurs
 	 */
 	private String parseRegExp(String exp) throws Exception {
-		String regex = RegexpTranslationHelper
-				.translateAntLRToAutomatonStyle(exp);
+		String regex = RegexpTranslationHelper.translateANTLRToAutomatonStyle(exp);
 		regex = convertUnicode(regex);
 
 		return regex;

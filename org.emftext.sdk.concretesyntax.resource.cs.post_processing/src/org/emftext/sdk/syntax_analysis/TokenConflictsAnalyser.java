@@ -28,10 +28,11 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
-import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.emftext.sdk.regex.SorterException;
 import org.emftext.sdk.util.StringUtil;
 import org.emftext.sdk.util.ToStringConverter;
+
+import dk.brics.automaton.Automaton;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
@@ -85,15 +86,14 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 	}
 
 	private List<CompleteTokenDefinition> getDirectivesMatchingEmptyString(
-			EList<CompleteTokenDefinition> allTokenDirectives) throws SorterException,
+			List<CompleteTokenDefinition> definitions) throws SorterException,
 			IOException, RecognitionException {
 		List<CompleteTokenDefinition> emptyMatchers = new ArrayList<CompleteTokenDefinition>();
-		for (CompleteTokenDefinition def : allTokenDirectives) {
-
-			String regex = RegexpTranslationHelper
-					.translateAntLRToJavaStyle(def.getRegex());
-			if ("".matches(regex)) {
-				emptyMatchers.add(def);
+		for (CompleteTokenDefinition definition : definitions) {
+			Automaton automaton = tokenSorter.getAutomaton(definition.getRegex());
+			boolean matchesEmptyString = automaton.run("");
+			if (matchesEmptyString) {
+				emptyMatchers.add(definition);
 			}
 		}
 		return emptyMatchers;

@@ -23,7 +23,9 @@ import org.antlr.runtime3_2_0.RecognitionException;
 
 public class RegexpTranslationHelper {
 
-	public static String translateAntLRToJavaStyle(String exp) throws IOException,
+	// FIXME this method does not handle all ANTLR expression correctly!
+	// For example '|' is not correctly translated. Neither is '~'.
+	public static String translateANTLRToJavaStyle(String exp) throws IOException,
 			RecognitionException {
 		InputStream input = new ByteArrayInputStream(exp.getBytes());
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
@@ -36,7 +38,7 @@ public class RegexpTranslationHelper {
 		return javaStyle;
 	}
 
-	public static String translateAntLRToAutomatonStyle(String exp) throws IOException, RecognitionException {
+	public static String translateANTLRToAutomatonStyle(String exp) throws IOException, RecognitionException {
 		InputStream input = new ByteArrayInputStream(exp.getBytes());
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
 
