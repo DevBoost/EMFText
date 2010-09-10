@@ -2186,6 +2186,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// are contained in the grammar. if they are sent to channel
 		// 99 rules containing the keywords will never be matched
 		if (definition.isHidden() && !isKeyword(definition)) {
+			// we do need to add this line break explicitly, because otherwise
+			// the channel instruction ends up being interpreted as part of the
+			// regular expression
+			sc.addLineBreak();
 			sc.add("{ _channel = 99; }");
 		}
 		sc.add(";");
