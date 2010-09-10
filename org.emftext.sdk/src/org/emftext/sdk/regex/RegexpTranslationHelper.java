@@ -38,6 +38,7 @@ public class RegexpTranslationHelper {
 		return javaStyle;
 	}
 
+	// TODO this method does not correctly handle unicode characters
 	public static String translateANTLRToAutomatonStyle(String exp) throws IOException, RecognitionException {
 		InputStream input = new ByteArrayInputStream(exp.getBytes());
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
@@ -48,7 +49,5 @@ public class RegexpTranslationHelper {
 		AutomatonRexpParser parser = new AutomatonRexpParser(tokenStream);
 		String automatonStyle = parser.root().toString();
 		return automatonStyle;
-		
 	}
-
 }

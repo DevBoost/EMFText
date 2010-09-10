@@ -13,11 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.regex;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -27,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
-import org.emftext.sdk.util.UnicodeConverter;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
@@ -279,45 +273,18 @@ public class TokenSorter {
 
 	/**
 	 * This method makes a transformation of the regular expression of the
-	 * EMFText to the format of the University of Aarhus automaton package. For
-	 * example: the range operator in EMFText is '..' but in the automaton '-'.
+	 * EMFText (ANTLR) format of the University of Aarhus automaton package. 
+	 * For example, the range operator in EMFText is '..' but in the 
+	 * automaton syntax '-' is used instead.
 	 * 
 	 * @param exp
 	 *            regular expression to be transformed
 	 * @return the transformed regular expression
 	 * @throws Exception
-	 *             occurs if a parser error occurs
+	 *             thrown if the <code>exp</code> cannot be parsed
 	 */
 	private String parseRegExp(String exp) throws Exception {
-		String regex = RegexpTranslationHelper.translateANTLRToAutomatonStyle(exp);
-		regex = convertUnicode(regex);
-
-		return regex;
-	}
-
-	private String convertUnicode(String regex) {
-		InputStream is = new ByteArrayInputStream(regex.getBytes());
-		UnicodeConverter uc = new UnicodeConverter(is);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(uc));
-		StringBuilder sb = new StringBuilder();
-
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				sb.append(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		regex = sb.toString();
-		return regex;
+		return RegexpTranslationHelper.translateANTLRToAutomatonStyle(exp);
 	}
 
 	private List<ComparableTokenDefinition> doSort(
