@@ -27,9 +27,9 @@ customizable components.
   \item[Generation of default syntaxes]
         With EMFText, initial syntaxes for the textual DSL can be generated 
         in one step for any Ecore-based metamodel. One can either generate a
-        syntax that conforms to the HUTN standard or a Java-like syntax. In
-        both cases, the initial, generated specification the syntax
-        can be further tailored towards specific needs 
+        syntax that conforms to the HUTN standard~\cite{HUTN} or a Java-like 
+        syntax. In both cases, the initial, generated specification of the 
+        syntax can be further tailored towards specific needs 
         (cf.~Section~\ref{sec:process_specification}).
         
   \item[Highly customizable code generation]
@@ -61,8 +61,8 @@ supports tweaking specifics where needed (cf.~Chapter~\ref{chap:cs}).
         names is available out of the box for any syntax. Also, external
         references are resolved automatically, if URIs are used to point to the
         referenced elements. More complex resolution mechanisms can be realized
-        by implementing generated resolving methods can be established (
-        cf.~Section~\ref{sec:cust_reference_resolving}).
+        by implementing generated resolving methods 
+        (cf.~Section~\ref{sec:cust_reference_resolving}).
 
   \item[Comprehensive syntax analysis]
         A number of analyses of CS specifications inform the developer about 
@@ -92,8 +92,8 @@ EMFText provides numerous other interesting features, some of them outlined belo
         Dedicated ANT tasks are provided to allow the generation of text syntax 
         plug-ins in build scripts (cf.~Section~\ref{sec:process_generating_ant}).
         
-  \item[Generation of post processors]
-        By default, post processors are generated that are called by the 
+  \item[Support for post processors]
+        By default, registered post processors are called by the 
         tooling after parsing. These post processors can be customized to
         check consistency of models or perform necessary modifications after
         parsing (cf.~Section~\ref{sec:cust_post_processors}).

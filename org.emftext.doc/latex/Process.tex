@@ -61,7 +61,7 @@
 	\emph{attributes} that are related using \emph{references}. References are
 	further distinguished into \emph{containment} references and
 	\emph{non-containment} references. It is important to notice this difference,
-	as is both reference types have different semantics in EMF and are also handled
+	as both reference types have different semantics in EMF and are also handled
 	differently in EMFText. Containment references are used to relate a parent model element and a
 	child model element that is declared in the context of the parent element. An
 	example which can be found for instance in object-oriented programming
@@ -209,8 +209,8 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
 	In the following we conclude the most important syntax specification
 	constructs found in the cs-language and their relation to EBNF and Ecore
 	metamodels. For an extensive overview on the syntax specification language we
-	refer to Sect. \ref{chap:cs}. Each syntax construct is also related to examples
-	taken from Listing \ref{lst:formsCs}.
+	refer to Sect.~\ref{chap:cs}. Each syntax construct is also related to examples
+	taken from Listing~\ref{lst:formsCs}.
 
 	\begin{description}
        \item[Rule] An cs rule is always related (by its name) to a specific
@@ -242,8 +242,8 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
 
        \item[Containment Reference Non-Terminals] Containment reference non-terminals
        are used in rule bodies to specify the syntactic representation for
-       containment references of the according meta class. They use the
-       reference name and are not followed by a bracket. Containment reference non-terminals
+       containment references of the according metaclass. They use the
+       reference name and are not followed by brackets. Containment reference non-terminals
         are derived from
        EBNF non-terminals, which means that during parsing the parser descends
        in the syntax rule specified for the class the
@@ -254,9 +254,9 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
 
        \item[Non-Containment Reference Terminals] Non-containment reference
        terminals are used in rule bodies to specify the syntactic
-       representation for non-containment references of the according meta
-       class. They use the reference name that is followed by square brackets.
-       Within these square brackets an token can be given specifies the syntax
+       representation for non-containment references of the according metaclass.
+       They use the reference name that is followed by square brackets.
+       Within these square brackets a token can be given that specifies the syntax
        allowed for expressions in the concrete syntax that identify the element the
        non-containment reference relates to. This symbolic reference is later
        resolved to the actual element (cf.
@@ -337,19 +337,20 @@ RULES {
 	Manual code generation can be triggered from the context menu of the concrete
 	syntax specification. Therefore, right click the cs file and select
 	\emph{Generate Text Resource}. This starts the EMF code generator that produces
-	a number of plug-ins. Fig. \ref{fig:generationResults} depicts the plug-ins
+	a number of plug-ins. Fig.~\ref{fig:generationResults} depicts the plug-ins
 	generated for our exemplary forms language. In the following we shortly discuss
 	their purpose:
 	
 	\begin{itemize} 
 	  \item \texttt{org.emftext.commons.antrl3\_2\_0} This project contributes the
 	  ANTLR parsing runtime that the generated parser for the forms language
-	  depends on. As EMFText is meant to be runtime free the Antlr runtime is generated
+	  depends on. As EMFText is meant to be runtime free the ANTLR runtime is generated
 	  for every new language, if no runtime is found in the current workspace.
 	  \item \texttt{org.emftext.language.forms} This is the basic plug-in of the
 	  language. In the folder \texttt{metamodel} it contains the Ecore metamodel
 	  and the cs specification defined previously. The \texttt{src-gen} folder contains the Java-based implementation that was
-	  generated using the .genmodel.
+	  generated using the .genmodel. This plug-in will not be altered by the EMFText
+	  code generator.
 	  \item \texttt{org.emftext.language.forms.resources.forms}
 	  This is the plug-in that contains the generated parser, printer and various
 	  infrastructure for the forms language. The project contains two source
@@ -359,17 +360,17 @@ RULES {
 	  contains implementation classes that are meant for manual customisation. By
 	  default it only contains reference resolvers that are used to resolve
 	  symbolic names of non-containment references to the model element actually
-	  meant. For details on reference resolving we refer to Sect.
-	  \ref{sec:cust_reference_resolving}. Various cs options are available to
+	  meant. For details on reference resolving we refer to 
+	  Sect.~\ref{sec:cust_reference_resolving}. Various cs options are available to
 	  tailor what language implementation artifacts shall be customised and, therefore, 
 	  put into the \texttt{src} folder. For a
-	  detailed discussion of such options we refer to Sect. \ref{sec:overriding_generated_classes} and
-	  Appendix \ref{app:options}.
+	  detailed discussion of such options we refer to Sect.~\ref{sec:overriding_generated_classes} and
+	  Appendix~\ref{app:options}.
 	  
 	  Besides the files implementing the language tooling, a number of extension
 	  points specific for the language are generated to the \texttt{schema} folder. 
 	  They can be used to further customise language tooling. For details we refer
-	  to Sect. \ref{sec:using_generated_extension_points}.
+	  to Sect.~\ref{sec:using_generated_extension_points}.
 	  
 	  \item \texttt{org.emftext.language.forms.resources.forms.ui} This plug-in 
 	  contains all generated classes related to the Eclipse-based User Interface
@@ -444,9 +445,9 @@ The following listing exemplifies its application:
 \end{lstlisting}
 	
 	
-	To execute an Ant script that use EMFText task from within your Eclipse
+	To execute an Ant script that uses EMFText tasks from within your Eclipse
 	runtime, you have to adjust the script's run configuration. Therefore, select 
-	\emph{Run > External Tools > External Tools Configurations...} and select the
+	\emph{Run > External Tools > External Tools Configurations...} and select 
 	your Ant script's run configuration. In the \emph{JRE} tab you have to
 	activate the option \emph{Run in the same JRE as the workspace} to make the
 	EMFText tasks available to the script.
