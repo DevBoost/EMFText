@@ -45,9 +45,25 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		addGetNameMethod(sc);
 		addGetOffsetMethod(sc);
 		addGetLengthMethod(sc);
+		addGetLineMethod(sc);
+		addGetColumnMethod(sc);
 		addCanBeUsedForSyntaxHighlightingMethod(sc);
 		addGetTextMethod(sc);
 		addGetTokenNameMethod(sc);
+	}
+
+	private void addGetColumnMethod(JavaComposite sc) {
+		sc.add("public int getColumn() {");
+		sc.add("return antlrToken.getCharPositionInLine();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetLineMethod(JavaComposite sc) {
+		sc.add("public int getLine() {");
+		sc.add("return antlrToken.getLine();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {

@@ -44,6 +44,14 @@ public class ITextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("public int getLength();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Returns the line this token was found at.");
+		sc.add("public int getLine();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns the column this token was found at.");
+		sc.add("public int getColumn();");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
 			"Returns false if the token is not usable for syntax highlighting. " +
 			"The EOF (End of File) token is an example for such a token."

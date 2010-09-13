@@ -22,11 +22,10 @@ public class DynamicTokenStylerGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addJavadoc(
 			"This method is called to dynamically style tokens.",
 			"@param resource the TextResource that contains the token",
-			"@param tokenName the name of the token",
-			"@param tokenText the text of the token",
+			"@param token the token to obtain a style for",
 			"@param staticStyle the token style as set in the editor preferences (is <code>null</code> if syntax highlighting for the token is disabled)"
 		);
-		sc.add("public " + iTokenStyleClassName + " getDynamicTokenStyle(" + iTextResourceClassName + " resource, String tokenName, String tokenText, " + iTokenStyleClassName + " staticStyle) {");
+		sc.add("public " + iTokenStyleClassName + " getDynamicTokenStyle(" + iTextResourceClassName + " resource, " + iTextTokenClassName + " token, " + iTokenStyleClassName + " staticStyle) {");
 		sc.addComment(
 			"The default implementation returns the static style without any changes. " +
 			"To implement dynamic token styling, set the " + OptionTypes.OVERRIDE_DYNAMIC_TOKEN_STYLER.getLiteral() + 

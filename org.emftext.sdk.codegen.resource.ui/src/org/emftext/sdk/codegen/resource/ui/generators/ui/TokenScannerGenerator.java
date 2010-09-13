@@ -138,7 +138,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.addComment("now call dynamic token styler to allow to apply modifications to the static style");
 		sc.add("staticStyle = new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
 		sc.add("}");
-		sc.add(iTokenStyleClassName + " dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, tokenName, currentToken.getText(), staticStyle);");
+		sc.add(iTokenStyleClassName + " dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);");
 		
 		sc.add("if (dynamicStyle != null) {");
 		sc.add("int[] foregroundColorArray = dynamicStyle.getColorAsRGB();");
