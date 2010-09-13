@@ -504,6 +504,16 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("return true;");
 		sc.add("}");
 
+		sc.add("public int getLine() {");
+		sc.add("return 0;"); // TODO
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.add("public int getColumn() {");
+		sc.add("return 0;"); // TODO
+		sc.add("}");
+		sc.addLineBreak();
+
 		sc.add("public int getLength() {");
 		sc.add("return length;");
 		sc.add("}");
