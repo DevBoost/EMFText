@@ -20,7 +20,7 @@
 	\end{figure}
 	
 	\noindent The basic language development process with EMFText is depicted in
-	Fig. \ref{fig:process}. It is an iterative process that can be passed several
+	Fig.~\ref{fig:process}. It is an iterative process that can be passed several
 	times and consists of the following basic tasks:
 	\begin{description}
 	  \item[(1)] Specifying a Language Metamodel,
@@ -49,7 +49,7 @@
 
 	To kick-start the development of a new language you can use the EMFText project
 	wizard. Select \emph{File > New > Other... > EMFText Project}. In the Wizard
-	(cf. Fig. \ref{fig:wizard}) you just enter the language name and EMFText
+	(cf. Fig.~\ref{fig:wizard}) you just enter the language name and EMFText
 	will initialise a new EMFText Project containing a metamodel folder that
 	holds an initial metamodel and syntax specification.
 
@@ -99,17 +99,16 @@
 		  previously selected that you have some.
 		\end{itemize}
 
-	Listing \ref{lst:formsMetamodel} depicts a textual representation of the
-	according EMF metamodel. Besides the mapping of forms concepts to Ecore it
-	also refines the multiplicities and types. A new text.ecore metamodel is
+	The subsequent listing depicts a textual representation of the according EMF
+	metamodel. Besides the mapping of forms concepts to Ecore it also refines 
+	the multiplicities and types. A new text.ecore metamodel is
 	created by selecting \emph{File > New > Other... > EMFText .text.ecore
 	file}. For a detailed introduction on the basics of Ecore metamodelling we
 	refer to \cite{EMF}.
 
 	
 	\lstset{language=textecore}
-	\begin{lstlisting}[label=lst:formsMetamodel, caption=Metamodel for the
-	exemplary forms language written in text.ecore] package forms // this is the
+	\begin{lstlisting}
 package forms // this is the package name 
         forms // this is the namespace prefix
         "http://org.emftext/language/forms.ecore" // the namespace URI 
@@ -178,8 +177,8 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
 	new syntax specification by selecting \emph{File > New > Other... > EMFText .cs
 	file}.
 
-	\noindent Listing \ref{lst:formsCs} depicts a syntax specification for the forms
-	language. It consists of five sections: 
+	\noindent The listing at the end of this section depicts a syntax specification
+	for the forms language. It consists of five sections: 
 	\begin{itemize}
 	  \item In the first section the language file
 		extension is defined, the syntax specification is bound to the metamodel, 
@@ -210,7 +209,7 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
 	constructs found in the cs-language and their relation to EBNF and Ecore
 	metamodels. For an extensive overview on the syntax specification language we
 	refer to Sect.~\ref{chap:cs}. Each syntax construct is also related to examples
-	taken from Listing~\ref{lst:formsCs}.
+	taken from the listing at the end of this section.
 
 	\begin{description}
        \item[Rule] An cs rule is always related (by its name) to a specific
@@ -278,8 +277,7 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
     \end{description}
 
  \lstset{language=cs}
-	\begin{lstlisting}[label=lst:formsCs, caption=Concrete syntax specification for
-	the exemplary forms language written in the cs-language] 
+ \begin{lstlisting} 
 SYNTAXDEF forms
 FOR <http://www.emftext.org/language/forms>
 START Form
@@ -321,8 +319,7 @@ RULES {
 	Decision ::=  "DECISION" "(" options "," options ")"; 
 }
 
-	\end{lstlisting} 
- 
+\end{lstlisting} 
 
 
 \section{Generating the Language Tooling}
@@ -462,5 +459,5 @@ more useful. EMFText helps you in customising your language tooling with a
 number of additional functions ranging from semantic validation of language
 expressions, language compilation, language interpretation, or editor functions
 like folding, custom quickfixes, extended code completion, refactoring and more.
-To discover the full spectrum of possibilities please consider Sect.
-\ref{chap:customisation}.
+To discover the full spectrum of possibilities please consider 
+Sect.~\ref{chap:customisation}.
