@@ -2181,7 +2181,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(definition.getName());
 		sc.add(":");
 
-		sc.add(definition.getRegex());
+		sc.add("(" + definition.getRegex() + ")");
 		// keyword tokens do never go to channel 99, because they
 		// are contained in the grammar. if they are sent to channel
 		// 99 rules containing the keywords will never be matched
