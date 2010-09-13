@@ -73,7 +73,7 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 				// style
 				staticStyle = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);
 			}
-			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, tokenName, currentToken.getText(), staticStyle);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);
 			if (dynamicStyle != null) {
 				int[] foregroundColorArray = dynamicStyle.getColorAsRGB();
 				org.eclipse.swt.graphics.Color foregroundColor = colorManager.getColor(new org.eclipse.swt.graphics.RGB(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));
