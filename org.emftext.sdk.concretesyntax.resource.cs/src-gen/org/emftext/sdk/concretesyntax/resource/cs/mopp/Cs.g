@@ -5189,7 +5189,6 @@ parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concrete
 
 COMMENTS:
 	('//'(~('\n'|'\r'))*)
-	
 	{ _channel = 99; }
 ;
 QUALIFIED_NAME:
@@ -5206,12 +5205,10 @@ STRING:
 ;
 WHITESPACE:
 	((' '|'\t'|'\f'))
-	
 	{ _channel = 99; }
 ;
 LINEBREAK:
 	(('\r\n'|'\r'|'\n'))
-	
 	{ _channel = 99; }
 ;
 QUOTED_60_62:
