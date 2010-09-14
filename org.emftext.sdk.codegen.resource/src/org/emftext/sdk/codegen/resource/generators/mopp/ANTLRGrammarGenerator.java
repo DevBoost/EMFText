@@ -2181,15 +2181,24 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(definition.getName());
 		sc.add(":");
 
-		sc.add("(" + definition.getRegex() + ")");
-		// keyword tokens do never go to channel 99, because they
+		boolean isKeyword = isKeyword(definition);
+		
+		// We do need to add additional parenthesis explicitly, because otherwise
+		// the channel instruction is applied only to the last alternative if the
+		// regular expression has multiple alternatives.
+		// But, we must not add the parenthesis if the token is used as in-line 
+		// keyword, because then ANTLR does not recognize that the defined token
+		// and the in-line keyword are actually the same.
+		if (isKeyword) {
+			sc.add(definition.getRegex());
+		} else {
+			sc.add("(" + definition.getRegex() + ")");
+		}
+		
+		// Keyword tokens do never go to channel 99, because they
 		// are contained in the grammar. if they are sent to channel
-		// 99 rules containing the keywords will never be matched
-		if (definition.isHidden() && !isKeyword(definition)) {
-			// we do need to add this line break explicitly, because otherwise
-			// the channel instruction ends up being interpreted as part of the
-			// regular expression
-			sc.addLineBreak();
+		// 99, rules containing the keywords will never be matched.
+		if (definition.isHidden() && !isKeyword) {
 			sc.add("{ _channel = 99; }");
 		}
 		sc.add(";");
