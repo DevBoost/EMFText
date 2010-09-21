@@ -71,7 +71,9 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 		});
 	}
 
-	public String deResolve(GenClass element, ConcreteSyntax container, EReference reference){
+	public String deResolve(GenClass element, ConcreteSyntax container, EReference reference) {
+		// TODO this does not correctly work when GenClasses are reference using the prefix notation
+		// (e.g., namespace.MyGenClass)
 		return resolver.deResolve(element, container, reference);
 	}
 
