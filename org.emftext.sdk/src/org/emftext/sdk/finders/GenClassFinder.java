@@ -130,6 +130,9 @@ public class GenClassFinder {
 		List<GenClass> genClasses = genPackage.getGenClasses();
 		final String key = prefix == null ? "" : prefix + DOT;
 		for (GenClass genClass : genClasses) {
+			if (genClass == null) {
+				continue;
+			}
 			foundClasses.add(new Pair<String, GenClass>(key, genClass));
 		}
 		// then add all generator classes contained in sub packages
