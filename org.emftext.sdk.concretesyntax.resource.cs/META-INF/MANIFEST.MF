@@ -5,23 +5,22 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel Text Syntax
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs; singl
  eton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.3.1.v201009220913
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.resources,org.emftext.access;resoluti
  on:=optional,org.eclipse.emf,org.eclipse.emf.codegen.ecore,org.eclips
  e.emf.ecore,org.eclipse.emf.ecore.edit,org.eclipse.emf.edit.ui,org.ec
  lipse.emf.workspace,org.eclipse.jface,org.eclipse.jface.text,org.ecli
  pse.ui,org.eclipse.ui.editors,org.eclipse.ui.ide,org.eclipse.ui.views
- ,org.emftext.sdk.concretesyntax,org.emftext.sdk,org.emftext.sdk.antlr3_2_0
- ;visibility:=reexport
+ ,org.emftext.sdk.concretesyntax,org.emftext.sdk,org.emftext.sdk.antlr
+ 3_2_0;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.sdk.concretesyntax.resource.cs,
- org.emftext.sdk.concretesyntax.resource.cs.analysis,
- org.emftext.sdk.concretesyntax.resource.cs.analysis.helper,
- org.emftext.sdk.concretesyntax.resource.cs.grammar,
- org.emftext.sdk.concretesyntax.resource.cs.mopp,
- org.emftext.sdk.concretesyntax.resource.cs.util
+Export-Package: org.emftext.sdk.concretesyntax.resource.cs,org.emftext
+ .sdk.concretesyntax.resource.cs.analysis,org.emftext.sdk.concretesynt
+ ax.resource.cs.analysis.helper,org.emftext.sdk.concretesyntax.resourc
+ e.cs.grammar,org.emftext.sdk.concretesyntax.resource.cs.mopp,org.emft
+ ext.sdk.concretesyntax.resource.cs.util
 Bundle-Activator: org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPl
  ugin
 

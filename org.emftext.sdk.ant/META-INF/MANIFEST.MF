@@ -4,20 +4,13 @@ Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK Ant Support
 Bundle-SymbolicName: org.emftext.sdk.ant; singleton:=true
-Bundle-Version: 1.2.0.qualifier
-Require-Bundle: org.apache.ant,
- org.emftext.sdk,
- org.emftext.sdk.antlr3_2_0,
- org.emftext.sdk.concretesyntax,
- org.emftext.sdk.concretesyntax.resource.cs,
- org.eclipse.emf.ecore.xmi,
- org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.emftext.sdk.codegen,
- org.emftext.sdk.concretesyntax.resource.cs.post_processing,
- org.emftext.sdk.codegen.antlr,
- org.emftext.sdk.codegen.resource,
- org.emftext.sdk.codegen.resource.ui
+Bundle-Version: 1.3.1.v201009220913
+Require-Bundle: org.apache.ant,org.emftext.sdk,org.emftext.sdk.antlr3_
+ 2_0,org.emftext.sdk.concretesyntax,org.emftext.sdk.concretesyntax.res
+ ource.cs,org.eclipse.emf.ecore.xmi,org.eclipse.core.resources,org.ecl
+ ipse.core.runtime,org.emftext.sdk.codegen,org.emftext.sdk.concretesyn
+ tax.resource.cs.post_processing,org.emftext.sdk.codegen.antlr,org.emf
+ text.sdk.codegen.resource,org.emftext.sdk.codegen.resource.ui
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.ant
 Bundle-Vendor: Software Technology Group - TU Dresden Germany

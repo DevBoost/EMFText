@@ -1,18 +1,18 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_20-b02 (Sun Microsystems Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: Newproject
-Bundle-SymbolicName: org.emftext.sdk.codegen.newproject
-Bundle-Version: 1.0.0.qualifier
-Export-Package: org.emftext.sdk.codegen.newproject,
- org.emftext.sdk.codegen.newproject.creators,
- org.emftext.sdk.codegen.newproject.generators
+Bundle-Name: EMFText SDK Code Generators for New Project Wizard
+Bundle-SymbolicName: org.emftext.sdk.codegen.newproject; singleton:=tr
+ ue
+Bundle-Version: 1.3.1.v201009220913
+Export-Package: org.emftext.sdk.codegen.newproject,org.emftext.sdk.cod
+ egen.newproject.creators,org.emftext.sdk.codegen.newproject.generator
+ s
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources,
- org.eclipse.jdt,
- org.eclipse.jdt.core,
- org.eclipse.ui,
- org.emftext.sdk,
- org.emftext.sdk.codegen,
- org.emftext.sdk.codegen.resource,
- org.emftext.sdk.codegen.resource.ui
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.core.resources,or
+ g.eclipse.jdt,org.eclipse.jdt.core,org.eclipse.ui,org.emftext.sdk,org
+ .emftext.sdk.codegen,org.emftext.sdk.codegen.resource,org.emftext.sdk
+ .codegen.resource.ui
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+
