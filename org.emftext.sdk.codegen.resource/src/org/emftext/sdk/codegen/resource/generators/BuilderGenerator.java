@@ -18,9 +18,13 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iBuilderClassName + " {");
 		sc.addLineBreak();
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		addIsBuildingNeededMethod(sc);
 		addBuildMethod(sc);
-		sc.add("}");
 	}
 
 	private void addIsBuildingNeededMethod(JavaComposite sc) {
@@ -28,6 +32,7 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addComment("change this to return true to enable building of all resources");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addBuildMethod(JavaComposite sc) {
