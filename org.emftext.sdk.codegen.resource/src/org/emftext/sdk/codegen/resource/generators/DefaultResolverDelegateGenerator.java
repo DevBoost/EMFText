@@ -230,7 +230,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 		sc.addComment("try any other string attribute found");
 		sc.add("for (" + E_ATTRIBUTE + " stringAttribute : element.eClass().getEAllAttributes()) {");
-		sc.add("if (stringAttribute.getEType().getInstanceClassName().equals(\"String\")) {");
+		sc.add("if (\"java.lang.String\".equals(stringAttribute.getEType().getInstanceClassName())) {");
 		sc.add("Object attributeValue = element.eGet(stringAttribute);");
 		sc.add("String match = matches(identifier, attributeValue, matchFuzzy);");
 		sc.add("if (match != null) {");
