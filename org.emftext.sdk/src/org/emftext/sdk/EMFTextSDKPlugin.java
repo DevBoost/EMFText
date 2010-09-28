@@ -22,20 +22,21 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the EMFText SDK plug-in life cycle
+ * The activator class controls the EMFText SDK plug-in life cycle.
  */
 public class EMFTextSDKPlugin extends Plugin {
 
 	public static final String PLUGIN_ID = "org.emftext.sdk";
 
-	public static final String VERSION = "1.3.1";
+	public static final String VERSION = "1.3.2";
 	
 	private static EMFTextSDKPlugin plugin;
 	
 	/**
-	 * The constructor
+	 * The constructor.
 	 */
 	public EMFTextSDKPlugin() {
+		super();
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -59,7 +60,7 @@ public class EMFTextSDKPlugin extends Plugin {
 	}
 
 	/**
-	 * Returns the shared instance
+	 * Returns the shared instance.
 	 *
 	 * @return the shared instance
 	 */
