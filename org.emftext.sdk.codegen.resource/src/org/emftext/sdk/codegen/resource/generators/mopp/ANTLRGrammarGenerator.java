@@ -1558,8 +1558,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			// TODO skarol: this assertion fails both for the simplemath and the threevaluedlogic
 			// languages
 			//assert definitions.size() > 2;
-			
+			// sven: should be this: 
+			assert definitions.size() >=2;
 			// TODO skarol: we should not alter the syntax models during code generation
+			//sven: actually we don't, this definition is just a copy
 			Definition right = definitions.remove(definitions.size()-1);
 			
 			assert right instanceof Containment;
@@ -1568,7 +1570,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			sc.add("arg = " + nextRuleName);
 			Containment containment = (Containment) right;
-			printTerminalAction(containment, firstRule, sc, "arg", "", "arg", null, "null", true);
+			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null", true);
+			
 			sc.add("|");
 			sc.addLineBreak();
 		}
