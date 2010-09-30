@@ -1348,7 +1348,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 										true);
 						if (!subClasses.isEmpty()) {
 							sc.add("|//derived choice rules for sub-classes: ");
-							printSubClassChoices(sc, subClasses);
+							printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 							sc.addLineBreak();
 						}
 
@@ -1438,7 +1438,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		if (!subClasses.isEmpty()) {
 			sc.add("|//derived choice rules for sub-classes: ");
 			sc.addLineBreak();
-			printSubClassChoices(sc, subClasses);
+			printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			sc.addLineBreak();
 		}
 		
@@ -1542,7 +1542,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		for (Rule rule : rulesWithEqualWeight) {
 			choiceClasses.add(rule.getMetaclass());
 		}
-		printSubClassChoices(sc, choiceClasses);
+		printSubClassOrPrimitiveOperatorChoices(sc, choiceClasses);
 		printGrammarRuleSuffix(sc);
 		
 		for (Rule rule : rulesWithEqualWeight) {
@@ -2145,7 +2145,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 					+ " element = null]");
 			sc.add(":");
 			if (!isCommonExpressionMetaClass) {
-				printSubClassChoices(sc, subClasses);
+				printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			} else {
 				List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
 				sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
@@ -2160,7 +2160,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return false;
 	}
 
-	private void printSubClassChoices(StringComposite sc,
+	private void printSubClassOrPrimitiveOperatorChoices(StringComposite sc,
 			Collection<GenClass> subClasses) {
 		int count = 0;
 		for (Iterator<GenClass> subClassIterator = subClasses.iterator(); subClassIterator.hasNext();) {
