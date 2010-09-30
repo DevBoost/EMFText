@@ -185,6 +185,17 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 					}
 				}
 			}
+			//We need at least one primitive operator rule with highest priority
+			Rule lastRule = subset.get(subset.size()-1);
+			Annotation annotation = lastRule.getOperatorAnnotation();
+			OperatorAnnotationType annotationType = csUtil.getOperatorAnnotationType(annotation);
+			if(annotationType != OperatorAnnotationType.PRIMITIVE){
+				addProblem(
+						ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+						"Each expression subset needs at least 1 primitive operator declaration with the greatest weight value of the subset.",
+						annotation
+				);
+			}
 		}
 	}
 
