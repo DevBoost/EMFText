@@ -160,7 +160,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		} else {
 			// try any other string attribute found
 			for (org.eclipse.emf.ecore.EAttribute stringAttribute : element.eClass().getEAllAttributes()) {
-				if (stringAttribute.getEType().getInstanceClassName().equals("String")) {
+				if ("java.lang.String".equals(stringAttribute.getEType().getInstanceClassName())) {
 					Object attributeValue = element.eGet(stringAttribute);
 					String match = matches(identifier, attributeValue, matchFuzzy);
 					if (match != null) {

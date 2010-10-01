@@ -20,6 +20,7 @@ public class CsBuilder implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// change this to return true to enable building of all resources
 		return false;
 	}
+	
 	public org.eclipse.core.runtime.IStatus build(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource resource, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		// set option overrideBuilder to 'false' and then perform build here
 		return org.eclipse.core.runtime.Status.OK_STATUS;
