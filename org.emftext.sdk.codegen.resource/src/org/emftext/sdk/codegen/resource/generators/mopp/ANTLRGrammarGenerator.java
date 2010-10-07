@@ -310,6 +310,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, context);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
+		addFormatTokenNameMethod(sc);
 		addSetOptionsMethod(sc);
 		addTerminateMethod(sc);
 		addCompletedElementMethod(sc);
@@ -365,29 +366,36 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
+	private void addFormatTokenNameMethod(ANTLRGrammarComposite sc) {
+		sc.add("private String formatTokenName(int tokenType)  {");
+		sc.add("String tokenName = \"<unknown>\";");
+		sc.add("if (tokenType == " + TOKEN + ".EOF) {");
+		sc.add("tokenName = \"EOF\";");
+		sc.add("} else {");
+		sc.add("if (tokenType < 0) {");
+		sc.add("return tokenName;");
+		sc.add("}");
+		sc.add("tokenName = getTokenNames()[tokenType];");
+		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
+		sc.add("}");
+		sc.add("return tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Translates errors thrown by the parser into human readable messages.");
 		sc.add("public void reportError(final " + RECOGNITION_EXCEPTION + " e)  {");
 		sc.add("String message = e.getMessage();");
 		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
 		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (mte.expecting == Token.EOF) {");
-		sc.add("tokenName = \"EOF\";");
-		sc.add("} else {");
-		sc.add("tokenName = getTokenNames()[mte.expecting];");
-		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
-		sc.add("}");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
+		sc.add("String expectedTokenName = formatTokenName(mte.expecting);");
+		sc.add("String actualTokenName = formatTokenName(e.token.getType());");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \" (\" + actualTokenName + \")\\\", \\\"\" + expectedTokenName + \"\\\" expected\";");
 		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
 		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
-		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (mtne.expecting == Token.EOF) {");
-		sc.add("tokenName = \"EOF\";");
-		sc.add("} else {");
-		sc.add("tokenName = getTokenNames()[mtne.expecting];");
-		sc.add("}");
-		sc.add("message = \"mismatched tree node: \" + \"xxx\" + \"; expecting \" + tokenName;");
+		sc.add("String expectedTokenName = formatTokenName(mtne.expecting);");
+		sc.add("message = \"mismatched tree node: \" + \"xxx\" + \"; tokenName \" + expectedTokenName;");
 		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
 		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
 		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
