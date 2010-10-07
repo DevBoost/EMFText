@@ -82,7 +82,13 @@ public class PostProcessingContext {
 		}
 
 		public boolean wasCausedBy(EObject element) {
-			return false;
+			// position-based problems are caused be the root element.
+			// actually these problems are not caused by any specific
+			// object, but it is most reasonable to assign them to the 
+			// root object. This is required by the SuppressWarnings 
+			// class which needs a cause for all problems to check 
+			// whether a warning needs to be remove or not.
+			return element.eContainer() == null;
 		}
 	}
 	
