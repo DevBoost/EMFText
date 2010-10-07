@@ -116,7 +116,7 @@ options {
 	 */
 	private int lastStartIncludingHidden;
 	
-	protected void addErrorToResource(final String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {
+	protected void addErrorToResource(final String errorMessage, final int column, final int line, final int startIndex, final int stopIndex) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 				if (resource == null) {
@@ -133,7 +133,7 @@ options {
 					public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
 						return null;
 					}
-				}, line, charPositionInLine, startIndex, stopIndex);
+				}, column, line, startIndex, stopIndex);
 				return true;
 			}
 		});
@@ -559,23 +559,13 @@ options {
 		String message = e.getMessage();
 		if (e instanceof org.antlr.runtime3_2_0.MismatchedTokenException) {
 			org.antlr.runtime3_2_0.MismatchedTokenException mte = (org.antlr.runtime3_2_0.MismatchedTokenException) e;
-			String tokenName = "<unknown>";
-			if (mte.expecting == Token.EOF) {
-				tokenName = "EOF";
-			} else {
-				tokenName = getTokenNames()[mte.expecting];
-				tokenName = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.formatTokenName(tokenName);
-			}
-			message = "Syntax error on token \"" + e.token.getText() + "\", \"" + tokenName + "\" expected";
+			String expectedTokenName = formatTokenName(mte.expecting);
+			String actualTokenName = formatTokenName(e.token.getType());
+			message = "Syntax error on token \"" + e.token.getText() + " (" + actualTokenName + ")\", \"" + expectedTokenName + "\" expected";
 		} else if (e instanceof org.antlr.runtime3_2_0.MismatchedTreeNodeException) {
 			org.antlr.runtime3_2_0.MismatchedTreeNodeException mtne = (org.antlr.runtime3_2_0.MismatchedTreeNodeException) e;
-			String tokenName = "<unknown>";
-			if (mtne.expecting == Token.EOF) {
-				tokenName = "EOF";
-			} else {
-				tokenName = getTokenNames()[mtne.expecting];
-			}
-			message = "mismatched tree node: " + "xxx" + "; expecting " + tokenName;
+			String expectedTokenName = formatTokenName(mtne.expecting);
+			message = "mismatched tree node: " + "xxx" + "; tokenName " + expectedTokenName;
 		} else if (e instanceof org.antlr.runtime3_2_0.NoViableAltException) {
 			message = "Syntax error on token \"" + e.token.getText() + "\", check following tokens";
 		} else if (e instanceof org.antlr.runtime3_2_0.EarlyExitException) {
@@ -612,21 +602,35 @@ options {
 			message = "Syntax error on token \"" + ((char) e.c) + "\", delete this token";
 		} else if (e instanceof org.antlr.runtime3_2_0.EarlyExitException) {
 			org.antlr.runtime3_2_0.EarlyExitException eee = (org.antlr.runtime3_2_0.EarlyExitException) e;
-			message ="required (...)+ loop (decision=" + eee.decisionNumber + ") did not match anything; on line " + e.line + ":" + e.charPositionInLine + " char=" + ((char) e.c) + "'";
+			message = "required (...)+ loop (decision=" + eee.decisionNumber + ") did not match anything; on line " + e.line + ":" + e.charPositionInLine + " char=" + ((char) e.c) + "'";
 		} else if (e instanceof org.antlr.runtime3_2_0.MismatchedSetException) {
 			org.antlr.runtime3_2_0.MismatchedSetException mse = (org.antlr.runtime3_2_0.MismatchedSetException) e;
-			message ="mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
+			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
 		} else if (e instanceof org.antlr.runtime3_2_0.MismatchedNotSetException) {
 			org.antlr.runtime3_2_0.MismatchedNotSetException mse = (org.antlr.runtime3_2_0.MismatchedNotSetException) e;
-			message ="mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
+			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
 		} else if (e instanceof org.antlr.runtime3_2_0.MismatchedRangeException) {
 			org.antlr.runtime3_2_0.MismatchedRangeException mre = (org.antlr.runtime3_2_0.MismatchedRangeException) e;
-			message ="mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set '" + (char) mre.a + "'..'" + (char) mre.b + "'";
+			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set '" + (char) mre.a + "'..'" + (char) mre.b + "'";
 		} else if (e instanceof org.antlr.runtime3_2_0.FailedPredicateException) {
 			org.antlr.runtime3_2_0.FailedPredicateException fpe = (org.antlr.runtime3_2_0.FailedPredicateException) e;
-			message ="rule " + fpe.ruleName + " failed predicate: {" + fpe.predicateText + "}?";
+			message = "rule " + fpe.ruleName + " failed predicate: {" + fpe.predicateText + "}?";
 		}
-		addErrorToResource(message, e.index, e.line, lexerExceptionsPosition.get(lexerExceptions.indexOf(e)), lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
+		addErrorToResource(message, e.charPositionInLine, e.line, lexerExceptionsPosition.get(lexerExceptions.indexOf(e)), lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
+	}
+	
+	private String formatTokenName(int tokenType)  {
+		String tokenName = "<unknown>";
+		if (tokenType == org.antlr.runtime3_2_0.Token.EOF) {
+			tokenName = "EOF";
+		} else {
+			if (tokenType < 0) {
+				return tokenName;
+			}
+			tokenName = getTokenNames()[tokenType];
+			tokenName = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.formatTokenName(tokenName);
+		}
+		return tokenName;
 	}
 	
 	public void setOptions(java.util.Map<?,?> options) {
