@@ -200,7 +200,7 @@ public class GeneratorUtil {
 		String iQuickFix = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
 		String eProblemType = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 
-		sc.add("protected void addErrorToResource(final String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
+		sc.add("protected void addErrorToResource(final String errorMessage, final int column, final int line, final int startIndex, final int stopIndex) {");
 
 		sc.add("postParseCommands.add(new " + iCommand + "<" + iTextResource + ">() {");
 		sc.add("public boolean execute(" + iTextResource + " resource) {");
@@ -218,7 +218,7 @@ public class GeneratorUtil {
 		sc.add("public " + COLLECTION + "<" + iQuickFix + "> getQuickFixes() {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
+		sc.add("}, column, line, startIndex, stopIndex);");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("});");
