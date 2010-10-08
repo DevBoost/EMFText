@@ -31,6 +31,7 @@ import org.emftext.sdk.syntax_analysis.QuotenTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.syntax_analysis.StartSymbolAnalyser;
+import org.emftext.sdk.syntax_analysis.SubclassRestrictionAnalyser;
 import org.emftext.sdk.syntax_analysis.SyntaxNameWithDotAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenConflictsAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenNameAnalyser;
@@ -100,6 +101,7 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 		postProcessors.add(new SyntaxNameWithDotAnalyser());
 		postProcessors.add(new EmptyCompoundAnalyser());
 		postProcessors.add(new BooleanTerminalAnalyser());
+		postProcessors.add(new SubclassRestrictionAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 	}
