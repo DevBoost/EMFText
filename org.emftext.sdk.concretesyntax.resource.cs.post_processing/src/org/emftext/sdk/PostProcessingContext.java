@@ -87,7 +87,7 @@ public class PostProcessingContext {
 			// object, but it is most reasonable to assign them to the 
 			// root object. This is required by the SuppressWarnings 
 			// class which needs a cause for all problems to check 
-			// whether a warning needs to be remove or not.
+			// whether a warning needs to be removed or not.
 			return element.eContainer() == null;
 		}
 	}
