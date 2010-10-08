@@ -47,38 +47,38 @@ public class PostProcessingContext {
 	private class WrappedPositionBasedProblem implements IProblemWrapper {
 
 		private ICsProblem problem;
-		private int i1;
-		private int i2;
-		private int i3;
-		private int i4;
+		private int column;
+		private int line;
+		private int charStart;
+		private int charEnd;
 		
-		public WrappedPositionBasedProblem(ICsProblem problem, int i1, int i2, int i3, int i4) {
+		public WrappedPositionBasedProblem(ICsProblem problem, int column, int line, int charStart, int charEnd) {
 			super();
 			this.problem = problem;
-			this.i1 = i1;
-			this.i2 = i2;
-			this.i3 = i3;
-			this.i4 = i4;
+			this.column = column;
+			this.line = line;
+			this.charStart = charStart;
+			this.charEnd = charEnd;
 		}
 
 		public ICsProblem getProblem() {
 			return problem;
 		}
 		
-		public int getI1() {
-			return i1;
+		public int getColumn() {
+			return column;
 		}
 
-		public int getI2() {
-			return i2;
+		public int getLine() {
+			return line;
 		}
 
-		public int getI3() {
-			return i3;
+		public int getCharStart() {
+			return charStart;
 		}
 
-		public int getI4() {
-			return i4;
+		public int getCharEnd() {
+			return charEnd;
 		}
 
 		public boolean wasCausedBy(EObject element) {
@@ -105,8 +105,8 @@ public class PostProcessingContext {
 		return resource;
 	}
 
-	public void addProblem(CsProblem problem, int i1, int i2, int i3, int i4) {
-		problems.add(new WrappedPositionBasedProblem(problem, i1, i2, i3, i4));
+	public void addProblem(CsProblem problem, int column, int line, int charStart, int charEnd) {
+		problems.add(new WrappedPositionBasedProblem(problem, column, line, charStart, charEnd));
 	}
 
 	public void addProblem(CsProblem problem, EObject cause) {
@@ -140,7 +140,7 @@ public class PostProcessingContext {
 				getResource().addProblem(elementBasedProblem.getProblem(), elementBasedProblem.getCause());
 			} else if (problem instanceof WrappedPositionBasedProblem) {
 				WrappedPositionBasedProblem positionBasedProblem = (WrappedPositionBasedProblem) problem;
-				getResource().addProblem(positionBasedProblem.getProblem(), positionBasedProblem.getI1(), positionBasedProblem.getI2(), positionBasedProblem.getI3(), positionBasedProblem.getI4());
+				getResource().addProblem(positionBasedProblem.getProblem(), positionBasedProblem.getColumn(), positionBasedProblem.getLine(), positionBasedProblem.getCharStart(), positionBasedProblem.getCharEnd());
 			} else {
 				assert false;
 			}

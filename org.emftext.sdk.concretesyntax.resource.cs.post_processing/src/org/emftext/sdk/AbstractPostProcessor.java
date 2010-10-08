@@ -100,18 +100,18 @@ public abstract class AbstractPostProcessor {
 	}
 
 	protected void addProblem(ECsProblemType problemType,
-			final String message, int i1, int i2, int i3, int i4) {
-		context.addProblem(new CsProblem(message, problemType), i1, i2, i3, i4);
+			final String message, int column, int line, int charStart, int charEnd) {
+		context.addProblem(new CsProblem(message, problemType), column, line, charStart, charEnd);
 	}
 
 	protected void addProblem(ECsProblemType problemType,
-			final String message, int i1, int i2, int i3, int i4, ICsQuickFix quickFix) {
-		context.addProblem(new CsProblem(message, problemType, quickFix), i1, i2, i3, i4);
+			final String message, int column, int line, int charStart, int charEnd, ICsQuickFix quickFix) {
+		context.addProblem(new CsProblem(message, problemType, quickFix), column, line, charStart, charEnd);
 	}
 
 	protected void addProblem(ECsProblemType problemType,
-			final String message, int i1, int i2, int i3, int i4, List<ICsQuickFix> quickFixes) {
-		context.addProblem(new CsProblem(message, problemType, quickFixes), i1, i2, i3, i4);
+			final String message, int column, int line, int charStart, int charEnd, List<ICsQuickFix> quickFixes) {
+		context.addProblem(new CsProblem(message, problemType, quickFixes), column, line, charStart, charEnd);
 	}
 
 	protected void addTokenProblem(
