@@ -237,6 +237,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		
 		sc.add("public final static String NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.addLineBreak();
+		
+		sc.add("private final PrintToken SPACE_TOKEN = new PrintToken(\" \", null);");
+		sc.add("private final PrintToken TAB_TOKEN = new PrintToken(\"\\t\", null);");
+		sc.add("private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);");
+		sc.addLineBreak();
 		// TODO we should probably wrap all these members in a context class
 		sc.addJavadoc("Holds the resource that is associated with this printer. May be null if the printer is used stand alone.");
 		sc.add("private " + iTextResourceClassName + " resource;");
@@ -665,15 +670,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (foundFormattingElement instanceof " + whiteSpaceClassName + ") {");
 		sc.add("int amount = ((" + whiteSpaceClassName + ") foundFormattingElement).getAmount();");
 		sc.add("for (int i = 0; i < amount; i++) {");
-		sc.add("tokenOutputStream.add(new PrintToken(\" \", null));");
+		sc.add("tokenOutputStream.add(SPACE_TOKEN);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (foundFormattingElement instanceof " + lineBreakClassName + ") {");
 		sc.add("currentTabs = ((" + lineBreakClassName + ") foundFormattingElement).getTabs();");
 		sc.add("printedTabs += currentTabs;");
-		sc.add("tokenOutputStream.add(new PrintToken(NEW_LINE, null));");
+		sc.add("tokenOutputStream.add(NEW_LINE_TOKEN);");
 		sc.add("for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {");
-		sc.add("tokenOutputStream.add(new PrintToken(\"\\t\", null));");
+		sc.add("tokenOutputStream.add(TAB_TOKEN);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
