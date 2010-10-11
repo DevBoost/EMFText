@@ -254,8 +254,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private boolean handleTokenSpaceAutomatically = " + handleTokenSpaceAutomatically + ";");
 		sc.add("private int tokenSpace = " + getTokenSpace() + ";");
 		sc.addJavadoc(
-			"A flag that indicates whether token have already been printed for " +
-			"the some object. The flag is set to false whenever printing of " +
+			"A flag that indicates whether tokens have already been printed for " +
+			"some object. The flag is set to false whenever printing of " +
 			"an EObject tree is started. The status of the flag " +
 			"is used to avoid printing default token space in front of the root object."
 		);
@@ -274,11 +274,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		);
 		sc.add("private int tabsBeforeCurrentObject;");
 		sc.addJavadoc(
-				"This flag is used to indicate whether the number of tabs before the current " +
-				"object has been set for the current object. The flag is needed, because setting " +
-				"the number of tabs must be performed when the first token of the contained element " +
-				"is printed."
-			);
+			"This flag is used to indicate whether the number of tabs before the current " +
+			"object has been set for the current object. The flag is needed, because setting " +
+			"the number of tabs must be performed when the first token of the contained element " +
+			"is printed."
+		);
 		sc.add("private boolean startedPrintingContainedObject;");
 		sc.addLineBreak();
 	}
