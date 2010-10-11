@@ -100,6 +100,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintBooleanTerminalMethod(sc);
 		addPrintContainedObjectMethod(sc);
 		addPrintFormattingElementsMethod(sc);
+		addSetTabsBeforeCurrentObjectMethod(sc);
 		addGetValueMethod(sc);
 		addPrintReferenceMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
@@ -267,7 +268,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"are printed within one object."
 		);
 		sc.add("private int tabsBeforeCurrentObject;");
-		sc.add("private int newTabsBeforeCurrentObject;");
+		sc.addJavadoc(
+				"This flag is used to indicate whether the number of tabs before the current " +
+				"object has been set for the current object. The flag is needed, because setting " +
+				"the number of tabs must be performed when the first token of the contained element " +
+				"is printed."
+			);
+		sc.add("private boolean startedPrintingContainedObject;");
 		sc.addLineBreak();
 	}
 
@@ -618,9 +625,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
 		sc.add("Object o = getValue(eObject, reference, count);");
-		//sc.addComment("print formatting elements");
-		//sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, containment, o, eObject);");
-		//sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.addComment(
 				"save current number of tabs to restore them after printing the contained object"
 		);
@@ -630,12 +634,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 				"use current number of tabs to indent contained object. " +
 				"we do not directly set 'tabsBeforeCurrentObject' because the first " +
 				"element of the new object must be printed with the old number of tabs.");
-		sc.add("newTabsBeforeCurrentObject = tabsBeforeCurrentObject + currentTabs;");
+		sc.add("startedPrintingContainedObject = false;");
 		sc.add("currentTabs = 0;");
 		sc.add("doPrint((" + E_OBJECT + ") o, foundFormattingElements);");
 		sc.addComment("restore number of tabs after printing the contained object");
 		sc.add("tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;");
-		sc.add("newTabsBeforeCurrentObject = tabsBeforeCurrentObject;");
 		sc.add("currentTabs = oldCurrentTabs;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -652,9 +655,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingObject = false;");
-		sc.add("tabsBeforeCurrentObject = newTabsBeforeCurrentObject;");
+		sc.add("setTabsBeforeCurrentObject(0);");
 		sc.add("return;");
 		sc.add("}");
+		sc.add("int printedTabs = 0;");
 		// (b) if Whitespace or LineBreak elements were found, print those
 		sc.add("if (foundFormattingElements.size() > 0) {");
 		sc.add("for (" + formattingElementClassName + " foundFormattingElement : foundFormattingElements) {");
@@ -666,6 +670,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.add("if (foundFormattingElement instanceof " + lineBreakClassName + ") {");
 		sc.add("currentTabs = ((" + lineBreakClassName + ") foundFormattingElement).getTabs();");
+		sc.add("printedTabs += currentTabs;");
 		sc.add("tokenOutputStream.add(new PrintToken(NEW_LINE, null));");
 		sc.add("for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {");
 		sc.add("tokenOutputStream.add(new PrintToken(\"\\t\", null));");
@@ -691,11 +696,22 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addComment(
 				"after printing the first element, we can use the new number of tabs."
 		);
-		sc.add("tabsBeforeCurrentObject = newTabsBeforeCurrentObject;");
+		sc.add("setTabsBeforeCurrentObject(printedTabs);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
+	private void addSetTabsBeforeCurrentObjectMethod(JavaComposite sc) {
+		sc.add("private void setTabsBeforeCurrentObject(int tabs) {");
+		sc.add("if (startedPrintingContainedObject) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("tabsBeforeCurrentObject = tabsBeforeCurrentObject + tabs;");
+		sc.add("startedPrintingContainedObject = true;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addGetValueMethod(JavaComposite sc) {
 		sc.add("private Object getValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int count) {");
 		sc.addComment("get value of feature");
@@ -716,6 +732,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("currentTabs = 0;");
 		sc.add("tabsBeforeCurrentObject = 0;");
 		sc.add("startedPrintingObject = true;");
+		sc.add("startedPrintingContainedObject = false;");
 		sc.add("doPrint(element, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
