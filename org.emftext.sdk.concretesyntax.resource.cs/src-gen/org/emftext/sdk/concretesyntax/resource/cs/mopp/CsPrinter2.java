@@ -38,6 +38,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public final static String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
 	
+	private final PrintToken SPACE_TOKEN = new PrintToken(" ", null);
+	private final PrintToken TAB_TOKEN = new PrintToken("\t", null);
+	private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);
+	
 	/**
 	 * Holds the resource that is associated with this printer. May be null if the
 	 * printer is used stand alone.
@@ -70,7 +74,13 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	 * are printed within one object.
 	 */
 	private int tabsBeforeCurrentObject;
-	private int newTabsBeforeCurrentObject;
+	/**
+	 * This flag is used to indicate whether the number of tabs before the current
+	 * object has been set for the current object. The flag is needed, because setting
+	 * the number of tabs must be performed when the first token of the contained
+	 * element is printed.
+	 */
+	private boolean startedPrintingContainedObject;
 	
 	public CsPrinter2(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -83,6 +93,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		currentTabs = 0;
 		tabsBeforeCurrentObject = 0;
 		startedPrintingObject = true;
+		startedPrintingContainedObject = false;
 		doPrint(element, new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement>());
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
 		if (handleTokenSpaceAutomatically) {
@@ -489,12 +500,11 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		// use current number of tabs to indent contained object. we do not directly set
 		// 'tabsBeforeCurrentObject' because the first element of the new object must be
 		// printed with the old number of tabs.
-		newTabsBeforeCurrentObject = tabsBeforeCurrentObject + currentTabs;
+		startedPrintingContainedObject = false;
 		currentTabs = 0;
 		doPrint((org.eclipse.emf.ecore.EObject) o, foundFormattingElements);
 		// restore number of tabs after printing the contained object
 		tabsBeforeCurrentObject = oldTabsBeforeCurrentObject;
-		newTabsBeforeCurrentObject = tabsBeforeCurrentObject;
 		currentTabs = oldCurrentTabs;
 	}
 	
@@ -506,22 +516,24 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			tokenOutputStream.add(new PrintToken(hiddenTokenText, null));
 			foundFormattingElements.clear();
 			startedPrintingObject = false;
-			tabsBeforeCurrentObject = newTabsBeforeCurrentObject;
+			setTabsBeforeCurrentObject(0);
 			return;
 		}
+		int printedTabs = 0;
 		if (foundFormattingElements.size() > 0) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement foundFormattingElement : foundFormattingElements) {
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
 					int amount = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) foundFormattingElement).getAmount();
 					for (int i = 0; i < amount; i++) {
-						tokenOutputStream.add(new PrintToken(" ", null));
+						tokenOutputStream.add(SPACE_TOKEN);
 					}
 				}
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) {
 					currentTabs = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) foundFormattingElement).getTabs();
-					tokenOutputStream.add(new PrintToken(NEW_LINE, null));
+					printedTabs += currentTabs;
+					tokenOutputStream.add(NEW_LINE_TOKEN);
 					for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {
-						tokenOutputStream.add(new PrintToken("\t", null));
+						tokenOutputStream.add(TAB_TOKEN);
 					}
 				}
 			}
@@ -539,7 +551,15 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			}
 		}
 		// after printing the first element, we can use the new number of tabs.
-		tabsBeforeCurrentObject = newTabsBeforeCurrentObject;
+		setTabsBeforeCurrentObject(printedTabs);
+	}
+	
+	private void setTabsBeforeCurrentObject(int tabs) {
+		if (startedPrintingContainedObject) {
+			return;
+		}
+		tabsBeforeCurrentObject = tabsBeforeCurrentObject + tabs;
+		startedPrintingContainedObject = true;
 	}
 	
 	private Object getValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int count) {
