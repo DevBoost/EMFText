@@ -14,10 +14,8 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_PARSER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN_STREAM;
@@ -52,9 +50,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 		
 		sc.addJavadoc("a collection to store all anonymous tokens");
-		sc.add("protected " + LIST + "<" + COMMON_TOKEN
-				+ "> anonymousTokens = new " + ARRAY_LIST + "<"
-				+ COMMON_TOKEN + ">();");
+		sc.add("protected " + sc.declareArrayList("anonymousTokens", COMMON_TOKEN));
 		sc.addLineBreak();
 	}
 

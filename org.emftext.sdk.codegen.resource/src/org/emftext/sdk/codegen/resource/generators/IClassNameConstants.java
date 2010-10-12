@@ -37,7 +37,6 @@ import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,7 +45,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -154,7 +152,7 @@ import org.osgi.framework.BundleContext;
 /**
  * Constants for class names used in the generated code.
  */
-public interface IClassNameConstants {
+public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.IClassNameConstants {
 	
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ADAPTER = Adapter.class.getName();
@@ -163,7 +161,6 @@ public interface IClassNameConstants {
 	public static String ANTLR_PARSER = org.antlr.runtime3_2_0.Parser.class.getName();
 	public static String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
 	public static String ARRAYS = java.util.Arrays.class.getName();
-	public static String ARRAY_LIST = ArrayList.class.getName();
 	public static String ASSERT = Assert.class.getName();
 	public static String BASIC_COMMAND_STACK = BasicCommandStack.class.getName();
 	public static String BASIC_E_LIST = BasicEList.class.getName();
@@ -252,7 +249,6 @@ public interface IClassNameConstants {
 	public static String LINKED_HASH_MAP = LinkedHashMap.class.getName();
 	public static String LINKED_HASH_SET = LinkedHashSet.class.getName();
 	public static String LINKED_LIST = LinkedList.class.getName();
-	public static String LIST = List.class.getName();
 	public static String LISTENER_LIST = ListenerList.class.getName();
 	public static String LIST_ITERATOR = ListIterator.class.getName();
 	public static String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getCanonicalName();

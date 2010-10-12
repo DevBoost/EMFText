@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.composites;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,5 +137,9 @@ public class JavaComposite extends StringComposite {
 			}
 		}
 		return result;
+	}
+
+	public String declareArrayList(String name, String type) {
+		return LIST + "<" + type + "> " + name  + " = new " + ARRAY_LIST + "<" + type + ">();";
 	}
 }
