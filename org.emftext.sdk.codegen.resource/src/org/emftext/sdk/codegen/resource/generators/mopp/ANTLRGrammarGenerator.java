@@ -135,7 +135,7 @@ import org.emftext.sdk.util.StringUtil;
  * set is stored. To compute the completion proposals, this preliminary follow set 
  * must be reduced using the token at the stored index. The remaining subset is 
  * then queried for its follows, where the same procedure is applied again 
- * (reduction using the next token). this is performed until the cursor position 
+ * (reduction using the next token). This is performed until the cursor position 
  * (end of the document) is reached.
  * 
  * TODO mseifert: Wrap all fields which are used for code completion only in a 
@@ -315,8 +315,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addTerminateMethod(sc);
 		addCompletedElementMethod(sc);
 		addCreateDynamicProxyMethod(sc);
-		addRetrieveLayoutInformationMethod(sc);
-		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -654,53 +652,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addRetrieveLayoutInformationMethod(StringComposite sc) {
-		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object) {");
-		sc.add("if (!(syntaxElement instanceof " + placeholderClassName + ") && !(syntaxElement instanceof " + keywordClassName + ")) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
-		sc.add("for (" + COMMON_TOKEN + " anonymousToken : anonymousTokens) {");
-		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), null));");
-		sc.add("}");
-		sc.add("anonymousTokens.clear();");
-		sc.add("int currentPos = getTokenStream().index();");
-		sc.add("if (currentPos == 0) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("int endPos = currentPos - 1;");
-		sc.add("for (; endPos >= this.lastPosition2; endPos--) {");
-		sc.add(TOKEN + " token = getTokenStream().get(endPos);");
-		sc.add("int _channel = token.getChannel();");
-		sc.add("if (_channel != 99) {");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("StringBuilder hiddenTokenText = new StringBuilder();");
-		sc.add("StringBuilder visibleTokenText = new StringBuilder();");
-		sc.add(COMMON_TOKEN + " firstToken = null;");
-		sc.add("for (int pos = this.lastPosition2; pos <= endPos; pos++) {");
-		sc.add(TOKEN + " token = getTokenStream().get(pos);");
-		sc.add("if (firstToken == null) {");
-		sc.add("firstToken = (" + COMMON_TOKEN + ") token;");
-		sc.add("}");
-		sc.add("int _channel = token.getChannel();");
-		sc.add("if (_channel == 99) {");
-		sc.add("hiddenTokenText.append(token.getText());");
-		sc.add("} else {");
-		sc.add("visibleTokenText.append(token.getText());");
-		sc.add("}");
-		sc.add("}");
-		sc.add("int offset = -1;");
-		sc.add("if (firstToken != null) {");
-		sc.add("offset = firstToken.getStartIndex();");
-		sc.add("}");
-		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
-		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
 	private void addCreateInstanceMethod(String lexerName, String parserName,
 			StringComposite sc) {
 		sc.add("public " + iTextParserClassName + " createInstance("
@@ -776,10 +727,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		sc.addJavadoc("the index of the last token that was handled by collectHiddenTokens()");
 		sc.add("private int lastPosition;");
-		sc.addLineBreak();
-		
-		sc.addJavadoc("the index of the last token that was handled by retrieveLayoutInformation()");
-		sc.add("private int lastPosition2;");
 		sc.addLineBreak();
 		
 		sc.add("private " + tokenResolveResultClassName
@@ -862,12 +809,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("private int expectedElementsIndexOfLastCompleteElement;");
 		sc.addLineBreak();
 
-		sc.addJavadoc("a collection to store all anonymous tokens");
-		sc.add("private " + LIST + "<" + COMMON_TOKEN
-				+ "> anonymousTokens = new " + ARRAY_LIST + "<"
-				+ COMMON_TOKEN + ">();");
-		sc.addLineBreak();
-		
 		sc.addJavadoc(
 			"The offset indicating the cursor position when the parser is used for code " +
 			"completion by calling parseToExpectedElements()."
