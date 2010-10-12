@@ -41,6 +41,13 @@ public class TokenResolverFactoryGenerator extends JavaBaseGenerator<ArtifactPar
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addJavadoc(
+			"The " + getResourceClassName() + " class provides access to all generated token resolvers. " +
+			"By giving the name of a defined token, the corresponding resolve can be obtained. Despite the " +
+			"fact that this class is called TokenResolverFactory is does NOT create new token resolvers " +
+			"whenever a client calls methods to obtain a resolver. Rather, this class maintains a map " +
+			"of all resolvers and creates each resolver at most once."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolverFactoryClassName + " {");
 		sc.addLineBreak();
 		
