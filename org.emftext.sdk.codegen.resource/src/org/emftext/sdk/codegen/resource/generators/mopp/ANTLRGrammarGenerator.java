@@ -661,7 +661,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("for (" + COMMON_TOKEN + " anonymousToken : anonymousTokens) {");
-		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), \"\"));");
+		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), null));");
 		sc.add("}");
 		sc.add("anonymousTokens.clear();");
 		sc.add("int currentPos = getTokenStream().index();");
