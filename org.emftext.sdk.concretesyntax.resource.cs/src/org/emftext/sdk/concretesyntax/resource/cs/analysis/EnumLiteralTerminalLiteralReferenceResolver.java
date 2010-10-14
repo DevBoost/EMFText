@@ -14,19 +14,52 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-public class EnumLiteralTerminalLiteralReferenceResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<org.emftext.sdk.concretesyntax.EnumLiteralTerminal, org.eclipse.emf.ecore.EEnumLiteral> {
+import java.util.Map;
+
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
+
+
+public class EnumLiteralTerminalLiteralReferenceResolver implements ICsReferenceResolver<EnumLiteralTerminal, EEnumLiteral> {
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultResolverDelegate<org.emftext.sdk.concretesyntax.EnumLiteralTerminal, org.eclipse.emf.ecore.EEnumLiteral> delegate = new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultResolverDelegate<org.emftext.sdk.concretesyntax.EnumLiteralTerminal, org.eclipse.emf.ecore.EEnumLiteral>();
+	private CsDefaultResolverDelegate<EnumLiteralTerminal, EEnumLiteral> delegate = new CsDefaultResolverDelegate<EnumLiteralTerminal, EEnumLiteral>();
 	
-	public void resolve(String identifier, org.emftext.sdk.concretesyntax.EnumLiteralTerminal container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, final org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<org.eclipse.emf.ecore.EEnumLiteral> result) {
-		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
+	public void resolve(String identifier, EnumLiteralTerminal container, EReference reference, int position, boolean resolveFuzzy, final ICsReferenceResolveResult<EEnumLiteral> result) {
+		EObject parent = container.eContainer();
+		if (!(parent instanceof EnumTerminal)) {
+			return;
+		}
+		EnumTerminal enumTerminal = (EnumTerminal) parent;
+		GenFeature genFeature = enumTerminal.getFeature();
+		if (genFeature == null) {
+			return;
+		}
+		EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+		if (ecoreFeature == null) {
+			return;
+		}
+		EClassifier eType = ecoreFeature.getEType();
+		if (eType == null) {
+			return;
+		}
+		// we use tryToResolveIdentifierInObjectTree() instead of resolver(), because we
+		// want to search only for EEnumLiterals in the referenced EEnum
+		delegate.tryToResolveIdentifierInObjectTree(identifier, eType, reference, resolveFuzzy, result);
 	}
 	
-	public String deResolve(org.eclipse.emf.ecore.EEnumLiteral element, org.emftext.sdk.concretesyntax.EnumLiteralTerminal container, org.eclipse.emf.ecore.EReference reference) {
-		return delegate.deResolve(element, container, reference);
+	public String deResolve(EEnumLiteral element, EnumLiteralTerminal container, EReference reference) {
+		return element.getName();
 	}
 	
-	public void setOptions(java.util.Map<?,?> options) {
+	public void setOptions(Map<?,?> options) {
 		// save options in a field or leave method empty if this resolver does not depend
 		// on any option
 	}

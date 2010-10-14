@@ -656,6 +656,52 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.EnumTerminal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumTerminalItemProvider enumTerminalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.EnumTerminal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumTerminalAdapter() {
+		if (enumTerminalItemProvider == null) {
+			enumTerminalItemProvider = new EnumTerminalItemProvider(this);
+		}
+
+		return enumTerminalItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumLiteralTerminalItemProvider enumLiteralTerminalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumLiteralTerminalAdapter() {
+		if (enumLiteralTerminalItemProvider == null) {
+			enumLiteralTerminalItemProvider = new EnumLiteralTerminalItemProvider(this);
+		}
+
+		return enumLiteralTerminalItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.Option} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -963,6 +1009,8 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (placeholderUsingDefaultTokenItemProvider != null) placeholderUsingDefaultTokenItemProvider.dispose();
 		if (placeholderInQuotesItemProvider != null) placeholderInQuotesItemProvider.dispose();
 		if (booleanTerminalItemProvider != null) booleanTerminalItemProvider.dispose();
+		if (enumTerminalItemProvider != null) enumTerminalItemProvider.dispose();
+		if (enumLiteralTerminalItemProvider != null) enumLiteralTerminalItemProvider.dispose();
 		if (optionItemProvider != null) optionItemProvider.dispose();
 		if (abstractItemProvider != null) abstractItemProvider.dispose();
 		if (tokenStyleItemProvider != null) tokenStyleItemProvider.dispose();
