@@ -49,40 +49,62 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	public final static String NAME_FEATURE = "name";
 	
 	/**
-	 * This standard implementation searches the tree for objects of the correct type
-	 * with a name attribute matching the identifier.
+	 * This standard implementation searches for objects in the resource, which have
+	 * the correct type and a name/id attribute matching the identifier. If no
+	 * matching object is found, the identifier is used as URI. If the resource at
+	 * this URI has a root element of the correct type, this element is returned.
 	 */
 	protected void resolve(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		try {
-			org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 			org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
-			// first check whether the root element matches
-			boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+			boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result);
 			if (!continueSearch) {
 				return;
 			}
-			// then check the contents
-			for (java.util.Iterator<org.eclipse.emf.ecore.EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
-				org.eclipse.emf.ecore.EObject element = iterator.next();
-				continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);
-				if (!continueSearch) {
-					return;
-				}
-			}
-			org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
-			if (resource != null) {
-				org.eclipse.emf.common.util.URI uri = getURI(identifier, resource.getURI());
-				if (uri != null) {
-					org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), uri);
-					if (element == null) {
-						return;
-					}
-					checkElement(element, type, identifier, resolveFuzzy, false, result);
-				}
-			}
+			tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);
 		} catch (java.lang.RuntimeException rte) {
 			// catch exception here to prevent EMF proxy resolution from swallowing it
 			rte.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Searches for objects in the tree of EObjects that is rooted at
+	 * <code>root</code>, which have the correct type and a name/id attribute matching
+	 * the identifier. This method can be used to quickly implement custom reference
+	 * resolvers which require to search in a particular scope for reference elements,
+	 * rather than in the whole resource as done by resolve().
+	 */
+	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
+		// first check whether the root element matches
+		boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+		if (!continueSearch) {
+			return false;
+		}
+		// then check the contents
+		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
+			org.eclipse.emf.ecore.EObject element = iterator.next();
+			continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);
+			if (!continueSearch) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
+		org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
+		if (resource != null) {
+			org.eclipse.emf.common.util.URI uri = getURI(identifier, resource.getURI());
+			if (uri != null) {
+				org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), uri);
+				if (element == null) {
+					return;
+				}
+				checkElement(element, type, identifier, resolveFuzzy, false, result);
+			}
 		}
 	}
 	
