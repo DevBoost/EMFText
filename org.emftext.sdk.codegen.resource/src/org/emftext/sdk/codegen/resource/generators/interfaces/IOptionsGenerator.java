@@ -47,8 +47,9 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addJavadoc(
 			"The key for the option to specify an expected content type in text resources and text parsers. " +
 			"A content type is an EClass that specifies the root object of a text resource. If this option " +
-			"is set, the parser does not use the start symbols defined in the .cs specification, use the " +
-			"given EClass as start symbol instead."
+			"is set, the parser does not use the start symbols defined in the .cs specification, but use the " +
+			"given EClass as start symbol instead. Note that the value for this option must be an EClass object " +
+			"and not the name of the EClass."
 		);
 		sc.add("public final String RESOURCE_CONTENT_TYPE = \"RESOURCE_CONTENT_TYPE\";");
 		sc.addLineBreak();
