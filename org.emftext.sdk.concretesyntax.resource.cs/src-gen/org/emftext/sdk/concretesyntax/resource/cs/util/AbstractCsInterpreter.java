@@ -106,6 +106,18 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof org.emftext.sdk.concretesyntax.EnumLiteralTerminal) {
+			result = interprete_org_emftext_sdk_concretesyntax_EnumLiteralTerminal((org.emftext.sdk.concretesyntax.EnumLiteralTerminal) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof org.emftext.sdk.concretesyntax.EnumTerminal) {
+			result = interprete_org_emftext_sdk_concretesyntax_EnumTerminal((org.emftext.sdk.concretesyntax.EnumTerminal) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.BooleanTerminal) {
 			result = interprete_org_emftext_sdk_concretesyntax_BooleanTerminal((org.emftext.sdk.concretesyntax.BooleanTerminal) object, context);
 		}
@@ -506,6 +518,14 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_BooleanTerminal(org.emftext.sdk.concretesyntax.BooleanTerminal object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumTerminal(org.emftext.sdk.concretesyntax.EnumTerminal object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumLiteralTerminal(org.emftext.sdk.concretesyntax.EnumLiteralTerminal object, ContextType context) {
 		return null;
 	}
 	

@@ -378,7 +378,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 44;
+	int ANNOTABLE = 46;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
@@ -1912,6 +1912,98 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int BOOLEAN_TERMINAL_FEATURE_COUNT = TERMINAL_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.EnumTerminalImpl <em>Enum Terminal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.EnumTerminalImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumTerminal()
+	 * @generated
+	 */
+	int ENUM_TERMINAL = 40;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_TERMINAL__CHILDREN = TERMINAL__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_TERMINAL__CARDINALITY = TERMINAL__CARDINALITY;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_TERMINAL__FEATURE = TERMINAL__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Literals</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_TERMINAL__LITERALS = TERMINAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Enum Terminal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_TERMINAL_FEATURE_COUNT = TERMINAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.EnumLiteralTerminalImpl <em>Enum Literal Terminal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.EnumLiteralTerminalImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumLiteralTerminal()
+	 * @generated
+	 */
+	int ENUM_LITERAL_TERMINAL = 41;
+
+	/**
+	 * The feature id for the '<em><b>Literal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL_TERMINAL__LITERAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL_TERMINAL__TEXT = 1;
+
+	/**
+	 * The number of structural features of the '<em>Enum Literal Terminal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL_TERMINAL_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1919,7 +2011,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 40;
+	int OPTION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1956,7 +2048,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 41;
+	int ABSTRACT = 43;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1975,7 +2067,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 42;
+	int TOKEN_STYLE = 44;
 
 	/**
 	 * The feature id for the '<em><b>Token Names</b></em>' attribute list.
@@ -2021,7 +2113,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 43;
+	int ANNOTATION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -2058,7 +2150,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 45;
+	int KEY_VALUE_PAIR = 47;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -2095,7 +2187,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE = 46;
+	int GEN_CLASS_CACHE = 48;
 
 	/**
 	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
@@ -2123,7 +2215,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE_ENTRY = 47;
+	int GEN_CLASS_CACHE_ENTRY = 49;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' reference.
@@ -2160,7 +2252,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
 	 * @generated
 	 */
-	int ECLASS_UTIL = 48;
+	int ECLASS_UTIL = 50;
 
 	/**
 	 * The number of structural features of the '<em>EClass Util</em>' class.
@@ -2179,7 +2271,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 49;
+	int OPTION_TYPES = 51;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -2189,7 +2281,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 50;
+	int FONT_STYLE = 52;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -2199,7 +2291,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 51;
+	int ANNOTATION_TYPE = 53;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -2209,7 +2301,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 52;
+	int OPERATOR_ANNOTATION_TYPE = 54;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -2219,7 +2311,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 53;
+	int OPERATOR_ANNOTATION_PROPERTY = 55;
 
 
 	/**
@@ -3171,6 +3263,59 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBooleanTerminal_FalseLiteral();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.EnumTerminal <em>Enum Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Terminal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EnumTerminal
+	 * @generated
+	 */
+	EClass getEnumTerminal();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.EnumTerminal#getLiterals <em>Literals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Literals</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EnumTerminal#getLiterals()
+	 * @see #getEnumTerminal()
+	 * @generated
+	 */
+	EReference getEnumTerminal_Literals();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal <em>Enum Literal Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Literal Terminal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EnumLiteralTerminal
+	 * @generated
+	 */
+	EClass getEnumLiteralTerminal();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal#getLiteral <em>Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Literal</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EnumLiteralTerminal#getLiteral()
+	 * @see #getEnumLiteralTerminal()
+	 * @generated
+	 */
+	EReference getEnumLiteralTerminal_Literal();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see org.emftext.sdk.concretesyntax.EnumLiteralTerminal#getText()
+	 * @see #getEnumLiteralTerminal()
+	 * @generated
+	 */
+	EAttribute getEnumLiteralTerminal_Text();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Option <em>Option</em>}'.
@@ -4278,6 +4423,50 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BOOLEAN_TERMINAL__FALSE_LITERAL = eINSTANCE.getBooleanTerminal_FalseLiteral();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.EnumTerminalImpl <em>Enum Terminal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.EnumTerminalImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumTerminal()
+		 * @generated
+		 */
+		EClass ENUM_TERMINAL = eINSTANCE.getEnumTerminal();
+
+		/**
+		 * The meta object literal for the '<em><b>Literals</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_TERMINAL__LITERALS = eINSTANCE.getEnumTerminal_Literals();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.EnumLiteralTerminalImpl <em>Enum Literal Terminal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.EnumLiteralTerminalImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumLiteralTerminal()
+		 * @generated
+		 */
+		EClass ENUM_LITERAL_TERMINAL = eINSTANCE.getEnumLiteralTerminal();
+
+		/**
+		 * The meta object literal for the '<em><b>Literal</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_LITERAL_TERMINAL__LITERAL = eINSTANCE.getEnumLiteralTerminal_Literal();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENUM_LITERAL_TERMINAL__TEXT = eINSTANCE.getEnumLiteralTerminal_Text();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.

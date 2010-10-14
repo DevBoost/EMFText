@@ -89,6 +89,8 @@ RULES {
 	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" cardinality?;
 	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]" #1 cardinality?;
 	BooleanTerminal                ::= feature[] "[" trueLiteral[STRING] ":" falseLiteral[STRING] "]" cardinality?;
+	EnumTerminal                   ::= feature[] "[" literals ("," literals)* "]" cardinality?;
+	EnumLiteralTerminal            ::= literal[] ":" text[STRING];
 	
 	Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
 	

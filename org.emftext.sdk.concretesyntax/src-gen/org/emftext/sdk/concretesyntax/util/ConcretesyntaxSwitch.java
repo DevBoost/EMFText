@@ -481,6 +481,22 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.ENUM_TERMINAL: {
+				EnumTerminal enumTerminal = (EnumTerminal)theEObject;
+				T result = caseEnumTerminal(enumTerminal);
+				if (result == null) result = caseTerminal(enumTerminal);
+				if (result == null) result = caseCardinalityDefinition(enumTerminal);
+				if (result == null) result = caseDefinition(enumTerminal);
+				if (result == null) result = caseSyntaxElement(enumTerminal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL: {
+				EnumLiteralTerminal enumLiteralTerminal = (EnumLiteralTerminal)theEObject;
+				T result = caseEnumLiteralTerminal(enumLiteralTerminal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.OPTION: {
 				Option option = (Option)theEObject;
 				T result = caseOption(option);
@@ -1136,6 +1152,36 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseBooleanTerminal(BooleanTerminal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Terminal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumTerminal(EnumTerminal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Literal Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Literal Terminal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumLiteralTerminal(EnumLiteralTerminal object) {
 		return null;
 	}
 

@@ -290,6 +290,14 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createBooleanTerminalAdapter();
 			}
 			@Override
+			public Adapter caseEnumTerminal(EnumTerminal object) {
+				return createEnumTerminalAdapter();
+			}
+			@Override
+			public Adapter caseEnumLiteralTerminal(EnumLiteralTerminal object) {
+				return createEnumLiteralTerminalAdapter();
+			}
+			@Override
 			public Adapter caseOption(Option object) {
 				return createOptionAdapter();
 			}
@@ -902,6 +910,34 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBooleanTerminalAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.EnumTerminal <em>Enum Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.EnumTerminal
+	 * @generated
+	 */
+	public Adapter createEnumTerminalAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.EnumLiteralTerminal <em>Enum Literal Terminal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.EnumLiteralTerminal
+	 * @generated
+	 */
+	public Adapter createEnumLiteralTerminalAdapter() {
 		return null;
 	}
 

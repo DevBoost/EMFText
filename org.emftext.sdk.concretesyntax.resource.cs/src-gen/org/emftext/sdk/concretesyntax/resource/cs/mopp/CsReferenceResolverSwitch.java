@@ -22,6 +22,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver ruleMetaclassReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver terminalFeatureReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver placeholderTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver();
+	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.EnumLiteralTerminalLiteralReferenceResolver enumLiteralTerminalLiteralReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.EnumLiteralTerminalLiteralReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver containmentTypesReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenRedefinitionRedefinedTokenReferenceResolver tokenRedefinitionRedefinedTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenRedefinitionRedefinedTokenReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenPriorityDirectiveTokenReferenceResolver tokenPriorityDirectiveTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TokenPriorityDirectiveTokenReferenceResolver();
@@ -51,6 +52,10 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		return placeholderTokenReferenceResolver;
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.analysis.EnumLiteralTerminalLiteralReferenceResolver getEnumLiteralTerminalLiteralReferenceResolver() {
+		return enumLiteralTerminalLiteralReferenceResolver;
+	}
+	
 	public org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver getContainmentTypesReferenceResolver() {
 		return containmentTypesReferenceResolver;
 	}
@@ -74,6 +79,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		ruleMetaclassReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
 		placeholderTokenReferenceResolver.setOptions(options);
+		enumLiteralTerminalLiteralReferenceResolver.setOptions(options);
 		containmentTypesReferenceResolver.setOptions(options);
 		tokenRedefinitionRedefinedTokenReferenceResolver.setOptions(options);
 		tokenPriorityDirectiveTokenReferenceResolver.setOptions(options);
@@ -132,6 +138,14 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 				placeholderTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Placeholder) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
+		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal().isInstance(container)) {
+			CsFuzzyResolveResult<org.eclipse.emf.ecore.EEnumLiteral> frr = new CsFuzzyResolveResult<org.eclipse.emf.ecore.EEnumLiteral>(result);
+			String referenceName = reference.getName();
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(referenceName);
+			if (feature != null && feature instanceof org.eclipse.emf.ecore.EReference && referenceName != null && referenceName.equals("literal")) {
+				enumLiteralTerminalLiteralReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.EnumLiteralTerminal) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
+			}
+		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {
 			CsFuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass> frr = new CsFuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass>(result);
 			String referenceName = reference.getName();
@@ -184,6 +198,9 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		}
 		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholder_Token()) {
 			return placeholderTokenReferenceResolver;
+		}
+		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal_Literal()) {
+			return enumLiteralTerminalLiteralReferenceResolver;
 		}
 		if (reference == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment_Types()) {
 			return containmentTypesReferenceResolver;

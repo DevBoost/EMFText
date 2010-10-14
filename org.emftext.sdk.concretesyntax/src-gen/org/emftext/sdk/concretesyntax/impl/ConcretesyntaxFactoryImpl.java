@@ -134,6 +134,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN: return createPlaceholderUsingDefaultToken();
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES: return createPlaceholderInQuotes();
 			case ConcretesyntaxPackage.BOOLEAN_TERMINAL: return createBooleanTerminal();
+			case ConcretesyntaxPackage.ENUM_TERMINAL: return createEnumTerminal();
+			case ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL: return createEnumLiteralTerminal();
 			case ConcretesyntaxPackage.OPTION: return createOption();
 			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
@@ -441,6 +443,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public BooleanTerminal createBooleanTerminal() {
 		BooleanTerminalImpl booleanTerminal = new BooleanTerminalImpl();
 		return booleanTerminal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumTerminal createEnumTerminal() {
+		EnumTerminalImpl enumTerminal = new EnumTerminalImpl();
+		return enumTerminal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumLiteralTerminal createEnumLiteralTerminal() {
+		EnumLiteralTerminalImpl enumLiteralTerminal = new EnumLiteralTerminalImpl();
+		return enumLiteralTerminal;
 	}
 
 	/**

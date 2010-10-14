@@ -437,6 +437,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/trueLiteral"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/falseLiteral"/>
     </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//EnumTerminal">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumTerminal/literals"/>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//EnumLiteralTerminal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumLiteralTerminal/literal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//EnumLiteralTerminal/text"/>
+    </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Option">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/value"/>

@@ -14,6 +14,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+/**
+ * The CsTokenResolverFactory class provides access to all generated token
+ * resolvers. By giving the name of a defined token, the corresponding resolve can
+ * be obtained. Despite the fact that this class is called TokenResolverFactory is
+ * does NOT create new token resolvers whenever a client calls methods to obtain a
+ * resolver. Rather, this class maintains a map of all resolvers and creates each
+ * resolver at most once.
+ */
 public class CsTokenResolverFactory implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory {
 	
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver> tokenName2TokenResolver;

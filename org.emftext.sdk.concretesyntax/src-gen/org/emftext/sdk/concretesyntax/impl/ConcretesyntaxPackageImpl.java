@@ -46,6 +46,8 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -366,6 +368,20 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass booleanTerminalEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumTerminalEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumLiteralTerminalEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1344,6 +1360,51 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEnumTerminal() {
+		return enumTerminalEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumTerminal_Literals() {
+		return (EReference)enumTerminalEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnumLiteralTerminal() {
+		return enumLiteralTerminalEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumLiteralTerminal_Literal() {
+		return (EReference)enumLiteralTerminalEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEnumLiteralTerminal_Text() {
+		return (EAttribute)enumLiteralTerminalEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOption() {
 		return optionEClass;
 	}
@@ -1740,6 +1801,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(booleanTerminalEClass, BOOLEAN_TERMINAL__TRUE_LITERAL);
 		createEAttribute(booleanTerminalEClass, BOOLEAN_TERMINAL__FALSE_LITERAL);
 
+		enumTerminalEClass = createEClass(ENUM_TERMINAL);
+		createEReference(enumTerminalEClass, ENUM_TERMINAL__LITERALS);
+
+		enumLiteralTerminalEClass = createEClass(ENUM_LITERAL_TERMINAL);
+		createEReference(enumLiteralTerminalEClass, ENUM_LITERAL_TERMINAL__LITERAL);
+		createEAttribute(enumLiteralTerminalEClass, ENUM_LITERAL_TERMINAL__TEXT);
+
 		optionEClass = createEClass(OPTION);
 		createEAttribute(optionEClass, OPTION__TYPE);
 		createEAttribute(optionEClass, OPTION__VALUE);
@@ -1855,6 +1923,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		placeholderUsingDefaultTokenEClass.getESuperTypes().add(this.getPlaceholder());
 		placeholderInQuotesEClass.getESuperTypes().add(this.getPlaceholder());
 		booleanTerminalEClass.getESuperTypes().add(this.getTerminal());
+		enumTerminalEClass.getESuperTypes().add(this.getTerminal());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genPackageDependentElementEClass, GenPackageDependentElement.class, "GenPackageDependentElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2087,6 +2156,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(booleanTerminalEClass, BooleanTerminal.class, "BooleanTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanTerminal_TrueLiteral(), theEcorePackage.getEString(), "trueLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBooleanTerminal_FalseLiteral(), theEcorePackage.getEString(), "falseLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumTerminalEClass, EnumTerminal.class, "EnumTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnumTerminal_Literals(), this.getEnumLiteralTerminal(), null, "literals", null, 1, -1, EnumTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumLiteralTerminalEClass, EnumLiteralTerminal.class, "EnumLiteralTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnumLiteralTerminal_Literal(), theEcorePackage.getEEnumLiteral(), null, "literal", null, 1, 1, EnumLiteralTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnumLiteralTerminal_Text(), theEcorePackage.getEString(), "text", null, 1, 1, EnumLiteralTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOption_Type(), this.getOptionTypes(), "type", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

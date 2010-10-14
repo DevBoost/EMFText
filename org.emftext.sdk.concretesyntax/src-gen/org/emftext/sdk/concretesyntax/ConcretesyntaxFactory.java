@@ -261,6 +261,24 @@ public interface ConcretesyntaxFactory extends EFactory {
 	BooleanTerminal createBooleanTerminal();
 
 	/**
+	 * Returns a new object of class '<em>Enum Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Terminal</em>'.
+	 * @generated
+	 */
+	EnumTerminal createEnumTerminal();
+
+	/**
+	 * Returns a new object of class '<em>Enum Literal Terminal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Literal Terminal</em>'.
+	 * @generated
+	 */
+	EnumLiteralTerminal createEnumLiteralTerminal();
+
+	/**
 	 * Returns a new object of class '<em>Option</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
