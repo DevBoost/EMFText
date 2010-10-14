@@ -90,6 +90,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 	private void addMethods(JavaComposite sc) {
 		addResolveMethod(sc);
+		addTryToResolveIdentifierInObjectTree(sc);
+		addTryToResolveIdentifierAsURI(sc);
 		addCheckElementMethod(sc);
 		addCastMethod(sc);
 		addProduceDeResolveErrorMessage(sc);
@@ -324,26 +326,57 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 	private void addResolveMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"This standard implementation searches the tree for objects of the " +
-			"correct type with a name attribute matching the identifier."
+			"This standard implementation searches for objects in the resource, which have the " +
+			"correct type and a name/id attribute matching the identifier. If no matching object is " +
+			"found, the identifier is used as URI. If the resource at this URI has a root element " +
+			"of the correct type, this element is returned."
 		);
 		sc.add("protected void resolve(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("try {");
-		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(container);");
+		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result);");
+		sc.add("if (!continueSearch) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);");
+		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
+		sc.addComment("catch exception here to prevent EMF proxy resolution from swallowing it");
+		sc.add("rte.printStackTrace();");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addTryToResolveIdentifierInObjectTree(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches for objects in the tree of EObjects that is rooted at <code>root</code>, which have the " +
+			"correct type and a name/id attribute matching the identifier. This method can be used to quickly " +
+			"implement custom reference resolvers which require to search in a particular scope for referenced elements, " +
+			"rather than in the whole resource as done by resolve()."
+		);
+		sc.add("protected boolean tryToResolveIdentifierInObjectTree(String identifier, " + E_OBJECT + " root, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.addComment("first check whether the root element matches");
 		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
-		sc.add("return;");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addComment("then check the contents");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> iterator = root.eAllContents(); iterator.hasNext(); ) {");
 		sc.add(E_OBJECT + " element = iterator.next();");
 		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
-		sc.add("return;");
+		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addTryToResolveIdentifierAsURI(JavaComposite sc) {
+		sc.add("private void tryToResolveIdentifierAsURI(String identifier, ContainerType container, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add(RESOURCE + " resource = container.eResource();");
 		sc.add("if (resource != null) {");
 		sc.add(URI + " uri = getURI(identifier, resource.getURI());");
@@ -354,10 +387,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("checkElement(element, type, identifier, resolveFuzzy, false, result);");
 		sc.add("}");
-		sc.add("}");
-		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
-		sc.addComment("catch exception here to prevent EMF proxy resolution from swallowing it");
-		sc.add("rte.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
