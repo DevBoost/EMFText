@@ -225,6 +225,8 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/RESOLVE_PROXY_ELEMENTS_AFTER_PARSING"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_EXPECTED_BOOLEAN_TERMINAL"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_BOOLEAN_TERMINAL"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_ENUMERATION_TERMINAL"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_EXPECTED_ENUMERATION_TERMINAL"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>
@@ -439,6 +441,8 @@
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//EnumTerminal">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumTerminal/literals"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EnumTerminal/containsEmptyLiteral"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EnumTerminal/getNonEmptyLiterals"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//EnumLiteralTerminal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumLiteralTerminal/literal"/>

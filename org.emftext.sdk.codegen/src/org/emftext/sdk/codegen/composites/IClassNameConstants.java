@@ -14,7 +14,11 @@
 package org.emftext.sdk.codegen.composites;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Constants for class names used in the generated code.
@@ -22,5 +26,9 @@ import java.util.List;
 public interface IClassNameConstants {
 	
 	public static String ARRAY_LIST = ArrayList.class.getName();
+	public static String LINKED_HASH_MAP = LinkedHashMap.class.getName();
+	public static String LINKED_HASH_SET = LinkedHashSet.class.getName();
 	public static String LIST = List.class.getName();
+	public static String MAP = Map.class.getName();
+	public static String SET = Set.class.getName();
 }

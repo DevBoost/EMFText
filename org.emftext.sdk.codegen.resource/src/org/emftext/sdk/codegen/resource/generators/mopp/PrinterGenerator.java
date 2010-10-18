@@ -59,6 +59,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -479,6 +480,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 							}
 						} else if (terminal instanceof BooleanTerminal) {
 							// TODO implement printing of BooleanTerminals
+						} else if (terminal instanceof EnumTerminal) {
+							// TODO implement printing of EnumTerminal
 						} else {
 							assert terminal instanceof Containment;
 							printStatements.add("doPrint((" + E_OBJECT + ") o, out, localtab);");

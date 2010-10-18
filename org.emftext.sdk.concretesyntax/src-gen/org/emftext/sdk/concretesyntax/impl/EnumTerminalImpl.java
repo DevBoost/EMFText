@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -83,6 +84,39 @@ public class EnumTerminalImpl extends TerminalImpl implements EnumTerminal {
 			literals = new EObjectContainmentEList<EnumLiteralTerminal>(EnumLiteralTerminal.class, this, ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS);
 		}
 		return literals;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean containsEmptyLiteral() {
+		// TODO mseifert: move this method to EnumTerminal.ejava
+		for (EnumLiteralTerminal literal : getLiterals()) {
+			String text = literal.getText();
+			if (text == null || "".equals(text)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EnumLiteralTerminal> getNonEmptyLiterals() {
+		// TODO mseifert: move this method to EnumTerminal.ejava
+		EList<EnumLiteralTerminal> nonEmptyLiterals = new BasicEList<EnumLiteralTerminal>();
+		for (EnumLiteralTerminal literal : getLiterals()) {
+			String text = literal.getText();
+			if (text != null && !"".equals(text)) {
+				nonEmptyLiterals.add(literal);
+			}
+		}
+		return nonEmptyLiterals;
 	}
 
 	/**

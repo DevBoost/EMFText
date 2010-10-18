@@ -494,6 +494,7 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL: {
 				EnumLiteralTerminal enumLiteralTerminal = (EnumLiteralTerminal)theEObject;
 				T result = caseEnumLiteralTerminal(enumLiteralTerminal);
+				if (result == null) result = caseSyntaxElement(enumLiteralTerminal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

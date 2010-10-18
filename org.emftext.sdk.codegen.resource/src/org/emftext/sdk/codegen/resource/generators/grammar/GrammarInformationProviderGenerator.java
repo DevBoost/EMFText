@@ -31,6 +31,8 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
@@ -180,7 +182,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
 			String definitionFieldName = nameUtil.getFieldName(nextAsRule.getDefinition());
-			String metaClassAccessor = generatorUtil.getClassAccessor(nextAsRule.getMetaclass());
+			String metaClassAccessor = generatorUtil.getClassifierAccessor(nextAsRule.getMetaclass());
 			String fieldName = nameUtil.getFieldName(nextAsRule);
 			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof BooleanTerminal) {
@@ -193,6 +195,22 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			String escapedTrueLiteral = StringUtil.escapeToJavaString(booleanTerminal.getTrueLiteral());
 			String escapedFalseLiteral = StringUtil.escapeToJavaString(booleanTerminal.getFalseLiteral());
 			sc.add("public final static " + booleanTerminalClassName + " " + fieldName + " = new " + booleanTerminalClassName + "(" + featureAccessor + ", \"" + escapedTrueLiteral + "\", \"" + escapedFalseLiteral + "\", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
+		} else if (next instanceof EnumTerminal) {
+			EnumTerminal enumTerminal = (EnumTerminal) next;
+			GenFeature genFeature = enumTerminal.getFeature();
+			String getFeatureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
+			String featureAccessor = getFeatureAccessor;
+			String fieldName = nameUtil.getFieldName(enumTerminal);
+			int mandatoryOccurencesAfter = occurrenceHelper.getMandatoryOccurencesAfter(enumTerminal, genFeature);
+			String literalMappingArray = "new String[] {";
+			// add mappings between enumeration literals and their textual representation
+			for (EnumLiteralTerminal enumLiteralTerminal : enumTerminal.getLiterals()) {
+				String literalName = StringUtil.escapeToJavaString(enumLiteralTerminal.getLiteral().getName());
+				String value = StringUtil.escapeToJavaString(enumLiteralTerminal.getText());
+				literalMappingArray += "\"" + literalName + "\", \"" + value + "\", ";
+			}
+			literalMappingArray += "}";
+			sc.add("public final static " + enumerationTerminalClassName + " " + fieldName + " = new " + enumerationTerminalClassName + "(" + featureAccessor + ", " + literalMappingArray + ", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
 		} else {
 			assert next instanceof Annotation;
 		}

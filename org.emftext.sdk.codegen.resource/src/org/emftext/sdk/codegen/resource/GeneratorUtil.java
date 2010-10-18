@@ -30,6 +30,9 @@ import java.util.Map;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnumLiteral;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -64,13 +67,18 @@ public class GeneratorUtil {
 	}
 
 	public String getFeatureAccessor(GenClass genClass, GenFeature genFeature) {
-		return getClassAccessor(genClass) + "." + createGetFeatureCall(genClass, genFeature);
+		return getClassifierAccessor(genClass) + "." + createGetFeatureCall(genClass, genFeature);
 	}
 
-	public String getClassAccessor(GenClass genClass) {
-		return genClass.getGenPackage().getReflectionPackageName() + "."
-								+ genClass.getGenPackage().getPackageInterfaceName()
-								+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
+	public String getEnumLiteralAccessor(GenEnum genEnum, GenEnumLiteral genLiteral) {
+		return getClassifierAccessor(genEnum) + ".getEEnumLiteral(" + genEnum.getQualifiedName() + "." + genLiteral.getEnumLiteralValueConstantName() + ")";
+	}
+
+	public String getClassifierAccessor(GenClassifier classifier) {
+		GenPackage genPackage = classifier.getGenPackage();
+		return genPackage.getReflectionPackageName() + "."
+								+ genPackage.getPackageInterfaceName()
+								+ ".eINSTANCE.get" + classifier.getClassifierAccessorName()
 								+ "()";
 	}
 

@@ -64,6 +64,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnumLiteral;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -100,6 +102,8 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
@@ -1820,6 +1824,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		} else if (terminal instanceof BooleanTerminal) {
 			BooleanTerminal booleanTerminal = (BooleanTerminal) terminal;
 			addCodeForBooleanTerminal(sc, counter, booleanTerminal);
+		} else if (terminal instanceof EnumTerminal) {
+			EnumTerminal enumTerminal = (EnumTerminal) terminal;
+			addCodeForEnumTerminal(sc, counter, enumTerminal);
 		} else {
 			assert terminal instanceof Placeholder;
 			Placeholder placeholder = (Placeholder) terminal;
@@ -1991,6 +1998,56 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		counter.inc();
 	}
 
+	private void addCodeForEnumTerminal(
+			StringComposite sc, 
+			Counter counter,
+			EnumTerminal enumTerminal) {
+
+		Rule rule = enumTerminal.getContainingRule();
+		final GenClass metaclass = rule.getMetaclass();
+		final GenFeature genFeature = enumTerminal.getFeature();
+		GenEnum typeGenClass = genFeature.getTypeGenEnum();
+		assert typeGenClass instanceof GenEnum;
+		final GenEnum genEnum = (GenEnum) typeGenClass;
+		
+		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
+		final String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
+		
+		boolean containsEmptyLiteral = enumTerminal.containsEmptyLiteral();
+
+		List<EnumLiteralTerminal> literals = enumTerminal.getNonEmptyLiterals();
+
+		sc.add("(");
+		for (int i = 0; i < literals.size(); i++) {
+			EnumLiteralTerminal enumLiteralTerminal = literals.get(i);
+			String identifier = "a" + counter.getValue();
+			GenEnumLiteral genEnumLiteral = genEnum.getGenEnumLiteral(enumLiteralTerminal.getLiteral().getName());
+			String accessorName = generatorUtil.getEnumLiteralAccessor(genEnum, genEnumLiteral);
+			addCodeForEnumLiteralTerminal(
+					sc, 
+					enumTerminal,
+					enumLiteralTerminal,
+					eFeature, 
+					featureConstant, 
+					accessorName,
+					identifier);
+			counter.inc();
+			boolean isLast = i == (literals.size() - 1);
+			if (!isLast) {
+				// all literals are alternatives
+				sc.add("|");
+			}
+		}
+		
+		if (containsEmptyLiteral) {
+			// if one of the literals is empty, the others are optional
+			sc.add(")?");
+		} else {
+			sc.add(")");
+		}
+		counter.inc();
+	}
+
 	private void addCodeForBooleanLiteral(StringComposite sc,
 			BooleanTerminal booleanTerminal, 
 			EStructuralFeature eFeature, String featureConstant,
@@ -2004,6 +2061,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of boolean attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false);
+		sc.add("}");
+	}
+
+	private void addCodeForEnumLiteralTerminal(
+			StringComposite sc,
+			EnumTerminal enumTerminal, 
+			EnumLiteralTerminal enumLiteralTerminal, 
+			EStructuralFeature eFeature, 
+			String featureConstant,
+			String accessorName,
+			String identifier) {
+		Rule rule = enumLiteralTerminal.getContainingRule();
+		String escapedLiteral = StringUtil.escapeToANTLRKeyword(enumLiteralTerminal.getText());
+		sc.add(identifier + " = '" + escapedLiteral + "' {");
+		addCodeToCreateObject(sc, rule);
+		sc.add("collectHiddenTokens(element);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(enumTerminal) + ", null);");
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
+		sc.add("// set value of enumeration attribute");
+		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, accessorName, false);
 		sc.add("}");
 	}
 

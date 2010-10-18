@@ -14,7 +14,11 @@
 package org.emftext.sdk.codegen.composites;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.SET;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,5 +145,13 @@ public class JavaComposite extends StringComposite {
 
 	public String declareArrayList(String name, String type) {
 		return LIST + "<" + type + "> " + name  + " = new " + ARRAY_LIST + "<" + type + ">();";
+	}
+
+	public String declareLinkedHashMap(String name, String keyType, String valueType) {
+		return MAP + "<" + keyType + ", " + valueType + "> " + name  + " = new " + LINKED_HASH_MAP + "<" + keyType + ", " + valueType + ">();";
+	}
+
+	public String declareLinkedHashSet(String name, String type) {
+		return SET + "<" + type + "> " + name + " = new " + LINKED_HASH_SET + "<" + type + ">();";
 	}
 }

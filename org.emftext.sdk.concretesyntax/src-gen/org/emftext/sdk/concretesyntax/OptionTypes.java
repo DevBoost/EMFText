@@ -1752,7 +1752,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BOOLEAN_TERMINAL(218, "OVERRIDE_BOOLEAN_TERMINAL", "overrideBooleanTerminal");
+	OVERRIDE_BOOLEAN_TERMINAL(218, "OVERRIDE_BOOLEAN_TERMINAL", "overrideBooleanTerminal"), /**
+	 * The '<em><b>OVERRIDE ENUMERATION TERMINAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ENUMERATION_TERMINAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ENUMERATION_TERMINAL(219, "OVERRIDE_ENUMERATION_TERMINAL", "overrideEnumerationTerminal"), /**
+	 * The '<em><b>OVERRIDE EXPECTED ENUMERATION TERMINAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTED_ENUMERATION_TERMINAL(220, "OVERRIDE_EXPECTED_ENUMERATION_TERMINAL", "overrideExpectedEnumerationTerminal");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5402,6 +5418,34 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_BOOLEAN_TERMINAL_VALUE = 218;
 /**
+	 * The '<em><b>OVERRIDE ENUMERATION TERMINAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ENUMERATION TERMINAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ENUMERATION_TERMINAL
+	 * @model literal="overrideEnumerationTerminal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ENUMERATION_TERMINAL_VALUE = 219;
+/**
+	 * The '<em><b>OVERRIDE EXPECTED ENUMERATION TERMINAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTED ENUMERATION TERMINAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_ENUMERATION_TERMINAL
+	 * @model literal="overrideExpectedEnumerationTerminal"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE = 220;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5624,6 +5668,8 @@ public enum OptionTypes implements Enumerator {
 			RESOLVE_PROXY_ELEMENTS_AFTER_PARSING,
 			OVERRIDE_EXPECTED_BOOLEAN_TERMINAL,
 			OVERRIDE_BOOLEAN_TERMINAL,
+			OVERRIDE_ENUMERATION_TERMINAL,
+			OVERRIDE_EXPECTED_ENUMERATION_TERMINAL,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5887,6 +5933,8 @@ public enum OptionTypes implements Enumerator {
 			case RESOLVE_PROXY_ELEMENTS_AFTER_PARSING_VALUE: return RESOLVE_PROXY_ELEMENTS_AFTER_PARSING;
 			case OVERRIDE_EXPECTED_BOOLEAN_TERMINAL_VALUE: return OVERRIDE_EXPECTED_BOOLEAN_TERMINAL;
 			case OVERRIDE_BOOLEAN_TERMINAL_VALUE: return OVERRIDE_BOOLEAN_TERMINAL;
+			case OVERRIDE_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_ENUMERATION_TERMINAL;
+			case OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_EXPECTED_ENUMERATION_TERMINAL;
 		}
 		return null;
 	}

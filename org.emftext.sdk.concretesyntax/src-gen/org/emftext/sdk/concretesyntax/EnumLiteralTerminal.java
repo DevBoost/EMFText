@@ -15,7 +15,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface EnumLiteralTerminal extends EObject {
+public interface EnumLiteralTerminal extends SyntaxElement {
 	/**
 	 * Returns the value of the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->

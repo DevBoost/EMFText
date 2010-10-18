@@ -15,14 +15,10 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 
@@ -40,7 +36,7 @@ import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
  *
  * @generated
  */
-public class EnumLiteralTerminalImpl extends EObjectImpl implements EnumLiteralTerminal {
+public class EnumLiteralTerminalImpl extends SyntaxElementImpl implements EnumLiteralTerminal {
 	/**
 	 * The cached value of the '{@link #getLiteral() <em>Literal</em>}' reference.
 	 * <!-- begin-user-doc -->

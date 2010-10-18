@@ -1924,6 +1924,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		placeholderInQuotesEClass.getESuperTypes().add(this.getPlaceholder());
 		booleanTerminalEClass.getESuperTypes().add(this.getTerminal());
 		enumTerminalEClass.getESuperTypes().add(this.getTerminal());
+		enumLiteralTerminalEClass.getESuperTypes().add(this.getSyntaxElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genPackageDependentElementEClass, GenPackageDependentElement.class, "GenPackageDependentElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2159,6 +2160,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEClass(enumTerminalEClass, EnumTerminal.class, "EnumTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEnumTerminal_Literals(), this.getEnumLiteralTerminal(), null, "literals", null, 1, -1, EnumTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(enumTerminalEClass, theEcorePackage.getEBoolean(), "containsEmptyLiteral", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(enumTerminalEClass, this.getEnumLiteralTerminal(), "getNonEmptyLiterals", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(enumLiteralTerminalEClass, EnumLiteralTerminal.class, "EnumLiteralTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEnumLiteralTerminal_Literal(), theEcorePackage.getEEnumLiteral(), null, "literal", null, 1, 1, EnumLiteralTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2454,6 +2459,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_BOOLEAN_TERMINAL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ENUMERATION_TERMINAL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

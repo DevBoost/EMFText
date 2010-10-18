@@ -1977,13 +1977,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int ENUM_LITERAL_TERMINAL = 41;
 
 	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL_TERMINAL__CHILDREN = SYNTAX_ELEMENT__CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Literal</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUM_LITERAL_TERMINAL__LITERAL = 0;
+	int ENUM_LITERAL_TERMINAL__LITERAL = SYNTAX_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -1992,7 +2001,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENUM_LITERAL_TERMINAL__TEXT = 1;
+	int ENUM_LITERAL_TERMINAL__TEXT = SYNTAX_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Enum Literal Terminal</em>' class.
@@ -2001,7 +2010,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENUM_LITERAL_TERMINAL_FEATURE_COUNT = 2;
+	int ENUM_LITERAL_TERMINAL_FEATURE_COUNT = SYNTAX_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.

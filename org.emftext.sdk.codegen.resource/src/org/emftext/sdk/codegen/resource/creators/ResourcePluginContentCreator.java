@@ -194,6 +194,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.TERMINAL);
 	    add(creators, TextResourceArtifacts.PLACEHOLDER);
 	    add(creators, TextResourceArtifacts.BOOLEAN_TERMINAL);
+	    add(creators, TextResourceArtifacts.ENUMERATION_TERMINAL);
 	    add(creators, TextResourceArtifacts.CHOICE);
 	    add(creators, TextResourceArtifacts.CONTAINMENT);
 	    add(creators, TextResourceArtifacts.COMPOUND);
@@ -249,6 +250,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 	    add(creators, TextResourceArtifacts.EXPECTED_TERMINAL);
 	    add(creators, TextResourceArtifacts.EXPECTED_BOOLEAN_TERMINAL);
+	    add(creators, TextResourceArtifacts.EXPECTED_ENUMERATION_TERMINAL);
 	    add(creators, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 
 	    add(creators, TextResourceArtifacts.CAST_UTIL);

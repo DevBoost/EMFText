@@ -57,7 +57,7 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 		addGetFeatureMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
-		addGetTokenNameMethod(sc);
+		addGetTokenNamesMethod(sc);
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
@@ -91,7 +91,7 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenNameMethod(JavaComposite sc) {
+	private void addGetTokenNamesMethod(JavaComposite sc) {
 		sc.add("public " + SET + "<String> getTokenNames() {");
 		sc.addComment("BooleanTerminals are associated with two or one token(s)");
 		sc.add(SET + "<String> tokenNames = new " + LINKED_HASH_SET + "<String>(2);");

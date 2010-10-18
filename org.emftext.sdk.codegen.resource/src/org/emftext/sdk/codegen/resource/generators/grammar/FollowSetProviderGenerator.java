@@ -17,6 +17,7 @@ import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expec
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -60,6 +61,8 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				addTerminalConstant(sc, terminalID, (CsString) expectedElement, expectedCsStringClassName);
 			} else if (expectedElement instanceof BooleanTerminal) {
 				addTerminalConstant(sc, terminalID, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName);
+			} else if (expectedElement instanceof EnumTerminal) {
+				addTerminalConstant(sc, terminalID, (EnumTerminal) expectedElement, expectedEnumerationTerminalClassName);
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}

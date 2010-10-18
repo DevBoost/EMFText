@@ -70,6 +70,7 @@ import org.emftext.sdk.codegen.resource.generators.code_completion.AbstractExpec
 import org.emftext.sdk.codegen.resource.generators.code_completion.AttributeValueProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedBooleanTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedCsStringGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedEnumerationTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.BooleanTerminalGenerator;
@@ -77,6 +78,7 @@ import org.emftext.sdk.codegen.resource.generators.grammar.CardinalityGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.ChoiceGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.CompoundGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.ContainmentGenerator;
+import org.emftext.sdk.codegen.resource.generators.grammar.EnumerationTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.FollowSetProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.FormattingElementGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.GrammarInformationProviderGenerator;
@@ -268,6 +270,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ABSTRACT_EXPECTED_ELEMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "AbstractExpectedElement", AbstractExpectedElementGenerator.class, OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedTerminal", ExpectedTerminalGenerator.class, OptionTypes.OVERRIDE_EXPECTED_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_BOOLEAN_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedBooleanTerminal", ExpectedBooleanTerminalGenerator.class, OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_ENUMERATION_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedEnumerationTerminal", ExpectedEnumerationTerminalGenerator.class, OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ATTRIBUTE_VALUE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "AttributeValueProvider", AttributeValueProviderGenerator.class, OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER);
 
 	// the grammar package
@@ -284,6 +287,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> WHITE_SPACE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "WhiteSpace", WhiteSpaceGenerator.class, OptionTypes.OVERRIDE_WHITE_SPACE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FORMATTING_ELEMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FormattingElement", FormattingElementGenerator.class, OptionTypes.OVERRIDE_FORMATTING_ELEMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BOOLEAN_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "BooleanTerminal", BooleanTerminalGenerator.class, OptionTypes.OVERRIDE_BOOLEAN_TERMINAL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ENUMERATION_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "EnumerationTerminal", EnumerationTerminalGenerator.class, OptionTypes.OVERRIDE_ENUMERATION_TERMINAL);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> GRAMMAR_INFORMATION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "GrammarInformationProvider", GrammarInformationProviderGenerator.class, OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FollowSetProvider", FollowSetProviderGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER);

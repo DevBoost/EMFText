@@ -47,8 +47,10 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String eObjectUtilClassName;
 	protected String eProblemTypeClassName;
 	protected String elementMappingClassName;
+	protected String enumerationTerminalClassName;
 	protected String expectedBooleanTerminalClassName;
 	protected String expectedCsStringClassName;
+	protected String expectedEnumerationTerminalClassName;
 	protected String expectedStructuralFeatureClassName;
 	protected String expectedTerminalClassName;
 	protected String foldingInformationProviderClassName;
@@ -179,8 +181,10 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 		elementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
+		enumerationTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.ENUMERATION_TERMINAL);
 		expectedBooleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_BOOLEAN_TERMINAL);
 		expectedCsStringClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_CS_STRING);
+		expectedEnumerationTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_ENUMERATION_TERMINAL);
 		expectedStructuralFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 		expectedTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_TERMINAL);
 		foldingInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
