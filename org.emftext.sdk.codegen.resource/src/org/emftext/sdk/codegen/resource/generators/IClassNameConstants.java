@@ -141,6 +141,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
@@ -204,6 +205,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String E_PACKAGE = EPackage.class.getName();
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
+	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_INPUT_STREAM = FileInputStream.class.getName();

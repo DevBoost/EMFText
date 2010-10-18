@@ -89,6 +89,8 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		sc.add("</super>");
 		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
 		sc.add("</super>");
+		sc.add("<super type=\"org.eclipse.emf.ecore.diagnostic\">");
+		sc.add("</super>");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		

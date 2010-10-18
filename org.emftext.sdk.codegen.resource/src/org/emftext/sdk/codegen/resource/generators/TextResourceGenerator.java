@@ -360,6 +360,10 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("return Math.max(0, locationMap.getLine(element));");
     	sc.add("}");
     	sc.addLineBreak();
+    	sc.add("public " + E_OBJECT + " getElement() {");
+    	sc.add("return element;");
+    	sc.add("}");
+    	sc.addLineBreak();
     	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
     	sc.add("if (this.element == null) {");
     	sc.add("return false;");
