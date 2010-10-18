@@ -88,6 +88,7 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
+import org.emftext.sdk.codegen.util.Counter;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
@@ -1181,7 +1182,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			ruleCopy.getChildren().clear();
 			ruleCopy.getChildren().add(choice);
 
-			printChoice(ruleCopy.getDefinition(), ruleCopy, sc, 0,
+			printChoice(ruleCopy.getDefinition(), ruleCopy, sc, new Counter(),
 					classesReferenced, "0");
 
 			sc.add(" ( dummyEObject = " + ruleName
@@ -1261,7 +1262,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.add("}");
 			sc.add(":");
 
-			printChoice(tailCopy.getDefinition(), tailCopy, sc, 0,
+			printChoice(tailCopy.getDefinition(), tailCopy, sc, new Counter(),
 					classesReferenced, "0");
 
 			sc.add(";");
@@ -1380,7 +1381,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		printGrammarRulePrefix(genClass,ruleName,sc);
 		
-		printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced, "0");
+		printChoice(rule.getDefinition(), rule, sc, new Counter(), eClassesReferenced, "0");
 
 		Collection<GenClass> subClasses = concreteSyntax
 				.getSubClassesWithSyntax(genClass, true);
@@ -1515,7 +1516,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			assert right instanceof Containment;
 			
-			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
+			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");
 			
 			sc.add("arg = " + nextRuleName);
 			Containment containment = (Containment) right;
@@ -1541,7 +1542,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Definition left = definitions.remove(0);
 			assert left instanceof Containment;
 						
-			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
+			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");
 			
 			Containment containment = (Containment) left;
 			printTerminalAction(containment, rule, sc, "arg", "", "arg", null, "null", true);
@@ -1578,7 +1579,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.add("()");//Workaround for bug 1374 (semantic actions in syn preds)
 			sc.add("{ element = null; }");
 			
-			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");
+			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");
 			
 			sc.add("rightArg = " + nextRuleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
@@ -1618,7 +1619,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Containment leftContainment = (Containment) left;
 			Containment rightContainment = (Containment) right;
 			
-			printDefinitions(definitions, rule, sc, 0, eClassesReferenced, "0");		
+			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");		
 			
 			//if (operator instanceof CsString) {
 			//	CsString csString = (CsString) operator;
@@ -1655,27 +1656,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return "parse_" + ruleName;
 	}
 
-	private int printChoice(Choice choice, Rule rule, ANTLRGrammarComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
+	private void printChoice(Choice choice, Rule rule, ANTLRGrammarComposite sc,
+			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
 		Iterator<Sequence> it = choice.getOptions().iterator();
 		while (it.hasNext()) {
 			Sequence seq = it.next();
-			count = printSequence(seq, rule, sc, count, eClassesReferenced, scopeID);
+			printSequence(seq, rule, sc, counter, eClassesReferenced, scopeID);
 			if (it.hasNext()) {
 				sc.addLineBreak();
 				sc.add("|");
 			}
 		}
-		return count;
 	}
 
-	private int printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
-		return printDefinitions(sequence.getParts(),rule,sc,count,eClassesReferenced,scopeID);
+	private void printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
+			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
+		printDefinitions(sequence.getParts(), rule, sc, counter, eClassesReferenced, scopeID);
 	}
 	
-	private int printDefinitions(List<Definition> definitions, Rule rule, ANTLRGrammarComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID){
+	private void printDefinitions(List<Definition> definitions, Rule rule, ANTLRGrammarComposite sc,
+			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID){
 		int i = 0;
 		for (Definition definition : definitions) {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
@@ -1693,18 +1693,18 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 				CompoundDefinition compoundDef = (CompoundDefinition) definition;
 				sc.add("(");
-				count = printChoice(compoundDef.getDefinition(), rule, sc,
-						count, eClassesReferenced, subScopeID);
+				printChoice(compoundDef.getDefinition(), rule, sc,
+						counter, eClassesReferenced, subScopeID);
 				sc.add(")");
 				i++;
 			} else if (definition instanceof CsString) {
 				final CsString csString = (CsString) definition;
-				count = printCsString(csString, rule, sc, count,
+				printCsString(csString, rule, sc, counter,
 						eClassesReferenced);
 			} else {
 				assert definition instanceof Terminal;
 				final Terminal terminal = (Terminal) definition;
-				count = printTerminal(terminal, rule, sc, count,
+				printTerminal(terminal, rule, sc, counter,
 						eClassesReferenced);
 			}
 			if (!"".equals(cardinality)) {
@@ -1718,7 +1718,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 			sc.addLineBreak();
 		}
-		return count;
 	}
 
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
@@ -1738,9 +1737,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		followSetID++;
 	}
 	
-	private int printCsString(CsString csString, Rule rule, StringComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
-		String identifier = "a" + count;
+	private void printCsString(CsString csString, Rule rule, StringComposite sc,
+			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+		String identifier = "a" + counter.getValue();
 		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		addCodeToCreateObject(sc, rule);
@@ -1749,7 +1748,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
-		return ++count;
+		counter.inc();
 	}
 
 	private void addCodeToCreateObject(StringComposite sc, Rule rule) {
@@ -1775,12 +1774,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 	}
 
-	private int printTerminal(Terminal terminal, Rule rule, StringComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+	private void printTerminal(Terminal terminal, Rule rule, StringComposite sc,
+			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 		final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
-		final String ident = "a" + count;
+		final String ident = "a" + counter.getValue();
 		final String proxyIdent = "proxy";
 		boolean isAnonymousFeature = genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE;
 
@@ -1820,7 +1819,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 		} else if (terminal instanceof BooleanTerminal) {
 			BooleanTerminal booleanTerminal = (BooleanTerminal) terminal;
-			count = addCodeForBooleanTerminal(sc, count, booleanTerminal);
+			addCodeForBooleanTerminal(sc, counter, booleanTerminal);
 		} else {
 			assert terminal instanceof Placeholder;
 			Placeholder placeholder = (Placeholder) terminal;
@@ -1947,11 +1946,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.add("anonymousTokens.add((" + COMMON_TOKEN + ") " + ident+ ");");
 			sc.add("}");
 		}
-		return ++count;
+		counter.inc();
 	}
 
-	// TODO replace parameter 'count' with a counter class
-	private int addCodeForBooleanTerminal(StringComposite sc, int count,
+	private void addCodeForBooleanTerminal(StringComposite sc, Counter counter,
 			BooleanTerminal booleanTerminal) {
 
 		Rule rule = booleanTerminal.getContainingRule();
@@ -1967,10 +1965,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("(");
 		if (trueIsSet) {
-			String identifier = "a" + count;
+			String identifier = "a" + counter.getValue();
 			addCodeForBooleanLiteral(sc, booleanTerminal,
 					eFeature, featureConstant, identifier, trueLiteral, "true");
-			count++;
+			counter.inc();
 		}
 
 		if (trueIsSet && falseIsSet) {
@@ -1979,7 +1977,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		
 		if (falseIsSet) {
-			String identifier = "a" + count;
+			String identifier = "a" + counter.getValue();
 			addCodeForBooleanLiteral(sc, booleanTerminal, 
 					eFeature, featureConstant, identifier, falseLiteral, "false");
 		}
@@ -1990,7 +1988,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		} else {
 			sc.add(")");
 		}
-		return ++count;
+		counter.inc();
 	}
 
 	private void addCodeForBooleanLiteral(StringComposite sc,
