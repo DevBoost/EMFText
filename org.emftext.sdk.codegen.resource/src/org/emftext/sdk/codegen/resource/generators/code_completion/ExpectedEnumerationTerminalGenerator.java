@@ -17,7 +17,7 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("A representation for a range in a document where an enumeration literal (i.e., a static string) is expected.");
+		sc.addJavadoc("A representation for a range in a document where an enumeration literal (i.e., a set of static strings) is expected.");
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -41,8 +41,15 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 
 	private void addMethods(JavaComposite sc) {
 		addGetTokenNamesMethod(sc);
+		addGetEnumerationTerminalMethod(sc);
 	}
 	
+	private void addGetEnumerationTerminalMethod(JavaComposite sc) {
+		sc.add("public " + enumerationTerminalClassName + " getEnumerationTerminal() {");
+		sc.add("return this.enumerationTerminal;");
+		sc.add("}");
+	}
+
 	private void addGetTokenNamesMethod(JavaComposite sc) {
 		sc.add("public " + SET + "<String> getTokenNames() {");
 		sc.addComment(

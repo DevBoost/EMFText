@@ -13,8 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAYS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
@@ -28,10 +29,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 
@@ -91,7 +92,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		addHandleAttributeMethod(sc);
 		addHandleKeywordMethod(sc);
 		addHandleBooleanTerminalMethod(sc);
-		addHandleBooleanLiteralMethod(sc);
+		addHandleEnumerationTerminalMethod(sc);
+		addHandleLiteralMethod(sc);
 		addSetPrefixesMethod(sc);
 		addGetExpectedElementsAtMethod(sc);
 		addGetEndMethod(sc);
@@ -159,20 +161,33 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleBooleanTerminal(" + expectedBooleanTerminalClassName + " expectedBooleanTerminal, String prefix) {");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">(2);");
 		sc.add(booleanTerminalClassName + " booleanTerminal = expectedBooleanTerminal.getBooleanTerminal();");
-		sc.add("result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));");
-		sc.add("result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));");
+		sc.add("result.addAll(handleLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));");
+		sc.add("result.addAll(handleLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addHandleBooleanLiteralMethod(StringComposite sc) {
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleBooleanLiteral(" + E_ATTRIBUTE + " attribute, String prefix, String literal) {");
+	private void addHandleLiteralMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleLiteral(" + E_ATTRIBUTE + " attribute, String prefix, String literal) {");
 		sc.add("if (\"\".equals(literal)) {");
 		sc.add("return " + COLLECTIONS + ".emptySet();");
 		sc.add("}");
 		sc.add("boolean matchesPrefix = matches(literal, prefix);");
 		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(literal, prefix, matchesPrefix, null, null));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHandleEnumerationTerminalMethod(StringComposite sc) {
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> handleEnumerationTerminal(" + expectedEnumerationTerminalClassName + " expectedEnumerationTerminal, String prefix) {");
+		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">(2);");
+		sc.add(enumerationTerminalClassName + " enumerationTerminal = expectedEnumerationTerminal.getEnumerationTerminal();");
+		sc.add(MAP + "<String, String> literalMapping = enumerationTerminal.getLiteralMapping();");
+		sc.add("for (String literalName : literalMapping.keySet()) {");
+		sc.add("result.addAll(handleLiteral(enumerationTerminal.getAttribute(), prefix, literalMapping.get(literalName)));");
+		sc.add("}");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -273,6 +288,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("} else if (expectedElement instanceof " + expectedBooleanTerminalClassName + ") {");
 		sc.add(expectedBooleanTerminalClassName + " expectedBooleanTerminal = (" + expectedBooleanTerminalClassName + ") expectedElement;");
 		sc.add("return handleBooleanTerminal(expectedBooleanTerminal, expectedTerminal.getPrefix());");
+		sc.add("} else if (expectedElement instanceof " + expectedEnumerationTerminalClassName + ") {");
+		sc.add(expectedEnumerationTerminalClassName + " expectedEnumerationTerminal = (" + expectedEnumerationTerminalClassName + ") expectedElement;");
+		sc.add("return handleEnumerationTerminal(expectedEnumerationTerminal, expectedTerminal.getPrefix());");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
 		sc.add(expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
 		sc.add(E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");
