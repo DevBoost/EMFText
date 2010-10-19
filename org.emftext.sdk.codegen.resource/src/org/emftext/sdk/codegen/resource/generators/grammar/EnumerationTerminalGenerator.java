@@ -47,12 +47,28 @@ public class EnumerationTerminalGenerator extends JavaBaseGenerator<ArtifactPara
 
 	private void addMethods(JavaComposite sc) {
 		addGetLiteralMappingMethod(sc);
+		addGetAttribute(sc);
+		addGetText(sc);
 	}
 
 	private void addGetLiteralMappingMethod(StringComposite sc) {
 		sc.add("public " + MAP + "<String, String> getLiteralMapping() {"); 
 		sc.add("return this.mapping;");
 		sc.add("}"); 
+		sc.addLineBreak();
+	}
+
+	private void addGetAttribute(StringComposite sc) {
+		sc.add("public " + E_ATTRIBUTE + " getAttribute() {"); 
+		sc.add("return (" + E_ATTRIBUTE + ") getFeature();");
+		sc.add("}"); 
+		sc.addLineBreak();
+	}
+
+	private void addGetText(StringComposite sc) {
+		sc.add("public String getText(String literalName) {"); 
+		sc.add("return this.mapping.get(literalName);");
+		sc.add("}");
 		sc.addLineBreak();
 	}
 }

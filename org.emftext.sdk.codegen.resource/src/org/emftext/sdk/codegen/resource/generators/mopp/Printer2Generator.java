@@ -1,7 +1,9 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ENUMERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
@@ -9,7 +11,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
@@ -98,6 +99,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintFeatureMethod(sc);
 		addPrintAttributeMethod(sc);
 		addPrintBooleanTerminalMethod(sc);
+		addPrintEnumerationTerminalMethod(sc);
 		addPrintContainedObjectMethod(sc);
 		addPrintFormattingElementsMethod(sc);
 		addSetTabsBeforeCurrentObjectMethod(sc);
@@ -461,6 +463,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(booleanTerminalClassName + " booleanTerminal = (" + booleanTerminalClassName + ") printElement;");
 		sc.add("printBooleanTerminal(eObject, booleanTerminal, indexToPrint, foundFormattingElements, layoutInformations);");
 		sc.add("foundSomethingToPrint = true;");
+		sc.add("} else if (printElement instanceof " + enumerationTerminalClassName + ") {");
+		sc.add(enumerationTerminalClassName + " enumTerminal = (" + enumerationTerminalClassName + ") printElement;");
+		sc.add("printEnumerationTerminal(eObject, enumTerminal, indexToPrint, foundFormattingElements, layoutInformations);");
+		sc.add("foundSomethingToPrint = true;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (foundSomethingToPrint) {");
@@ -548,52 +554,65 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeMethod(JavaComposite sc) {
 		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add("String result;");
-		sc.add("Object attributeValue = getValue(eObject, attribute, count);");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);");
-		sc.add("String visibleTokenText = getVisibleTokenText(layoutInformation);");
-		sc.addComment("if there is text for the attribute we use it");
-		sc.add("if (visibleTokenText != null) {");
-		sc.add("result = visibleTokenText;");
-		sc.add("} else {");
-		sc.addComment("if no text is available, the attribute is deresolved to obtain its textual representation");
-		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
-		sc.add("tokenResolver.setOptions(getOptions());");
-		sc.add("String deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);");
-		sc.add("result = deResolvedValue;");
-		sc.add("}");
-		sc.add("if (result != null && !\"\".equals(result)) {");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
-		sc.add("}");
-		sc.addComment("write result to the output stream");
-		sc.add("tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));");
-		sc.add("}");
+
+		JavaComposite deResolveCode = new JavaComposite();
+		deResolveCode.addComment("if no text is available, the attribute is deresolved to obtain its textual representation");
+		deResolveCode.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());");
+		deResolveCode.add("tokenResolver.setOptions(getOptions());");
+		deResolveCode.add("String deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);");
+		deResolveCode.add("result = deResolvedValue;");
+
+		addPrintAttributeCode(sc, "placeholder", "placeholder.getTokenName()", deResolveCode);
+		
 		sc.addLineBreak();
 	}
 
 	private void addPrintBooleanTerminalMethod(JavaComposite sc) {
 		sc.add("public void printBooleanTerminal(" + E_OBJECT + " eObject, " + booleanTerminalClassName + " booleanTerminal, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_ATTRIBUTE + " attribute = booleanTerminal.getAttribute();");
+
+		JavaComposite deResolveCode = new JavaComposite();
+		deResolveCode.addComment("if no text is available, the boolean attribute is converted to its textual representation using the literals of the boolean terminal");
+		deResolveCode.add("if (Boolean.TRUE.equals(attributeValue)) {");
+		deResolveCode.add("result = booleanTerminal.getTrueLiteral();");
+		deResolveCode.add("} else {");
+		deResolveCode.add("result = booleanTerminal.getFalseLiteral();");
+		deResolveCode.add("}");
+		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
+		addPrintAttributeCode(sc, "booleanTerminal", "\"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(result) + \"'\"", deResolveCode);
+
+		sc.addLineBreak();
+	}
+
+	private void addPrintEnumerationTerminalMethod(JavaComposite sc) {
+		sc.add("public void printEnumerationTerminal(" + E_OBJECT + " eObject, " + enumerationTerminalClassName + " enumTerminal, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add(E_ATTRIBUTE + " attribute = enumTerminal.getAttribute();");
+
+		JavaComposite deResolveCode = new JavaComposite();
+		deResolveCode.addComment("if no text is available, the enumeration attribute is converted to its textual representation using the literals of the enumeration terminal");
+		deResolveCode.add("assert attributeValue instanceof " + ENUMERATOR + ";");
+		deResolveCode.add("result = enumTerminal.getText(((" + ENUMERATOR + ") attributeValue).getName());");
+		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
+		addPrintAttributeCode(sc, "enumTerminal", "\"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(result) + \"'\"", deResolveCode);
+
+		sc.addLineBreak();
+	}
+
+	private void addPrintAttributeCode(JavaComposite sc, String terminalParameter, String tokenName, StringComposite deResolveCode) {
 		sc.add("String result;");
 		sc.add("Object attributeValue = getValue(eObject, attribute, count);");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, booleanTerminal, attributeValue, eObject);");
+		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, " + terminalParameter + ", attributeValue, eObject);");
 		sc.add("String visibleTokenText = getVisibleTokenText(layoutInformation);");
 		sc.addComment("if there is text for the attribute we use it");
 		sc.add("if (visibleTokenText != null) {");
 		sc.add("result = visibleTokenText;");
 		sc.add("} else {");
-		sc.addComment("if no text is available, the boolean attribute is converted to its textual representation using the literals of the boolean terminal");
-		sc.add("if (Boolean.TRUE.equals(attributeValue)) {");
-		sc.add("result = booleanTerminal.getTrueLiteral();");
-		sc.add("} else {");
-		sc.add("result = booleanTerminal.getFalseLiteral();");
-		sc.add("}");
+		sc.add(deResolveCode);
 		sc.add("}");
 		sc.add("if (result != null && !\"\".equals(result)) {");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.addComment("write result to the output stream");
-		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
-		sc.add("tokenOutputStream.add(new PrintToken(result, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(result) + \"'\"));");
+		sc.add("tokenOutputStream.add(new PrintToken(result, " + tokenName + "));");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

@@ -118,6 +118,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -206,6 +207,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
 	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
+	public static String ENUMERATOR = Enumerator.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_INPUT_STREAM = FileInputStream.class.getName();
