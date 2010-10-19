@@ -116,7 +116,7 @@ public class EnumTerminalImpl extends TerminalImpl implements EnumTerminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<EnumLiteralTerminal> getEmptyLiterals() {
 		// TODO mseifert: move this method to EnumTerminal.ejava
