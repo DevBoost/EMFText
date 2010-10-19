@@ -1761,7 +1761,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (element == null) {");
 		sc.add("element = " + genClassUtil.getCreateObjectCall(metaclass, dummyEObjectClassName) + ";");
 		sc.add("incompleteObjects.push(element);");
-		sc.add("// initialize boolean attributes");
+		addCodeToInitializeBooleanAttributes(sc, rule, metaclass);
+		addCodeToInitializeEnumerationAttributes(sc, rule, metaclass);
+		sc.add("}");
+	}
+
+	private void addCodeToInitializeBooleanAttributes(StringComposite sc,
+			Rule rule, GenClass metaclass) {
 		Collection<BooleanTerminal> booleanTerminals = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getBooleanTerminal());
 		for (BooleanTerminal booleanTerminal : booleanTerminals) {
 			final GenFeature genFeature = booleanTerminal.getFeature();
@@ -1769,13 +1775,39 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			final String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
 
 			if ("".equals(booleanTerminal.getTrueLiteral())) {
-				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "true", false);
+				sc.add("// initialize boolean attribute");
+				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "true", false, false);
 			}
 			if ("".equals(booleanTerminal.getFalseLiteral())) {
-				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "false", false);
+				sc.add("// initialize boolean attribute");
+				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "false", false, false);
 			}
 		}
-		sc.add("}");
+	}
+
+	private void addCodeToInitializeEnumerationAttributes(StringComposite sc,
+			Rule rule, GenClass metaclass) {
+		Collection<EnumTerminal> enumerationTerminals = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getEnumTerminal());
+		for (EnumTerminal enumerationTerminal : enumerationTerminals) {
+			List<EnumLiteralTerminal> emptyLiterals = enumerationTerminal.getEmptyLiterals();
+			// this should be detected by a post processor
+			assert emptyLiterals.size() < 2;
+
+			if (!emptyLiterals.isEmpty()) {
+
+				GenFeature genFeature = enumerationTerminal.getFeature();
+				GenEnum genEnum = genFeature.getTypeGenEnum();
+				EStructuralFeature eFeature = genFeature.getEcoreFeature();
+				EnumLiteralTerminal enumLiteralTerminal = emptyLiterals.get(0);
+				String literal = enumLiteralTerminal.getLiteral().getLiteral();
+				GenEnumLiteral genEnumLiteral = genEnum.getGenEnumLiteral(literal);
+				String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
+				
+				String accessorName = generatorUtil.getEnumLiteralInstanceAccessor(genEnum, genEnumLiteral);
+				sc.add("// initialize enumeration attribute");
+				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, accessorName, false, false);
+			}
+		}
 	}
 
 	private void printTerminal(Terminal terminal, Rule rule, StringComposite sc,
@@ -2006,9 +2038,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		Rule rule = enumTerminal.getContainingRule();
 		final GenClass metaclass = rule.getMetaclass();
 		final GenFeature genFeature = enumTerminal.getFeature();
-		GenEnum typeGenClass = genFeature.getTypeGenEnum();
-		assert typeGenClass instanceof GenEnum;
-		final GenEnum genEnum = (GenEnum) typeGenClass;
+		final GenEnum genEnum = genFeature.getTypeGenEnum();
 		
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 		final String featureConstant = generatorUtil.getFeatureConstant(metaclass, genFeature);
@@ -2021,8 +2051,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		for (int i = 0; i < literals.size(); i++) {
 			EnumLiteralTerminal enumLiteralTerminal = literals.get(i);
 			String identifier = "a" + counter.getValue();
-			GenEnumLiteral genEnumLiteral = genEnum.getGenEnumLiteral(enumLiteralTerminal.getLiteral().getName());
-			String accessorName = generatorUtil.getEnumLiteralAccessor(genEnum, genEnumLiteral);
+			String literal = enumLiteralTerminal.getLiteral().getLiteral();
+			GenEnumLiteral genEnumLiteral = genEnum.getGenEnumLiteral(literal);
+			String accessorName = generatorUtil.getEnumLiteralInstanceAccessor(genEnum, genEnumLiteral);
 			addCodeForEnumLiteralTerminal(
 					sc, 
 					enumTerminal,
@@ -2060,7 +2091,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of boolean attribute");
-		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false);
+		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false, true);
 		sc.add("}");
 	}
 
@@ -2080,7 +2111,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(enumTerminal) + ", null);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of enumeration attribute");
-		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, accessorName, false);
+		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, accessorName, false, true);
 		sc.add("}");
 	}
 
@@ -2109,7 +2140,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		sc.add("if (" + expressionToBeSet + " != null) {");
 		final String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
-		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment);
+		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment, true);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");

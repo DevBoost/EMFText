@@ -443,6 +443,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumTerminal/literals"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//EnumTerminal/containsEmptyLiteral"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//EnumTerminal/getNonEmptyLiterals"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EnumTerminal/getEmptyLiterals"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//EnumLiteralTerminal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumLiteralTerminal/literal"/>

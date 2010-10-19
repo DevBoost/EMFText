@@ -70,8 +70,8 @@ public class GeneratorUtil {
 		return getClassifierAccessor(genClass) + "." + createGetFeatureCall(genClass, genFeature);
 	}
 
-	public String getEnumLiteralAccessor(GenEnum genEnum, GenEnumLiteral genLiteral) {
-		return getClassifierAccessor(genEnum) + ".getEEnumLiteral(" + genEnum.getQualifiedName() + "." + genLiteral.getEnumLiteralValueConstantName() + ")";
+	public String getEnumLiteralInstanceAccessor(GenEnum genEnum, GenEnumLiteral genLiteral) {
+		return getClassifierAccessor(genEnum) + ".getEEnumLiteral(" + genEnum.getQualifiedName() + "." + genLiteral.getEnumLiteralValueConstantName() + ").getInstance()";
 	}
 
 	public String getClassifierAccessor(GenClassifier classifier) {
@@ -91,36 +91,40 @@ public class GeneratorUtil {
 		return null;
 	}
 
-	public void addCodeToSetFeature(StringComposite sc,
-			GenClass genClass, String featureConstant,
-			EStructuralFeature eFeature, String expressionToBeSet, boolean isContainment) {
+	public void addCodeToSetFeature(
+			StringComposite sc,
+			GenClass genClass, 
+			String featureConstant,
+			EStructuralFeature eFeature, 
+			String expressionToBeSet, 
+			boolean isContainment,
+			boolean addCodeToCompleteElement) {
 		
+		sc.add("Object value = " + expressionToBeSet + ";");
 		if (eFeature.getUpperBound() == 1) {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
 								+ featureConstant
-								+ "), "
-								+ expressionToBeSet
-								+ ");");
+								+ "), value);");
 			} else {
 				sc.add("element.eSet(element.eClass().getEStructuralFeature("
 						+ featureConstant
-						+ "), " + expressionToBeSet + ");");
+						+ "), value);");
 			}
 		} else {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
 								+ featureConstant
-								+ "), "
-								+ expressionToBeSet
-								+ ");");
+								+ "), value;");
 			} else {
 				sc.add("addObjectToList(element, "
 						+ featureConstant
-						+ ", " + expressionToBeSet + ");");
+						+ ", value);");
 			}
 		}
-		sc.add("completedElement(" + expressionToBeSet + ", " + isContainment + ");");
+		if (addCodeToCompleteElement) {
+			sc.add("completedElement(value, " + isContainment + ");");
+		}
 	}
 
 	public void addAddMapEntryMethod(StringComposite sc, GenerationContext context) {

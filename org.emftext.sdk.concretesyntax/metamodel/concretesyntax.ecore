@@ -507,6 +507,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EnumTerminal" eSuperTypes="#//Terminal">
     <eOperations name="containsEmptyLiteral" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eOperations name="getNonEmptyLiterals" upperBound="-1" eType="#//EnumLiteralTerminal"/>
+    <eOperations name="getEmptyLiterals" upperBound="-1" eType="#//EnumLiteralTerminal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="literals" lowerBound="1"
         upperBound="-1" eType="#//EnumLiteralTerminal" containment="true"/>
   </eClassifiers>

@@ -89,23 +89,17 @@ public class EnumTerminalImpl extends TerminalImpl implements EnumTerminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean containsEmptyLiteral() {
 		// TODO mseifert: move this method to EnumTerminal.ejava
-		for (EnumLiteralTerminal literal : getLiterals()) {
-			String text = literal.getText();
-			if (text == null || "".equals(text)) {
-				return true;
-			}
-		}
-		return false;
+		return !getEmptyLiterals().isEmpty();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<EnumLiteralTerminal> getNonEmptyLiterals() {
 		// TODO mseifert: move this method to EnumTerminal.ejava
@@ -117,6 +111,23 @@ public class EnumTerminalImpl extends TerminalImpl implements EnumTerminal {
 			}
 		}
 		return nonEmptyLiterals;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EnumLiteralTerminal> getEmptyLiterals() {
+		// TODO mseifert: move this method to EnumTerminal.ejava
+		EList<EnumLiteralTerminal> emptyLiterals = new BasicEList<EnumLiteralTerminal>();
+		for (EnumLiteralTerminal literal : getLiterals()) {
+			String text = literal.getText();
+			if ("".equals(text)) {
+				emptyLiterals.add(literal);
+			}
+		}
+		return emptyLiterals;
 	}
 
 	/**

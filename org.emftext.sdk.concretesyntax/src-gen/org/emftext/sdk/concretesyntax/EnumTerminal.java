@@ -65,4 +65,12 @@ public interface EnumTerminal extends Terminal {
 	 */
 	EList<EnumLiteralTerminal> getNonEmptyLiterals();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<EnumLiteralTerminal> getEmptyLiterals();
+
 } // EnumTerminal
