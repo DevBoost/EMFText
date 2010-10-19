@@ -1088,7 +1088,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		sc.addComment("follow set for start rule(s)");
 		addExpectationsCode(sc, expectations);
-		sc.add("expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
+		sc.add("expectedElementsIndexOfLastCompleteElement = 0;");
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
