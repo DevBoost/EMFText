@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -45,11 +44,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
  * TODO there should be a build exception when the syntax
  * contains errors (e.g., issued by ANTLR)
  */
-public class GenerateTextResourceTask extends Task {
+public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 
-	private final static Object taskloaderLock = new Object();
-	private static int threadCount = 0;
-	
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
@@ -64,7 +60,7 @@ public class GenerateTextResourceTask extends Task {
 	public void execute() throws BuildException {
 		checkParameters();
 		
-		AntClassLoader taskloader = setLoader();
+		AntClassLoader taskloader = setClassLoader();
 
 		registerResourceFactories();
 		try {
@@ -102,48 +98,21 @@ public class GenerateTextResourceTask extends Task {
 					for (EObject unresolvedProxy : result.getUnresolvedProxies()) {
 						log("Found unresolved proxy \"" + ((InternalEObject) unresolvedProxy).eProxyURI() + "\" in " + unresolvedProxy.eResource());
 					}
-					resetLoader(taskloader);
+					resetClassLoader(taskloader);
 					throw new BuildException("Generation failed " + result);
 				} else {
-					resetLoader(taskloader);
+					resetClassLoader(taskloader);
 					throw new BuildException("Generation failed " + result);
 				}
 			}
 		} catch (Exception e) {
-			resetLoader(taskloader);
+			resetClassLoader(taskloader);
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-		resetLoader(taskloader);
+		resetClassLoader(taskloader);
 	}
 
-	private AntClassLoader setLoader() {
-		// Get the task class loader we used to load this tag.
-		AntClassLoader taskloader = null;
-		ClassLoader loader = this.getClass().getClassLoader();
-		if (loader instanceof AntClassLoader) {
-			taskloader = (AntClassLoader) loader;
-		}
-		// Shove it into the Thread, replacing the thread's ClassLoader:
-		synchronized (taskloaderLock) {
-			if (taskloader != null && threadCount == 0) {
-				taskloader.setThreadContextLoader();
-			}
-			threadCount++;
-		}
-		return taskloader;
-	}
-
-	private void resetLoader(AntClassLoader taskloader) {
-		synchronized (taskloaderLock) {
-			threadCount--;
-			// Reset the Thread's original ClassLoader.
-			if (taskloader != null && threadCount == 0) {
-				taskloader.resetThreadContextLoader();
-			}
-		}
-	}
-	
 	private void performPreprocessing(ConcreteSyntax syntax) {
 		if (preprocessor == null) {
 			return;

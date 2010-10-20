@@ -18,7 +18,6 @@ import java.util.Map;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil;
@@ -28,7 +27,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil;
  * a given resource factory and save it under
  * another URI using a different resource factory
  */
-public class RegisterEcoreResourceFactoryTask extends Task {
+public class RegisterEcoreResourceFactoryTask extends AbstractEMFTextAntTask {
 	
 	private String className;
 	private String type;
@@ -44,11 +43,7 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 			throw new BuildException("type is not set.");
 		}
 		
-		// Get the task class loader we used to load this tag.
-		AntClassLoader taskloader = 
-			(AntClassLoader)this.getClass().getClassLoader();
-		// Shove it into the Thread, replacing the thread's ClassLoader:
-		taskloader.setThreadContextLoader();
+		AntClassLoader taskloader = setClassLoader();
 		
 		Resource.Factory newEcoreFactory = instantiateFactory(className);
 		String ecoreEcoreResourceFactoryDelegatorClassName = 
@@ -71,12 +66,10 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 			ecoreFactoriesMap.put("", new EcoreResourceFactoryImpl());
 		} catch (Exception e) {
 			e.printStackTrace();
-			 // Reset the Thread's original ClassLoader.
-			taskloader.resetThreadContextLoader(); 
+			resetClassLoader(taskloader); 
 			throw new BuildException(e);
 		}
-		 // Reset the Thread's original ClassLoader.
-		taskloader.resetThreadContextLoader(); 
+		resetClassLoader(taskloader); 
 	}
 
 	private Resource.Factory instantiateFactory(String resourceFactoryClassName) {
