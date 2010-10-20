@@ -23,13 +23,12 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
-import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -40,6 +39,8 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
@@ -48,13 +49,11 @@ import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposer;
@@ -63,7 +62,6 @@ import org.emftext.sdk.concretesyntax.RegexOwner;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -180,22 +178,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseLineBreak(LineBreak object) {
 				return createLineBreakAdapter();
-			}
-			@Override
-			public Adapter caseCardinality(Cardinality object) {
-				return createCardinalityAdapter();
-			}
-			@Override
-			public Adapter casePLUS(PLUS object) {
-				return createPLUSAdapter();
-			}
-			@Override
-			public Adapter caseSTAR(STAR object) {
-				return createSTARAdapter();
-			}
-			@Override
-			public Adapter caseQUESTIONMARK(QUESTIONMARK object) {
-				return createQUESTIONMARKAdapter();
 			}
 			@Override
 			public Adapter caseCompoundDefinition(CompoundDefinition object) {
@@ -532,62 +514,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLineBreakAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Cardinality
-	 * @generated
-	 */
-	public Adapter createCardinalityAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PLUS <em>PLUS</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PLUS
-	 * @generated
-	 */
-	public Adapter createPLUSAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.STAR <em>STAR</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.STAR
-	 * @generated
-	 */
-	public Adapter createSTARAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QUESTIONMARK <em>QUESTIONMARK</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.QUESTIONMARK
-	 * @generated
-	 */
-	public Adapter createQUESTIONMARKAdapter() {
 		return null;
 	}
 

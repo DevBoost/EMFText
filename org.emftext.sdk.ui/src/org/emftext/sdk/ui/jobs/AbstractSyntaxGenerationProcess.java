@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -237,7 +238,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 			innerCompound.getChildren().add(featureSyntaxChoice);
 		
 			ruleSequence.getChildren().add(innerCompound);
-			innerCompound.setCardinality(CS_FACTORY.createSTAR());
+			innerCompound.setCardinality(Cardinality.STAR);
 		}
 
 		addClosing(genClass, ruleSequence);
@@ -345,7 +346,7 @@ public abstract class AbstractSyntaxGenerationProcess implements IRunnableWithPr
 
 	private void addBooleanModifier(Sequence ruleSequence, GenFeature genFeature) {
 		PlaceholderUsingSpecifiedToken adjective = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-		adjective.setCardinality(CS_FACTORY.createQUESTIONMARK());
+		adjective.setCardinality(Cardinality.QUESTIONMARK);
 		adjective.setFeature(genFeature);
 		ruleSequence.getChildren().add(adjective);
 	}

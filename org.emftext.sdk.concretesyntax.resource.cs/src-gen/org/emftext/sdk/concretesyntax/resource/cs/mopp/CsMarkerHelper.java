@@ -80,6 +80,10 @@ public class CsMarkerHelper {
 			marker.setAttribute(org.eclipse.core.resources.IMarker.LINE_NUMBER, textDiagnostic.getLine());
 			marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_START, textDiagnostic.getCharStart());
 			marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);
+			if (diagnostic instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource.ElementBasedTextDiagnostic) {
+				org.eclipse.emf.ecore.EObject element = ((org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource.ElementBasedTextDiagnostic) diagnostic).getElement();
+				marker.setAttribute(org.eclipse.emf.ecore.util.EcoreValidator.URI_ATTRIBUTE, element.eResource().getURI().toString() + "#" + element.eResource().getURIFragment(element));
+			}
 			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = textDiagnostic.getProblem().getQuickFixes();
 			java.util.Collection<Object> sourceIDs = new java.util.ArrayList<Object>();
 			if (quickFixes != null) {

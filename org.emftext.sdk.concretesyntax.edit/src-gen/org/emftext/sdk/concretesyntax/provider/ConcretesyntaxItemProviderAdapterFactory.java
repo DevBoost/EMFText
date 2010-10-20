@@ -265,75 +265,6 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.PLUS} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PLUSItemProvider plusItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.PLUS}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPLUSAdapter() {
-		if (plusItemProvider == null) {
-			plusItemProvider = new PLUSItemProvider(this);
-		}
-
-		return plusItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.STAR} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected STARItemProvider starItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.STAR}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSTARAdapter() {
-		if (starItemProvider == null) {
-			starItemProvider = new STARItemProvider(this);
-		}
-
-		return starItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.QUESTIONMARK} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected QUESTIONMARKItemProvider questionmarkItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.QUESTIONMARK}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createQUESTIONMARKAdapter() {
-		if (questionmarkItemProvider == null) {
-			questionmarkItemProvider = new QUESTIONMARKItemProvider(this);
-		}
-
-		return questionmarkItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.CompoundDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -992,9 +923,6 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (csStringItemProvider != null) csStringItemProvider.dispose();
 		if (whiteSpacesItemProvider != null) whiteSpacesItemProvider.dispose();
 		if (lineBreakItemProvider != null) lineBreakItemProvider.dispose();
-		if (plusItemProvider != null) plusItemProvider.dispose();
-		if (starItemProvider != null) starItemProvider.dispose();
-		if (questionmarkItemProvider != null) questionmarkItemProvider.dispose();
 		if (compoundDefinitionItemProvider != null) compoundDefinitionItemProvider.dispose();
 		if (regexComposerItemProvider != null) regexComposerItemProvider.dispose();
 		if (atomicRegexItemProvider != null) atomicRegexItemProvider.dispose();

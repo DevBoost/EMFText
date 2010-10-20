@@ -34,11 +34,8 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -221,12 +218,13 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		if (next instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) next;
 			Cardinality cardinality = cd.getCardinality();
-			if (cardinality != null) {
-				if (cardinality instanceof STAR) {
+			if (cardinality != Cardinality.NONE) {
+				// TODO mseifert: handle == Cardinality.NONE?
+				if (cardinality == Cardinality.STAR) {
 					literal = "STAR";
-				} else if (cardinality instanceof PLUS) {
+				} else if (cardinality == Cardinality.PLUS) {
 					literal = "PLUS";
-				} else if (cardinality instanceof QUESTIONMARK) {
+				} else if (cardinality == Cardinality.QUESTIONMARK) {
 					literal = "QUESTIONMARK";
 				}
 			}

@@ -28,6 +28,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 
@@ -136,6 +137,12 @@ public class ContainmentItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Containment.class)) {
+			case ConcretesyntaxPackage.CONTAINMENT__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

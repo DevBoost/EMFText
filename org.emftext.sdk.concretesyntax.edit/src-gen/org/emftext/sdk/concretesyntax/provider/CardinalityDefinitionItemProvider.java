@@ -27,8 +27,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
 /**
@@ -108,7 +108,11 @@ public class CardinalityDefinitionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_CardinalityDefinition_type");
+		Cardinality labelValue = ((CardinalityDefinition)object).getCardinality();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_CardinalityDefinition_type") :
+			getString("_UI_CardinalityDefinition_type") + " " + label;
 	}
 
 	/**
@@ -124,7 +128,7 @@ public class CardinalityDefinitionItemProvider
 
 		switch (notification.getFeatureID(CardinalityDefinition.class)) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -144,17 +148,7 @@ public class CardinalityDefinitionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CARDINALITY_DEFINITION__CARDINALITY,
-				 ConcretesyntaxFactory.eINSTANCE.createPLUS()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ConcretesyntaxPackage.Literals.CARDINALITY_DEFINITION__CARDINALITY,
-				 ConcretesyntaxFactory.eINSTANCE.createSTAR()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ConcretesyntaxPackage.Literals.CARDINALITY_DEFINITION__CARDINALITY,
-				 ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK()));
+				 Cardinality.NONE));
 	}
 
 }

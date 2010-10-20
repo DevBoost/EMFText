@@ -17,9 +17,7 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -40,14 +38,23 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  */
 public abstract class CardinalityDefinitionImpl extends DefinitionImpl implements CardinalityDefinition {
 	/**
-	 * The cached value of the '{@link #getCardinality() <em>Cardinality</em>}' containment reference.
+	 * The default value of the '{@link #getCardinality() <em>Cardinality</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCardinality()
 	 * @generated
 	 * @ordered
 	 */
-	protected Cardinality cardinality;
+	protected static final Cardinality CARDINALITY_EDEFAULT = Cardinality.NONE;
+	/**
+	 * The cached value of the '{@link #getCardinality() <em>Cardinality</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCardinality()
+	 * @generated
+	 * @ordered
+	 */
+	protected Cardinality cardinality = CARDINALITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,33 +89,11 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCardinality(Cardinality newCardinality, NotificationChain msgs) {
-		Cardinality oldCardinality = cardinality;
-		cardinality = newCardinality;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, oldCardinality, newCardinality);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void setCardinality(Cardinality newCardinality) {
-		if (newCardinality != cardinality) {
-			NotificationChain msgs = null;
-			if (cardinality != null)
-				msgs = ((InternalEObject)cardinality).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, null, msgs);
-			if (newCardinality != null)
-				msgs = ((InternalEObject)newCardinality).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, null, msgs);
-			msgs = basicSetCardinality(newCardinality, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, newCardinality, newCardinality));
+		Cardinality oldCardinality = cardinality;
+		cardinality = newCardinality == null ? CARDINALITY_EDEFAULT : newCardinality;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY, oldCardinality, cardinality));
 	}
 
 	/**
@@ -117,7 +102,7 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasMinimalCardinalityOneOrHigher() {
-		return getCardinality ( ) == null || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.PLUS ; 
+		return getCardinality ( ) == Cardinality.NONE || getCardinality ( ) == Cardinality.PLUS ; 
 		
 	}
 
@@ -127,22 +112,8 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasNoOptionalPart() {
-		return ! ( getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.STAR ) ; 
+		return ! ( getCardinality ( ) == Cardinality.QUESTIONMARK || getCardinality ( ) == Cardinality.STAR ) ; 
 		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
-				return basicSetCardinality(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -183,7 +154,7 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
-				setCardinality((Cardinality)null);
+				setCardinality(CARDINALITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -198,9 +169,25 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CARDINALITY_DEFINITION__CARDINALITY:
-				return cardinality != null;
+				return cardinality != CARDINALITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (cardinality: ");
+		result.append(cardinality);
+		result.append(')');
+		return result.toString();
 	}
 
 } //CardinalityDefinitionImpl

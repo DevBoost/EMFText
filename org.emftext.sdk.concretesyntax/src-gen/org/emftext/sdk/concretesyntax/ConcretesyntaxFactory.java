@@ -108,33 +108,6 @@ public interface ConcretesyntaxFactory extends EFactory {
 	LineBreak createLineBreak();
 
 	/**
-	 * Returns a new object of class '<em>PLUS</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>PLUS</em>'.
-	 * @generated
-	 */
-	PLUS createPLUS();
-
-	/**
-	 * Returns a new object of class '<em>STAR</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>STAR</em>'.
-	 * @generated
-	 */
-	STAR createSTAR();
-
-	/**
-	 * Returns a new object of class '<em>QUESTIONMARK</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>QUESTIONMARK</em>'.
-	 * @generated
-	 */
-	QUESTIONMARK createQUESTIONMARK();
-
-	/**
 	 * Returns a new object of class '<em>Compound Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

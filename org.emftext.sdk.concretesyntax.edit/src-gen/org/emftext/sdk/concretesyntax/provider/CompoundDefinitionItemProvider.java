@@ -25,6 +25,10 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.CompoundDefinition} object.
@@ -84,7 +88,11 @@ public class CompoundDefinitionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_CompoundDefinition_type");
+		Cardinality labelValue = ((CompoundDefinition)object).getCardinality();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_CompoundDefinition_type") :
+			getString("_UI_CompoundDefinition_type") + " " + label;
 	}
 
 	/**
@@ -97,6 +105,12 @@ public class CompoundDefinitionItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(CompoundDefinition.class)) {
+			case ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

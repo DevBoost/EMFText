@@ -4,9 +4,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 
@@ -83,7 +81,7 @@ public class OccurrenceCountHelper {
 		if (element instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) element;
 			Cardinality cardinality = cd.getCardinality();
-			if (cardinality instanceof STAR || cardinality instanceof QUESTIONMARK) {
+			if (cardinality == Cardinality.STAR || cardinality == Cardinality.QUESTIONMARK) {
 				return false;
 			}
 		}

@@ -257,8 +257,7 @@
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cardinality" eType="#//Cardinality"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cardinality" eType="#//Cardinality"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Terminal" abstract="true" eSuperTypes="#//CardinalityDefinition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
@@ -277,21 +276,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="LineBreak" eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tab" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Cardinality" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PLUS" eSuperTypes="#//Cardinality">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Allows to repeat the preceding syntax element multiple times."/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="STAR" eSuperTypes="#//Cardinality">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Allows to repeat the preceding syntax element multiple times (including zero times)."/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="QUESTIONMARK" eSuperTypes="#//Cardinality">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Tags the preceding syntax element as optional."/>
-    </eAnnotations>
+  <eClassifiers xsi:type="ecore:EEnum" name="Cardinality">
+    <eLiterals name="none" literal=""/>
+    <eLiterals name="plus" value="1" literal="+"/>
+    <eLiterals name="star" value="2" literal="*"/>
+    <eLiterals name="questionmark" value="3" literal="?"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//CardinalityDefinition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

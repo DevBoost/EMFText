@@ -9,6 +9,12 @@
   <foreignModel>concretesyntax.ecore</foreignModel>
   <genPackages prefix="Concretesyntax" basePackage="org.emftext.sdk" disposableProviderFactory="true"
       ecorePackage="concretesyntax.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//Cardinality">
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//Cardinality/none"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//Cardinality/plus"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//Cardinality/star"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//Cardinality/questionmark"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//OptionTypes">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/GENERATE_TEST_ACTION"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/GENERATE_CODE_FROM_GENERATOR_MODEL"/>
@@ -333,7 +339,7 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//Definition/computeCardinalityString"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//CardinalityDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//CardinalityDefinition/cardinality"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//CardinalityDefinition/cardinality"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CardinalityDefinition/hasMinimalCardinalityOneOrHigher"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//CardinalityDefinition/hasNoOptionalPart"/>
     </genClasses>
@@ -349,10 +355,6 @@
     <genClasses ecoreClass="concretesyntax.ecore#//LineBreak">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//LineBreak/tab"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="concretesyntax.ecore#//Cardinality"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//PLUS"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//STAR"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//QUESTIONMARK"/>
     <genClasses ecoreClass="concretesyntax.ecore#//CompoundDefinition">
       <genOperations ecoreOperation="concretesyntax.ecore#//CompoundDefinition/getDefinition"/>
     </genClasses>

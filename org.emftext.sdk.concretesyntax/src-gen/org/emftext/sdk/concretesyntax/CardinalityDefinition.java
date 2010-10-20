@@ -35,26 +35,29 @@ package org.emftext.sdk.concretesyntax;
  */
 public interface CardinalityDefinition extends Definition {
 	/**
-	 * Returns the value of the '<em><b>Cardinality</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Cardinality</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.emftext.sdk.concretesyntax.Cardinality}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Cardinality</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cardinality</em>' containment reference.
+	 * @return the value of the '<em>Cardinality</em>' attribute.
+	 * @see org.emftext.sdk.concretesyntax.Cardinality
 	 * @see #setCardinality(Cardinality)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCardinalityDefinition_Cardinality()
-	 * @model containment="true"
+	 * @model
 	 * @generated
 	 */
 	Cardinality getCardinality();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.CardinalityDefinition#getCardinality <em>Cardinality</em>}' containment reference.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.CardinalityDefinition#getCardinality <em>Cardinality</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Cardinality</em>' containment reference.
+	 * @param value the new value of the '<em>Cardinality</em>' attribute.
+	 * @see org.emftext.sdk.concretesyntax.Cardinality
 	 * @see #getCardinality()
 	 * @generated
 	 */

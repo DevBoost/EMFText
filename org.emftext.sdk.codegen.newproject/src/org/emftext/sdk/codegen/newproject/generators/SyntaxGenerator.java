@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.newproject.generators;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -45,7 +46,7 @@ public class SyntaxGenerator extends ModelGenerator {
 
 		Containment shapesContainment = CS_FACTORY.createContainment();
 		shapesContainment.setFeature(shapeSetClass.getGenFeatures().get(0));
-		shapesContainment.setCardinality(CS_FACTORY.createPLUS());
+		shapesContainment.setCardinality(Cardinality.PLUS);
 
 		Sequence sequence = CS_FACTORY.createSequence();
 		sequence.getChildren().add(keyword);

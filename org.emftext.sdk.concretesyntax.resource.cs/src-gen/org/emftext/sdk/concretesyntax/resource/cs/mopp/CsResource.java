@@ -59,6 +59,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			return Math.max(0, locationMap.getLine(element));
 		}
 		
+		public org.eclipse.emf.ecore.EObject getElement() {
+			return element;
+		}
+		
 		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
 			if (this.element == null) {
 				return false;

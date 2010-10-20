@@ -148,18 +148,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			print_org_emftext_sdk_concretesyntax_RegexReference((org.emftext.sdk.concretesyntax.RegexReference) element, globaltab, out);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.PLUS) {
-			print_org_emftext_sdk_concretesyntax_PLUS((org.emftext.sdk.concretesyntax.PLUS) element, globaltab, out);
-			return;
-		}
-		if (element instanceof org.emftext.sdk.concretesyntax.STAR) {
-			print_org_emftext_sdk_concretesyntax_STAR((org.emftext.sdk.concretesyntax.STAR) element, globaltab, out);
-			return;
-		}
-		if (element instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
-			print_org_emftext_sdk_concretesyntax_QUESTIONMARK((org.emftext.sdk.concretesyntax.QUESTIONMARK) element, globaltab, out);
-			return;
-		}
 		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
 			print_org_emftext_sdk_concretesyntax_Abstract((org.emftext.sdk.concretesyntax.Abstract) element, globaltab, out);
 			return;
@@ -1297,7 +1285,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken(org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element, String outertab, java.io.PrintWriter out) {
-		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -1341,19 +1328,17 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken(org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element, String outertab, java.io.PrintWriter out) {
-		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -1386,12 +1371,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print("[");
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -1479,12 +1463,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print("]");
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -1507,7 +1490,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_BooleanTerminal(org.emftext.sdk.concretesyntax.BooleanTerminal element, String outertab, java.io.PrintWriter out) {
-		String localtab = outertab;
 		// The printCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
@@ -1566,12 +1548,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -1648,12 +1629,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print("]");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -1687,8 +1667,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		java.util.Map<String, Integer> printCountingMap = new java.util.LinkedHashMap<String, Integer>(2);
+		java.util.Map<String, Integer> printCountingMap = new java.util.LinkedHashMap<String, Integer>(3);
 		Object temp;
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__CHILDREN));
+		printCountingMap.put("children", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__LITERAL));
 		printCountingMap.put("literal", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__TEXT));
@@ -1767,12 +1749,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
 		}
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -1883,12 +1864,11 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(")");
-		// DEFINITION PART BEGINS (Containment)
+		// DEFINITION PART BEGINS (EnumTerminal)
 		count = printCountingMap.get("cardinality");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY));
 			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
 			printCountingMap.put("cardinality", count - 1);
 		}
@@ -2478,39 +2458,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			}
 			printCountingMap.put("target", count - 1);
 		}
-	}
-	
-	public void print_org_emftext_sdk_concretesyntax_PLUS(org.emftext.sdk.concretesyntax.PLUS element, String outertab, java.io.PrintWriter out) {
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		// print collected hidden tokens
-		// DEFINITION PART BEGINS (CsString)
-		out.print("+");
-	}
-	
-	public void print_org_emftext_sdk_concretesyntax_STAR(org.emftext.sdk.concretesyntax.STAR element, String outertab, java.io.PrintWriter out) {
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		// print collected hidden tokens
-		// DEFINITION PART BEGINS (CsString)
-		out.print("*");
-	}
-	
-	public void print_org_emftext_sdk_concretesyntax_QUESTIONMARK(org.emftext.sdk.concretesyntax.QUESTIONMARK element, String outertab, java.io.PrintWriter out) {
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		// print collected hidden tokens
-		// DEFINITION PART BEGINS (CsString)
-		out.print("?");
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_Abstract(org.emftext.sdk.concretesyntax.Abstract element, String outertab, java.io.PrintWriter out) {

@@ -13,7 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
@@ -24,7 +25,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP_ENTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
@@ -70,12 +70,9 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
@@ -1184,11 +1181,11 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 
 		sc.add("public boolean " +  getMethodName(definition) + "() {");
 		sc.add("boolean matched = true;");
-		if (cardinality == null) {
+		if (cardinality == Cardinality.NONE) {
 			// cardinality == 1
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("return matched;");
-		} else if (cardinality instanceof STAR) {
+		} else if (cardinality == Cardinality.STAR) {
 			// cardinality == 0..*
 			sc.add("while (matched) {");
 			sc.addComment("put trial on stack (try parsing without matching THING*)");
@@ -1201,7 +1198,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("}");
 			sc.add("return true;");
-		} else if (cardinality instanceof PLUS) {
+		} else if (cardinality == Cardinality.PLUS) {
 			// cardinality == 1..*
 			sc.add("boolean matchedAtLeastOnce = false;");
 			sc.add("while (matched) {");
@@ -1218,7 +1215,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 			sc.add("}");
 			sc.add("}");
 			sc.add("return matchedAtLeastOnce;");
-		} else if (cardinality instanceof QUESTIONMARK) {
+		} else if (cardinality == Cardinality.QUESTIONMARK) {
 			// cardinality == 0..1
 			sc.addComment("put trial on stack (try parsing without matching THING)");
 			String methodName = getNext(definition);
@@ -1435,13 +1432,14 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private String getName(Cardinality cardinality) {
-		if (cardinality == null) {
+		// TODO mseifert: maybe use cardinality.getName() instead?
+		if (cardinality == Cardinality.NONE) {
 			return "ONE";
-		} else if (cardinality instanceof PLUS) {
+		} else if (cardinality == Cardinality.PLUS) {
 			return "PLUS";
-		} else if (cardinality instanceof STAR) {
+		} else if (cardinality == Cardinality.STAR) {
 			return "STAR";
-		} else if (cardinality instanceof QUESTIONMARK) {
+		} else if (cardinality == Cardinality.QUESTIONMARK) {
 			return "QUESTIONMARK";
 		} else {
 			throw new RuntimeException("Found unknown cardinality " + cardinality.getClass().getName());

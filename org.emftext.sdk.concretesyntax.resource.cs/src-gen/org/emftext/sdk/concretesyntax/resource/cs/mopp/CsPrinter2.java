@@ -204,32 +204,20 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.PLUS) {
+		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.STAR) {
+		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
+		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_26, foundFormattingElements);
-			return;
-		}
-		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_27, foundFormattingElements);
-			return;
-		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_28, foundFormattingElements);
-			return;
-		}
 		if (element instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_29, foundFormattingElements);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_26, foundFormattingElements);
 			return;
 		}
 		
@@ -402,6 +390,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal booleanTerminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal) printElement;
 					printBooleanTerminal(eObject, booleanTerminal, indexToPrint, foundFormattingElements, layoutInformations);
 					foundSomethingToPrint = true;
+				} else if (printElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal) {
+					org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal enumTerminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal) printElement;
+					printEnumerationTerminal(eObject, enumTerminal, indexToPrint, foundFormattingElements, layoutInformations);
+					foundSomethingToPrint = true;
 				}
 			}
 			if (foundSomethingToPrint) {
@@ -469,10 +461,11 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		if (result != null && !"".equals(result)) {
 			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+			// write result to the output stream
+			tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));
 		}
-		// write result to the output stream
-		tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));
 	}
+	
 	
 	public void printBooleanTerminal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal booleanTerminal, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EAttribute attribute = booleanTerminal.getAttribute();
@@ -498,6 +491,30 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
 		}
 	}
+	
+	
+	public void printEnumerationTerminal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal enumTerminal, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		org.eclipse.emf.ecore.EAttribute attribute = enumTerminal.getAttribute();
+		String result;
+		Object attributeValue = getValue(eObject, attribute, count);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, enumTerminal, attributeValue, eObject);
+		String visibleTokenText = getVisibleTokenText(layoutInformation);
+		// if there is text for the attribute we use it
+		if (visibleTokenText != null) {
+			result = visibleTokenText;
+		} else {
+			// if no text is available, the enumeration attribute is converted to its textual
+			// representation using the literals of the enumeration terminal
+			assert attributeValue instanceof org.eclipse.emf.common.util.Enumerator;
+			result = enumTerminal.getText(((org.eclipse.emf.common.util.Enumerator) attributeValue).getName());
+		}
+		if (result != null && !"".equals(result)) {
+			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+			// write result to the output stream
+			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
+		}
+	}
+	
 	
 	public void printContainedObject(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EStructuralFeature reference = containment.getFeature();

@@ -17,12 +17,11 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
@@ -42,8 +41,8 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 			EObject next = i.next();
 			if (next instanceof CompoundDefinition) {
 				CompoundDefinition compoundDefinition = (CompoundDefinition) next;
-				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK ||
-						compoundDefinition.getCardinality() instanceof STAR) {
+				if (compoundDefinition.getCardinality() == Cardinality.QUESTIONMARK ||
+					compoundDefinition.getCardinality() == Cardinality.STAR) {
 					for (Sequence sequence : compoundDefinition.getDefinition().getOptions()) {
 						boolean containsKeyword = false;
 						boolean restOptional = true;

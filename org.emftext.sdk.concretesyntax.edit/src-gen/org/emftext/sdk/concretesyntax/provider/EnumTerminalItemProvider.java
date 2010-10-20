@@ -20,9 +20,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -30,7 +28,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.EnumTerminal;
@@ -123,7 +121,11 @@ public class EnumTerminalItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_EnumTerminal_type");
+		Cardinality labelValue = ((EnumTerminal)object).getCardinality();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_EnumTerminal_type") :
+			getString("_UI_EnumTerminal_type") + " " + label;
 	}
 
 	/**
@@ -140,6 +142,9 @@ public class EnumTerminalItemProvider
 		switch (notification.getFeatureID(EnumTerminal.class)) {
 			case ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+			case ConcretesyntaxPackage.ENUM_TERMINAL__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -160,6 +165,29 @@ public class EnumTerminalItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.ENUM_TERMINAL__LITERALS,
 				 ConcretesyntaxFactory.eINSTANCE.createEnumLiteralTerminal()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN ||
+			childFeature == ConcretesyntaxPackage.Literals.ENUM_TERMINAL__LITERALS;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

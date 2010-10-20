@@ -26,7 +26,10 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Terminal;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Terminal} object.
@@ -98,7 +101,11 @@ public class TerminalItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Terminal_type");
+		Cardinality labelValue = ((Terminal)object).getCardinality();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Terminal_type") :
+			getString("_UI_Terminal_type") + " " + label;
 	}
 
 	/**
@@ -111,6 +118,12 @@ public class TerminalItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Terminal.class)) {
+			case ConcretesyntaxPackage.TERMINAL__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

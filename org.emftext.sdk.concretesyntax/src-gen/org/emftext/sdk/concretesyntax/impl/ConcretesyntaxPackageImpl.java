@@ -185,34 +185,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass cardinalityEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass plusEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass starEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass questionmarkEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass compoundDefinitionEClass = null;
 
 	/**
@@ -445,6 +417,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass eClassUtilEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum cardinalityEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -856,8 +835,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCardinalityDefinition_Cardinality() {
-		return (EReference)cardinalityDefinitionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getCardinalityDefinition_Cardinality() {
+		return (EAttribute)cardinalityDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -937,35 +916,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCardinality() {
-		return cardinalityEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPLUS() {
-		return plusEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSTAR() {
-		return starEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getQUESTIONMARK() {
-		return questionmarkEClass;
+	public EEnum getCardinality() {
+		return cardinalityEEnum;
 	}
 
 	/**
@@ -1713,7 +1665,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		definitionEClass = createEClass(DEFINITION);
 
 		cardinalityDefinitionEClass = createEClass(CARDINALITY_DEFINITION);
-		createEReference(cardinalityDefinitionEClass, CARDINALITY_DEFINITION__CARDINALITY);
+		createEAttribute(cardinalityDefinitionEClass, CARDINALITY_DEFINITION__CARDINALITY);
 
 		terminalEClass = createEClass(TERMINAL);
 		createEReference(terminalEClass, TERMINAL__FEATURE);
@@ -1726,14 +1678,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		lineBreakEClass = createEClass(LINE_BREAK);
 		createEAttribute(lineBreakEClass, LINE_BREAK__TAB);
-
-		cardinalityEClass = createEClass(CARDINALITY);
-
-		plusEClass = createEClass(PLUS);
-
-		starEClass = createEClass(STAR);
-
-		questionmarkEClass = createEClass(QUESTIONMARK);
 
 		compoundDefinitionEClass = createEClass(COMPOUND_DEFINITION);
 
@@ -1840,6 +1784,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		eClassUtilEClass = createEClass(ECLASS_UTIL);
 
 		// Create enums
+		cardinalityEEnum = createEEnum(CARDINALITY);
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		annotationTypeEEnum = createEEnum(ANNOTATION_TYPE);
@@ -1892,9 +1837,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		csStringEClass.getESuperTypes().add(this.getDefinition());
 		whiteSpacesEClass.getESuperTypes().add(this.getDefinition());
 		lineBreakEClass.getESuperTypes().add(this.getDefinition());
-		plusEClass.getESuperTypes().add(this.getCardinality());
-		starEClass.getESuperTypes().add(this.getCardinality());
-		questionmarkEClass.getESuperTypes().add(this.getCardinality());
 		compoundDefinitionEClass.getESuperTypes().add(this.getCardinalityDefinition());
 		regexPartEClass.getESuperTypes().add(this.getRegexOwner());
 		regexCompositeEClass.getESuperTypes().add(this.getRegexOwner());
@@ -2026,7 +1968,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(definitionEClass, theEcorePackage.getEString(), "computeCardinalityString", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(cardinalityDefinitionEClass, CardinalityDefinition.class, "CardinalityDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCardinalityDefinition_Cardinality(), this.getCardinality(), null, "cardinality", null, 0, 1, CardinalityDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCardinalityDefinition_Cardinality(), this.getCardinality(), "cardinality", null, 0, 1, CardinalityDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(cardinalityDefinitionEClass, theEcorePackage.getEBoolean(), "hasMinimalCardinalityOneOrHigher", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -2043,14 +1985,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEClass(lineBreakEClass, LineBreak.class, "LineBreak", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLineBreak_Tab(), ecorePackage.getEInt(), "tab", null, 1, 1, LineBreak.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(cardinalityEClass, Cardinality.class, "Cardinality", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(plusEClass, org.emftext.sdk.concretesyntax.PLUS.class, "PLUS", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(starEClass, org.emftext.sdk.concretesyntax.STAR.class, "STAR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(questionmarkEClass, org.emftext.sdk.concretesyntax.QUESTIONMARK.class, "QUESTIONMARK", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(compoundDefinitionEClass, CompoundDefinition.class, "CompoundDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2245,6 +2179,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEParameter(op, theEcorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(cardinalityEEnum, Cardinality.class, "Cardinality");
+		addEEnumLiteral(cardinalityEEnum, Cardinality.NONE);
+		addEEnumLiteral(cardinalityEEnum, Cardinality.PLUS);
+		addEEnumLiteral(cardinalityEEnum, Cardinality.STAR);
+		addEEnumLiteral(cardinalityEEnum, Cardinality.QUESTIONMARK);
+
 		initEEnum(optionTypesEEnum, OptionTypes.class, "OptionTypes");
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_TEST_ACTION);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
@@ -2733,24 +2673,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "A keyword that is used to represent instances of a metaclass."
-		   });		
-		addAnnotation
-		  (plusEClass, 
-		   source, 
-		   new String[] {
-			 "documentation", "Allows to repeat the preceding syntax element multiple times."
-		   });		
-		addAnnotation
-		  (starEClass, 
-		   source, 
-		   new String[] {
-			 "documentation", "Allows to repeat the preceding syntax element multiple times (including zero times)."
-		   });		
-		addAnnotation
-		  (questionmarkEClass, 
-		   source, 
-		   new String[] {
-			 "documentation", "Tags the preceding syntax element as optional."
 		   });		
 		addAnnotation
 		  (compoundDefinitionEClass, 

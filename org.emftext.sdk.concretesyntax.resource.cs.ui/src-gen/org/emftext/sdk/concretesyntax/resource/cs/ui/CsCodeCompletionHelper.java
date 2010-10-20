@@ -153,6 +153,9 @@ public class CsCodeCompletionHelper {
 		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal expectedBooleanTerminal = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal) expectedElement;
 			return handleBooleanTerminal(expectedBooleanTerminal, expectedTerminal.getPrefix());
+		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal expectedEnumerationTerminal = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal) expectedElement;
+			return handleEnumerationTerminal(expectedEnumerationTerminal, expectedTerminal.getPrefix());
 		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
 			org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
@@ -310,12 +313,22 @@ public class CsCodeCompletionHelper {
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleBooleanTerminal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal expectedBooleanTerminal, String prefix) {
 		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>(2);
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal booleanTerminal = expectedBooleanTerminal.getBooleanTerminal();
-		result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));
-		result.addAll(handleBooleanLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));
+		result.addAll(handleLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));
+		result.addAll(handleLiteral(booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));
 		return result;
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleBooleanLiteral(org.eclipse.emf.ecore.EAttribute attribute, String prefix, String literal) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleEnumerationTerminal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal expectedEnumerationTerminal, String prefix) {
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> result = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>(2);
+		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal enumerationTerminal = expectedEnumerationTerminal.getEnumerationTerminal();
+		java.util.Map<String, String> literalMapping = enumerationTerminal.getLiteralMapping();
+		for (String literalName : literalMapping.keySet()) {
+			result.addAll(handleLiteral(enumerationTerminal.getAttribute(), prefix, literalMapping.get(literalName)));
+		}
+		return result;
+	}
+	
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleLiteral(org.eclipse.emf.ecore.EAttribute attribute, String prefix, String literal) {
 		if ("".equals(literal)) {
 			return java.util.Collections.emptySet();
 		}

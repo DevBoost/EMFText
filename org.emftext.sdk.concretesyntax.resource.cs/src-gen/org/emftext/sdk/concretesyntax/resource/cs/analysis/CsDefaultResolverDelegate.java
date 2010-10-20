@@ -72,8 +72,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * Searches for objects in the tree of EObjects that is rooted at
 	 * <code>root</code>, which have the correct type and a name/id attribute matching
 	 * the identifier. This method can be used to quickly implement custom reference
-	 * resolvers which require to search in a particular scope for reference elements,
-	 * rather than in the whole resource as done by resolve().
+	 * resolvers which require to search in a particular scope for referenced
+	 * elements, rather than in the whole resource as done by resolve().
 	 */
 	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();

@@ -11,9 +11,6 @@ import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -246,16 +243,16 @@ public class CardinalityComputer {
 	}
 	
 	private int convertToMin(Cardinality cardinality) {
-		if (cardinality == null) {
+		if (cardinality == Cardinality.NONE) {
 			return 1;
 		}
-		if (cardinality instanceof PLUS) {
+		if (cardinality == Cardinality.PLUS) {
 			return 1;
 		}
-		if (cardinality instanceof STAR) {
+		if (cardinality == Cardinality.STAR) {
 			return 0;
 		}
-		if (cardinality instanceof QUESTIONMARK) {
+		if (cardinality == Cardinality.QUESTIONMARK) {
 			return 0;
 		}
 		// there should be no other subclasses of class 'Cardinality'
@@ -264,16 +261,16 @@ public class CardinalityComputer {
 	}
 	
 	private int convertToMax(Cardinality cardinality) {
-		if (cardinality == null) {
+		if (cardinality == Cardinality.NONE) {
 			return 1;
 		}
-		if (cardinality instanceof PLUS) {
+		if (cardinality == Cardinality.PLUS) {
 			return -1;
 		}
-		if (cardinality instanceof STAR) {
+		if (cardinality == Cardinality.STAR) {
 			return -1;
 		}
-		if (cardinality instanceof QUESTIONMARK) {
+		if (cardinality == Cardinality.QUESTIONMARK) {
 			return 1;
 		}
 		// there should be no other subclasses of class 'Cardinality'

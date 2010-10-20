@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
@@ -21,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
@@ -62,11 +62,8 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
@@ -489,7 +486,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 						sc.add("if (count > 0) {");
 						if (cardinality == null
-								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
+								|| (cardinality == Cardinality.QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
 							sc.add("Object o = element."
 									+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
@@ -516,8 +513,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 							sc.add("}");
 							sc.add("printCountingMap.put(\"" + featureName + "\", count - 1);");
 							neededFeatures.remove(featureName);
-						} else if (cardinality instanceof PLUS
-								|| cardinality instanceof STAR) {
+						} else if (cardinality == Cardinality.PLUS
+								|| cardinality == Cardinality.STAR) {
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST + "<?> list = (" + LIST +"<?>)element."
 										+ getAccessMethod(genClassCache, genClass, genFeature)
@@ -529,7 +526,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								sc.add(LIST_ITERATOR + "<?> it  = list.listIterator(index);");
 								sc.add("while (it.hasNext()) {");
 								sc.add("Object o = it.next();");
-								if (cardinality instanceof STAR
+								if (cardinality == Cardinality.STAR
 										&& neededFeatures.contains(featureName)) {
 									sc.add("if(!it.hasNext())");
 									sc.add("break;");
@@ -538,14 +535,14 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								sc.add("}");
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\", 0);");
-							} else if (cardinality instanceof PLUS) {
+							} else if (cardinality == Cardinality.PLUS) {
 								sc.add("Object o = element."
 										+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\", count - 1);");
 							}
-							if (cardinality instanceof PLUS) {
+							if (cardinality == Cardinality.PLUS) {
 								neededFeatures.remove(featureName);
 							}
 						}
@@ -571,7 +568,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				+ "(element, localtab, out, printCountingMap);";
 		//localTabDefinition.enable();
 		// enter once
-		if (cardinality == null || cardinality instanceof PLUS) {
+		// TODO mseifert: search for 'cardinality == null' and replace code with
+		// 'cardinality == Cardinality.NONE'
+		if (cardinality == Cardinality.NONE || cardinality == Cardinality.PLUS) {
 			sc.add(printStatement);
 			// needed features in non optional choice are also
 			// needed features in this sequence
@@ -585,9 +584,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			}
 		}
 		// optional cases
-		if (cardinality != null) {
+		if (cardinality != Cardinality.NONE) {
 
-			boolean isMany = !(cardinality instanceof QUESTIONMARK);
+			boolean isMany = !(cardinality == Cardinality.QUESTIONMARK);
 			// runtime: iterate as long as no fixpoint is
 			// reached
 			// make sure that NOT all elements of needed

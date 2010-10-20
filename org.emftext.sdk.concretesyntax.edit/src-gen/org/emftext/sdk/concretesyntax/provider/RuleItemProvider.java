@@ -251,6 +251,11 @@ public class RuleItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
 				 ConcretesyntaxFactory.eINSTANCE.createEnumTerminal()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SYNTAX_ELEMENT__CHILDREN,
+				 ConcretesyntaxFactory.eINSTANCE.createEnumLiteralTerminal()));
 	}
 
 }

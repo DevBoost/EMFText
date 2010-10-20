@@ -178,6 +178,9 @@ public class PlaceholderInQuotesItemProvider
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}

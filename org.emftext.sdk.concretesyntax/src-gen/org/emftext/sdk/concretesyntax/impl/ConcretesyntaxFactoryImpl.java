@@ -25,11 +25,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -38,6 +39,8 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.EClassUtil;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
@@ -48,17 +51,14 @@ import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposer;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
@@ -117,9 +117,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.CS_STRING: return createCsString();
 			case ConcretesyntaxPackage.WHITE_SPACES: return createWhiteSpaces();
 			case ConcretesyntaxPackage.LINE_BREAK: return createLineBreak();
-			case ConcretesyntaxPackage.PLUS: return createPLUS();
-			case ConcretesyntaxPackage.STAR: return createSTAR();
-			case ConcretesyntaxPackage.QUESTIONMARK: return createQUESTIONMARK();
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
 			case ConcretesyntaxPackage.REGEX_COMPOSER: return createRegexComposer();
 			case ConcretesyntaxPackage.ATOMIC_REGEX: return createAtomicRegex();
@@ -157,6 +154,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.CARDINALITY:
+				return createCardinalityFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.OPTION_TYPES:
 				return createOptionTypesFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
@@ -180,6 +179,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.CARDINALITY:
+				return convertCardinalityToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.OPTION_TYPES:
 				return convertOptionTypesToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
@@ -273,36 +274,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public LineBreak createLineBreak() {
 		LineBreakImpl lineBreak = new LineBreakImpl();
 		return lineBreak;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PLUS createPLUS() {
-		PLUSImpl plus = new PLUSImpl();
-		return plus;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public STAR createSTAR() {
-		STARImpl star = new STARImpl();
-		return star;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public QUESTIONMARK createQUESTIONMARK() {
-		QUESTIONMARKImpl questionmark = new QUESTIONMARKImpl();
-		return questionmark;
 	}
 
 	/**
@@ -543,6 +514,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public EClassUtil createEClassUtil() {
 		EClassUtilImpl eClassUtil = new EClassUtilImpl();
 		return eClassUtil;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Cardinality createCardinalityFromString(EDataType eDataType, String initialValue) {
+		Cardinality result = Cardinality.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCardinalityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

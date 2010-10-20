@@ -9,10 +9,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
@@ -46,8 +43,8 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 		for (SyntaxElement syntaxElement : children) {
 			if (syntaxElement instanceof CompoundDefinition) {
 				CompoundDefinition compound = (CompoundDefinition) syntaxElement;
-				if (compound.getCardinality() instanceof PLUS ||
-					compound.getCardinality() instanceof STAR) {
+				if (compound.getCardinality() == Cardinality.PLUS ||
+					compound.getCardinality() == Cardinality.STAR) {
 					// check whether the compound allows the empty sentence
 					if (canBeEmpty(compound.getDefinition())) {
 						addProblem(ECsProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
@@ -71,7 +68,7 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 		if (element instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) element;
 			Cardinality cardinality = cd.getCardinality();
-			return cardinality instanceof STAR || cardinality instanceof QUESTIONMARK;
+			return cardinality == Cardinality.STAR || cardinality == Cardinality.QUESTIONMARK;
 		}
 		if (element instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) element;

@@ -34,9 +34,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider;
@@ -145,7 +143,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 				}
 				if (definition instanceof CardinalityDefinition) {
 					cardinality = ((CardinalityDefinition) definition).getCardinality();
-					isStarOrOptional |= cardinality instanceof STAR || cardinality instanceof QUESTIONMARK;
+					isStarOrOptional |= cardinality == Cardinality.STAR || cardinality == Cardinality.QUESTIONMARK;
 				}
 				if (definition instanceof Terminal) {
 					Terminal terminal = (Terminal) definition;

@@ -25,10 +25,7 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.PLUS;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -104,6 +101,7 @@ public class ExpectationComputer {
 	}
 
 	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
+		/*
 		if (syntaxElement instanceof STAR) {
 			return new LinkedHashSet<Expectation>();
 		}
@@ -113,6 +111,7 @@ public class ExpectationComputer {
 		if (syntaxElement instanceof PLUS) {
 			return new LinkedHashSet<Expectation>();
 		}
+		*/
 		Rule rule = syntaxElement.getContainingRule();
 
 		Set<Expectation> firstSet;
@@ -132,6 +131,7 @@ public class ExpectationComputer {
 	}
 
 	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
+		/*
 		if (syntaxElement instanceof STAR) {
 			return new LinkedHashSet<Expectation>();
 		}
@@ -141,6 +141,7 @@ public class ExpectationComputer {
 		if (syntaxElement instanceof PLUS) {
 			return new LinkedHashSet<Expectation>();
 		}
+		*/
 		
 		Set<Expectation> result = computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals);
 

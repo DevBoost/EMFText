@@ -23,11 +23,11 @@ eclass Definition {
 		if (this instanceof CardinalityDefinition) {
 			cardinality = ((CardinalityDefinition) this).getCardinality();
 		}
-		if (cardinality == null) {
+		if (cardinality == Cardinality.NONE) {
 			return "";
-		} else if (cardinality instanceof PLUS) {
+		} else if (cardinality == Cardinality.PLUS) {
 			return "+";
-		} else if (cardinality instanceof QUESTIONMARK) {
+		} else if (cardinality == Cardinality.QUESTIONMARK) {
 			return "?";
 		} else {
 			return "*";

@@ -378,7 +378,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 46;
+	int ANNOTABLE = 42;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
@@ -585,7 +585,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CARDINALITY_DEFINITION__CHILDREN = DEFINITION__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -622,7 +622,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int TERMINAL__CHILDREN = CARDINALITY_DEFINITION__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -760,80 +760,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int LINE_BREAK_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CardinalityImpl <em>Cardinality</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.CardinalityImpl
+	 * @see org.emftext.sdk.concretesyntax.Cardinality
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
 	 * @generated
 	 */
-	int CARDINALITY = 13;
-
-	/**
-	 * The number of structural features of the '<em>Cardinality</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CARDINALITY_FEATURE_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PLUSImpl <em>PLUS</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.PLUSImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPLUS()
-	 * @generated
-	 */
-	int PLUS = 14;
-
-	/**
-	 * The number of structural features of the '<em>PLUS</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS_FEATURE_COUNT = CARDINALITY_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.STARImpl <em>STAR</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.STARImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSTAR()
-	 * @generated
-	 */
-	int STAR = 15;
-
-	/**
-	 * The number of structural features of the '<em>STAR</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STAR_FEATURE_COUNT = CARDINALITY_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.QUESTIONMARKImpl <em>QUESTIONMARK</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.QUESTIONMARKImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQUESTIONMARK()
-	 * @generated
-	 */
-	int QUESTIONMARK = 16;
-
-	/**
-	 * The number of structural features of the '<em>QUESTIONMARK</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUESTIONMARK_FEATURE_COUNT = CARDINALITY_FEATURE_COUNT + 0;
+	int CARDINALITY = 47;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl <em>Compound Definition</em>}' class.
@@ -843,7 +777,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompoundDefinition()
 	 * @generated
 	 */
-	int COMPOUND_DEFINITION = 17;
+	int COMPOUND_DEFINITION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -855,7 +789,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int COMPOUND_DEFINITION__CHILDREN = CARDINALITY_DEFINITION__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -880,7 +814,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
 	 * @generated
 	 */
-	int TOKEN_DIRECTIVE = 24;
+	int TOKEN_DIRECTIVE = 20;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RegexComposerImpl <em>Regex Composer</em>}' class.
@@ -890,7 +824,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexComposer()
 	 * @generated
 	 */
-	int REGEX_COMPOSER = 18;
+	int REGEX_COMPOSER = 14;
 
 	/**
 	 * The number of structural features of the '<em>Regex Composer</em>' class.
@@ -909,7 +843,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexOwner()
 	 * @generated
 	 */
-	int REGEX_OWNER = 19;
+	int REGEX_OWNER = 15;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -937,7 +871,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexPart()
 	 * @generated
 	 */
-	int REGEX_PART = 20;
+	int REGEX_PART = 16;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -965,7 +899,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexComposite()
 	 * @generated
 	 */
-	int REGEX_COMPOSITE = 21;
+	int REGEX_COMPOSITE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1002,7 +936,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAtomicRegex()
 	 * @generated
 	 */
-	int ATOMIC_REGEX = 22;
+	int ATOMIC_REGEX = 18;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1039,7 +973,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRegexReference()
 	 * @generated
 	 */
-	int REGEX_REFERENCE = 23;
+	int REGEX_REFERENCE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1085,7 +1019,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstractTokenDefinition()
 	 * @generated
 	 */
-	int ABSTRACT_TOKEN_DEFINITION = 25;
+	int ABSTRACT_TOKEN_DEFINITION = 21;
 
 	/**
 	 * The number of structural features of the '<em>Abstract Token Definition</em>' class.
@@ -1104,7 +1038,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNamedTokenDefinition()
 	 * @generated
 	 */
-	int NAMED_TOKEN_DEFINITION = 26;
+	int NAMED_TOKEN_DEFINITION = 22;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1132,7 +1066,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getReferencableTokenDefinition()
 	 * @generated
 	 */
-	int REFERENCABLE_TOKEN_DEFINITION = 27;
+	int REFERENCABLE_TOKEN_DEFINITION = 23;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1178,7 +1112,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPartialTokenDefinition()
 	 * @generated
 	 */
-	int PARTIAL_TOKEN_DEFINITION = 28;
+	int PARTIAL_TOKEN_DEFINITION = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1224,7 +1158,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCompleteTokenDefinition()
 	 * @generated
 	 */
-	int COMPLETE_TOKEN_DEFINITION = 29;
+	int COMPLETE_TOKEN_DEFINITION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1279,7 +1213,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalTokenDefinition()
 	 * @generated
 	 */
-	int NORMAL_TOKEN_DEFINITION = 30;
+	int NORMAL_TOKEN_DEFINITION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1352,7 +1286,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenRedefinition()
 	 * @generated
 	 */
-	int TOKEN_REDEFINITION = 31;
+	int TOKEN_REDEFINITION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1434,7 +1368,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedTokenDefinition()
 	 * @generated
 	 */
-	int QUOTED_TOKEN_DEFINITION = 32;
+	int QUOTED_TOKEN_DEFINITION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -1525,7 +1459,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenPriorityDirective()
 	 * @generated
 	 */
-	int TOKEN_PRIORITY_DIRECTIVE = 33;
+	int TOKEN_PRIORITY_DIRECTIVE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Token</b></em>' reference.
@@ -1553,7 +1487,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getContainment()
 	 * @generated
 	 */
-	int CONTAINMENT = 34;
+	int CONTAINMENT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1565,7 +1499,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONTAINMENT__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1608,7 +1542,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholder()
 	 * @generated
 	 */
-	int PLACEHOLDER = 35;
+	int PLACEHOLDER = 31;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1620,7 +1554,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1663,7 +1597,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingSpecifiedToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 36;
+	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 32;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1675,7 +1609,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER_USING_SPECIFIED_TOKEN__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1718,7 +1652,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingDefaultToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_DEFAULT_TOKEN = 37;
+	int PLACEHOLDER_USING_DEFAULT_TOKEN = 33;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1730,7 +1664,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER_USING_DEFAULT_TOKEN__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1773,7 +1707,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderInQuotes()
 	 * @generated
 	 */
-	int PLACEHOLDER_IN_QUOTES = 38;
+	int PLACEHOLDER_IN_QUOTES = 34;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1785,7 +1719,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER_IN_QUOTES__CHILDREN = PLACEHOLDER__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1855,7 +1789,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getBooleanTerminal()
 	 * @generated
 	 */
-	int BOOLEAN_TERMINAL = 39;
+	int BOOLEAN_TERMINAL = 35;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1867,7 +1801,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int BOOLEAN_TERMINAL__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1919,7 +1853,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumTerminal()
 	 * @generated
 	 */
-	int ENUM_TERMINAL = 40;
+	int ENUM_TERMINAL = 36;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1931,7 +1865,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int ENUM_TERMINAL__CHILDREN = TERMINAL__CHILDREN;
 
 	/**
-	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1974,7 +1908,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEnumLiteralTerminal()
 	 * @generated
 	 */
-	int ENUM_LITERAL_TERMINAL = 41;
+	int ENUM_LITERAL_TERMINAL = 37;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -2020,7 +1954,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 42;
+	int OPTION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -2057,7 +1991,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 43;
+	int ABSTRACT = 39;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -2076,7 +2010,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 44;
+	int TOKEN_STYLE = 40;
 
 	/**
 	 * The feature id for the '<em><b>Token Names</b></em>' attribute list.
@@ -2122,7 +2056,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 45;
+	int ANNOTATION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -2159,7 +2093,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 47;
+	int KEY_VALUE_PAIR = 43;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -2196,7 +2130,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE = 48;
+	int GEN_CLASS_CACHE = 44;
 
 	/**
 	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
@@ -2224,7 +2158,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE_ENTRY = 49;
+	int GEN_CLASS_CACHE_ENTRY = 45;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' reference.
@@ -2261,7 +2195,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
 	 * @generated
 	 */
-	int ECLASS_UTIL = 50;
+	int ECLASS_UTIL = 46;
 
 	/**
 	 * The number of structural features of the '<em>EClass Util</em>' class.
@@ -2280,7 +2214,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 51;
+	int OPTION_TYPES = 48;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -2290,7 +2224,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 52;
+	int FONT_STYLE = 49;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -2300,7 +2234,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 53;
+	int ANNOTATION_TYPE = 50;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -2310,7 +2244,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 54;
+	int OPERATOR_ANNOTATION_TYPE = 51;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -2320,7 +2254,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 55;
+	int OPERATOR_ANNOTATION_PROPERTY = 52;
 
 
 	/**
@@ -2689,15 +2623,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getCardinalityDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.CardinalityDefinition#getCardinality <em>Cardinality</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.CardinalityDefinition#getCardinality <em>Cardinality</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Cardinality</em>'.
+	 * @return the meta object for the attribute '<em>Cardinality</em>'.
 	 * @see org.emftext.sdk.concretesyntax.CardinalityDefinition#getCardinality()
 	 * @see #getCardinalityDefinition()
 	 * @generated
 	 */
-	EReference getCardinalityDefinition_Cardinality();
+	EAttribute getCardinalityDefinition_Cardinality();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Terminal <em>Terminal</em>}'.
@@ -2784,44 +2718,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getLineBreak_Tab();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Cardinality</em>'.
+	 * @return the meta object for enum '<em>Cardinality</em>'.
 	 * @see org.emftext.sdk.concretesyntax.Cardinality
 	 * @generated
 	 */
-	EClass getCardinality();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.PLUS <em>PLUS</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>PLUS</em>'.
-	 * @see org.emftext.sdk.concretesyntax.PLUS
-	 * @generated
-	 */
-	EClass getPLUS();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.STAR <em>STAR</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>STAR</em>'.
-	 * @see org.emftext.sdk.concretesyntax.STAR
-	 * @generated
-	 */
-	EClass getSTAR();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.QUESTIONMARK <em>QUESTIONMARK</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>QUESTIONMARK</em>'.
-	 * @see org.emftext.sdk.concretesyntax.QUESTIONMARK
-	 * @generated
-	 */
-	EClass getQUESTIONMARK();
+	EEnum getCardinality();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.CompoundDefinition <em>Compound Definition</em>}'.
@@ -3924,12 +3828,12 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass CARDINALITY_DEFINITION = eINSTANCE.getCardinalityDefinition();
 
 		/**
-		 * The meta object literal for the '<em><b>Cardinality</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Cardinality</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CARDINALITY_DEFINITION__CARDINALITY = eINSTANCE.getCardinalityDefinition_Cardinality();
+		EAttribute CARDINALITY_DEFINITION__CARDINALITY = eINSTANCE.getCardinalityDefinition_Cardinality();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TerminalImpl <em>Terminal</em>}' class.
@@ -4004,44 +3908,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EAttribute LINE_BREAK__TAB = eINSTANCE.getLineBreak_Tab();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.CardinalityImpl <em>Cardinality</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.CardinalityImpl
+		 * @see org.emftext.sdk.concretesyntax.Cardinality
 		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
 		 * @generated
 		 */
-		EClass CARDINALITY = eINSTANCE.getCardinality();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.PLUSImpl <em>PLUS</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.PLUSImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPLUS()
-		 * @generated
-		 */
-		EClass PLUS = eINSTANCE.getPLUS();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.STARImpl <em>STAR</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.STARImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSTAR()
-		 * @generated
-		 */
-		EClass STAR = eINSTANCE.getSTAR();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.QUESTIONMARKImpl <em>QUESTIONMARK</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.QUESTIONMARKImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQUESTIONMARK()
-		 * @generated
-		 */
-		EClass QUESTIONMARK = eINSTANCE.getQUESTIONMARK();
+		EEnum CARDINALITY = eINSTANCE.getCardinality();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl <em>Compound Definition</em>}' class.

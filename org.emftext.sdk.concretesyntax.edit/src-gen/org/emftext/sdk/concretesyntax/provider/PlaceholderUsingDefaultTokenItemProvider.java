@@ -25,6 +25,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken} object.
@@ -97,6 +100,12 @@ public class PlaceholderUsingDefaultTokenItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(PlaceholderUsingDefaultToken.class)) {
+			case ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

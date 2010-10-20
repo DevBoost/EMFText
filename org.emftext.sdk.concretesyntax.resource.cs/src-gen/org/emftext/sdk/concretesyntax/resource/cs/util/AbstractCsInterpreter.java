@@ -256,30 +256,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK) {
-			result = interprete_org_emftext_sdk_concretesyntax_QUESTIONMARK((org.emftext.sdk.concretesyntax.QUESTIONMARK) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof org.emftext.sdk.concretesyntax.STAR) {
-			result = interprete_org_emftext_sdk_concretesyntax_STAR((org.emftext.sdk.concretesyntax.STAR) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof org.emftext.sdk.concretesyntax.PLUS) {
-			result = interprete_org_emftext_sdk_concretesyntax_PLUS((org.emftext.sdk.concretesyntax.PLUS) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof org.emftext.sdk.concretesyntax.Cardinality) {
-			result = interprete_org_emftext_sdk_concretesyntax_Cardinality((org.emftext.sdk.concretesyntax.Cardinality) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
 		if (object instanceof org.emftext.sdk.concretesyntax.LineBreak) {
 			result = interprete_org_emftext_sdk_concretesyntax_LineBreak((org.emftext.sdk.concretesyntax.LineBreak) object, context);
 		}
@@ -410,22 +386,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_LineBreak(org.emftext.sdk.concretesyntax.LineBreak object, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Cardinality(org.emftext.sdk.concretesyntax.Cardinality object, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_PLUS(org.emftext.sdk.concretesyntax.PLUS object, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_STAR(org.emftext.sdk.concretesyntax.STAR object, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_QUESTIONMARK(org.emftext.sdk.concretesyntax.QUESTIONMARK object, ContextType context) {
 		return null;
 	}
 	

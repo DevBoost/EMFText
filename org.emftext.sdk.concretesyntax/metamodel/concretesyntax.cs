@@ -85,16 +85,24 @@ RULES {
 
 	CsString       ::= #1 value[STRING] #1 ;
 	
-	PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" cardinality?;
-	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" cardinality?;
-	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]" #1 cardinality?;
-	BooleanTerminal                ::= feature[] "[" trueLiteral[STRING] ":" falseLiteral[STRING] "]" cardinality?;
-	EnumTerminal                   ::= feature[] "[" literals ("," literals)* "]" cardinality?;
+	PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
+	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
+	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]" #1 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
+	BooleanTerminal                ::= feature[] "[" trueLiteral[STRING] ":" falseLiteral[STRING] "]" 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
+	EnumTerminal                   ::= feature[] "[" literals ("," literals)* "]" 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
 	EnumLiteralTerminal            ::= literal[] ":" text[STRING];
 	
-	Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
+	Containment                    ::= feature[] (":" types[] ("," types[])*)? 
+							           cardinality[none : "", plus : "+", star : "*", questionmark : "?"]
+							           #1 ;
 	
-	CompoundDefinition ::= "(" children : Choice ")" cardinality?;
+	CompoundDefinition             ::= "(" children : Choice ")" 
+	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
 
 	WhiteSpaces  ::= amount[HEXNUMBER] #1;
 	LineBreak    ::= tab[TABNUMBER] #1;
@@ -107,10 +115,6 @@ RULES {
 	AtomicRegex    ::= atomicExpression['$','$'];
 	RegexReference ::= target[];
 
-	PLUS         ::= "+";
-	STAR         ::= "*";   
-	QUESTIONMARK ::= "?";
-	
 	Abstract ::= "ABSTRACT";
 	
 	TokenStyle ::= tokenNames[STRING] ("," #1 tokenNames[STRING])* #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
