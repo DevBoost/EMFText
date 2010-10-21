@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
  
 eclass RegexComposer {
 	
-	// public static String getRegex(AbstractTokenDefinition token, Set<AbstractTokenDefinition> visitedTokens)
 	getComposedRegex() {
 		visitedTokens.add(token);
 

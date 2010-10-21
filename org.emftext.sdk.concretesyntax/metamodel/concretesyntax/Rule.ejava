@@ -24,7 +24,7 @@ eclass Rule {
 		}
 		return null;
 	}
-		
+
 	getOperatorAnnotation() {
 		for (Annotation annotation : getAnnotations()) {
 			if (annotation.getType() == AnnotationType.OPERATOR) {

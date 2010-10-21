@@ -202,9 +202,12 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isHidden() {
-		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
-		boolean isCollectInToken = getAttributeName ( ) != null ; 
-		return ! isReferenced || isCollectInToken ; 
+		
+				boolean isReferenced = !getAttributeReferences().isEmpty();
+		
+				boolean isCollectInToken = getAttributeName() != null;
+		
+				return !isReferenced || isCollectInToken;
 		
 	}
 
@@ -214,9 +217,12 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isUsed() {
-		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
-		boolean isCollectInToken = getAttributeName ( ) != null ; 
-		return isReferenced || isCollectInToken ; 
+		
+				boolean isReferenced = !getAttributeReferences().isEmpty();
+		
+				boolean isCollectInToken = getAttributeName() != null;
+		
+				return isReferenced || isCollectInToken;
 		
 	}
 
@@ -226,7 +232,8 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isImported(ConcreteSyntax syntax) {
-		return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; 
+		
+				return !syntax.equals(getContainingSyntax(syntax));
 		
 	}
 
@@ -236,11 +243,14 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
-		org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; 
-		if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { 
-			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; 
-		} 
-		return syntax ; 
+		
+				 org.eclipse.emf.ecore.EObject container = this.eContainer();
+		
+				if (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {
+					return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;
+				}
+		
+				return syntax;
 		
 	}
 

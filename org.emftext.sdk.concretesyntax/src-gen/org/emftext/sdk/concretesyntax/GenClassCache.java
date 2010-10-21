@@ -59,9 +59,11 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Return the qualified name of the interface for the given GenClass.
+	 * 
+	 *  Return the qualified name of the interface for the given GenClass.
+	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { \r\n\tjava.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; \r\n\tget_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; \r\n} \r\nreturn get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tif (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {\r\n\t\t\t java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();\r\n\t\t\tget_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);\r\n\t\t}\r\n\r\n\t\treturn get_qualifiedInterfaceNameCache().get(genClass);\r\n'"
 	 * @generated
 	 */
 	String getQualifiedInterfaceName(GenClass genClass);
@@ -76,7 +78,7 @@ public interface GenClassCache extends EObject {
 	 *  the returned name, for example, as method name.
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; \r\njava.lang.String escapedName = interfaceName .replace ( \"_\" , \"_005f\" ) ; \r\nescapedName = escapedName .replace ( \".\" , \"_\" ) ; \r\nreturn escapedName ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.lang.String interfaceName = getQualifiedInterfaceName(genClass);\r\n\r\n\t\t java.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");\r\n\r\n\t\tescapedName = escapedName.replace(\".\", \"_\");\r\n\r\n\t\treturn escapedName;\r\n'"
 	 * @generated
 	 */
 	String getEscapedTypeName(GenClass genClass);
@@ -85,9 +87,11 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Checks whether the given GenClass has a map type.
+	 * 
+	 *  Checks whether the given GenClass has a map type.
+	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());\r\n'"
 	 * @generated
 	 */
 	boolean hasMapType(GenClass genClass);
@@ -96,11 +100,13 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Checks whether the given list of GenClasses contains a GenClass
-	 * with the same name and namespace URI as the given GenClass.
+	 * 
+	 *  Checks whether the given list of GenClasses contains a GenClass
+	 *  with the same name and namespace URI as the given GenClass. 
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model listMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { \r\n\torg.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; \r\n\torg.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; \r\n\tif ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {\r\n\t\t\t org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();\r\n\t\t\t org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();\r\n\t\t\tif (entryClass.getName().equals(oClass.getName())\r\n\t\t\t\t\t&& entryClass.getEPackage().getNsURI().equals(\r\n\t\t\t\t\t\t\toClass.getEPackage().getNsURI())) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
 	 * @generated
 	 */
 	boolean containsEqualByName(EList<GenClass> list, GenClass genClass);

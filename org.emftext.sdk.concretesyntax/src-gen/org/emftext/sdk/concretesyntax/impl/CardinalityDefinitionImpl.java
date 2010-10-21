@@ -102,7 +102,8 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasMinimalCardinalityOneOrHigher() {
-		return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; 
+		
+				return getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS;
 		
 	}
 
@@ -112,7 +113,10 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasNoOptionalPart() {
-		return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; 
+		
+				return !
+					(getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||
+					 getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.STAR);
 		
 	}
 

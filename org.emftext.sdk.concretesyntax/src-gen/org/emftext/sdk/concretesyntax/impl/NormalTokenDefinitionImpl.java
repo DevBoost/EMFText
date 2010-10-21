@@ -115,8 +115,10 @@ public class NormalTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 	 * @generated
 	 */
 	public String getRegex() {
-		org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); 
-		return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; 
+		
+				 org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();
+		
+				return composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());
 		
 	}
 

@@ -90,11 +90,13 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * @generated
 	 */
 	public String getQualifiedInterfaceName(GenClass genClass) {
-		if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { 
-			java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; 
-			get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; 
-		} 
-		return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; 
+		
+				if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {
+					 java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();
+					get_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);
+				}
+		
+				return get_qualifiedInterfaceNameCache().get(genClass);
 		
 	}
 
@@ -104,10 +106,14 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * @generated
 	 */
 	public String getEscapedTypeName(GenClass genClass) {
-		java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; 
-		java.lang.String escapedName = interfaceName .replace ( "_" , "_005f" ) ; 
-		escapedName = escapedName .replace ( "." , "_" ) ; 
-		return escapedName ; 
+		
+				 java.lang.String interfaceName = getQualifiedInterfaceName(genClass);
+		
+				 java.lang.String escapedName = interfaceName.replace("_", "_005f");
+		
+				escapedName = escapedName.replace(".", "_");
+		
+				return escapedName;
 		
 	}
 
@@ -117,7 +123,8 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * @generated
 	 */
 	public boolean hasMapType(GenClass genClass) {
-		return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; 
+		
+				return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
 		
 	}
 
@@ -127,14 +134,18 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * @generated
 	 */
 	public boolean containsEqualByName(EList<GenClass> list, GenClass genClass) {
-		for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { 
-			org.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; 
-			org.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; 
-			if ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { 
-				return true ; 
-			} 
-		} 
-		return false ; 
+		
+				for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {
+					 org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();
+					 org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();
+					if (entryClass.getName().equals(oClass.getName())
+							&& entryClass.getEPackage().getNsURI().equals(
+									oClass.getEPackage().getNsURI())) {
+						return true;
+					}
+				}
+		
+				return false;
 		
 	}
 

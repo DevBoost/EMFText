@@ -89,11 +89,14 @@ public abstract class RegexCompositeImpl extends EObjectImpl implements RegexCom
 	 * @generated
 	 */
 	public String getRegex() {
-		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
-			result .append ( part .getRegex ( ) ) ; 
-		} 
-		return result .toString ( ) ; 
+		
+				 java.lang.StringBuilder result = new  java.lang.StringBuilder();
+		
+				for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {
+					result.append(part.getRegex());
+				}
+		
+				return result.toString();
 		
 	}
 

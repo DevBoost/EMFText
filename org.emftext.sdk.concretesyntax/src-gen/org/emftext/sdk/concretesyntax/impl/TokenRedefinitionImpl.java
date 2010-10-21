@@ -162,11 +162,14 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @generated
 	 */
 	public String getRegex() {
-		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { 
-			result .append ( part .getRegex ( ) ) ; 
-		} 
-		return result .toString ( ) ; 
+		
+				 java.lang.StringBuilder result = new  java.lang.StringBuilder();
+		
+				for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {
+					result.append(part.getRegex());
+				}
+		
+				return result.toString();
 		
 	}
 
@@ -280,9 +283,12 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @generated
 	 */
 	public boolean isHidden() {
-		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
-		boolean isCollectInToken = getAttributeName ( ) != null ; 
-		return ! isReferenced || isCollectInToken ; 
+		
+				boolean isReferenced = !getAttributeReferences().isEmpty();
+		
+				boolean isCollectInToken = getAttributeName() != null;
+		
+				return !isReferenced || isCollectInToken;
 		
 	}
 
@@ -292,9 +298,12 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @generated
 	 */
 	public boolean isUsed() {
-		boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; 
-		boolean isCollectInToken = getAttributeName ( ) != null ; 
-		return isReferenced || isCollectInToken ; 
+		
+				boolean isReferenced = !getAttributeReferences().isEmpty();
+		
+				boolean isCollectInToken = getAttributeName() != null;
+		
+				return isReferenced || isCollectInToken;
 		
 	}
 
@@ -304,7 +313,8 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @generated
 	 */
 	public boolean isImported(ConcreteSyntax syntax) {
-		return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; 
+		
+				return !syntax.equals(getContainingSyntax(syntax));
 		
 	}
 
@@ -314,11 +324,14 @@ public class TokenRedefinitionImpl extends AnnotableImpl implements TokenRedefin
 	 * @generated
 	 */
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
-		org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; 
-		if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { 
-			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; 
-		} 
-		return syntax ; 
+		
+				 org.eclipse.emf.ecore.EObject container = this.eContainer();
+		
+				if (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {
+					return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;
+				}
+		
+				return syntax;
 		
 	}
 

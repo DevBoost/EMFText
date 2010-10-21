@@ -51,7 +51,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; \r\n// there should be at most one child\nassert children == null || children .size ( ) == 1 ; \r\nif ( children .size ( ) > 0 ) { \r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; \r\n\tif ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { \r\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; \r\n\t} else { \r\n\t\t// there should be no element other than Choice\nassert false ; \r\n\t\treturn null ; \r\n\t} \r\n} \r\nreturn null ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
 	 * @generated
 	 */
 	Choice getDefinition();
@@ -66,7 +66,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 *  annotation specifies this key and value. 
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { \r\n\tif ( annotation .getType ( ) == type ) { \r\n\t\tif ( key != null ) { \r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { \r\n\t\t\t\tif ( key .equals ( parameter .getKey ( ) ) && parameter .getValue ( ) .equals ( value ) ) { \r\n\t\t\t\t\treturn true ; \r\n\t\t\t\t} \r\n\t\t\t} \r\n\t\t} else { \r\n\t\t\treturn true ; \r\n\t\t} \r\n\t} \r\n} \r\nreturn false ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() == type) {\r\n\t\t\t\tif (key != null) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {\r\n\t\t\t\t\t\tif (key.equals(parameter.getKey())\r\n\t\t\t\t\t\t\t\t&& parameter.getValue().equals(value)) {\r\n\t\t\t\t\t\t\treturn true;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t} else {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
 	 * @generated
 	 */
 	boolean hasAnnotation(AnnotationType type, String key, String value);
@@ -80,7 +80,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='// TODO mseifert: use constant here\nreturn hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , \"remove\" , \"true\" ) ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// TODO mseifert: use constant here\r\n\t\treturn hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");\r\n'"
 	 * @generated
 	 */
 	boolean isOverrideRemoveRule();
@@ -93,7 +93,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 *  Checks whether this rule is annotated with @Override.
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='// TODO figure out why \'metaClass == null\' is needed\nif ( metaClass == null || getMetaclass ( ) == metaClass ) { \r\n\tif ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// TODO figure out why \'metaClass == null\' is needed\r\n\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
 	 * @generated
 	 */
 	boolean isOverrideRule(GenClass metaClass);
@@ -159,7 +159,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { \r\n\tif ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { \r\n\t\treturn annotation ; \r\n\t} \r\n} \r\nreturn null ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() ==  org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {\r\n\t\t\t\treturn annotation;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
 	 * @generated
 	 */
 	Annotation getOperatorAnnotation();
@@ -176,7 +176,7 @@ public interface Rule extends Annotable, SyntaxElement {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; \r\nif ( operatorAnnotation != null ) { \r\n\tjava.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; \r\n\tif ( ruleWeightString != null ) { \r\n\t\ttry { \r\n\t\t\treturn java.lang.Integer .parseInt ( ruleWeightString ) ; \r\n\t\t} // ignore exception. invalid numbers are signaled by\n// returning MIN_VALUE\ncatch ( java.lang.NumberFormatException e ) { \r\n\t\t} \r\n\t} \r\n} \r\nreturn java.lang.Integer .MIN_VALUE ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();\r\n\r\n\t\tif (operatorAnnotation != null) {\r\n\t\t\t java.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());\r\n\t\t\tif (ruleWeightString != null) {\r\n\t\t\t\ttry {\r\n\t\t\t\t\treturn  java.lang.Integer.parseInt(ruleWeightString);\t\t\t\r\n\t\t\t\t} catch ( java.lang.NumberFormatException e) {\r\n\t\t\t\t\t// ignore exception. invalid numbers are signaled by\r\n\t\t\t\t\t// returning MIN_VALUE\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn  java.lang.Integer.MIN_VALUE;\r\n'"
 	 * @generated
 	 */
 	int getOperatorWeight();

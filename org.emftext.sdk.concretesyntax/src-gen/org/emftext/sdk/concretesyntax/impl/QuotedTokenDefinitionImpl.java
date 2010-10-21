@@ -228,7 +228,8 @@ public class QuotedTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 	 * @generated
 	 */
 	public String getRegex() {
-		return getSynthesizedRegex ( ) ; 
+		
+				return getSynthesizedRegex();
 		
 	}
 

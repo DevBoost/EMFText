@@ -67,7 +67,7 @@ public interface AtomicRegex extends RegexPart {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return getAtomicExpression ( ) ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn getAtomicExpression();\r\n'"
 	 * @generated
 	 */
 	String getRegex();

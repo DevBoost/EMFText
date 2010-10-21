@@ -2454,85 +2454,85 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (concreteSyntaxEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( ) ; \r\nif ( identifier == null ) { \r\n\treturn subset ; \r\n} \r\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules ( ) ) { \r\n\torg.emftext.sdk.concretesyntax.Annotation annotation = rule .getOperatorAnnotation ( ) ; \r\n\tjava.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; \r\n\tif ( identifier .equals ( value ) ) { \r\n\t\tsubset .add ( rule ) ; \r\n\t} \r\n} \r\nreturn subset ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();\r\n\r\n\t\tif (identifier == null) {\r\n\t\t\treturn subset;\r\n\t\t}\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();\r\n\t\t\t java.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\tif (identifier.equals(value)) {\r\n\t\t\t\tsubset.add(rule);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subset;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\nsymbols .addAll ( getStartSymbols ( ) ) ; \r\nif ( symbols .size ( ) > 0 ) { \r\n\treturn symbols ; \r\n} \r\norg.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Import > imports = getImports ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports ) { \r\n\tfinal org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement .getConcreteSyntax ( ) ; \r\n\tif ( importedSyntax != null ) { \r\n\t\tsymbols .addAll ( importedSyntax .getActiveStartSymbols ( ) ) ; \r\n\t} \r\n} \r\nreturn symbols ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\t\tsymbols.addAll(getStartSymbols());\r\n\r\n\t\tif (symbols.size() > 0) {\r\n\t\t\treturn symbols;\r\n\t\t}\r\n\r\n\t\t\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\tfinal  org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\tsymbols.addAll(importedSyntax.getActiveStartSymbols());\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn symbols;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;\norg.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { \r\n\t// don\'t add rules that are @override rules with remove=true\nif ( ! rule .isOverrideRemoveRule ( ) ) { \r\n\t\tl .add ( rule ) ; \r\n\t} \r\n} \r\nfor ( org.emftext.sdk.concretesyntax.Import aImport : getImports ( ) ) { \r\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport .getConcreteSyntax ( ) ; \r\n\tif ( importedCS != null ) { \r\n\t\touter : for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS .getAllRules ( ) ) { \r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { \r\n\t\t\t\t// don\'t add rules that have @override rules for same\n// meta-class\nif ( rule .isOverrideRule ( importedRule .getMetaclass ( ) ) ) { \r\n\t\t\t\t\tcontinue outer ; \r\n\t\t\t\t} \r\n\t\t\t} \r\n\t\t\tl .add ( importedRule ) ; \r\n\t\t} \r\n\t} \r\n} \r\nreturn org.eclipse.emf.common.util.ECollections .unmodifiableEList ( l ) ; \r\n",
+			 "body", "\r\n\t\t//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\r\n\t\t\t// don\'t add rules that are @override rules with remove=true\r\n\t\t\tif (!rule.isOverrideRemoveRule()) {\r\n\t\t\t\tl.add(rule);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();\r\n\t\t\tif (importedCS != null) {\r\n\t\t\t\touter: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\r\n\t\t\t\t\t\t// don\'t add rules that have @override rules for same\r\n\t\t\t\t\t\t// meta-class\r\n\t\t\t\t\t\tif (rule.isOverrideRule(importedRule.getMetaclass())) {\r\n\t\t\t\t\t\t\tcontinue outer;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\tl.add(importedRule);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn  org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "initialiseAnnotatedOperatorRules ( ) ; \r\nreturn get_operatorRules ( ) ; \r\n",
+			 "body", "\r\n\t\tinitialiseAnnotatedOperatorRules();\r\n\r\n\t\treturn get_operatorRules();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "if ( is_operatorRulesInitialized ( ) ) { \r\n\treturn ; \r\n} \r\nset_operatorRulesInitialized ( true ) ; \r\njava.util.List < org.emftext.sdk.concretesyntax.Rule > operatorRules = getOperatorRules ( ) ; \r\njava.util.List < java.lang.String > operatorRuleSubsets = getOperatorRuleSubsets ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules ( ) ) { \r\n\torg.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule .getOperatorAnnotation ( ) ; \r\n\tif ( operatorAnnotation != null ) { \r\n\t\tboolean added = false ; \r\n\t\tfor ( java.util.ListIterator < org.emftext.sdk.concretesyntax.Rule > it = operatorRules .listIterator ( ) ; it .hasNext ( ) ; ) { \r\n\t\t\torg.emftext.sdk.concretesyntax.Rule expressionRule = it .next ( ) ; \r\n\t\t\tif ( expressionRule .getOperatorWeight ( ) > rule .getOperatorWeight ( ) ) { \r\n\t\t\t\toperatorRules .add ( it .previousIndex ( ) , rule ) ; \r\n\t\t\t\tadded = true ; \r\n\t\t\t\tbreak ; \r\n\t\t\t} \r\n\t\t} \r\n\t\tif ( ! added ) { \r\n\t\t\toperatorRules .add ( rule ) ; \r\n\t\t} \r\n\t\tjava.lang.String identifier = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; \r\n\t\toperatorRuleSubsets .add ( identifier ) ; \r\n\t} \r\n} \r\n",
+			 "body", "\r\n\t\tif (is_operatorRulesInitialized()) {\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tset_operatorRulesInitialized(true);\r\n\r\n\t\t java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\r\n\r\n\t\t java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\r\n\t\t\tif (operatorAnnotation != null) {\r\n\t\t\t\tboolean added = false;\r\n\t\t\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \r\n\t\t\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\r\n\t\t\t\t\t\toperatorRules.add(it.previousIndex(), rule);\r\n\t\t\t\t\t\tadded = true;\r\n\t\t\t\t\t\tbreak;\r\n\t\t\t\t\t}\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\tif (!added) {\r\n\t\t\t\t\toperatorRules.add(rule);\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\t\toperatorRuleSubsets.add(identifier);\r\n\t\t\t}\r\n\t\t}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "initialiseAnnotatedOperatorRules ( ) ; \r\nreturn get_operatorRuleSubsets ( ) ; \r\n",
+			 "body", "\r\n\t\tinitialiseAnnotatedOperatorRules();\r\n\r\n\t\treturn get_operatorRuleSubsets();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
-			 "body", "if ( get_genClassCache ( ) == null ) { \r\n\tset_genClassCache ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache()) ; \r\n} \r\nreturn get_genClassCache ( ) ; \r\n",
+			 "body", "\r\n\t\tif (get_genClassCache() == null) {\r\n\t\t\tset_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());\r\n\t\t}\r\n\r\n\t\treturn get_genClassCache();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
-			 "body", "if ( getModifier ( ) != null ) { \r\n\treturn true ; \r\n} \r\nreturn false ; \r\n",
+			 "body", "\r\n\t\tif (getModifier() != null) {\r\n\t\t\treturn true;\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
 		   source, 
 		   new String[] {
-			 "body", "return rule .getSyntax ( ) != this ; \r\n",
-			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\nIf the rule is defined in an imported syntax, this method returns false.\r\n \r\n@param syntax the syntax that refers to the rule\r\n@param rule the rule to check\r\n@return true if the rule is contained, false if it is imported"
+			 "body", "\r\n\t\treturn rule.getSyntax() != this;\r\n",
+			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(9), 
 		   source, 
 		   new String[] {
-			 "body", "if ( get_eClassUtil ( ) == null ) { \r\n\tset_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; \r\n} \r\nreturn get_eClassUtil ( ) ; \r\n",
+			 "body", "\r\n\t\tif (get_eClassUtil() == null) {\r\n\t\t\tset_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());\r\n\t\t}\r\n\r\n\t\treturn get_eClassUtil();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
-			 "body", "java.util.Collection < org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; \r\norg.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { \r\n\tif ( excludeOperatorRules && rule .getOperatorAnnotation ( ) != null ) { \r\n\t\tcontinue ; \r\n\t} \r\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; \r\n\tfoundGenClasses .add ( subClassCand ) ; \r\n} \r\nreturn foundGenClasses ; \r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "body", "\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\r\n\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\r\n\t\t\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\r\n\t\t\t\tcontinue;\r\n\t\t\t}\r\n\t\t\t org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\r\n\t\t\tfoundGenClasses.add(subClassCand);\r\n\t\t}\r\n\r\n\t\treturn foundGenClasses;\r\n",
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\norg.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; \r\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; \r\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { \r\n\tif ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { \r\n\t\tsubClasses .add ( subClassCand ) ; \r\n\t} \r\n} \r\nreturn subClasses ; \r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\t org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\r\n\r\n\t\t org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\r\n\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\r\n\t\t\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\r\n\t\t\t\tsubClasses.add(subClassCand);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subClasses;\r\n",
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (getConcreteSyntax_SyntheticTokens(), 
@@ -2562,7 +2562,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (syntaxElementEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.Rule rule = null ; \r\norg.eclipse.emf.ecore.EObject o = this ; \r\ndo { \r\n\tif ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { \r\n\t\trule = ( org.emftext.sdk.concretesyntax.Rule ) o ; \r\n\t} else { \r\n\t\to = o .eContainer ( ) ; \r\n\t} \r\n} while ( rule == null && o != null ) ; \r\nreturn rule ; \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.Rule rule = null;\r\n\r\n\t\t org.eclipse.emf.ecore.EObject o = this;\r\n\r\n\t\tdo {\r\n\t\t\tif (o instanceof  org.emftext.sdk.concretesyntax.Rule) {\r\n\t\t\t\trule = ( org.emftext.sdk.concretesyntax.Rule) o;\r\n\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\to = o.eContainer();\r\n\t\t\t}\r\n\t\t} while (rule == null && o != null);\r\n\r\n\t\treturn rule;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2575,42 +2575,42 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (ruleEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { \r\n\tif ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { \r\n\t\treturn annotation ; \r\n\t} \r\n} \r\nreturn null ; \r\n",
+			 "body", "\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() ==  org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {\r\n\t\t\t\treturn annotation;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; \r\nif ( operatorAnnotation != null ) { \r\n\tjava.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; \r\n\tif ( ruleWeightString != null ) { \r\n\t\ttry { \r\n\t\t\treturn java.lang.Integer .parseInt ( ruleWeightString ) ; \r\n\t\t} // ignore exception. invalid numbers are signaled by\n// returning MIN_VALUE\ncatch ( java.lang.NumberFormatException e ) { \r\n\t\t} \r\n\t} \r\n} \r\nreturn java.lang.Integer .MIN_VALUE ; \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();\r\n\r\n\t\tif (operatorAnnotation != null) {\r\n\t\t\t java.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());\r\n\t\t\tif (ruleWeightString != null) {\r\n\t\t\t\ttry {\r\n\t\t\t\t\treturn  java.lang.Integer.parseInt(ruleWeightString);\t\t\t\r\n\t\t\t\t} catch ( java.lang.NumberFormatException e) {\r\n\t\t\t\t\t// ignore exception. invalid numbers are signaled by\r\n\t\t\t\t\t// returning MIN_VALUE\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn  java.lang.Integer.MIN_VALUE;\r\n",
 			 "documentation", "\r\n Returns the weight of this rule if it is an operator rule.\r\n If the rule is not an operator rule or the specified weight\r\n in the operator annotation is not a number, Integer.MIN_VALUE \r\n is returned.\r\n"
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; \r\n// there should be at most one child\nassert children == null || children .size ( ) == 1 ; \r\nif ( children .size ( ) > 0 ) { \r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; \r\n\tif ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { \r\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; \r\n\t} else { \r\n\t\t// there should be no element other than Choice\nassert false ; \r\n\t\treturn null ; \r\n\t} \r\n} \r\nreturn null ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { \r\n\tif ( annotation .getType ( ) == type ) { \r\n\t\tif ( key != null ) { \r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { \r\n\t\t\t\tif ( key .equals ( parameter .getKey ( ) ) && parameter .getValue ( ) .equals ( value ) ) { \r\n\t\t\t\t\treturn true ; \r\n\t\t\t\t} \r\n\t\t\t} \r\n\t\t} else { \r\n\t\t\treturn true ; \r\n\t\t} \r\n\t} \r\n} \r\nreturn false ; \r\n",
+			 "body", "\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() == type) {\r\n\t\t\t\tif (key != null) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {\r\n\t\t\t\t\t\tif (key.equals(parameter.getKey())\r\n\t\t\t\t\t\t\t\t&& parameter.getValue().equals(value)) {\r\n\t\t\t\t\t\t\treturn true;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t} else {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
 			 "documentation", "\r\n Checks whether this rule is annotated with the given AnnotationType.\r\n If a key and a value is given it is further checked whether the\r\n annotation specifies this key and value. \r\n"
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "// TODO mseifert: use constant here\nreturn hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , \"remove\" , \"true\" ) ; \r\n",
+			 "body", "\r\n\t\t// TODO mseifert: use constant here\r\n\t\treturn hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");\r\n",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override(remove=\"true\").\r\n"
 		   });		
 		addAnnotation
 		  (ruleEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "// TODO figure out why \'metaClass == null\' is needed\nif ( metaClass == null || getMetaclass ( ) == metaClass ) { \r\n\tif ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n",
+			 "body", "\r\n\t\t// TODO figure out why \'metaClass == null\' is needed\r\n\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override.\r\n"
 		   });		
 		addAnnotation
@@ -2623,49 +2623,49 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (choiceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Sequence > options = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Sequence > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { \r\n\tif ( child instanceof org.emftext.sdk.concretesyntax.Sequence ) { \r\n\t\toptions .add ( ( org.emftext.sdk.concretesyntax.Sequence ) child ) ; \r\n\t} else { \r\n\t\t// there should be no elements other than Sequence elements in the\n// list of children\nassert false ; \r\n\t} \r\n} \r\nreturn options ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Sequence> options = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Sequence>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {\r\n\t\t\tif (child instanceof  org.emftext.sdk.concretesyntax.Sequence) {\r\n\t\t\t\toptions.add(( org.emftext.sdk.concretesyntax.Sequence) child);\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no elements other than Sequence elements in the\r\n\t\t\t\t// list of children\r\n\t\t\t\tassert false;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn options;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (sequenceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Definition > parts = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Definition > ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { \r\n\tif ( child instanceof org.emftext.sdk.concretesyntax.Definition ) { \r\n\t\tparts .add ( ( org.emftext.sdk.concretesyntax.Definition ) child ) ; \r\n\t} else { \r\n\t\t// there should be no elements other than Definition elements in the\n// list of children\nassert false ; \r\n\t} \r\n} \r\nreturn parts ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Definition> parts = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Definition>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {\r\n\t\t\tif (child instanceof  org.emftext.sdk.concretesyntax.Definition) {\r\n\t\t\t\tparts.add(( org.emftext.sdk.concretesyntax.Definition) child);\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no elements other than Definition elements in the\r\n\t\t\t\t// list of children\r\n\t\t\t\tassert false;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn parts;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (definitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "return true ; \r\n",
+			 "body", "\r\n\t\treturn true;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (definitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "return false ; \r\n",
+			 "body", "\r\n\t\treturn false;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (definitionEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality .NONE ; \r\nif ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { \r\n\tcardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; \r\n} \r\nif ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .NONE ) { \r\n\treturn \"\" ; \r\n} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .PLUS ) { \r\n\treturn \"+\" ; \r\n} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK ) { \r\n\treturn \"?\" ; \r\n} else { \r\n\treturn \"*\" ; \r\n} \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.Cardinality cardinality =  org.emftext.sdk.concretesyntax.Cardinality.NONE;\r\n\r\n\t\tif (this instanceof  org.emftext.sdk.concretesyntax.CardinalityDefinition) {\r\n\t\t\tcardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();\r\n\t\t}\r\n\r\n\t\tif (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.NONE) {\r\n\t\t\treturn \"\";\r\n\t\t} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS) {\r\n\t\t\treturn \"+\";\r\n\t\t} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {\r\n\t\t\treturn \"?\";\r\n\t\t} else {\r\n\t\t\treturn \"*\";\r\n\t\t}\r\n",
 			 "documentation", "\r\n Returns a string representation of the cardinality of the\r\n\' or the\r\n empty string.\r\n \r\n @param definition\r\n @return\r\n"
 		   });		
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; \r\n",
+			 "body", "\r\n\t\treturn getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; \r\n",
+			 "body", "\r\n\t\treturn !\r\n\t\t\t(getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||\r\n\t\t\t getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.STAR);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2702,35 +2702,35 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (compoundDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; \r\n// there should be at most one child\nassert children == null || children .size ( ) == 1 ; \r\nif ( children .size ( ) > 0 ) { \r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; \r\n\tif ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { \r\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; \r\n\t} else { \r\n\t\t// there should be no element other than Choice\nassert false ; \r\n\t\treturn null ; \r\n\t} \r\n} \r\nreturn null ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (regexComposerEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "visitedTokens .add ( token ) ; \r\njava.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; \r\nif ( token instanceof org.emftext.sdk.concretesyntax.RegexComposite ) { \r\n\torg.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite ) token ; \r\n\tfor ( org.emftext.sdk.concretesyntax.RegexPart part : composite .getRegexParts ( ) ) { \r\n\t\tif ( part instanceof org.emftext.sdk.concretesyntax.AtomicRegex ) { \r\n\t\t\tresult .append ( part .getRegex ( ) ) ; \r\n\t\t} else if ( part instanceof org.emftext.sdk.concretesyntax.RegexReference ) { \r\n\t\t\torg.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference ) part ; \r\n\t\t\torg.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference .getTarget ( ) ; \r\n\t\t\tif ( target == null ) { \r\n\t\t\t\tcontinue ; \r\n\t\t\t} \r\n\t\t\tif ( target .eIsProxy ( ) ) { \r\n\t\t\t\tcontinue ; \r\n\t\t\t} \r\n\t\t\tif ( visitedTokens .contains ( target ) ) { \r\n\t\t\t\tcontinue ; \r\n\t\t\t} \r\n\t\t\torg.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > subVisitedTokens = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ; \r\n\t\t\tsubVisitedTokens .addAll ( visitedTokens ) ; \r\n\t\t\tresult .append ( getComposedRegex ( target , subVisitedTokens ) ) ; \r\n\t\t} \r\n\t} \r\n} else if ( token instanceof org.emftext.sdk.concretesyntax.RegexOwner ) { \r\n\torg.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner ) token ; \r\n\tresult .append ( owner .getRegex ( ) ) ; \r\n} \r\nreturn result .toString ( ) ; \r\n",
+			 "body", "\r\n\t\tvisitedTokens.add(token);\r\n\r\n\r\n\t\t java.lang.StringBuilder result = new  java.lang.StringBuilder();\r\n\r\n\t\tif (token instanceof  org.emftext.sdk.concretesyntax.RegexComposite) {\r\n\t\t\t org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite) token;\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.RegexPart part : composite.getRegexParts()) {\r\n\t\t\t\tif (part instanceof  org.emftext.sdk.concretesyntax.AtomicRegex) {\r\n\t\t\t\t\tresult.append(part.getRegex());\r\n\t\t\t\t} else if (part instanceof  org.emftext.sdk.concretesyntax.RegexReference) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference) part;\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference.getTarget();\r\n\t\t\t\t\tif (target == null) {\r\n\t\t\t\t\t\tcontinue;\r\n\t\t\t\t\t}\r\n\t\t\t\t\tif (target.eIsProxy()) {\r\n\t\t\t\t\t\tcontinue;\r\n\t\t\t\t\t}\r\n\t\t\t\t\tif (visitedTokens.contains(target)) {\r\n\t\t\t\t\t\tcontinue;\r\n\t\t\t\t\t}\r\n\t\t\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition> subVisitedTokens = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>();\r\n\t\t\t\t\tsubVisitedTokens.addAll(visitedTokens);\r\n\t\t\t\t\tresult.append(getComposedRegex(target, subVisitedTokens));\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t} else if (token instanceof  org.emftext.sdk.concretesyntax.RegexOwner) {\r\n\t\t\t org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner) token;\r\n\t\t\tresult.append(owner.getRegex());\r\n\t\t}\r\n\r\n\t\treturn result.toString();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (regexCompositeEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { \r\n\tresult .append ( part .getRegex ( ) ) ; \r\n} \r\nreturn result .toString ( ) ; \r\n",
+			 "body", "\r\n\t\t java.lang.StringBuilder result = new  java.lang.StringBuilder();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {\r\n\t\t\tresult.append(part.getRegex());\r\n\t\t}\r\n\r\n\t\treturn result.toString();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (atomicRegexEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "return getAtomicExpression ( ) ; \r\n",
+			 "body", "\r\n\t\treturn getAtomicExpression();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (regexReferenceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget ( ) ; \r\nif ( target == null || target .eIsProxy ( ) ) { \r\n\treturn \"\" ; \r\n} else { \r\n\tassert target instanceof org.emftext.sdk.concretesyntax.RegexOwner ; \r\n\treturn ( ( org.emftext.sdk.concretesyntax.RegexOwner ) target ) .getRegex ( ) ; \r\n} \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();\r\n\r\n\t\tif (target == null || target.eIsProxy()) {\r\n\t\t\treturn \"\";\r\n\t\t} else {\r\n\t\t\tassert target instanceof  org.emftext.sdk.concretesyntax.RegexOwner;\r\n\t\t\treturn (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();\r\n\t\t}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2743,35 +2743,35 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (partialTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); \r\nreturn composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\r\n\r\n\t\treturn composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; \r\nboolean isCollectInToken = getAttributeName ( ) != null ; \r\nreturn ! isReferenced || isCollectInToken ; \r\n",
+			 "body", "\r\n\t\tboolean isReferenced = !getAttributeReferences().isEmpty();\r\n\r\n\t\tboolean isCollectInToken = getAttributeName() != null;\r\n\r\n\t\treturn !isReferenced || isCollectInToken;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; \r\nboolean isCollectInToken = getAttributeName ( ) != null ; \r\nreturn isReferenced || isCollectInToken ; \r\n",
+			 "body", "\r\n\t\tboolean isReferenced = !getAttributeReferences().isEmpty();\r\n\r\n\t\tboolean isCollectInToken = getAttributeName() != null;\r\n\r\n\t\treturn isReferenced || isCollectInToken;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; \r\n",
+			 "body", "\r\n\t\treturn !syntax.equals(getContainingSyntax(syntax));\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; \r\nif ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { \r\n\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; \r\n} \r\nreturn syntax ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.ecore.EObject container = this.eContainer();\r\n\r\n\t\tif (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {\r\n\t\t\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;\r\n\t\t}\r\n\r\n\t\treturn syntax;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2784,7 +2784,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (normalTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); \r\nreturn composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\r\n\r\n\t\treturn composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2797,14 +2797,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (tokenRedefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); \r\nreturn composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; \r\n",
+			 "body", "\r\n\t\t org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\r\n\r\n\t\treturn composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (quotedTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "return getSynthesizedRegex ( ) ; \r\n",
+			 "body", "\r\n\t\treturn getSynthesizedRegex();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2823,35 +2823,35 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (containmentEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > types = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\n// is there an explicit type defined?\nif ( ! getTypes ( ) .isEmpty ( ) ) { \r\n\ttypes = getTypes ( ) ; \r\n} else { \r\n\ttypes = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; \r\n\ttypes .add ( getFeature ( ) .getTypeGenClass ( ) ) ; \r\n} \r\nreturn types ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\t\t// is there an explicit type defined?\r\n\t\tif (!getTypes().isEmpty()) {\r\n\t\t\ttypes = getTypes();\r\n\t\t} else {\r\n\t\t\ttypes = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\t\t\ttypes.add(getFeature().getTypeGenClass());\r\n\t\t}\r\n\r\n\t\treturn types;\r\n",
 			 "documentation", "\r\n Returns all types that are allowed for the given containment.\r\n If type restrictions are specified in the syntax rule, this\r\n list contains the allowed types. If no restriction are present\r\n the type of the feature references by the containment is \r\n returned.\r\n \r\n @param containment\r\n @return\r\n"
 		   });		
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String prefix = getPrefix ( ) ; \r\nif ( prefix == null ) return prefix ; \r\nif ( prefix .length ( ) == 0 ) return null ; \r\nreturn prefix ; \r\n",
+			 "body", "\r\n\t\t java.lang.String prefix = getPrefix();\r\n\r\n\t\tif (prefix == null) return prefix;\r\n\r\n\t\tif (prefix.length() == 0) return null;\r\n\r\n\t\treturn prefix;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String suffix = getSuffix ( ) ; \r\nif ( suffix == null ) return suffix ; \r\nif ( suffix .length ( ) == 0 ) return null ; \r\nreturn suffix ; \r\n",
+			 "body", "\r\n\t\t java.lang.String suffix = getSuffix();\r\n\r\n\t\tif (suffix == null) return suffix;\r\n\r\n\t\tif (suffix.length() == 0) return null;\r\n\r\n\t\treturn suffix;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String escapeCharacter = getEscapeCharacter ( ) ; \r\nif ( escapeCharacter == null ) return escapeCharacter ; \r\nif ( escapeCharacter .length ( ) == 0 ) return null ; \r\nreturn escapeCharacter ; \r\n",
+			 "body", "\r\n\t\t java.lang.String escapeCharacter = getEscapeCharacter();\r\n\r\n\t\tif (escapeCharacter == null) return escapeCharacter;\r\n\r\n\t\tif (escapeCharacter.length() == 0) return null;\r\n\r\n\t\treturn escapeCharacter;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "if ( eIsProxy ( ) ) return super .toString ( ) ; \r\njava.lang.StringBuffer result = new java.lang.StringBuffer ( ) ; \r\norg.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature ( ) ; \r\nif ( feature != null && feature .getEcoreFeature ( ) != null ) { \r\n\tresult .append ( feature .getName ( ) ) ; \r\n} \r\nresult .append ( \"[\\\'\" ) ; \r\nresult .append ( getPrefix ( ) ) ; \r\nresult .append ( \"\\\', \\\'\" ) ; \r\nresult .append ( getSuffix ( ) ) ; \r\nresult .append ( \"\\\']\" ) ; \r\nreturn result .toString ( ) ; \r\n",
+			 "body", "\r\n\t\tif (eIsProxy()) return super.toString();\r\n\r\n\r\n\t\t java.lang.StringBuffer result = new  java.lang.StringBuffer();\r\n\r\n\t\t org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();\r\n\r\n\t\tif (feature != null && feature.getEcoreFeature() != null) {\r\n\t\t\tresult.append(feature.getName());\r\n\t\t}\r\n\r\n\t\tresult.append(\"[\'\");\r\n\r\n\t\tresult.append(getPrefix());\r\n\r\n\t\tresult.append(\"\', \'\");\r\n\r\n\t\tresult.append(getSuffix());\r\n\r\n\t\tresult.append(\"\']\");\r\n\r\n\t\treturn result.toString();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -4196,84 +4196,84 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (annotationEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters ( ) ) { \r\n\tif ( key .equals ( parameter .getKey ( ) ) ) { \r\n\t\tjava.lang.String value = parameter .getValue ( ) ; \r\n\t\treturn value ; \r\n\t} \r\n} \r\nreturn null ; \r\n",
-			 "documentation", "Returns the annotation value for the given key."
+			 "body", "\r\n\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\r\n\t\t\tif (key.equals(parameter.getKey())){\r\n\t\t\t\t java.lang.String value = parameter.getValue();\r\n\t\t\t\treturn value;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n",
+			 "documentation", "\r\n Returns the annotation value for the given key.\r\n"
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { \r\n\tjava.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; \r\n\tget_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; \r\n} \r\nreturn get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; \r\n",
-			 "documentation", "Return the qualified name of the interface for the given GenClass."
+			 "body", "\r\n\t\tif (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {\r\n\t\t\t java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();\r\n\t\t\tget_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);\r\n\t\t}\r\n\r\n\t\treturn get_qualifiedInterfaceNameCache().get(genClass);\r\n",
+			 "documentation", "\r\n Return the qualified name of the interface for the given GenClass.\r\n"
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; \r\njava.lang.String escapedName = interfaceName .replace ( \"_\" , \"_005f\" ) ; \r\nescapedName = escapedName .replace ( \".\" , \"_\" ) ; \r\nreturn escapedName ; \r\n",
+			 "body", "\r\n\t\t java.lang.String interfaceName = getQualifiedInterfaceName(genClass);\r\n\r\n\t\t java.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");\r\n\r\n\t\tescapedName = escapedName.replace(\".\", \"_\");\r\n\r\n\t\treturn escapedName;\r\n",
 			 "documentation", "\r\n Return an esacped version of the qualified name of the interface for \r\n the given GenClass. Underscores and dots are replaced to be able to use \r\n the returned name, for example, as method name.\r\n"
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; \r\n",
-			 "documentation", "Checks whether the given GenClass has a map type."
+			 "body", "\r\n\t\treturn java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());\r\n",
+			 "documentation", "\r\n Checks whether the given GenClass has a map type.\r\n"
 		   });		
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { \r\n\torg.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; \r\n\torg.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; \r\n\tif ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) && entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n",
-			 "documentation", "Checks whether the given list of GenClasses contains a GenClass\r\nwith the same name and namespace URI as the given GenClass."
+			 "body", "\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {\r\n\t\t\t org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();\r\n\t\t\t org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();\r\n\t\t\tif (entryClass.getName().equals(oClass.getName())\r\n\t\t\t\t\t&& entryClass.getEPackage().getNsURI().equals(\r\n\t\t\t\t\t\t\toClass.getEPackage().getNsURI())) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
+			 "documentation", "\r\n Checks whether the given list of GenClasses contains a GenClass\r\n with the same name and namespace URI as the given GenClass. \r\n"
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate .getEAllSuperTypes ( ) ) { \r\n\t// There seem to be multiple instances of meta classes when accessed\n// through the generator model. Therefore, we compare by name.\nif ( namesAndPackageURIsAreEqual ( superClassCandidate , superClass ) ) { \r\n\t\treturn true ; \r\n\t} \r\n} \r\nreturn false ; \r\n",
+			 "body", "\r\n\t\tfor ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\r\n\t\t\t// There seem to be multiple instances of meta classes when accessed\r\n\t\t\t// through the generator model. Therefore, we compare by name.\r\n\t\t\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.ecore.EClass > result = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.ecore.EClass > ( ) ; \r\nfor ( org.eclipse.emf.ecore.EClass next : availableClasses ) { \r\n\tif ( isSubClass ( next , superClass ) && isConcrete ( next ) ) { \r\n\t\tresult .add ( next ) ; \r\n\t} \r\n} \r\nreturn result ; \r\n",
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();\r\n\r\n\t\tfor ( org.eclipse.emf.ecore.EClass next : availableClasses) {\r\n\t\t\tif (isSubClass(next, superClass) &&\r\n\t\t\t\tisConcrete(next)) {\r\n\t\t\t\tresult.add(next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn result;\r\n",
 			 "documentation", "\r\n Returns all subclasses of \'superClass\' that are contained\r\n in \'availableClasses\'.\r\n \r\n @param superClass the superclass\r\n @param availableClasses the set of classes to search in\r\n @return a list of all subclasses of \'superClass\'\r\n"
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "return namesAreEqual ( classA , classB ) && packageURIsAreEqual ( classA , classB ) ; \r\n",
+			 "body", "\r\n\t\treturn namesAreEqual(classA, classB) && \r\n\t\t\tpackageURIsAreEqual(classA, classB);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String nsURI_A = classA .getEPackage ( ) .getNsURI ( ) ; \r\njava.lang.String nsURI_B = classB .getEPackage ( ) .getNsURI ( ) ; \r\nreturn ( nsURI_A == null && nsURI_B == null ) || nsURI_A .equals ( nsURI_B ) ; \r\n",
+			 "body", "\r\n\t\t java.lang.String nsURI_A = classA.getEPackage().getNsURI();\r\n\r\n\t\t java.lang.String nsURI_B = classB.getEPackage().getNsURI();\r\n\r\n\t\treturn (nsURI_A == null && nsURI_B == null) || nsURI_A.equals(nsURI_B);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "return classA .getName ( ) .equals ( classB .getName ( ) ) ; \r\n",
+			 "body", "\r\n\t\treturn classA.getName().equals(classB.getName());\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "return ! eClass .isAbstract ( ) && ! eClass .isInterface ( ) ; \r\n",
+			 "body", "\r\n\t\treturn !eClass.isAbstract() && !eClass.isInterface();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
-			 "body", "return ! isConcrete ( eClass ) ; \r\n",
+			 "body", "\r\n\t\treturn !isConcrete(eClass);\r\n",
 			 "documentation", ""
 		   });
 	}

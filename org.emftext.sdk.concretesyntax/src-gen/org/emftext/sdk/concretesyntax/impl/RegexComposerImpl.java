@@ -58,35 +58,40 @@ public class RegexComposerImpl extends EObjectImpl implements RegexComposer {
 	 * @generated
 	 */
 	public String getComposedRegex(AbstractTokenDefinition token, EList<AbstractTokenDefinition> visitedTokens) {
-		visitedTokens .add ( token ) ; 
-		java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; 
-		if ( token instanceof org.emftext.sdk.concretesyntax.RegexComposite ) { 
-			org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite ) token ; 
-			for ( org.emftext.sdk.concretesyntax.RegexPart part : composite .getRegexParts ( ) ) { 
-				if ( part instanceof org.emftext.sdk.concretesyntax.AtomicRegex ) { 
-					result .append ( part .getRegex ( ) ) ; 
-				} else if ( part instanceof org.emftext.sdk.concretesyntax.RegexReference ) { 
-					org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference ) part ; 
-					org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference .getTarget ( ) ; 
-					if ( target == null ) { 
-						continue ; 
-					} 
-					if ( target .eIsProxy ( ) ) { 
-						continue ; 
-					} 
-					if ( visitedTokens .contains ( target ) ) { 
-						continue ; 
-					} 
-					org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > subVisitedTokens = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ; 
-					subVisitedTokens .addAll ( visitedTokens ) ; 
-					result .append ( getComposedRegex ( target , subVisitedTokens ) ) ; 
-				} 
-			} 
-		} else if ( token instanceof org.emftext.sdk.concretesyntax.RegexOwner ) { 
-			org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner ) token ; 
-			result .append ( owner .getRegex ( ) ) ; 
-		} 
-		return result .toString ( ) ; 
+		
+				visitedTokens.add(token);
+		
+		
+				 java.lang.StringBuilder result = new  java.lang.StringBuilder();
+		
+				if (token instanceof  org.emftext.sdk.concretesyntax.RegexComposite) {
+					 org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite) token;
+					for ( org.emftext.sdk.concretesyntax.RegexPart part : composite.getRegexParts()) {
+						if (part instanceof  org.emftext.sdk.concretesyntax.AtomicRegex) {
+							result.append(part.getRegex());
+						} else if (part instanceof  org.emftext.sdk.concretesyntax.RegexReference) {
+							 org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference) part;
+							 org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference.getTarget();
+							if (target == null) {
+								continue;
+							}
+							if (target.eIsProxy()) {
+								continue;
+							}
+							if (visitedTokens.contains(target)) {
+								continue;
+							}
+							 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition> subVisitedTokens = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>();
+							subVisitedTokens.addAll(visitedTokens);
+							result.append(getComposedRegex(target, subVisitedTokens));
+						}
+					}
+				} else if (token instanceof  org.emftext.sdk.concretesyntax.RegexOwner) {
+					 org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner) token;
+					result.append(owner.getRegex());
+				}
+		
+				return result.toString();
 		
 	}
 

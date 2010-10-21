@@ -67,7 +67,7 @@ public interface RegexReference extends RegexPart {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget ( ) ; \r\nif ( target == null || target .eIsProxy ( ) ) { \r\n\treturn \"\" ; \r\n} else { \r\n\tassert target instanceof org.emftext.sdk.concretesyntax.RegexOwner ; \r\n\treturn ( ( org.emftext.sdk.concretesyntax.RegexOwner ) target ) .getRegex ( ) ; \r\n} \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();\r\n\r\n\t\tif (target == null || target.eIsProxy()) {\r\n\t\t\treturn \"\";\r\n\t\t} else {\r\n\t\t\tassert target instanceof  org.emftext.sdk.concretesyntax.RegexOwner;\r\n\t\t\treturn (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();\r\n\t\t}\r\n'"
 	 * @generated
 	 */
 	String getRegex();

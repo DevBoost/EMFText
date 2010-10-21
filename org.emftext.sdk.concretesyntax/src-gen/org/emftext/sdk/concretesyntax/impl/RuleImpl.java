@@ -109,20 +109,25 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public Choice getDefinition() {
-		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; 
-		// there should be at most one child
-		assert children == null || children .size ( ) == 1 ; 
-		if ( children .size ( ) > 0 ) { 
-			org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; 
-			if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { 
-				return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; 
-			} else { 
-				// there should be no element other than Choice
-		assert false ; 
-				return null ; 
-			} 
-		} 
-		return null ; 
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
+		
+				// there should be at most one child
+				assert children == null || children.size() == 1;
+		
+				
+				if (children.size() > 0) {
+					 org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
+					if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {
+						return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
+					} else {
+						// there should be no element other than Choice
+						assert false;
+						return null;
+					}
+				}
+		
+				return null;
 		
 	}
 
@@ -132,20 +137,23 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public boolean hasAnnotation(AnnotationType type, String key, String value) {
-		for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { 
-			if ( annotation .getType ( ) == type ) { 
-				if ( key != null ) { 
-					for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { 
-						if ( key .equals ( parameter .getKey ( ) ) && parameter .getValue ( ) .equals ( value ) ) { 
-							return true ; 
-						} 
-					} 
-				} else { 
-					return true ; 
-				} 
-			} 
-		} 
-		return false ; 
+		
+				for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
+					if (annotation.getType() == type) {
+						if (key != null) {
+							for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {
+								if (key.equals(parameter.getKey())
+										&& parameter.getValue().equals(value)) {
+									return true;
+								}
+							}
+						} else {
+							return true;
+						}
+					}
+				}
+		
+				return false;
 		
 	}
 
@@ -155,8 +163,9 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public boolean isOverrideRemoveRule() {
-		// TODO mseifert: use constant here
-		return hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , "remove" , "true" ) ; 
+		
+				// TODO mseifert: use constant here
+				return hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, "remove", "true");
 		
 	}
 
@@ -166,13 +175,15 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public boolean isOverrideRule(GenClass metaClass) {
-		// TODO figure out why 'metaClass == null' is needed
-		if ( metaClass == null || getMetaclass ( ) == metaClass ) { 
-			if ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { 
-				return true ; 
-			} 
-		} 
-		return false ; 
+		
+				// TODO figure out why 'metaClass == null' is needed
+				if (metaClass == null || getMetaclass() == metaClass) {
+					if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
+						return true;
+					}
+				}
+		
+				return false;
 		
 	}
 
@@ -182,16 +193,21 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public Rule getContainingRule() {
-		org.emftext.sdk.concretesyntax.Rule rule = null ; 
-		org.eclipse.emf.ecore.EObject o = this ; 
-		do { 
-			if ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { 
-				rule = ( org.emftext.sdk.concretesyntax.Rule ) o ; 
-			} else { 
-				o = o .eContainer ( ) ; 
-			} 
-		} while ( rule == null && o != null ) ; 
-		return rule ; 
+		
+				 org.emftext.sdk.concretesyntax.Rule rule = null;
+		
+				 org.eclipse.emf.ecore.EObject o = this;
+		
+				do {
+					if (o instanceof  org.emftext.sdk.concretesyntax.Rule) {
+						rule = ( org.emftext.sdk.concretesyntax.Rule) o;
+					}
+					else {
+						o = o.eContainer();
+					}
+				} while (rule == null && o != null);
+		
+				return rule;
 		
 	}
 
@@ -280,12 +296,14 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public Annotation getOperatorAnnotation() {
-		for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { 
-			if ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { 
-				return annotation ; 
-			} 
-		} 
-		return null ; 
+		
+				for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
+					if (annotation.getType() ==  org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {
+						return annotation;
+					}
+				}
+		
+				return null;
 		
 	}
 
@@ -295,19 +313,22 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public int getOperatorWeight() {
-		org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; 
-		if ( operatorAnnotation != null ) { 
-			java.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; 
-			if ( ruleWeightString != null ) { 
-				try { 
-					return java.lang.Integer .parseInt ( ruleWeightString ) ; 
-				} // ignore exception. invalid numbers are signaled by
-		// returning MIN_VALUE
-		catch ( java.lang.NumberFormatException e ) { 
-				} 
-			} 
-		} 
-		return java.lang.Integer .MIN_VALUE ; 
+		
+				 org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();
+		
+				if (operatorAnnotation != null) {
+					 java.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());
+					if (ruleWeightString != null) {
+						try {
+							return  java.lang.Integer.parseInt(ruleWeightString);			
+						} catch ( java.lang.NumberFormatException e) {
+							// ignore exception. invalid numbers are signaled by
+							// returning MIN_VALUE
+						}
+					}
+				}
+		
+				return  java.lang.Integer.MIN_VALUE;
 		
 	}
 

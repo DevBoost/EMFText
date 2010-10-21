@@ -111,13 +111,15 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * @generated
 	 */
 	public String getRegex() {
-		org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget ( ) ; 
-		if ( target == null || target .eIsProxy ( ) ) { 
-			return "" ; 
-		} else { 
-			assert target instanceof org.emftext.sdk.concretesyntax.RegexOwner ; 
-			return ( ( org.emftext.sdk.concretesyntax.RegexOwner ) target ) .getRegex ( ) ; 
-		} 
+		
+				 org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();
+		
+				if (target == null || target.eIsProxy()) {
+					return "";
+				} else {
+					assert target instanceof  org.emftext.sdk.concretesyntax.RegexOwner;
+					return (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();
+				}
 		
 	}
 

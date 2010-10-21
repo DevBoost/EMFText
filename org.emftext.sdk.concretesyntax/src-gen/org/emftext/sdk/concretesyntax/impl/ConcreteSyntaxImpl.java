@@ -628,18 +628,22 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<Rule> getOperatorRuleSubset(String identifier) {
-		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( ) ; 
-		if ( identifier == null ) { 
-			return subset ; 
-		} 
-		for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules ( ) ) { 
-			org.emftext.sdk.concretesyntax.Annotation annotation = rule .getOperatorAnnotation ( ) ; 
-			java.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; 
-			if ( identifier .equals ( value ) ) { 
-				subset .add ( rule ) ; 
-			} 
-		} 
-		return subset ; 
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();
+		
+				if (identifier == null) {
+					return subset;
+				}
+		
+				for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {
+					 org.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();
+					 java.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());
+					if (identifier.equals(value)) {
+						subset.add(rule);
+					}
+				}
+		
+				return subset;
 		
 	}
 
@@ -649,19 +653,26 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<GenClass> getActiveStartSymbols() {
-		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
-		symbols .addAll ( getStartSymbols ( ) ) ; 
-		if ( symbols .size ( ) > 0 ) { 
-			return symbols ; 
-		} 
-		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Import > imports = getImports ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.Import importedElement : imports ) { 
-			final org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement .getConcreteSyntax ( ) ; 
-			if ( importedSyntax != null ) { 
-				symbols .addAll ( importedSyntax .getActiveStartSymbols ( ) ) ; 
-			} 
-		} 
-		return symbols ; 
+		
+				 org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+		
+				symbols.addAll(getStartSymbols());
+		
+				if (symbols.size() > 0) {
+					return symbols;
+				}
+		
+				
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
+		
+				for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
+					final  org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+					if (importedSyntax != null) {
+						symbols.addAll(importedSyntax.getActiveStartSymbols());
+					}
+				}
+		
+				return symbols;
 		
 	}
 
@@ -671,30 +682,34 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<Rule> getAllRules() {
-		//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
-		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; 
-		for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { 
-			// don't add rules that are @override rules with remove=true
-		if ( ! rule .isOverrideRemoveRule ( ) ) { 
-				l .add ( rule ) ; 
-			} 
-		} 
-		for ( org.emftext.sdk.concretesyntax.Import aImport : getImports ( ) ) { 
-			org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport .getConcreteSyntax ( ) ; 
-			if ( importedCS != null ) { 
-				outer : for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS .getAllRules ( ) ) { 
-					for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { 
-						// don't add rules that have @override rules for same
-		// meta-class
-		if ( rule .isOverrideRule ( importedRule .getMetaclass ( ) ) ) { 
-							continue outer ; 
-						} 
-					} 
-					l .add ( importedRule ) ; 
-				} 
-			} 
-		} 
-		return org.eclipse.emf.common.util.ECollections .unmodifiableEList ( l ) ; 
+		
+				//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());
+		
+				for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {
+					// don't add rules that are @override rules with remove=true
+					if (!rule.isOverrideRemoveRule()) {
+						l.add(rule);
+					}
+				}
+		
+				for ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {
+					 org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+					if (importedCS != null) {
+						outer: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {
+							for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {
+								// don't add rules that have @override rules for same
+								// meta-class
+								if (rule.isOverrideRule(importedRule.getMetaclass())) {
+									continue outer;
+								}
+							}
+							l.add(importedRule);
+						}
+					}
+				}
+		
+				return  org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);
 		
 	}
 
@@ -704,8 +719,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<Rule> getOperatorRules() {
-		initialiseAnnotatedOperatorRules ( ) ; 
-		return get_operatorRules ( ) ; 
+		
+				initialiseAnnotatedOperatorRules();
+		
+				return get_operatorRules();
 		
 	}
 
@@ -715,31 +732,36 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public void initialiseAnnotatedOperatorRules() {
-		if ( is_operatorRulesInitialized ( ) ) { 
-			return ; 
-		} 
-		set_operatorRulesInitialized ( true ) ; 
-		java.util.List < org.emftext.sdk.concretesyntax.Rule > operatorRules = getOperatorRules ( ) ; 
-		java.util.List < java.lang.String > operatorRuleSubsets = getOperatorRuleSubsets ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules ( ) ) { 
-			org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule .getOperatorAnnotation ( ) ; 
-			if ( operatorAnnotation != null ) { 
-				boolean added = false ; 
-				for ( java.util.ListIterator < org.emftext.sdk.concretesyntax.Rule > it = operatorRules .listIterator ( ) ; it .hasNext ( ) ; ) { 
-					org.emftext.sdk.concretesyntax.Rule expressionRule = it .next ( ) ; 
-					if ( expressionRule .getOperatorWeight ( ) > rule .getOperatorWeight ( ) ) { 
-						operatorRules .add ( it .previousIndex ( ) , rule ) ; 
-						added = true ; 
-						break ; 
-					} 
-				} 
-				if ( ! added ) { 
-					operatorRules .add ( rule ) ; 
-				} 
-				java.lang.String identifier = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; 
-				operatorRuleSubsets .add ( identifier ) ; 
-			} 
-		} 
+		
+				if (is_operatorRulesInitialized()) {
+					return;
+				}
+		
+				set_operatorRulesInitialized(true);
+		
+				 java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();
+		
+				 java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();
+		
+				for ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {
+					 org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();
+					if (operatorAnnotation != null) {
+						boolean added = false;
+						for ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {
+							 org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); 
+							if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {
+								operatorRules.add(it.previousIndex(), rule);
+								added = true;
+								break;
+							}			
+						}
+						if (!added) {
+							operatorRules.add(rule);
+						}
+						 java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());
+						operatorRuleSubsets.add(identifier);
+					}
+				}
 		
 	}
 
@@ -749,8 +771,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<String> getOperatorRuleSubsets() {
-		initialiseAnnotatedOperatorRules ( ) ; 
-		return get_operatorRuleSubsets ( ) ; 
+		
+				initialiseAnnotatedOperatorRules();
+		
+				return get_operatorRuleSubsets();
 		
 	}
 
@@ -760,10 +784,12 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public GenClassCache getGenClassCache() {
-		if ( get_genClassCache ( ) == null ) { 
-			set_genClassCache ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache()) ; 
-		} 
-		return get_genClassCache ( ) ; 
+		
+				if (get_genClassCache() == null) {
+					set_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());
+				}
+		
+				return get_genClassCache();
 		
 	}
 
@@ -773,10 +799,12 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public boolean isAbstract() {
-		if ( getModifier ( ) != null ) { 
-			return true ; 
-		} 
-		return false ; 
+		
+				if (getModifier() != null) {
+					return true;
+				}
+		
+				return false;
 		
 	}
 
@@ -786,7 +814,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public boolean isImportedRule(Rule rule) {
-		return rule .getSyntax ( ) != this ; 
+		
+				return rule.getSyntax() != this;
 		
 	}
 
@@ -796,10 +825,12 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EClassUtil getEClassUtil() {
-		if ( get_eClassUtil ( ) == null ) { 
-			set_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; 
-		} 
-		return get_eClassUtil ( ) ; 
+		
+				if (get_eClassUtil() == null) {
+					set_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());
+				}
+		
+				return get_eClassUtil();
 		
 	}
 
@@ -809,16 +840,21 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<GenClass> getClassesWithSyntax(boolean excludeOperatorRules) {
-		java.util.Collection < org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; 
-		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
-		for ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { 
-			if ( excludeOperatorRules && rule .getOperatorAnnotation ( ) != null ) { 
-				continue ; 
-			} 
-			org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; 
-			foundGenClasses .add ( subClassCand ) ; 
-		} 
-		return foundGenClasses ; 
+		
+				 java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();
+		
+				 org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+		
+		
+				for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {
+					if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
+						continue;
+					}
+					 org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();
+					foundGenClasses.add(subClassCand);
+				}
+		
+				return foundGenClasses;
 		
 	}
 
@@ -828,15 +864,21 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<GenClass> getSubClassesWithSyntax(GenClass superClass, boolean excludeOperatorRules) {
-		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; 
-		org.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; 
-		org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; 
-		for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { 
-			if ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { 
-				subClasses .add ( subClassCand ) ; 
-			} 
-		} 
-		return subClasses ; 
+		
+				 org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
+		
+		
+				 org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();
+		
+				 org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();
+		
+				for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {
+					if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
+						subClasses.add(subClassCand);
+					}
+				}
+		
+				return subClasses;
 		
 	}
 

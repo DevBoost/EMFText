@@ -14,77 +14,77 @@
     </eAnnotations>
     <eOperations name="getOperatorRuleSubset" upperBound="-1" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Rule > subset = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Rule > ( ) ; &#xD;&#xA;if ( identifier == null ) { &#xD;&#xA;&#x9;return subset ; &#xD;&#xA;} &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.Annotation annotation = rule .getOperatorAnnotation ( ) ; &#xD;&#xA;&#x9;java.lang.String value = annotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; &#xD;&#xA;&#x9;if ( identifier .equals ( value ) ) { &#xD;&#xA;&#x9;&#x9;subset .add ( rule ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return subset ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Rule> subset = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.Rule>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (identifier == null) {&#xD;&#xA;&#x9;&#x9;&#x9;return subset;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();&#xD;&#xA;&#x9;&#x9;&#x9; java.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());&#xD;&#xA;&#x9;&#x9;&#x9;if (identifier.equals(value)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;subset.add(rule);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return subset;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eOperations name="getActiveStartSymbols" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > symbols = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;symbols .addAll ( getStartSymbols ( ) ) ; &#xD;&#xA;if ( symbols .size ( ) > 0 ) { &#xD;&#xA;&#x9;return symbols ; &#xD;&#xA;} &#xD;&#xA;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Import > imports = getImports ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Import importedElement : imports ) { &#xD;&#xA;&#x9;final org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement .getConcreteSyntax ( ) ; &#xD;&#xA;&#x9;if ( importedSyntax != null ) { &#xD;&#xA;&#x9;&#x9;symbols .addAll ( importedSyntax .getActiveStartSymbols ( ) ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return symbols ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;symbols.addAll(getStartSymbols());&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (symbols.size() > 0) {&#xD;&#xA;&#x9;&#x9;&#x9;return symbols;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Import> imports = getImports();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {&#xD;&#xA;&#x9;&#x9;&#x9;final  org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();&#xD;&#xA;&#x9;&#x9;&#x9;if (importedSyntax != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;symbols.addAll(importedSyntax.getActiveStartSymbols());&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return symbols;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getAllRules" upperBound="-1" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;&#xA;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Rule > l = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Rule > ( getRules ( ) .size ( ) ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;// don't add rules that are @override rules with remove=true&#xA;if ( ! rule .isOverrideRemoveRule ( ) ) { &#xD;&#xA;&#x9;&#x9;l .add ( rule ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Import aImport : getImports ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport .getConcreteSyntax ( ) ; &#xD;&#xA;&#x9;if ( importedCS != null ) { &#xD;&#xA;&#x9;&#x9;outer : for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS .getAllRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// don't add rules that have @override rules for same&#xA;// meta-class&#xA;if ( rule .isOverrideRule ( importedRule .getMetaclass ( ) ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;continue outer ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;l .add ( importedRule ) ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return org.eclipse.emf.common.util.ECollections .unmodifiableEList ( l ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Rule> l = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.Rule>(getRules().size());&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {&#xD;&#xA;&#x9;&#x9;&#x9;// don't add rules that are @override rules with remove=true&#xD;&#xA;&#x9;&#x9;&#x9;if (!rule.isOverrideRemoveRule()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;l.add(rule);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();&#xD;&#xA;&#x9;&#x9;&#x9;if (importedCS != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;outer: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;// don't add rules that have @override rules for same&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;// meta-class&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if (rule.isOverrideRule(importedRule.getMetaclass())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;continue outer;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;l.add(importedRule);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return  org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getOperatorRules" upperBound="-1" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="initialiseAnnotatedOperatorRules ( ) ; &#xD;&#xA;return get_operatorRules ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;initialiseAnnotatedOperatorRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return get_operatorRules();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="initialiseAnnotatedOperatorRules">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( is_operatorRulesInitialized ( ) ) { &#xD;&#xA;&#x9;return ; &#xD;&#xA;} &#xD;&#xA;set_operatorRulesInitialized ( true ) ; &#xD;&#xA;java.util.List &lt; org.emftext.sdk.concretesyntax.Rule > operatorRules = getOperatorRules ( ) ; &#xD;&#xA;java.util.List &lt; java.lang.String > operatorRuleSubsets = getOperatorRuleSubsets ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules ( ) ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule .getOperatorAnnotation ( ) ; &#xD;&#xA;&#x9;if ( operatorAnnotation != null ) { &#xD;&#xA;&#x9;&#x9;boolean added = false ; &#xD;&#xA;&#x9;&#x9;for ( java.util.ListIterator &lt; org.emftext.sdk.concretesyntax.Rule > it = operatorRules .listIterator ( ) ; it .hasNext ( ) ; ) { &#xD;&#xA;&#x9;&#x9;&#x9;org.emftext.sdk.concretesyntax.Rule expressionRule = it .next ( ) ; &#xD;&#xA;&#x9;&#x9;&#x9;if ( expressionRule .getOperatorWeight ( ) > rule .getOperatorWeight ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;operatorRules .add ( it .previousIndex ( ) , rule ) ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;added = true ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break ; &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;if ( ! added ) { &#xD;&#xA;&#x9;&#x9;&#x9;operatorRules .add ( rule ) ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;java.lang.String identifier = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .SUPERCLASS .toString ( ) ) ; &#xD;&#xA;&#x9;&#x9;operatorRuleSubsets .add ( identifier ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (is_operatorRulesInitialized()) {&#xD;&#xA;&#x9;&#x9;&#x9;return;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;set_operatorRulesInitialized(true);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.util.List&lt; org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.util.List&lt; java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();&#xD;&#xA;&#x9;&#x9;&#x9;if (operatorAnnotation != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;boolean added = false;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;for ( java.util.ListIterator&lt; org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;operatorRules.add(it.previousIndex(), rule);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;added = true;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (!added) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;operatorRules.add(rule);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;operatorRuleSubsets.add(identifier);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getOperatorRuleSubsets" upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="initialiseAnnotatedOperatorRules ( ) ; &#xD;&#xA;return get_operatorRuleSubsets ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;initialiseAnnotatedOperatorRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return get_operatorRuleSubsets();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getGenClassCache" eType="#//GenClassCache">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( get_genClassCache ( ) == null ) { &#xD;&#xA;&#x9;set_genClassCache ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache()) ; &#xD;&#xA;} &#xD;&#xA;return get_genClassCache ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (get_genClassCache() == null) {&#xD;&#xA;&#x9;&#x9;&#x9;set_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return get_genClassCache();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="isAbstract" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( getModifier ( ) != null ) { &#xD;&#xA;&#x9;return true ; &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (getModifier() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return rule .getSyntax ( ) != this ; &#xD;&#xA;"/>
-        <details key="documentation" value="Returns true if the given rule was defined in the given syntax.&#xD;&#xA;If the rule is defined in an imported syntax, this method returns false.&#xD;&#xA; &#xD;&#xA;@param syntax the syntax that refers to the rule&#xD;&#xA;@param rule the rule to check&#xD;&#xA;@return true if the rule is contained, false if it is imported"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return rule.getSyntax() != this;&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
     <eOperations name="getEClassUtil" eType="#//EClassUtil">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( get_eClassUtil ( ) == null ) { &#xD;&#xA;&#x9;set_eClassUtil ( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil()) ; &#xD;&#xA;} &#xD;&#xA;return get_eClassUtil ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (get_eClassUtil() == null) {&#xD;&#xA;&#x9;&#x9;&#x9;set_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return get_eClassUtil();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.util.Collection &lt; org.emftext.sdk.concretesyntax.Rule > rules = getAllRules ( ) ; &#xD;&#xA;org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > foundGenClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : rules ) { &#xD;&#xA;&#x9;if ( excludeOperatorRules &amp;&amp; rule .getOperatorAnnotation ( ) != null ) { &#xD;&#xA;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;} &#xD;&#xA;&#x9;org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule .getMetaclass ( ) ; &#xD;&#xA;&#x9;foundGenClasses .add ( subClassCand ) ; &#xD;&#xA;} &#xD;&#xA;return foundGenClasses ; &#xD;&#xA;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.util.Collection&lt; org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {&#xD;&#xA;&#x9;&#x9;&#x9;if (excludeOperatorRules &amp;&amp; rule.getOperatorAnnotation() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();&#xD;&#xA;&#x9;&#x9;&#x9;foundGenClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return foundGenClasses;&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
     <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > subClasses = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;org.eclipse.emf.ecore.EClass ecoreClass = superClass .getEcoreClass ( ) ; &#xD;&#xA;org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil ( ) ; &#xD;&#xA;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax ( excludeOperatorRules ) ) { &#xD;&#xA;&#x9;if ( eClassUtil .isSubClass ( subClassCand .getEcoreClass ( ) , ecoreClass ) ) { &#xD;&#xA;&#x9;&#x9;subClasses .add ( subClassCand ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return subClasses ; &#xD;&#xA;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {&#xD;&#xA;&#x9;&#x9;&#x9;if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;subClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return subClasses;&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -148,7 +148,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SyntaxElement" abstract="true">
     <eOperations name="getContainingRule" eType="#//Rule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.Rule rule = null ; &#xD;&#xA;org.eclipse.emf.ecore.EObject o = this ; &#xD;&#xA;do { &#xD;&#xA;&#x9;if ( o instanceof org.emftext.sdk.concretesyntax.Rule ) { &#xD;&#xA;&#x9;&#x9;rule = ( org.emftext.sdk.concretesyntax.Rule ) o ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;o = o .eContainer ( ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} while ( rule == null &amp;&amp; o != null ) ; &#xD;&#xA;return rule ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.Rule rule = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.ecore.EObject o = this;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;do {&#xD;&#xA;&#x9;&#x9;&#x9;if (o instanceof  org.emftext.sdk.concretesyntax.Rule) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;rule = ( org.emftext.sdk.concretesyntax.Rule) o;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;o = o.eContainer();&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;} while (rule == null &amp;&amp; o != null);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rule;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -161,25 +161,25 @@
     </eAnnotations>
     <eOperations name="getOperatorAnnotation" eType="#//Annotation">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == org.emftext.sdk.concretesyntax.AnnotationType .OPERATOR ) { &#xD;&#xA;&#x9;&#x9;return annotation ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {&#xD;&#xA;&#x9;&#x9;&#x9;if (annotation.getType() ==  org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return annotation;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return null;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getOperatorWeight" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this .getOperatorAnnotation ( ) ; &#xD;&#xA;if ( operatorAnnotation != null ) { &#xD;&#xA;&#x9;java.lang.String ruleWeightString = operatorAnnotation .getValue ( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty .WEIGHT .toString ( ) ) ; &#xD;&#xA;&#x9;if ( ruleWeightString != null ) { &#xD;&#xA;&#x9;&#x9;try { &#xD;&#xA;&#x9;&#x9;&#x9;return java.lang.Integer .parseInt ( ruleWeightString ) ; &#xD;&#xA;&#x9;&#x9;} // ignore exception. invalid numbers are signaled by&#xA;// returning MIN_VALUE&#xA;catch ( java.lang.NumberFormatException e ) { &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return java.lang.Integer .MIN_VALUE ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (operatorAnnotation != null) {&#xD;&#xA;&#x9;&#x9;&#x9; java.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());&#xD;&#xA;&#x9;&#x9;&#x9;if (ruleWeightString != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;try {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return  java.lang.Integer.parseInt(ruleWeightString);&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} catch ( java.lang.NumberFormatException e) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// ignore exception. invalid numbers are signaled by&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// returning MIN_VALUE&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return  java.lang.Integer.MIN_VALUE;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Returns the weight of this rule if it is an operator rule.&#xD;&#xA; If the rule is not an operator rule or the specified weight&#xD;&#xA; in the operator annotation is not a number, Integer.MIN_VALUE &#xD;&#xA; is returned.&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getDefinition" lowerBound="1" eType="#//Choice">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;// there should be at most one child&#xD;&#xA;&#x9;&#x9;assert children == null || children.size() == 1;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;if (children.size() > 0) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);&#xD;&#xA;&#x9;&#x9;&#x9;if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice) firstChild;&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// there should be no element other than Choice&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;assert false;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return null;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="hasAnnotation" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations ( ) ) { &#xD;&#xA;&#x9;if ( annotation .getType ( ) == type ) { &#xD;&#xA;&#x9;&#x9;if ( key != null ) { &#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation .getParameters ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if ( key .equals ( parameter .getKey ( ) ) &amp;&amp; parameter .getValue ( ) .equals ( value ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;} else { &#xD;&#xA;&#x9;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {&#xD;&#xA;&#x9;&#x9;&#x9;if (annotation.getType() == type) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (key != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if (key.equals(parameter.getKey())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&amp;&amp; parameter.getValue().equals(value)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with the given AnnotationType.&#xD;&#xA; If a key and a value is given it is further checked whether the&#xD;&#xA; annotation specifies this key and value. &#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="type" eType="#//AnnotationType"/>
@@ -188,13 +188,13 @@
     </eOperations>
     <eOperations name="isOverrideRemoveRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="// TODO mseifert: use constant here&#xA;return hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , &quot;remove&quot; , &quot;true&quot; ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;// TODO mseifert: use constant here&#xD;&#xA;&#x9;&#x9;return hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, &quot;remove&quot;, &quot;true&quot;);&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with @Override(remove=&quot;true&quot;).&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="isOverrideRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="// TODO figure out why 'metaClass == null' is needed&#xA;if ( metaClass == null || getMetaclass ( ) == metaClass ) { &#xD;&#xA;&#x9;if ( hasAnnotation ( org.emftext.sdk.concretesyntax.AnnotationType .OVERRIDE , null , null ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;// TODO figure out why 'metaClass == null' is needed&#xD;&#xA;&#x9;&#x9;if (metaClass == null || getMetaclass() == metaClass) {&#xD;&#xA;&#x9;&#x9;&#x9;if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Checks whether this rule is annotated with @Override.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="metaClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -210,7 +210,7 @@
     </eAnnotations>
     <eOperations name="getOptions" upperBound="-1" eType="#//Sequence">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Sequence > options = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Sequence > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { &#xD;&#xA;&#x9;if ( child instanceof org.emftext.sdk.concretesyntax.Sequence ) { &#xD;&#xA;&#x9;&#x9;options .add ( ( org.emftext.sdk.concretesyntax.Sequence ) child ) ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no elements other than Sequence elements in the&#xA;// list of children&#xA;assert false ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return options ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Sequence> options = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.Sequence>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {&#xD;&#xA;&#x9;&#x9;&#x9;if (child instanceof  org.emftext.sdk.concretesyntax.Sequence) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;options.add(( org.emftext.sdk.concretesyntax.Sequence) child);&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// there should be no elements other than Sequence elements in the&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// list of children&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;assert false;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return options;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -218,7 +218,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Sequence" eSuperTypes="#//SyntaxElement">
     <eOperations name="getParts" upperBound="-1" eType="#//Definition">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.Definition > parts = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.Definition > ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren ( ) ) { &#xD;&#xA;&#x9;if ( child instanceof org.emftext.sdk.concretesyntax.Definition ) { &#xD;&#xA;&#x9;&#x9;parts .add ( ( org.emftext.sdk.concretesyntax.Definition ) child ) ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no elements other than Definition elements in the&#xA;// list of children&#xA;assert false ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return parts ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Definition> parts = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.Definition>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {&#xD;&#xA;&#x9;&#x9;&#x9;if (child instanceof  org.emftext.sdk.concretesyntax.Definition) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;parts.add(( org.emftext.sdk.concretesyntax.Definition) child);&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// there should be no elements other than Definition elements in the&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// list of children&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;assert false;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return parts;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -226,19 +226,19 @@
   <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true" eSuperTypes="#//SyntaxElement">
     <eOperations name="hasMinimalCardinalityOneOrHigher" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return true ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return true;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="hasNoOptionalPart" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return false ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="computeCardinalityString" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality .NONE ; &#xD;&#xA;if ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { &#xD;&#xA;&#x9;cardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; &#xD;&#xA;} &#xD;&#xA;if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .NONE ) { &#xD;&#xA;&#x9;return &quot;&quot; ; &#xD;&#xA;} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .PLUS ) { &#xD;&#xA;&#x9;return &quot;+&quot; ; &#xD;&#xA;} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK ) { &#xD;&#xA;&#x9;return &quot;?&quot; ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;return &quot;*&quot; ; &#xD;&#xA;} &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.Cardinality cardinality =  org.emftext.sdk.concretesyntax.Cardinality.NONE;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (this instanceof  org.emftext.sdk.concretesyntax.CardinalityDefinition) {&#xD;&#xA;&#x9;&#x9;&#x9;cardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.NONE) {&#xD;&#xA;&#x9;&#x9;&#x9;return &quot;&quot;;&#xD;&#xA;&#x9;&#x9;} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS) {&#xD;&#xA;&#x9;&#x9;&#x9;return &quot;+&quot;;&#xD;&#xA;&#x9;&#x9;} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {&#xD;&#xA;&#x9;&#x9;&#x9;return &quot;?&quot;;&#xD;&#xA;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;return &quot;*&quot;;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Returns a string representation of the cardinality of the&#xD;&#xA;' or the&#xD;&#xA; empty string.&#xD;&#xA; &#xD;&#xA; @param definition&#xD;&#xA; @return&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
@@ -247,13 +247,13 @@
       eSuperTypes="#//Definition">
     <eOperations name="hasMinimalCardinalityOneOrHigher" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="hasNoOptionalPart" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return !&#xD;&#xA;&#x9;&#x9;&#x9;(getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||&#xD;&#xA;&#x9;&#x9;&#x9; getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.STAR);&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -300,7 +300,7 @@
     </eAnnotations>
     <eOperations name="getDefinition" eType="#//Choice">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.SyntaxElement > children = getChildren ( ) ; &#xD;&#xA;// there should be at most one child&#xA;assert children == null || children .size ( ) == 1 ; &#xD;&#xA;if ( children .size ( ) > 0 ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children .get ( 0 ) ; &#xD;&#xA;&#x9;if ( firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) { &#xD;&#xA;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice ) firstChild ; &#xD;&#xA;&#x9;} else { &#xD;&#xA;&#x9;&#x9;// there should be no element other than Choice&#xA;assert false ; &#xD;&#xA;&#x9;&#x9;return null ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;// there should be at most one child&#xD;&#xA;&#x9;&#x9;assert children == null || children.size() == 1;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;if (children.size() > 0) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);&#xD;&#xA;&#x9;&#x9;&#x9;if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.Choice) firstChild;&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;// there should be no element other than Choice&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;assert false;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return null;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -308,7 +308,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RegexComposer">
     <eOperations name="getComposedRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="visitedTokens .add ( token ) ; &#xD;&#xA;java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; &#xD;&#xA;if ( token instanceof org.emftext.sdk.concretesyntax.RegexComposite ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite ) token ; &#xD;&#xA;&#x9;for ( org.emftext.sdk.concretesyntax.RegexPart part : composite .getRegexParts ( ) ) { &#xD;&#xA;&#x9;&#x9;if ( part instanceof org.emftext.sdk.concretesyntax.AtomicRegex ) { &#xD;&#xA;&#x9;&#x9;&#x9;result .append ( part .getRegex ( ) ) ; &#xD;&#xA;&#x9;&#x9;} else if ( part instanceof org.emftext.sdk.concretesyntax.RegexReference ) { &#xD;&#xA;&#x9;&#x9;&#x9;org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference ) part ; &#xD;&#xA;&#x9;&#x9;&#x9;org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference .getTarget ( ) ; &#xD;&#xA;&#x9;&#x9;&#x9;if ( target == null ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;if ( target .eIsProxy ( ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;if ( visitedTokens .contains ( target ) ) { &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue ; &#xD;&#xA;&#x9;&#x9;&#x9;} &#xD;&#xA;&#x9;&#x9;&#x9;org.eclipse.emf.common.util.EList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > subVisitedTokens = new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ; &#xD;&#xA;&#x9;&#x9;&#x9;subVisitedTokens .addAll ( visitedTokens ) ; &#xD;&#xA;&#x9;&#x9;&#x9;result .append ( getComposedRegex ( target , subVisitedTokens ) ) ; &#xD;&#xA;&#x9;&#x9;} &#xD;&#xA;&#x9;} &#xD;&#xA;} else if ( token instanceof org.emftext.sdk.concretesyntax.RegexOwner ) { &#xD;&#xA;&#x9;org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner ) token ; &#xD;&#xA;&#x9;result .append ( owner .getRegex ( ) ) ; &#xD;&#xA;} &#xD;&#xA;return result .toString ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;visitedTokens.add(token);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.lang.StringBuilder result = new  java.lang.StringBuilder();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (token instanceof  org.emftext.sdk.concretesyntax.RegexComposite) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite) token;&#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.RegexPart part : composite.getRegexParts()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (part instanceof  org.emftext.sdk.concretesyntax.AtomicRegex) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;result.append(part.getRegex());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;} else if (part instanceof  org.emftext.sdk.concretesyntax.RegexReference) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference) part;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference.getTarget();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (target == null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (target.eIsProxy()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (visitedTokens.contains(target)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition> subVisitedTokens = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition>();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;subVisitedTokens.addAll(visitedTokens);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;result.append(getComposedRegex(target, subVisitedTokens));&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;} else if (token instanceof  org.emftext.sdk.concretesyntax.RegexOwner) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner) token;&#xD;&#xA;&#x9;&#x9;&#x9;result.append(owner.getRegex());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return result.toString();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="token" eType="#//AbstractTokenDefinition"/>
@@ -323,7 +323,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RegexComposite" abstract="true" eSuperTypes="#//RegexOwner">
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; &#xD;&#xA;for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { &#xD;&#xA;&#x9;result .append ( part .getRegex ( ) ) ; &#xD;&#xA;} &#xD;&#xA;return result .toString ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.StringBuilder result = new  java.lang.StringBuilder();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {&#xD;&#xA;&#x9;&#x9;&#x9;result.append(part.getRegex());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return result.toString();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -333,7 +333,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AtomicRegex" eSuperTypes="#//RegexPart">
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return getAtomicExpression ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return getAtomicExpression();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -343,7 +343,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RegexReference" eSuperTypes="#//RegexPart">
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget ( ) ; &#xD;&#xA;if ( target == null || target .eIsProxy ( ) ) { &#xD;&#xA;&#x9;return &quot;&quot; ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;assert target instanceof org.emftext.sdk.concretesyntax.RegexOwner ; &#xD;&#xA;&#x9;return ( ( org.emftext.sdk.concretesyntax.RegexOwner ) target ) .getRegex ( ) ; &#xD;&#xA;} &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (target == null || target.eIsProxy()) {&#xD;&#xA;&#x9;&#x9;&#x9;return &quot;&quot;;&#xD;&#xA;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;assert target instanceof  org.emftext.sdk.concretesyntax.RegexOwner;&#xD;&#xA;&#x9;&#x9;&#x9;return (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -367,7 +367,7 @@
     </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -376,26 +376,26 @@
       eSuperTypes="#//TokenDirective #//RegexOwner #//ReferencableTokenDefinition">
     <eOperations name="isHidden" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; &#xD;&#xA;boolean isCollectInToken = getAttributeName ( ) != null ; &#xD;&#xA;return ! isReferenced || isCollectInToken ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;boolean isReferenced = !getAttributeReferences().isEmpty();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;boolean isCollectInToken = getAttributeName() != null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return !isReferenced || isCollectInToken;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="isUsed" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="boolean isReferenced = ! getAttributeReferences ( ) .isEmpty ( ) ; &#xD;&#xA;boolean isCollectInToken = getAttributeName ( ) != null ; &#xD;&#xA;return isReferenced || isCollectInToken ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;boolean isReferenced = !getAttributeReferences().isEmpty();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;boolean isCollectInToken = getAttributeName() != null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return isReferenced || isCollectInToken;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="isImported" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ! syntax .equals ( getContainingSyntax ( syntax ) ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return !syntax.equals(getContainingSyntax(syntax));&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="syntax" lowerBound="1" eType="#//ConcreteSyntax"/>
     </eOperations>
     <eOperations name="getContainingSyntax" eType="#//ConcreteSyntax">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.ecore.EObject container = this .eContainer ( ) ; &#xD;&#xA;if ( container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax ) { &#xD;&#xA;&#x9;return ( org.emftext.sdk.concretesyntax.ConcreteSyntax ) container ; &#xD;&#xA;} &#xD;&#xA;return syntax ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.ecore.EObject container = this.eContainer();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {&#xD;&#xA;&#x9;&#x9;&#x9;return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return syntax;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="syntax" lowerBound="1" eType="#//ConcreteSyntax"/>
@@ -408,7 +408,7 @@
     </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -419,7 +419,7 @@
     </eAnnotations>
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer(); &#xD;&#xA;return composer .getComposedRegex ( this , new org.eclipse.emf.common.util.BasicEList &lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition > ( ) ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return composer.getComposedRegex(this, new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -429,7 +429,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="QuotedTokenDefinition" eSuperTypes="#//CompleteTokenDefinition">
     <eOperations name="getRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return getSynthesizedRegex ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return getSynthesizedRegex();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -453,7 +453,7 @@
     </eAnnotations>
     <eOperations name="getAllowedSubTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;// is there an explicit type defined?&#xA;if ( ! getTypes ( ) .isEmpty ( ) ) { &#xD;&#xA;&#x9;types = getTypes ( ) ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;types = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass > ( ) ; &#xD;&#xA;&#x9;types .add ( getFeature ( ) .getTypeGenClass ( ) ) ; &#xD;&#xA;} &#xD;&#xA;return types ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> types = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;// is there an explicit type defined?&#xD;&#xA;&#x9;&#x9;if (!getTypes().isEmpty()) {&#xD;&#xA;&#x9;&#x9;&#x9;types = getTypes();&#xD;&#xA;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;types = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#x9;&#x9;&#x9;types.add(getFeature().getTypeGenClass());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return types;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Returns all types that are allowed for the given containment.&#xD;&#xA; If type restrictions are specified in the syntax rule, this&#xD;&#xA; list contains the allowed types. If no restriction are present&#xD;&#xA; the type of the feature references by the containment is &#xD;&#xA; returned.&#xD;&#xA; &#xD;&#xA; @param containment&#xD;&#xA; @return&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
@@ -469,25 +469,25 @@
   <eClassifiers xsi:type="ecore:EClass" name="PlaceholderInQuotes" eSuperTypes="#//Placeholder">
     <eOperations name="getNormalizedPrefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.String prefix = getPrefix ( ) ; &#xD;&#xA;if ( prefix == null ) return prefix ; &#xD;&#xA;if ( prefix .length ( ) == 0 ) return null ; &#xD;&#xA;return prefix ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String prefix = getPrefix();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (prefix == null) return prefix;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (prefix.length() == 0) return null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return prefix;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getNormalizedSuffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.String suffix = getSuffix ( ) ; &#xD;&#xA;if ( suffix == null ) return suffix ; &#xD;&#xA;if ( suffix .length ( ) == 0 ) return null ; &#xD;&#xA;return suffix ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String suffix = getSuffix();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (suffix == null) return suffix;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (suffix.length() == 0) return null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return suffix;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getNormalizedEscapeCharacter" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.String escapeCharacter = getEscapeCharacter ( ) ; &#xD;&#xA;if ( escapeCharacter == null ) return escapeCharacter ; &#xD;&#xA;if ( escapeCharacter .length ( ) == 0 ) return null ; &#xD;&#xA;return escapeCharacter ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String escapeCharacter = getEscapeCharacter();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (escapeCharacter == null) return escapeCharacter;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (escapeCharacter.length() == 0) return null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return escapeCharacter;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="toString" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( eIsProxy ( ) ) return super .toString ( ) ; &#xD;&#xA;java.lang.StringBuffer result = new java.lang.StringBuffer ( ) ; &#xD;&#xA;org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature ( ) ; &#xD;&#xA;if ( feature != null &amp;&amp; feature .getEcoreFeature ( ) != null ) { &#xD;&#xA;&#x9;result .append ( feature .getName ( ) ) ; &#xD;&#xA;} &#xD;&#xA;result .append ( &quot;[\'&quot; ) ; &#xD;&#xA;result .append ( getPrefix ( ) ) ; &#xD;&#xA;result .append ( &quot;\', \'&quot; ) ; &#xD;&#xA;result .append ( getSuffix ( ) ) ; &#xD;&#xA;result .append ( &quot;\']&quot; ) ; &#xD;&#xA;return result .toString ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (eIsProxy()) return super.toString();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.lang.StringBuffer result = new  java.lang.StringBuffer();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;if (feature != null &amp;&amp; feature.getEcoreFeature() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;result.append(feature.getName());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;result.append(&quot;['&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;result.append(getPrefix());&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;result.append(&quot;', '&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;result.append(getSuffix());&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;result.append(&quot;']&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return result.toString();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
@@ -1650,8 +1650,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Annotation">
     <eOperations name="getValue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters ( ) ) { &#xD;&#xA;&#x9;if ( key .equals ( parameter .getKey ( ) ) ) { &#xD;&#xA;&#x9;&#x9;java.lang.String value = parameter .getValue ( ) ; &#xD;&#xA;&#x9;&#x9;return value ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return null ; &#xD;&#xA;"/>
-        <details key="documentation" value="Returns the annotation value for the given key."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {&#xD;&#xA;&#x9;&#x9;&#x9;if (key.equals(parameter.getKey())){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; java.lang.String value = parameter.getValue();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return value;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return null;&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Returns the annotation value for the given key.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     </eOperations>
@@ -1688,29 +1688,29 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenClassCache">
     <eOperations name="getQualifiedInterfaceName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="if ( ! get_qualifiedInterfaceNameCache ( ) .containsKey ( genClass ) ) { &#xD;&#xA;&#x9;java.lang.String qualifiedInterfaceName = genClass .getQualifiedInterfaceName ( ) ; &#xD;&#xA;&#x9;get_qualifiedInterfaceNameCache ( ) .put ( genClass , qualifiedInterfaceName ) ; &#xD;&#xA;} &#xD;&#xA;return get_qualifiedInterfaceNameCache ( ) .get ( genClass ) ; &#xD;&#xA;"/>
-        <details key="documentation" value="Return the qualified name of the interface for the given GenClass."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {&#xD;&#xA;&#x9;&#x9;&#x9; java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();&#xD;&#xA;&#x9;&#x9;&#x9;get_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return get_qualifiedInterfaceNameCache().get(genClass);&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Return the qualified name of the interface for the given GenClass.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="getEscapedTypeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.String interfaceName = getQualifiedInterfaceName ( genClass ) ; &#xD;&#xA;java.lang.String escapedName = interfaceName .replace ( &quot;_&quot; , &quot;_005f&quot; ) ; &#xD;&#xA;escapedName = escapedName .replace ( &quot;.&quot; , &quot;_&quot; ) ; &#xD;&#xA;return escapedName ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String interfaceName = getQualifiedInterfaceName(genClass);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.lang.String escapedName = interfaceName.replace(&quot;_&quot;, &quot;_005f&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;escapedName = escapedName.replace(&quot;.&quot;, &quot;_&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return escapedName;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Return an esacped version of the qualified name of the interface for &#xD;&#xA; the given GenClass. Underscores and dots are replaced to be able to use &#xD;&#xA; the returned name, for example, as method name.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="hasMapType" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return java .util .Map .Entry .class .getName ( ) .equals ( genClass .getEcoreClass ( ) .getInstanceClassName ( ) ) ; &#xD;&#xA;"/>
-        <details key="documentation" value="Checks whether the given GenClass has a map type."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether the given GenClass has a map type.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     </eOperations>
     <eOperations name="containsEqualByName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list ) { &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass entryClass = entry .getEcoreClass ( ) ; &#xD;&#xA;&#x9;org.eclipse.emf.ecore.EClass oClass = genClass .getEcoreClass ( ) ; &#xD;&#xA;&#x9;if ( entryClass .getName ( ) .equals ( oClass .getName ( ) ) &amp;&amp; entryClass .getEPackage ( ) .getNsURI ( ) .equals ( oClass .getEPackage ( ) .getNsURI ( ) ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
-        <details key="documentation" value="Checks whether the given list of GenClasses contains a GenClass&#xD;&#xA;with the same name and namespace URI as the given GenClass."/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();&#xD;&#xA;&#x9;&#x9;&#x9;if (entryClass.getName().equals(oClass.getName())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&amp;&amp; entryClass.getEPackage().getNsURI().equals(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;oClass.getEPackage().getNsURI())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Checks whether the given list of GenClasses contains a GenClass&#xD;&#xA; with the same name and namespace URI as the given GenClass. &#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="list" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -1725,7 +1725,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="EClassUtil">
     <eOperations name="isSubClass" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate .getEAllSuperTypes ( ) ) { &#xD;&#xA;&#x9;// There seem to be multiple instances of meta classes when accessed&#xA;// through the generator model. Therefore, we compare by name.&#xA;if ( namesAndPackageURIsAreEqual ( superClassCandidate , superClass ) ) { &#xD;&#xA;&#x9;&#x9;return true ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return false ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {&#xD;&#xA;&#x9;&#x9;&#x9;// There seem to be multiple instances of meta classes when accessed&#xD;&#xA;&#x9;&#x9;&#x9;// through the generator model. Therefore, we compare by name.&#xD;&#xA;&#x9;&#x9;&#x9;if (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="subClassCandidate" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
@@ -1733,7 +1733,7 @@
     </eOperations>
     <eOperations name="getSubClasses" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.eclipse.emf.common.util.EList &lt; org.eclipse.emf.ecore.EClass > result = new org.eclipse.emf.common.util.BasicEList &lt; org.eclipse.emf.ecore.EClass > ( ) ; &#xD;&#xA;for ( org.eclipse.emf.ecore.EClass next : availableClasses ) { &#xD;&#xA;&#x9;if ( isSubClass ( next , superClass ) &amp;&amp; isConcrete ( next ) ) { &#xD;&#xA;&#x9;&#x9;result .add ( next ) ; &#xD;&#xA;&#x9;} &#xD;&#xA;} &#xD;&#xA;return result ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.ecore.EClass> result = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.ecore.EClass>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.ecore.EClass next : availableClasses) {&#xD;&#xA;&#x9;&#x9;&#x9;if (isSubClass(next, superClass) &amp;&amp;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;isConcrete(next)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;result.add(next);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return result;&#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Returns all subclasses of 'superClass' that are contained&#xD;&#xA; in 'availableClasses'.&#xD;&#xA; &#xD;&#xA; @param superClass the superclass&#xD;&#xA; @param availableClasses the set of classes to search in&#xD;&#xA; @return a list of all subclasses of 'superClass'&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
@@ -1741,7 +1741,7 @@
     </eOperations>
     <eOperations name="namesAndPackageURIsAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return namesAreEqual ( classA , classB ) &amp;&amp; packageURIsAreEqual ( classA , classB ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return namesAreEqual(classA, classB) &amp;&amp; &#xD;&#xA;&#x9;&#x9;&#x9;packageURIsAreEqual(classA, classB);&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
@@ -1749,7 +1749,7 @@
     </eOperations>
     <eOperations name="packageURIsAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="java.lang.String nsURI_A = classA .getEPackage ( ) .getNsURI ( ) ; &#xD;&#xA;java.lang.String nsURI_B = classB .getEPackage ( ) .getNsURI ( ) ; &#xD;&#xA;return ( nsURI_A == null &amp;&amp; nsURI_B == null ) || nsURI_A .equals ( nsURI_B ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String nsURI_A = classA.getEPackage().getNsURI();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.lang.String nsURI_B = classB.getEPackage().getNsURI();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return (nsURI_A == null &amp;&amp; nsURI_B == null) || nsURI_A.equals(nsURI_B);&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
@@ -1757,7 +1757,7 @@
     </eOperations>
     <eOperations name="namesAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return classA .getName ( ) .equals ( classB .getName ( ) ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return classA.getName().equals(classB.getName());&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
@@ -1765,14 +1765,14 @@
     </eOperations>
     <eOperations name="isConcrete" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ! eClass .isAbstract ( ) &amp;&amp; ! eClass .isInterface ( ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return !eClass.isAbstract() &amp;&amp; !eClass.isInterface();&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
     </eOperations>
     <eOperations name="isNotConcrete" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ! isConcrete ( eClass ) ; &#xD;&#xA;"/>
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;return !isConcrete(eClass);&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>

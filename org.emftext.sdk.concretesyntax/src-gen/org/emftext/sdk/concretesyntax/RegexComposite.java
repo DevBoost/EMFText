@@ -58,7 +58,7 @@ public interface RegexComposite extends RegexOwner {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.StringBuilder result = new java.lang.StringBuilder ( ) ; \r\nfor ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts ( ) ) { \r\n\tresult .append ( part .getRegex ( ) ) ; \r\n} \r\nreturn result .toString ( ) ; \r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.lang.StringBuilder result = new  java.lang.StringBuilder();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {\r\n\t\t\tresult.append(part.getRegex());\r\n\t\t}\r\n\r\n\t\treturn result.toString();\r\n'"
 	 * @generated
 	 */
 	String getRegex();
