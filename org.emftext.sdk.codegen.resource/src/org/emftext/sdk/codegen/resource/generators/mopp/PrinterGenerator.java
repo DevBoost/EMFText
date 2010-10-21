@@ -490,7 +490,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 						}
 
 						sc.add("if (count > 0) {");
-						if (cardinality == null
+						if (cardinality == Cardinality.NONE
 								|| (cardinality == Cardinality.QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
 							sc.add("Object o = element."
