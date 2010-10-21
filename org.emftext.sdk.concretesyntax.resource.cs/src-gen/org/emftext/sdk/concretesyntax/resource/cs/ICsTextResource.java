@@ -82,6 +82,11 @@ public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource
 	 */
 	public void addError(String message, org.eclipse.emf.ecore.EObject cause);
 	
+	/**
+	 * Returns the quick fix for the given context. This method is used by the
+	 * MarkerResolutionGenerator to retrieve fixes for problem that are associated
+	 * with this resource.
+	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix(String quickFixContext);
 	
 }
