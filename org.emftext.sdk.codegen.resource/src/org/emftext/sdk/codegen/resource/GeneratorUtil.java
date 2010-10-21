@@ -115,7 +115,7 @@ public class GeneratorUtil {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
 								+ featureConstant
-								+ "), value;");
+								+ "), " + expressionToBeSet + ");");
 			} else {
 				sc.add("addObjectToList(element, "
 						+ featureConstant
