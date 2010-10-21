@@ -71,7 +71,12 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.StringUtil;
 
 /**
- * A generator that creates the class for the classic printer.
+ * A generator that creates the class for the classic printer. This generator
+ * has been replaced by the new printer generator (Printer2Generator). But,
+ * for compatibility reasons, the old printer is still generated. By default,
+ * the new printer implementation is used, but setting the syntax option
+ * <code>useClassicPrinter</code> to <code>true</code> makes the classic
+ * printer the default one.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
@@ -566,10 +571,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		String printStatement = 
 				choice2Name.get(compound.getDefinition())
 				+ "(element, localtab, out, printCountingMap);";
-		//localTabDefinition.enable();
 		// enter once
-		// TODO mseifert: search for 'cardinality == null' and replace code with
-		// 'cardinality == Cardinality.NONE'
 		if (cardinality == Cardinality.NONE || cardinality == Cardinality.PLUS) {
 			sc.add(printStatement);
 			// needed features in non optional choice are also
@@ -594,16 +596,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			if (isMany) {
 				sc.add("iterate = true;");
 				sc.add("while (iterate) {");
-				//iterateDeclaration.enable();
 			}
 			sc.add("sWriter = new " + STRING_WRITER + "();");
 			sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
 			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP + "<String, Integer>(printCountingMap);");
-			//compoundDeclaration.enable();
 			
-			sc.add(choice2Name.get(compound
-									.getDefinition())
-							+ "(element, localtab, out1, printCountingMap1);");
+			sc.add(choice2Name.get(compound.getDefinition()) + "(element, localtab, out1, printCountingMap1);");
 			sc.add("if (printCountingMap.equals(printCountingMap1)) {");
 			if (isMany) {
 				sc.add("iterate = false;");
@@ -616,11 +614,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			// case!
 			// this could be enhanced by a counter on needed
 			// features
-			Collection<String> reachableFeatures = getReachableFeatures(compound
-					.getDefinition());
-			if (!neededFeatures.isEmpty()
-					&& !Collections.disjoint(neededFeatures,
-							reachableFeatures)) {
+			Collection<String> reachableFeatures = getReachableFeatures(compound.getDefinition());
+			if (!neededFeatures.isEmpty() && 
+				!Collections.disjoint(neededFeatures, reachableFeatures)) {
 				sc.add("if(");
 				Iterator<String> it = neededFeatures.iterator();
 				sc.add("printCountingMap1.get(\""
@@ -676,7 +672,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				
 				sc.add(printPrefix + "\"" + printSuffix + "\");");
 			}
-				
 		}
 	}
 
@@ -685,8 +680,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		int count = whiteSpace.getAmount();
 		if (count > 0) {
 			String spaces = getWhiteSpaceString(count);
-			sc.add(printPrefix + "\"" + spaces
-					+ "\");");
+			sc.add(printPrefix + "\"" + spaces + "\");");
 		}
 	}
 
@@ -698,7 +692,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 		sc.add("out.println();");
 		sc.add("out.print(localtab);");
-		//localTabDefinition.enable();
 	}
 
 	private void printMatchCall(Sequence seq, StringComposite sc) {
@@ -764,16 +757,11 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			sc.add("temp = element." + getAccessMethod(genClassCache, genClass, genFeature)
-					+ ";");
+			sc.add("temp = element." + getAccessMethod(genClassCache, genClass, genFeature) + ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
-			String featureSize = isMultiple ? "((" + COLLECTION + "<?>) temp).size()"
-					: "1";
-			sc.add("printCountingMap.put(\"" + feature.getName()
-					+ "\", temp == null ? 0 : " + featureSize + ");");
+			String featureSize = isMultiple ? "((" + COLLECTION + "<?>) temp).size()" : "1";
+			sc.add("printCountingMap.put(\"" + feature.getName() + "\", temp == null ? 0 : " + featureSize + ");");
 		}
 	}
-
-	
 }

@@ -1432,7 +1432,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private String getName(Cardinality cardinality) {
-		// TODO mseifert: maybe use cardinality.getName() instead?
 		if (cardinality == Cardinality.NONE) {
 			return "ONE";
 		} else if (cardinality == Cardinality.PLUS) {
@@ -1442,7 +1441,7 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		} else if (cardinality == Cardinality.QUESTIONMARK) {
 			return "QUESTIONMARK";
 		} else {
-			throw new RuntimeException("Found unknown cardinality " + cardinality.getClass().getName());
+			throw new RuntimeException("Found unknown cardinality " + cardinality.getName());
 		}
 	}
 

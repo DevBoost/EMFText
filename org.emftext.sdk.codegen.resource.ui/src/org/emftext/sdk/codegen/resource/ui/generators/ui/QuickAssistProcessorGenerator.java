@@ -101,7 +101,6 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return new " + I_COMPLETION_PROPOSAL + "() {");
 		sc.addLineBreak();
 		sc.add("public " + POINT + " getSelection(" + I_DOCUMENT + " document) {");
-		sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -114,12 +113,10 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + I_CONTEXT_INFORMATION + " getContextInformation() {");
-		sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String getAdditionalProposalInfo() {");
-		sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -127,8 +124,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("String currentContent = sourceViewer.getDocument().get();");
 		sc.add("String newContent = quickFix.apply(currentContent);");
 		sc.add("if (newContent != null) {");
-		sc.add("// TODO maybe it is better to replace only the changed");
-		sc.add("// part of the document");
+		// TODO maybe it is better to replace only the changed part of the document
 		sc.add("sourceViewer.getDocument().set(newContent);");
 		sc.add("}");
 		sc.add("}");
@@ -192,7 +188,6 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addGetErrorMessageMethod(JavaComposite sc) {
 		sc.add("public String getErrorMessage() {");
-		sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();

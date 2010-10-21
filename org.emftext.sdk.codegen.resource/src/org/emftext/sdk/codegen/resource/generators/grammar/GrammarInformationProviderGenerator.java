@@ -218,15 +218,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		if (next instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) next;
 			Cardinality cardinality = cd.getCardinality();
-			if (cardinality != Cardinality.NONE) {
-				// TODO mseifert: handle == Cardinality.NONE?
-				if (cardinality == Cardinality.STAR) {
-					literal = "STAR";
-				} else if (cardinality == Cardinality.PLUS) {
-					literal = "PLUS";
-				} else if (cardinality == Cardinality.QUESTIONMARK) {
-					literal = "QUESTIONMARK";
-				}
+			if (cardinality == Cardinality.STAR) {
+				literal = "STAR";
+			} else if (cardinality == Cardinality.PLUS) {
+				literal = "PLUS";
+			} else if (cardinality == Cardinality.QUESTIONMARK) {
+				literal = "QUESTIONMARK";
 			}
 		}
 		return cardinalityClassName + "." + literal;

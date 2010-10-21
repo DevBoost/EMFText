@@ -96,7 +96,11 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.add("public void addError(String message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		
-		// TODO mseifert: add comment
+		sc.addJavadoc(
+			"Returns the quick fix for the given context. " +
+			"This method is used by the MarkerResolutionGenerator to retrieve fixes for " +
+			"problem that are associated with this resource."
+		);
 		sc.add("public " + iQuickFixClassName + " getQuickFix(String quickFixContext);");
 		sc.addLineBreak();
 
