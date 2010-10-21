@@ -126,7 +126,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 			List<Definition> definitions = sequence.getParts();
 			for (Definition definition : definitions) {
 				// incorporate cardinality of the definition
-				Cardinality cardinality = null;
+				Cardinality cardinality = Cardinality.NONE;
 				
 				MinMax totalCardinality = null;
 				if (definition instanceof Terminal) {

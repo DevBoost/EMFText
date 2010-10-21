@@ -554,7 +554,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 	private Cardinality getCardinality(Definition definition) {
-		Cardinality cardinality = null;
+		Cardinality cardinality = Cardinality.NONE;
 		if (definition instanceof CardinalityDefinition) {
 			cardinality = ((CardinalityDefinition) definition).getCardinality();
 		}

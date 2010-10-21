@@ -19,7 +19,7 @@ eclass Definition {
 	 * @return
 	 */
 	computeCardinalityString() {
-		Cardinality cardinality = null;
+		Cardinality cardinality = Cardinality.NONE;
 		if (this instanceof CardinalityDefinition) {
 			cardinality = ((CardinalityDefinition) this).getCardinality();
 		}
