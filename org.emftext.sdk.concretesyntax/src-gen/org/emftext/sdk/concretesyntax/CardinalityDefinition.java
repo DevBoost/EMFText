@@ -69,7 +69,7 @@ public interface CardinalityDefinition extends Definition {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return getCardinality ( ) == null || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.PLUS ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; \r\n'"
 	 * @generated
 	 */
 	boolean hasMinimalCardinalityOneOrHigher();
@@ -80,7 +80,7 @@ public interface CardinalityDefinition extends Definition {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return ! ( getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.STAR ) ; \r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; \r\n'"
 	 * @generated
 	 */
 	boolean hasNoOptionalPart();

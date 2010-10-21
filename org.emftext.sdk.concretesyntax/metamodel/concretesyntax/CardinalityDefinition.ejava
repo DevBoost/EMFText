@@ -3,12 +3,12 @@ epackage concretesyntax;
 eclass CardinalityDefinition {
 	
 	hasMinimalCardinalityOneOrHigher() {
-		return getCardinality() == null || getCardinality() instanceof PLUS;
+		return getCardinality() == Cardinality.NONE || getCardinality() == Cardinality.PLUS;
 	}
 
 	hasNoOptionalPart() {
 		return !
-			(getCardinality() instanceof QUESTIONMARK ||
-			 getCardinality() instanceof STAR);
+			(getCardinality() == Cardinality.QUESTIONMARK ||
+			 getCardinality() == Cardinality.STAR);
 	}
 }

@@ -238,7 +238,7 @@
     </eOperations>
     <eOperations name="computeCardinalityString" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="org.emftext.sdk.concretesyntax.Cardinality cardinality = null ; &#xD;&#xA;if ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { &#xD;&#xA;&#x9;cardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; &#xD;&#xA;} &#xD;&#xA;if ( cardinality == null ) { &#xD;&#xA;&#x9;return &quot;&quot; ; &#xD;&#xA;} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.PLUS ) { &#xD;&#xA;&#x9;return &quot;+&quot; ; &#xD;&#xA;} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK ) { &#xD;&#xA;&#x9;return &quot;?&quot; ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;return &quot;*&quot; ; &#xD;&#xA;} &#xD;&#xA;"/>
+        <details key="body" value="org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality .NONE ; &#xD;&#xA;if ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { &#xD;&#xA;&#x9;cardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; &#xD;&#xA;} &#xD;&#xA;if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .NONE ) { &#xD;&#xA;&#x9;return &quot;&quot; ; &#xD;&#xA;} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .PLUS ) { &#xD;&#xA;&#x9;return &quot;+&quot; ; &#xD;&#xA;} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK ) { &#xD;&#xA;&#x9;return &quot;?&quot; ; &#xD;&#xA;} else { &#xD;&#xA;&#x9;return &quot;*&quot; ; &#xD;&#xA;} &#xD;&#xA;"/>
         <details key="documentation" value="&#xD;&#xA; Returns a string representation of the cardinality of the&#xD;&#xA;' or the&#xD;&#xA; empty string.&#xD;&#xA; &#xD;&#xA; @param definition&#xD;&#xA; @return&#xD;&#xA;"/>
       </eAnnotations>
     </eOperations>
@@ -247,13 +247,13 @@
       eSuperTypes="#//Definition">
     <eOperations name="hasMinimalCardinalityOneOrHigher" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return getCardinality ( ) == null || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.PLUS ; &#xD;&#xA;"/>
+        <details key="body" value="return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
     <eOperations name="hasNoOptionalPart" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ! ( getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.STAR ) ; &#xD;&#xA;"/>
+        <details key="body" value="return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; &#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>

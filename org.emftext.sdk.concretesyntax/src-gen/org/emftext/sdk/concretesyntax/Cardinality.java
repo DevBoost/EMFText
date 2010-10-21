@@ -91,6 +91,9 @@ public enum Cardinality implements Enumerator
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Allows to repeat the preceding syntax element multiple times.
+	 * <!-- end-model-doc -->
 	 * @see #PLUS
 	 * @model name="plus" literal="+"
 	 * @generated
@@ -106,6 +109,9 @@ public enum Cardinality implements Enumerator
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Allows to repeat the preceding syntax element multiple times (including zero times).
+	 * <!-- end-model-doc -->
 	 * @see #STAR
 	 * @model name="star" literal="*"
 	 * @generated
@@ -121,6 +127,9 @@ public enum Cardinality implements Enumerator
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Tags the preceding syntax element as optional.
+	 * <!-- end-model-doc -->
 	 * @see #QUESTIONMARK
 	 * @model name="questionmark" literal="?"
 	 * @generated

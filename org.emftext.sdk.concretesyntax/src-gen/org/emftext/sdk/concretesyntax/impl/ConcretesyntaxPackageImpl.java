@@ -2651,21 +2651,21 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (definitionEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "org.emftext.sdk.concretesyntax.Cardinality cardinality = null ; \r\nif ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { \r\n\tcardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; \r\n} \r\nif ( cardinality == null ) { \r\n\treturn \"\" ; \r\n} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.PLUS ) { \r\n\treturn \"+\" ; \r\n} else if ( cardinality instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK ) { \r\n\treturn \"?\" ; \r\n} else { \r\n\treturn \"*\" ; \r\n} \r\n",
+			 "body", "org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality .NONE ; \r\nif ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { \r\n\tcardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; \r\n} \r\nif ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .NONE ) { \r\n\treturn \"\" ; \r\n} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .PLUS ) { \r\n\treturn \"+\" ; \r\n} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK ) { \r\n\treturn \"?\" ; \r\n} else { \r\n\treturn \"*\" ; \r\n} \r\n",
 			 "documentation", "\r\n Returns a string representation of the cardinality of the\r\n\' or the\r\n empty string.\r\n \r\n @param definition\r\n @return\r\n"
 		   });		
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "return getCardinality ( ) == null || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.PLUS ; \r\n",
+			 "body", "return getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .NONE || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .PLUS ; \r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "return ! ( getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.QUESTIONMARK || getCardinality ( ) instanceof org.emftext.sdk.concretesyntax.STAR ) ; \r\n",
+			 "body", "return ! ( getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK || getCardinality ( ) == org.emftext.sdk.concretesyntax.Cardinality .STAR ) ; \r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2673,6 +2673,24 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "A keyword that is used to represent instances of a metaclass."
+		   });		
+		addAnnotation
+		  (cardinalityEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "documentation", "Allows to repeat the preceding syntax element multiple times."
+		   });		
+		addAnnotation
+		  (cardinalityEEnum.getELiterals().get(2), 
+		   source, 
+		   new String[] {
+			 "documentation", "Allows to repeat the preceding syntax element multiple times (including zero times)."
+		   });		
+		addAnnotation
+		  (cardinalityEEnum.getELiterals().get(3), 
+		   source, 
+		   new String[] {
+			 "documentation", "Tags the preceding syntax element as optional."
 		   });		
 		addAnnotation
 		  (compoundDefinitionEClass, 
@@ -4131,6 +4149,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(215), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the EnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(216), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (abstractEClass, 

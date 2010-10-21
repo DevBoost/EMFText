@@ -76,15 +76,15 @@ public abstract class DefinitionImpl extends SyntaxElementImpl implements Defini
 	 * @generated
 	 */
 	public String computeCardinalityString() {
-		org.emftext.sdk.concretesyntax.Cardinality cardinality = Cardinality.NONE ; 
+		org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality .NONE ; 
 		if ( this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition ) { 
 			cardinality = ( ( org.emftext.sdk.concretesyntax.CardinalityDefinition ) this ) .getCardinality ( ) ; 
 		} 
-		if ( cardinality == Cardinality.NONE ) { 
+		if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .NONE ) { 
 			return "" ; 
-		} else if ( cardinality == Cardinality.PLUS ) { 
+		} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .PLUS ) { 
 			return "+" ; 
-		} else if ( cardinality == Cardinality.QUESTIONMARK ) { 
+		} else if ( cardinality == org.emftext.sdk.concretesyntax.Cardinality .QUESTIONMARK ) { 
 			return "?" ; 
 		} else { 
 			return "*" ; 
