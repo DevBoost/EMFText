@@ -278,9 +278,21 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Cardinality">
     <eLiterals name="none" literal=""/>
-    <eLiterals name="plus" value="1" literal="+"/>
-    <eLiterals name="star" value="2" literal="*"/>
-    <eLiterals name="questionmark" value="3" literal="?"/>
+    <eLiterals name="plus" value="1" literal="+">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Allows to repeat the preceding syntax element multiple times."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="star" value="2" literal="*">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Allows to repeat the preceding syntax element multiple times (including zero times)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="questionmark" value="3" literal="?">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tags the preceding syntax element as optional."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//CardinalityDefinition">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1591,8 +1603,16 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the BooleanTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_ENUMERATION_TERMINAL" value="219" literal="overrideEnumerationTerminal"/>
-    <eLiterals name="OVERRIDE_EXPECTED_ENUMERATION_TERMINAL" value="220" literal="overrideExpectedEnumerationTerminal"/>
+    <eLiterals name="OVERRIDE_ENUMERATION_TERMINAL" value="219" literal="overrideEnumerationTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the EnumerationTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTED_ENUMERATION_TERMINAL" value="220" literal="overrideExpectedEnumerationTerminal">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

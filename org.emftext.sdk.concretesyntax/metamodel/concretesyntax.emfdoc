@@ -27,9 +27,9 @@ CsString: "A keyword that is used to represent instances of a metaclass."
 Containment : "Calls the syntax rules of the type of the containment reference."
 Choice : "Defines alternative syntax for an element of parts of it."
 
-PLUS: "Allows to repeat the preceding syntax element multiple times."
-STAR: "Allows to repeat the preceding syntax element multiple times (including zero times)."
-QUESTIONMARK: "Tags the preceding syntax element as optional."
+Cardinality.plus: "Allows to repeat the preceding syntax element multiple times."
+Cardinality.star: "Allows to repeat the preceding syntax element multiple times (including zero times)."
+Cardinality.questionmark: "Tags the preceding syntax element as optional."
 
 PartialTokenDefinition : "A fragment of a token definition. Can be used in other token definitions to avoid duplication."
 NormalTokenDefinition : "Defines a token with a name and a regular expression."
@@ -513,6 +513,10 @@ OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL : "If set to <code>false</code>, 
 OptionTypes.OVERRIDE_BOOLEAN_TERMINAL : "If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING : "If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ENUMERATION_TERMINAL : "If set to <code>false</code>, the EnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL : "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
 
 Annotation.getValue : "Returns the annotation value for the given key."
 
