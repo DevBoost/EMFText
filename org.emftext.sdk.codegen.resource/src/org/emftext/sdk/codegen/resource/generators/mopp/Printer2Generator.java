@@ -62,7 +62,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addInnerClassPrintToken(JavaComposite sc) {
-		sc.add("private class PrintToken {");
+		sc.add("protected class PrintToken {");
 		sc.addLineBreak();
 		sc.add("private String text;");
 		sc.add("private String tokenName;");
@@ -251,7 +251,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + OUTPUT_STREAM + " outputStream;");
-		sc.add("private " + LIST + "<PrintToken> tokenOutputStream;");
+		sc.add("protected " + LIST + "<PrintToken> tokenOutputStream;");
 		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean handleTokenSpaceAutomatically = " + handleTokenSpaceAutomatically + ";");
 		sc.add("private int tokenSpace = " + getTokenSpace() + ";");
