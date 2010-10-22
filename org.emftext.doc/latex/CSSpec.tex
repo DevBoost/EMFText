@@ -369,7 +369,7 @@ syntax rule:
 YourMetaClassWithAttribute ::= yourAttribute["yes" : "no"] ;
 \end{lstlisting}
 
-This rules states that \texttt{yes} represents the \texttt{true} value and
+This rule states that \texttt{yes} represents the \texttt{true} value and
 \texttt{no} represents \texttt{false}. You can also use the empty string for
 one of the values:
 
@@ -379,6 +379,30 @@ YourMetaClassWithAttribute ::= yourAttribute["set" : ""] ;
 
 This way, the attribute is set to \texttt{false} by default and set to
 \texttt{true} in the text \texttt{set} is found.
+
+\subsubsection{Syntax for EAttributes of Type EEnum}
+
+For enumeration attributes, EMFText does also provide a special feature to ease
+syntax specification. For each literal of the enumeration, the corresponding
+string representation must be given. For example, consider the following
+syntax rule:
+
+\begin{lstlisting}
+YourMetaClassWithAttribute ::= 
+    yourAttribute[red : "r", green : "g", blue : "b"];
+\end{lstlisting}
+
+This rule states that \texttt{r} represents the literal \texttt{red},
+\texttt{g} represents the literal \texttt{green} and \texttt{b} represents the
+literal \texttt{blue}. The literals of the enumeration are identified by their
+name. You can also use the empty string for one of the values:
+
+\begin{lstlisting}
+YourMetaClassWithAttribute ::= 
+    yourAttribute[red : "r", green : "g", blue : ""] ;
+\end{lstlisting}
+
+This way, the attribute is set to \texttt{blue} by default.
 
 \subsection{Syntax for EReferences}
 
