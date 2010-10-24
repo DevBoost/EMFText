@@ -16,7 +16,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
 	
-	private class PrintToken {
+	protected class PrintToken {
 		
 		private String text;
 		private String tokenName;
@@ -50,7 +50,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	private java.util.Map<?, ?> options;
 	private java.io.OutputStream outputStream;
-	private java.util.List<PrintToken> tokenOutputStream;
+	protected java.util.List<PrintToken> tokenOutputStream;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean handleTokenSpaceAutomatically = false;
 	private int tokenSpace = 0;
