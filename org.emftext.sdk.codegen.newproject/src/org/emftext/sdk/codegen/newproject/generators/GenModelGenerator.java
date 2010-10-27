@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.newproject.generators;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -10,6 +11,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * Initializes a new generator model from the Ecore model generated before.
@@ -33,11 +35,12 @@ public class GenModelGenerator extends ModelGenerator {
 		genModel.initialize(ePackages);
 		genModel.setModelDirectory(parameters.getProjectName() + "/" + parameters.getSrcFolder());
 		genModel.setModelPluginID(parameters.getProjectName());
+		genModel.setComplianceLevel(GenJDKLevel.JDK50_LITERAL);
 
         GenPackage genPackage = genModel.getGenPackages().get(0);
         genModel.setModelName(genModelURI.trimFileExtension().lastSegment());
 
-        genPackage.setPrefix(parameters.getName());
+        genPackage.setPrefix(StringUtil.capitalize(parameters.getName()));
         genPackage.setBasePackage(parameters.getBasePackage());
         getContext().setGenPackage(genPackage);
         return genModel;
