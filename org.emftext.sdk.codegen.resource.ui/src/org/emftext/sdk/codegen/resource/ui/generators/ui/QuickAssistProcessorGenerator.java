@@ -76,8 +76,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addComputeQuickAssistProposalsMethod(JavaComposite sc) {
-		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeQuickAssistProposals(");
-		sc.add(I_QUICK_ASSIST_INVOCATION_CONTEXT + " invocationContext) {");
+		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeQuickAssistProposals(" + I_QUICK_ASSIST_INVOCATION_CONTEXT + " invocationContext) {");
 		sc.add(I_SOURCE_VIEWER + " sourceViewer = invocationContext.getSourceViewer();");
 		sc.add("int offset = -1;");
 		sc.add("int length = 0;");
