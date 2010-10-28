@@ -580,3 +580,51 @@ information such as which structural feature they complete
 selected by a user (\texttt{getInsertString()}). To modify proposals, new
 instances of the \texttt{XyzCompletionProposal} must be created, because this 
 class is immutable.
+
+\subsection{Adding Context Menu Items to the Outline View}
+
+To add new items to the context menu of the generated outline view, you can use
+the standard mechanism to register menu items. All that is needed, is to
+register a menu item (using the \texttt{org.eclipse.ui.menus} extension point),
+a command that is created when the menu item is selected (using the
+\texttt{org.eclipse.ui.commands} extension point) and a handler that can process
+your command (using the \texttt{org.eclipse.ui.handlers} extension point). For
+example, the following fragment of a \texttt{plugin.xml} file registers a new
+menu item that can be invoked on objects of type
+\texttt{org.emftext.language.xyz.XyzClass}.
+
+\begin{lstlisting}
+<extension point="org.eclipse.ui.commands">
+  <command
+    id="org.emftext.language.xyz.resource.xyz.ui.command"
+    name="Xyz Command"
+    description="This is a Xyz command">
+  </command>
+</extension>
+
+<extension point="org.eclipse.ui.handlers">
+  <handler
+    class="org.emftext.language.xyz.resource.xyz.ui.CommandHandler"
+    commandId="org.emftext.language.xyz.resource.xyz.ui.command">
+  </handler>
+</extension>
+
+<extension point="org.eclipse.ui.menus">
+  <menuContribution 
+  locationURI="popup:org.emftext.language.xyz.resource.xyz.ui.outlinecontext?
+               after=additions">
+   <command
+    commandId="org.emftext.language.xyz.resource.xyz.ui.command"
+    label="Sample action registered for XYZ outline view">
+    <visibleWhen checkEnabled="false">
+      <iterate>
+      <adapt type="org.emftext.language.xyz.XyzClass" />
+      </iterate>
+    </visibleWhen>
+  </command>
+  </menuContribution>
+</extension>
+\end{lstlisting}
+
+Note that you will also need a class \texttt{CommandHandler}, which must
+implement the interface \texttt{org.eclipse.core.commands.IHandler}.
