@@ -19,6 +19,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.ui.views.contentoutline.IContentOutlinePage {
 	
+	public final static String CONTEXT_MENU_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui.outlinecontext";
+	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
 	private org.eclipse.jface.viewers.TreeViewer treeViewer;
 	private org.eclipse.core.runtime.ListenerList selectionChangedListeners = new org.eclipse.core.runtime.ListenerList();
@@ -51,6 +53,27 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 			// Select the root object in the view.
 			treeViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(resources.get(0)), true);
 		}
+		createContextMenu();
+	}
+	
+	private void createContextMenu() {
+		// create menu manager
+		org.eclipse.jface.action.MenuManager menuManager = new org.eclipse.jface.action.MenuManager();
+		menuManager.setRemoveAllWhenShown(true);
+		menuManager.addMenuListener(new org.eclipse.jface.action.IMenuListener() {
+			public void menuAboutToShow(org.eclipse.jface.action.IMenuManager manager) {
+				fillContextMenu(manager);
+			}
+		});
+		// create menu
+		org.eclipse.swt.widgets.Menu menu = menuManager.createContextMenu(treeViewer.getControl());
+		treeViewer.getControl().setMenu(menu);
+		// register menu for extension
+		getSite().registerContextMenu("org.emftext.sdk.concretesyntax.resource.cs.ui.outlinecontext", menuManager, treeViewer);
+	}
+	
+	private void fillContextMenu(org.eclipse.jface.action.IMenuManager manager) {
+		manager.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 	
 	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {

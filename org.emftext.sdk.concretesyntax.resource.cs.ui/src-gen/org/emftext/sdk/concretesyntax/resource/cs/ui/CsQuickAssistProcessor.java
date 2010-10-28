@@ -32,7 +32,7 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 		return quickFixes.size() > 0;
 	}
 	
-	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeQuickAssistProposals(	org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext invocationContext) {
+	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeQuickAssistProposals(org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext invocationContext) {
 		org.eclipse.jface.text.source.ISourceViewer sourceViewer = invocationContext.getSourceViewer();
 		int offset = -1;
 		int length = 0;
