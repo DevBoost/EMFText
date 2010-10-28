@@ -18,12 +18,18 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GROUP_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MENU_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MENU_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PAGE_SITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_ACTION_CONSTANTS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
@@ -44,6 +50,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	private final UIGeneratorUtil generatorUtil = new UIGeneratorUtil();
 	
 	public void generateJavaContents(JavaComposite sc) {
+		String outlineContextMenuID = getContext().getResourceUIPlugin().getName() + ".outlinecontext";
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -51,15 +58,17 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("public class " + getResourceClassName() + " extends " + PAGE + " implements " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_CONTENT_OUTLINE_PAGE + " {");
 		sc.addLineBreak();
 		
-		addFields(sc);
+		addFields(sc, outlineContextMenuID);
 		addConstructor(sc);
-		addMethods(sc);
+		addMethods(sc, outlineContextMenuID);
 
 		sc.add("}");
 	}
 
-	private void addMethods(JavaComposite sc) {
+	private void addMethods(JavaComposite sc, String outlineContextMenuID) {
 		addCreateControlMethod(sc);
+		addCreateContextMenuMethod(sc, outlineContextMenuID);
+		addFillContextMenuMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
 		addGetControlMethod(sc);
 		addGetSelectionMethod(sc);
@@ -178,6 +187,33 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addComment("Select the root object in the view.");
 		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resources.get(0)), true);");
 		sc.add("}");
+		sc.add("createContextMenu();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateContextMenuMethod(JavaComposite sc, String outlineContextMenuID) {
+		sc.add("private void createContextMenu() {");
+		sc.addComment("create menu manager");
+		sc.add(MENU_MANAGER + " menuManager = new " + MENU_MANAGER + "();");
+		sc.add("menuManager.setRemoveAllWhenShown(true);");
+		sc.add("menuManager.addMenuListener(new " + I_MENU_LISTENER + "() {");
+		sc.add("public void menuAboutToShow(" + I_MENU_MANAGER + " manager) {");
+		sc.add("fillContextMenu(manager);");
+		sc.add("}");
+		sc.add("});");
+		sc.addComment("create menu");
+		sc.add(MENU + " menu = menuManager.createContextMenu(treeViewer.getControl());");
+		sc.add("treeViewer.getControl().setMenu(menu);");
+		sc.addComment("register menu for extension");
+		sc.add("getSite().registerContextMenu(\"" + outlineContextMenuID + "\", menuManager, treeViewer);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFillContextMenuMethod(JavaComposite sc) {
+		sc.add("private void fillContextMenu(" + I_MENU_MANAGER + " manager) {");
+		sc.add("manager.add(new " + GROUP_MARKER + "(" + I_WORKBENCH_ACTION_CONSTANTS + ".MB_ADDITIONS));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -190,7 +226,9 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(StringComposite sc, String outlineContextMenuID) {
+		sc.add("public final static String CONTEXT_MENU_ID = \"" + outlineContextMenuID + "\";");
+		sc.addLineBreak();
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + TREE_VIEWER + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");

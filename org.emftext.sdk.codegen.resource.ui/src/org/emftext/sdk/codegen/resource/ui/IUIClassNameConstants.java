@@ -161,6 +161,7 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -314,6 +315,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
@@ -454,10 +456,12 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String GEN_PACKAGE = GenPackage.class.getName();
 	public static String GRID_DATA = GridData.class.getName();
 	public static String GRID_LAYOUT = GridLayout.class.getName();
+	public static String GROUP_MARKER = GroupMarker.class.getName(); 
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public static String IMAGE = org.eclipse.swt.graphics.Image.class.getName();
 	public static String IMAGE_DATA = ImageData.class.getName();
+	public static String IMAGE_DESCRIPTOR = ImageDescriptor.class.getName();
 	public static String IMAGE_LOADER = ImageLoader.class.getName();
 	public static String INCREMENTAL_PROJECT_BUILDER = IncrementalProjectBuilder.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
@@ -512,6 +516,8 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_MARKER_RESOLUTION2 = IMarkerResolution2.class.getName();
 	public static String I_MARKER_RESOLUTION_GENERATOR = IMarkerResolutionGenerator.class.getName();
 	public static String I_MEMENTO = IMemento.class.getName();
+	public static String I_MENU_LISTENER = org.eclipse.jface.action.IMenuListener.class.getName();
+	public static String I_MENU_MANAGER = org.eclipse.jface.action.IMenuManager.class.getName();
 	public static String I_NEW_WIZARD = INewWizard.class.getName();
 	public static String I_PAGE_SITE = IPageSite.class.getName();
 	public static String I_PART_LISTENER2 = IPartListener2.class.getName();
@@ -558,6 +564,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_WIZARD = IWizard.class.getName();
 	public static String I_WIZARD_CATEGORY = IWizardCategory.class.getName();
 	public static String I_WORKBENCH = IWorkbench.class.getName();
+	public static String I_WORKBENCH_ACTION_CONSTANTS = IWorkbenchActionConstants.class.getName();
 	public static String I_WORKBENCH_PAGE = IWorkbenchPage.class.getName();
 	public static String I_WORKBENCH_PART = IWorkbenchPart.class.getName();
 	public static String I_WORKBENCH_PART_REFERENCE = IWorkbenchPartReference.class.getName();
@@ -588,6 +595,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String MARKER_ANNOTATION = MarkerAnnotation.class.getName();
 	public static String MATCHER = Matcher.class.getName();
 	public static String MENU = Menu.class.getName();
+	public static String MENU_MANAGER = org.eclipse.jface.action.MenuManager.class.getName();
 	public static String MESSAGE_BOX = MessageBox.class.getName();
 	public static String MESSAGE_DIALOG = MessageDialog.class.getName();
 	public static String MESSAGE_DIGEST = MessageDigest.class.getName();
@@ -707,6 +715,4 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
-
-	public static String IMAGE_DESCRIPTOR = ImageDescriptor.class.getName();
 }
