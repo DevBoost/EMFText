@@ -126,6 +126,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addLoadResourceMethod(sc);
 		addGetUriMethod(sc);
 		addGetCacheMethod(sc);
+		addSetEnableScopingMethod(sc);
+		addGetEnableScopingMethod(sc);
 	}
 
 	private void addGetCacheMethod(StringComposite sc) {
@@ -357,10 +359,16 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		);
 		sc.add("protected void resolve(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("try {");
-		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(container);");
-		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result);");
+		sc.add(E_OBJECT + " root = container;");
+		sc.add("if (!enableScoping) {");
+		sc.add("root = " + eObjectUtilClassName + ".findRootContainer(container);");
+		sc.add("}");
+		sc.add("while (root != null) {");
+		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result, !enableScoping);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
+		sc.add("}");
+		sc.add("root = root.eContainer();");
 		sc.add("}");
 		sc.add("tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
@@ -378,14 +386,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"implement custom reference resolvers which require to search in a particular scope for referenced elements, " +
 			"rather than in the whole resource as done by resolve()."
 		);
-		sc.add("protected boolean tryToResolveIdentifierInObjectTree(String identifier, " + E_OBJECT + " root, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add("protected boolean tryToResolveIdentifierInObjectTree(String identifier, " + E_OBJECT + " root, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result, boolean checkRootFirst) {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
-		sc.addComment("first check whether the root element matches");
-		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
-		sc.add("if (!continueSearch) {");
-		sc.add("return false;");
+		sc.add("boolean continueSearch;");
+		sc.add("if (checkRootFirst) {");
+		addCheckRootElementCode(sc);
 		sc.add("}");
-		sc.addComment("then check the contents");
+		sc.addComment("check the contents");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> iterator = root.eAllContents(); iterator.hasNext(); ) {");
 		sc.add(E_OBJECT + " element = iterator.next();");
 		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);");
@@ -393,9 +400,22 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
+		sc.addComment("if the root element was already checked, we can return.");
+		sc.add("if (checkRootFirst) {");
+		sc.add("return true;");
+		sc.add("}");
+		addCheckRootElementCode(sc);
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addCheckRootElementCode(JavaComposite sc) {
+		sc.addComment("check whether the root element matches");
+		sc.add("continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
+		sc.add("if (!continueSearch) {");
+		sc.add("return false;");
+		sc.add("}");
 	}
 
 	private void addTryToResolveIdentifierAsURI(JavaComposite sc) {
@@ -423,8 +443,24 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 	
+	private void addSetEnableScopingMethod(StringComposite sc) {
+		sc.add("public void setEnableScoping(boolean enableScoping) {");
+		sc.add("this.enableScoping = enableScoping;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetEnableScopingMethod(StringComposite sc) {
+		sc.add("public boolean getEnableScoping() {");
+		sc.add("return enableScoping;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addFields(StringComposite sc) {
 		sc.add("public final static String NAME_FEATURE = \"name\";");
+		sc.addLineBreak();
+		sc.add("private boolean enableScoping = true;");
 		sc.addLineBreak();
 	}
 }
