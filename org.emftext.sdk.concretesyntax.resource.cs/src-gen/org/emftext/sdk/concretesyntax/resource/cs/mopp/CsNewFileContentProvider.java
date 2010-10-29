@@ -34,6 +34,11 @@ public class CsNewFileContentProvider {
 	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, String newFileName) {
 		// create a minimal model
 		org.eclipse.emf.ecore.EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newFileName);
+		if (root == null) {
+			// could not create a minimal model. returning an empty document is the best we
+			// can do.
+			return "";
+		}
 		// use printer to get text for model
 		java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getPrinter(buffer);
