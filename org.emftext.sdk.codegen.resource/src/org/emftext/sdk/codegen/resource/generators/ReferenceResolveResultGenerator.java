@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -42,6 +43,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 
 	private void addMethods(JavaComposite sc) {
 		addGetErrorMessageMethod(sc);
+		addGetQuickFixesMethod(sc);
 		addGetMappingsMethod(sc);
 		addWasResolvedMethod(sc);
 		addWasResolvedMultipleMethod(sc);
@@ -57,6 +59,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("private " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> mappings;");
 		sc.add("private String errorMessage;");
 		sc.add("private boolean resolveFuzzy;");
+		sc.add("private " + SET + "<" + iQuickFixClassName + "> quickFixes;");
 		sc.addLineBreak();
 	}
 
@@ -71,6 +74,16 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addGetErrorMessageMethod(JavaComposite sc) {
 		sc.add("public String getErrorMessage() {");
 		sc.add("return errorMessage;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetQuickFixesMethod(JavaComposite sc) {
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("if (quickFixes == null) {");
+		sc.add("quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
+		sc.add("}");
+		sc.add("return quickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

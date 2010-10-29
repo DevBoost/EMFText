@@ -628,7 +628,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR, result.getQuickFixes()), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();

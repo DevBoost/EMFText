@@ -52,6 +52,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 		addAddMappingMethod2(sc);
 		addAddMappingMethod3(sc);
 		addAddMappingMethod4(sc);
+		addGetQuickFixesMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -132,6 +133,13 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 	private void addAddMappingMethod4(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
 		sc.add("delegate.addMapping(identifier, uri, warning);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetQuickFixesMethod(JavaComposite sc) {
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("return delegate.getQuickFixes();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

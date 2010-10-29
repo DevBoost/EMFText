@@ -43,6 +43,10 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public String getErrorMessage();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Returns the quick fixes that can be used to resolve the resolving error.");
+		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes();");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
 			"Sets the error message that describes what went wrong while " +
 			"resolving a reference. If a mapping for the reference was " +
