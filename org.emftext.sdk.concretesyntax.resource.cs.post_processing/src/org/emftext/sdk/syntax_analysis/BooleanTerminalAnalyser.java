@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.emftext.sdk.AbstractPostProcessor;
@@ -48,7 +49,8 @@ public class BooleanTerminalAnalyser extends AbstractPostProcessor {
 			}
 			EAttribute eAttribute = (EAttribute) eFeature;
 			EClassifier eType = eAttribute.getEType();
-			if (!eType.equals(EcorePackage.eINSTANCE.getEBoolean())) {
+			EDataType eBoolean = EcorePackage.eINSTANCE.getEBoolean();
+			if (!eType.getInstanceClass().equals(eBoolean.getInstanceClass())) {
 				addProblem(ECsProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_BOOLEAN, FEATURE_NOT_BOOLEAN, booleanTerminal);
 				continue;
 			}
