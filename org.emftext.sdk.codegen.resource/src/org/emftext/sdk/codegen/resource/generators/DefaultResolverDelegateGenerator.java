@@ -33,6 +33,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RUNTIME_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -58,7 +59,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	private void addInnerClassReferenceCache(StringComposite sc) {
 		sc.add("private static class ReferenceCache implements " + iReferenceCacheClassName + ", " + ADAPTER + " {");
 		sc.addLineBreak();
-		sc.add("private " + MAP + "<String, Object> cache = new " + LINKED_HASH_MAP + "<String, Object>();");
+		sc.add("private " + MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">> cache = new " + LINKED_HASH_MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">>();");
+		sc.add("private boolean isInitialized;");
 		sc.add("private " + NOTIFIER + " target;");
 		sc.addLineBreak();
 		sc.add("public " + NOTIFIER + " getTarget() {");
@@ -76,12 +78,33 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("target = arg0;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public Object get(String identifier) {");
-		sc.add("return cache.get(identifier);");
+		sc.add("public " + SET + "<" + E_OBJECT + "> getObjects(" + E_CLASS + " type) {");
+		sc.add("return cache.get(type);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void put(String identifier, Object newObject) {");
-		sc.add("cache.put(identifier, newObject);");
+		sc.add("public void initialize(" + E_OBJECT + " root) {");
+		sc.add("if (isInitialized) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("put(root);");
+		sc.add(ITERATOR + "<" + E_OBJECT + "> it = root.eAllContents();");
+		sc.add("while (it.hasNext()) {");
+		sc.add("put(it.next());");
+		sc.add("}");
+		sc.add("isInitialized = true;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private void put(" + E_OBJECT + " object) {");
+		sc.add(E_CLASS + " eClass = object.eClass();");
+		sc.add("if (!cache.containsKey(eClass)) {");
+		sc.add("cache.put(eClass, new " + LINKED_HASH_SET + "<" + E_OBJECT + ">());");
+		sc.add("}");
+		sc.add("cache.get(eClass).add(object);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void clear() {");
+		sc.add("cache.clear();");
+		sc.add("isInitialized = false;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
@@ -116,6 +139,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.add("ReferenceCache cache = new ReferenceCache();");
+		sc.add("cache.initialize(root);");
 		sc.add("root.eAdapters().add(cache);");
 		sc.add("return cache;");
 		sc.add("}");
@@ -403,6 +427,4 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public final static String NAME_FEATURE = \"name\";");
 		sc.addLineBreak();
 	}
-
-	
 }
