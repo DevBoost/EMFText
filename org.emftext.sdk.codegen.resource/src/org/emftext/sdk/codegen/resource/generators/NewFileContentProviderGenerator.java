@@ -79,6 +79,10 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, String newFileName) {");
 		sc.addComment("create a minimal model");
 		sc.add(E_OBJECT + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
+		sc.add("if (root == null) {");
+		sc.addComment("could not create a minimal model. returning an empty document is the best we can do.");
+		sc.add("return \"\";");
+		sc.add("}");
 		sc.addComment("use printer to get text for model");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
 		sc.add(iTextPrinterClassName + " printer = getPrinter(buffer);");
