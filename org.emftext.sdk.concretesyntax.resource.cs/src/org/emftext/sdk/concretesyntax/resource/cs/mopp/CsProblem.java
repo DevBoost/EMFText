@@ -57,6 +57,13 @@ public class CsProblem implements ICsProblem {
 		this.problemType = type;
 	}
 
+	public CsProblem(String message, CsEProblemType type, Collection<ICsQuickFix> quickFixes) {
+		this.message = message;
+		this.problemType = type;
+		this.quickFixes = new LinkedHashSet<ICsQuickFix>();
+		this.quickFixes.addAll(quickFixes);
+	}
+
 	public CsEProblemType getType() {
 		return problemType;
 	}

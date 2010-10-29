@@ -18,7 +18,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	
 	private static class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
 		
-		private java.util.Map<String, Object> cache = new java.util.LinkedHashMap<String, Object>();
+		private java.util.Map<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>> cache = new java.util.LinkedHashMap<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>>();
+		private boolean isInitialized;
 		private org.eclipse.emf.common.notify.Notifier target;
 		
 		public org.eclipse.emf.common.notify.Notifier getTarget() {
@@ -36,17 +37,40 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			target = arg0;
 		}
 		
-		public Object get(String identifier) {
-			return cache.get(identifier);
+		public java.util.Set<org.eclipse.emf.ecore.EObject> getObjects(org.eclipse.emf.ecore.EClass type) {
+			return cache.get(type);
 		}
 		
-		public void put(String identifier, Object newObject) {
-			cache.put(identifier, newObject);
+		public void initialize(org.eclipse.emf.ecore.EObject root) {
+			if (isInitialized) {
+				return;
+			}
+			put(root);
+			java.util.Iterator<org.eclipse.emf.ecore.EObject> it = root.eAllContents();
+			while (it.hasNext()) {
+				put(it.next());
+			}
+			isInitialized = true;
+		}
+		
+		private void put(org.eclipse.emf.ecore.EObject object) {
+			org.eclipse.emf.ecore.EClass eClass = object.eClass();
+			if (!cache.containsKey(eClass)) {
+				cache.put(eClass, new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>());
+			}
+			cache.get(eClass).add(object);
+		}
+		
+		public void clear() {
+			cache.clear();
+			isInitialized = false;
 		}
 		
 	}
 	
 	public final static String NAME_FEATURE = "name";
+	
+	private boolean enableScoping = true;
 	
 	/**
 	 * This standard implementation searches for objects in the resource, which have
@@ -56,16 +80,49 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 */
 	protected void resolve(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		try {
-			org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
-			boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result);
-			if (!continueSearch) {
-				return;
+			org.eclipse.emf.ecore.EObject root = container;
+			if (!enableScoping) {
+				root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
 			}
-			tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);
+			while (root != null) {
+				boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result, !enableScoping);
+				if (!continueSearch) {
+					return;
+				}
+				root = root.eContainer();
+			}
+			boolean continueSearch = tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);
+			if (continueSearch) {
+				java.util.Set<org.eclipse.emf.ecore.EObject> crossReferencedObjectsInOtherResource = findExternalReferences(container);
+				for (org.eclipse.emf.ecore.EObject externalObject : crossReferencedObjectsInOtherResource) {
+					continueSearch = tryToResolveIdentifierInObjectTree(identifier, externalObject, reference, resolveFuzzy, result, !enableScoping);
+					if (!continueSearch) {
+						return;
+					}
+				}
+			}
 		} catch (java.lang.RuntimeException rte) {
 			// catch exception here to prevent EMF proxy resolution from swallowing it
 			rte.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Returns all EObjects that are referenced by EObjects in the resource that
+	 * contains <code>object</code>.
+	 */
+	private java.util.Set<org.eclipse.emf.ecore.EObject> findExternalReferences(org.eclipse.emf.ecore.EObject object) {
+		org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(object);
+		java.util.Set<org.eclipse.emf.ecore.EObject> externalReferences = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+		externalReferences.addAll(root.eCrossReferences());
+		java.util.Iterator<org.eclipse.emf.ecore.EObject> eAllContents = root.eAllContents();
+		while (eAllContents.hasNext()) {
+			org.eclipse.emf.ecore.EObject next = eAllContents.next();
+			if (next.eResource() != object.eResource()) {
+				externalReferences.addAll(next.eCrossReferences());
+			}
+		}
+		return externalReferences;
 	}
 	
 	/**
@@ -75,14 +132,17 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * resolvers which require to search in a particular scope for referenced
 	 * elements, rather than in the whole resource as done by resolve().
 	 */
-	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result, boolean checkRootFirst) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
-		// first check whether the root element matches
-		boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
-		if (!continueSearch) {
-			return false;
+		boolean continueSearch;
+		if (checkRootFirst) {
+			// check whether the root element matches
+			continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+			if (!continueSearch) {
+				return false;
+			}
 		}
-		// then check the contents
+		// check the contents
 		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
 			org.eclipse.emf.ecore.EObject element = iterator.next();
 			continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);
@@ -90,10 +150,19 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				return false;
 			}
 		}
+		// if the root element was already checked, we can return.
+		if (checkRootFirst) {
+			return true;
+		}
+		// check whether the root element matches
+		continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+		if (!continueSearch) {
+			return false;
+		}
 		return true;
 	}
 	
-	private void tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 		org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
 		if (resource != null) {
@@ -101,11 +170,12 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			if (uri != null) {
 				org.eclipse.emf.ecore.EObject element = loadResource(container.eResource().getResourceSet(), uri);
 				if (element == null) {
-					return;
+					return true;
 				}
-				checkElement(element, type, identifier, resolveFuzzy, false, result);
+				return checkElement(element, type, identifier, resolveFuzzy, false, result);
 			}
 		}
+		return true;
 	}
 	
 	private boolean checkElement(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass type, String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
@@ -289,7 +359,16 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			}
 		}
 		ReferenceCache cache = new ReferenceCache();
+		cache.initialize(root);
 		root.eAdapters().add(cache);
 		return cache;
 	}
+	public void setEnableScoping(boolean enableScoping) {
+		this.enableScoping = enableScoping;
+	}
+	
+	public boolean getEnableScoping() {
+		return enableScoping;
+	}
+	
 }

@@ -70,4 +70,8 @@ public class CsFuzzyResolveResult<ReferenceType extends org.eclipse.emf.ecore.EO
 		delegate.addMapping(identifier, uri, warning);
 	}
 	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+		return delegate.getQuickFixes();
+	}
+	
 }

@@ -27,6 +27,7 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
+	private java.util.Set<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes;
 	
 	public CsReferenceResolveResult(boolean resolveFuzzy) {
 		super();
@@ -35,6 +36,13 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+		if (quickFixes == null) {
+			quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+		}
+		return quickFixes;
 	}
 	
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {

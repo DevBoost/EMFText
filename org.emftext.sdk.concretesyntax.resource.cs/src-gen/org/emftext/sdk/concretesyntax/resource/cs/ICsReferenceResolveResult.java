@@ -33,6 +33,11 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	public String getErrorMessage();
 	
 	/**
+	 * Returns the quick fixes that can be used to resolve the resolving error.
+	 */
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes();
+	
+	/**
 	 * Sets the error message that describes what went wrong while resolving a
 	 * reference. If a mapping for the reference was already found (i.e., addMapping()
 	 * was called before), the call to this method is ignored. If addMapping() is

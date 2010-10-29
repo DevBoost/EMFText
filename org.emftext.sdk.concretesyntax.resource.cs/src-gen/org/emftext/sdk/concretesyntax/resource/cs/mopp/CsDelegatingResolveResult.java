@@ -70,4 +70,8 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 		delegate.addMapping(identifier, uri, warning);
 	}
 	
+	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+		return delegate.getQuickFixes();
+	}
+	
 }

@@ -358,7 +358,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (errorMessage == null) {
 			assert(false);
 		} else {
-			addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), proxy);
+			addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR, result.getQuickFixes()), proxy);
 		}
 	}
 	
