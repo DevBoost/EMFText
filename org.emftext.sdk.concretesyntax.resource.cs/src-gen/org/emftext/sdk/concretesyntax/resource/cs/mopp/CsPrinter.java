@@ -148,10 +148,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			print_org_emftext_sdk_concretesyntax_RegexReference((org.emftext.sdk.concretesyntax.RegexReference) element, globaltab, out);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
-			print_org_emftext_sdk_concretesyntax_Abstract((org.emftext.sdk.concretesyntax.Abstract) element, globaltab, out);
-			return;
-		}
 		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
 			print_org_emftext_sdk_concretesyntax_TokenStyle((org.emftext.sdk.concretesyntax.TokenStyle) element, globaltab, out);
 			return;
@@ -219,8 +215,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("packageLocationHint", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS));
 		printCountingMap.put("annotations", temp == null ? 0 : ((java.util.Collection<?>) temp).size());
-		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER));
-		printCountingMap.put("modifier", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME));
 		printCountingMap.put("name", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS));
@@ -253,6 +247,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("_genClassCache", temp == null ? 0 : 1);
 		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL));
 		printCountingMap.put("_eClassUtil", temp == null ? 0 : 1);
+		temp = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT));
+		printCountingMap.put("abstract", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
@@ -276,18 +272,13 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 				printCountingMap.putAll(printCountingMap1);
 			}
 		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		sWriter = new java.io.StringWriter();
-		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_1(element, localtab, out1, printCountingMap1);
-		if (printCountingMap.equals(printCountingMap1)) {
-			out1.close();
-		} else {
-			out1.flush();
-			out1.close();
-			out.print(sWriter.toString());
-			printCountingMap.putAll(printCountingMap1);
+		// DEFINITION PART BEGINS (BooleanTerminal)
+		count = printCountingMap.get("abstract");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT));
+			if (o != null) {
+			}
+			printCountingMap.put("abstract", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print("SYNTAXDEF");
@@ -326,7 +317,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
 		printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(element, localtab, out1, printCountingMap1);
+		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_1(element, localtab, out1, printCountingMap1);
 		if (printCountingMap.equals(printCountingMap1)) {
 			out1.close();
 		} else {
@@ -338,6 +329,19 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		sWriter = new java.io.StringWriter();
+		out1 = new java.io.PrintWriter(sWriter);
+		printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
+		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(element, localtab, out1, printCountingMap1);
+		if (printCountingMap.equals(printCountingMap1)) {
+			out1.close();
+		} else {
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new java.io.StringWriter();
 		out1 = new java.io.PrintWriter(sWriter);
@@ -390,19 +394,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
 		}
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		sWriter = new java.io.StringWriter();
-		out1 = new java.io.PrintWriter(sWriter);
-		printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7(element, localtab, out1, printCountingMap1);
-		if (printCountingMap.equals(printCountingMap1)) {
-			out1.close();
-		} else {
-			out1.flush();
-			out1.close();
-			out.print(sWriter.toString());
-			printCountingMap.putAll(printCountingMap1);
-		}
 		// DEFINITION PART BEGINS (LineBreak)
 		out.println();
 		out.print(localtab);
@@ -421,7 +412,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
 			printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_8(element, localtab, out1, printCountingMap1);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
 				out1.close();
@@ -462,21 +453,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.print(localtab);
 	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_1(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
-		String localtab = outertab;
-		int count;
-		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("modifier");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER));
-			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
-			}
-			printCountingMap.put("modifier", count - 1);
-		}
-		// DEFINITION PART BEGINS (WhiteSpaces)
-		out.print(" ");
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		int count;
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
@@ -492,7 +468,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			printCountingMap.put("packageLocationHint", count - 1);
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		String localtab = outertab;
 		boolean iterate = true;
 		java.io.StringWriter sWriter = null;
@@ -503,14 +479,14 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(element, localtab, out, printCountingMap);
+		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_0(element, localtab, out, printCountingMap);
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		iterate = true;
 		while (iterate) {
 			sWriter = new java.io.StringWriter();
 			out1 = new java.io.PrintWriter(sWriter);
 			printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_1(element, localtab, out1, printCountingMap1);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_1(element, localtab, out1, printCountingMap1);
 			if (printCountingMap.equals(printCountingMap1)) {
 				iterate = false;
 				out1.close();
@@ -522,7 +498,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			}
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		int count;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("startSymbols");
@@ -543,14 +519,14 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			printCountingMap.put("startSymbols", count - 1);
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_1(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_1(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		String localtab = outertab;
 		// DEFINITION PART BEGINS (CsString)
 		out.print(",");
 		// DEFINITION PART BEGINS (CompoundDefinition)
-		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_1_0(element, localtab, out, printCountingMap);
+		print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_1_0(element, localtab, out, printCountingMap);
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_1_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_1_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		int count;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
 		count = printCountingMap.get("startSymbols");
@@ -569,6 +545,71 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 				out.print(resolver.deResolve(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getConcreteSyntaxStartSymbolsReferenceResolver().deResolve((org.eclipse.emf.codegen.ecore.genmodel.GenClass) o, element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS)), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element));
 			}
 			printCountingMap.put("startSymbols", count - 1);
+		}
+	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+		String localtab = outertab;
+		boolean iterate = true;
+		java.io.StringWriter sWriter = null;
+		java.io.PrintWriter out1 = null;
+		java.util.Map<String, Integer> printCountingMap1 = null;
+		// DEFINITION PART BEGINS (LineBreak)
+		out.println();
+		out.print(localtab);
+		// DEFINITION PART BEGINS (LineBreak)
+		out.println();
+		out.print(localtab);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("IMPORTS");
+		// DEFINITION PART BEGINS (WhiteSpaces)
+		out.print(" ");
+		// DEFINITION PART BEGINS (CsString)
+		out.print("{");
+		// DEFINITION PART BEGINS (CompoundDefinition)
+		iterate = true;
+		while (iterate) {
+			sWriter = new java.io.StringWriter();
+			out1 = new java.io.PrintWriter(sWriter);
+			printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(element, localtab, out1, printCountingMap1);
+			if (printCountingMap.equals(printCountingMap1)) {
+				iterate = false;
+				out1.close();
+			} else {
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+		// DEFINITION PART BEGINS (LineBreak)
+		out.println();
+		out.print(localtab);
+		// DEFINITION PART BEGINS (CsString)
+		out.print("}");
+	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+		String localtab = outertab;
+		int count;
+		// DEFINITION PART BEGINS (LineBreak)
+		localtab += "	";
+		out.println();
+		out.print(localtab);
+		// DEFINITION PART BEGINS (Containment)
+		count = printCountingMap.get("imports");
+		if (count > 0) {
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS));
+			java.util.List<?> list = (java.util.List<?>) o;
+			int index = list.size() - count;
+			if (index >= 0) {
+				o = list.get(index);
+			} else {
+				o = null;
+			}
+			if (o != null) {
+				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
+			}
+			printCountingMap.put("imports", count - 1);
 		}
 	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
@@ -584,7 +625,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
-		out.print("IMPORTS");
+		out.print("OPTIONS");
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
@@ -620,9 +661,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("imports");
+		count = printCountingMap.get("options");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS));
 			java.util.List<?> list = (java.util.List<?>) o;
 			int index = list.size() - count;
 			if (index >= 0) {
@@ -633,8 +674,10 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("imports", count - 1);
+			printCountingMap.put("options", count - 1);
 		}
+		// DEFINITION PART BEGINS (CsString)
+		out.print(";");
 	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_5(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		String localtab = outertab;
@@ -649,7 +692,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
-		out.print("OPTIONS");
+		out.print("TOKENS");
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
@@ -685,9 +728,9 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("options");
+		count = printCountingMap.get("tokens");
 		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS));
+			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS));
 			java.util.List<?> list = (java.util.List<?>) o;
 			int index = list.size() - count;
 			if (index >= 0) {
@@ -698,7 +741,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			if (o != null) {
 				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
 			}
-			printCountingMap.put("options", count - 1);
+			printCountingMap.put("tokens", count - 1);
 		}
 		// DEFINITION PART BEGINS (CsString)
 		out.print(";");
@@ -716,7 +759,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (CsString)
-		out.print("TOKENS");
+		out.print("TOKENSTYLES");
 		// DEFINITION PART BEGINS (WhiteSpaces)
 		out.print(" ");
 		// DEFINITION PART BEGINS (CsString)
@@ -752,73 +795,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		out.println();
 		out.print(localtab);
 		// DEFINITION PART BEGINS (Containment)
-		count = printCountingMap.get("tokens");
-		if (count > 0) {
-			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS));
-			java.util.List<?> list = (java.util.List<?>) o;
-			int index = list.size() - count;
-			if (index >= 0) {
-				o = list.get(index);
-			} else {
-				o = null;
-			}
-			if (o != null) {
-				doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
-			}
-			printCountingMap.put("tokens", count - 1);
-		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print(";");
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
-		String localtab = outertab;
-		boolean iterate = true;
-		java.io.StringWriter sWriter = null;
-		java.io.PrintWriter out1 = null;
-		java.util.Map<String, Integer> printCountingMap1 = null;
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
-		// DEFINITION PART BEGINS (CsString)
-		out.print("TOKENSTYLES");
-		// DEFINITION PART BEGINS (WhiteSpaces)
-		out.print(" ");
-		// DEFINITION PART BEGINS (CsString)
-		out.print("{");
-		// DEFINITION PART BEGINS (CompoundDefinition)
-		iterate = true;
-		while (iterate) {
-			sWriter = new java.io.StringWriter();
-			out1 = new java.io.PrintWriter(sWriter);
-			printCountingMap1 = new java.util.LinkedHashMap<String, Integer>(printCountingMap);
-			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7_0(element, localtab, out1, printCountingMap1);
-			if (printCountingMap.equals(printCountingMap1)) {
-				iterate = false;
-				out1.close();
-			} else {
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
-		}
-		// DEFINITION PART BEGINS (LineBreak)
-		out.println();
-		out.print(localtab);
-		// DEFINITION PART BEGINS (CsString)
-		out.print("}");
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
-		String localtab = outertab;
-		int count;
-		// DEFINITION PART BEGINS (LineBreak)
-		localtab += "	";
-		out.println();
-		out.print(localtab);
-		// DEFINITION PART BEGINS (Containment)
 		count = printCountingMap.get("tokenStyles");
 		if (count > 0) {
 			Object o = element.eGet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES));
@@ -835,7 +811,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			printCountingMap.put("tokenStyles", count - 1);
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_8(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_7(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out, java.util.Map<String, Integer> printCountingMap){
 		String localtab = outertab;
 		int count;
 		// DEFINITION PART BEGINS (LineBreak)
@@ -2458,17 +2434,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			}
 			printCountingMap.put("target", count - 1);
 		}
-	}
-	
-	public void print_org_emftext_sdk_concretesyntax_Abstract(org.emftext.sdk.concretesyntax.Abstract element, String outertab, java.io.PrintWriter out) {
-		// The printCountingMap contains a mapping from feature names to the number of
-		// remaining elements that still need to be printed. The map is initialized with
-		// the number of elements stored in each structural feature. For lists this is the
-		// list size. For non-multiple features it is either 1 (if the feature is set) or
-		// 0 (if the feature is null).
-		// print collected hidden tokens
-		// DEFINITION PART BEGINS (CsString)
-		out.print("ABSTRACT");
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_TokenStyle(org.emftext.sdk.concretesyntax.TokenStyle element, String outertab, java.io.PrintWriter out) {

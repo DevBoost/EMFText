@@ -20,6 +20,7 @@ Require-Bundle: org.eclipse.core.resources,
   org.eclipse.ui.views,
   org.emftext.sdk.concretesyntax.resource.cs,
   org.emftext.sdk,
+  org.emftext.commons.antlr3_2_0,
   org.emftext.sdk.concretesyntax
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

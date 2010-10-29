@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
@@ -36,9 +35,7 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
 		List<GenClass> symbols = syntax.getActiveStartSymbols();
-		Abstract modifier = syntax.getModifier();
-		boolean isDeclaredAbstract = modifier != null;
-		if (isDeclaredAbstract) {
+		if (syntax.isAbstract()) {
 			Collection<ICsQuickFix> quickFixes = new ArrayList<ICsQuickFix>(2);
 			quickFixes.add(new MakeSyntaxConcreteFix(syntax));
 			quickFixes.add(new RemoveReferenceQuickFix("Remove start symbols", syntax, ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax_StartSymbols(), symbols));
@@ -48,7 +45,7 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 				addProblem(
 						ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, 
 						"Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", 
-						modifier, 
+						syntax, 
 						quickFixes
 				);
 			}

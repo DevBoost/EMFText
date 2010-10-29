@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -53,7 +52,6 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getActiveTokens <em>Active Tokens</em>}</li>
@@ -70,6 +68,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#is_operatorRulesInitialized <em>operator Rules Initialized</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_genClassCache <em>gen Class Cache</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_eClassUtil <em>eClass Util</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#isAbstract <em>Abstract</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,16 +84,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected EList<Annotation> annotations;
-
-	/**
-	 * The cached value of the '{@link #getModifier() <em>Modifier</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModifier()
-	 * @generated
-	 * @ordered
-	 */
-	protected Abstract modifier;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -277,6 +266,26 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	protected EClassUtil _eClassUtil;
 
 	/**
+	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ABSTRACT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean abstract_ = ABSTRACT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -305,49 +314,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS);
 		}
 		return annotations;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Abstract getModifier() {
-		return modifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetModifier(Abstract newModifier, NotificationChain msgs) {
-		Abstract oldModifier = modifier;
-		modifier = newModifier;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER, oldModifier, newModifier);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setModifier(Abstract newModifier) {
-		if (newModifier != modifier) {
-			NotificationChain msgs = null;
-			if (modifier != null)
-				msgs = ((InternalEObject)modifier).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER, null, msgs);
-			if (newModifier != null)
-				msgs = ((InternalEObject)newModifier).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER, null, msgs);
-			msgs = basicSetModifier(newModifier, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER, newModifier, newModifier));
 	}
 
 	/**
@@ -799,13 +765,19 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public boolean isAbstract() {
-		
-				if (getModifier() != null) {
-					return true;
-				}
-		
-				return false;
-		
+		return abstract_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT, oldAbstract, abstract_));
 	}
 
 	/**
@@ -907,8 +879,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return basicSetModifier(null, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
@@ -939,8 +909,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 				return getAnnotations();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return getModifier();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return getName();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
@@ -973,6 +941,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return get_genClassCache();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
 				return get_eClassUtil();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT:
+				return isAbstract();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -989,9 +959,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				setModifier((Abstract)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName((String)newValue);
@@ -1053,6 +1020,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
 				set_eClassUtil((EClassUtil)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT:
+				setAbstract((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1067,9 +1037,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 				getAnnotations().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				setModifier((Abstract)null);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName(NAME_EDEFAULT);
@@ -1119,6 +1086,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
 				set_eClassUtil((EClassUtil)null);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1133,8 +1103,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return modifier != null;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
@@ -1167,6 +1135,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return _genClassCache != null;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
 				return _eClassUtil != null;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT:
+				return abstract_ != ABSTRACT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1219,6 +1189,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		result.append(_operatorRuleSubsets);
 		result.append(", _operatorRulesInitialized: ");
 		result.append(_operatorRulesInitialized);
+		result.append(", abstract: ");
+		result.append(abstract_);
 		result.append(')');
 		return result.toString();
 	}

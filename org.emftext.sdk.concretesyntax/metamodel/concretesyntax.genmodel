@@ -263,7 +263,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//GenPackageDependentElement/packageLocationHint"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//ConcreteSyntax">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/modifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/startSymbols"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/activeTokens"/>
@@ -280,6 +279,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/_operatorRulesInitialized"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_genClassCache"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_eClassUtil"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/abstract"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubset/identifier"/>
       </genOperations>
@@ -289,7 +289,6 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/initialiseAnnotatedOperatorRules"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getOperatorRuleSubsets"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getGenClassCache"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isAbstract"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/isImportedRule">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/isImportedRule/rule"/>
       </genOperations>
@@ -455,7 +454,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/value"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//Abstract"/>
     <genClasses ecoreClass="concretesyntax.ecore#//TokenStyle">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/tokenNames"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/rgb"/>

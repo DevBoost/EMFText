@@ -55,12 +55,6 @@
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="isAbstract" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="&#xD;&#xA;&#x9;&#x9;if (getModifier() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
-        <details key="documentation" value=""/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9;return rule.getSyntax() != this;&#xD;&#xA;"/>
@@ -89,8 +83,6 @@
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="startSymbols" upperBound="-1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -127,6 +119,7 @@
         eType="#//GenClassCache" transient="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="_eClassUtil" eType="#//EClassUtil"
         transient="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//GenPackageDependentElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1613,11 +1606,6 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Abstract">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Modifier that is used to tag syntax definitions as abstract."/>
-    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

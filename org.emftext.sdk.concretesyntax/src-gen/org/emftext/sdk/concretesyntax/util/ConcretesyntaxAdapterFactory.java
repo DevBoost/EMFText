@@ -23,7 +23,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -282,10 +281,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseOption(Option object) {
 				return createOptionAdapter();
-			}
-			@Override
-			public Adapter caseAbstract(Abstract object) {
-				return createAbstractAdapter();
 			}
 			@Override
 			public Adapter caseTokenStyle(TokenStyle object) {
@@ -878,20 +873,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOptionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Abstract <em>Abstract</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Abstract
-	 * @generated
-	 */
-	public Adapter createAbstractAdapter() {
 		return null;
 	}
 

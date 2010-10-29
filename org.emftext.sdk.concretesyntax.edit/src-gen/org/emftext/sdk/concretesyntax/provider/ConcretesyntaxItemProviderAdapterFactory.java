@@ -656,29 +656,6 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.Abstract} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AbstractItemProvider abstractItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.Abstract}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAbstractAdapter() {
-		if (abstractItemProvider == null) {
-			abstractItemProvider = new AbstractItemProvider(this);
-		}
-
-		return abstractItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.TokenStyle} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -940,7 +917,6 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (enumTerminalItemProvider != null) enumTerminalItemProvider.dispose();
 		if (enumLiteralTerminalItemProvider != null) enumLiteralTerminalItemProvider.dispose();
 		if (optionItemProvider != null) optionItemProvider.dispose();
-		if (abstractItemProvider != null) abstractItemProvider.dispose();
 		if (tokenStyleItemProvider != null) tokenStyleItemProvider.dispose();
 		if (annotationItemProvider != null) annotationItemProvider.dispose();
 		if (keyValuePairItemProvider != null) keyValuePairItemProvider.dispose();

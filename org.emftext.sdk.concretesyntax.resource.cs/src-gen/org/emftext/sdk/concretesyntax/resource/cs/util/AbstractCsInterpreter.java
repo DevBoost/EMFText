@@ -94,12 +94,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof org.emftext.sdk.concretesyntax.Abstract) {
-			result = interprete_org_emftext_sdk_concretesyntax_Abstract((org.emftext.sdk.concretesyntax.Abstract) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
 		if (object instanceof org.emftext.sdk.concretesyntax.Option) {
 			result = interprete_org_emftext_sdk_concretesyntax_Option((org.emftext.sdk.concretesyntax.Option) object, context);
 		}
@@ -490,10 +484,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_Option(org.emftext.sdk.concretesyntax.Option object, ContextType context) {
-		return null;
-	}
-	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Abstract(org.emftext.sdk.concretesyntax.Abstract object, ContextType context) {
 		return null;
 	}
 	

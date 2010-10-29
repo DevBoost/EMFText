@@ -79,6 +79,7 @@ public class ConcreteSyntaxItemProvider
 			add_operatorRulesPropertyDescriptor(object);
 			add_operatorRuleSubsetsPropertyDescriptor(object);
 			add_operatorRulesInitializedPropertyDescriptor(object);
+			addAbstractPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -282,6 +283,28 @@ public class ConcreteSyntaxItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Abstract feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAbstractPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ConcreteSyntax_abstract_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_abstract_feature", "_UI_ConcreteSyntax_type"),
+				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ABSTRACT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -294,7 +317,6 @@ public class ConcreteSyntaxItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__MODIFIER);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__IMPORTS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS);
@@ -374,10 +396,10 @@ public class ConcreteSyntaxItemProvider
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
@@ -407,11 +429,6 @@ public class ConcreteSyntaxItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS,
 				 ConcretesyntaxFactory.eINSTANCE.createAnnotation()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__MODIFIER,
-				 ConcretesyntaxFactory.eINSTANCE.createAbstract()));
 
 		newChildDescriptors.add
 			(createChildParameter

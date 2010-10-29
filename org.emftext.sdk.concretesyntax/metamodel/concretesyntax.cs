@@ -60,8 +60,8 @@ TOKENSTYLES {
 RULES {
 
 	ConcreteSyntax ::= 
-		(annotations !0)* 
-		(modifier #1)?
+		(annotations !0)*
+		abstract["ABSTRACT" : ""]
 		"SYNTAXDEF" #1 name[] !0 
 		"FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
 		("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
@@ -115,8 +115,6 @@ RULES {
 	AtomicRegex    ::= atomicExpression['$','$'];
 	RegexReference ::= target[];
 
-	Abstract ::= "ABSTRACT";
-	
 	TokenStyle ::= tokenNames[STRING] ("," #1 tokenNames[STRING])* #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
 	
 	Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;

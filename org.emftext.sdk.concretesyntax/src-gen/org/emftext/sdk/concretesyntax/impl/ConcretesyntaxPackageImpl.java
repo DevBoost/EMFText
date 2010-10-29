@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -367,13 +366,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass abstractEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass tokenStyleEClass = null;
 
 	/**
@@ -565,17 +557,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_Modifier() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getConcreteSyntax_Name() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -584,7 +567,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_StartSymbols() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(2);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -593,7 +576,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_ActiveTokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(3);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -602,7 +585,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Imports() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -611,7 +594,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Options() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -620,7 +603,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Tokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -629,7 +612,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_SyntheticTokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -638,7 +621,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_TokenStyles() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -647,7 +630,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllTokenStyles() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -656,7 +639,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllTokenDirectives() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -665,7 +648,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Rules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -674,7 +657,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax__operatorRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(12);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -683,7 +666,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EAttribute getConcreteSyntax__operatorRuleSubsets() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(13);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -692,7 +675,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EAttribute getConcreteSyntax__operatorRulesInitialized() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(14);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -701,7 +684,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax__genClassCache() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(15);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -710,7 +693,16 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax__eClassUtil() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(16);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConcreteSyntax_Abstract() {
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -1384,15 +1376,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAbstract() {
-		return abstractEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTokenStyle() {
 		return tokenStyleEClass;
 	}
@@ -1628,7 +1611,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(genPackageDependentElementEClass, GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT);
 
 		concreteSyntaxEClass = createEClass(CONCRETE_SYNTAX);
-		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__MODIFIER);
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__NAME);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__START_SYMBOLS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ACTIVE_TOKENS);
@@ -1645,6 +1627,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__GEN_CLASS_CACHE);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ECLASS_UTIL);
+		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__ABSTRACT);
 
 		importEClass = createEClass(IMPORT);
 		createEAttribute(importEClass, IMPORT__PREFIX);
@@ -1755,8 +1738,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		optionEClass = createEClass(OPTION);
 		createEAttribute(optionEClass, OPTION__TYPE);
 		createEAttribute(optionEClass, OPTION__VALUE);
-
-		abstractEClass = createEClass(ABSTRACT);
 
 		tokenStyleEClass = createEClass(TOKEN_STYLE);
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__TOKEN_NAMES);
@@ -1874,7 +1855,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getGenPackageDependentElement_PackageLocationHint(), theEcorePackage.getEString(), "packageLocationHint", null, 0, 1, GenPackageDependentElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(concreteSyntaxEClass, ConcreteSyntax.class, "ConcreteSyntax", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConcreteSyntax_Modifier(), this.getAbstract(), null, "modifier", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConcreteSyntax_Name(), ecorePackage.getEString(), "name", null, 1, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_StartSymbols(), theGenModelPackage.getGenClass(), null, "startSymbols", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_ActiveTokens(), this.getCompleteTokenDefinition(), null, "activeTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1891,6 +1871,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getConcreteSyntax__operatorRulesInitialized(), theEcorePackage.getEBoolean(), "_operatorRulesInitialized", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax__genClassCache(), this.getGenClassCache(), null, "_genClassCache", null, 1, 1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax__eClassUtil(), this.getEClassUtil(), null, "_eClassUtil", null, 0, 1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConcreteSyntax_Abstract(), theEcorePackage.getEBoolean(), "abstract", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(concreteSyntaxEClass, this.getRule(), "getOperatorRuleSubset", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "identifier", 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -1906,8 +1887,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(concreteSyntaxEClass, theEcorePackage.getEString(), "getOperatorRuleSubsets", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(concreteSyntaxEClass, this.getGenClassCache(), "getGenClassCache", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "isAbstract", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "isImportedRule", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -2108,8 +2087,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOption_Type(), this.getOptionTypes(), "type", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOption_Value(), ecorePackage.getEString(), "value", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(abstractEClass, Abstract.class, "Abstract", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(tokenStyleEClass, TokenStyle.class, "TokenStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTokenStyle_TokenNames(), theEcorePackage.getEString(), "tokenNames", null, 1, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2503,32 +2480,25 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (concreteSyntaxEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tif (getModifier() != null) {\r\n\t\t\treturn true;\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
-			 "documentation", ""
-		   });		
-		addAnnotation
-		  (concreteSyntaxEClass.getEOperations().get(8), 
-		   source, 
-		   new String[] {
 			 "body", "\r\n\t\treturn rule.getSyntax() != this;\r\n",
 			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
-		  (concreteSyntaxEClass.getEOperations().get(9), 
+		  (concreteSyntaxEClass.getEOperations().get(8), 
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\tif (get_eClassUtil() == null) {\r\n\t\t\tset_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());\r\n\t\t}\r\n\r\n\t\treturn get_eClassUtil();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
-		  (concreteSyntaxEClass.getEOperations().get(10), 
+		  (concreteSyntaxEClass.getEOperations().get(9), 
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\r\n\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\r\n\t\t\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\r\n\t\t\t\tcontinue;\r\n\t\t\t}\r\n\t\t\t org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\r\n\t\t\tfoundGenClasses.add(subClassCand);\r\n\t\t}\r\n\r\n\t\treturn foundGenClasses;\r\n",
 			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
-		  (concreteSyntaxEClass.getEOperations().get(11), 
+		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\t org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\r\n\r\n\t\t org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\r\n\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\r\n\t\t\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\r\n\t\t\t\tsubClasses.add(subClassCand);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subClasses;\r\n",
@@ -4161,12 +4131,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
-		addAnnotation
-		  (abstractEClass, 
-		   source, 
-		   new String[] {
-			 "documentation", "Modifier that is used to tag syntax definitions as abstract."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

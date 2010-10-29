@@ -145,22 +145,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__ANNOTATIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Modifier</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONCRETE_SYNTAX__MODIFIER = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__NAME = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
+	int CONCRETE_SYNTAX__NAME = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Start Symbols</b></em>' reference list.
@@ -169,7 +160,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
+	int CONCRETE_SYNTAX__START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Active Tokens</b></em>' reference list.
@@ -178,7 +169,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ACTIVE_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
+	int CONCRETE_SYNTAX__ACTIVE_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
@@ -187,7 +178,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
+	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Options</b></em>' containment reference list.
@@ -196,7 +187,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
+	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
@@ -205,7 +196,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
+	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Synthetic Tokens</b></em>' containment reference list.
@@ -214,7 +205,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
+	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Token Styles</b></em>' containment reference list.
@@ -223,7 +214,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
+	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>All Token Styles</b></em>' reference list.
@@ -232,7 +223,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
+	int CONCRETE_SYNTAX__ALL_TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>All Token Directives</b></em>' reference list.
@@ -241,7 +232,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
+	int CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -250,7 +241,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
+	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>operator Rules</b></em>' reference list.
@@ -259,7 +250,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPERATOR_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
+	int CONCRETE_SYNTAX__OPERATOR_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>operator Rule Subsets</b></em>' attribute list.
@@ -268,7 +259,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 14;
+	int CONCRETE_SYNTAX__OPERATOR_RULE_SUBSETS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>operator Rules Initialized</b></em>' attribute.
@@ -277,7 +268,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 15;
+	int CONCRETE_SYNTAX__OPERATOR_RULES_INITIALIZED = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>gen Class Cache</b></em>' containment reference.
@@ -286,7 +277,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__GEN_CLASS_CACHE = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
+	int CONCRETE_SYNTAX__GEN_CLASS_CACHE = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
 	 * The feature id for the '<em><b>eClass Util</b></em>' containment reference.
@@ -295,7 +286,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ECLASS_UTIL = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
+	int CONCRETE_SYNTAX__ECLASS_UTIL = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 16;
+
+	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ABSTRACT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 17;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -378,7 +378,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
 	 * @generated
 	 */
-	int ANNOTABLE = 42;
+	int ANNOTABLE = 41;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
@@ -767,7 +767,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
 	 * @generated
 	 */
-	int CARDINALITY = 47;
+	int CARDINALITY = 46;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl <em>Compound Definition</em>}' class.
@@ -1984,25 +1984,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int OPTION_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.AbstractImpl <em>Abstract</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.AbstractImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
-	 * @generated
-	 */
-	int ABSTRACT = 39;
-
-	/**
-	 * The number of structural features of the '<em>Abstract</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl <em>Token Style</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2010,7 +1991,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 40;
+	int TOKEN_STYLE = 39;
 
 	/**
 	 * The feature id for the '<em><b>Token Names</b></em>' attribute list.
@@ -2056,7 +2037,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 41;
+	int ANNOTATION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -2093,7 +2074,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getKeyValuePair()
 	 * @generated
 	 */
-	int KEY_VALUE_PAIR = 43;
+	int KEY_VALUE_PAIR = 42;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -2130,7 +2111,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCache()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE = 44;
+	int GEN_CLASS_CACHE = 43;
 
 	/**
 	 * The feature id for the '<em><b>qualified Interface Name Cache</b></em>' map.
@@ -2158,7 +2139,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getGenClassCacheEntry()
 	 * @generated
 	 */
-	int GEN_CLASS_CACHE_ENTRY = 45;
+	int GEN_CLASS_CACHE_ENTRY = 44;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' reference.
@@ -2195,7 +2176,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getEClassUtil()
 	 * @generated
 	 */
-	int ECLASS_UTIL = 46;
+	int ECLASS_UTIL = 45;
 
 	/**
 	 * The number of structural features of the '<em>EClass Util</em>' class.
@@ -2214,7 +2195,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 48;
+	int OPTION_TYPES = 47;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -2224,7 +2205,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 49;
+	int FONT_STYLE = 48;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.AnnotationType <em>Annotation Type</em>}' enum.
@@ -2234,7 +2215,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotationType()
 	 * @generated
 	 */
-	int ANNOTATION_TYPE = 50;
+	int ANNOTATION_TYPE = 49;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationType <em>Operator Annotation Type</em>}' enum.
@@ -2244,7 +2225,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationType()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_TYPE = 51;
+	int OPERATOR_ANNOTATION_TYPE = 50;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OperatorAnnotationProperty <em>Operator Annotation Property</em>}' enum.
@@ -2254,7 +2235,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOperatorAnnotationProperty()
 	 * @generated
 	 */
-	int OPERATOR_ANNOTATION_PROPERTY = 52;
+	int OPERATOR_ANNOTATION_PROPERTY = 51;
 
 
 	/**
@@ -2298,17 +2279,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getConcreteSyntax();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getModifier <em>Modifier</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Modifier</em>'.
-	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getModifier()
-	 * @see #getConcreteSyntax()
-	 * @generated
-	 */
-	EReference getConcreteSyntax_Modifier();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getName <em>Name</em>}'.
@@ -2485,6 +2455,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConcreteSyntax__eClassUtil();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#isAbstract <em>Abstract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#isAbstract()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EAttribute getConcreteSyntax_Abstract();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Import <em>Import</em>}'.
@@ -3263,16 +3244,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getOption_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Abstract <em>Abstract</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Abstract
-	 * @generated
-	 */
-	EClass getAbstract();
-
-	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenStyle <em>Token Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3574,14 +3545,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass CONCRETE_SYNTAX = eINSTANCE.getConcreteSyntax();
 
 		/**
-		 * The meta object literal for the '<em><b>Modifier</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONCRETE_SYNTAX__MODIFIER = eINSTANCE.getConcreteSyntax_Modifier();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3708,6 +3671,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__ECLASS_UTIL = eINSTANCE.getConcreteSyntax__eClassUtil();
+
+		/**
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCRETE_SYNTAX__ABSTRACT = eINSTANCE.getConcreteSyntax_Abstract();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -4376,16 +4347,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OPTION__VALUE = eINSTANCE.getOption_Value();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.AbstractImpl <em>Abstract</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.AbstractImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
-		 * @generated
-		 */
-		EClass ABSTRACT = eINSTANCE.getAbstract();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl <em>Token Style</em>}' class.

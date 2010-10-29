@@ -22,7 +22,6 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -472,12 +471,6 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.OPTION: {
 				Option option = (Option)theEObject;
 				T result = caseOption(option);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ConcretesyntaxPackage.ABSTRACT: {
-				Abstract abstract_ = (Abstract)theEObject;
-				T result = caseAbstract(abstract_);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1109,21 +1102,6 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseOption(Option object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAbstract(Abstract object) {
 		return null;
 	}
 

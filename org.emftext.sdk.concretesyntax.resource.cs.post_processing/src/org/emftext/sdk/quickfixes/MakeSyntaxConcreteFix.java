@@ -13,6 +13,6 @@ public class MakeSyntaxConcreteFix extends CsQuickFix {
 	}
 
 	public void applyChanges() {
-		syntax.setModifier(null);
+		syntax.setAbstract(false);
 	}
 }

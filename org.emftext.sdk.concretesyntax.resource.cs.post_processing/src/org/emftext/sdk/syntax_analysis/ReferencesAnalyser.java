@@ -110,7 +110,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				continue;
 			}
 			String formattedMessage = String.format(message, typeGenClass.getName(), genFeature.getName());
-			if (syntax.getModifier() != null) {
+			if (syntax.isAbstract()) {
 				// for abstract syntaxes a warning is sufficient
 				addProblem(ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
 			} else {

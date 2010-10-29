@@ -261,15 +261,6 @@ public interface ConcretesyntaxFactory extends EFactory {
 	Option createOption();
 
 	/**
-	 * Returns a new object of class '<em>Abstract</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abstract</em>'.
-	 * @generated
-	 */
-	Abstract createAbstract();
-
-	/**
 	 * Returns a new object of class '<em>Token Style</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

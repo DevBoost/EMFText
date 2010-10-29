@@ -204,20 +204,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Abstract) {
+		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.TokenStyle) {
+		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
 			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24, foundFormattingElements);
 			return;
 		}
-		if (element instanceof org.emftext.sdk.concretesyntax.Annotation) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25, foundFormattingElements);
-			return;
-		}
 		if (element instanceof org.emftext.sdk.concretesyntax.KeyValuePair) {
-			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_26, foundFormattingElements);
+			printInternal(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25, foundFormattingElements);
 			return;
 		}
 		

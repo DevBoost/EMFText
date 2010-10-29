@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
@@ -134,7 +133,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.ENUM_TERMINAL: return createEnumTerminal();
 			case ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL: return createEnumLiteralTerminal();
 			case ConcretesyntaxPackage.OPTION: return createOption();
-			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
 			case ConcretesyntaxPackage.ANNOTATION: return createAnnotation();
 			case ConcretesyntaxPackage.KEY_VALUE_PAIR: return createKeyValuePair();
@@ -444,16 +442,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public Option createOption() {
 		OptionImpl option = new OptionImpl();
 		return option;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Abstract createAbstract() {
-		AbstractImpl abstract_ = new AbstractImpl();
-		return abstract_;
 	}
 
 	/**
