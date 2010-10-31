@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
@@ -22,25 +23,27 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RUNTIME_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -219,16 +222,17 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 	private void addGetNameMethod(JavaComposite sc) {
 		sc.add("private String getName(ReferenceType element) {");
-		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
-		sc.add("if(element.eIsProxy()) {");
-		sc.add("String fragment = ((" + INTERNAL_E_OBJECT + ") element).eProxyURI().fragment();");
-		sc.add("if (fragment != null && fragment.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
-		sc.add("fragment = fragment.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
-		sc.add("fragment = fragment.substring(fragment.indexOf(\"_\") + 1);");
-		sc.add("}");
+		// TODO the special handling for proxy objects does not belong to the
+		// DefaultResolverDelegate, because the very same behavior should be
+		// present when custom reference resolver are used. therefore, this 
+		// code has been added to the Printer2Generator, but remains here for 
+		// compatibility reasons.
+		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "element");
+		sc.add("if (fragment != null) {");
 		sc.add("return fragment;");
 		sc.add("}");
-		sc.add("else if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
+		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
+		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("return (String) element.eGet(nameAttr);");
 		sc.add("} else {");
 		sc.addComment("try any other string attribute found");

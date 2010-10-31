@@ -621,16 +621,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintReferenceMethod(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("String tokenName = placeholder.getTokenName();");
 		sc.add("Object referencedObject = getValue(eObject, reference, count);");
+		sc.addComment("first add layout before the reference");
 		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.addComment("proxy objects must be printed differently");
+		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "referencedObject");
+		sc.add("if (fragment != null) {");
+		sc.add("tokenOutputStream.add(new PrintToken(fragment, tokenName));");
+		sc.add("return;");
+		sc.add("}");
+
 		sc.addComment(
 			"NC-References must always be printed by deresolving the reference. " +
 			"We cannot use the visible token information, because deresolving " +
 			"usually depends on attribute values of the referenced object instead of the " +
 			"object itself."
 		);
-		sc.add("String tokenName = placeholder.getTokenName();");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();

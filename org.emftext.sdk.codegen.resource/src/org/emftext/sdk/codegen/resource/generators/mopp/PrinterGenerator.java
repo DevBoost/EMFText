@@ -261,11 +261,17 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private void addFields(JavaComposite sc) {
 		sc.add("protected " + iTokenResolverFactoryClassName + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
+		sc.addLineBreak();
+		
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
-			"Holds the resource that is associated with this printer. may be null if the printer is used stand alone."
+			"Holds the resource that is associated with this printer. This may be null if the printer is used stand alone."
 		);
 		sc.add("private " + iTextResourceClassName + " resource;");
+		sc.addLineBreak();
+
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 	}
@@ -291,16 +297,19 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 	private void printChoices(JavaComposite sc, Rule rule) {
 		for (Choice choice : rule2SubChoice.get(rule)) {
-			sc
-					.add("public void "
-							+ choice2Name.get(choice)
-							+ "("
-							+ getMetaClassName(rule)
-							+ " element, String outertab, " + PRINTER_WRITER + " out, " + MAP + "<String, Integer> printCountingMap){");
+			sc.add("public void " +
+					choice2Name.get(choice) +
+					"(" +
+						getMetaClassName(rule) + " element, " + 
+						"String outertab, " + 
+						PRINTER_WRITER + " out, " + 
+						MAP + "<String, Integer> printCountingMap) {"
+			);
 
 			sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
 			printChoice(choice, sc, rule.getMetaclass());
 			sc.add("}");
+			sc.addLineBreak();
 		}
 	}
 
