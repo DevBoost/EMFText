@@ -596,13 +596,30 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	@SuppressWarnings("unchecked")	
 	public void printReference(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EReference reference, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
+		String tokenName = placeholder.getTokenName();
 		Object referencedObject = getValue(eObject, reference, count);
+		// first add layout before the reference
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
 		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		// proxy objects must be printed differently
+		String fragment = null;
+		if (referencedObject instanceof org.eclipse.emf.ecore.EObject) {
+			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) referencedObject;
+			if (eObjectToDeResolve.eIsProxy()) {
+				fragment = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
+				if (fragment != null && fragment.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
+					fragment = fragment.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
+					fragment = fragment.substring(fragment.indexOf("_") + 1);
+				}
+			}
+		}
+		if (fragment != null) {
+			tokenOutputStream.add(new PrintToken(fragment, tokenName));
+			return;
+		}
 		// NC-References must always be printed by deresolving the reference. We cannot
 		// use the visible token information, because deresolving usually depends on
 		// attribute values of the referenced object instead of the object itself.
-		String tokenName = placeholder.getTokenName();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 		tokenResolver.setOptions(getOptions());
 		@SuppressWarnings("rawtypes")		
