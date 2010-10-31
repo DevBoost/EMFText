@@ -97,6 +97,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("}");
 		sc.add("return result.toString();");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addConstants(JavaComposite sc) {
