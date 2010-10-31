@@ -52,7 +52,7 @@ public class EnumLiteralTerminalLiteralReferenceResolver implements ICsReference
 		}
 		// we use tryToResolveIdentifierInObjectTree() instead of resolver(), because we
 		// want to search only for EEnumLiterals in the referenced EEnum
-		delegate.tryToResolveIdentifierInObjectTree(identifier, eType, reference, resolveFuzzy, result, true);
+		delegate.tryToResolveIdentifierInObjectTree(identifier, container, eType, reference, position, resolveFuzzy, result, true);
 	}
 	
 	public String deResolve(EEnumLiteral element, EnumLiteralTerminal container, EReference reference) {

@@ -16,6 +16,34 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
 	
+	private static class StringMatch {
+		
+		private String exactMatch;
+		private String similarMatch;
+		
+		public StringMatch() {
+			super();
+		}
+		
+		public StringMatch(String exactMatch) {
+			super();
+			this.exactMatch = exactMatch;
+		}
+		
+		public String getExactMatch() {
+			return exactMatch;
+		}
+		
+		public void setSimilarMatch(String similarMatch) {
+			this.similarMatch = similarMatch;
+		}
+		
+		public String getSimilarMatch() {
+			return similarMatch;
+		}
+		
+	}
+	
 	private static class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
 		
 		private java.util.Map<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>> cache = new java.util.LinkedHashMap<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>>();
@@ -69,6 +97,11 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	public final static String NAME_FEATURE = "name";
+	/**
+	 * The maximal distance between two identifiers according to the Levenshtein
+	 * distance to qualify for a quick fix.
+	 */
+	public int MAX_DISTANCE = 2;
 	
 	private boolean enableScoping = true;
 	
@@ -85,17 +118,17 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
 			}
 			while (root != null) {
-				boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result, !enableScoping);
+				boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, root, reference, position, resolveFuzzy, result, !enableScoping);
 				if (!continueSearch) {
 					return;
 				}
 				root = root.eContainer();
 			}
-			boolean continueSearch = tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);
+			boolean continueSearch = tryToResolveIdentifierAsURI(identifier, container, reference, position, resolveFuzzy, result);
 			if (continueSearch) {
 				java.util.Set<org.eclipse.emf.ecore.EObject> crossReferencedObjectsInOtherResource = findExternalReferences(container);
 				for (org.eclipse.emf.ecore.EObject externalObject : crossReferencedObjectsInOtherResource) {
-					continueSearch = tryToResolveIdentifierInObjectTree(identifier, externalObject, reference, resolveFuzzy, result, !enableScoping);
+					continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, externalObject, reference, position, resolveFuzzy, result, !enableScoping);
 					if (!continueSearch) {
 						return;
 					}
@@ -132,12 +165,12 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * resolvers which require to search in a particular scope for referenced
 	 * elements, rather than in the whole resource as done by resolve().
 	 */
-	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result, boolean checkRootFirst) {
+	protected boolean tryToResolveIdentifierInObjectTree(String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject root, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result, boolean checkRootFirst) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 		boolean continueSearch;
 		if (checkRootFirst) {
 			// check whether the root element matches
-			continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+			continueSearch = checkElement(container, root, reference, position, type, identifier, resolveFuzzy, true, result);
 			if (!continueSearch) {
 				return false;
 			}
@@ -145,7 +178,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		// check the contents
 		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
 			org.eclipse.emf.ecore.EObject element = iterator.next();
-			continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);
+			continueSearch = checkElement(container, element, reference, position, type, identifier, resolveFuzzy, true, result);
 			if (!continueSearch) {
 				return false;
 			}
@@ -155,14 +188,14 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			return true;
 		}
 		// check whether the root element matches
-		continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);
+		continueSearch = checkElement(container, root, reference, position, type, identifier, resolveFuzzy, true, result);
 		if (!continueSearch) {
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 		org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
 		if (resource != null) {
@@ -172,13 +205,13 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				if (element == null) {
 					return true;
 				}
-				return checkElement(element, type, identifier, resolveFuzzy, false, result);
+				return checkElement(container, element, reference, position, type, identifier, resolveFuzzy, false, result);
 			}
 		}
 		return true;
 	}
 	
-	private boolean checkElement(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass type, String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	private boolean checkElement(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EReference reference, int position, org.eclipse.emf.ecore.EClass type, String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		if (element.eIsProxy()) {
 			return true;
 		}
@@ -188,21 +221,34 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			return true;
 		}
 		
-		String match;
+		StringMatch match;
 		// do not compare string-wise if identifier is a URI
 		if (checkStringWise) {
 			match = matches(element, identifier, resolveFuzzy);
 		} else {
-			match = identifier;
+			match = new StringMatch(identifier);
 		}
-		if (match == null) {
+		String exactMatch = match.getExactMatch();
+		if (exactMatch == null) {
+			String similarMatch = match.getSimilarMatch();
+			if (similarMatch != null) {
+				org.eclipse.emf.ecore.EObject oldTarget;
+				Object value = container.eGet(reference);
+				if (value instanceof java.util.List) {
+					java.util.List<?> list = (java.util.List<?>) container.eGet(reference);
+					oldTarget = (org.eclipse.emf.ecore.EObject) list.get(position);
+				} else {
+					oldTarget = (org.eclipse.emf.ecore.EObject) container.eGet(reference, false);
+				}
+				result.getQuickFixes().add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsChangeReferenceQuickFix("Replace with " + similarMatch, "IMG_TOOL_FORWARD", container, reference, oldTarget, element));
+			}
 			return true;
 		}
 		// we can safely cast 'element' to 'ReferenceType' here, because we've checked the
 		// type of 'element' against the type of the reference. unfortunately the compiler
 		// does not know that this is sufficient, so we must call cast(), which is not
 		// type safe by itself.
-		result.addMapping(match, cast(element));
+		result.addMapping(exactMatch, cast(element));
 		if (!resolveFuzzy) {
 			return false;
 		}
@@ -228,7 +274,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return getName(element);
 	}
 	
-	private String matches(org.eclipse.emf.ecore.EObject element, String identifier, boolean matchFuzzy) {
+	private StringMatch matches(org.eclipse.emf.ecore.EObject element, String identifier, boolean matchFuzzy) {
 		// first check for attributes that have set the ID flag to true
 		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = element.eClass().getEStructuralFeatures();
 		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
@@ -236,8 +282,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
 				if (attribute.isID()) {
 					Object attributeValue = element.eGet(attribute);
-					String match = matches(identifier, attributeValue, matchFuzzy);
-					if (match != null) {
+					StringMatch match = matches(identifier, attributeValue, matchFuzzy);
+					if (match.getExactMatch() != null) {
 						return match;
 					}
 				}
@@ -254,8 +300,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			for (org.eclipse.emf.ecore.EAttribute stringAttribute : element.eClass().getEAllAttributes()) {
 				if ("java.lang.String".equals(stringAttribute.getEType().getInstanceClassName())) {
 					Object attributeValue = element.eGet(stringAttribute);
-					String match = matches(identifier, attributeValue, matchFuzzy);
-					if (match != null) {
+					StringMatch match = matches(identifier, attributeValue, matchFuzzy);
+					if (match.getExactMatch() != null) {
 						return match;
 					}
 				}
@@ -264,24 +310,29 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			for (org.eclipse.emf.ecore.EOperation o : element.eClass().getEAllOperations()) {
 				if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {
 					String result = (String) org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.invokeOperation(element, o);
-					String match = matches(identifier, result, matchFuzzy);
-					if (match != null) {
+					StringMatch match = matches(identifier, result, matchFuzzy);
+					if (match.getExactMatch() != null) {
 						return match;
 					}
 				}
 			}
 		}
-		return null;
+		return new StringMatch();
 	}
 	
-	private String matches(String identifier, Object attributeValue, boolean matchFuzzy) {
+	private StringMatch matches(String identifier, Object attributeValue, boolean matchFuzzy) {
 		if (attributeValue != null && attributeValue instanceof String) {
 			String name = (String) attributeValue;
 			if (name.equals(identifier) || matchFuzzy) {
-				return name;
+				return new StringMatch(name);
+			}
+			if (isSimilar(name, identifier)) {
+				StringMatch match = new StringMatch();
+				match.setSimilarMatch(name);
+				return match;
 			}
 		}
-		return null;
+		return new StringMatch();
 	}
 	
 	private String getName(ReferenceType element) {
@@ -363,12 +414,23 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		root.eAdapters().add(cache);
 		return cache;
 	}
+	
 	public void setEnableScoping(boolean enableScoping) {
 		this.enableScoping = enableScoping;
 	}
 	
 	public boolean getEnableScoping() {
 		return enableScoping;
+	}
+	
+	private boolean isSimilar(String identifier, Object attributeValue) {
+		if (attributeValue != null && attributeValue instanceof String) {
+			String name = (String) attributeValue;
+			if (org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.computeLevenshteinDistance(identifier, name) <= MAX_DISTANCE) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
