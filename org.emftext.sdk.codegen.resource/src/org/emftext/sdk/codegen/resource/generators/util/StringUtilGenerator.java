@@ -57,6 +57,36 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addIsUnicodeSequenceMethod(sc);
 		addMatchCamelCaseMethod(sc);
 		addGetRepeatingStringMethod(sc);
+		addMinimumMethod(sc);
+		addComputeLevenshteinDistanceMethod(sc);
+	}
+
+	private void addComputeLevenshteinDistanceMethod(JavaComposite sc) {
+		// TODO this code is from Wikipedia and shared according to the
+		// Creative Commons Attribution-ShareAlike 3.0 Unported License
+		sc.add("public static int computeLevenshteinDistance(CharSequence str1, CharSequence str2) {");
+		sc.add("int[][] distance = new int[str1.length() + 1][str2.length() + 1];");
+		sc.add("for (int i = 0; i <= str1.length(); i++) {");
+		sc.add("distance[i][0] = i;");
+		sc.add("}");
+		sc.add("for (int j = 0; j <= str2.length(); j++) {");
+		sc.add("distance[0][j] = j;");
+		sc.add("}");
+		sc.add("for (int i = 1; i <= str1.length(); i++) {");
+		sc.add("for (int j = 1; j <= str2.length(); j++) {");
+		sc.add("distance[i][j] = minimum(distance[i - 1][j] + 1, distance[i][j - 1] + 1, distance[i - 1][j - 1] + ((str1.charAt(i - 1) == str2.charAt(j - 1)) ? 0 : 1));");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return distance[str1.length()][str2.length()];");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addMinimumMethod(JavaComposite sc) {
+		sc.add("private static int minimum(int a, int b, int c) {");
+		sc.add("return Math.min(Math.min(a, b), c);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetRepeatingStringMethod(JavaComposite sc) {

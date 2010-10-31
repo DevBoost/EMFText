@@ -50,10 +50,42 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
         
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
 		sc.addLineBreak();
+		addInnerClassStringMatchResult(sc);
 		addInnerClassReferenceCache(sc);
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addInnerClassStringMatchResult(StringComposite sc) {
+		sc.add("private static class StringMatch {");
+		sc.addLineBreak();
+		sc.add("private String exactMatch;");
+		sc.add("private String similarMatch;");
+		sc.addLineBreak();
+		sc.add("public StringMatch() {");
+		sc.add("super();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public StringMatch(String exactMatch) {");
+		sc.add("super();");
+		sc.add("this.exactMatch = exactMatch;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getExactMatch() {");
+		sc.add("return exactMatch;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void setSimilarMatch(String similarMatch) {");
+		sc.add("this.similarMatch = similarMatch;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getSimilarMatch() {");
+		sc.add("return similarMatch;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addInnerClassReferenceCache(StringComposite sc) {
@@ -129,6 +161,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addGetCacheMethod(sc);
 		addSetEnableScopingMethod(sc);
 		addGetEnableScopingMethod(sc);
+		addIsSimilarMethod(sc);
 	}
 
 	private void addGetCacheMethod(StringComposite sc) {
@@ -146,6 +179,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("root.eAdapters().add(cache);");
 		sc.add("return cache;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addLoadResourceMethod(JavaComposite sc) {
@@ -219,20 +253,38 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addMatchesMethod2(StringComposite sc) {
-		sc.add("private String matches(String identifier, Object attributeValue, boolean matchFuzzy) {");
+		sc.add("private StringMatch matches(String identifier, Object attributeValue, boolean matchFuzzy) {");
 		sc.add("if (attributeValue != null && attributeValue instanceof String) {");
 		sc.add("String name = (String) attributeValue;");
 		sc.add("if (name.equals(identifier) || matchFuzzy) {");
-		sc.add("return name;");
+		sc.add("return new StringMatch(name);");
+		sc.add("}");
+		sc.add("if (isSimilar(name, identifier)) {");
+		sc.add("StringMatch match = new StringMatch();");
+		sc.add("match.setSimilarMatch(name);");
+		sc.add("return match;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return null;");
+		sc.add("return new StringMatch();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addIsSimilarMethod(StringComposite sc) {
+		sc.add("private boolean isSimilar(String identifier, Object attributeValue) {");
+		sc.add("if (attributeValue != null && attributeValue instanceof String) {");
+		sc.add("String name = (String) attributeValue;");
+		sc.add("if (" + stringUtilClassName + ".computeLevenshteinDistance(identifier, name) <= MAX_DISTANCE) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addMatchesMethod1(JavaComposite sc) {
-		sc.add("private String matches(" + E_OBJECT + " element, String identifier, boolean matchFuzzy) {");
+		sc.add("private StringMatch matches(" + E_OBJECT + " element, String identifier, boolean matchFuzzy) {");
 
 		sc.addComment("first check for attributes that have set the ID flag to true");
 		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = element.eClass().getEStructuralFeatures();");
@@ -241,8 +293,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
 		sc.add("if (attribute.isID()) {");
 		sc.add("Object attributeValue = element.eGet(attribute);");
-		sc.add("String match = matches(identifier, attributeValue, matchFuzzy);");
-		sc.add("if (match != null) {");
+		sc.add("StringMatch match = matches(identifier, attributeValue, matchFuzzy);");
+		sc.add("if (match.getExactMatch() != null) {");
 		sc.add("return match;");
 		sc.add("}");
 		sc.add("}");
@@ -261,8 +313,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("for (" + E_ATTRIBUTE + " stringAttribute : element.eClass().getEAllAttributes()) {");
 		sc.add("if (\"java.lang.String\".equals(stringAttribute.getEType().getInstanceClassName())) {");
 		sc.add("Object attributeValue = element.eGet(stringAttribute);");
-		sc.add("String match = matches(identifier, attributeValue, matchFuzzy);");
-		sc.add("if (match != null) {");
+		sc.add("StringMatch match = matches(identifier, attributeValue, matchFuzzy);");
+		sc.add("if (match.getExactMatch() != null) {");
 		sc.add("return match;");
 		sc.add("}");
 		sc.add("}");
@@ -272,14 +324,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
 		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, o);");
-		sc.add("String match = matches(identifier, result, matchFuzzy);");
-		sc.add("if (match != null) {");
+		sc.add("StringMatch match = matches(identifier, result, matchFuzzy);");
+		sc.add("if (match.getExactMatch() != null) {");
 		sc.add("return match;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return null;");
+		sc.add("return new StringMatch();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -315,7 +367,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addCheckElementMethod(JavaComposite sc) {
-		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, String identifier, boolean resolveFuzzy, boolean checkStringWise, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add("private boolean checkElement(" + E_OBJECT + " container, " + E_OBJECT + " element, " + E_REFERENCE + " reference, int position, " + E_CLASS + " type, String identifier, boolean resolveFuzzy, boolean checkStringWise, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("if (element.eIsProxy()) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -325,14 +377,27 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("String match;");
+		sc.add("StringMatch match;");
 		sc.addComment("do not compare string-wise if identifier is a URI");
 		sc.add("if (checkStringWise) {");
 		sc.add("match = matches(element, identifier, resolveFuzzy);");
 		sc.add("} else {");
-		sc.add("match = identifier;");
+		sc.add("match = new StringMatch(identifier);");
 		sc.add("}");
-		sc.add("if (match == null) {");
+		sc.add("String exactMatch = match.getExactMatch();");
+		sc.add("if (exactMatch == null) {");
+		sc.add("String similarMatch = match.getSimilarMatch();");
+		sc.add("if (similarMatch != null) {");
+		sc.add(E_OBJECT + " oldTarget;");
+		sc.add("Object value = container.eGet(reference);");
+		sc.add("if (value instanceof " + LIST + ") {");
+		sc.add(LIST + "<?> list = (" + LIST + "<?>) container.eGet(reference);");
+		sc.add("oldTarget = (" + E_OBJECT + ") list.get(position);");
+		sc.add("} else {");
+		sc.add("oldTarget = (" + E_OBJECT + ") container.eGet(reference, false);");
+		sc.add("}");
+		sc.add("result.getQuickFixes().add(new " + changeReferenceQuickFixClassName + "(\"Replace with \" + similarMatch, \"IMG_TOOL_FORWARD\", container, reference, oldTarget, element));");
+		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addComment(
@@ -342,7 +407,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"does not know that this is sufficient, so we must call " +
 			"cast(), which is not type safe by itself."
 		);
-		sc.add("result.addMapping(match, cast(element));");
+		sc.add("result.addMapping(exactMatch, cast(element));");
 		sc.add("if (!resolveFuzzy) {");
 		sc.add("return false;");
 		sc.add("}");
@@ -365,17 +430,17 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("root = " + eObjectUtilClassName + ".findRootContainer(container);");
 		sc.add("}");
 		sc.add("while (root != null) {");
-		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, root, reference, resolveFuzzy, result, !enableScoping);");
+		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, root, reference, position, resolveFuzzy, result, !enableScoping);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("root = root.eContainer();");
 		sc.add("}");
-		sc.add("boolean continueSearch = tryToResolveIdentifierAsURI(identifier, container, reference, resolveFuzzy, result);");
+		sc.add("boolean continueSearch = tryToResolveIdentifierAsURI(identifier, container, reference, position, resolveFuzzy, result);");
 		sc.add("if (continueSearch) {");
 		sc.add(SET + "<" + E_OBJECT + "> crossReferencedObjectsInOtherResource = findExternalReferences(container);");
 		sc.add("for (" + E_OBJECT + " externalObject : crossReferencedObjectsInOtherResource) {");
-		sc.add("continueSearch = tryToResolveIdentifierInObjectTree(identifier, externalObject, reference, resolveFuzzy, result, !enableScoping);");
+		sc.add("continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, externalObject, reference, position, resolveFuzzy, result, !enableScoping);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return;");
 		sc.add("}");
@@ -417,7 +482,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"implement custom reference resolvers which require to search in a particular scope for referenced elements, " +
 			"rather than in the whole resource as done by resolve()."
 		);
-		sc.add("protected boolean tryToResolveIdentifierInObjectTree(String identifier, " + E_OBJECT + " root, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result, boolean checkRootFirst) {");
+		sc.add("protected boolean tryToResolveIdentifierInObjectTree(String identifier, " + E_OBJECT + " container, " + E_OBJECT + " root, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result, boolean checkRootFirst) {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add("boolean continueSearch;");
 		sc.add("if (checkRootFirst) {");
@@ -426,7 +491,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addComment("check the contents");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> iterator = root.eAllContents(); iterator.hasNext(); ) {");
 		sc.add(E_OBJECT + " element = iterator.next();");
-		sc.add("continueSearch = checkElement(element, type, identifier, resolveFuzzy, true, result);");
+		sc.add("continueSearch = checkElement(container, element, reference, position, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return false;");
 		sc.add("}");
@@ -443,14 +508,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 	private void addCheckRootElementCode(JavaComposite sc) {
 		sc.addComment("check whether the root element matches");
-		sc.add("continueSearch = checkElement(root, type, identifier, resolveFuzzy, true, result);");
+		sc.add("continueSearch = checkElement(container, root, reference, position, type, identifier, resolveFuzzy, true, result);");
 		sc.add("if (!continueSearch) {");
 		sc.add("return false;");
 		sc.add("}");
 	}
 
 	private void addTryToResolveIdentifierAsURI(JavaComposite sc) {
-		sc.add("private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, " + E_REFERENCE + " reference, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add("private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.add(RESOURCE + " resource = container.eResource();");
 		sc.add("if (resource != null) {");
@@ -460,7 +525,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("if (element == null) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("return checkElement(element, type, identifier, resolveFuzzy, false, result);");
+		sc.add("return checkElement(container, element, reference, position, type, identifier, resolveFuzzy, false, result);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return true;");
@@ -489,8 +554,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 	
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("public final static String NAME_FEATURE = \"name\";");
+		sc.addJavadoc(
+			"The maximal distance between two identifiers according to the " +
+			"Levenshtein distance to qualify for a quick fix."
+		);
+		sc.add("public int MAX_DISTANCE = 2;");
 		sc.addLineBreak();
 		sc.add("private boolean enableScoping = true;");
 		sc.addLineBreak();

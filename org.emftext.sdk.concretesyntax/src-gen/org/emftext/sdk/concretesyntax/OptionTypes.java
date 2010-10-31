@@ -1768,7 +1768,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTED_ENUMERATION_TERMINAL(220, "OVERRIDE_EXPECTED_ENUMERATION_TERMINAL", "overrideExpectedEnumerationTerminal");
+	OVERRIDE_EXPECTED_ENUMERATION_TERMINAL(220, "OVERRIDE_EXPECTED_ENUMERATION_TERMINAL", "overrideExpectedEnumerationTerminal"), /**
+	 * The '<em><b>OVERRIDE CHANGE REFERENCE QUICK FIX</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CHANGE_REFERENCE_QUICK_FIX(221, "OVERRIDE_CHANGE_REFERENCE_QUICK_FIX", "overrideChangeReferenceQuickFix");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5452,6 +5460,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE = 220;
 /**
+	 * The '<em><b>OVERRIDE CHANGE REFERENCE QUICK FIX</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CHANGE REFERENCE QUICK FIX</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CHANGE_REFERENCE_QUICK_FIX
+	 * @model literal="overrideChangeReferenceQuickFix"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE = 221;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5676,6 +5698,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_BOOLEAN_TERMINAL,
 			OVERRIDE_ENUMERATION_TERMINAL,
 			OVERRIDE_EXPECTED_ENUMERATION_TERMINAL,
+			OVERRIDE_CHANGE_REFERENCE_QUICK_FIX,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5941,6 +5964,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_BOOLEAN_TERMINAL_VALUE: return OVERRIDE_BOOLEAN_TERMINAL;
 			case OVERRIDE_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_ENUMERATION_TERMINAL;
 			case OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_EXPECTED_ENUMERATION_TERMINAL;
+			case OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE: return OVERRIDE_CHANGE_REFERENCE_QUICK_FIX;
 		}
 		return null;
 	}

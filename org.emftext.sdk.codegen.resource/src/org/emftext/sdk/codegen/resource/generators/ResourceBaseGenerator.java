@@ -143,6 +143,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String whiteSpaceClassName;
 	protected String quickFixClassName;
 	protected String iQuickFixClassName;
+	protected String changeReferenceQuickFixClassName;
 
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -277,6 +278,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		whiteSpaceClassName = context.getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
 		iQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
 		quickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.QUICK_FIX);
+		changeReferenceQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.CHANGE_REFERENCE_QUICK_FIX);
 	}
 
 	protected String getResourceClassName() {
