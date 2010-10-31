@@ -280,9 +280,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		
 		final GenClass genClass = rule.getMetaclass();
 
-		sc.add("public void " + getMethodName(rule) + "("
-				+ getMetaClassName(rule)
-				+ " element, String outertab, " + PRINTER_WRITER + " out) {");
+		sc.add("public void " + getMethodName(rule) + "(" +
+				getMetaClassName(rule) + " element, " + 
+				"String outertab, " + 
+				PRINTER_WRITER + " out) {");
 
 		sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
 
@@ -291,6 +292,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		
 		printChoice(rule.getDefinition(), sc, genClass);
 		sc.add("}");
+		sc.addLineBreak();
+		
 		printChoices(sc, rule);
 		sc.addLineBreak();
 	}
@@ -347,13 +350,13 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				int count = 0;
 				JavaComposite sc1 = new JavaComposite();
 				sc1.add("switch(alt) {");
-				sc.add("alt=" + count++ + ";");
-				sc.add("int matches=");
+				sc.add("alt = " + (count++) + ";");
+				sc.add("int matches = ");
 				printMatchCall(firstSeq, sc);
 				sc.add("int tempMatchCount;");
 				while (seqIt.hasNext()) {
 					Sequence seq = seqIt.next();
-					sc.add("tempMatchCount=");
+					sc.add("tempMatchCount = ");
 					printMatchCall(seq, sc);
 					sc.add("if (tempMatchCount > matches) {");
 					sc.add("alt = " + count + ";");
@@ -723,12 +726,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 
 	private void addMatchCountMethod(StringComposite sc) {
-		sc.add("protected static int matchCount(" + MAP + "<String, Integer> featureCounter, " + COLLECTION + "<String> needed){");
+		sc.add("protected int matchCount(" + MAP + "<String, Integer> featureCounter, " + COLLECTION + "<String> needed) {");
 		sc.add("int pos = 0;");
 		sc.add("int neg = 0;");
 		sc.addLineBreak();
-		sc.add("for(String featureName:featureCounter.keySet()){");
-		sc.add("if(needed.contains(featureName)){");
+		sc.add("for (String featureName : featureCounter.keySet()) {");
+		sc.add("if (needed.contains(featureName)) {");
 		sc.add("int value = featureCounter.get(featureName);");
 		sc.add("if (value == 0) {");
 		sc.add("neg += 1;");
