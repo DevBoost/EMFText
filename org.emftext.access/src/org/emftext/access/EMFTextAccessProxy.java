@@ -343,7 +343,8 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		// this is needed to find methods that use types from the generated plug-ins as
 		// parameters
 		for (Method nextMethod : methods) {
-			if (methodName.equals(nextMethod.getName())) {
+			if (methodName.equals(nextMethod.getName()) &&
+				nextMethod.getParameterTypes().length == parameterTypes.length) {
 				return nextMethod;
 			}
 		}
