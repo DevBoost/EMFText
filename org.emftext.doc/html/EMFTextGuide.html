@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2010-10-29 09:15:00"> 
+<meta name="date" content="2010-11-02 20:35:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -32,7 +32,7 @@ class="phvr8t-x-x-400">USER GUIDE</span>
 >
 <!--l. 86--><p class="noindent" > 
 <span 
-class="aer12-">October 29, 2010</span></div>
+class="aer12-">November 2, 2010</span></div>
                                                                                      
 
                                                                                      
@@ -5419,19 +5419,28 @@ class="ul9r8t-x-x-95">CustomQuickFix</span>. The method <span
 class="ul9r8t-x-x-95">applyChanges() </span>performs the
 actual fix of the problem on the context object.
 <!--l. 362--><p class="indent" >  This context object is also passed to the constructor of <span 
-class="ul9r8t-x-x-95">XyzQuickFix </span>along with a brief description
-of the quick fix and an image key that references an image for the quick fix. The image key is used by
-the <span 
-class="ul9r8t-x-x-95">XyzImageProvider </span>that either takes a key of one of the standard Eclipse images or a path to the
-image relative to the UI project. In case a more sophisticated means for providing images is needed,
-the <span 
-class="ul9r8t-x-x-95">XyzImageProvider </span>can be manually extended after the option <span 
-class="ul9r8t-x-x-95">overrideImageProvider </span>has been
-set to <span 
+class="ul9r8t-x-x-95">XyzQuickFix </span>along with a brief
+description of the quick fix and an image key that references an image for the quick fix.
+The image key is used by the <span 
+class="ul9r8t-x-x-95">XyzImageProvider </span>and can reference images in multiple
+ways.
+<!--l. 367--><p class="indent" >  First, the key can be one of the standard Eclipse images. That is, the key can be a field from class
+<span 
+class="ul9r8t-x-x-95">org.eclipse.ui.ISharedImages</span>, for example, <span 
+class="ul9r8t-x-x-95">IMG_ELCL_REMOVE</span>. Second, the key can denote a path
+relative to the UI project. Or, the third option is to use an arbitrary URL as key. For example, the
+URL <span 
+class="ul9r8t-x-x-95">platform:/plugin/com.xyz.plugin/icons/xyzIcon.png </span>indicates that the file <span 
+class="ul9r8t-x-x-95">xyzIcon.png</span>
+is used for the quick fix.
+<!--l. 375--><p class="indent" >  In case a more sophisticated means for providing images is needed, the <span 
+class="ul9r8t-x-x-95">XyzImageProvider </span>can be
+manually extended after the option <span 
+class="ul9r8t-x-x-95">overrideImageProvider </span>has been set to <span 
 class="ul9r8t-x-x-95">false</span>.
-<!--l. 370--><p class="indent" >  The following listing shows a simple quick fix, which removes a given element from the
+<!--l. 379--><p class="indent" >  The following listing shows a simple quick fix, which removes a given element from the
 resource.
-  <!--l. 373-->
+  <!--l. 382-->
   <div class="lstlisting" id="listing-51"><span class="label"><a 
  id="x1-53001r1"></a></span><span 
 class="ul9r8t-x-x-95">public</span><span 
@@ -5565,14 +5574,17 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 392--><p class="noindent" >
+<!--l. 401--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.5</span>&#x00A0;&#x00A0;<a 
  id="x1-540004.2.5"></a>Implementing Builders</h4>
-<!--l. 395--><p class="noindent" >To implement a custom builder for your DSL, you can basically set the code generation option
+                                                                                     
+
+                                                                                     
+<!--l. 404--><p class="noindent" >To implement a custom builder for your DSL, you can basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideBuilder </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 398-->
+  <!--l. 407-->
   <div class="lstlisting" id="listing-52"><span class="label"><a 
  id="x1-54001r1"></a></span><span 
 class="ul9b8t-x-x-95">OPTIONS</span><span 
@@ -5596,11 +5608,8 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
  id="x1-54003r3"></a></span><span 
 class="ul9r8t-x-x-95">}</span>
   
-                                                                                     
-
-                                                                                     
   </div>
-<!--l. 404--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 413--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-100002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), you will find a new class <span 
 class="ul9r8t-x-x-95">XyzBuilder </span>in
 the <span 
@@ -5610,7 +5619,7 @@ you face compilation errors, make sure to delete the <span
 class="ul9r8t-x-x-95">XyzBuilder </span>class from the <span 
 class="ul9r8t-x-x-95">src-gen</span>
 folder.
-<!--l. 411--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
+<!--l. 420--><p class="indent" >  The generated builder class contains two methods&#8212;<span 
 class="ul9r8t-x-x-95">isBuildingNeeded() </span>and <span 
 class="ul9r8t-x-x-95">build()</span>. The first
 one is called to let the builder decide, which resources need to be included in the build process.
@@ -5619,16 +5628,16 @@ class="ul9r8t-x-x-95">false </span>to avoid unnecessary loading of resources. To
 include all textual resources that contain models of your DSL, change the method to return
 <span 
 class="ul9r8t-x-x-95">true</span>.
-<!--l. 418--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
+<!--l. 427--><p class="indent" >  The second method is called whenever the content of a resource changes. You can implement
 arbitrary behavior here. Usually, builders create some kind of derived artifact, for example a
 transformed or compiled version of the DSL model. Since <span 
 class="ul9r8t-x-x-95">build() </span>retrieves the resource as method
 parameter, you can easily access the contents of the resource. To save the derived artifact it is good
 practice to use the URI of the original resource to derive a new URI. This can for example be done
 by removing segments and adding new ones.
-<!--l. 426--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
+<!--l. 435--><p class="indent" >  The following listing shows a simple builder, which copies the contents of the resource to a new
 resource without making any changes.
-  <!--l. 429-->
+  <!--l. 438-->
   <div class="lstlisting" id="listing-53"><span class="label"><a 
  id="x1-54004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
@@ -6118,21 +6127,24 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 470--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
-<!--l. 472--><p class="noindent" >
+<!--l. 479--><p class="indent" >  Alternatively, you can also register builders for your DSL in other plug-ins.
+<!--l. 481--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.6</span>&#x00A0;&#x00A0;<a 
  id="x1-550004.2.6"></a>Implementing Interpreters</h4>
-<!--l. 475--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
+<!--l. 484--><p class="noindent" >To ease the implementation of interpreters for your DSL, EMFText generates an interpreter stub.
 Assuming the file extension of your DSL is <span 
 class="ul9r8t-x-x-95">xyz</span>, the abstract stub class will be named
 <span 
 class="ul9r8t-x-x-95">AbstractXyzInterpreter</span>. To implement concrete interpreters, you can create subclasses of this stub
 class.
-<!--l. 480--><p class="indent" >  For each metaclass found in the metamodel of your DSL, the interpreter stub contains a
+<!--l. 489--><p class="indent" >  For each metaclass found in the metamodel of your DSL, the interpreter stub contains a
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>method. These methods can be overridden in concrete interpreter classes to
 implement the desired interpretation for the objects of each type.
-<!--l. 485--><p class="indent" >  After implementing the methods for the classes which shall be interpreted, the interpreter can be
+<!--l. 494--><p class="indent" >  After implementing the methods for the classes which shall be interpreted, the interpreter can be
+                                                                                     
+
+                                                                                     
 used in different modes. First, models can be interpret using a stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods must perform the interpretation, but should not call other
@@ -6143,21 +6155,18 @@ class="ul9r8t-x-x-95">addObjectToInterprete() </span>and then start
 interpretation by calling <span 
 class="ul9r8t-x-x-95">interprete()</span>. Interpretation ends when all objects from the stack are
 consumed.
-                                                                                     
-
-                                                                                     
-<!--l. 495--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
+<!--l. 504--><p class="indent" >  Second, the interpretation can be performed without using the stack. In this case, the
 <span 
 class="ul9r8t-x-x-95">interprete_Classname </span>methods call other <span 
 class="ul9r8t-x-x-95">interprete </span>methods to continue interpretation. The
 traversal of the model is more explicit than using the interpreter with the stack in this
 mode.
-<!--l. 500--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
+<!--l. 509--><p class="indent" >  The first, stack-based interpretation mode is useful to traverse models in a bottom-up fashion. One
 can simply put all models elements (using <span 
 class="ul9r8t-x-x-95">eAllContents() </span>on the model root element) on the stack
 and then start interpretation. The second, stack-independent interpretation mode is useful to traverse
 models top-down.
-<!--l. 506--><p class="indent" >  The interpreter stub class has two type parameters&#8212;<span 
+<!--l. 515--><p class="indent" >  The interpreter stub class has two type parameters&#8212;<span 
 class="ul9r8t-x-x-95">ResultType </span>and <span 
 class="ul9r8t-x-x-95">ContextType</span>, which
 concrete subclasses must bind. The former parameter (i.e., <span 
@@ -6168,7 +6177,7 @@ class="ul9r8t-x-x-95">ContextType</span>) defines the type of the parameter
 that is passed to the <span 
 class="ul9r8t-x-x-95">interprete </span>methods. By binding the type parameters one can use arbitrary
 classes to pass interpretation results.
-<!--l. 514--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
+<!--l. 523--><p class="indent" >  Examples for interpreters can be found in the EMFText Syntax Zoo. Both
 SimpleMath<span class="footnote-mark"><a 
 href="EMFTextGuide6.html#fn3x4"><sup class="textsuperscript">3</sup></a></span><a 
  id="x1-55001f3"></a>  and the
@@ -6176,14 +6185,14 @@ ThreeValuedLogic DSL<span class="footnote-mark"><a
 href="EMFTextGuide7.html#fn4x4"><sup class="textsuperscript">4</sup></a></span><a 
  id="x1-55002f4"></a> 
 use the generated interpreter stubs.
-<!--l. 520--><p class="noindent" >
+<!--l. 529--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.7</span>&#x00A0;&#x00A0;<a 
  id="x1-560004.2.7"></a>Customizing Text Hovers</h4>
-<!--l. 522--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
+<!--l. 531--><p class="noindent" >To implement custom text hovers for your DSL, basically set the code generation option
 <span 
 class="ul9r8t-x-x-95">overrideHoverTextProvider </span>to <span 
 class="ul9r8t-x-x-95">false</span>:
-  <!--l. 525-->
+  <!--l. 534-->
   <div class="lstlisting" id="listing-54"><span class="label"><a 
  id="x1-56001r1"></a></span><span 
 class="ul9b8t-x-x-95">OPTIONS</span><span 
@@ -6208,7 +6217,7 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 531--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
+<!--l. 540--><p class="indent" >  After regenerating the resource plug-ins (see Sect.&#x00A0;<a 
 href="#x1-100002.3">2.3<!--tex4ht:ref: sec:process_generating --></a>), a new class <span 
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>can be
 found in the <span 
@@ -6218,7 +6227,10 @@ class="ul9r8t-x-x-95">xyz</span>). If you face compilation errors, make sure to 
 class="ul9r8t-x-x-95">XyzHoverTextProvider </span>class from the
 <span 
 class="ul9r8t-x-x-95">src-gen </span>folder.
-<!--l. 538--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
+                                                                                     
+
+                                                                                     
+<!--l. 547--><p class="indent" >  The generated hover text provider class contains one method&#8212;<span 
 class="ul9r8t-x-x-95">getHoverText()</span>. The default
 implementation of this method delegates calls to a default provider. To customize the hover text
 you can inspect the <span 
@@ -6226,10 +6238,7 @@ class="ul9r8t-x-x-95">EObject </span>passed to the method and return arbitrary H
 The following listing shows a simple customized provider, which returns the type of the
 <span 
 class="ul9r8t-x-x-95">EObject</span>.
-  <!--l. 545-->
-                                                                                     
-
-                                                                                     
+  <!--l. 554-->
   <div class="lstlisting" id="listing-55"><span class="label"><a 
  id="x1-56004r1"></a></span><span 
 class="ul9r8t-x-x-95">import</span><span 
@@ -6332,10 +6341,10 @@ class="ul9r8t-x-x-95">&#x00A0;</span><br /><span class="label"><a
 class="ul9r8t-x-x-95">}</span>
   
   </div>
-<!--l. 557--><p class="noindent" >
+<!--l. 566--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.8</span>&#x00A0;&#x00A0;<a 
  id="x1-570004.2.8"></a>Customizing Code Completion Proposals</h4>
-<!--l. 560--><p class="noindent" >The DSL tooling generated by EMFText does equip the DSL editor with default code completion
+<!--l. 569--><p class="noindent" >The DSL tooling generated by EMFText does equip the DSL editor with default code completion
 facilities. If you find the completion proposols to be not sufficient, or you want to adjust them
 w.r.t.&#x00A0;the text that is displayed for specific proposals or the icons that are shown, you can customize
 the proposals. To do so, set the <span 
@@ -6347,13 +6356,13 @@ class="ul9r8t-x-x-95">src </span>folder
 of the UI resource plug-in. The class with the same name in the <span 
 class="ul9r8t-x-x-95">src-gen </span>folder can then be
 deleted.
-<!--l. 570--><p class="indent" >  The default implementation of the only method in this class (i.e., <span 
+<!--l. 579--><p class="indent" >  The default implementation of the only method in this class (i.e., <span 
 class="ul9r8t-x-x-95">process()</span>) does return
 the list of proposals as they are. However, you can make arbitrary changes to this list.
 For example, you can remove proposals if you find them not useful or modify proposals
 if you want to change the displayed string or icon. You can also add new proposals if
 needed.
-<!--l. 576--><p class="indent" >  The proposals that are passed to the <span 
+<!--l. 585--><p class="indent" >  The proposals that are passed to the <span 
 class="ul9r8t-x-x-95">process() </span>method provide information such as which
 structural feature they complete (<span 
 class="ul9r8t-x-x-95">getStructuralFeature()</span>), which image they are associated with
@@ -6363,10 +6372,10 @@ class="ul9r8t-x-x-95">getImage()</span>) or which text is inserted if the respec
 class="ul9r8t-x-x-95">getInsertString()</span>). To modify proposals, new instances of the <span 
 class="ul9r8t-x-x-95">XyzCompletionProposal </span>must be
 created, because this class is immutable.
-<!--l. 584--><p class="noindent" >
+<!--l. 593--><p class="noindent" >
   <h4 class="subsectionHead"><span class="titlemark">4.2.9</span>&#x00A0;&#x00A0;<a 
  id="x1-580004.2.9"></a>Adding Context Menu Items to the Outline View</h4>
-<!--l. 586--><p class="noindent" >To add new items to the context menu of the generated outline view, you can use the standard
+<!--l. 595--><p class="noindent" >To add new items to the context menu of the generated outline view, you can use the standard
 mechanism to register menu items. All that is needed, is to register a menu item (using the
 <span 
 class="ul9r8t-x-x-95">org.eclipse.ui.menus </span>extension point), a command that is created when the menu item is selected
@@ -6376,9 +6385,12 @@ command (using the <span
 class="ul9r8t-x-x-95">org.eclipse.ui.handlers </span>extension point). For example, the following
 fragment of a <span 
 class="ul9r8t-x-x-95">plugin.xml </span>file registers a new menu item that can be invoked on objects of type
+                                                                                     
+
+                                                                                     
 <span 
 class="ul9r8t-x-x-95">org.emftext.language.xyz.XyzClass</span>.
-  <!--l. 596-->
+  <!--l. 605-->
   <div class="lstlisting" id="listing-56"><span class="label"><a 
  id="x1-58001r1"></a></span><span 
 class="ul9r8t-x-x-95"><</span><span 
@@ -6781,10 +6793,7 @@ class="ul9r8t-x-x-95">extension</span><span
 class="ul9r8t-x-x-95">></span>
   
   </div>
-                                                                                     
-
-                                                                                     
-<!--l. 629--><p class="indent" >  Note that you will also need a class <span 
+<!--l. 638--><p class="indent" >  Note that you will also need a class <span 
 class="ul9r8t-x-x-95">CommandHandler</span>, which must implement the interface
 <span 
 class="ul9r8t-x-x-95">org.eclipse.core.commands.IHandler</span>.

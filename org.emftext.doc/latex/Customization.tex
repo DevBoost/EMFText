@@ -361,9 +361,18 @@ fix of the problem on the context object.
 
 This context object is also passed to the constructor of \texttt{XyzQuickFix} along
 with a brief description of the quick fix and an image key that references an image 
-for the quick fix. The image key is used by the \texttt{XyzImageProvider} that either
-takes a key of one of the standard Eclipse images or a path to the image relative to
-the UI project. In case a more sophisticated means for providing images is needed, the
+for the quick fix. The image key is used by the \texttt{XyzImageProvider} and
+can reference images in multiple ways.
+
+First, the key can be one of the standard Eclipse images. That is, the key can
+be a field from class \texttt{org.eclipse.ui.ISharedImages}, for example,
+\texttt{IMG\_ELCL\_REMOVE}. Second, the key can denote a path 
+relative to the UI project. Or, the third option is to use an arbitrary 
+URL as key. For example, the URL
+\texttt{platform:/plugin/com.xyz.plugin/icons/xyzIcon.png} indicates that the
+file \texttt{xyzIcon.png} is used for the quick fix.
+
+In case a more sophisticated means for providing images is needed, the
 \texttt{XyzImageProvider} can be manually extended after the option 
 \texttt{overrideImageProvider} has been set to \texttt{false}.
 
