@@ -34,6 +34,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -256,6 +257,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String LISTENER_LIST = ListenerList.class.getName();
 	public static String LIST_ITERATOR = ListIterator.class.getName();
 	public static String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getCanonicalName();
+	public static String MALFORMED_URL_EXCEPTION = MalformedURLException.class.getName();
 	public static String MAP = Map.class.getName();
 	public static String MAP_ENTRY = Map.Entry.class.getCanonicalName();
 	public static String MATCHER = Matcher.class.getName();

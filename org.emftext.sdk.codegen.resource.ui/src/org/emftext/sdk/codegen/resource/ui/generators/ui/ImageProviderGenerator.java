@@ -4,7 +4,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ACCESS_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SECURITY_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
@@ -13,12 +13,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SHARED
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.eclipse.ui.ISharedImages;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.generators.IClassNameConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -80,8 +81,25 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 		sc.addComment("try loading image from UI bundle");
 		sc.add(I_PATH + " path = new " + PATH + "(key);");
-		sc.add(IMAGE_DESCRIPTOR + " desriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
-		sc.add("image = desriptor.createImage();");
+		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
+		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.addComment("try loading image from any bundle");
+		sc.add("try {");
+		sc.addComment(
+			"possible URLs:",
+			"platform:/plugin/your.plugin/icons/yourIcon.png",
+			"bundleentry://557.fwk3560063/icons/yourIcon.png"
+		);
+		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
+		sc.add("descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(pluginUrl);");
+		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("} catch (" + MALFORMED_URL_EXCEPTION + " mue) {");
+		sc.add(uiPluginActivatorClassName + ".logError(\"IconProvider can't load image (URL is malformed).\", mue);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("image = descriptor.createImage();");
 		sc.add("if (image == null) {");
 		sc.add("return null;");
 		sc.add("}");
