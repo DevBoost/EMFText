@@ -86,9 +86,7 @@ public interface Annotation extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Returns the annotation value for the given key.
-	 * 
+	 * Returns the annotation value for the given key.
 	 * <!-- end-model-doc -->
 	 * @model keyRequired="true"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\r\n\t\t\tif (key.equals(parameter.getKey())){\r\n\t\t\t\t java.lang.String value = parameter.getValue();\r\n\t\t\t\treturn value;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"

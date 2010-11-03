@@ -15,7 +15,7 @@ ConcreteSyntax.getSubClassesWithSyntax : "Collects all the subclasses for which 
 
 ConcreteSyntax.syntheticTokens : "Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens."
 
-Abstract : "Modifier that is used to tag syntax definitions as abstract."
+ConcreteSyntax.abstract : "A flag that is used to tag syntax definitions as abstract."
 
 Import : "Import statements allow to reuse existing metamodels and syntax definitions."
 Import.csLocationHint : "A URI where the concrete syntax definition to import is located."
@@ -517,6 +517,8 @@ OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING : "If set to <code>false</code>
 OptionTypes.OVERRIDE_ENUMERATION_TERMINAL : "If set to <code>false</code>, the EnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL : "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX  : "If set to <code>false</code>, the ChangeReferenceQuickFix class will not be overridden. The default value for this option is <code>true</code>."
 
 Annotation.getValue : "Returns the annotation value for the given key."
 
