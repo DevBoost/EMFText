@@ -42,7 +42,14 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 		if (quickFixes == null) {
 			quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		}
-		return quickFixes;
+		return java.util.Collections.unmodifiableSet(quickFixes);
+	}
+	
+	public void addQuickFix(org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix) {
+		if (quickFixes == null) {
+			quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+		}
+		quickFixes.add(quickFix);
 	}
 	
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {

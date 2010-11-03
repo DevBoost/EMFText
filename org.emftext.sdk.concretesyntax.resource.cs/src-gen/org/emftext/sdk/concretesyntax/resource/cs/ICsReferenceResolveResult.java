@@ -33,9 +33,16 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	public String getErrorMessage();
 	
 	/**
-	 * Returns the quick fixes that can be used to resolve the resolving error.
+	 * Returns an unmodifiable collection of the quick fixes that can be used to
+	 * resolve the resolving error.
 	 */
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes();
+	
+	/**
+	 * Adds a quick fix to the set of quick fixes that can be used to resolve the
+	 * resolving error.
+	 */
+	public void addQuickFix(org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix);
 	
 	/**
 	 * Sets the error message that describes what went wrong while resolving a
@@ -90,7 +97,7 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	 * information is available (e.g., the error message is only set if the resolve
 	 * operation failed).
 	 * 
-	 * @return true if the reference was sucessfully resolved
+	 * @return true if the reference was successfully resolved
 	 */
 	public boolean wasResolved();
 	

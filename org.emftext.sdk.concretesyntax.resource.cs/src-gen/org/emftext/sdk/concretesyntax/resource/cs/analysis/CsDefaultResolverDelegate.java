@@ -240,7 +240,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				} else {
 					oldTarget = (org.eclipse.emf.ecore.EObject) container.eGet(reference, false);
 				}
-				result.getQuickFixes().add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsChangeReferenceQuickFix("Replace with " + similarMatch, "IMG_TOOL_FORWARD", container, reference, oldTarget, element));
+				result.addQuickFix(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsChangeReferenceQuickFix("Replace with " + similarMatch, "IMG_TOOL_FORWARD", container, reference, oldTarget, element));
 			}
 			return true;
 		}

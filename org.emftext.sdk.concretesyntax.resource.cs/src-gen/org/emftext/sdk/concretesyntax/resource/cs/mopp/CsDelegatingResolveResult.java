@@ -74,4 +74,8 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 		return delegate.getQuickFixes();
 	}
 	
+	public void addQuickFix(org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix) {
+		delegate.addQuickFix(quickFix);
+	}
+	
 }

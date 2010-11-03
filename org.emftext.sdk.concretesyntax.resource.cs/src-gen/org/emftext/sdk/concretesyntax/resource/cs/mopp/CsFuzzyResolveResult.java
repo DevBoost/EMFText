@@ -74,4 +74,8 @@ public class CsFuzzyResolveResult<ReferenceType extends org.eclipse.emf.ecore.EO
 		return delegate.getQuickFixes();
 	}
 	
+	public void addQuickFix(org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix) {
+		delegate.addQuickFix(quickFix);
+	}
+	
 }
