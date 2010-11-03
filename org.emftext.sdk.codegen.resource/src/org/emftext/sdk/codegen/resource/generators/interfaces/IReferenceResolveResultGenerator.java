@@ -43,8 +43,12 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public String getErrorMessage();");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Returns the quick fixes that can be used to resolve the resolving error.");
+		sc.addJavadoc("Returns an unmodifiable collection of the quick fixes that can be used to resolve the resolving error.");
 		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Adds a quick fix to the set of quick fixes that can be used to resolve the resolving error.");
+		sc.add("public void addQuickFix(" + iQuickFixClassName + " quickFix);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -98,7 +102,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 			"Indicates the type of the result. Depending on the type of " +
 			"the result different information is available (e.g., the " +
 			"error message is only set if the resolve operation failed).",
-			"@return true if the reference was sucessfully resolved"
+			"@return true if the reference was successfully resolved"
 		);
 		sc.add("public boolean wasResolved();");
 		sc.addLineBreak();

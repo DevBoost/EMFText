@@ -400,7 +400,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("} else {");
 		sc.add("oldTarget = (" + E_OBJECT + ") container.eGet(reference, false);");
 		sc.add("}");
-		sc.add("result.getQuickFixes().add(new " + changeReferenceQuickFixClassName + "(\"Replace with \" + similarMatch, \"IMG_TOOL_FORWARD\", container, reference, oldTarget, element));");
+		sc.add("result.addQuickFix(new " + changeReferenceQuickFixClassName + "(\"Replace with \" + similarMatch, \"IMG_TOOL_FORWARD\", container, reference, oldTarget, element));");
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");

@@ -44,6 +44,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addMethods(JavaComposite sc) {
 		addGetErrorMessageMethod(sc);
 		addGetQuickFixesMethod(sc);
+		addAddQuickFixMethod(sc);
 		addGetMappingsMethod(sc);
 		addWasResolvedMethod(sc);
 		addWasResolvedMultipleMethod(sc);
@@ -83,7 +84,17 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("if (quickFixes == null) {");
 		sc.add("quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
 		sc.add("}");
-		sc.add("return quickFixes;");
+		sc.add("return " + COLLECTIONS + ".unmodifiableSet(quickFixes);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddQuickFixMethod(JavaComposite sc) {
+		sc.add("public void addQuickFix(" + iQuickFixClassName + " quickFix) {");
+		sc.add("if (quickFixes == null) {");
+		sc.add("quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
+		sc.add("}");
+		sc.add("quickFixes.add(quickFix);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

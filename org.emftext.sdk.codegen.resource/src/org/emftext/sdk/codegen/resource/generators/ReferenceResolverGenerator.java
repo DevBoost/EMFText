@@ -14,6 +14,8 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
@@ -142,14 +144,15 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 			ConcreteSyntax containingSyntax = genClassFinder
 					.getContainingSyntax(getContext().getConcreteSyntax(),
 							proxyReference.getGenClass());
-			String iReferenceResolveResultClassName = getContext()
-					.getQualifiedClassName(
-							TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT,
-							containingSyntax);
+			String iReferenceResolveResultClassName = getContext().getQualifiedClassName(
+					TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT,
+					containingSyntax);
+			String iQuickFixClassName = getContext().getQualifiedClassName(
+					TextResourceArtifacts.I_QUICK_FIX,
+					containingSyntax);
 			String iReferenceMappingClassName = getContext().getQualifiedClassName(
 					TextResourceArtifacts.I_REFERENCE_MAPPING, containingSyntax);
-			sc
-					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new "
+			sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new "
 							+ iReferenceResolveResultClassName
 							+ "<"
 							+ typeClassName + ">() {");
@@ -198,11 +201,42 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 					+ " target, String warning) {");
 			sc.add("result.addMapping(identifier, target, warning);");
 			sc.add("}");
+			sc.addLineBreak();
+			sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+			// TODO all quick fixes that are added by the delegate resolver will be lost
+			sc.add("return " + COLLECTIONS + ".emptySet();");
+			sc.add("}");
+			sc.addLineBreak();
+			
+			sc.add("public void addQuickFix(final " + iQuickFixClassName + " quickFix) {");
+			sc.add("result.addQuickFix(new " + super.iQuickFixClassName + "() {");
+			sc.addLineBreak();
+			sc.add("public String getImageKey() {");
+			sc.add("return quickFix.getImageKey();");
+			sc.add("}");
+			sc.addLineBreak();
+			sc.add("public String getDisplayString() {");
+			sc.add("return quickFix.getDisplayString();");
+			sc.add("}");
+			sc.addLineBreak();
+			sc.add("public " + COLLECTION + "<" + E_OBJECT + "> getContextObjects() {");
+			sc.add("return quickFix.getContextObjects();");
+			sc.add("}");
+			sc.addLineBreak();
+			sc.add("public String getContextAsString() {");
+			sc.add("return quickFix.getContextAsString();");
+			sc.add("}");
+			sc.addLineBreak();
+			sc.add("public String apply(String currentText) {");
+			sc.add("return quickFix.apply(currentText);");
+			sc.add("}");
+			sc.add("});");
+			sc.add("}");
+			
 			sc.add("});");
 			sc.addLineBreak();
 		} else {
-			sc
-					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
+			sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
 		}
 
 		sc.add("}");

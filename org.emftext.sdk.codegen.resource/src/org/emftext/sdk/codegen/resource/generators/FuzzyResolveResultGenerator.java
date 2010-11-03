@@ -68,6 +68,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 		addAddMappingMethod3(sc);
 		addAddMappingMethod4(sc);
 		addGetQuickFixesMethod(sc);
+		addAddQuickFixMethod(sc);
 	}
 
 	private void addAddMappingMethod4(JavaComposite sc) {
@@ -143,6 +144,13 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	private void addGetQuickFixesMethod(JavaComposite sc) {
 		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
 		sc.add("return delegate.getQuickFixes();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddQuickFixMethod(JavaComposite sc) {
+		sc.add("public void addQuickFix(" + iQuickFixClassName + " quickFix) {");
+		sc.add("delegate.addQuickFix(quickFix);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
