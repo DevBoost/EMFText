@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource;
 
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
@@ -21,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
 import java.io.File;
@@ -181,16 +181,22 @@ public class GeneratorUtil {
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
 		}
-		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + contextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
-				+ " proxy) {");
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + contextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final ContainerType container, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT + " proxy) {");
 
+    	sc.add("final int position;");
+    	sc.add("if (reference.isMany()) {");
+    	sc.add("position = ((" + LIST + "<?>) container.eGet(reference)).size();");
+    	sc.add("} else {");
+    	sc.add("position = -1;");
+    	sc.add("}");
+    	sc.addLineBreak();
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the parser is used for code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
+		sc.add("resource.registerContextDependentProxy(factory, container, reference, id, proxy, position);");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("});");

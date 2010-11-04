@@ -740,14 +740,10 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, String id, " + E_OBJECT + " proxyElement) {");
-    	sc.add("int pos = -1;");
-    	sc.add("if (reference.isMany()) {");
-    	sc.add("pos = ((" + LIST + "<?>)container.eGet(reference)).size();");
-    	sc.add("}");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, String id, " + E_OBJECT + " proxyElement, int position) {");
     	sc.add(INTERNAL_E_OBJECT + " proxy = (" + INTERNAL_E_OBJECT + ") proxyElement;");
     	sc.add("String internalURIFragment = " + iContextDependentUriFragmentClassName+ ".INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + \"_\" + id;");
-    	sc.add(iContextDependentUriFragmentClassName + "<?> uriFragment = factory.create(id, container, reference, pos, proxy);");
+    	sc.add(iContextDependentUriFragmentClassName + "<?> uriFragment = factory.create(id, container, reference, position, proxy);");
     	sc.add("proxy.eSetProxyURI(getURI().appendFragment(internalURIFragment));");
     	sc.add("addURIFragment(internalURIFragment, uriFragment);");
     	sc.add("}");

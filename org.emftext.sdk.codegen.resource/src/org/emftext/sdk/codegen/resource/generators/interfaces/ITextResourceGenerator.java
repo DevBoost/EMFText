@@ -81,11 +81,11 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"Internal method used by the parser to register a context dependent proxy object for later resolution.",
 			"@param container",
 			"@param reference",
-			"@param pos",
+			"@param position",
 			"@param id",
 			"@param proxyElement"
 		);
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, String id, " + E_OBJECT + " proxyElement);");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, String id, " + E_OBJECT + " proxyElement, int position);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");

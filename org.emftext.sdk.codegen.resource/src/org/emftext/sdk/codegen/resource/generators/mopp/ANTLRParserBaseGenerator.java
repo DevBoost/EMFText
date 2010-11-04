@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_PARSER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
@@ -52,6 +53,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addJavadoc("a collection to store all anonymous tokens");
 		sc.add("protected " + sc.declareArrayList("anonymousTokens", COMMON_TOKEN));
 		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"A collection that is filled with commands to be executed after parsing. " +
+			"This collection is cleared before parsing starts and returned as part of " +
+			"the parse result object."
+		);
+		sc.add("protected " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
+		sc.addLineBreak();
 	}
 
 	private void addConstructors(JavaComposite sc) {
@@ -62,6 +71,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addMethods(JavaComposite sc) {
 		addRetrieveLayoutInformationMethod(sc);
 		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, getContext());
 	}
 
 	private void addConstructor1(JavaComposite sc) {

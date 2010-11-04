@@ -312,7 +312,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addParseToExpectedElementsMethod(sc);
 		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
-		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, context);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addFormatTokenNameMethod(sc);
@@ -787,14 +786,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
-		
-		sc.addJavadoc(
-			"A collection that is filled with commands to be executed after parsing. " +
-			"This collection is cleared before parsing starts and returned as part of " +
-			"the parse result object."
-		);
-		sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
-		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"A flag to indicate that the parser should stop parsing as soon as possible. " +
