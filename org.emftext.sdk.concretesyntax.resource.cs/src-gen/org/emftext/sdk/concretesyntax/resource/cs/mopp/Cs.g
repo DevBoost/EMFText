@@ -73,13 +73,6 @@ options {
 	private int stopIncludingHiddenTokens;
 	private int stopExcludingHiddenTokens;
 	/**
-	 * A collection that is filled with commands to be executed after parsing. This
-	 * collection is cleared before parsing starts and returned as part of the parse
-	 * result object.
-	 */
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> postParseCommands;
-	
-	/**
 	 * A flag to indicate that the parser should stop parsing as soon as possible. The
 	 * flag is set to false before parsing starts. It can be set to true by invoking
 	 * the terminateParsing() method from another thread. This feature is used, when
@@ -521,19 +514,6 @@ options {
 		} else {
 			return null;
 		}
-	}
-	
-	protected <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, final ContainerType element, final org.eclipse.emf.ecore.EReference reference, final String id, final org.eclipse.emf.ecore.EObject proxy) {
-		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
-			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-				if (resource == null) {
-					// the resource can be null if the parser is used for code completion
-					return true;
-				}
-				resource.registerContextDependentProxy(factory, element, reference, id, proxy);
-				return true;
-			}
-		});
 	}
 	
 	/**
