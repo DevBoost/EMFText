@@ -336,19 +336,19 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	private String getName(ReferenceType element) {
-		String fragment = null;
+		String deresolvedReference = null;
 		if (element instanceof org.eclipse.emf.ecore.EObject) {
 			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) element;
 			if (eObjectToDeResolve.eIsProxy()) {
-				fragment = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
-				if (fragment != null && fragment.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
-					fragment = fragment.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
-					fragment = fragment.substring(fragment.indexOf("_") + 1);
+				deresolvedReference = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
+				if (deresolvedReference != null && deresolvedReference.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
+					deresolvedReference = deresolvedReference.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
+					deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf("_") + 1);
 				}
 			}
 		}
-		if (fragment != null) {
-			return fragment;
+		if (deresolvedReference != null) {
+			return deresolvedReference;
 		}
 		org.eclipse.emf.ecore.EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof org.eclipse.emf.ecore.EAttribute) {

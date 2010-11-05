@@ -602,30 +602,28 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
 		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
 		// proxy objects must be printed differently
-		String fragment = null;
+		String deresolvedReference = null;
 		if (referencedObject instanceof org.eclipse.emf.ecore.EObject) {
 			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) referencedObject;
 			if (eObjectToDeResolve.eIsProxy()) {
-				fragment = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
-				if (fragment != null && fragment.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
-					fragment = fragment.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
-					fragment = fragment.substring(fragment.indexOf("_") + 1);
+				deresolvedReference = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
+				if (deresolvedReference != null && deresolvedReference.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
+					deresolvedReference = deresolvedReference.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
+					deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf("_") + 1);
 				}
 			}
 		}
-		if (fragment != null) {
-			tokenOutputStream.add(new PrintToken(fragment, tokenName));
-			return;
+		if (deresolvedReference == null) {
+			// NC-References must always be printed by deresolving the reference. We cannot
+			// use the visible token information, because deresolving usually depends on
+			// attribute values of the referenced object instead of the object itself.
+			@SuppressWarnings("rawtypes")			
+			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver referenceResolver = getReferenceResolverSwitch().getResolver(reference);
+			referenceResolver.setOptions(getOptions());
+			deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) referencedObject, eObject, reference);
 		}
-		// NC-References must always be printed by deresolving the reference. We cannot
-		// use the visible token information, because deresolving usually depends on
-		// attribute values of the referenced object instead of the object itself.
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 		tokenResolver.setOptions(getOptions());
-		@SuppressWarnings("rawtypes")		
-		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver referenceResolver = getReferenceResolverSwitch().getResolver(reference);
-		referenceResolver.setOptions(getOptions());
-		String deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) referencedObject, eObject, reference);
 		String deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);
 		// write result to output stream
 		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));
