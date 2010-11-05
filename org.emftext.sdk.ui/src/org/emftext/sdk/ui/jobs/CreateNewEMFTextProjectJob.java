@@ -59,11 +59,11 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 		context.setResourceMarker(resourceMarker);
 		
 		new NewProjectContentsCreator().create(newProjectPlugin, context, null, null);
-		refresh(progress.newChild(2), project);
+		refresh(progress.newChild(2), project, "new project");
 		GenerationContext generationContext = context.getGenerationContext();
-		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()));
-		refresh(progress.newChild(2), getProject(generationContext.getResourceUIPlugin().getName()));
-		refresh(progress.newChild(2), getProject(generationContext.getAntlrPlugin().getName()));
+		refresh(progress.newChild(2), getProject(generationContext.getResourcePlugin().getName()), "resource plug-in");
+		refresh(progress.newChild(2), getProject(generationContext.getResourceUIPlugin().getName()), "resource UI plug-in");
+		refresh(progress.newChild(2), getProject(generationContext.getAntlrPlugin().getName()), "ANTLR plug-in");
 		
 		// write problems to error log
 		for (GenerationProblem problem : problems) {

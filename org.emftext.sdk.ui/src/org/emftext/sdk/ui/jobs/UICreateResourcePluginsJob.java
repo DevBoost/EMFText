@@ -42,9 +42,9 @@ public class UICreateResourcePluginsJob extends CreateResourcePluginsJob {
 		Result result = super.run(context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		refresh(monitor, uiContext.getProject(context.getResourcePlugin()));
-		refresh(monitor, uiContext.getProject(context.getResourceUIPlugin()));
-		refresh(monitor, uiContext.getProject(context.getAntlrPlugin()));
+		refresh(monitor, uiContext.getProject(context.getResourcePlugin()), "resource plug-in");
+		refresh(monitor, uiContext.getProject(context.getResourceUIPlugin()), "resource UI plug-in");
+		refresh(monitor, uiContext.getProject(context.getAntlrPlugin()), "ANTLR plug-in");
 
 		return result;
 	}
