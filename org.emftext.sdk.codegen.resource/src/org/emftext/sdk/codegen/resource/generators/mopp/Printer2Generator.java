@@ -628,24 +628,21 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
 		sc.addComment("proxy objects must be printed differently");
 		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "referencedObject");
-		sc.add("if (fragment != null) {");
-		sc.add("tokenOutputStream.add(new PrintToken(fragment, tokenName));");
-		sc.add("return;");
-		sc.add("}");
-
+		sc.add("if (deresolvedReference == null) {");
 		sc.addComment(
 			"NC-References must always be printed by deresolving the reference. " +
 			"We cannot use the visible token information, because deresolving " +
 			"usually depends on attribute values of the referenced object instead of the " +
 			"object itself."
 		);
-		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
-		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
 		
-		sc.add("String deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") referencedObject, eObject, reference);");
+		sc.add("deresolvedReference = referenceResolver.deResolve((" + E_OBJECT + ") referencedObject, eObject, reference);");
+		sc.add("}");
+		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add("String deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.addComment("write result to output stream");
 		sc.add("tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));");

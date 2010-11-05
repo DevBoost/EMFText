@@ -228,8 +228,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		// code has been added to the Printer2Generator, but remains here for 
 		// compatibility reasons.
 		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "element");
-		sc.add("if (fragment != null) {");
-		sc.add("return fragment;");
+		sc.add("if (deresolvedReference != null) {");
+		sc.add("return deresolvedReference;");
 		sc.add("}");
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");

@@ -272,14 +272,14 @@ public class GeneratorUtil {
 	}
 	
 	public void addCodeToDeresolveProxyObject(StringComposite sc, String iContextDependentUriFragmentClassName, String proxyVariable) {
-		sc.add("String fragment = null;");
+		sc.add("String deresolvedReference = null;");
 		sc.add("if (" + proxyVariable + " instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " eObjectToDeResolve = (" + E_OBJECT + ") " + proxyVariable + ";");
 		sc.add("if (eObjectToDeResolve.eIsProxy()) {");
-		sc.add("fragment = ((" + INTERNAL_E_OBJECT + ") eObjectToDeResolve).eProxyURI().fragment();");
-		sc.add("if (fragment != null && fragment.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
-		sc.add("fragment = fragment.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
-		sc.add("fragment = fragment.substring(fragment.indexOf(\"_\") + 1);");
+		sc.add("deresolvedReference = ((" + INTERNAL_E_OBJECT + ") eObjectToDeResolve).eProxyURI().fragment();");
+		sc.add("if (deresolvedReference != null && deresolvedReference.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
+		sc.add("deresolvedReference = deresolvedReference.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
+		sc.add("deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf(\"_\") + 1);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
