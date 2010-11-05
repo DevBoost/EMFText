@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.resource.generators.code_completion.helpers;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -101,17 +103,6 @@ public class ExpectationComputer {
 	}
 
 	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
-		/*
-		if (syntaxElement instanceof STAR) {
-			return new LinkedHashSet<Expectation>();
-		}
-		if (syntaxElement instanceof QUESTIONMARK) {
-			return new LinkedHashSet<Expectation>();
-		}
-		if (syntaxElement instanceof PLUS) {
-			return new LinkedHashSet<Expectation>();
-		}
-		*/
 		Rule rule = syntaxElement.getContainingRule();
 
 		Set<Expectation> firstSet;
@@ -124,24 +115,19 @@ public class ExpectationComputer {
 			firstSet = computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, contributingNonterminals);
 		} else if (syntaxElement instanceof Rule) {
  			firstSet = computeFirstSetForChoice(syntax, rule, rule.getDefinition(), contributingNonterminals);
+		} else if (syntaxElement instanceof EnumLiteralTerminal) {
+ 			firstSet = computeFirstSetForEnumLiteralTerminal((EnumLiteralTerminal) syntaxElement);
 		} else {
 			throw new IllegalArgumentException(syntaxElement.toString());
 		}
 		return firstSet;
 	}
 
+	private Set<Expectation> computeFirstSetForEnumLiteralTerminal(EnumLiteralTerminal enumTerminal) {
+		return Collections.singleton(new Expectation(enumTerminal));
+	}
+
 	private Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Collection<Rule> usedRules, Set<GenClass> contributingNonterminals) {
-		/*
-		if (syntaxElement instanceof STAR) {
-			return new LinkedHashSet<Expectation>();
-		}
-		if (syntaxElement instanceof QUESTIONMARK) {
-			return new LinkedHashSet<Expectation>();
-		}
-		if (syntaxElement instanceof PLUS) {
-			return new LinkedHashSet<Expectation>();
-		}
-		*/
 		
 		Set<Expectation> result = computeFirstSetIfObjectCanBeRepeated(syntax, syntaxElement, contributingNonterminals);
 
