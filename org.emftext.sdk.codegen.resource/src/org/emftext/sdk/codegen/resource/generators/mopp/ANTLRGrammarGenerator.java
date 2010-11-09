@@ -1767,11 +1767,15 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 			if ("".equals(booleanTerminal.getTrueLiteral())) {
 				sc.add("// initialize boolean attribute");
+				sc.add("{");
 				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "true", false, false);
+				sc.add("}");
 			}
 			if ("".equals(booleanTerminal.getFalseLiteral())) {
 				sc.add("// initialize boolean attribute");
+				sc.add("{");
 				generatorUtil.addCodeToSetFeature(sc, metaclass, featureConstant, eFeature, "false", false, false);
+				sc.add("}");
 			}
 		}
 	}
