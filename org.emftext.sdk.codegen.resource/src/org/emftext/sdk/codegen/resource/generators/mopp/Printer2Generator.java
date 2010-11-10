@@ -680,7 +680,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("String hiddenTokenText = getHiddenTokenText(layoutInformation);");
 		sc.add("if (hiddenTokenText != null) {");
 		sc.addComment("removed used information");
+		sc.add("if (layoutInformations != null) {");
 		sc.add("layoutInformations.remove(layoutInformation);");
+		sc.add("}");
 		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingObject = false;");
@@ -762,7 +764,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tabsBeforeCurrentObject = 0;");
 		sc.add("startedPrintingObject = true;");
 		sc.add("startedPrintingContainedObject = false;");
-		sc.add("doPrint(element, new " + ARRAY_LIST + "<" + formattingElementClassName + ">());");
+		sc.add(LIST + "<" + formattingElementClassName + ">  formattingElements = new " + ARRAY_LIST + "<" + formattingElementClassName + ">();");
+		sc.add("doPrint(element, formattingElements);");
+		sc.add("printFormattingElements(formattingElements, null, null);");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
 		sc.add("printSmart(writer);");
