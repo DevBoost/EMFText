@@ -258,7 +258,7 @@ public class TokenSorter {
 				automatonCache.put(transformedRegExp, automaton);
 			} else {
 				RegExp regExp = new RegExp(transformedRegExp);
-				automaton = regExp.toAutomaton();
+				automaton = regExp.toAutomaton(false);
 				automatonCache.put(transformedRegExp, automaton);
 				if (automatonCache.size() >= MAX_CACHE_SIZE) {
 					// remove the first entry in the key set. this is the least
@@ -311,14 +311,6 @@ public class TokenSorter {
 		}
 
 		return toSorted;
-	}
-
-	public void checkToken(CompleteTokenDefinition def) throws SorterException {
-		// TODO implement more detailed token analysis
-//		Automaton automaton = getAutomaton(def.getRegex());
-//		Set<State> liveStates = automaton.getLiveStates();
-//		Set<State> states = automaton.getStates();
-//		
 	}
 
 }
