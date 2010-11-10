@@ -41,6 +41,16 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 		Map<CompleteTokenDefinition, Set<CompleteTokenDefinition>> conflicting = Collections.emptyMap();
 		EList<CompleteTokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
+		for (CompleteTokenDefinition def : allTokenDefinitions) {
+			try {
+				tokenSorter.checkToken(def);
+			} catch (SorterException e) {
+				addProblem(ECsProblemType.TOKEN_UNREACHABLE,
+						"Error during token conflict analysis. " + e.getMessage(),
+						syntax);
+			}
+		}
+		
 		Map<CompleteTokenDefinition, Collection<CompleteTokenDefinition>> unreachable = Collections.emptyMap();
 		try {
 			conflicting = tokenSorter.getConflicting(allTokenDefinitions);
