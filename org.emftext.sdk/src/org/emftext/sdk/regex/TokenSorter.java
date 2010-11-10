@@ -24,7 +24,10 @@ import java.util.Set;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 import dk.brics.automaton.Automaton;
+import dk.brics.automaton.BasicOperations;
 import dk.brics.automaton.RegExp;
+import dk.brics.automaton.SpecialOperations;
+import dk.brics.automaton.State;
 
 public class TokenSorter {
 
@@ -308,6 +311,14 @@ public class TokenSorter {
 		}
 
 		return toSorted;
+	}
+
+	public void checkToken(CompleteTokenDefinition def) throws SorterException {
+		// TODO implement more detailed token analysis
+//		Automaton automaton = getAutomaton(def.getRegex());
+//		Set<State> liveStates = automaton.getLiveStates();
+//		Set<State> states = automaton.getStates();
+//		
 	}
 
 }
