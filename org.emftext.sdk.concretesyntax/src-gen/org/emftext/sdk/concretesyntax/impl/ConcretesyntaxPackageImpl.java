@@ -2071,6 +2071,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getBooleanTerminal_TrueLiteral(), theEcorePackage.getEString(), "trueLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBooleanTerminal_FalseLiteral(), theEcorePackage.getEString(), "falseLiteral", null, 1, 1, BooleanTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(booleanTerminalEClass, theEcorePackage.getEBoolean(), "containsEmptyLiteral", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(enumTerminalEClass, EnumTerminal.class, "EnumTerminal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEnumTerminal_Literals(), this.getEnumLiteralTerminal(), null, "literals", null, 1, -1, EnumTerminal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

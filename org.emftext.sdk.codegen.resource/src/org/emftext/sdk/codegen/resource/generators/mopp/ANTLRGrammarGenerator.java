@@ -2017,8 +2017,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		
 		if (!falseIsSet || !trueIsSet) {
-			// if one of the literals is empty, the other one is optional
-			sc.add(")?");
+			// if one of the literals is empty, the other one is optional except
+			// if the enumeration terminal in an compound which can be empty
+			if (csUtil.isInEmptyCompound(booleanTerminal)) {
+				sc.add(")");
+			} else {
+				sc.add(")?");
+			}
 		} else {
 			sc.add(")");
 		}
@@ -2066,8 +2071,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		
 		if (containsEmptyLiteral) {
-			// if one of the literals is empty, the others are optional
-			sc.add(")?");
+			// if one of the literals is empty, the others are optional except
+			// if the enumeration terminal in an compound which can be empty
+			if (csUtil.isInEmptyCompound(enumTerminal)) {
+				sc.add(")");
+			} else {
+				sc.add(")?");
+			}
 		} else {
 			sc.add(")");
 		}

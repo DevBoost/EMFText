@@ -440,6 +440,7 @@
     <genClasses ecoreClass="concretesyntax.ecore#//BooleanTerminal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/trueLiteral"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//BooleanTerminal/falseLiteral"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//BooleanTerminal/containsEmptyLiteral"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//EnumTerminal">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//EnumTerminal/literals"/>

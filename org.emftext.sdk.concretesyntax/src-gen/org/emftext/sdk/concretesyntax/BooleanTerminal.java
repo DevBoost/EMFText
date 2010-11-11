@@ -85,4 +85,12 @@ public interface BooleanTerminal extends Terminal {
 	 */
 	void setFalseLiteral(String value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean containsEmptyLiteral();
+
 } // BooleanTerminal
