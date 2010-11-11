@@ -139,11 +139,12 @@ public class BooleanTerminalImpl extends TerminalImpl implements BooleanTerminal
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public boolean containsEmptyLiteral() {
-		// TODO mseifert: move this to BooleanTerminal.ejava
-		return "".equals(getTrueLiteral()) || "".equals(getFalseLiteral());
+		
+				return "".equals(getTrueLiteral()) || "".equals(getFalseLiteral());
+		
 	}
 
 	/**

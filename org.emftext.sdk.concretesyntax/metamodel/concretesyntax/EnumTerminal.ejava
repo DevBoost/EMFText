@@ -1,0 +1,32 @@
+epackage concretesyntax;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+eclass EnumTerminal {
+	containsEmptyLiteral() {
+		return !getEmptyLiterals().isEmpty();
+	}
+	
+	getNonEmptyLiterals() {
+		EList<EnumLiteralTerminal> nonEmptyLiterals = new BasicEList<EnumLiteralTerminal>();
+		for (EnumLiteralTerminal literal : getLiterals()) {
+			String text = literal.getText();
+			if (text != null && !"".equals(text)) {
+				nonEmptyLiterals.add(literal);
+			}
+		}
+		return nonEmptyLiterals;
+	}
+	
+	getEmptyLiterals() {
+		EList<EnumLiteralTerminal> emptyLiterals = new BasicEList<EnumLiteralTerminal>();
+		for (EnumLiteralTerminal literal : getLiterals()) {
+			String text = literal.getText();
+			if ("".equals(text)) {
+				emptyLiterals.add(literal);
+			}
+		}
+		return emptyLiterals;
+	}
+}

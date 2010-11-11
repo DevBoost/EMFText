@@ -52,7 +52,10 @@ public interface EnumTerminal extends Terminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn !getEmptyLiterals().isEmpty();\r\n'"
 	 * @generated
 	 */
 	boolean containsEmptyLiteral();
@@ -60,7 +63,11 @@ public interface EnumTerminal extends Terminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (text != null && !\"\".equals(text)) {\r\n\t\t\t\tnonEmptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn nonEmptyLiterals;\r\n'"
 	 * @generated
 	 */
 	EList<EnumLiteralTerminal> getNonEmptyLiterals();
@@ -68,7 +75,11 @@ public interface EnumTerminal extends Terminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (\"\".equals(text)) {\r\n\t\t\t\temptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn emptyLiterals;\r\n'"
 	 * @generated
 	 */
 	EList<EnumLiteralTerminal> getEmptyLiterals();

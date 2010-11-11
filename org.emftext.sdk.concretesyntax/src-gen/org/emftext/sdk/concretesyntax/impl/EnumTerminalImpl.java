@@ -17,7 +17,6 @@ package org.emftext.sdk.concretesyntax.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -85,45 +84,52 @@ public class EnumTerminalImpl extends TerminalImpl implements EnumTerminal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public boolean containsEmptyLiteral() {
-		// TODO mseifert: move this method to EnumTerminal.ejava
-		return !getEmptyLiterals().isEmpty();
+		
+				return !getEmptyLiterals().isEmpty();
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public EList<EnumLiteralTerminal> getNonEmptyLiterals() {
-		// TODO mseifert: move this method to EnumTerminal.ejava
-		EList<EnumLiteralTerminal> nonEmptyLiterals = new BasicEList<EnumLiteralTerminal>();
-		for (EnumLiteralTerminal literal : getLiterals()) {
-			String text = literal.getText();
-			if (text != null && !"".equals(text)) {
-				nonEmptyLiterals.add(literal);
-			}
-		}
-		return nonEmptyLiterals;
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();
+		
+				for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {
+					 java.lang.String text = literal.getText();
+					if (text != null && !"".equals(text)) {
+						nonEmptyLiterals.add(literal);
+					}
+				}
+		
+				return nonEmptyLiterals;
+		
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public EList<EnumLiteralTerminal> getEmptyLiterals() {
-		// TODO mseifert: move this method to EnumTerminal.ejava
-		EList<EnumLiteralTerminal> emptyLiterals = new BasicEList<EnumLiteralTerminal>();
-		for (EnumLiteralTerminal literal : getLiterals()) {
-			String text = literal.getText();
-			if ("".equals(text)) {
-				emptyLiterals.add(literal);
-			}
-		}
-		return emptyLiterals;
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();
+		
+				for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {
+					 java.lang.String text = literal.getText();
+					if ("".equals(text)) {
+						emptyLiterals.add(literal);
+					}
+				}
+		
+				return emptyLiterals;
+		
 	}
 
 	/**

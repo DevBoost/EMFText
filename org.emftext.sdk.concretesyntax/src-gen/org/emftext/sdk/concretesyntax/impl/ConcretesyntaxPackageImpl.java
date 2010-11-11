@@ -2834,6 +2834,34 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", ""
 		   });		
 		addAnnotation
+		  (booleanTerminalEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\treturn \"\".equals(getTrueLiteral()) || \"\".equals(getFalseLiteral());\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (enumTerminalEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\treturn !getEmptyLiterals().isEmpty();\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (enumTerminalEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (text != null && !\"\".equals(text)) {\r\n\t\t\t\tnonEmptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn nonEmptyLiterals;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (enumTerminalEClass.getEOperations().get(2), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (\"\".equals(text)) {\r\n\t\t\t\temptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn emptyLiterals;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
 		  (optionEClass, 
 		   source, 
 		   new String[] {
