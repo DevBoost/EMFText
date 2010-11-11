@@ -22,22 +22,35 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
+import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.EClassUtil;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.SyntaxElement;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -212,5 +225,99 @@ public class ConcreteSyntaxUtil {
 	
 	public OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
+	}
+
+
+	/**
+	 * Checks whether the syntax rule tree that is rooted at 'element' produce
+	 * the empty word.
+	 * 
+	 * @param element
+	 * @param ignoreBooleanAndEnumTerminals
+	 * @return
+	 */
+	public boolean canBeEmpty(SyntaxElement element, boolean ignoreBooleanAndEnumTerminals) {
+		if (element instanceof LineBreak) {
+			return true;
+		}
+		if (element instanceof WhiteSpaces) {
+			return true;
+		}
+		if (element instanceof CsString) {
+			return false;
+		}
+		if (element instanceof CardinalityDefinition) {
+			CardinalityDefinition cd = (CardinalityDefinition) element;
+			Cardinality cardinality = cd.getCardinality();
+			boolean canBeEmpty = cardinality == Cardinality.STAR || cardinality == Cardinality.QUESTIONMARK;
+			if (canBeEmpty) {
+				return true;
+			}
+			if (!ignoreBooleanAndEnumTerminals) {
+				if (element instanceof BooleanTerminal) {
+					BooleanTerminal terminal = (BooleanTerminal) element;
+					return terminal.containsEmptyLiteral();
+				}
+				if (element instanceof EnumTerminal) {
+					EnumTerminal terminal = (EnumTerminal) element;
+					return terminal.containsEmptyLiteral();
+				}
+			} else {
+				return false;
+			}
+		}
+		if (element instanceof CompoundDefinition) {
+			CompoundDefinition compound = (CompoundDefinition) element;
+			EList<SyntaxElement> children = compound.getChildren();
+			boolean canBeEmpty = true;
+			for (SyntaxElement child : children) {
+				canBeEmpty &= canBeEmpty(child, ignoreBooleanAndEnumTerminals);
+			}
+			return canBeEmpty;
+		}
+		if (element instanceof Choice) {
+			Choice choice = (Choice) element;
+			EList<SyntaxElement> children = choice.getChildren();
+			boolean canBeEmpty = true;
+			for (SyntaxElement child : children) {
+				// TODO mseifert: check how ANTLR behaves in this case
+				canBeEmpty &= canBeEmpty(child, ignoreBooleanAndEnumTerminals);
+			}
+			return canBeEmpty;
+		}
+		if (element instanceof Sequence) {
+			Sequence sequence = (Sequence) element;
+			EList<SyntaxElement> children = sequence.getChildren();
+			for (SyntaxElement child : children) {
+				if (!canBeEmpty(child, ignoreBooleanAndEnumTerminals)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		if (element instanceof Rule) {
+			Rule rule = (Rule) element;
+			EList<SyntaxElement> children = rule.getChildren();
+			boolean canBeEmpty = true;
+			for (SyntaxElement child : children) {
+				canBeEmpty &= canBeEmpty(child, ignoreBooleanAndEnumTerminals);
+			}
+			return canBeEmpty;
+		}
+		throw new RuntimeException("Unknown syntax element found.");
+	}
+
+	public boolean isInEmptyCompound(SyntaxElement syntaxElement) {
+		EObject parent = syntaxElement.eContainer();
+		while (parent != null) {
+			if (parent instanceof SyntaxElement) {
+				SyntaxElement element = (SyntaxElement) parent;
+				if (element instanceof CompoundDefinition && canBeEmpty(element, false)) {
+					return true;
+				}
+			}
+			parent = parent.eContainer();
+		}
+		return false;
 	}
 }

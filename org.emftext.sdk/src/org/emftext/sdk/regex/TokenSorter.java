@@ -24,10 +24,7 @@ import java.util.Set;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 
 import dk.brics.automaton.Automaton;
-import dk.brics.automaton.BasicOperations;
 import dk.brics.automaton.RegExp;
-import dk.brics.automaton.SpecialOperations;
-import dk.brics.automaton.State;
 
 public class TokenSorter {
 

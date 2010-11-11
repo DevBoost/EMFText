@@ -2018,7 +2018,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		if (!falseIsSet || !trueIsSet) {
 			// if one of the literals is empty, the other one is optional except
-			// if the enumeration terminal in an compound which can be empty
+			// if the boolean terminal in an compound which can be empty
 			if (csUtil.isInEmptyCompound(booleanTerminal)) {
 				sc.add(")");
 			} else {
