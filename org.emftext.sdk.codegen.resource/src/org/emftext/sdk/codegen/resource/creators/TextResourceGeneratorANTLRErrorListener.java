@@ -16,8 +16,9 @@ package org.emftext.sdk.codegen.resource.creators;
 import org.antlr.tool.ANTLRErrorListener;
 import org.antlr.tool.Message;
 import org.antlr.tool.ToolMessage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.GenerationProblem.Severity;
+import org.emftext.sdk.codegen.resource.GenerationContext;
 
 /**
  * An error listener for the ANTLR Tool that reports errors by attaching diagnostics to
@@ -29,69 +30,46 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
  */
 public class TextResourceGeneratorANTLRErrorListener implements ANTLRErrorListener {
 
-    protected Resource csResource;
+    protected GenerationContext context;
     
-    public TextResourceGeneratorANTLRErrorListener(Resource csResource) {
-        this.csResource = csResource;
+    public TextResourceGeneratorANTLRErrorListener(GenerationContext context) {
+        this.context = context;
     }
     
     public void error(Message msg) {
-    	csResource.getErrors().add(produceDiagnostic(msg));
+    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.ERROR));
     }
 
     public void error(ToolMessage msg) {
-    	csResource.getErrors().add(produceDiagnostic(msg));    
+    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.ERROR));
     }
 
     public void info(String msg) {
-    	csResource.getWarnings().add(produceDiagnostic(msg));   
+    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.WARNING));
     }
 
     public void warning(Message msg) {
-    	csResource.getWarnings().add(produceDiagnostic(msg)); 
+    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.WARNING));
     }
     
-    private Diagnostic produceDiagnostic(Message msg) {
-        return produceDiagnostic(msg + "");
+    private String formatMessage(Message msg) {
+        return formatMessage(msg + "");
     }
     
     /**
-     * Produces a diagnostic that can be attached to a resource.
-     * The line and column information will be removed from the 
-     * given message, since they only apply to the generated file
-     * and not the concrete syntax model itself.
+     * Converts a message from the ANTLR tool to something that is human
+     * readable and that can be attached to a resource.
      * 
      * @param msg Message from the ANTLR Tool
-     * @return the diagnostic
+     * @return a readable message
      */
-    private Diagnostic produceDiagnostic(String msg) {
+    private String formatMessage(String msg) {
     	msg = msg.substring(msg.indexOf(":") + 1);
     	msg = msg.substring(msg.indexOf(":") + 1);
         msg = msg.substring(msg.indexOf(":") + 2);        
         msg = msg.toString();
         
         String text = msg.substring(msg.indexOf(":") + 1);
-        final String cleanText = text.replace("\n", "").replace("\r", "");
-        
-        Diagnostic diagnostic = new Diagnostic() {
-			public int getColumn() {
-				return 0;
-			}
-
-			public int getLine() {
-				return 0;
-			}
-
-			public String getLocation() {
-				return csResource.getURI().toString();
-			}
-
-			public String getMessage() {
-				return cleanText;
-			}
-        };
-        
-        return diagnostic;
+        return text.replace("\n", "").replace("\r", "");
      }
-
 }

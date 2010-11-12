@@ -30,7 +30,7 @@ public class ANTLRParserCreator implements IArtifactCreator<GenerationContext> {
 	public void createArtifacts(IPluginDescriptor plugin, GenerationContext context) {
 		if (context.getANTLRGrammarHasChanged()) {
 			File antlrFile = context.getANTLRGrammarFile(context.getResourcePlugin());
-        	ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
+        	ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context));
         	Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getParentFile().getAbsolutePath(), antlrFile.getAbsolutePath()});
         	antlrTool.process();
 		}
