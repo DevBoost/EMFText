@@ -90,7 +90,11 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addRetrieveLayoutInformationMethod(StringComposite sc) {
 		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object) {");
-		sc.add("if (!(syntaxElement instanceof " + placeholderClassName + ") && !(syntaxElement instanceof " + keywordClassName + ")) {");
+		sc.add("boolean isElementToStore = syntaxElement instanceof " + placeholderClassName + ";");
+		sc.add("isElementToStore |= syntaxElement instanceof " + keywordClassName + ";");
+		sc.add("isElementToStore |= syntaxElement instanceof " + enumerationTerminalClassName + ";");
+		sc.add("isElementToStore |= syntaxElement instanceof " + booleanTerminalClassName + ";");
+		sc.add("if (!isElementToStore) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
