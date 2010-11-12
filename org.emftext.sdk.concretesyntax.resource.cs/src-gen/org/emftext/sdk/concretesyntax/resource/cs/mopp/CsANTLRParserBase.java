@@ -42,7 +42,11 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_2_0.Parser im
 	}
 	
 	protected void retrieveLayoutInformation(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object) {
-		if (!(syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) && !(syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword)) {
+		boolean isElementToStore = syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder;
+		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword;
+		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal;
+		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal;
+		if (!isElementToStore) {
 			return;
 		}
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
