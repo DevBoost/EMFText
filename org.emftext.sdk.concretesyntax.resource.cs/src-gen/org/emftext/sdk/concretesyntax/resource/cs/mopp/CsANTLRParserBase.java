@@ -41,8 +41,12 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_2_0.Parser im
 		super(input, state);
 	}
 	
-	protected void retrieveLayoutInformation(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object) {
-		boolean isElementToStore = syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder;
+	protected void retrieveLayoutInformation(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {
+		// null must be accepted, since the layout information that is found at the end of
+		// documents (just before the EOF character) is not associated with a particular
+		// syntax element.
+		boolean isElementToStore = syntaxElement == null;
+		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder;
 		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword;
 		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal;
 		isElementToStore |= syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal;
@@ -59,11 +63,13 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_2_0.Parser im
 			return;
 		}
 		int endPos = currentPos - 1;
-		for (; endPos >= this.lastPosition2; endPos--) {
-			org.antlr.runtime3_2_0.Token token = getTokenStream().get(endPos);
-			int _channel = token.getChannel();
-			if (_channel != 99) {
-				break;
+		if (ignoreTokensAfterLastVisibleToken) {
+			for (; endPos >= this.lastPosition2; endPos--) {
+				org.antlr.runtime3_2_0.Token token = getTokenStream().get(endPos);
+				int _channel = token.getChannel();
+				if (_channel != 99) {
+					break;
+				}
 			}
 		}
 		StringBuilder hiddenTokenText = new StringBuilder();
