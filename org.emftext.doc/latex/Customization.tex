@@ -109,6 +109,7 @@ representation of the object.
 In the following a custom token resolver class is shown, which converts
 \texttt{TEXT} tokens to \texttt{java.util.Date} objects:
 
+\lstset{language=Java}
 \begin{lstlisting}
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -166,6 +167,7 @@ The following code is a snippet from the \texttt{XyzFactoryImpl} class and shows
 how to implement the same behavior as above using EMF's own data type handling
 facilities.
 
+\lstset{language=Java}
 \begin{lstlisting}
 private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -290,6 +292,7 @@ default model elements to all models that are created from text. To do so, you
 need a \texttt{plugin.xml} which registers the option provider using the
 following code snippet:
 
+\lstset{language=XML}
 \begin{lstlisting}
 <extension point="org.emftext.language.xyz.resource.xyz.default_load_options">
   <provider
@@ -303,6 +306,7 @@ This \texttt{plugin.xml} can be part of a separate plug-in (i.e., it does not
 need to be part of the generated resource plug-ins). The respective post
 processor class can be as follows.
 
+\lstset{language=Java}
 \begin{lstlisting}
 package org.emftext.language.xyz.post;
 
@@ -379,6 +383,7 @@ In case a more sophisticated means for providing images is needed, the
 The following listing shows a simple quick fix, which removes a given element from
 the resource.
 
+\lstset{language=Java}
 \begin{lstlisting}
 public class RemoveElementQuickFix extends XyzQuickFix
     implements IXyzQuickFix {
@@ -404,6 +409,7 @@ public class RemoveElementQuickFix extends XyzQuickFix
 To implement a custom builder for your \DSL, you can basically set the code
 generation option \texttt{overrideBuilder} to \texttt{false}:
 
+\lstset{language=CS}
 \begin{lstlisting}
 OPTIONS {
     overrideBuilder = "false";
@@ -435,6 +441,7 @@ for example be done by removing segments and adding new ones.
 The following listing shows a simple builder, which copies the contents of the
 resource to a new resource without making any changes.
 
+\lstset{language=Java}
 \begin{lstlisting}
 import java.io.IOException;
 import java.util.Collection;
@@ -531,6 +538,7 @@ generated interpreter stubs.
 To implement custom text hovers for your \DSL, basically set the code
 generation option \texttt{overrideHoverTextProvider} to \texttt{false}:
 
+\lstset{language=CS}
 \begin{lstlisting}
 OPTIONS {
     overrideHoverTextProvider = "false";
@@ -551,6 +559,7 @@ hover text you can inspect the \texttt{EObject} passed to the method and return 
 following listing shows a simple customized provider, which returns the type of
 the \texttt{EObject}.
 
+\lstset{language=Java}
 \begin{lstlisting}
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.language.xyz.resource.xyz.IXyzHoverTextProvider;
@@ -602,6 +611,7 @@ example, the following fragment of a \texttt{plugin.xml} file registers a new
 menu item that can be invoked on objects of type
 \texttt{org.emftext.language.xyz.XyzClass}.
 
+\lstset{language=XML}
 \begin{lstlisting}
 <extension point="org.eclipse.ui.commands">
   <command

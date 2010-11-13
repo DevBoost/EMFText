@@ -276,7 +276,7 @@ Each Ecore metamodel is accompanied by an .genmodel. You can create the
        \end{itemize}
     \end{description}
 
- \lstset{language=cs}
+ \lstset{language=CS}
  \begin{lstlisting} 
 SYNTAXDEF forms
 FOR <http://www.emftext.org/language/forms>
@@ -397,6 +397,7 @@ RULES {
 	\paragraph*{GenerateTextResource}~This task can be used to generate all
 	language implementation plug-ins. The following listing exemplifies the
 	application of this task and its obligatory parameters:
+\lstset{language=XML}
 \begin{lstlisting}
 <emftext.GenerateTextResource
 	syntax="pathToCSSpec"
@@ -415,6 +416,7 @@ RULES {
 	model's resource factory for a certain type. This is especially useful for testing
 	purposes without a running Eclipse platform.  
 	The following listing exemplifies its application:
+\lstset{language=XML}
 \begin{lstlisting}
 <emftext.RegisterEcoreResourceFactory
 	className="qualified.factory.class.name"
@@ -425,6 +427,7 @@ RULES {
 	map, which is useful for mapping symbolic namespace URIs to physical locations, i.e., 
 	for locating ecore models. 
 	The following listing exemplifies its application:
+\lstset{language=XML}
 \begin{lstlisting}
 <emftext.RegisterURIMapping
 	from="sourceURI"
@@ -435,6 +438,7 @@ RULES {
 \paragraph*{RemoveURIMapping}~This task removes an URI mapping from the EMF's
 URI map, which is useful for removing unwanted symbolic URI mappings from the URI map. 
 The following listing exemplifies its application: 
+\lstset{language=XML}
 \begin{lstlisting}
 <emftext.RemoveURIMapping
 	from="sourceURI"
