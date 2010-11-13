@@ -257,7 +257,7 @@ public class GeneratorUtil {
 	    sc.addLineBreak();
 	}
 
-	public void addGetLayoutAdapterMethod(StringComposite sc, String layoutInformationAdapterClassName) {
+	public void addGetLayoutInformationAdapterMethod(StringComposite sc, String layoutInformationAdapterClassName) {
 		sc.add("protected " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT + " element) {");
 		sc.add("for (" + ADAPTER + " adapter : element.eAdapters()) {");
 		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName + ") {");

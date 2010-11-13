@@ -22,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN_STREAM;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -70,7 +69,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addMethods(JavaComposite sc) {
 		addRetrieveLayoutInformationMethod(sc);
-		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
+		generatorUtil.addGetLayoutInformationAdapterMethod(sc, layoutInformationAdapterClassName);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, getContext());
 	}
 
@@ -88,9 +87,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addRetrieveLayoutInformationMethod(StringComposite sc) {
-		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object) {");
-		sc.add("boolean isElementToStore = syntaxElement instanceof " + placeholderClassName + ";");
+	private void addRetrieveLayoutInformationMethod(JavaComposite sc) {
+		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
+		sc.addComment(
+			"null must be accepted, since the layout information that is found " +
+			"at the end of documents (just before the EOF character) is not associated " +
+			"with a particular syntax element.");
+		sc.add("boolean isElementToStore = syntaxElement == null;");
+		sc.add("isElementToStore |= syntaxElement instanceof " + placeholderClassName + ";");
 		sc.add("isElementToStore |= syntaxElement instanceof " + keywordClassName + ";");
 		sc.add("isElementToStore |= syntaxElement instanceof " + enumerationTerminalClassName + ";");
 		sc.add("isElementToStore |= syntaxElement instanceof " + booleanTerminalClassName + ";");
@@ -107,11 +111,13 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("return;");
 		sc.add("}");
 		sc.add("int endPos = currentPos - 1;");
+		sc.add("if (ignoreTokensAfterLastVisibleToken) {");
 		sc.add("for (; endPos >= this.lastPosition2; endPos--) {");
 		sc.add(TOKEN + " token = getTokenStream().get(endPos);");
 		sc.add("int _channel = token.getChannel();");
 		sc.add("if (_channel != 99) {");
 		sc.add("break;");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("StringBuilder hiddenTokenText = new StringBuilder();");

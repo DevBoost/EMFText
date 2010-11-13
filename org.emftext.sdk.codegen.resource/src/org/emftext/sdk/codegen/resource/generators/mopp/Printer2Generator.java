@@ -111,8 +111,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addGetResourceMethod(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
-		generatorUtil.addGetLayoutAdapterMethod(sc, layoutInformationAdapterClassName);
+		generatorUtil.addGetLayoutInformationAdapterMethod(sc, layoutInformationAdapterClassName);
 		addGetLayoutInformationMethod(sc);
+		addGetCopyOfLayoutInformationMethod(sc);
 		addGetHiddenTokenTextMethod(sc);
 		addGetVisibleTokenTextMethod(sc);
 		addGetWhiteSpaceStringMethod(sc);
@@ -287,6 +288,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintInternalMethod(JavaComposite sc) {
 		sc.add("public void printInternal(" + E_OBJECT + " eObject, " + syntaxElementClassName + " ruleElement, " + LIST + "<" + formattingElementClassName +"> foundFormattingElements) {");
+		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = getCopyOfLayoutInformation(eObject);");
+		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(ruleElement);");
+		sc.add("decorateTree(decoratorTree, eObject);");
+		sc.add("printTree(decoratorTree, eObject, foundFormattingElements, layoutInformations);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetCopyOfLayoutInformationMethod(JavaComposite sc) {
+		sc.add("public " + LIST + "<" + layoutInformationClassName + "> getCopyOfLayoutInformation(" + E_OBJECT + " eObject) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(eObject);");
 		sc.add(LIST + "<" + layoutInformationClassName + "> originalLayoutInformations = layoutInformationAdapter.getLayoutInformations();");
 		sc.addComment(
@@ -295,9 +306,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		);
 		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST + "<" + layoutInformationClassName+ ">(originalLayoutInformations.size());");
 		sc.add("layoutInformations.addAll(originalLayoutInformations);");
-		sc.add(syntaxElementDecoratorClassName + " decoratorTree = getDecoratorTree(ruleElement);");
-		sc.add("decorateTree(decoratorTree, eObject);");
-		sc.add("printTree(decoratorTree, eObject, foundFormattingElements, layoutInformations);");
+		sc.add("return layoutInformations;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -766,7 +775,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("startedPrintingContainedObject = false;");
 		sc.add(LIST + "<" + formattingElementClassName + ">  formattingElements = new " + ARRAY_LIST + "<" + formattingElementClassName + ">();");
 		sc.add("doPrint(element, formattingElements);");
-		sc.add("printFormattingElements(formattingElements, null, null);");
+		sc.addComment("print all remaining formatting elements");
+		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = getCopyOfLayoutInformation(element);");
+		sc.add(layoutInformationClassName + " eofLayoutInformation = getLayoutInformation(layoutInformations, null, null, null);");
+		sc.add("printFormattingElements(formattingElements, layoutInformations, eofLayoutInformation);");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
 		sc.add("printSmart(writer);");

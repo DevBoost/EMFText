@@ -1113,6 +1113,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		if (forceEOFToken) {
 			sc.add(EOF_TOKEN_NAME);
 		}
+		sc.add("{");
+		sc.add("retrieveLayoutInformation(element, null, null, false);");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add(";");
 		sc.addLineBreak();
@@ -1139,7 +1142,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 					+ genClassUtil.getCreateObjectCall(recursiveType,
 							dummyEObjectClassName) + ";");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null, true);");
 			sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new "
 					+ ARRAY_LIST + "<" + E_OBJECT + ">();");
 			sc.add("}");
@@ -1253,7 +1256,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 							dummyEObjectClassName) + "()" + ", \""
 					+ recurseName + "\");");
 			sc.add("collectHiddenTokens(element);");
-			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null);");
+			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null, true);");
 			sc.add("}");
 			sc.add(":");
 
@@ -1739,7 +1742,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null, true);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
 				+ ", element);");
 		sc.add("}");
@@ -2093,7 +2096,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(identifier + " = '" + escapedLiteral + "' {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", null);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", null, true);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of boolean attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false, true);
@@ -2113,7 +2116,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(identifier + " = '" + escapedLiteral + "' {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(enumTerminal) + ", null);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(enumTerminal) + ", null, true);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of enumeration attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, accessorName, false, true);
@@ -2148,7 +2151,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature, expressionToBeSet, isContainment, true);
 		sc.add("}");
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(terminal) + ", " + expressionToBeSet + ");");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(terminal) + ", " + expressionToBeSet + ", true);");
 		if (terminal instanceof Containment) {
 			sc.add("copyLocalizationInfos(" + ident + ", element);");
 		} else {
