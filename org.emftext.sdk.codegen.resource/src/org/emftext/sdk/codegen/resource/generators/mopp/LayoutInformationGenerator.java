@@ -16,6 +16,15 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"A " + getResourceClassName() + " is used to store layout information that is " +
+			"found while parsing text files. Layout information does include all unused " +
+			"tokens. Usually, these are whitespace characters, line breaks and comments, " +
+			"but depending on the concrete syntax definition it can also include other tokens. " +
+			getResourceClassName() + "s are aggregated in LayoutInformationAdapters. " +
+			"One " + getResourceClassName() + " contains the layout that was " +
+			"found before a keyword, attribute or reference."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addFields(sc);
