@@ -647,3 +647,22 @@ menu item that can be invoked on objects of type
 
 Note that you will also need a class \texttt{CommandHandler}, which must
 implement the interface \texttt{org.eclipse.core.commands.IHandler}.
+
+\subsection{Providing Custom Content for Files created by the New File Wizard}
+
+By default, EMFText generates a New File Wizard for you DSL. The content of the
+file that is created by this wizard, is automatically obtained by creating a
+minimal model that conforms to your metamodel and by printing this minimal
+model. However, if you would like to provide a different content for the files
+that are created by this wizard, you can simple create a text file with a
+different content. Assuming your syntax definition is stored in a file called
+\texttt{xyzsyntax.cs} and the file extension of your syntax if
+\texttt{xyz}, this text file must be called \texttt{xyzsyntax.newfile.xyz} and
+be stored in the folder that contains your syntax definition.
+When generating the text resource plug-ins, EMFText will read the content of
+this file and embed its content in the generated code.
+
+If you would like to provide dynamic content for the files that are created by
+the New File Wizard, you can also set the
+\texttt{overrideNewFileContentProvider} option to \texttt{false} and change the
+\texttt{NewFileContentProvider} class according to your needs.
