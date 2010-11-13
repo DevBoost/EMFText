@@ -89,6 +89,9 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addRetrieveLayoutInformationMethod(JavaComposite sc) {
 		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
+		sc.add("if (element == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.addComment(
 			"null must be accepted, since the layout information that is found " +
 			"at the end of documents (just before the EOF character) is not associated " +
