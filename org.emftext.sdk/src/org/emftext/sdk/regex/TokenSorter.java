@@ -249,7 +249,7 @@ public class TokenSorter {
 				automaton = automatonCache.get(transformedRegExp);
 				// we remove and add the entry to move it to the end of
 				// the key set. this way, the most recently used entries
-				// are always move to the end and will not be removed 
+				// are always moved to the end and will not be removed 
 				// when the maximum size of the map is reached.
 				automatonCache.remove(transformedRegExp);
 				automatonCache.put(transformedRegExp, automaton);
