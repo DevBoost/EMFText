@@ -206,7 +206,8 @@ public class NameUtil {
 
 	/**
 	 * Returns a collection of all token resolver classes that need to be generated
-	 * for a given syntax.
+	 * for a given syntax. This includes tokens from imported syntax definitions, 
+	 * since EMFText does generate delegating classes for these tokens.
 	 * 
 	 * @param syntax the syntax containing the token definition
 	 * @return a collection of token resolver classes
