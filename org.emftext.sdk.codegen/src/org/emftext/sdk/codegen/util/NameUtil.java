@@ -215,14 +215,9 @@ public class NameUtil {
 		Collection<String> resolverFileNames = new LinkedHashSet<String>();
 		
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			if (!tokenDefinition.isUsed()) {
-				continue;
+			if (tokenDefinition.isUsed()) {
+				resolverFileNames.add(getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 			}
-			// do not generate a resolver for imported tokens
-			if (tokenDefinition.isImported(syntax)) {
-				continue;
-			}
-			resolverFileNames.add(getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 		}
 		return resolverFileNames;
 	}
