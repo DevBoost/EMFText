@@ -68,21 +68,21 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@return all proxy object that are not resolvable"
 		);
 		sc.add("public static " + LIST + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
-		sc.add(LIST + "<" + E_OBJECT + "> unresolveProxies = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add(LIST + "<" + E_OBJECT + "> unresolvedProxies = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
 		sc.add("for(" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
 		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
 		sc.add("if (nextElement.eIsProxy()) {");
-		sc.add("unresolveProxies.add(nextElement);");
+		sc.add("unresolvedProxies.add(nextElement);");
 		sc.add("}");
 		sc.add("for (" + E_OBJECT + " crElement : nextElement.eCrossReferences()) {");
 		sc.add("crElement = " + ECORE_UTIL + ".resolve(crElement, resource);");
 		sc.add("if (crElement.eIsProxy()) {");
-		sc.add("unresolveProxies.add(nextElement);");
+		sc.add("unresolvedProxies.add(crElement);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return unresolveProxies;");
+		sc.add("return unresolvedProxies;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
