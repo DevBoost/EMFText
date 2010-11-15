@@ -43,7 +43,7 @@ public class TokenSorter {
 	// such a map is only readily available in the Apache Commons Collections framework. we
 	// do emulate a LRUMap by moving entries that are requested to the end of the key set.
 	// when the map exceeds its maximum size, we remove the first entry of the key set. this
-	// we the most frequently used automata are preserved, while still limiting the maximum
+	// way the most frequently used automata are preserved, while still limiting the maximum
 	// number of entries contained in the cache.
 	private Map<String, Automaton> automatonCache = new LinkedHashMap<String, Automaton>();
 	
