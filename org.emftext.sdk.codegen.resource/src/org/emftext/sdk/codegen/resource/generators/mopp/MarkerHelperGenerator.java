@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_VALIDATOR;
@@ -50,9 +51,46 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 
 		addFields(sc);
+		addInnerClassMarkerCommandQueue(sc);
 		addMethods(sc);
 		
 		sc.add("}");
+	}
+
+	private void addInnerClassMarkerCommandQueue(JavaComposite sc) {
+		sc.add("private static class MarkerCommandQueue {");
+		sc.addLineBreak();
+		sc.add("private " + LIST + "<" + iCommandClassName + "<Object>> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
+		sc.addLineBreak();
+		sc.add("public void addCommand(" + iCommandClassName + "<Object> command) {");
+		sc.add("synchronized(commands) {");
+		sc.add("commands.add(command);");
+		sc.addComment("we only need to schedule a job, if the queue was empty");
+		sc.add("if (commands.size() == 1) {");
+		sc.add("scheduleRunCommandsJob();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private void scheduleRunCommandsJob() {");
+		sc.add("new " + JOB + "(\"updating markers\") {");
+		sc.add("@Override").addLineBreak();	
+		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
+		sc.add(LIST + "<" + iCommandClassName + "<Object>> commandsToProcess = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
+		sc.add("synchronized(commands) {");
+		sc.add("commandsToProcess.addAll(commands);");
+		sc.add("commands.clear();");
+		sc.add("}");
+		sc.add("for (" + iCommandClassName +"<Object> command : commandsToProcess) {");	
+		sc.add("command.execute(null);");
+		sc.add("}");
+		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("}");
+		sc.add("}.schedule();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -77,6 +115,14 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		);
 		sc.add("public static int MAXIMUM_MARKERS = 500;");
 		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"We use a queue to aggregate commands that create or remove markers. " +
+			"This is basically for performance reasons. Without the queue we would " +
+			"need to create a job for each marker creation/removal, which creates tons of threads and takes very long time."
+		);
+		sc.add("private final static MarkerCommandQueue COMMAND_QUEUE = new MarkerCommandQueue();");
+		sc.addLineBreak();
 	}
 
 	private void addUnmarkMethod(JavaComposite sc) {
@@ -97,34 +143,35 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return;");
 		sc.add("}");
 		sc.add("final String markerType = getMarkerID(problemType);");
-		sc.add("new " + JOB + "(\"unmarking\") {");	
-		sc.add("@Override");sc.addLineBreak();
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
+		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
+		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
 		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE + ".DEPTH_ZERO);");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
 		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
 		sc.addComment("ignore");
 		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error marking resource:\", ce);");
+		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return true;");
 		sc.add("}");
-		sc.add("}.schedule();");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private static void createMarkerFromDiagnostic(" + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
-		sc.add(iProblemClassName + " problem = diagnostic.getProblem();");
+		sc.add("private static void createMarkerFromDiagnostic(final " + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
+		sc.add("final " + iProblemClassName + " problem = diagnostic.getProblem();");
 		sc.add(eProblemTypeClassName + " problemType = problem.getType();");
-		sc.add("String markerID = getMarkerID(problemType);");
+		sc.add("final String markerID = getMarkerID(problemType);");
+		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
+		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
 		sc.addComment("if there are too many markers, we do not add new ones");
 		sc.add("if (file.findMarkers(markerID, false, " + I_RESOURCE + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add(I_MARKER + " marker = file.createMarker(markerID);");
@@ -163,9 +210,12 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
 		sc.addComment("ignore");
 		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error marking resource:\", ce);");
+		sc.add(pluginActivatorClassName + ".logError(\"Error while creating marks for resource:\", ce);");
 		sc.add("}");
 		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -201,13 +251,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("new " + JOB + "(\"marking\") {");	
-		sc.add("@Override");sc.addLineBreak();	
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
-		sc.add("createMarkerFromDiagnostic(file, diagnostic);");	
-		sc.add("return " + STATUS + ".OK_STATUS;");
-		sc.add("}");
-		sc.add("}.schedule();");
+		sc.add("createMarkerFromDiagnostic(file, diagnostic);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
