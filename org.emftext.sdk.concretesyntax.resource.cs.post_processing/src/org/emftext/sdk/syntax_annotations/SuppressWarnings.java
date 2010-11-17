@@ -27,10 +27,10 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class SuppressWarnings extends AbstractPostProcessor {
@@ -55,9 +55,9 @@ public class SuppressWarnings extends AbstractPostProcessor {
 							if (problem == null) {
 								continue;
 							}
-							if (problem instanceof CsProblem) {
-								CsProblem csProblem = (CsProblem) problem;
-								ECsProblemType problemType = csProblem.getCsType();
+							if (problem instanceof CsAnalysisProblem) {
+								CsAnalysisProblem analysisProblem = (CsAnalysisProblem) problem;
+								CsAnalysisProblemType problemType = analysisProblem.getAnalysisProblemType();
 								String typeName = problemType.getName();
 								if (warningsToSuppress.contains(typeName)) {
 									warningsToRemove.add(warning);
@@ -81,7 +81,7 @@ public class SuppressWarnings extends AbstractPostProcessor {
 			// check whether 'key' is a valid warning type
 			boolean isValid = isValidWarningType(key);
 			if (!isValid) {
-				addProblem(ECsProblemType.INVALID_WARNING_TYPE, "Invalid warning type found: " + key, annotation);
+				addProblem(CsAnalysisProblemType.INVALID_WARNING_TYPE, "Invalid warning type found: " + key, annotation);
 			}
 			warningsToSuppress.add(key);
 		}
@@ -89,9 +89,9 @@ public class SuppressWarnings extends AbstractPostProcessor {
 	}
 
 	private boolean isValidWarningType(String key) {
-		for (ECsProblemType problemType : ECsProblemType.values()) {
+		for (CsAnalysisProblemType problemType : CsAnalysisProblemType.values()) {
 			// errors are not valid
-			if (problemType.getProblemType() == CsEProblemType.ERROR) {
+			if (problemType.getProblemSeverity() == CsEProblemSeverity.ERROR) {
 				continue;
 			}
 			if (problemType.getName().equals(key)) {

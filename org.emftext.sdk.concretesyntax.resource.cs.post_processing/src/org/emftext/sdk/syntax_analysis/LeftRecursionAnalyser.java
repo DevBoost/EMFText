@@ -23,7 +23,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -45,7 +45,7 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		for (Rule rule : allRules) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
-				addProblem(ECsProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
+				addProblem(CsAnalysisProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
 			}
 		}
 	}

@@ -42,6 +42,9 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_2_0.Parser im
 	}
 	
 	protected void retrieveLayoutInformation(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {
+		if (element == null) {
+			return;
+		}
 		// null must be accepted, since the layout information that is found at the end of
 		// documents (just before the EOF character) is not associated with a particular
 		// syntax element.

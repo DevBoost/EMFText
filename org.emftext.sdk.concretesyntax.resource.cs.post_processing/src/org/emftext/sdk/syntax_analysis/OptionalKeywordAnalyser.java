@@ -23,7 +23,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that looks optional keywords (static strings) in 
@@ -61,7 +61,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 								if (definition instanceof CsString) {
 									CsString csString = (CsString) definition;
 									addProblem(
-											ECsProblemType.OPTIONAL_KEYWORD,
+											CsAnalysisProblemType.OPTIONAL_KEYWORD,
 											OPTIONAL_KEYWORD_WARNING + csString.getValue(),
 											definition);
 								}

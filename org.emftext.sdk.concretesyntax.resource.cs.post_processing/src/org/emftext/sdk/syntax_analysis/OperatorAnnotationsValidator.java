@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.OperatorAnnotationProperty;
 import org.emftext.sdk.concretesyntax.OperatorAnnotationType;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -82,7 +82,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			
 			if (weightValue == null || superclassValue == null || typeValue == null) {
 				addProblem(
-					ECsProblemType.OPERATOR_ANNOTATION_IS_MISSING_PROPERTY,
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_IS_MISSING_PROPERTY,
 					"Operator annotations require values for properties " + weightKey + ", " + typeKey + " and " + superclassKey + ".",
 					annotation
 				);
@@ -95,7 +95,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			if (expressionMetaClass==null ||
 				(!expressionMetaClass.isAbstract() && !expressionMetaClass.isInterface())){
 				addProblem(
-					ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
 					"Expression superclass must be a common abstract metaclass or interface.", 
 					annotation
 				);
@@ -103,7 +103,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				EClassUtil eUtil = syntax.getEClassUtil();
 				if (!eUtil.isSubClass(operatorRule.getMetaclass().getEcoreClass(), expressionMetaClass.getEcoreClass())){
 					addProblem(
-						ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+						CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
 						"Operator rule must be associated with a subclass of " + superclassValue,
 						operatorRule
 					);
@@ -119,7 +119,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				}
 				possibleValues = possibleValues.substring(0, possibleValues.length() - 2);
 				addProblem(
-					ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
 					"Invalid operator type. " + possibleValues, 
 					annotation
 				);
@@ -141,7 +141,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 					}
 				} else {
 					addProblem(
-						ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+						CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 						"Non primitive operator annotations require exactly one Choice in rule.",
 						operatorRule
 					);
@@ -178,7 +178,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 					} else if (firstAnnotation.getType() != annotation
 							.getType()) {
 						addProblem(
-								ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+								CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
 								"All equal weight operators must be of the same operator type.",
 								annotation
 						);
@@ -191,7 +191,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			OperatorAnnotationType annotationType = csUtil.getOperatorAnnotationType(annotation);
 			if(annotationType != OperatorAnnotationType.PRIMITIVE){
 				addProblem(
-						ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+						CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
 						"Each expression subset needs at least 1 primitive operator declaration with the greatest weight value of the subset.",
 						annotation
 				);
@@ -204,7 +204,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
 			if (operatorGenClasses.contains(startSymbol)) {
 				addProblem(
-						ECsProblemType.INVALID_START_SYMBOL,
+						CsAnalysisProblemType.INVALID_START_SYMBOL,
 						"Operator metaclasses cannot be used as startsymbol directly, use common expression metaclass instead.",
 						startSymbol
 				);
@@ -234,7 +234,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				List<GenClass> allowedTypes = containment.getTypes();
 				if (allowedTypes.size() > 0) {
 					addProblem(
-						ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
+						CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
 						"Subclass restrictions are not allowed in operator rules.", 
 						containment
 					);
@@ -280,7 +280,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 							for (GenClass subClass : subClasses) {
 								if (operatorGenClasses.contains(subClass)) {
 									addProblem(
-										ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+										CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 										"Implicit choice derived by EMFText refers to annotated operator rules. Please declare explicit allowed subclasses explicitly.",
 										containment
 									);
@@ -288,7 +288,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 							}
 						} else if (operatorGenClasses.contains(genClass)) {
 							addProblem(
-									ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+									CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 									OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY,
 									containment
 							);
@@ -297,7 +297,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 						for (GenClass genClass : containment.getTypes()) {
 							if (operatorGenClasses.contains(genClass)) {
 								addProblem(
-										ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+										CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 										OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY,
 										containment
 								);
@@ -320,7 +320,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		try {
 			Integer.parseInt(weight);
 		} catch (NumberFormatException nfe) {
-			addProblem(ECsProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY, "Weight parameter must be Integer.", annotation);
+			addProblem(CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY, "Weight parameter must be Integer.", annotation);
 		}
 	}
 	
@@ -357,7 +357,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 				|| !(definitions.get(0) instanceof Containment)
 				|| !(definitions.get(definitions.size()-1) instanceof Containment)) {
 			addProblem(
-				ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+				CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 				"Rules for binary operators must be structured as follows : containment [arbitrary sequence] containment.",
 				annotation
 			);
@@ -392,7 +392,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		if (definitions.size() < 2
 				|| !(definitions.get(containmentIndex) instanceof Containment)) {
 			addProblem(
-				ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
+				CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE,
 				"Rules for unary operators require no less than two arguments: " +
 				"[arbitrary sequence] containment for prefix " +
 				"or containment [arbitrary sequence] " +
@@ -418,7 +418,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	private void checkContainment(ConcreteSyntax syntax, GenClass commonMetaClass, Containment containment){
 		if (containment.getTypes() != null && !containment.getTypes().isEmpty()) {
 			addProblem(
-					ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
 					"Subclass restrictions are not allowed in operator rules.",
 					containment
 			);
@@ -429,7 +429,7 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
 			if(!eUtil.isSubClass(commonMetaClass.getEcoreClass(),containmentClass.getEcoreClass())){
 				addProblem(
-						ECsProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
+						CsAnalysisProblemType.OPERATOR_ANNOTATION_MALFORMED_RULE, 
 						"Argument types must be equal or a super type of the common metaclass.",
 						containment
 				);

@@ -31,8 +31,8 @@ import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * A class that customizes code completion proposals to the CS language.
@@ -105,9 +105,9 @@ public class CsProposalPostProcessor {
 						AnnotationType type = annotation.getType();
 						if (type == AnnotationType.SUPPRESS_WARNINGS) {
 							newProposals.remove(newProposals.size() - 1);
-							ECsProblemType[] problemTypes = ECsProblemType.values();
-							for (ECsProblemType problemType : problemTypes) {
-								if (problemType.getProblemType() == CsEProblemType.WARNING) {
+							CsAnalysisProblemType[] problemTypes = CsAnalysisProblemType.values();
+							for (CsAnalysisProblemType problemType : problemTypes) {
+								if (problemType.getProblemSeverity() == CsEProblemSeverity.WARNING) {
 									newProposals.add(new CsCompletionProposal(
 											problemType.getName(),
 											proposal.getPrefix(), 

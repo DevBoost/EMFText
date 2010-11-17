@@ -10,7 +10,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.EObjectUtil;
 
 public class SubclassRestrictionAnalyser extends AbstractPostProcessor {
@@ -26,7 +26,7 @@ public class SubclassRestrictionAnalyser extends AbstractPostProcessor {
 			for (Containment containment : containments) {
 				boolean hasSyntax = analyseContainment(rules, containment);
 				if (!hasSyntax) {
-					ECsProblemType problemType = ECsProblemType.NO_SYNTAX_FOR_CONTAINMENT_REFERENCE;
+					CsAnalysisProblemType problemType = CsAnalysisProblemType.NO_SYNTAX_FOR_CONTAINMENT_REFERENCE;
 					String message = "There is no syntax defined for the type of the containment reference or any of the allowed subclasses.";
 					addProblem(problemType, message, containment);
 				}

@@ -22,7 +22,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks that there is not more than one rule
@@ -60,9 +60,9 @@ public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 			}
 			if (duplicates.size() > 0) {
 				final String message = "Found duplicate rule for meta class \"" + genClass_i.getName() + "\" (may be imported).";
-				addProblem(ECsProblemType.DUPLICATE_RULE, message, rule_i);
+				addProblem(CsAnalysisProblemType.DUPLICATE_RULE, message, rule_i);
 				for (Rule duplicate : duplicates) {
-					addProblem(ECsProblemType.DUPLICATE_RULE, message, duplicate);
+					addProblem(CsAnalysisProblemType.DUPLICATE_RULE, message, duplicate);
 				}
 			}
 		}

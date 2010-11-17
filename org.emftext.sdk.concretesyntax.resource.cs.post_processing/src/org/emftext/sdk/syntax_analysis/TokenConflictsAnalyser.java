@@ -27,7 +27,7 @@ import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.regex.SorterException;
 import org.emftext.sdk.util.StringUtil;
 import org.emftext.sdk.util.ToStringConverter;
@@ -46,13 +46,13 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 			conflicting = tokenSorter.getConflicting(allTokenDefinitions);
 			List<CompleteTokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
 			for (CompleteTokenDefinition tokenDirective : directivesMatchingEmptyString) {
-				addTokenProblem(ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
+				addTokenProblem(CsAnalysisProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition '" + tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
 			}
 			unreachable = tokenSorter.getNonReachables(allTokenDefinitions);
 		} catch (Exception e) {
-			addProblem(ECsProblemType.TOKEN_UNREACHABLE,
+			addProblem(CsAnalysisProblemType.TOKEN_UNREACHABLE,
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
@@ -66,7 +66,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 				}
 				
 			});
-			addTokenProblem(ECsProblemType.TOKEN_UNREACHABLE,
+			addTokenProblem(CsAnalysisProblemType.TOKEN_UNREACHABLE,
 					"The token definition '" + tokenDirective.getRegex()
 							+ "' is not reachable because of previous tokens " + conflictingTokens, tokenDirective);
 
@@ -78,7 +78,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 				nameSet.add(nextDefinition.getName());
 			}
 			String names = StringUtil.explode(nameSet, ", ");
-			addTokenProblem(ECsProblemType.TOKEN_OVERLAPPING,
+			addTokenProblem(CsAnalysisProblemType.TOKEN_OVERLAPPING,
 					"The token definition " + tokenDirective.getName()
 							+ " overlaps with previous token definition(s) (" + names + ").",
 					tokenDirective);

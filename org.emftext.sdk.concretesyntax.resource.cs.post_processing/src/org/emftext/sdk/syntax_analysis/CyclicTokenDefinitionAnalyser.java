@@ -13,7 +13,7 @@ import org.emftext.sdk.concretesyntax.RegexComposite;
 import org.emftext.sdk.concretesyntax.RegexPart;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.TokenDirective;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that detects cyclic token definitions (i.e., token definition
@@ -29,7 +29,7 @@ public class CyclicTokenDefinitionAnalyser extends AbstractPostProcessor {
 		Collection<NamedTokenDefinition> cyclicTokens = findCyclicTokens(syntax);
 		for (NamedTokenDefinition cyclicToken : cyclicTokens) {
 			addProblem(
-					ECsProblemType.CYCLIC_TOKEN_DEFINITION,
+					CsAnalysisProblemType.CYCLIC_TOKEN_DEFINITION,
 					String.format(CYCLIC_TOKEN_DEFINITIONS_NOT_ALLOWED, cyclicToken.getName()),
 					cyclicToken);
 		}

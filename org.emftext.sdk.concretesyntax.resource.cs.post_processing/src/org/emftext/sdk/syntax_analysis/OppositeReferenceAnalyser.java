@@ -25,7 +25,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that issues a warning for each non-containment reference that has
@@ -76,7 +76,7 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 				);
 				for (Rule containingRule : containingRules) {
 					addProblem(
-							ECsProblemType.NON_CONTAINMENT_OPPOSITE,
+							CsAnalysisProblemType.NON_CONTAINMENT_OPPOSITE,
 							message,
 							containingRule);
 				}

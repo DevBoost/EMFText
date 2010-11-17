@@ -27,6 +27,7 @@ public class CsMarkerHelper {
 	 * The extension id of the custom marker type that is used by this text resource.
 	 */
 	public static final String MARKER_TYPE = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.PLUGIN_ID + ".problem";
+	
 	/**
 	 * The total number of markers per file is restricted with this constant.
 	 * Restriction is needed because the performance of Eclipse decreases drastically
@@ -69,10 +70,9 @@ public class CsMarkerHelper {
 			}
 			
 			org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
-			if (diagnostic.getProblem().getType() == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR) {
+			if (diagnostic.getProblem().getSeverity() == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR) {
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, org.eclipse.core.resources.IMarker.SEVERITY_ERROR);
-			}
-			else {
+			} else {
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, org.eclipse.core.resources.IMarker.SEVERITY_WARNING);
 			}
 			marker.setAttribute(org.eclipse.core.resources.IMarker.MESSAGE, diagnostic.getMessage());
@@ -143,4 +143,5 @@ public class CsMarkerHelper {
 			}
 		}.schedule();
 	}
+	
 }

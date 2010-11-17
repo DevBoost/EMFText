@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that looks for explicit choices in the syntax
@@ -41,7 +41,7 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 				Choice choice = (Choice) next;
 				if (choice.getChildren().size() > 1) {
 					addProblem(
-							ECsProblemType.EXPLICIT_SYNTAX_CHOICE,
+							CsAnalysisProblemType.EXPLICIT_SYNTAX_CHOICE,
 							EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS,
 							choice);
 				}

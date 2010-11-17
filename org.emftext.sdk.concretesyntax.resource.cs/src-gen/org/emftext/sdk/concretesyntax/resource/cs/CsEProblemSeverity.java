@@ -14,6 +14,6 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-public enum CsEProblemType {
-	SYNTAX_ERROR, PRINT_PROBLEM, UNRESOLVED_REFERENCE, ANALYSIS_PROBLEM, BUILDER_ERROR, UNKNOWN;
+public enum CsEProblemSeverity {
+	WARNING, ERROR;
 }

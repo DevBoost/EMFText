@@ -27,7 +27,7 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 
@@ -67,7 +67,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 			String assumeKeyword = regex.substring(1, regex.length() - 1);
 			
 			if (!definition.isUsed() && !keywordTokens.contains(assumeKeyword)) {
-				ECsProblemType problemType = ECsProblemType.UNUSED_TOKEN;
+				CsAnalysisProblemType problemType = CsAnalysisProblemType.UNUSED_TOKEN;
 				// create quick fixes
 				Collection<ICsQuickFix> quickFixes = new ArrayList<ICsQuickFix>(2);
 				quickFixes.add(new RemoveElementQuickFix("Remove token definition.", definition));

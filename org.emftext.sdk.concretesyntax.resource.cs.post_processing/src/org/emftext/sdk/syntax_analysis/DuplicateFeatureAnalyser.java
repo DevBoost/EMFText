@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.EObjectUtil;
 
 /**
@@ -77,7 +77,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 				if (canCauseReprintProblem(rule.getDefinition(), feature)) {
 					for (Terminal terminal : terminals) {
 						addProblem(
-								ECsProblemType.MULTIPLE_FEATURE_USE,
+								CsAnalysisProblemType.MULTIPLE_FEATURE_USE,
 								MULTIPLE_FEATURE_WARNING + feature.getName(),
 								terminal);
 					}

@@ -21,7 +21,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks whether all quoted token definitions either use no
@@ -106,7 +106,7 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 	}
 
 	private void addProblem(QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
-		addTokenProblem(ECsProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken1);
-		addTokenProblem(ECsProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken2);
+		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken1);
+		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken2);
 	}
 }

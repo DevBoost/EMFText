@@ -22,7 +22,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.MakeSyntaxConcreteFix;
 import org.emftext.sdk.quickfixes.RemoveReferenceQuickFix;
 
@@ -43,7 +43,7 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 			// declared one and not an imported one)
 			if (symbols.size() > 0) {
 				addProblem(
-						ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, 
+						CsAnalysisProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, 
 						"Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract. Note that these start symbols are thrown away during import.", 
 						syntax, 
 						quickFixes
@@ -54,7 +54,7 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 			// declared one or an imported one)
 			if (symbols.size() == 0) {
 				addProblem(
-						ECsProblemType.CONCRETE_SYNTAX_HAS_NO_START_SYMBOLS, 
+						CsAnalysisProblemType.CONCRETE_SYNTAX_HAS_NO_START_SYMBOLS, 
 						"Syntax has no start symbols, but is not declared abstract.", 
 						syntax
 				);

@@ -23,7 +23,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.EObjectUtil;
 
 /**
@@ -46,7 +46,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 		for (PlaceholderUsingDefaultToken placeholder : placeholders) {
 			// this placeholder must use the standard token
 			if (definition == null) {
-				addProblem(ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
+				addProblem(CsAnalysisProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
 			} else {
 				placeholder.setToken(definition);
 			}

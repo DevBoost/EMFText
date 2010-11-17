@@ -10,7 +10,7 @@ OPTIONS {
 	usePredefinedTokens = "false";
 	overrideManifest = "false";
 	overrideHoverTextProvider = "false";
-	overrideProblemClass = "false";
+	//overrideProblemClass = "false";
 	overrideProposalPostProcessor = "false";
 	disableBuilder = "true";
 	// we need to disable the use of the EMF validation framework, because

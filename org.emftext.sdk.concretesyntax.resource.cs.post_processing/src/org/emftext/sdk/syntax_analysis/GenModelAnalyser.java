@@ -18,7 +18,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks whether the EMF generator model referenced
@@ -54,7 +54,7 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 				// caused by missing information.
 				String path = genModel.eResource().getURI().toString();
 				String message = status.getMessage();
-				addProblem(ECsProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path, message), 0, 0, 0, 0);
+				addProblem(CsAnalysisProblemType.INVALID_GEN_MODEL, String.format(INVALID_GENMODEL_MESSAGE, path, message), 0, 0, 0, 0);
 				addProblems(genModel, status.getChildren());
 			}
 		}

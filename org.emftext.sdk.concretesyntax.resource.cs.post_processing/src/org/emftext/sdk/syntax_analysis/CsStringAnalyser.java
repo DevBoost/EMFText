@@ -19,7 +19,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
@@ -45,7 +45,7 @@ public class CsStringAnalyser extends AbstractPostProcessor {
 	private void checkNotEmpty(CsString csString) {
 		final String value = csString.getValue();
 		if ("".equals(value)) {
-			addProblem(ECsProblemType.EMPTY_CS_STRING, "Empty strings are not allowed.", csString);
+			addProblem(CsAnalysisProblemType.EMPTY_CS_STRING, "Empty strings are not allowed.", csString);
 		}
 	}
 }

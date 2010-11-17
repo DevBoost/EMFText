@@ -17,7 +17,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks that the "baseResourcePlugin" option is set if the 
@@ -49,14 +49,14 @@ public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 				}
 			}
 			addProblem(
-					ECsProblemType.SYNTAX_NAME_CONTAINS_DOTS,
+					CsAnalysisProblemType.SYNTAX_NAME_CONTAINS_DOTS,
 					BASE_RESOURCE_PLUGIN_OPTION_MISSING,
 					syntax);
 			return;
 		}
 		if (numberOfDots > 1) {
 			addProblem(
-					ECsProblemType.SYNTAX_NAME_CONTAINS_DOTS,
+					CsAnalysisProblemType.SYNTAX_NAME_CONTAINS_DOTS,
 					SYNTAX_NAME_MAY_CONTAIN_ONE_DOT_MAX,
 					syntax);
 			return;

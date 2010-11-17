@@ -5,9 +5,9 @@ import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * A quick fix that adds a @SuppressWarnings annotation for a certain
@@ -16,14 +16,14 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 public class AddSuppressWarningsAnnotationQuickFix extends CsQuickFix {
 
 	private Annotable annotableElement;
-	private ECsProblemType problemType;
+	private CsAnalysisProblemType problemType;
 
 	public AddSuppressWarningsAnnotationQuickFix(Annotable annotableElement,
-			ECsProblemType problemType) {
+			CsAnalysisProblemType problemType) {
 		// TODO set image for this quick fix
 		super("Add @" + AnnotationType.SUPPRESS_WARNINGS.getLiteral() + "(" + problemType.getName() + ")", null, annotableElement);
 		// only warnings can be suppressed
-		assert problemType.getProblemType() == CsEProblemType.WARNING;
+		assert problemType.getProblemSeverity() == CsEProblemSeverity.WARNING;
 		this.annotableElement = annotableElement;
 		this.problemType = problemType;
 	}

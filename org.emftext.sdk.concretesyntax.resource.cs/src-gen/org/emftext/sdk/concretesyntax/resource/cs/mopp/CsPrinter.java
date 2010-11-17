@@ -177,7 +177,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 			// the resource can be null if the printer is used stand alone
 			return;
 		}
-		resource.addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), cause);
+		resource.addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.PRINT_PROBLEM, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.WARNING), cause);
 	}
 	
 	public void setOptions(java.util.Map<?,?> options) {

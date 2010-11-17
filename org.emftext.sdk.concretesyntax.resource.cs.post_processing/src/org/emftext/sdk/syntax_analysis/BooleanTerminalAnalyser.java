@@ -12,7 +12,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 
@@ -44,33 +44,33 @@ public class BooleanTerminalAnalyser extends AbstractPostProcessor {
 			GenFeature genFeature = booleanTerminal.getFeature();
 			EStructuralFeature eFeature = genFeature.getEcoreFeature();
 			if (!(eFeature instanceof EAttribute)) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_ATTRIBUTE, FEATURE_NOT_ATTRIBUTE, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_ATTRIBUTE, FEATURE_NOT_ATTRIBUTE, booleanTerminal);
 				continue;
 			}
 			EAttribute eAttribute = (EAttribute) eFeature;
 			EClassifier eType = eAttribute.getEType();
 			EDataType eBoolean = EcorePackage.eINSTANCE.getEBoolean();
 			if (!eType.getInstanceClass().equals(eBoolean.getInstanceClass())) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_BOOLEAN, FEATURE_NOT_BOOLEAN, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_BOOLEAN, FEATURE_NOT_BOOLEAN, booleanTerminal);
 				continue;
 			}
 			int upperBound = eAttribute.getUpperBound();
 			if (upperBound != 1) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_WRONG_FEATURE_UPPER_BOUND, WRONG_UPPER_BOUND, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_WRONG_FEATURE_UPPER_BOUND, WRONG_UPPER_BOUND, booleanTerminal);
 				continue;
 			}
 			String trueLiteral = booleanTerminal.getTrueLiteral();
 			String falseLiteral = booleanTerminal.getFalseLiteral();
 			if ("".equals(trueLiteral) && "".equals(falseLiteral)) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_BOTH_LITERALS_EMPTY, BOTH_LITERALS_EMPTY, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_BOTH_LITERALS_EMPTY, BOTH_LITERALS_EMPTY, booleanTerminal);
 				continue;
 			}
 			if (trueLiteral.equals(falseLiteral)) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_EQUAL_LITERALS, EQUAL_LITERALS, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_EQUAL_LITERALS, EQUAL_LITERALS, booleanTerminal);
 				continue;
 			}
 			if (genFeature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-				addProblem(ECsProblemType.BOOLEAN_TERMINAL_ANONYMOUS_FEATURE, ANONYMOUS_FEATURE, booleanTerminal);
+				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_ANONYMOUS_FEATURE, ANONYMOUS_FEATURE, booleanTerminal);
 				continue;
 			}
 		}

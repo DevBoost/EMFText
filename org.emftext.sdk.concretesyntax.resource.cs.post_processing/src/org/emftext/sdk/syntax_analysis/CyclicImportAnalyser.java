@@ -19,7 +19,7 @@ import java.util.Collection;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 public class CyclicImportAnalyser extends AbstractPostProcessor {
 
@@ -31,7 +31,7 @@ public class CyclicImportAnalyser extends AbstractPostProcessor {
 		Collection<Import> cyclicImports = findCyclicImports(syntax);
 		for (Import cyclicImport : cyclicImports) {
 			addProblem(
-					ECsProblemType.CYCLIC_SYNTAX_IMPORT,
+					CsAnalysisProblemType.CYCLIC_SYNTAX_IMPORT,
 					String.format(CYCLIC_SYNTAX_IMPORT_IS_NOT_ALLOWED, cyclicImport.getConcreteSyntax().getName()),
 					cyclicImport);
 			// remove the cyclic import to avoid stack overflow errors once

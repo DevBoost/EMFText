@@ -23,7 +23,7 @@ import org.emftext.sdk.MinMax;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.SetFeatureBoundsQuickFix;
 
 /**
@@ -62,7 +62,7 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			int max = minMax.getMax();
 			if (!metaMinMax.enclosesMax(minMax)) {
 				addProblem(
-						ECsProblemType.MAX_OCCURENCE_MISMATCH, 
+						CsAnalysisProblemType.MAX_OCCURENCE_MISMATCH, 
 						"Maximum occurences (" + max + ") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", 
 						rule, 
 						new SetFeatureBoundsQuickFix(rule, feature, lowerBound, minMax.getMax()));
@@ -70,7 +70,7 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			int min = minMax.getMin();
 			if (metaMinMax.getMin() != minMax.getMin()) {
 				addProblem(
-						ECsProblemType.MIN_OCCURENCE_MISMATCH, 
+						CsAnalysisProblemType.MIN_OCCURENCE_MISMATCH, 
 						"Minimum occurences (" + min + ") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", 
 						rule, 
 						new SetFeatureBoundsQuickFix(rule, feature, minMax.getMin(), upperBound));

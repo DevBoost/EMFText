@@ -107,8 +107,11 @@ options {
 					return true;
 				}
 				resource.addProblem(new org.emftext.sdk.concretesyntax.resource.cs.ICsProblem() {
+					public org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity getSeverity() {
+						return org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR;
+					}
 					public org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType getType() {
-						return org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR;
+						return org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR;
 					}
 					public String getMessage() {
 						return errorMessage;

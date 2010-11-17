@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.regex.SorterException;
 
 /**
@@ -155,7 +155,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 					continue;
 				}
 				if (countOccurrences(mergeResult, namedToken) > 1) {
-	    			addProblem(ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + namedToken.getName() + " must be overridden, because it has different definitions.", syntax);
+	    			addProblem(CsAnalysisProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + namedToken.getName() + " must be overridden, because it has different definitions.", syntax);
 				}
 				handledTokenNames.add(namedToken.getName());
 			}
@@ -184,7 +184,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 					String message = 
 						"Token priorities are ignored since token sorting is enabled. " + 
 						"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting.";
-					addProblem(ECsProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
+					addProblem(CsAnalysisProblemType.TOKEN_PRIORIZATION_USELESS_WHEN_TOKEN_SORTING_ENABLED, message, priorityDirective);
 				}
 			} else {
 				activeTokens.add((CompleteTokenDefinition) tokenDirective);
@@ -201,7 +201,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     			String message = 
     				"Automatic token sorting failed. " +
 					"Use the " + OptionTypes.DISABLE_TOKEN_SORTING.getLiteral() + " option to disable sorting and define token order manually.";
-				addProblem(ECsProblemType.TOKEN_SORTING_FAILED, message, syntax);
+				addProblem(CsAnalysisProblemType.TOKEN_SORTING_FAILED, message, syntax);
     		}
 		}
 		

@@ -22,7 +22,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class CollectInTokenAnalyser extends AbstractPostProcessor {
@@ -43,7 +43,7 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 					CompleteTokenDefinition completeDefinition = (CompleteTokenDefinition) token;
 					if (completeDefinition.getAttributeName() != null) {
 						addProblem(
-								ECsProblemType.COLLECT_IN_TOKEN_USED_IN_RULE,
+								CsAnalysisProblemType.COLLECT_IN_TOKEN_USED_IN_RULE,
 								String.format(COLLECT_IN_TOKEN_USED_IN_RULE_WARNING, token.getName()),
 								placeholder);
 					}

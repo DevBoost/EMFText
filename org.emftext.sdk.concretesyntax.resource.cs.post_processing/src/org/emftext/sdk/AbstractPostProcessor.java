@@ -24,8 +24,8 @@ import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.sdk.regex.TokenSorter;
 
@@ -84,38 +84,38 @@ public abstract class AbstractPostProcessor {
 		return true;
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, EObject cause) {
-		context.addProblem(new CsProblem(message, problemType), cause);
+		context.addProblem(new CsAnalysisProblem(message, problemType), cause);
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, EObject cause, ICsQuickFix quickFix) {
-		context.addProblem(new CsProblem(message, problemType, quickFix), cause);
+		context.addProblem(new CsAnalysisProblem(message, problemType, quickFix), cause);
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, EObject cause, Collection<ICsQuickFix> quickFixes) {
-		context.addProblem(new CsProblem(message, problemType, quickFixes), cause);
+		context.addProblem(new CsAnalysisProblem(message, problemType, quickFixes), cause);
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, int column, int line, int charStart, int charEnd) {
-		context.addProblem(new CsProblem(message, problemType), column, line, charStart, charEnd);
+		context.addProblem(new CsAnalysisProblem(message, problemType), column, line, charStart, charEnd);
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, int column, int line, int charStart, int charEnd, ICsQuickFix quickFix) {
-		context.addProblem(new CsProblem(message, problemType, quickFix), column, line, charStart, charEnd);
+		context.addProblem(new CsAnalysisProblem(message, problemType, quickFix), column, line, charStart, charEnd);
 	}
 
-	protected void addProblem(ECsProblemType problemType,
+	protected void addProblem(CsAnalysisProblemType problemType,
 			final String message, int column, int line, int charStart, int charEnd, List<ICsQuickFix> quickFixes) {
-		context.addProblem(new CsProblem(message, problemType, quickFixes), column, line, charStart, charEnd);
+		context.addProblem(new CsAnalysisProblem(message, problemType, quickFixes), column, line, charStart, charEnd);
 	}
 
 	protected void addTokenProblem(
-			ECsProblemType type, 
+			CsAnalysisProblemType type, 
 			String message,
 			CompleteTokenDefinition definition) {
 		Set<EObject> causes = new LinkedHashSet<EObject>();

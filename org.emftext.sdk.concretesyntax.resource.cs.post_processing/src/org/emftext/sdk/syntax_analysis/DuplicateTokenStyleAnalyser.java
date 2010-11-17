@@ -23,7 +23,7 @@ import java.util.Set;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks whether multiple token styles refer to the
@@ -56,7 +56,7 @@ public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 		// add warnings
 		for (String duplicateName : duplicates.keySet()) {
 			for (TokenStyle tokenStyle : duplicates.get(duplicateName)) {
-				addProblem(ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + duplicateName + "\" is already defined (potentially in imported syntax).", tokenStyle);
+				addProblem(CsAnalysisProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + duplicateName + "\" is already defined (potentially in imported syntax).", tokenStyle);
 			}
 		}
 	}

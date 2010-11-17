@@ -25,7 +25,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.GenClassUtil;
@@ -112,9 +112,9 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 			String formattedMessage = String.format(message, typeGenClass.getName(), genFeature.getName());
 			if (syntax.isAbstract()) {
 				// for abstract syntaxes a warning is sufficient
-				addProblem(ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
+				addProblem(CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
 			} else {
-				addProblem(ECsProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX, formattedMessage, next);
+				addProblem(CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX, formattedMessage, next);
 			}
 		}
 	}

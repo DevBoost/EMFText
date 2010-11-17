@@ -24,7 +24,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
@@ -54,7 +54,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 		for (TokenStyle tokenStyle : styles) {
 			for (String tokenName : tokenStyle.getTokenNames()) {
 				if (!refersToExistingToken(syntax, csStrings, booleanTerminals, tokenName)) {
-					addProblem(ECsProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
+					addProblem(CsAnalysisProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -116,7 +116,7 @@ public class PostProcessingContext {
 	public boolean hasErrors() {
 		for (IProblemWrapper wrappedProblem : problems) {
 			ICsProblem problem = wrappedProblem.getProblem();
-			if (problem.getType() == CsEProblemType.ERROR) {
+			if (problem.getSeverity() == CsEProblemSeverity.ERROR) {
 				return true;
 			}
 		}
@@ -126,7 +126,7 @@ public class PostProcessingContext {
 	public List<IProblemWrapper> getWarnings() {
 		List<IProblemWrapper> warnings = new ArrayList<IProblemWrapper>();
 		for (IProblemWrapper problem : problems) {
-			if (problem.getProblem().getType() == CsEProblemType.WARNING) {
+			if (problem.getProblem().getSeverity() == CsEProblemSeverity.WARNING) {
 				warnings.add(problem);
 			}
 		}

@@ -263,7 +263,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				return null;
 			}
 			if (!wasResolvedBefore && !result.wasResolved()) {
-				attachErrors(result, uriFragment.getProxy());
+				attachResolveError(result, uriFragment.getProxy());
 				return null;
 			} else if (!result.wasResolved()) {
 				return null;
@@ -273,7 +273,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				removeDiagnostics(proxy, getErrors());
 				// remove old warnings and attach new
 				removeDiagnostics(proxy, getWarnings());
-				attachWarnings(result, proxy);
+				attachResolveWarnings(result, proxy);
 				org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping = result.getMappings().iterator().next();
 				org.eclipse.emf.ecore.EObject resultElement = getResultElement(uriFragment, mapping, proxy, result.getErrorMessage());
 				org.eclipse.emf.ecore.EObject container = uriFragment.getContainer();
@@ -310,7 +310,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 					if (errorMessage == null) {
 						assert(false);
 					} else {
-						addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), proxy);
+						addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR), proxy);
 					}
 				}
 				return result;
@@ -347,18 +347,18 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	private void attachErrors(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<?> result, org.eclipse.emf.ecore.EObject proxy) {
+	private void attachResolveError(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<?> result, org.eclipse.emf.ecore.EObject proxy) {
 		// attach errors to this resource
 		assert result != null;
 		final String errorMessage = result.getErrorMessage();
 		if (errorMessage == null) {
 			assert(false);
 		} else {
-			addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR, result.getQuickFixes()), proxy);
+			addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(errorMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR, result.getQuickFixes()), proxy);
 		}
 	}
 	
-	private void attachWarnings(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<? extends org.eclipse.emf.ecore.EObject> result, org.eclipse.emf.ecore.EObject proxy) {
+	private void attachResolveWarnings(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<? extends org.eclipse.emf.ecore.EObject> result, org.eclipse.emf.ecore.EObject proxy) {
 		assert result != null;
 		assert result.wasResolved();
 		if (result.wasResolved()) {
@@ -367,7 +367,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				if (warningMessage == null) {
 					continue;
 				}
-				addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(warningMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), proxy);
+				addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(warningMessage, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.WARNING), proxy);
 			}
 		}
 	}
@@ -425,7 +425,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
-		getDiagnostics(problem.getType()).add(diagnostic);
+		getDiagnostics(problem.getSeverity()).add(diagnostic);
 		if (isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
@@ -441,22 +441,32 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
-		getDiagnostics(problem.getType()).add(diagnostic);
+		getDiagnostics(problem.getSeverity()).add(diagnostic);
 		if (isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
 	}
 	
+	@Deprecated	
 	public void addError(String message, org.eclipse.emf.ecore.EObject cause) {
-		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), cause);
+		addError(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN, cause);
 	}
 	
+	public void addError(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.eclipse.emf.ecore.EObject cause) {
+		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR), cause);
+	}
+	
+	@Deprecated	
 	public void addWarning(String message, org.eclipse.emf.ecore.EObject cause) {
-		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.WARNING), cause);
+		addWarning(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN, cause);
 	}
 	
-	private java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getDiagnostics(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type) {
-		if (type == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR) {
+	public void addWarning(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.eclipse.emf.ecore.EObject cause) {
+		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.WARNING), cause);
+	}
+	
+	private java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getDiagnostics(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity) {
+		if (severity == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR) {
 			return getErrors();
 		} else {
 			return getWarnings();

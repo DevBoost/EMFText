@@ -20,7 +20,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
@@ -38,7 +38,7 @@ public class StartSymbolAnalyser extends AbstractPostProcessor {
 		for (GenClass nextStartSymbol : startSymbols) {
 			Collection<Rule> rules = csUtil.getRules(syntax, nextStartSymbol);
 			if (rules.isEmpty()) {
-				addProblem(ECsProblemType.START_SYMBOL_WITHOUT_SYNTAX, "Meta class " + nextStartSymbol.getName() + " has no syntax and can therefore not be used as start element.", syntax);
+				addProblem(CsAnalysisProblemType.START_SYMBOL_WITHOUT_SYNTAX, "Meta class " + nextStartSymbol.getName() + " has no syntax and can therefore not be used as start element.", syntax);
 			}
 		}
 	}

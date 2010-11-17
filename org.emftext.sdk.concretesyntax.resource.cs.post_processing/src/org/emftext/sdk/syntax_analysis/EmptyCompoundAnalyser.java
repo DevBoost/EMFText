@@ -7,7 +7,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.RemoveElementQuickFix;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
@@ -44,7 +44,7 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 					compound.getCardinality() == Cardinality.STAR) {
 					// check whether the compound allows the empty sentence
 					if (csUtil.canBeEmpty(compound.getDefinition(), true)) {
-						addProblem(ECsProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
+						addProblem(CsAnalysisProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
 					}
 				}
 			}

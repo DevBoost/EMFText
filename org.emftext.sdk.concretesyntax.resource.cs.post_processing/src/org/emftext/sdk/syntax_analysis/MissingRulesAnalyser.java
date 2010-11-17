@@ -23,7 +23,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
@@ -68,7 +68,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 				}
 			}
 			if (!foundRuleForClass) {
-				ECsProblemType problemType = ECsProblemType.NO_RULE_FOR_META_CLASS;
+				CsAnalysisProblemType problemType = CsAnalysisProblemType.NO_RULE_FOR_META_CLASS;
 				addProblem(problemType, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1, new AddSuppressWarningsAnnotationQuickFix(syntax, problemType));
 			}
 		}

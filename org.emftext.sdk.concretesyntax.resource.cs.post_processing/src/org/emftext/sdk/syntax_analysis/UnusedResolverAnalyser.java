@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 import org.emftext.sdk.quickfixes.RemoveResolverQuickFix;
 
@@ -50,7 +50,7 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		if (!Platform.isRunning()) {
 			return;
 		}
-		final ECsProblemType problemType = ECsProblemType.UNUSED_RESOLVER_CLASS;
+		final CsAnalysisProblemType problemType = CsAnalysisProblemType.UNUSED_RESOLVER_CLASS;
 		Collection<String> resolverFileNames = nameUtil.getResolverFileNames(syntax);
 		String workspaceRootFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
 		

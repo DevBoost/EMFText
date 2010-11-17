@@ -20,7 +20,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * A analyser that checks that all token names start with a capital letter
@@ -32,12 +32,12 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 	public void analyse(ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidCapitalization(syntax);
 		for (CompleteTokenDefinition next : wrongDefinitions) {
-			addProblem(ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
+			addProblem(CsAnalysisProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
 		}
 
 		wrongDefinitions = getTokenDefinitionsWithDashes(syntax);
 		for (CompleteTokenDefinition next : wrongDefinitions) {
-			addProblem(ECsProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
+			addProblem(CsAnalysisProblemType.INVALID_TOKEN_NAME, "Token names must not contain dashes.", next);
 		}
 	}
 

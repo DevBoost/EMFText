@@ -8,7 +8,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class PlaceholderInQuotesAnalyser extends AbstractPostProcessor {
@@ -24,13 +24,13 @@ public class PlaceholderInQuotesAnalyser extends AbstractPostProcessor {
 		for (Rule rule : rules) {
 			Collection<PlaceholderInQuotes> placeholdersInQuotes = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholdersInQuotes) {
-				checkEmpty(placeholder, placeholder.getSuffix(), ECsProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX, MESSAGE_1);
-				checkEmpty(placeholder, placeholder.getPrefix(), ECsProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_PREFIX, MESSAGE_2);
+				checkEmpty(placeholder, placeholder.getSuffix(), CsAnalysisProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_SUFFIX, MESSAGE_1);
+				checkEmpty(placeholder, placeholder.getPrefix(), CsAnalysisProblemType.PLACEHOLDER_IN_QUOTES_WITH_EMPTY_PREFIX, MESSAGE_2);
 			}
 		}
 	}
 
-	private void checkEmpty(PlaceholderInQuotes placeholder, String value, ECsProblemType problemType, String message) {
+	private void checkEmpty(PlaceholderInQuotes placeholder, String value, CsAnalysisProblemType problemType, String message) {
 		if (value != null && "".equals(value)) {
 			addProblem(problemType, message, placeholder);
 		}

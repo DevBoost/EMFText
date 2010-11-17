@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.quickfixes.AddSuppressWarningsAnnotationQuickFix;
 
 /**
@@ -72,7 +72,7 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					if (opposite != null) {
 						unusedReferencesWithOpposite.put(ecoreFeature, rule);
 					} else {
-						ECsProblemType problemType = ECsProblemType.FEATURE_WITHOUT_SYNTAX;
+						CsAnalysisProblemType problemType = CsAnalysisProblemType.FEATURE_WITHOUT_SYNTAX;
 						addProblem(
 								problemType, 
 								"Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", 
@@ -96,8 +96,8 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 				Rule rule1 = unusedReferencesWithOpposite.get(feature);
 				Rule rule2 = unusedReferencesWithOpposite.get(opposite);
 
-				addProblem(ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
-				addProblem(ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
+				addProblem(CsAnalysisProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
+				addProblem(CsAnalysisProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
 			}
 		}
 	}

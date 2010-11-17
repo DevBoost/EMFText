@@ -20,7 +20,7 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenRedefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 
 /**
  * An analyser that checks that each token name is used at most once.
@@ -30,7 +30,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 	public void analyse(ConcreteSyntax syntax) {
 		List<CompleteTokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);
 		for (CompleteTokenDefinition duplicate : duplicateDefinitions) {
-			addProblem(ECsProblemType.DUPLICATE_TOKEN_NAME, "Duplicate token name " + duplicate.getName() + " (names are not case sensitive).", duplicate);
+			addProblem(CsAnalysisProblemType.DUPLICATE_TOKEN_NAME, "Duplicate token name " + duplicate.getName() + " (names are not case sensitive).", duplicate);
 		}
 	}
 
