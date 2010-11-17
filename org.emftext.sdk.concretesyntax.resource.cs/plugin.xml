@@ -17,6 +17,41 @@
 		</super>
 	</extension>
 	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.sdk.concretesyntax.resource.cs.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</super>
+	</extension>
+	
 	<extension id="org.emftext.sdk.concretesyntax.resource.cs.nature" name="cs nature" point="org.eclipse.core.resources.natures">
 		<runtime>
 			<run class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature" />

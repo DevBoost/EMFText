@@ -541,7 +541,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		getErrors().clear();
 		getWarnings().clear();
 		if (isMarkerCreationEnabled()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
 		}
 		proxyCounter = 0;
 		resolverSwitch = null;

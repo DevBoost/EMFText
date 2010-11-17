@@ -64,13 +64,17 @@ public class CsMarkerHelper {
 	}
 	
 	private static void createMarkerFromDiagnostic(org.eclipse.core.resources.IFile file, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
+		org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem = diagnostic.getProblem();
+		org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType = problem.getType();
+		String markerID = getMarkerID(problemType);
 		try {
-			if (file.findMarkers(MARKER_TYPE, false, org.eclipse.core.resources.IResource.DEPTH_ZERO).length >= MAXIMUM_MARKERS) {
+			// if there are too many markers, we do not add new ones
+			if (file.findMarkers(markerID, false, org.eclipse.core.resources.IResource.DEPTH_ZERO).length >= MAXIMUM_MARKERS) {
 				return;
 			}
 			
-			org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
-			if (diagnostic.getProblem().getSeverity() == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR) {
+			org.eclipse.core.resources.IMarker marker = file.createMarker(markerID);
+			if (problem.getSeverity() == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR) {
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, org.eclipse.core.resources.IMarker.SEVERITY_ERROR);
 			} else {
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, org.eclipse.core.resources.IMarker.SEVERITY_WARNING);
@@ -115,7 +119,7 @@ public class CsMarkerHelper {
 	 * 
 	 * @param resource The resource where to delete markers from
 	 */
-	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource) {
+	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
 			return;
 		}
@@ -127,11 +131,12 @@ public class CsMarkerHelper {
 		if (file == null) {
 			return;
 		}
+		final String markerType = getMarkerID(problemType);
 		new org.eclipse.core.runtime.jobs.Job("unmarking") {
 			@Override			
 			protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
 				try {
-					file.deleteMarkers(MARKER_TYPE, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
+					file.deleteMarkers(markerType, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
 				} catch (org.eclipse.core.runtime.CoreException ce) {
 					if (ce.getMessage().matches("Marker.*not found.")) {
 						// ignore
@@ -142,6 +147,15 @@ public class CsMarkerHelper {
 				return org.eclipse.core.runtime.Status.OK_STATUS;
 			}
 		}.schedule();
+	}
+	
+	private static String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
+		String markerID = MARKER_TYPE;
+		String typeID = problemType.getID();
+		if (!"".equals(typeID)) {
+			markerID += "." + typeID;
+		}
+		return markerID;
 	}
 	
 }

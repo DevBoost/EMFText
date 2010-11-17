@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
@@ -134,6 +136,7 @@ public class PostProcessingContext {
 	}
 
 	public void addProblemsToResource() {
+		CsMarkerHelper.unmark(getResource(), CsEProblemType.ANALYSIS_PROBLEM);
 		for (IProblemWrapper problem : problems) {
 			if (problem instanceof WrappedElementBasedProblem) {
 				WrappedElementBasedProblem elementBasedProblem = (WrappedElementBasedProblem) problem;
