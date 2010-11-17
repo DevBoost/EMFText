@@ -26,9 +26,9 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
@@ -99,9 +99,9 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 	private static void addGenerationProblem(CsResource csResource,
 			GenerationProblem problem) {
 		if (problem.getSeverity() == GenerationProblem.Severity.WARNING) {
-			csResource.addProblem(new CsProblem(problem.getMessage(), ECsProblemType.GENERATION_WARNING), problem.getCause());
+			csResource.addProblem(new CsAnalysisProblem(problem.getMessage(), CsAnalysisProblemType.GENERATION_WARNING), problem.getCause());
 		} else {
-			csResource.addProblem(new CsProblem(problem.getMessage(), ECsProblemType.GENERATION_ERROR), problem.getCause());
+			csResource.addProblem(new CsAnalysisProblem(problem.getMessage(), CsAnalysisProblemType.GENERATION_ERROR), problem.getCause());
 		}
 	}
 }
