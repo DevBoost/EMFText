@@ -96,7 +96,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addMethods(JavaComposite sc) {
 		addMarkMethod(sc);
 		addCreateMarkersFromDiagnosticsMethod(sc);
-		addUnmarkMethod(sc);
+		addUnmarkMethod1(sc);
+		addUnmarkMethod2(sc);
 		addGetMarkerIDMethod(sc);
 	}
 
@@ -125,10 +126,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addUnmarkMethod(JavaComposite sc) {
+	private void addUnmarkMethod2(JavaComposite sc) {
 		sc.addJavadoc(
-			"Removes all markers from a given resource.",
-			"@param resource The resource where to delete markers from"
+			"Removes all markers of the given type from the given resource.",
+			"@param resource The resource where to delete markers from",
+			"@param problemType The type of problem to remove"
 		);
 		sc.add("public static void unmark(" + RESOURCE + " resource, " + eProblemTypeClassName + " problemType) {");
 		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
@@ -157,6 +159,19 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addUnmarkMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all markers from the given resource regardless of their type.",
+			"@param resource The resource where to delete markers from"
+		);
+		sc.add("public static void unmark(" + RESOURCE + " resource) {");
+		sc.add("for (" + eProblemTypeClassName + " nextType : " + eProblemTypeClassName + ".values()) {");
+		sc.add("unmark(resource, nextType);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
