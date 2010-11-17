@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.sdk.codegen.IResourceMarker;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper;
 
@@ -42,6 +43,9 @@ public class WorkspaceMarker implements IResourceMarker {
 	}
 
 	public void unmark(Resource resource) throws CoreException {
-		CsMarkerHelper.unmark(resource);
+		// remove all kinds of problem markers
+		for (CsEProblemType type : CsEProblemType.values()) {
+			CsMarkerHelper.unmark(resource, type);
+		}
 	}
 }
