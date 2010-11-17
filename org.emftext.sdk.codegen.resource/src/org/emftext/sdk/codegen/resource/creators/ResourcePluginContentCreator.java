@@ -244,6 +244,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.I_URI_MAPPING);
 	    add(creators, TextResourceArtifacts.I_BACKGROUND_PARSING_LISTENER);
 	    add(creators, TextResourceArtifacts.I_QUICK_FIX);
+	    add(creators, TextResourceArtifacts.E_PROBLEM_SEVERITY);
 	    add(creators, TextResourceArtifacts.E_PROBLEM_TYPE);
 
 	    add(creators, TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);

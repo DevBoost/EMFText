@@ -1776,7 +1776,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CHANGE_REFERENCE_QUICK_FIX(221, "OVERRIDE_CHANGE_REFERENCE_QUICK_FIX", "overrideChangeReferenceQuickFix");
+	OVERRIDE_CHANGE_REFERENCE_QUICK_FIX(221, "OVERRIDE_CHANGE_REFERENCE_QUICK_FIX", "overrideChangeReferenceQuickFix"), /**
+	 * The '<em><b>OVERRIDE EPROBLEM SEVERITY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EPROBLEM_SEVERITY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EPROBLEM_SEVERITY(222, "OVERRIDE_EPROBLEM_SEVERITY", "overrideEProblemSeverity");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5477,6 +5485,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE = 221;
 /**
+	 * The '<em><b>OVERRIDE EPROBLEM SEVERITY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EPROBLEM SEVERITY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EPROBLEM_SEVERITY
+	 * @model literal="overrideEProblemSeverity"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EPROBLEM_SEVERITY_VALUE = 222;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5702,6 +5724,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ENUMERATION_TERMINAL,
 			OVERRIDE_EXPECTED_ENUMERATION_TERMINAL,
 			OVERRIDE_CHANGE_REFERENCE_QUICK_FIX,
+			OVERRIDE_EPROBLEM_SEVERITY,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5968,6 +5991,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_ENUMERATION_TERMINAL;
 			case OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_EXPECTED_ENUMERATION_TERMINAL;
 			case OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE: return OVERRIDE_CHANGE_REFERENCE_QUICK_FIX;
+			case OVERRIDE_EPROBLEM_SEVERITY_VALUE: return OVERRIDE_EPROBLEM_SEVERITY;
 		}
 		return null;
 	}

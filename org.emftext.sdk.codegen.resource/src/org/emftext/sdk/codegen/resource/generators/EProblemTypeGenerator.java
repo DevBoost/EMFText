@@ -25,7 +25,7 @@ public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public enum " + getResourceClassName() + " {");
-		sc.add("WARNING,ERROR;");
+		sc.add("SYNTAX_ERROR, PRINT_PROBLEM, UNRESOLVED_REFERENCE, ANALYSIS_PROBLEM, BUILDER_ERROR, UNKNOWN;");
 		sc.add("}");
 	}
 }

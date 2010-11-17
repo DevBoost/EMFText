@@ -45,6 +45,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String dynamicTokenStyleClassName;
 	protected String eClassUtilClassName;
 	protected String eObjectUtilClassName;
+	protected String eProblemSeverityClassName;
 	protected String eProblemTypeClassName;
 	protected String elementMappingClassName;
 	protected String enumerationTerminalClassName;
@@ -180,6 +181,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		dynamicTokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
 		eClassUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
+		eProblemSeverityClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_SEVERITY);
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 		elementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
 		enumerationTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.ENUMERATION_TERMINAL);

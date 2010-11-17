@@ -234,6 +234,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_ENUMERATION_TERMINAL"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_EXPECTED_ENUMERATION_TERMINAL"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_CHANGE_REFERENCE_QUICK_FIX"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_EPROBLEM_SEVERITY"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>

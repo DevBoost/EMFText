@@ -67,6 +67,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		);
 
 		sc.add("public static final String MARKER_TYPE = " + pluginActivatorClassName + ".PLUGIN_ID + \".problem\";");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
 			"The total number of markers per file is restricted with this constant. " +
 			"Restriction is needed because the performance of Eclipse decreases drastically " +
@@ -109,6 +111,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("}.schedule();");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
@@ -118,11 +121,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
+		// TODO mseifert: use different types here
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
-		sc.add("if (diagnostic.getProblem().getType() == " + eProblemTypeClassName  + ".ERROR) {");
+		sc.add("if (diagnostic.getProblem().getSeverity() == " + eProblemSeverityClassName + ".ERROR) {");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_ERROR);");
-		sc.add("}");
-		sc.add("else {");
+		sc.add("} else {");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_WARNING);");
 		sc.add("}");
 		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, diagnostic.getMessage());");
@@ -192,6 +195,4 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

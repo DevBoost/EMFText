@@ -47,7 +47,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 		sc.addComment("the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-    	sc.add("resource.addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR), cause);");
+    	sc.add("resource.addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".PRINT_PROBLEM, " + eProblemSeverityClassName + ".WARNING), cause);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

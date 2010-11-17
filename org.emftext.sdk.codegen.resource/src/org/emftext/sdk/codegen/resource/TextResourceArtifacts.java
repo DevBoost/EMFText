@@ -53,7 +53,8 @@ import org.emftext.sdk.codegen.resource.generators.NatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.NewFileContentProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.PluginActivatorGenerator;
-import org.emftext.sdk.codegen.resource.generators.ProblemClassGenerator;
+import org.emftext.sdk.codegen.resource.generators.ProblemGenerator;
+import org.emftext.sdk.codegen.resource.generators.EProblemSeverityGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolverSwitchGenerator;
 import org.emftext.sdk.codegen.resource.generators.ResourceFactoryDelegatorGenerator;
@@ -190,7 +191,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> URI_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "URIMapping", URIMappingGenerator.class, OptionTypes.OVERRIDE_URI_MAPPING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SCANNERLESS_SCANNER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ScannerlessScanner", ScannerlessScannerGenerator.class, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SCANNERLESS_PARSER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ScannerlessParser", ScannerlessParserGenerator.class, OptionTypes.OVERRIDE_PARSER);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROBLEM = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Problem", ProblemClassGenerator.class, OptionTypes.OVERRIDE_PROBLEM_CLASS);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROBLEM = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Problem", ProblemGenerator.class, OptionTypes.OVERRIDE_PROBLEM_CLASS);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "MarkerHelper", MarkerHelperGenerator.class, OptionTypes.OVERRIDE_MARKER_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PRINTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Printer", PrinterGenerator.class, OptionTypes.OVERRIDE_PRINTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PRINTER2 = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Printer2", Printer2Generator.class, OptionTypes.OVERRIDE_PRINTER2);
@@ -265,6 +266,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_TOKEN_STYLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "TokenStyle", ITokenStyleGenerator.class, OptionTypes.OVERRIDE_ITOKEN_STYLE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_URI_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "URIMapping", IURIMappingGenerator.class, OptionTypes.OVERRIDE_IURI_MAPPING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_QUICK_FIX = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "QuickFix", IQuickFixGenerator.class, OptionTypes.OVERRIDE_IQUICK_FIX);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_SEVERITY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemSeverity", EProblemSeverityGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_SEVERITY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_TYPE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemType", EProblemTypeGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_TYPE);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_CS_STRING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedCsString", ExpectedCsStringGenerator.class, OptionTypes.OVERRIDE_EXPECTED_CS_STRING);

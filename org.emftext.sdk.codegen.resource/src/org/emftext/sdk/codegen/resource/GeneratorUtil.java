@@ -217,6 +217,7 @@ public class GeneratorUtil {
 		String iTextResource = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_RESOURCE);
 		String iProblem = context.getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
 		String iQuickFix = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
+		String eProblemSeverity = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_SEVERITY);
 		String eProblemType = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 
 		sc.add("protected void addErrorToResource(final String errorMessage, final int column, final int line, final int startIndex, final int stopIndex) {");
@@ -228,8 +229,11 @@ public class GeneratorUtil {
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("resource.addProblem(new " + iProblem + "() {");
+		sc.add("public " + eProblemSeverity + " getSeverity() {");
+		sc.add("return " + eProblemSeverity + ".ERROR;");
+		sc.add("}");
 		sc.add("public " + eProblemType + " getType() {");
-		sc.add("return " + eProblemType + ".ERROR;");
+		sc.add("return " + eProblemType + ".SYNTAX_ERROR;");
 		sc.add("}");
 		sc.add("public String getMessage() {");
 		sc.add("return errorMessage;");

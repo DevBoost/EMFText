@@ -120,8 +120,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	addReplaceProxyInLayoutAdaptersMethod(sc);
     	addGetResultElementMethod(sc);
     	addRemoveDiagnosticsMethod(sc);
-    	addAttachErrorsMethod(sc);
-    	addAttachWarningsMethod(sc);
+    	addAttachResolveErrorMethod(sc);
+    	addAttachResolveWarningsMethod(sc);
     	addDoUnloadMethod(sc);
     	addRunPostProcessorsMethod(sc);
     	addLoadMethod(sc);
@@ -130,8 +130,10 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
     	addAddProblemMethod1(sc);
     	addAddProblemMethod2(sc);
-    	addAddErrorMethod(sc);
-    	addAddWarningMethod(sc);
+    	addAddErrorMethod1(sc);
+    	addAddErrorMethod2(sc);
+    	addAddWarningMethod1(sc);
+    	addAddWarningMethod2(sc);
     	addGetDiagnosticsMethod(sc);
 
     	addAddDefaultLoadOptionsMethod(sc);
@@ -447,7 +449,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addAddProblemMethod1(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element) {");
     	sc.add(ELEMENT_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element);");
-    	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
+    	sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
     	sc.add("if (isMarkerCreationEnabled()) {");
 	    sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 	    sc.add("}");
@@ -473,7 +475,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addAddProblemMethod2(StringComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.add(POSITION_BASED_TEXT_DIAGNOSTIC + " diagnostic = new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd);");
-    	sc.add("getDiagnostics(problem.getType()).add(diagnostic);");
+    	sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
     	sc.add("if (isMarkerCreationEnabled()) {");
 	    sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 	    sc.add("}");
@@ -481,23 +483,39 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.addLineBreak();
 	}
 
-	private void addAddErrorMethod(StringComposite sc) {
+	private void addAddErrorMethod1(StringComposite sc) {
+		sc.add("@Deprecated").addLineBreak();
 		sc.add("public void addError(String message, " + E_OBJECT + " cause) {");
-    	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".ERROR), cause);");
+    	sc.add("addError(message, " + eProblemTypeClassName + ".UNKNOWN, cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
-	private void addAddWarningMethod(StringComposite sc) {
+	private void addAddErrorMethod2(StringComposite sc) {
+		sc.add("public void addError(String message, " + eProblemTypeClassName + " type, " + E_OBJECT + " cause) {");
+    	sc.add("addProblem(new " + problemClassName + "(message, type, " + eProblemSeverityClassName + ".ERROR), cause);");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addAddWarningMethod1(StringComposite sc) {
+		sc.add("@Deprecated").addLineBreak();
 		sc.add("public void addWarning(String message, " + E_OBJECT + " cause) {");
-    	sc.add("addProblem(new " + problemClassName + "(message, " + eProblemTypeClassName + ".WARNING), cause);");
+    	sc.add("addWarning(message, " + eProblemTypeClassName + ".UNKNOWN, cause);");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addAddWarningMethod2(StringComposite sc) {
+		sc.add("public void addWarning(String message, " + eProblemTypeClassName + " type, " + E_OBJECT + " cause) {");
+    	sc.add("addProblem(new " + problemClassName + "(message, type, " + eProblemSeverityClassName + ".WARNING), cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
 	private void addGetDiagnosticsMethod(StringComposite sc) {
-		sc.add("private " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> getDiagnostics(" + eProblemTypeClassName + " type) {");
-		sc.add("if (type == " + eProblemTypeClassName + ".ERROR) {");
+		sc.add("private " + LIST + "<" + RESOURCE_DIAGNOSTIC + "> getDiagnostics(" + eProblemSeverityClassName + " severity) {");
+		sc.add("if (severity == " + eProblemSeverityClassName + ".ERROR) {");
 		sc.add("return getErrors();");
 		sc.add("} else {");
 		sc.add("return getWarnings();");
@@ -603,8 +621,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 	}
 
-	private void addAttachWarningsMethod(StringComposite sc) {
-		sc.add("private void attachWarnings(" + iReferenceResolveResultClassName + "<? extends " + E_OBJECT + "> result, " + E_OBJECT + " proxy) {");
+	private void addAttachResolveWarningsMethod(StringComposite sc) {
+		sc.add("private void attachResolveWarnings(" + iReferenceResolveResultClassName + "<? extends " + E_OBJECT + "> result, " + E_OBJECT + " proxy) {");
     	sc.add("assert result != null;");
     	sc.add("assert result.wasResolved();");
     	sc.add("if (result.wasResolved()) {");
@@ -613,22 +631,22 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
-    	sc.add("addProblem(new " + problemClassName + "(warningMessage, " + eProblemTypeClassName + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(warningMessage, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE, " + eProblemSeverityClassName + ".WARNING), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
-	private void addAttachErrorsMethod(JavaComposite sc) {
-		sc.add("private void attachErrors(" + iReferenceResolveResultClassName + "<?> result, " + E_OBJECT + " proxy) {");
+	private void addAttachResolveErrorMethod(JavaComposite sc) {
+		sc.add("private void attachResolveError(" + iReferenceResolveResultClassName + "<?> result, " + E_OBJECT + " proxy) {");
     	sc.addComment("attach errors to this resource");
     	sc.add("assert result != null;");
     	sc.add("final String errorMessage = result.getErrorMessage();");
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR, result.getQuickFixes()), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE, " + eProblemSeverityClassName + ".ERROR, result.getQuickFixes()), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
@@ -664,7 +682,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE, " + eProblemSeverityClassName + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("return result;");
@@ -703,7 +721,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("return null;");
     	sc.add("}");
     	sc.add("if (!wasResolvedBefore && !result.wasResolved()) {");
-    	sc.add("attachErrors(result, uriFragment.getProxy());");
+    	sc.add("attachResolveError(result, uriFragment.getProxy());");
     	sc.add("return null;");
     	sc.add("} else if (!result.wasResolved()) {");
     	sc.add("return null;");
@@ -713,7 +731,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("removeDiagnostics(proxy, getErrors());");
     	sc.addComment("remove old warnings and attach new");
     	sc.add("removeDiagnostics(proxy, getWarnings());");
-    	sc.add("attachWarnings(result, proxy);");
+    	sc.add("attachResolveWarnings(result, proxy);");
     	sc.add(iReferenceMappingClassName + "<? extends " + E_OBJECT + "> mapping = result.getMappings().iterator().next();");
     	sc.add(E_OBJECT + " resultElement = getResultElement(uriFragment, mapping, proxy, result.getErrorMessage());");
     	sc.add(E_OBJECT + " container = uriFragment.getContainer();");
