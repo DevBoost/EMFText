@@ -17,8 +17,8 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.StreamUtil;
 
 public class AppendixGenerator {
@@ -106,17 +106,17 @@ public class AppendixGenerator {
 
 	private static void generateWarningsTex() throws IOException {
 		StringBuilder latexCode = new StringBuilder();
-		List<ECsProblemType> values = new ArrayList<ECsProblemType>();
-		values.addAll(Arrays.asList(ECsProblemType.values()));
-		Collections.sort(values, new Comparator<ECsProblemType>() {
-			public int compare(ECsProblemType o1, ECsProblemType o2) {
+		List<CsAnalysisProblemType> values = new ArrayList<CsAnalysisProblemType>();
+		values.addAll(Arrays.asList(CsAnalysisProblemType.values()));
+		Collections.sort(values, new Comparator<CsAnalysisProblemType>() {
+			public int compare(CsAnalysisProblemType o1, CsAnalysisProblemType o2) {
 				return o1.getName().compareTo(o2.getName());
 			}
 		});
 		
 		latexCode.append("\\begin{itemize}\n");
-		for (ECsProblemType problemType : values) {
-			if (problemType.getProblemType() == CsEProblemType.ERROR) {
+		for (CsAnalysisProblemType problemType : values) {
+			if (problemType.getProblemSeverity() == CsEProblemSeverity.ERROR) {
 				continue;
 			}
 			latexCode.append("\\item \\texttt{" + problemType.getName() + "}\n");
