@@ -23,6 +23,7 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator.PROBLEM_TYPES;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -93,6 +94,20 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		sc.add("</super>");
 		sc.add("</extension>");
 		sc.addLineBreak();
+		
+		for (PROBLEM_TYPES nextType : PROBLEM_TYPES.values()) {
+			if (nextType == PROBLEM_TYPES.UNKNOWN) {
+				continue;
+			}
+			String nextProblemTypeID = problemID + "." + nextType.name().toLowerCase();
+			sc.add("<extension id=\"" + nextProblemTypeID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
+			sc.add("<persistent value=\"true\">");
+			sc.add("</persistent>");
+			sc.add("<super type=\"" + problemID + "\">");
+			sc.add("</super>");
+			sc.add("</extension>");
+			sc.addLineBreak();
+		}
 		
 		sc.add("<extension id=\"" + nameUtil.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
 		sc.add("<runtime>");

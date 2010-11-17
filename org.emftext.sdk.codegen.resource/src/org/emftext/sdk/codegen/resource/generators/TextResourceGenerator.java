@@ -604,7 +604,9 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("getErrors().clear();");
     	sc.add("getWarnings().clear();");
     	sc.add("if (isMarkerCreationEnabled()) {");
-    	sc.add(markerHelperClassName + ".unmark(this);");
+    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".UNKNOWN);");
+    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".SYNTAX_ERROR);");
+    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE);");
 	    sc.add("}");
     	sc.add("proxyCounter = 0;");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");

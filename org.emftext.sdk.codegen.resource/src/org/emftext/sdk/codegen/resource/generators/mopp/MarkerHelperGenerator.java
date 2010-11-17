@@ -59,6 +59,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addMarkMethod(sc);
 		addCreateMarkersFromDiagnosticsMethod(sc);
 		addUnmarkMethod(sc);
+		addGetMarkerIDMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -83,7 +84,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Removes all markers from a given resource.",
 			"@param resource The resource where to delete markers from"
 		);
-		sc.add("public static void unmark(" + RESOURCE + " resource) {");
+		sc.add("public static void unmark(" + RESOURCE + " resource, " + eProblemTypeClassName + " problemType) {");
 		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
 		sc.add("return;");
 		sc.add("}");
@@ -95,11 +96,12 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add("final String markerType = getMarkerID(problemType);");
 		sc.add("new " + JOB + "(\"unmarking\") {");	
 		sc.add("@Override");sc.addLineBreak();
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
 		sc.add("try {");
-		sc.add("file.deleteMarkers(MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO);");
+		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE + ".DEPTH_ZERO);");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
 		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
 		sc.addComment("ignore");
@@ -116,14 +118,17 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
 		sc.add("private static void createMarkerFromDiagnostic(" + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
+		sc.add(iProblemClassName + " problem = diagnostic.getProblem();");
+		sc.add(eProblemTypeClassName + " problemType = problem.getType();");
+		sc.add("String markerID = getMarkerID(problemType);");
 		sc.add("try {");
-		sc.add("if (file.findMarkers(MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
+		sc.addComment("if there are too many markers, we do not add new ones");
+		sc.add("if (file.findMarkers(markerID, false, " + I_RESOURCE + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
-		// TODO mseifert: use different types here
-		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
-		sc.add("if (diagnostic.getProblem().getSeverity() == " + eProblemSeverityClassName + ".ERROR) {");
+		sc.add(I_MARKER + " marker = file.createMarker(markerID);");
+		sc.add("if (problem.getSeverity() == " + eProblemSeverityClassName + ".ERROR) {");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_ERROR);");
 		sc.add("} else {");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_WARNING);");
@@ -143,7 +148,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("}");
 		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = textDiagnostic.getProblem().getQuickFixes();");
-
 		sc.add(COLLECTION + "<Object> sourceIDs = new " + ARRAY_LIST + "<Object>();");
 		sc.add("if (quickFixes != null) {");
 		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
@@ -162,6 +166,18 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add(pluginActivatorClassName + ".logError(\"Error marking resource:\", ce);");
 		sc.add("}");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetMarkerIDMethod(JavaComposite sc) {
+		sc.add("private static String getMarkerID(" + eProblemTypeClassName + " problemType) {");
+		sc.add("String markerID = MARKER_TYPE;");
+		sc.add("String typeID = problemType.getID();");
+		sc.add("if (!\"\".equals(typeID)) {");
+		sc.add("markerID += \".\" + typeID;");
+		sc.add("}");
+		sc.add("return markerID;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
