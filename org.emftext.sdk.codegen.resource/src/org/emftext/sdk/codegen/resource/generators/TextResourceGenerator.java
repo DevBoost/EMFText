@@ -562,6 +562,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (loadOptions == null) {");
     	sc.add("return;");
     	sc.add("}");
+    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".ANALYSIS_PROBLEM);");
 		sc.add("Object resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
 		sc.add("if (resourcePostProcessorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");

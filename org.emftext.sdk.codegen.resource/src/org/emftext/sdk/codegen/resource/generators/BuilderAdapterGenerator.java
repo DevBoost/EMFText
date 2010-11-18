@@ -71,6 +71,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
 		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") new " + RESOURCE_SET_IMPL + "().getResource(uri, true);");
+    	sc.add(markerHelperClassName + ".unmark(customResource, " + eProblemTypeClassName + ".BUILDER_ERROR);");
 		sc.add("builder.build(customResource, monitor);");
 		sc.add("}");
 		sc.add("return false;");
