@@ -19,6 +19,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
@@ -37,6 +38,10 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private static final String COMMENT_ON_EXECUTION_ORDER = 
+		"Markers are created and removed asynchronously. Thus, they may not appear when calls to " +
+		"this method return. But, the order of marker additions and removals is preserved.";
 
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -98,7 +103,10 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addCreateMarkersFromDiagnosticsMethod(sc);
 		addUnmarkMethod1(sc);
 		addUnmarkMethod2(sc);
+		addUnmarkMethod3(sc);
 		addGetMarkerIDMethod(sc);
+		addGetFileMethod(sc);
+		addGetObjectURIMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -128,19 +136,13 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addUnmarkMethod2(JavaComposite sc) {
 		sc.addJavadoc(
-			"Removes all markers of the given type from the given resource.",
+			"Removes all markers of the given type from the given resource. " +
+			COMMENT_ON_EXECUTION_ORDER,
 			"@param resource The resource where to delete markers from",
 			"@param problemType The type of problem to remove"
 		);
 		sc.add("public static void unmark(" + RESOURCE + " resource, " + eProblemTypeClassName + " problemType) {");
-		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("String platformString = resource.getURI().toPlatformString(true);");
-		sc.add("if (platformString == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add("final " + I_FILE + " file = getFile(resource);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -163,9 +165,70 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
+	private void addUnmarkMethod3(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all markers that were caused by the given object from the resource. " +
+			COMMENT_ON_EXECUTION_ORDER,
+			"@param resource The resource where to delete markers from",
+			"@param causingObject The cause of the problems to remove"
+		);
+		sc.add("public static void unmark(" + RESOURCE + " resource, final " + E_OBJECT + " causingObject) {");
+		sc.add("final " + I_FILE + " file = getFile(resource);");
+		sc.add("if (file == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("final String markerID = getMarkerID(" + eProblemTypeClassName + ".UNKNOWN);");
+		sc.add("final String causingObjectURI = getObjectURI(causingObject);");
+		sc.add("if (causingObjectURI == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
+		sc.add("public boolean execute(Object context) {");
+		sc.add("try {");
+		sc.add(I_MARKER + "[] markers = file.findMarkers(markerID, true, " + I_RESOURCE + ".DEPTH_ZERO);");
+		sc.add("for (" + I_MARKER + " marker : markers) {");
+		sc.add("if (causingObjectURI.equals(marker.getAttribute(" + ECORE_VALIDATOR + ".URI_ATTRIBUTE))) {");
+		sc.add("marker.delete();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
+		sc.addComment("ignore");
+		sc.add("} else {");
+		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetFileMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Tries to determine the file for the given resource. If the platform is not running, " +
+			"the resource is not a platform resource, or the resource cannot be found in the " +
+			"workspace, this method returns <code>null</code>."
+		);
+		sc.add("private static " + I_FILE + " getFile(" + RESOURCE + " resource) {");
+		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("String platformString = resource.getURI().toPlatformString(true);");
+		sc.add("if (platformString == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add("return file;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addUnmarkMethod1(JavaComposite sc) {
 		sc.addJavadoc(
-			"Removes all markers from the given resource regardless of their type.",
+			"Removes all markers from the given resource regardless of their type. " +
+			COMMENT_ON_EXECUTION_ORDER,
 			"@param resource The resource where to delete markers from"
 		);
 		sc.add("public static void unmark(" + RESOURCE + " resource) {");
@@ -202,11 +265,9 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");
 		sc.add("if (diagnostic instanceof " + textResourceClassName + ".ElementBasedTextDiagnostic) {");
 		sc.add(E_OBJECT + " element = ((" + textResourceClassName + ".ElementBasedTextDiagnostic) diagnostic).getElement();");
-		sc.add("if (element != null) {");
-		sc.add(RESOURCE + " eResource = element.eResource();");
-		sc.add("if (eResource != null) {");
-		sc.add("marker.setAttribute(" + ECORE_VALIDATOR + ".URI_ATTRIBUTE, eResource.getURI().toString() + \"#\" + eResource.getURIFragment(element));");
-		sc.add("}");
+		sc.add("String elementURI = getObjectURI(element);");
+		sc.add("if (elementURI != null) {");
+		sc.add("marker.setAttribute(" + ECORE_VALIDATOR + ".URI_ATTRIBUTE, elementURI);");
 		sc.add("}");
 		sc.add("}");
 		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = textDiagnostic.getProblem().getQuickFixes();");
@@ -235,7 +296,26 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
+	private void addGetObjectURIMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns an URI that identifies the given object.");
+		sc.add("private static String getObjectURI(" + E_OBJECT + " object) {");
+		sc.add("if (object == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("if (object.eIsProxy() && object instanceof " + E_OBJECT_IMPL + ") {");
+		sc.add("return ((" + E_OBJECT_IMPL + ") object).eProxyURI().toString();");
+		sc.add("}");
+		sc.add(RESOURCE + " eResource = object.eResource();");
+		sc.add("if (eResource == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("return eResource.getURI().toString() + \"#\" + eResource.getURIFragment(object);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addGetMarkerIDMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the ID of the marker type that is used to indicate problems of the given type.");
 		sc.add("private static String getMarkerID(" + eProblemTypeClassName + " problemType) {");
 		sc.add("String markerID = MARKER_TYPE;");
 		sc.add("String typeID = problemType.getID();");
@@ -249,20 +329,13 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addMarkMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Marks a file with markers.",
+			"Creates a marker from the given diagnostics objects and attaches the marke to the resource. " +
+			COMMENT_ON_EXECUTION_ORDER,
 			"@param resource The resource that is the file to mark.",
 			"@param diagnostic The diagnostic with information for the marker."
 		);
 		sc.add("public static void mark(" + RESOURCE + " resource, final " + iTextDiagnosticClassName +" diagnostic) {");
-		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("String platformString = resource.getURI().toPlatformString(true);");
-		sc.add("if (platformString == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("final " + I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
-		sc.addComment("URI might not point at a platform file");
+		sc.add("final " + I_FILE + " file = getFile(resource);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");

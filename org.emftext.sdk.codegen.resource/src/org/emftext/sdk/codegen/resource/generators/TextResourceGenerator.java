@@ -662,6 +662,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add("if (errorCand instanceof " + iTextDiagnosticClassName + ") {");
     	sc.add("if (((" + iTextDiagnosticClassName + ") errorCand).wasCausedBy(cause)) {");
     	sc.add("diagnostics.remove(errorCand);");
+    	sc.add(markerHelperClassName + ".unmark(this, cause);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
