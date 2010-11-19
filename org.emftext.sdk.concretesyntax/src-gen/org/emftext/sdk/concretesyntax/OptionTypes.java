@@ -5492,6 +5492,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the EProblemSeverity class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EPROBLEM_SEVERITY
 	 * @model literal="overrideEProblemSeverity"
 	 * @generated

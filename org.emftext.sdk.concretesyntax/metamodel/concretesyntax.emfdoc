@@ -518,7 +518,9 @@ OptionTypes.OVERRIDE_ENUMERATION_TERMINAL : "If set to <code>false</code>, the E
 
 OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL : "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
 
-OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX  : "If set to <code>false</code>, the ChangeReferenceQuickFix class will not be overridden. The default value for this option is <code>true</code>."
+OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX : "If set to <code>false</code>, the ChangeReferenceQuickFix class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_EPROBLEM_SEVERITY : "If set to <code>false</code>, the EProblemSeverity class will not be overridden. The default value for this option is <code>true</code>."
 
 Annotation.getValue : "Returns the annotation value for the given key."
 
