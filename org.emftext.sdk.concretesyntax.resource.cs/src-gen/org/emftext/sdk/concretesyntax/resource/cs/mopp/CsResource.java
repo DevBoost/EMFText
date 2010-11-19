@@ -342,6 +342,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(cause)) {
 					diagnostics.remove(errorCand);
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, cause);
 				}
 			}
 		}
@@ -386,6 +387,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (loadOptions == null) {
 			return;
 		}
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
 		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {

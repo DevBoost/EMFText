@@ -42,6 +42,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
 					if (builder.isBuildingNeeded(uri)) {
 						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl().getResource(uri, true);
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(customResource, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BUILDER_ERROR);
 						builder.build(customResource, monitor);
 					}
 					return false;

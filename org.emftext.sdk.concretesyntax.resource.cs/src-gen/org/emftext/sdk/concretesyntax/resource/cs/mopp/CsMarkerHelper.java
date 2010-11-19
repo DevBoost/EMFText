@@ -77,21 +77,16 @@ public class CsMarkerHelper {
 	}
 	
 	/**
-	 * Marks a file with markers.
+	 * Creates a marker from the given diagnostics object and attaches the marker to
+	 * the resource. Markers are created and removed asynchronously. Thus, they may
+	 * not appear when calls to this method return. But, the order of marker additions
+	 * and removals is preserved.
 	 * 
 	 * @param resource The resource that is the file to mark.
 	 * @param diagnostic The diagnostic with information for the marker.
 	 */
 	public static void mark(org.eclipse.emf.ecore.resource.Resource resource, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
-		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
-			return;
-		}
-		String platformString = resource.getURI().toPlatformString(true);
-		if (platformString == null) {
-			return;
-		}
-		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
-		// URI might not point at a platform file
+		final org.eclipse.core.resources.IFile file = getFile(resource);
 		if (file == null) {
 			return;
 		}
@@ -123,11 +118,9 @@ public class CsMarkerHelper {
 					marker.setAttribute(org.eclipse.core.resources.IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);
 					if (diagnostic instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource.ElementBasedTextDiagnostic) {
 						org.eclipse.emf.ecore.EObject element = ((org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource.ElementBasedTextDiagnostic) diagnostic).getElement();
-						if (element != null) {
-							org.eclipse.emf.ecore.resource.Resource eResource = element.eResource();
-							if (eResource != null) {
-								marker.setAttribute(org.eclipse.emf.ecore.util.EcoreValidator.URI_ATTRIBUTE, eResource.getURI().toString() + "#" + eResource.getURIFragment(element));
-							}
+						String elementURI = getObjectURI(element);
+						if (elementURI != null) {
+							marker.setAttribute(org.eclipse.emf.ecore.util.EcoreValidator.URI_ATTRIBUTE, elementURI);
 						}
 					}
 					java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = textDiagnostic.getProblem().getQuickFixes();
@@ -155,19 +148,30 @@ public class CsMarkerHelper {
 	}
 	
 	/**
-	 * Removes all markers from a given resource.
+	 * Removes all markers from the given resource regardless of their type. Markers
+	 * are created and removed asynchronously. Thus, they may not appear when calls to
+	 * this method return. But, the order of marker additions and removals is
+	 * preserved.
 	 * 
 	 * @param resource The resource where to delete markers from
 	 */
+	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource) {
+		for (org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType nextType : org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.values()) {
+			unmark(resource, nextType);
+		}
+	}
+	
+	/**
+	 * Removes all markers of the given type from the given resource. Markers are
+	 * created and removed asynchronously. Thus, they may not appear when calls to
+	 * this method return. But, the order of marker additions and removals is
+	 * preserved.
+	 * 
+	 * @param resource The resource where to delete markers from
+	 * @param problemType The type of problem to remove
+	 */
 	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
-		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
-			return;
-		}
-		String platformString = resource.getURI().toPlatformString(true);
-		if (platformString == null) {
-			return;
-		}
-		final org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
+		final org.eclipse.core.resources.IFile file = getFile(resource);
 		if (file == null) {
 			return;
 		}
@@ -188,6 +192,50 @@ public class CsMarkerHelper {
 		});
 	}
 	
+	/**
+	 * Removes all markers that were caused by the given object from the resource.
+	 * Markers are created and removed asynchronously. Thus, they may not appear when
+	 * calls to this method return. But, the order of marker additions and removals is
+	 * preserved.
+	 * 
+	 * @param resource The resource where to delete markers from
+	 * @param causingObject The cause of the problems to remove
+	 */
+	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource, final org.eclipse.emf.ecore.EObject causingObject) {
+		final org.eclipse.core.resources.IFile file = getFile(resource);
+		if (file == null) {
+			return;
+		}
+		final String markerID = getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
+		final String causingObjectURI = getObjectURI(causingObject);
+		if (causingObjectURI == null) {
+			return;
+		}
+		COMMAND_QUEUE.addCommand(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>() {
+			public boolean execute(Object context) {
+				try {
+					org.eclipse.core.resources.IMarker[] markers = file.findMarkers(markerID, true, org.eclipse.core.resources.IResource.DEPTH_ZERO);
+					for (org.eclipse.core.resources.IMarker marker : markers) {
+						if (causingObjectURI.equals(marker.getAttribute(org.eclipse.emf.ecore.util.EcoreValidator.URI_ATTRIBUTE))) {
+							marker.delete();
+						}
+					}
+				} catch (org.eclipse.core.runtime.CoreException ce) {
+					if (ce.getMessage().matches("Marker.*not found.")) {
+						// ignore
+					} else {
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while removing markers from resource:", ce);
+					}
+				}
+				return true;
+			}
+		});
+	}
+	
+	/**
+	 * Returns the ID of the marker type that is used to indicate problems of the
+	 * given type.
+	 */
 	private static String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		String markerID = MARKER_TYPE;
 		String typeID = problemType.getID();
@@ -195,6 +243,40 @@ public class CsMarkerHelper {
 			markerID += "." + typeID;
 		}
 		return markerID;
+	}
+	
+	/**
+	 * Tries to determine the file for the given resource. If the platform is not
+	 * running, the resource is not a platform resource, or the resource cannot be
+	 * found in the workspace, this method returns <code>null</code>.
+	 */
+	private static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.ecore.resource.Resource resource) {
+		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
+			return null;
+		}
+		String platformString = resource.getURI().toPlatformString(true);
+		if (platformString == null) {
+			return null;
+		}
+		org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
+		return file;
+	}
+	
+	/**
+	 * Returns an URI that identifies the given object.
+	 */
+	private static String getObjectURI(org.eclipse.emf.ecore.EObject object) {
+		if (object == null) {
+			return null;
+		}
+		if (object.eIsProxy() && object instanceof org.eclipse.emf.ecore.impl.EObjectImpl) {
+			return ((org.eclipse.emf.ecore.impl.EObjectImpl) object).eProxyURI().toString();
+		}
+		org.eclipse.emf.ecore.resource.Resource eResource = object.eResource();
+		if (eResource == null) {
+			return null;
+		}
+		return eResource.getURI().toString() + "#" + eResource.getURIFragment(object);
 	}
 	
 }
