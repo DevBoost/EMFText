@@ -329,7 +329,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addMarkMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates a marker from the given diagnostics objects and attaches the marke to the resource. " +
+			"Creates a marker from the given diagnostics object and attaches the marker to the resource. " +
 			COMMENT_ON_EXECUTION_ORDER,
 			"@param resource The resource that is the file to mark.",
 			"@param diagnostic The diagnostic with information for the marker."
