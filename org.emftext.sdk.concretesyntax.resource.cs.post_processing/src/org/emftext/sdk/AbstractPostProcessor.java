@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
@@ -117,6 +118,7 @@ public abstract class AbstractPostProcessor {
 	protected void addTokenProblem(
 			CsAnalysisProblemType type, 
 			String message,
+			ConcreteSyntax syntax,
 			CompleteTokenDefinition definition) {
 		Set<EObject> causes = new LinkedHashSet<EObject>();
 		// problems that refer to quoted definition must be added to the placeholders,
@@ -129,6 +131,15 @@ public abstract class AbstractPostProcessor {
 			causes.add(definition);
 		}
 		
+		if (definition.isImported(syntax)) {
+			causes.clear();
+			ConcreteSyntax importedSyntax = definition.getContainingSyntax(syntax);
+			for (Import syntaxImport : syntax.getImports()) {
+				if (syntaxImport.getConcreteSyntax() == importedSyntax) {
+					causes.add(syntaxImport);
+				}
+			}
+		}
 		for (EObject cause : causes) {
 			addProblem(type, message, cause);
 		}

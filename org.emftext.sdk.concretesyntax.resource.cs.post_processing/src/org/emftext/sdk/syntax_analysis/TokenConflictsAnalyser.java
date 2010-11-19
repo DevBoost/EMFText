@@ -48,7 +48,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 			for (CompleteTokenDefinition tokenDirective : directivesMatchingEmptyString) {
 				addTokenProblem(CsAnalysisProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition '" + tokenDirective.getRegex()
-								+ "' matches the empty string.", tokenDirective);
+								+ "' matches the empty string.", syntax, tokenDirective);
 			}
 			unreachable = tokenSorter.getNonReachables(allTokenDefinitions);
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 			});
 			addTokenProblem(CsAnalysisProblemType.TOKEN_UNREACHABLE,
 					"The token definition '" + tokenDirective.getRegex()
-							+ "' is not reachable because of previous tokens " + conflictingTokens, tokenDirective);
+							+ "' is not reachable because of previous tokens " + conflictingTokens, syntax, tokenDirective);
 
 		}
 		for (CompleteTokenDefinition tokenDirective : conflicting.keySet()) {
@@ -81,6 +81,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 			addTokenProblem(CsAnalysisProblemType.TOKEN_OVERLAPPING,
 					"The token definition " + tokenDirective.getName()
 							+ " overlaps with previous token definition(s) (" + names + ").",
+					syntax,
 					tokenDirective);
 		}
 	}

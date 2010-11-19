@@ -43,13 +43,14 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		Collection<CompleteTokenDefinition> handledTokens = new LinkedHashSet<CompleteTokenDefinition>(); 
 		for (CompleteTokenDefinition tokenDefinition : tokens) {
 			if (tokenDefinition instanceof QuotedTokenDefinition) {
-				checkEscapeCharacterConsistency(tokens,
+				checkEscapeCharacterConsistency(syntax, tokens,
 						handledTokens, tokenDefinition);
 			}
 		}
 	}
 
 	private void checkEscapeCharacterConsistency(
+			ConcreteSyntax syntax,
 			List<CompleteTokenDefinition> tokens,
 			Collection<CompleteTokenDefinition> handledTokens,
 			CompleteTokenDefinition tokenDefinition) {
@@ -90,14 +91,14 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 					if (escapeCharacter2 == null) {
 						continue;
 					} else {
-						addProblem(quotedToken, quotedToken2, MESSAGE_1);
+						addProblem(syntax, quotedToken, quotedToken2, MESSAGE_1);
 					}
 				} else {
 					if (escapeCharacter2 == null) {
-						addProblem(quotedToken, quotedToken2, MESSAGE_1);
+						addProblem(syntax, quotedToken, quotedToken2, MESSAGE_1);
 					} else {
 						if (!escapeCharacter1.equals(escapeCharacter2)) {
-							addProblem(quotedToken, quotedToken2, MESSAGE_2);
+							addProblem(syntax, quotedToken, quotedToken2, MESSAGE_2);
 						}
 					}
 				}
@@ -105,8 +106,8 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private void addProblem(QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
-		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken1);
-		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, quotedToken2);
+	private void addProblem(ConcreteSyntax syntax, QuotedTokenDefinition quotedToken1, QuotedTokenDefinition quotedToken2, String message) {
+		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, syntax, quotedToken1);
+		addTokenProblem(CsAnalysisProblemType.QUOTED_TOKEN_CONFLICT, MESSAGE_1, syntax, quotedToken2);
 	}
 }
