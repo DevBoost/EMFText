@@ -943,8 +943,8 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addGetContentsMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns a copy of the contents of this resource wrapped in a list that " +
-			"propagates changes the the original resource list. Wrapping is required " +
-			"to make sure that client which obtain a reference do the list of contents " +
+			"propagates changes to the original resource list. Wrapping is required " +
+			"to make sure that clients which obtain a reference to the list of contents " +
 			"do not interfere when changing the list."
 		);
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
