@@ -70,7 +70,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public static " + LIST + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
 		sc.add(LIST + "<" + E_OBJECT + "> unresolvedProxies = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
-		sc.add("for(" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
+		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
 		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
 		sc.add("if (nextElement.eIsProxy()) {");
 		sc.add("unresolvedProxies.add(nextElement);");

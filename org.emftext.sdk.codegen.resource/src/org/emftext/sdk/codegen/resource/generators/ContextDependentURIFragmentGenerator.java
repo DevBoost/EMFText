@@ -107,7 +107,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 			"EMFText allows proxies to resolve to multiple objects. " +
 			"The first one is returned, the others are added here to the reference."
 		);
-		sc.add("if(result.wasResolvedMultiple()) {");
+		sc.add("if (result.wasResolvedMultiple()) {");
 		sc.add("handleMultipleResults();");
 		sc.add("}");
 		sc.add("}");
@@ -131,7 +131,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("boolean first = true;");
-		sc.add("for(" + iReferenceMappingClassName + "<ReferenceType> mapping : result.getMappings()) {");
+		sc.add("for (" + iReferenceMappingClassName + "<ReferenceType> mapping : result.getMappings()) {");
 		sc.add("if (first) {");
 		sc.add("first = false;");
 		sc.add("} else if (list != null) {");

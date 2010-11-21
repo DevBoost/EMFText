@@ -150,7 +150,7 @@ public class MinimalModelHelperGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
 		sc.add("if (\"EString\".equals(attribute.getEType().getName())) {");
 		sc.add("String initialValue;");
-		sc.add("if(attribute.getName().equals(\"name\") && name != null) {");
+		sc.add("if (attribute.getName().equals(\"name\") && name != null) {");
 		sc.add("initialValue = name;");
 		sc.add("}");
 		sc.add("else {");

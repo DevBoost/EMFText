@@ -234,7 +234,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add(BASIC_COMMAND_STACK + " commandStack = new " + BASIC_COMMAND_STACK + "();");
 		sc.addComment("CommandStackListeners can listen for changes. Not sure whether this is needed.");
 		sc.addLineBreak();
-		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory,commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
+		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
 		sc.add("}");
 		sc.addLineBreak();
 	}

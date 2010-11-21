@@ -184,7 +184,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("final String fileName = page.getFileName();");
 		sc.add("this.newName = fileName;");
 		sc.add("int seperatorIdx = newName.indexOf('.');");
-		sc.add("if(seperatorIdx != -1) {");
+		sc.add("if (seperatorIdx != -1) {");
 		sc.add("newName = newName.substring(0, seperatorIdx);");
 		sc.add("}");
 		sc.add("final " + I_FILE + " file;");

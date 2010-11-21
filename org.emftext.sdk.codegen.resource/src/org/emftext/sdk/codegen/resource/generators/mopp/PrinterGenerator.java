@@ -545,8 +545,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								sc.add("Object o = it.next();");
 								if (cardinality == Cardinality.STAR
 										&& neededFeatures.contains(featureName)) {
-									sc.add("if(!it.hasNext())");
+									sc.add("if (!it.hasNext()) {");
 									sc.add("break;");
+									sc.add("}");
 								}
 								sc.add(printStatements);
 								sc.add("}");
@@ -629,7 +630,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			Collection<String> reachableFeatures = getReachableFeatures(compound.getDefinition());
 			if (!neededFeatures.isEmpty() && 
 				!Collections.disjoint(neededFeatures, reachableFeatures)) {
-				sc.add("if(");
+				sc.add("if (");
 				Iterator<String> it = neededFeatures.iterator();
 				sc.add("printCountingMap1.get(\""
 						+ it.next() + "\")<1");

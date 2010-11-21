@@ -84,8 +84,8 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object[] getElements(Object inputElement) {");
-		sc.add("" + LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("for(" + LIST + "<HighlightingColorListItem> l : content.values()) {");
+		sc.add(LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
+		sc.add("for (" + LIST + "<HighlightingColorListItem> l : content.values()) {");
 		sc.add("contentsList.addAll(l);");
 		sc.add("}");
 		sc.add("return contentsList.toArray();");

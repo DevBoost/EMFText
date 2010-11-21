@@ -822,7 +822,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.add(iTextPrinterClassName + " printer = getMetaInformation().createPrinter(outputStream, this);");
         sc.add(iReferenceResolverSwitchClassName + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
-        sc.add("for(" + E_OBJECT + " root : getContents()) {");
+        sc.add("for (" + E_OBJECT + " root : getContents()) {");
         sc.add("printer.print(root);");
         sc.add("}");
         sc.add("}");
