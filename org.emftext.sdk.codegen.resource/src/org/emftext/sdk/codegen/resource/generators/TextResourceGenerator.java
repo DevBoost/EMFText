@@ -141,6 +141,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	
     	addClearStateMethod(sc);
     	addGetContentsMethod(sc);
+    	addGetContentsInternalMethod(sc);
     	addGetWarningsMethod(sc);
     	addGetErrorsMethod(sc);
     	addRunValidatorsMethods(sc);
@@ -822,7 +823,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.add(iTextPrinterClassName + " printer = getMetaInformation().createPrinter(outputStream, this);");
         sc.add(iReferenceResolverSwitchClassName + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
-        sc.add("for (" + E_OBJECT + " root : getContents()) {");
+        sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
         sc.add("printer.print(root);");
         sc.add("}");
         sc.add("}");
@@ -889,12 +890,12 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add(iParseResultClassName + " result = parser.parse();");
         sc.add("clearState();");
-    	sc.add("getContents().clear();");
+    	sc.add("getContentsInternal().clear();");
         sc.add(E_OBJECT + " root = null;");
         sc.add("if (result != null) {");
         sc.add("root = result.getRoot();");
         sc.add("if (root != null) {");
-        sc.add("getContents().add(root);");
+        sc.add("getContentsInternal().add(root);");
         sc.add("}");
         sc.add(COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> commands = result.getPostParseCommands();");
         sc.add("if (commands != null) {");
@@ -939,9 +940,25 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.addLineBreak();
 	}
 
-	private void addGetContentsMethod(StringComposite sc) {
+	private void addGetContentsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns a copy of the contents of this resource wrapped in a list that " +
+			"propagates changes the the original resource list. Wrapping is required " +
+			"to make sure that client which obtain a reference do the list of contents " +
+			"do not interfere when changing the list."
+		);
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
         sc.add("return new " + copiedEObjectInternalEListClassName + "((" + INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetContentsInternalMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the raw contents of this resource."
+		);
+		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContentsInternal() {");
+        sc.add("return super.getContents();");
         sc.add("}");
         sc.addLineBreak();
 	}

@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
@@ -40,6 +41,13 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ", " + iTextResourcePluginPartClassName + " {");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"Returns the raw contents of this resource. This method must be used by " +
+			"generated classes only. It is not intended to be used by clients."
+		);
+		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContentsInternal();");
+		sc.addLineBreak();
+
 		sc.addJavadoc(
 			"Try to load the content of this resource from the given stream. If " +
 			"loading fails, the state of this resource is kept. If loading is " + 

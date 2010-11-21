@@ -839,7 +839,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (result != null) {");
 		sc.add(E_OBJECT + " root = result.getRoot();");
 		sc.add("if (root != null) {");
-		sc.add("dummyResource.getContents().add(root);");
+		sc.add("dummyResource.getContentsInternal().add(root);");
 		sc.add("}");
 		sc.add("for (" + iCommandClassName + "<" + iTextResourceClassName + "> command : result.getPostParseCommands()) {");
 		sc.add("command.execute(dummyResource);");
