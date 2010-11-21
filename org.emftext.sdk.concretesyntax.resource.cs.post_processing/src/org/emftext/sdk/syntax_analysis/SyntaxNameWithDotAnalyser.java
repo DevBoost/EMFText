@@ -28,6 +28,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
  * 
  * The analyser does also check that the syntax does not contain more than 
  * one dot.
+ * 
+ * TODO add quick fix that sets the baseResourcePlugin option
  */
 public class SyntaxNameWithDotAnalyser extends AbstractPostProcessor {
 
