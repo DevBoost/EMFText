@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -40,12 +39,16 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses, syntax.getGenClassCache());
 		LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, syntax);
 		
-		EList<Rule> allRules = syntax.getAllRules();
-		
-		for (Rule rule : allRules) {
+		for (Rule rule : syntax.getAllRules()) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
-				addProblem(CsAnalysisProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
+				String message = RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName();
+				addRuleProblem(
+					CsAnalysisProblemType.LEFT_RECURSIVE_RULE, 
+					message,
+					syntax,
+					rule
+				);
 			}
 		}
 	}
