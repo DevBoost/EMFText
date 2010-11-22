@@ -61,7 +61,7 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 			
 			// EMFText allows proxies to resolve to multiple objects. The first one is
 			// returned, the others are added here to the reference.
-			if(result.wasResolvedMultiple()) {
+			if (result.wasResolvedMultiple()) {
 				handleMultipleResults();
 			}
 		}
@@ -79,7 +79,7 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 		}
 		
 		boolean first = true;
-		for(org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType> mapping : result.getMappings()) {
+		for (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType> mapping : result.getMappings()) {
 			if (first) {
 				first = false;
 			} else if (list != null) {

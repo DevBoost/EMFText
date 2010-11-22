@@ -30,7 +30,7 @@ public class CsResourceUtil {
 	public static java.util.List<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.Resource resource) {
 		java.util.List<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
 		
-		for(java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
+		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
 			org.eclipse.emf.ecore.InternalEObject nextElement = (org.eclipse.emf.ecore.InternalEObject) elementIt.next();
 			if (nextElement.eIsProxy()) {
 				unresolvedProxies.add(nextElement);

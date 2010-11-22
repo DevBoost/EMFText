@@ -22,6 +22,12 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginPart {
 	
 	/**
+	 * Returns the raw contents of this resource. This method must be used by
+	 * generated classes only. It is not intended to be used by clients.
+	 */
+	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContentsInternal();
+	
+	/**
 	 * Try to load the content of this resource from the given stream. If loading
 	 * fails, the state of this resource is kept. If loading is successful, the
 	 * content of this resource is replaced with the new content.

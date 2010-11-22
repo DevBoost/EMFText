@@ -46,6 +46,7 @@ public class CsMarkerHelper {
 	private static class MarkerCommandQueue {
 		
 		private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
+		private final Object jobLock = new Object();
 		
 		public void addCommand(org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command) {
 			synchronized(commands) {
@@ -61,13 +62,15 @@ public class CsMarkerHelper {
 			new org.eclipse.core.runtime.jobs.Job("updating markers") {
 				@Override				
 				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-					java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commandsToProcess = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
-					synchronized(commands) {
-						commandsToProcess.addAll(commands);
-						commands.clear();
-					}
-					for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command : commandsToProcess) {
-						command.execute(null);
+					synchronized(jobLock) {
+						java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commandsToProcess = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
+						synchronized(commands) {
+							commandsToProcess.addAll(commands);
+							commands.clear();
+						}
+						for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command : commandsToProcess) {
+							command.execute(null);
+						}
 					}
 					return org.eclipse.core.runtime.Status.OK_STATUS;
 				}

@@ -174,12 +174,12 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		referenceResolverSwitch.setOptions(options);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parser.parse();
 		clearState();
-		getContents().clear();
+		getContentsInternal().clear();
 		org.eclipse.emf.ecore.EObject root = null;
 		if (result != null) {
 			root = result.getRoot();
 			if (root != null) {
-				getContents().add(root);
+				getContentsInternal().add(root);
 			}
 			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = result.getPostParseCommands();
 			if (commands != null) {
@@ -217,7 +217,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getMetaInformation().createPrinter(outputStream, this);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
-		for(org.eclipse.emf.ecore.EObject root : getContents()) {
+		for (org.eclipse.emf.ecore.EObject root : getContentsInternal()) {
 			printer.print(root);
 		}
 	}
@@ -391,21 +391,25 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
-				((org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
+				runPostProcessor(((org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor());
 			} else if (resourcePostProcessorProvider instanceof java.util.Collection<?>) {
 				java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;
 				for (Object processorProvider : resourcePostProcessorProviderCollection) {
 					if (processorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider csProcessorProvider = (org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) processorProvider;
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor = csProcessorProvider.getResourcePostProcessor();
-						try {
-							postProcessor.process(this);
-						} catch (Exception e) {
-							org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while running a post-processor.", e);
-						}
+						runPostProcessor(postProcessor);
 					}
 				}
 			}
+		}
+	}
+	
+	protected void runPostProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor) {
+		try {
+			postProcessor.process(this);
+		} catch (Exception e) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while running a post-processor.", e);
 		}
 	}
 	
@@ -551,8 +555,21 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		resolverSwitch = null;
 	}
 	
+	/**
+	 * Returns a copy of the contents of this resource wrapped in a list that
+	 * propagates changes to the original resource list. Wrapping is required to make
+	 * sure that clients which obtain a reference to the list of contents do not
+	 * interfere when changing the list.
+	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContents() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEObjectInternalEList((org.eclipse.emf.ecore.util.InternalEList<org.eclipse.emf.ecore.EObject>) super.getContents());
+	}
+	
+	/**
+	 * Returns the raw contents of this resource.
+	 */
+	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContentsInternal() {
+		return super.getContents();
 	}
 	
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getWarnings() {

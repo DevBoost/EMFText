@@ -434,7 +434,7 @@ options {
 		if (result != null) {
 			org.eclipse.emf.ecore.EObject root = result.getRoot();
 			if (root != null) {
-				dummyResource.getContents().add(root);
+				dummyResource.getContentsInternal().add(root);
 			}
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource> command : result.getPostParseCommands()) {
 				command.execute(dummyResource);

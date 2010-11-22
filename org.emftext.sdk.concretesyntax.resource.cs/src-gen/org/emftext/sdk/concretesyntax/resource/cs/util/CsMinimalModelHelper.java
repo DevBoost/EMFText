@@ -93,7 +93,7 @@ public class CsMinimalModelHelper {
 				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
 				if ("EString".equals(attribute.getEType().getName())) {
 					String initialValue;
-					if(attribute.getName().equals("name") && name != null) {
+					if (attribute.getName().equals("name") && name != null) {
 						initialValue = name;
 					}
 					else {
