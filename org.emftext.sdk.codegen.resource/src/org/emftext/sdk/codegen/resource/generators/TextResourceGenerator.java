@@ -124,6 +124,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	addAttachResolveWarningsMethod(sc);
     	addDoUnloadMethod(sc);
     	addRunPostProcessorsMethod(sc);
+    	addRunPostProcessorMethod(sc);
     	addLoadMethod(sc);
     	addSetURIMethod(sc);
     	addGetLocationMapMethod(sc);
@@ -567,21 +568,28 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("Object resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
 		sc.add("if (resourcePostProcessorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");
-    	sc.add("((" + iResourcePostProcessorProviderClassName + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
+    	sc.add("runPostProcessor(((" + iResourcePostProcessorProviderClassName + ") resourcePostProcessorProvider).getResourcePostProcessor());");
     	sc.add("} else if (resourcePostProcessorProvider instanceof " + COLLECTION + "<?>) {");
     	sc.add("java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;");
     	sc.add("for (Object processorProvider : resourcePostProcessorProviderCollection) {");
     	sc.add("if (processorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");
     	sc.add(iResourcePostProcessorProviderClassName + " csProcessorProvider = (" + iResourcePostProcessorProviderClassName + ") processorProvider;");
     	sc.add(iResourcePostProcessorClassName + " postProcessor = csProcessorProvider.getResourcePostProcessor();");
+    	sc.add("runPostProcessor(postProcessor);");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addRunPostProcessorMethod(StringComposite sc) {
+    	sc.add("protected void runPostProcessor(" + iResourcePostProcessorClassName + " postProcessor) {");
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
     	sc.add("} catch (Exception e) {");
     	sc.add(pluginActivatorClassName + ".logError(\"Exception while running a post-processor.\", e);");
-    	sc.add("}");
-    	sc.add("}");
-    	sc.add("}");
-    	sc.add("}");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();

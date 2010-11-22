@@ -79,7 +79,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 			"of multiple tasks. without the synchronization this " +
 			"could easily happen, when this method is accessed by " +
 			"multiple threads. the creation of multiple tasks would " +
-			"imply the multiple background parsing threads for one " +
+			"imply that multiple background parsing threads for one " +
 			"editor are created, which is not desired."
 		);
 		sc.add("synchronized (lock) {");
