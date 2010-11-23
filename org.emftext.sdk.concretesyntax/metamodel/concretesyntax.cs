@@ -77,35 +77,35 @@ RULES {
 	Option 	       ::= type[] "=" value[STRING];
  
 	@Foldable
-	Rule           ::= (annotations !0)* metaclass[] #1 "::=" children : Choice ";";
+	Rule           ::= (annotations !0)* metaclass[] #1 "::=" #1 children : Choice ";";
  
-	Sequence       ::= children : Definition +;
+	Sequence       ::= children : Definition (#1 children : Definition)*;
  
-	Choice         ::= children : Sequence ("|" children : Sequence)* #1;	
+	Choice         ::= children : Sequence (#1 "|" #1 children : Sequence)*;	
 
-	CsString       ::= #1 value[STRING] #1 ;
+	CsString       ::= value[STRING];
 	
 	PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" 
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
 	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" 
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
-	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]" #1 
+	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]"
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
-	BooleanTerminal                ::= feature[] "[" trueLiteral[STRING] ":" falseLiteral[STRING] "]" 
+	BooleanTerminal                ::= feature[] "[" trueLiteral[STRING] #1 ":" #1 falseLiteral[STRING] "]" 
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
-	EnumTerminal                   ::= feature[] "[" literals ("," literals)* "]" 
+	EnumTerminal                   ::= feature[] "[" literals ("," #1 literals)* "]" 
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
 	EnumLiteralTerminal            ::= literal[] ":" text[STRING];
 	
 	Containment                    ::= feature[] (":" types[] ("," types[])*)? 
 							           cardinality[none : "", plus : "+", star : "*", questionmark : "?"]
-							           #1 ;
+							           ;
 	
 	CompoundDefinition             ::= "(" children : Choice ")" 
 	                                   cardinality[none : "", plus : "+", star : "*", questionmark : "?"];
 
-	WhiteSpaces  ::= amount[HEXNUMBER] #1;
-	LineBreak    ::= tab[TABNUMBER] #1;
+	WhiteSpaces  ::= amount[HEXNUMBER];
+	LineBreak    ::= tab[TABNUMBER];
 	
 	TokenRedefinition      ::= (annotations !0)* "REDEFINE" #1 redefinedToken[] "AS" name[] #1 regexParts (#1 "+" #1 regexParts)*;
 	NormalTokenDefinition  ::= (annotations !0)* "DEFINE" #1 name[] #1 regexParts (#1 "+" #1 regexParts)* (#1 "COLLECT" #1 "IN" #1 attributeName[])?;
