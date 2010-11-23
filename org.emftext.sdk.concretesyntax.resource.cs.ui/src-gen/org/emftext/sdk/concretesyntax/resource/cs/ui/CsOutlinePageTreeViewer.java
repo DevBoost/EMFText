@@ -72,6 +72,18 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		super.refresh(updateLabels);
 		expandToLevel(getAutoExpandLevel());
 	}
+	
+	public void expandToLevel(int level) {
+		// we need to catch exceptions here, because refreshing the outline does sometimes
+		// cause the LabelProviders to throw exceptions, if the model is in some
+		// inconsistent state.
+		try {
+			expandToLevel(level);
+		} catch (Exception e) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while refreshing outline view", e);
+		}
+	}
+	
 	protected void fireSelectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
 		if (suppressNotifications == true) return;
 		super.fireSelectionChanged(event);
