@@ -68,7 +68,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 			"model is in some inconsistent state."
 		);
 		sc.add("try {");
-		sc.add("expandToLevel(level);");
+		sc.add("super.expandToLevel(level);");
 		sc.add("} catch (Exception e) {");
 		// I'm not sure whether we could discard this exception right away, but for the time
 		// being let's send it to the error log.
