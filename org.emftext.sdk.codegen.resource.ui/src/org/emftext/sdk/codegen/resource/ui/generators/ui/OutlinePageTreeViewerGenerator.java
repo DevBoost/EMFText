@@ -56,7 +56,26 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		addRefreshMethod2(sc);
 		addRefreshMethod3(sc);
 		addRefreshMethod4(sc);
+		addExpandToLevelMethod(sc);
 		addFireSelectionChangedMethod(sc);
+	}
+
+	private void addExpandToLevelMethod(JavaComposite sc) {
+		sc.add("public void expandToLevel(int level) {");
+		sc.addComment(
+			"we need to catch exceptions here, because refreshing the outline " +
+			"does sometimes cause the LabelProviders to throw exceptions, if the " +
+			"model is in some inconsistent state."
+		);
+		sc.add("try {");
+		sc.add("expandToLevel(level);");
+		sc.add("} catch (Exception e) {");
+		// I'm not sure whether we could discard this exception right away, but for the time
+		// being let's send it to the error log.
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while refreshing outline view\", e);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRefreshMethod4(StringComposite sc) {
@@ -64,6 +83,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("super.refresh(updateLabels);");
 		sc.add("expandToLevel(getAutoExpandLevel());");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRefreshMethod3(StringComposite sc) {
