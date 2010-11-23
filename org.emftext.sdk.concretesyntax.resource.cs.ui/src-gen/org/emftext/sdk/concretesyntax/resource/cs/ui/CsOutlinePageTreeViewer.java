@@ -78,7 +78,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		// cause the LabelProviders to throw exceptions, if the model is in some
 		// inconsistent state.
 		try {
-			expandToLevel(level);
+			super.expandToLevel(level);
 		} catch (Exception e) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while refreshing outline view", e);
 		}
