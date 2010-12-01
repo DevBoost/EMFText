@@ -80,4 +80,8 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider();
 	}
 	
+	public void registerResourceFactory() {
+		org.eclipse.emf.ecore.resource.Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory());
+	}
+	
 }
