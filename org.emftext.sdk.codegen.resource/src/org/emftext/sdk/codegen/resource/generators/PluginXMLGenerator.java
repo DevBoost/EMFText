@@ -27,6 +27,7 @@ import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator.PROBLEM
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * A generator for the plugin.xml file.
@@ -37,6 +38,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	private String pluginID;
 	private String builderID;
@@ -58,14 +60,13 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 	 */
 	private String getContentOfPluginXML() {
 		final ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
-		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
-		final String secondaryConcreteSyntaxName = getSecondarySyntaxName(concreteSyntax);
+		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
+		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
 		final String qualifiedResourceFactoryClassName;
-		if (secondaryConcreteSyntaxName == null) {
-			qualifiedResourceFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
-		}
-		else {
-			qualifiedResourceFactoryClassName = getContext().getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
+		if (secondaryConcreteSyntaxName != null) {
+			qualifiedResourceFactoryClassName = resourceFactoryDelegatorClassName;
+		} else {
+			qualifiedResourceFactoryClassName = resourceFactoryClassName;
 		}
 		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 
@@ -155,24 +156,4 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 
 		return sc.toString();
 	}
-
-	private String getPrimarySyntaxName(ConcreteSyntax concreteSyntax) {
-		 String fullConcreteSyntaxName = concreteSyntax.getName();
-		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
-		 if (idx != -1) {
-			 return fullConcreteSyntaxName.substring(idx + 1);
-		 }
-		 return fullConcreteSyntaxName;
-	}
-	
-	private String getSecondarySyntaxName(ConcreteSyntax concreteSyntax) {
-		 String fullConcreteSyntaxName = concreteSyntax.getName();
-		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
-		 if (idx != -1) {
-			 return fullConcreteSyntaxName.substring(0, idx);
-		 }
-		 return null;
-	}
-	
-	
 }

@@ -320,4 +320,22 @@ public class ConcreteSyntaxUtil {
 		}
 		return false;
 	}
+
+	public String getPrimarySyntaxName(ConcreteSyntax concreteSyntax) {
+		 String fullConcreteSyntaxName = concreteSyntax.getName();
+		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
+		 if (idx != -1) {
+			 return fullConcreteSyntaxName.substring(idx + 1);
+		 }
+		 return fullConcreteSyntaxName;
+	}
+	
+	public String getSecondarySyntaxName(ConcreteSyntax concreteSyntax) {
+		 String fullConcreteSyntaxName = concreteSyntax.getName();
+		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
+		 if (idx != -1) {
+			 return fullConcreteSyntaxName.substring(0, idx);
+		 }
+		 return null;
+	}
 }

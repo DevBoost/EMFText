@@ -26,10 +26,13 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 @SyntaxDependent
 public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
-
+	
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -56,7 +59,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetConcreteSyntaxName(sc);
     	addGetURIMethod(sc);
     	addCreateLexerMethod(sc);
@@ -73,6 +76,26 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         addGetFoldableClassesMethod(sc);
         addCreateResourceFactoryMethod(sc);
         addGetNewFileContentProviderMethod(sc);
+        addRegisterResourceFactoryMethod(sc);
+	}
+
+	private void addRegisterResourceFactoryMethod(JavaComposite sc) {
+		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(getContext().getConcreteSyntax());
+		
+		sc.add("public void registerResourceFactory() {");
+		if (secondaryConcreteSyntaxName == null) {
+			sc.add(RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryClassName + "());");
+		} else {
+			// TODO if this is a secondary syntax, we need to register the ResourceFactory with
+			// the 'additional_extension_parser' extension point. Unfortunately, there is no 
+			// Registry for this available yet.
+			sc.addComment(
+				"this is a secondary syntax. " +
+				"registering the resource factory is done via the 'additional_extension_parser' extension point."
+			);
+		}
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetStartSymbolsMethod(StringComposite sc) {
