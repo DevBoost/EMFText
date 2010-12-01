@@ -63,7 +63,7 @@ public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<
 		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
 		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
 		final String qualifiedResourceFactoryClassName;
-		if (secondaryConcreteSyntaxName != null) {
+		if (secondaryConcreteSyntaxName == null) {
 			qualifiedResourceFactoryClassName = resourceFactoryDelegatorClassName;
 		} else {
 			qualifiedResourceFactoryClassName = resourceFactoryClassName;
