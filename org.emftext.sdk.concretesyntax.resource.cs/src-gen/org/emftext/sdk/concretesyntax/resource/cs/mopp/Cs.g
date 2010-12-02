@@ -741,7 +741,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 				}
 				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_1, null, true);
+				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_1, true, true);
 				copyLocalizationInfos((org.antlr.runtime3_2_0.CommonToken)a1, element);
 				// set value of boolean attribute
 				Object value = true;
