@@ -2096,7 +2096,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(identifier + " = '" + escapedLiteral + "' {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
-		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", null, true);");
+		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", " + value + ", true);");
 		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
 		sc.add("// set value of boolean attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false, true);
