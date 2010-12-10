@@ -8,7 +8,7 @@ Bundle-Version: 1.2.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
  .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
- ,org.emftext.sdk.antlr3_2_0,org.emftext.sdk.concretesyntax;visibility:=ree
+ ,org.emftext.sdk.antlr3_3_0,org.emftext.sdk.concretesyntax;visibility:=ree
  xport,org.emftext.access;resolution:=optional,org.junit4,org.emftext.
  sdk.automaton,org.eclipse.emf,org.eclipse.emf.edit.ui,org.eclipse.emf
  .ecore,org.eclipse.emf.ecore.edit,org.eclipse.ui,org.eclipse.ui.views

@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.antlr.runtime3_2_0.ANTLRInputStream;
-import org.antlr.runtime3_2_0.CommonTokenStream;
-import org.antlr.runtime3_2_0.RecognitionException;
+import org.antlr.runtime3_3_0.ANTLRInputStream;
+import org.antlr.runtime3_3_0.CommonTokenStream;
+import org.antlr.runtime3_3_0.RecognitionException;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -79,10 +79,14 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 					errors.add("Invalid regular expression: " + message);
 				}
 			}
+			// TODO cwende: this check worked with ANTLR 3.2.0, but does not
+			// with ANTLR 3.3.0
+			/*
 			// check whether all tokens were consumed
 			if (errors.isEmpty() && tokenStream.index() < tokenStream.size()) {
 				errors.add("End of regular expression expected");
 			}
+			*/
 		} catch (Exception e) {
 			errors.add(e.getMessage());
 		}

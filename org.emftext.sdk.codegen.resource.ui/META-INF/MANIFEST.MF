@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf,
  org.eclipse.emf.edit.ui,
  org.eclipse.emf.ecore.edit,
- org.emftext.sdk.antlr3_2_0,
+ org.emftext.sdk.antlr3_3_0,
  org.eclipse.emf.validation,
  org.emftext.sdk.codegen.antlr
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

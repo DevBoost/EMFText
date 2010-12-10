@@ -16,7 +16,7 @@ Export-Package: org.emftext.sdk.codegen.resource,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.emftext.sdk,
- org.emftext.sdk.antlr3_2_0,
+ org.emftext.sdk.antlr3_3_0,
  org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.antlr,
  org.eclipse.emf.validation

@@ -7,7 +7,7 @@ Bundle-SymbolicName: org.emftext.sdk.ant; singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Require-Bundle: org.apache.ant,
  org.emftext.sdk,
- org.emftext.sdk.antlr3_2_0,
+ org.emftext.sdk.antlr3_3_0,
  org.emftext.sdk.concretesyntax,
  org.emftext.sdk.concretesyntax.resource.cs,
  org.eclipse.emf.ecore.xmi,

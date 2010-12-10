@@ -364,7 +364,7 @@ OptionTypes.BASE_RESOURCE_PLUGIN : "The plug-in containing the resource implemen
 
 OptionTypes.OVERRIDE_PREFERENCE_PAGE : "If set to <code>false</code>, the PreferencePage class will not be overridden. The default value for this option is <code>true</code>."
 
-OptionTypes.ANTLR_PLUGIN_ID : "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_2_0</code>."
+OptionTypes.ANTLR_PLUGIN_ID : "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_3_0</code>."
 
 OptionTypes.OVERRIDE_ANTLR_PLUGIN : "If set to <code>false</code>, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>."
 

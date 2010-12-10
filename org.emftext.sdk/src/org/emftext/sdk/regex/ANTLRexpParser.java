@@ -16,13 +16,13 @@
 package org.emftext.sdk.regex; 
 
 
-import org.antlr.runtime3_2_0.BitSet;
-import org.antlr.runtime3_2_0.NoViableAltException;
-import org.antlr.runtime3_2_0.Parser;
-import org.antlr.runtime3_2_0.RecognitionException;
-import org.antlr.runtime3_2_0.RecognizerSharedState;
-import org.antlr.runtime3_2_0.Token;
-import org.antlr.runtime3_2_0.TokenStream;
+import org.antlr.runtime3_3_0.BitSet;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.Parser;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.TokenStream;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/

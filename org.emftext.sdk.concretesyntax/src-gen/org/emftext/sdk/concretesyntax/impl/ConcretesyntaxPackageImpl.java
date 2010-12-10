@@ -3712,7 +3712,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(140), 
 		   source, 
 		   new String[] {
-			 "documentation", "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_2_0</code>."
+			 "documentation", "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_3_0</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(141), 

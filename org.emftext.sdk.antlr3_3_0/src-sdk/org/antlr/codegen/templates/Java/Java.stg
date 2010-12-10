@@ -54,9 +54,9 @@ outputFile(LEXER,PARSER,TREE_PARSER, actionScope, actions,
 <actions.(actionScope).header>
 
 <@imports>
-import org.antlr.runtime.*;
+import org.antlr.runtime3_3_0.*;
 <if(TREE_PARSER)>
-import org.antlr.runtime.tree.*;
+import org.antlr.runtime3_3_0.tree.*;
 <endif>
 import java.util.Stack;
 import java.util.List;
