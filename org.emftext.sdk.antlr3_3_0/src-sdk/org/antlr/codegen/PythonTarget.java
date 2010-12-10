@@ -35,10 +35,10 @@ full of WTFs - though IMHO Java is the Real WTF(TM) here...
 
 package org.antlr.codegen;
 
-import org.antlr.tool.Grammar;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.antlr.tool.Grammar;
 
 public class PythonTarget extends Target {
     /** Target must be able to override the labels used for token types */

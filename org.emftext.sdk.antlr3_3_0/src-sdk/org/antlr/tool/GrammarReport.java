@@ -27,13 +27,19 @@
  */
 package org.antlr.tool;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import org.antlr.analysis.DFA;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.Utils;
 import org.antlr.runtime.misc.Stats;
-
-import java.lang.reflect.Field;
-import java.util.*;
 
 public class GrammarReport {
 	/** Because I may change the stats, I need to track version for later

@@ -28,22 +28,23 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.antlr.stringtemplate.language;
-import org.antlr.stringtemplate.*;
-import java.util.*;
-import java.io.*;
-import java.lang.reflect.*;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
-import antlr.TreeParser;
-import antlr.Token;
-import antlr.collections.AST;
-import antlr.RecognitionException;
-import antlr.ANTLRException;
-import antlr.NoViableAltException;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.antlr.stringtemplate.StringTemplateWriter;
+
 import antlr.MismatchedTokenException;
-import antlr.SemanticException;
+import antlr.NoViableAltException;
+import antlr.RecognitionException;
+import antlr.collections.AST;
 import antlr.collections.impl.BitSet;
-import antlr.ASTPair;
-import antlr.collections.impl.ASTArray;
 
 
 public class ActionEvaluator extends antlr.TreeParser       implements ActionEvaluatorTokenTypes

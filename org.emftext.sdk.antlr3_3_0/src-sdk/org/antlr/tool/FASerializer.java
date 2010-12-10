@@ -27,10 +27,20 @@
  */
 package org.antlr.tool;
 
-import org.antlr.analysis.*;
-import org.antlr.misc.Utils;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.State;
+import org.antlr.analysis.Transition;
+import org.antlr.misc.Utils;
 
 /** An aspect of FA (finite automata) that knows how to dump them to serialized
  *  strings.

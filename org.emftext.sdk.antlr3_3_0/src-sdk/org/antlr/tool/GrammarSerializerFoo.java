@@ -28,10 +28,14 @@
 
 package org.antlr.tool;
 
-import org.antlr.runtime.SerializedGrammar;
-
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Stack;
+
+import org.antlr.runtime.SerializedGrammar;
 
 /** Serialize a grammar into a highly compressed form with
  *  only the info needed to recognize sentences.

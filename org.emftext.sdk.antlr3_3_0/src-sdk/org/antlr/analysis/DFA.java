@@ -27,15 +27,29 @@
  */
 package org.antlr.analysis;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.misc.IntSet;
 import org.antlr.misc.IntervalSet;
 import org.antlr.misc.Utils;
 import org.antlr.runtime.IntStream;
 import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.tool.*;
-
-import java.util.*;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.FASerializer;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Interpreter;
+import org.antlr.tool.Rule;
 
 /** A DFA (converted from a grammar's NFA).
  *  DFAs are used as prediction machine for alternative blocks in all kinds

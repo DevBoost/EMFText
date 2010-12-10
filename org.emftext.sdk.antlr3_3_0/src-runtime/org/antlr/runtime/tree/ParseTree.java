@@ -27,9 +27,9 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.Token;
-
 import java.util.List;
+
+import org.antlr.runtime.Token;
 
 /** A record of the rules used to match a token sequence.  The tokens
  *  end up as the leaves of this tree and rule nodes are the interior nodes.

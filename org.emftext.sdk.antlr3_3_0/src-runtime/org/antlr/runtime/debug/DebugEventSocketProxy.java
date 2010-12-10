@@ -27,14 +27,21 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.BaseRecognizer;
-import org.antlr.runtime.tree.TreeAdaptor;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.tree.TreeAdaptor;
 
 /** A proxy debug event listener that forwards events over a socket to
  *  a debugger (or any other listener) using a simple text-based protocol;

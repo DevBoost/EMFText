@@ -27,11 +27,11 @@
  */
 package org.antlr.tool;
 
+import java.util.List;
+
 import org.antlr.analysis.DecisionProbe;
 import org.antlr.analysis.NFAState;
 import org.antlr.stringtemplate.StringTemplate;
-
-import java.util.List;
 
 /** Reports a potential parsing issue with a decision; the decision is
  *  nondeterministic in some way.

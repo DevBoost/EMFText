@@ -27,8 +27,9 @@
 */
 package org.antlr.stringtemplate.language;
 
-import antlr.CommonToken;
 import java.util.List;
+
+import antlr.CommonToken;
 
 public class StringTemplateToken extends CommonToken {
 	/** Track any args for anonymous templates like

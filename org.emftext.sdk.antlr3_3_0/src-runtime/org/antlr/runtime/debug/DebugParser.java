@@ -27,9 +27,12 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.*;
-
 import java.io.IOException;
+
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.TokenStream;
 
 public class DebugParser extends Parser {
 	/** Who to notify when events in the parser occur. */

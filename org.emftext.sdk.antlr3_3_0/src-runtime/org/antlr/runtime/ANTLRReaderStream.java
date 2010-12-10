@@ -27,7 +27,8 @@
  */
 package org.antlr.runtime;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
 
 /** Vacuum all input from a Reader and then treat it like a StringStream.
  *  Manage the buffer manually to avoid unnecessary data copying.

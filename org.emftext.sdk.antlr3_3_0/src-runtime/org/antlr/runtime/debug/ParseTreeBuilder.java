@@ -27,13 +27,13 @@
  */
 package org.antlr.runtime.debug;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.ParseTree;
-
-import java.util.Stack;
-import java.util.ArrayList;
-import java.util.List;
 
 /** This parser listener tracks rule entry/exit and token matches
  *  to build a simple parse tree using ParseTree nodes.

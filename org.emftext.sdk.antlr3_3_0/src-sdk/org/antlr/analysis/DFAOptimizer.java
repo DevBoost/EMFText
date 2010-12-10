@@ -27,11 +27,11 @@
  */
 package org.antlr.analysis;
 
-import org.antlr.misc.Utils;
-import org.antlr.tool.Grammar;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.antlr.misc.Utils;
+import org.antlr.tool.Grammar;
 
 /** A module to perform optimizations on DFAs.
  *

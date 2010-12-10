@@ -27,8 +27,9 @@
  */
 package org.antlr.tool;
 
-import antlr.Token;
 import org.antlr.stringtemplate.StringTemplate;
+
+import antlr.Token;
 
 /** A problem with the syntax of your antlr grammar such as
  *  "The '{' came as a complete surprise to me at this point in your program"

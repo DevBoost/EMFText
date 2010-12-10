@@ -27,13 +27,41 @@
 */
 package org.antlr.stringtemplate;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.StringTokenizer;
 
-import org.antlr.stringtemplate.language.*;
-import antlr.*;
+import org.antlr.stringtemplate.language.ASTExpr;
+import org.antlr.stringtemplate.language.ActionEvaluator;
+import org.antlr.stringtemplate.language.ActionLexer;
+import org.antlr.stringtemplate.language.ActionParser;
+import org.antlr.stringtemplate.language.ConditionalExpr;
+import org.antlr.stringtemplate.language.Expr;
+import org.antlr.stringtemplate.language.FormalArgument;
+import org.antlr.stringtemplate.language.NewlineRef;
+import org.antlr.stringtemplate.language.StringTemplateAST;
+import org.antlr.stringtemplate.language.TemplateParser;
+
+import antlr.CharScanner;
+import antlr.CommonAST;
+import antlr.CommonToken;
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
 import antlr.collections.AST;
 import antlr.collections.ASTEnumeration;
 

@@ -27,13 +27,22 @@
  */
 package org.antlr.tool;
 
-import antlr.CommonToken;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.analysis.LookaheadSet;
 import org.antlr.analysis.NFAState;
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.grammar.v2.ANTLRParser;
 
-import java.util.*;
+import antlr.CommonToken;
 
 /** Combine the info associated with a rule. */
 public class Rule {

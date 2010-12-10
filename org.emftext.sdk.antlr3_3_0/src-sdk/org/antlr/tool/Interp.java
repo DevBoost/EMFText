@@ -27,16 +27,20 @@
  */
 package org.antlr.tool;
 
-import org.antlr.Tool;
-import org.antlr.runtime.*;
-import org.antlr.runtime.tree.ParseTree;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+
+import org.antlr.Tool;
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenSource;
+import org.antlr.runtime.tree.ParseTree;
 
 /** Interpret any ANTLR grammar:
  *

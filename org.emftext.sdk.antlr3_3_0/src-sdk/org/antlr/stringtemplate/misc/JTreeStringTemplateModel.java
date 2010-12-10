@@ -27,17 +27,27 @@
 */
 package org.antlr.stringtemplate.misc;
 
-import antlr.collections.AST;
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import javax.swing.event.*;
-import javax.swing.tree.*;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
-import org.antlr.stringtemplate.language.*;
+import org.antlr.stringtemplate.language.ASTExpr;
+import org.antlr.stringtemplate.language.ActionEvaluatorTokenTypes;
+import org.antlr.stringtemplate.language.ConditionalExpr;
+import org.antlr.stringtemplate.language.Expr;
+import org.antlr.stringtemplate.language.StringRef;
 
-import java.util.*;
-import java.lang.reflect.Constructor;
+import antlr.collections.AST;
 
 /** A model that pulls data from a string template hierarchy.  This code
  *  is extremely ugly!

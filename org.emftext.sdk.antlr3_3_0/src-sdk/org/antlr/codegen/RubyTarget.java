@@ -29,10 +29,15 @@
 package org.antlr.codegen;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.antlr.Tool;
-import org.antlr.stringtemplate.*;
+import org.antlr.stringtemplate.AttributeRenderer;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.tool.Grammar;
 
 public class RubyTarget extends Target

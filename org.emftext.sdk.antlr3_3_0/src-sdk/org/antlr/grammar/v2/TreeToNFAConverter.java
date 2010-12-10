@@ -28,22 +28,30 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.antlr.grammar.v2;
-import java.util.*;
-import org.antlr.analysis.*;
-import org.antlr.misc.*;
-import org.antlr.tool.*;
+import java.util.LinkedList;
+import java.util.List;
 
-import antlr.TreeParser;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.StateCluster;
+import org.antlr.analysis.Transition;
+import org.antlr.misc.IntSet;
+import org.antlr.misc.IntervalSet;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.NFAFactory;
+import org.antlr.tool.Rule;
+
+import antlr.MismatchedTokenException;
+import antlr.NoViableAltException;
+import antlr.RecognitionException;
+import antlr.SemanticException;
 import antlr.Token;
 import antlr.collections.AST;
-import antlr.RecognitionException;
-import antlr.ANTLRException;
-import antlr.NoViableAltException;
-import antlr.MismatchedTokenException;
-import antlr.SemanticException;
 import antlr.collections.impl.BitSet;
-import antlr.ASTPair;
-import antlr.collections.impl.ASTArray;
 
 
 /** Build an NFA from a tree representing an ANTLR grammar. */

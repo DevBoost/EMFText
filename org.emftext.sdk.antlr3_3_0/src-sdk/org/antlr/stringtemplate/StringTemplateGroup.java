@@ -27,14 +27,29 @@
 */
 package org.antlr.stringtemplate;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
 import org.antlr.stringtemplate.language.DefaultTemplateLexer;
 import org.antlr.stringtemplate.language.GroupLexer;
 import org.antlr.stringtemplate.language.GroupParser;
-import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
-
-import java.util.*;
-import java.io.*;
-import java.lang.reflect.Constructor;
 
 /** Manages a group of named mutually-referential StringTemplate objects.
  *  Currently the templates must all live under a directory so that you

@@ -27,13 +27,13 @@
  */
 package org.antlr.misc;
 
-import org.antlr.analysis.Label;
-import org.antlr.tool.Grammar;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.antlr.analysis.Label;
+import org.antlr.tool.Grammar;
 
 /** A set of integers that relies on ranges being common to do
  *  "run-length-encoded" like compression (if you view an IntSet like

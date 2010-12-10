@@ -28,12 +28,12 @@
  */
 package org.antlr.codegen;
 
+import java.io.IOException;
+
 import org.antlr.Tool;
 import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.tool.Grammar;
-
-import java.io.IOException;
 
 public class ObjCTarget extends Target {
 	protected void genRecognizerHeaderFile(Tool tool,

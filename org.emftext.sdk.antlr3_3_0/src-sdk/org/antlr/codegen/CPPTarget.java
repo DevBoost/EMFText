@@ -27,12 +27,12 @@
  */
 package org.antlr.codegen;
 
+import java.io.IOException;
+
 import org.antlr.Tool;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.tool.Grammar;
-
-import java.io.IOException;
 
 public class CPPTarget extends Target {
 	

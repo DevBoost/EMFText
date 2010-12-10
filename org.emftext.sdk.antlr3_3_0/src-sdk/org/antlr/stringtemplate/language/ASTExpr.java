@@ -27,19 +27,28 @@
 */
 package org.antlr.stringtemplate.language;
 
-import antlr.RecognitionException;
-import antlr.collections.AST;
-import org.antlr.stringtemplate.AttributeRenderer;
-import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.stringtemplate.StringTemplateGroup;
-import org.antlr.stringtemplate.StringTemplateWriter;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.antlr.stringtemplate.AttributeRenderer;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.antlr.stringtemplate.StringTemplateWriter;
+
+import antlr.RecognitionException;
+import antlr.collections.AST;
 
 /** A single string template expression enclosed in $...; separator=...$
  *  parsed into an AST chunk to be evaluated.

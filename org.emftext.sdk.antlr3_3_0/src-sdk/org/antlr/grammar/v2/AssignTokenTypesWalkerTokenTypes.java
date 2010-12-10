@@ -28,12 +28,7 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 	package org.antlr.grammar.v2;
-	import java.util.*;
-	import org.antlr.analysis.*;
-	import org.antlr.misc.*;
-	import java.io.*;
-    import org.antlr.tool.*;
-
+	
 public interface AssignTokenTypesWalkerTokenTypes {
 	int EOF = 1;
 	int NULL_TREE_LOOKAHEAD = 3;

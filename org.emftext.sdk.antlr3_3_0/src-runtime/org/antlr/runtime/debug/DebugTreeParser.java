@@ -27,11 +27,14 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.*;
+import java.io.IOException;
+
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.runtime.tree.TreeParser;
-
-import java.io.IOException;
 
 public class DebugTreeParser extends TreeParser {
 	/** Who to notify when events in the parser occur. */

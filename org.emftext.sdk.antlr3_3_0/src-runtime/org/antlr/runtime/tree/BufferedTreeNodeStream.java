@@ -27,10 +27,13 @@
  */
 package org.antlr.runtime.tree;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
 import org.antlr.runtime.misc.IntArray;
-import java.util.*;
 
 /** A buffered stream of tree nodes.  Nodes can be from a tree of ANY kind.
  *

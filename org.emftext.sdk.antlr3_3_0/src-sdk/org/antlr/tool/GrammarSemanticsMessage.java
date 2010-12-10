@@ -27,8 +27,9 @@
  */
 package org.antlr.tool;
 
-import antlr.Token;
 import org.antlr.stringtemplate.StringTemplate;
+
+import antlr.Token;
 
 /** A problem with the symbols and/or meaning of a grammar such as rule
  *  redefinition.

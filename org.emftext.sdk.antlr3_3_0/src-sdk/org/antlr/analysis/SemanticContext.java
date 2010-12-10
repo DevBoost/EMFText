@@ -27,16 +27,16 @@
  */
 package org.antlr.analysis;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.tool.Grammar;
 import org.antlr.tool.GrammarAST;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 /** A binary tree structure used to record the semantic context in which
  *  an NFA configuration is valid.  It's either a single predicate or

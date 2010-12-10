@@ -27,7 +27,17 @@
  */
 package org.antlr.analysis;
 
-import antlr.Token;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.MultiMap;
 import org.antlr.misc.Utils;
@@ -35,7 +45,7 @@ import org.antlr.tool.ErrorManager;
 import org.antlr.tool.Grammar;
 import org.antlr.tool.GrammarAST;
 
-import java.util.*;
+import antlr.Token;
 
 /** Collection of information about what is wrong with a decision as
  *  discovered while building the DFA predictor.

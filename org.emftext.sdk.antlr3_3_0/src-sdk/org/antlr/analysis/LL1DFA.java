@@ -27,13 +27,13 @@
  */
 package org.antlr.analysis;
 
-import org.antlr.grammar.v2.ANTLRParser;
-import org.antlr.misc.IntervalSet;
-import org.antlr.misc.MultiMap;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import org.antlr.grammar.v2.ANTLRParser;
+import org.antlr.misc.IntervalSet;
+import org.antlr.misc.MultiMap;
 
 /** A special DFA that is exactly LL(1) or LL(1) with backtracking mode
  *  predicates to resolve edge set collisions.

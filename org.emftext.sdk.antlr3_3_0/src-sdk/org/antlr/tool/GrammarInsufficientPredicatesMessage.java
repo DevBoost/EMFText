@@ -27,13 +27,19 @@
  */
 package org.antlr.tool;
 
-import antlr.Token;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.analysis.DFAState;
 import org.antlr.analysis.DecisionProbe;
 import org.antlr.analysis.Label;
 import org.antlr.stringtemplate.StringTemplate;
 
-import java.util.*;
+import antlr.Token;
 
 public class GrammarInsufficientPredicatesMessage extends Message {
 	public DecisionProbe probe;

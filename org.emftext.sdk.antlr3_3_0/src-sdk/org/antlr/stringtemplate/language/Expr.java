@@ -27,14 +27,10 @@
 */
 package org.antlr.stringtemplate.language;
 
-import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.stringtemplate.StringTemplateGroup;
-import org.antlr.stringtemplate.StringTemplateWriter;
-
-import java.io.Writer;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Enumeration;
+
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateWriter;
 
 /** A string template expression embedded within the template.
  *  A template is parsed into a tokenized vector of Expr objects

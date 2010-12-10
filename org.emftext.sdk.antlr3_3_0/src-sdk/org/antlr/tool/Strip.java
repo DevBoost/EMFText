@@ -28,14 +28,18 @@
 
 package org.antlr.tool;
 
+import java.util.List;
+
 import org.antlr.grammar.v3.ANTLRv3Lexer;
 import org.antlr.grammar.v3.ANTLRv3Parser;
-import org.antlr.runtime.*;
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenRewriteStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.TreeAdaptor;
 import org.antlr.runtime.tree.TreeWizard;
-
-import java.util.List;
 
 /** A basic action stripper. */
 public class Strip {

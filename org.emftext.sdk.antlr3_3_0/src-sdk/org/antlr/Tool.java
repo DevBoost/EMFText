@@ -27,15 +27,44 @@
  */
 package org.antlr;
 
-import antlr.ANTLRException;
-import org.antlr.analysis.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.DFAOptimizer;
+import org.antlr.analysis.DecisionProbe;
+import org.antlr.analysis.NFAContext;
+import org.antlr.analysis.NFAToDFAConverter;
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.misc.Graph;
 import org.antlr.runtime.misc.Stats;
-import org.antlr.tool.*;
+import org.antlr.tool.BuildDependencyGenerator;
+import org.antlr.tool.CompositeGrammar;
+import org.antlr.tool.DOTGenerator;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarReport;
+import org.antlr.tool.GrammarReport2;
+import org.antlr.tool.GrammarSpelunker;
+import org.antlr.tool.Rule;
 
-import java.io.*;
-import java.util.*;
+import antlr.ANTLRException;
 
 /** The main ANTLR entry point.  Read a grammar and generate a parser. */
 public class Tool {

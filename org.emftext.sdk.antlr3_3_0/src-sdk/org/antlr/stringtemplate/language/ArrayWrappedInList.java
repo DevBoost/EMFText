@@ -1,8 +1,8 @@
 package org.antlr.stringtemplate.language;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.lang.reflect.Array;
 
 /** Turn an array into a List; subclass ArrayList for easy development, but
  *  it really doesn't use super stuff for anything.  Ensure we create

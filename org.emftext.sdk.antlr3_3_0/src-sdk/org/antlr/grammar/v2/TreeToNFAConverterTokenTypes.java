@@ -28,10 +28,6 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.antlr.grammar.v2;
-import java.util.*;
-import org.antlr.analysis.*;
-import org.antlr.misc.*;
-import org.antlr.tool.*;
 
 public interface TreeToNFAConverterTokenTypes {
 	int EOF = 1;

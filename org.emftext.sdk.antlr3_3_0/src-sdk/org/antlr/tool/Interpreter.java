@@ -27,17 +27,32 @@
  */
 package org.antlr.tool;
 
+import java.util.List;
+import java.util.Stack;
+
 import org.antlr.analysis.DFA;
-import org.antlr.analysis.*;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.Transition;
 import org.antlr.misc.IntervalSet;
-import org.antlr.runtime.*;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.FailedPredicateException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenSource;
+import org.antlr.runtime.TokenStream;
 import org.antlr.runtime.debug.BlankDebugEventListener;
 import org.antlr.runtime.debug.DebugEventListener;
 import org.antlr.runtime.debug.ParseTreeBuilder;
 import org.antlr.runtime.tree.ParseTree;
-
-import java.util.List;
-import java.util.Stack;
 
 /** The recognition interpreter/engine for grammars.  Separated
  *  out of Grammar as it's related, but technically not a Grammar function.

@@ -27,11 +27,16 @@
  */
 package org.antlr.tool;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.analysis.Label;
 import org.antlr.grammar.v2.AssignTokenTypesWalker;
 import org.antlr.misc.Utils;
-
-import java.util.*;
 
 /** Move all of the functionality from assign.types.g grammar file. */
 public class AssignTokenTypesBehavior extends AssignTokenTypesWalker {

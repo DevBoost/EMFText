@@ -27,7 +27,9 @@
  */
 package org.antlr.runtime;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /** A kind of ReaderStream that pulls from an InputStream.
  *  Useful for reading from stdin and specifying file encodings etc...

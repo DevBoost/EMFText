@@ -27,9 +27,9 @@
  */
 package org.antlr.runtime.debug;
 
+import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
-import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.TreeAdaptor;
 
 /** A TreeAdaptor proxy that fires debugging events to a DebugEventListener

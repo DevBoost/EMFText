@@ -28,10 +28,13 @@
 
 package org.antlr.stringtemplate.misc;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.tree.*;
-import javax.swing.event.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeModel;
 
 public class JTreeStringTemplatePanel extends JPanel {
     JTree tree;

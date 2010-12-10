@@ -27,20 +27,21 @@
  */
 package org.antlr.tool;
 
-import antlr.BaseAST;
-import antlr.Token;
-import antlr.TokenWithIndex;
-import antlr.collections.AST;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.analysis.DFA;
 import org.antlr.analysis.NFAState;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.IntSet;
 import org.antlr.stringtemplate.StringTemplate;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import antlr.BaseAST;
+import antlr.Token;
+import antlr.TokenWithIndex;
+import antlr.collections.AST;
 
 /** Grammars are first converted to ASTs using this class and then are
  *  converted to NFAs via a tree walker.

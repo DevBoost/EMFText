@@ -28,12 +28,12 @@
 
 package org.antlr.runtime;
 
-import java.io.IOException;
-import java.io.FileInputStream;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SerializedGrammar {
     public static final String COOKIE = "$ANTLR";

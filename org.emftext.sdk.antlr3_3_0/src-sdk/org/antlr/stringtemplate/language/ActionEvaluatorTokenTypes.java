@@ -28,10 +28,6 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.antlr.stringtemplate.language;
-import org.antlr.stringtemplate.*;
-import java.util.*;
-import java.io.*;
-import java.lang.reflect.*;
 
 public interface ActionEvaluatorTokenTypes {
 	int EOF = 1;

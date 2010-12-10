@@ -27,8 +27,8 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.Token;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
 
 /** A simple event repeater (proxy) that delegates all functionality to the
  *  listener sent into the ctor.  Useful if you want to listen in on a few

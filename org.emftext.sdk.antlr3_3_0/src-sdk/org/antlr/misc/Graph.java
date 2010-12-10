@@ -27,7 +27,12 @@
  */
 package org.antlr.misc;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /** A generic graph with edges; Each node as a single Object payload.
  *  This is only used to topologically sort a list of file dependencies

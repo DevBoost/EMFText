@@ -27,12 +27,12 @@
  */
 package org.antlr.codegen;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.antlr.Tool;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.tool.Grammar;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class CTarget extends Target {
 

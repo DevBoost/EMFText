@@ -27,9 +27,9 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.stringtemplate.StringTemplate;
-
 import java.util.HashMap;
+
+import org.antlr.stringtemplate.StringTemplate;
 
 /** A utility class to generate DOT diagrams (graphviz) from
  *  arbitrary trees.  You can pass in your own templates and

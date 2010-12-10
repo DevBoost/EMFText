@@ -27,10 +27,16 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.*;
-
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.MismatchedTreeNodeException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
 
 /** A parser for a stream of tree nodes.  "tree grammars" result in a subclass
  *  of this.  All the error reporting and recovery is shared with Parser via

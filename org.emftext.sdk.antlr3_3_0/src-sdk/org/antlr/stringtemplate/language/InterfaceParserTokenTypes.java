@@ -28,8 +28,6 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.antlr.stringtemplate.language;
-import org.antlr.stringtemplate.*;
-import java.util.*;
 
 public interface InterfaceParserTokenTypes {
 	int EOF = 1;

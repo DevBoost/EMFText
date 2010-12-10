@@ -27,12 +27,18 @@
  */
 package org.antlr.codegen;
 
-import org.antlr.analysis.*;
+import java.util.List;
+
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.Transition;
 import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
-
-import java.util.List;
 
 public class ACyclicDFACodeGenerator {
 	protected CodeGenerator parentGenerator;

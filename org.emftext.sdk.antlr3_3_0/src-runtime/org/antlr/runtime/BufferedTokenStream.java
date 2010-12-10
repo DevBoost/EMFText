@@ -28,8 +28,8 @@
 
 package org.antlr.runtime;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /** Buffer all input tokens but do on-demand fetching of new tokens from

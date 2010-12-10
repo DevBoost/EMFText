@@ -27,13 +27,13 @@
  */
 package org.antlr.codegen;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.antlr.Tool;
 import org.antlr.analysis.Label;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.tool.Grammar;
-
-import java.io.IOException;
-import java.util.List;
 
 /** The code generator for ANTLR can usually be retargeted just by providing
  *  a new X.stg file for language X, however, sometimes the files that must

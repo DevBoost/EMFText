@@ -27,8 +27,8 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.Token;
 import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.Token;
 
 public class TreePatternParser {
 	protected TreePatternLexer tokenizer;

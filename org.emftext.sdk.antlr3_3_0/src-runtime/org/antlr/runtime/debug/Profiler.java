@@ -27,10 +27,18 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.*;
-import org.antlr.runtime.misc.DoubleKeyMap;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
-import java.util.*;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenStream;
+import org.antlr.runtime.misc.DoubleKeyMap;
 
 /** Using the debug event interface, track what is happening in the parser
  *  and record statistics about the runtime.

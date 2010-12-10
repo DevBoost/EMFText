@@ -27,9 +27,9 @@
  */
 package org.antlr.misc;
 
-import org.antlr.tool.Grammar;
-
 import java.util.List;
+
+import org.antlr.tool.Grammar;
 
 /** A generic set of ints that has an efficient implementation, BitSet,
  *  which is a compressed bitset and is useful for ints that

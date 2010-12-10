@@ -27,25 +27,6 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */package org.antlr.grammar.v2;
-import java.util.*;
-import java.io.*;
-import org.antlr.analysis.*;
-import org.antlr.misc.*;
-import org.antlr.tool.*;
-
-import antlr.TokenBuffer;
-import antlr.TokenStreamException;
-import antlr.Token;
-import antlr.TokenStream;
-import antlr.RecognitionException;
-import antlr.NoViableAltException;
-import antlr.ParserSharedInputState;
-import antlr.collections.impl.BitSet;
-import antlr.collections.AST;
-import antlr.ASTFactory;
-import antlr.ASTPair;
-import antlr.TokenWithIndex;
-import antlr.collections.impl.ASTArray;
 
 public interface ANTLRTokenTypes {
 	int EOF = 1;

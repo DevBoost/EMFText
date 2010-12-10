@@ -27,12 +27,7 @@
 */
 package org.antlr.stringtemplate.language;
 
-import org.antlr.stringtemplate.*;
-import org.antlr.stringtemplate.language.Expr;
 import org.antlr.stringtemplate.StringTemplate;
-
-import java.io.Writer;
-import java.io.IOException;
 
 /** Represents a newline.  Separated so I can do smart things like not
  *  spitting out newlines when the only thing on a line is an attr expr.

@@ -26,13 +26,21 @@
  *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */package org.antlr.tool;
 
-import antlr.RecognitionException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 import org.antlr.analysis.Label;
 import org.antlr.analysis.NFAState;
 import org.antlr.grammar.v2.AssignTokenTypesWalker;
 import org.antlr.misc.Utils;
 
-import java.util.*;
+import antlr.RecognitionException;
 
 /** A tree of component (delegate) grammars.
  *

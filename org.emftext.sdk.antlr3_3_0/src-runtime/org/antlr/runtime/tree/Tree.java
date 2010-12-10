@@ -27,9 +27,9 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.Token;
-
 import java.util.List;
+
+import org.antlr.runtime.Token;
 
 /** What does a tree look like?  ANTLR has a number of support classes
  *  such as CommonTreeNodeStream that work on these kinds of trees.  You

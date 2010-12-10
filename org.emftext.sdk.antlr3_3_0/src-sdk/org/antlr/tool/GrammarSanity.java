@@ -27,15 +27,15 @@
  */
 package org.antlr.tool;
 
-import org.antlr.analysis.NFAState;
-import org.antlr.analysis.RuleClosureTransition;
-import org.antlr.analysis.Transition;
-import org.antlr.grammar.v2.ANTLRParser;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.Transition;
+import org.antlr.grammar.v2.ANTLRParser;
 
 /** Factor out routines that check sanity of rules, alts, grammars, etc.. */
 public class GrammarSanity {

@@ -27,13 +27,13 @@
  */
 package org.antlr.tool;
 
-import org.antlr.analysis.DecisionProbe;
-import org.antlr.stringtemplate.StringTemplate;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import org.antlr.analysis.DecisionProbe;
+import org.antlr.stringtemplate.StringTemplate;
 
 /** More a single alternative recurses so this decision is not regular. */
 public class NonRegularDecisionMessage extends Message {

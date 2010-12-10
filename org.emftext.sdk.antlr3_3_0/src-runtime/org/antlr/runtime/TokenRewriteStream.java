@@ -27,7 +27,11 @@
  */
 package org.antlr.runtime;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /** Useful for dumping out the input stream after doing some
  *  augmentation or other manipulations.

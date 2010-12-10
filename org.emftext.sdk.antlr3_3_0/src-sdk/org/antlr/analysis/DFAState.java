@@ -27,13 +27,18 @@
  */
 package org.antlr.analysis;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.antlr.misc.IntSet;
 import org.antlr.misc.MultiMap;
 import org.antlr.misc.OrderedHashSet;
 import org.antlr.misc.Utils;
 import org.antlr.tool.Grammar;
-
-import java.util.*;
 
 /** A DFA state represents a set of possible NFA configurations.
  *  As Aho, Sethi, Ullman p. 117 says "The DFA uses its state

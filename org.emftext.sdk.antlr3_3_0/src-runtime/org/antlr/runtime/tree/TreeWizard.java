@@ -27,9 +27,12 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.Token;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import org.antlr.runtime.Token;
 
 /** Build and navigate trees with this object.  Must know about the names
  *  of tokens so you have to pass in a map or array of token names (from which

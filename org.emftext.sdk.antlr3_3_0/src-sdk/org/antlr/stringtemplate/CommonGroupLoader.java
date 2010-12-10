@@ -1,6 +1,8 @@
 package org.antlr.stringtemplate;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 
 /** A simple loader that looks only in the directory(ies) you
  *  specify in the ctor, but it uses the classpath rather than

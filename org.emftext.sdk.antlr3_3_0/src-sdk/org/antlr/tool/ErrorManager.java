@@ -27,7 +27,20 @@
  */
 package org.antlr.tool;
 
-import antlr.Token;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.Tool;
 import org.antlr.analysis.DFAState;
 import org.antlr.analysis.DecisionProbe;
@@ -37,13 +50,7 @@ import org.antlr.stringtemplate.StringTemplateErrorListener;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import antlr.Token;
 
 /** Defines all the errors ANTLR can generator for both the tool and for
  *  issues with a grammar.

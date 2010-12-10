@@ -1,9 +1,9 @@
 package org.antlr.stringtemplate.language;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /** Given a list of attributes, return the combined elements in a list. */
 public class Cat extends AbstractList {

@@ -27,6 +27,13 @@
  */
 package org.antlr.tool;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Stack;
+
 import org.antlr.Tool;
 import org.antlr.analysis.Label;
 import org.antlr.analysis.NFAState;
@@ -34,13 +41,6 @@ import org.antlr.analysis.RuleClosureTransition;
 import org.antlr.analysis.Transition;
 import org.antlr.misc.IntervalSet;
 import org.antlr.misc.Utils;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Stack;
 
 /** Generate a random phrase given a grammar.
  *  Usage:

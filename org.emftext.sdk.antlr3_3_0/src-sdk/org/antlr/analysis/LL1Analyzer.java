@@ -27,16 +27,16 @@
  */
 package org.antlr.analysis;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.IntSet;
 import org.antlr.misc.IntervalSet;
 import org.antlr.tool.Grammar;
 import org.antlr.tool.Rule;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.

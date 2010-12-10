@@ -28,9 +28,7 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
     package org.antlr.stringtemplate.language;
-    import org.antlr.stringtemplate.*;
-    import java.io.*;
-
+    
 public interface AngleBracketTemplateLexerTokenTypes {
 	int EOF = 1;
 	int NULL_TREE_LOOKAHEAD = 3;

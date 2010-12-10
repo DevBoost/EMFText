@@ -27,9 +27,9 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.Token;
-
 import java.util.List;
+
+import org.antlr.runtime.Token;
 
 public class RewriteRuleTokenStream extends RewriteRuleElementStream {
 

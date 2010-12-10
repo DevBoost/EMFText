@@ -1,11 +1,8 @@
 package org.antlr.stringtemplate.language;
 
-import org.antlr.stringtemplate.StringTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.LinkedHashMap;
+
+import org.antlr.stringtemplate.StringTemplate;
 
 /** Represents the name of a formal argument
  *  defined in a template:

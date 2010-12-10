@@ -27,13 +27,21 @@
  */
 package org.antlr.tool;
 
-import org.antlr.analysis.*;
-import org.antlr.misc.IntSet;
-import org.antlr.misc.IntervalSet;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.antlr.analysis.ActionLabel;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.PredicateLabel;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.State;
+import org.antlr.analysis.StateCluster;
+import org.antlr.analysis.Transition;
+import org.antlr.misc.IntSet;
+import org.antlr.misc.IntervalSet;
 
 /** Routines to construct StateClusters from EBNF grammar constructs.
  *  No optimization is done to remove unnecessary epsilon edges.

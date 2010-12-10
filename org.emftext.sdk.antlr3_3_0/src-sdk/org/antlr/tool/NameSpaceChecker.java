@@ -27,12 +27,13 @@
  */
 package org.antlr.tool;
 
-import antlr.Token;
-import org.antlr.analysis.Label;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import org.antlr.analysis.Label;
+
+import antlr.Token;
 
 public class NameSpaceChecker {
 	protected Grammar grammar;

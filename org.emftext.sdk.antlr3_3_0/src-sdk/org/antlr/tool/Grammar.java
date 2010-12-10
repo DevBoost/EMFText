@@ -27,23 +27,62 @@
  */
 package org.antlr.tool;
 
-import antlr.*;
-import antlr.collections.AST;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 import org.antlr.Tool;
-import org.antlr.analysis.*;
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.LL1Analyzer;
+import org.antlr.analysis.LL1DFA;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.LookaheadSet;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAConversionThread;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.NFAToDFAConverter;
+import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.Transition;
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.codegen.Target;
 import org.antlr.grammar.v2.ANTLRLexer;
 import org.antlr.grammar.v2.ANTLRParser;
-import org.antlr.grammar.v2.*;
+import org.antlr.grammar.v2.ANTLRTreePrinter;
+import org.antlr.grammar.v2.DefineGrammarItemsWalker;
+import org.antlr.grammar.v2.TreeToNFAConverter;
 import org.antlr.grammar.v3.ActionAnalysis;
-import org.antlr.misc.*;
+import org.antlr.misc.Barrier;
+import org.antlr.misc.IntSet;
+import org.antlr.misc.IntervalSet;
+import org.antlr.misc.MultiMap;
+import org.antlr.misc.OrderedHashSet;
 import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
 
-import java.io.*;
-import java.util.*;
+import antlr.RecognitionException;
+import antlr.Token;
+import antlr.TokenStreamException;
+import antlr.TokenStreamRewriteEngine;
+import antlr.TokenWithIndex;
+import antlr.collections.AST;
 
 /** Represents a grammar in memory. */
 public class Grammar {

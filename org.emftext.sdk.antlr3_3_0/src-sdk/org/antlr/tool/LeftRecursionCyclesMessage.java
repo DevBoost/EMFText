@@ -27,9 +27,9 @@
  */
 package org.antlr.tool;
 
-import org.antlr.stringtemplate.StringTemplate;
-
 import java.util.Collection;
+
+import org.antlr.stringtemplate.StringTemplate;
 
 /** Similar to LeftRecursionMessage except this is used for announcing
  *  cycles found by walking rules without decisions; the other msg is

@@ -27,8 +27,8 @@
  */
 package org.antlr.runtime.tree;
 
-import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.TokenStream;
 
 /**

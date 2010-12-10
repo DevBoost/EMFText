@@ -27,16 +27,20 @@
  */
 package org.antlr.tool;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.Tool;
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /** Given a grammar file, show the dependencies on .tokens etc...
  *  Using ST, emit a simple "make compatible" list of dependencies.

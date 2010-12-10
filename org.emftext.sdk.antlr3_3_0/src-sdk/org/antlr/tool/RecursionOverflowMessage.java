@@ -27,12 +27,12 @@
  */
 package org.antlr.tool;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.antlr.analysis.DFAState;
 import org.antlr.analysis.DecisionProbe;
 import org.antlr.stringtemplate.StringTemplate;
-
-import java.util.Collection;
-import java.util.List;
 
 /** Indicates recursion overflow.  A DFA state tried add an NFA configuration
  *  with NFA state p that was mentioned in its stack context too many times.

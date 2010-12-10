@@ -28,15 +28,7 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 	package org.antlr.grammar.v2;
-    import org.antlr.tool.*;
-    import org.antlr.analysis.*;
-    import org.antlr.misc.*;
-	import java.util.*;
-	import org.antlr.stringtemplate.*;
-    import antlr.TokenWithIndex;
-    import antlr.CommonToken;
-    import org.antlr.codegen.*;
-
+    
 public interface CodeGenTreeWalkerTokenTypes {
 	int EOF = 1;
 	int NULL_TREE_LOOKAHEAD = 3;

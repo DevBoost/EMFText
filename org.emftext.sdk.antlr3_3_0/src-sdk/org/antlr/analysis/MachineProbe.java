@@ -28,15 +28,16 @@
 
 package org.antlr.analysis;
 
-import antlr.CommonToken;
-import antlr.Token;
-import org.antlr.misc.IntSet;
-import org.antlr.tool.Grammar;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.antlr.misc.IntSet;
+import org.antlr.tool.Grammar;
+
+import antlr.CommonToken;
+import antlr.Token;
 
 public class MachineProbe {
 	DFA dfa;

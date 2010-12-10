@@ -1,6 +1,10 @@
 package org.antlr.runtime.misc;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /** Sometimes we need to map a key to a value but key is two pieces of data.
  *  This nested hash table saves creating a single key each time we access

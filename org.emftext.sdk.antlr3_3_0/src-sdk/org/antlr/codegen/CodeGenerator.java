@@ -28,24 +28,48 @@
 package org.antlr.codegen;
 
 
-import antlr.RecognitionException;
-import antlr.TokenStreamRewriteEngine;
-import antlr.collections.AST;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.Tool;
-import org.antlr.analysis.*;
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.DFAOptimizer;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.LookaheadSet;
+import org.antlr.analysis.NFA;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.Transition;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.grammar.v2.CodeGenTreeWalker;
 import org.antlr.grammar.v3.ActionTranslator;
 import org.antlr.misc.BitSet;
-import org.antlr.misc.*;
-import org.antlr.stringtemplate.*;
+import org.antlr.misc.IntSet;
+import org.antlr.misc.Interval;
+import org.antlr.misc.IntervalSet;
+import org.antlr.misc.Utils;
+import org.antlr.stringtemplate.CommonGroupLoader;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.antlr.stringtemplate.StringTemplateGroupLoader;
+import org.antlr.stringtemplate.StringTemplateWriter;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
-import org.antlr.tool.*;
+import org.antlr.tool.AttributeScope;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Rule;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.Writer;
-import java.util.*;
+import antlr.RecognitionException;
+import antlr.TokenStreamRewriteEngine;
+import antlr.collections.AST;
 
 /** ANTLR's code generator.
  *

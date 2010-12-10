@@ -28,9 +28,7 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 	package org.antlr.grammar.v2;
-	import java.util.*;
-    import org.antlr.tool.*;
-
+	
 public interface ANTLRTreePrinterTokenTypes {
 	int EOF = 1;
 	int NULL_TREE_LOOKAHEAD = 3;

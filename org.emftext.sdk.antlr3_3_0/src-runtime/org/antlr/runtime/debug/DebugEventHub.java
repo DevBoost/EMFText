@@ -27,11 +27,11 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.Token;
-import org.antlr.runtime.RecognitionException;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
 
 /** Broadcast debug events to multiple listeners.  Lets you debug and still
  *  use the event mechanism to build parse trees etc...  Not thread-safe.

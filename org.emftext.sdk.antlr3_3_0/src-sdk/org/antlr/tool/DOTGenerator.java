@@ -27,15 +27,28 @@
  */
 package org.antlr.tool;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.antlr.Tool;
-import org.antlr.analysis.*;
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.DFAState;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.NFAConfiguration;
+import org.antlr.analysis.NFAState;
+import org.antlr.analysis.RuleClosureTransition;
+import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.State;
+import org.antlr.analysis.Transition;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
-
-import java.util.*;
 
 /** The DOT (part of graphviz) generation aspect. */
 public class DOTGenerator {

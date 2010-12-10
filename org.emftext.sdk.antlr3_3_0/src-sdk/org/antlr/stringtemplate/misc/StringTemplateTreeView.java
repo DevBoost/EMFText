@@ -28,12 +28,16 @@
 
 package org.antlr.stringtemplate.misc;
 
-import org.antlr.stringtemplate.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
 
 /** This class visually illustrates a StringTemplate instance including
  *  the chunks (text + expressions) and the attributes table.  It correctly

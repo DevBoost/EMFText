@@ -27,7 +27,10 @@
  */
 package org.antlr.runtime;
 
-import org.antlr.runtime.tree.*;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.Tree;
+import org.antlr.runtime.tree.TreeAdaptor;
+import org.antlr.runtime.tree.TreeNodeStream;
 
 /** The root of the ANTLR exception hierarchy.
  *

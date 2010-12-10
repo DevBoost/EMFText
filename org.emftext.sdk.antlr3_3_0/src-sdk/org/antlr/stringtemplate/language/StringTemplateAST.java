@@ -27,8 +27,9 @@
 */
 package org.antlr.stringtemplate.language;
 
-import antlr.CommonAST;
 import org.antlr.stringtemplate.StringTemplate;
+
+import antlr.CommonAST;
 
 public class StringTemplateAST extends CommonAST {
     protected StringTemplate st = null; // track template for ANONYMOUS blocks

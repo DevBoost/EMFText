@@ -27,16 +27,23 @@
  */
 package org.antlr.runtime.debug;
 
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.tree.BaseTree;
-import org.antlr.runtime.tree.Tree;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.StringTokenizer;
+
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.tree.BaseTree;
+import org.antlr.runtime.tree.Tree;
 
 public class RemoteDebugEventSocketListener implements Runnable {
 	static final int MAX_EVENT_ELEMENTS = 8;

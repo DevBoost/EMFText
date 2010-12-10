@@ -1,9 +1,14 @@
 package org.antlr.stringtemplate;
 
-import org.antlr.stringtemplate.language.*;
-
-import java.util.*;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.antlr.stringtemplate.language.InterfaceLexer;
+import org.antlr.stringtemplate.language.InterfaceParser;
 
 /** A group interface is like a group without the template implementations;
  *  there are just template names/argument-lists like this:

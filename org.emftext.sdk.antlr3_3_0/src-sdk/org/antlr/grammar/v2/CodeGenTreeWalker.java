@@ -28,26 +28,32 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 	package org.antlr.grammar.v2;
-    import org.antlr.tool.*;
-    import org.antlr.analysis.*;
-    import org.antlr.misc.*;
-	import java.util.*;
-	import org.antlr.stringtemplate.*;
-    import antlr.TokenWithIndex;
-    import antlr.CommonToken;
-    import org.antlr.codegen.*;
+    import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import antlr.TreeParser;
-import antlr.Token;
-import antlr.collections.AST;
-import antlr.RecognitionException;
-import antlr.ANTLRException;
-import antlr.NoViableAltException;
+import org.antlr.analysis.DFA;
+import org.antlr.analysis.Label;
+import org.antlr.analysis.LookaheadSet;
+import org.antlr.analysis.NFAState;
+import org.antlr.codegen.CodeGenerator;
+import org.antlr.misc.IntSet;
+import org.antlr.misc.Utils;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Rule;
+
+import antlr.CommonToken;
 import antlr.MismatchedTokenException;
-import antlr.SemanticException;
-import antlr.collections.impl.BitSet;
-import antlr.ASTPair;
-import antlr.collections.impl.ASTArray;
+import antlr.NoViableAltException;
+import antlr.RecognitionException;
+import antlr.Token;
+import antlr.TokenWithIndex;
+import antlr.collections.AST;
 
 
 /** Walk a grammar and generate code by gradually building up

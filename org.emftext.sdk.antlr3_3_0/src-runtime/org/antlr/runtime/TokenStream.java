@@ -27,7 +27,6 @@
  */
 package org.antlr.runtime;
 
-import java.util.List;
 
 /** A stream of tokens accessing tokens from a TokenSource */
 public interface TokenStream extends IntStream {

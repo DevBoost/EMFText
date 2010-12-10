@@ -27,14 +27,15 @@
 */
 package org.antlr.stringtemplate.language;
 
-import antlr.RecognitionException;
-import antlr.collections.AST;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateWriter;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
+import antlr.RecognitionException;
+import antlr.collections.AST;
 
 /** A conditional reference to an embedded subtemplate. */
 public class ConditionalExpr extends ASTExpr {

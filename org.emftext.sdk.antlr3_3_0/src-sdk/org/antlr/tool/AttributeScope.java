@@ -28,10 +28,16 @@
 
 package org.antlr.tool;
 
-import antlr.Token;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+
 import org.antlr.codegen.CodeGenerator;
 
-import java.util.*;
+import antlr.Token;
 
 /** Track the attributes within a scope.  A named scoped has just its list
  *  of attributes.  Each rule has potentially 3 scopes: return values,

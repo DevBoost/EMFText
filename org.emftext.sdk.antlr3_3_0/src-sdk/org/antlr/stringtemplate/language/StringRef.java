@@ -27,10 +27,10 @@
 */
 package org.antlr.stringtemplate.language;
 
+import java.io.IOException;
+
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateWriter;
-
-import java.io.IOException;
 
 /** Represents a chunk of just simple text to spit out; nothing to "evaluate" */
 public class StringRef extends Expr {

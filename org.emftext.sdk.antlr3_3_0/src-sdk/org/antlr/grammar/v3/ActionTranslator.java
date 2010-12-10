@@ -1,24 +1,32 @@
 // $ANTLR 3.3 Nov 30, 2010 12:45:30 ActionTranslator.g 2010-12-10 19:30:29
 
 package org.antlr.grammar.v3;
-import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.runtime.*;
-import org.antlr.tool.*;
-import org.antlr.codegen.*;
-
-import org.antlr.runtime.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.antlr.codegen.CodeGenerator;
 import org.antlr.grammar.v2.ANTLRParser;
-
-
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.FailedPredicateException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.tool.Attribute;
+import org.antlr.tool.AttributeScope;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Rule;
 public class ActionTranslator extends Lexer {
     public static final int EOF=-1;
     public static final int ID=4;

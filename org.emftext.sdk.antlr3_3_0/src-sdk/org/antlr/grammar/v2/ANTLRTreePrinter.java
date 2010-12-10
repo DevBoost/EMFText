@@ -28,20 +28,17 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 	package org.antlr.grammar.v2;
-	import java.util.*;
-    import org.antlr.tool.*;
+	import java.util.StringTokenizer;
 
-import antlr.TreeParser;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+
+import antlr.MismatchedTokenException;
+import antlr.NoViableAltException;
+import antlr.RecognitionException;
 import antlr.Token;
 import antlr.collections.AST;
-import antlr.RecognitionException;
-import antlr.ANTLRException;
-import antlr.NoViableAltException;
-import antlr.MismatchedTokenException;
-import antlr.SemanticException;
-import antlr.collections.impl.BitSet;
-import antlr.ASTPair;
-import antlr.collections.impl.ASTArray;
 
 
 /** Print out a grammar (no pretty printing).

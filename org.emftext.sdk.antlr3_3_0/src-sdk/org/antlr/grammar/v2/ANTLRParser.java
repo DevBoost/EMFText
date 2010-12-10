@@ -27,44 +27,27 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */package org.antlr.grammar.v2;
-import java.util.*;
-import java.io.*;
-import org.antlr.analysis.*;
-import org.antlr.misc.*;
-import org.antlr.tool.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import antlr.TokenBuffer;
-import antlr.TokenStreamException;
-import antlr.Token;
-import antlr.TokenStream;
-import antlr.RecognitionException;
-import antlr.NoViableAltException;
-import antlr.ParserSharedInputState;
-import antlr.collections.impl.BitSet;
-import antlr.collections.AST;
+import org.antlr.misc.IntSet;
+import org.antlr.tool.ErrorManager;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+
 import antlr.ASTFactory;
 import antlr.ASTPair;
+import antlr.NoViableAltException;
+import antlr.ParserSharedInputState;
+import antlr.RecognitionException;
+import antlr.Token;
+import antlr.TokenBuffer;
+import antlr.TokenStream;
+import antlr.TokenStreamException;
 import antlr.TokenWithIndex;
-import antlr.collections.impl.ASTArray;
-
-import antlr.TokenBuffer;
-import antlr.TokenStreamException;
-import antlr.TokenStreamIOException;
-import antlr.ANTLRException;
-import antlr.LLkParser;
-import antlr.Token;
-import antlr.TokenStream;
-import antlr.RecognitionException;
-import antlr.NoViableAltException;
-import antlr.MismatchedTokenException;
-import antlr.SemanticException;
-import antlr.ParserSharedInputState;
-import antlr.collections.impl.BitSet;
 import antlr.collections.AST;
-import java.util.Hashtable;
-import antlr.ASTFactory;
-import antlr.ASTPair;
 import antlr.collections.impl.ASTArray;
+import antlr.collections.impl.BitSet;
 
 /** Read in an ANTLR grammar and build an AST.  Try not to do
  *  any actions, just build the tree.
