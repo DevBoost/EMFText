@@ -69,7 +69,6 @@ import java.util.HashMap;
 
 lexer(grammar, name, tokens, scopes, rules, numRules, labelType="CommonToken",
       filterMode, superClass="Lexer") ::= <<
-@SuppressWarnings("unused")
 public class <grammar.recognizerName> extends <@superClassName><superClass><@end> {
     <tokens:{public static final int <it.name>=<it.type>;}; separator="\n">
     <scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScope(scope=it)><endif>}>
@@ -185,6 +184,7 @@ genericParser(grammar, name, scopes, tokens, tokenNames, rules, numRules,
               bitsets, inputStreamType, superClass,
               ASTLabelType="Object", labelType, members, rewriteElementType,
               filterMode) ::= <<
+@SuppressWarnings("unused")
 public class <grammar.recognizerName> extends <@superClassName><superClass><@end> {
 <if(grammar.grammarIsRoot)>
     public static final String[] tokenNames = new String[] {
