@@ -38,21 +38,21 @@ import org.antlr.analysis.NFAState;
 import org.antlr.analysis.RuleClosureTransition;
 import org.antlr.analysis.Transition;
 import org.antlr.misc.IntervalSet;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.FailedPredicateException;
-import org.antlr.runtime.IntStream;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.MismatchedTokenException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenSource;
-import org.antlr.runtime.TokenStream;
-import org.antlr.runtime.debug.BlankDebugEventListener;
-import org.antlr.runtime.debug.DebugEventListener;
-import org.antlr.runtime.debug.ParseTreeBuilder;
-import org.antlr.runtime.tree.ParseTree;
+import org.antlr.runtime3_3_0.CharStream;
+import org.antlr.runtime3_3_0.CommonToken;
+import org.antlr.runtime3_3_0.FailedPredicateException;
+import org.antlr.runtime3_3_0.IntStream;
+import org.antlr.runtime3_3_0.MismatchedSetException;
+import org.antlr.runtime3_3_0.MismatchedTokenException;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.TokenSource;
+import org.antlr.runtime3_3_0.TokenStream;
+import org.antlr.runtime3_3_0.debug.BlankDebugEventListener;
+import org.antlr.runtime3_3_0.debug.DebugEventListener;
+import org.antlr.runtime3_3_0.debug.ParseTreeBuilder;
+import org.antlr.runtime3_3_0.tree.ParseTree;
 
 /** The recognition interpreter/engine for grammars.  Separated
  *  out of Grammar as it's related, but technically not a Grammar function.

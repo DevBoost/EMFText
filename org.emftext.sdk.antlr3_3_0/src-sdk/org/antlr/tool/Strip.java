@@ -32,14 +32,14 @@ import java.util.List;
 
 import org.antlr.grammar.v3.ANTLRv3Lexer;
 import org.antlr.grammar.v3.ANTLRv3Parser;
-import org.antlr.runtime.ANTLRFileStream;
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenRewriteStream;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.TreeAdaptor;
-import org.antlr.runtime.tree.TreeWizard;
+import org.antlr.runtime3_3_0.ANTLRFileStream;
+import org.antlr.runtime3_3_0.ANTLRInputStream;
+import org.antlr.runtime3_3_0.CharStream;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.TokenRewriteStream;
+import org.antlr.runtime3_3_0.tree.CommonTree;
+import org.antlr.runtime3_3_0.tree.TreeAdaptor;
+import org.antlr.runtime3_3_0.tree.TreeWizard;
 
 /** A basic action stripper. */
 public class Strip {

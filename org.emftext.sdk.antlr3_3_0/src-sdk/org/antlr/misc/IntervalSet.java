@@ -664,9 +664,9 @@ public class IntervalSet implements IntSet {
 		return values;
 	}
 
-	public org.antlr.runtime.BitSet toRuntimeBitSet() {
-		org.antlr.runtime.BitSet s =
-			new org.antlr.runtime.BitSet(getMaxElement()+1);
+	public org.antlr.runtime3_3_0.BitSet toRuntimeBitSet() {
+		org.antlr.runtime3_3_0.BitSet s =
+			new org.antlr.runtime3_3_0.BitSet(getMaxElement()+1);
 		int n = intervals.size();
 		for (int i = 0; i < n; i++) {
 			Interval I = (Interval) intervals.get(i);

@@ -1,17 +1,17 @@
 // $ANTLR 3.3 Nov 30, 2010 12:45:30 ActionAnalysis.g 2010-12-10 19:30:24
 
 package org.antlr.grammar.v3;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.FailedPredicateException;
-import org.antlr.runtime.IntStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.Token;
+import org.antlr.runtime3_3_0.ANTLRStringStream;
+import org.antlr.runtime3_3_0.CharStream;
+import org.antlr.runtime3_3_0.CommonToken;
+import org.antlr.runtime3_3_0.FailedPredicateException;
+import org.antlr.runtime3_3_0.IntStream;
+import org.antlr.runtime3_3_0.Lexer;
+import org.antlr.runtime3_3_0.MismatchedSetException;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.Token;
 import org.antlr.tool.AttributeScope;
 import org.antlr.tool.Grammar;
 import org.antlr.tool.GrammarAST;

@@ -42,7 +42,7 @@ import org.antlr.codegen.CodeGenerator;
 import org.antlr.misc.IntSet;
 import org.antlr.misc.IntervalSet;
 import org.antlr.misc.Utils;
-import org.antlr.runtime.IntStream;
+import org.antlr.runtime3_3_0.IntStream;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.tool.ErrorManager;
 import org.antlr.tool.FASerializer;

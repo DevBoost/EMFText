@@ -39,7 +39,7 @@ import java.util.StringTokenizer;
 import org.antlr.analysis.DFA;
 import org.antlr.grammar.v2.ANTLRParser;
 import org.antlr.misc.Utils;
-import org.antlr.runtime.misc.Stats;
+import org.antlr.runtime3_3_0.misc.Stats;
 
 public class GrammarReport {
 	/** Because I may change the stats, I need to track version for later

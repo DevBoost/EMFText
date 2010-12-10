@@ -7,26 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import org.antlr.runtime.BaseRecognizer;
-import org.antlr.runtime.BitSet;
-import org.antlr.runtime.DFA;
-import org.antlr.runtime.EarlyExitException;
-import org.antlr.runtime.IntStream;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.Parser;
-import org.antlr.runtime.ParserRuleReturnScope;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.RuleReturnScope;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenStream;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeAdaptor;
-import org.antlr.runtime.tree.RewriteEarlyExitException;
-import org.antlr.runtime.tree.RewriteRuleSubtreeStream;
-import org.antlr.runtime.tree.RewriteRuleTokenStream;
-import org.antlr.runtime.tree.TreeAdaptor;
+import org.antlr.runtime3_3_0.BaseRecognizer;
+import org.antlr.runtime3_3_0.BitSet;
+import org.antlr.runtime3_3_0.DFA;
+import org.antlr.runtime3_3_0.EarlyExitException;
+import org.antlr.runtime3_3_0.IntStream;
+import org.antlr.runtime3_3_0.MismatchedSetException;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.Parser;
+import org.antlr.runtime3_3_0.ParserRuleReturnScope;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.RuleReturnScope;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.TokenStream;
+import org.antlr.runtime3_3_0.tree.CommonTree;
+import org.antlr.runtime3_3_0.tree.CommonTreeAdaptor;
+import org.antlr.runtime3_3_0.tree.RewriteEarlyExitException;
+import org.antlr.runtime3_3_0.tree.RewriteRuleSubtreeStream;
+import org.antlr.runtime3_3_0.tree.RewriteRuleTokenStream;
+import org.antlr.runtime3_3_0.tree.TreeAdaptor;
 
 /** ANTLR v3 grammar written in ANTLR v3 with AST construction */
 public class ANTLRv3Parser extends Parser {

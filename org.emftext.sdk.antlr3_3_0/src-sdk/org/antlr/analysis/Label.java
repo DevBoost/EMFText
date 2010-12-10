@@ -102,14 +102,14 @@ public class Label implements Comparable, Cloneable {
 	 *  this issue.
 	 */
 	public static final int EOR_TOKEN_TYPE =
-		org.antlr.runtime.Token.EOR_TOKEN_TYPE;
+		org.antlr.runtime3_3_0.Token.EOR_TOKEN_TYPE;
 
-	public static final int DOWN = org.antlr.runtime.Token.DOWN;
-	public static final int UP = org.antlr.runtime.Token.UP;
+	public static final int DOWN = org.antlr.runtime3_3_0.Token.DOWN;
+	public static final int UP = org.antlr.runtime3_3_0.Token.UP;
 
     /** tokens and char range overlap; tokens are MIN_TOKEN_TYPE..n */
 	public static final int MIN_TOKEN_TYPE =
-		org.antlr.runtime.Token.MIN_TOKEN_TYPE;
+		org.antlr.runtime3_3_0.Token.MIN_TOKEN_TYPE;
 
     /** The wildcard '.' char atom implies all valid characters==UNICODE */
     //public static final IntSet ALLCHAR = IntervalSet.of(MIN_CHAR_VALUE,MAX_CHAR_VALUE);

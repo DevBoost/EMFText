@@ -3,18 +3,18 @@
     package org.antlr.grammar.v3;
 
 
-import org.antlr.runtime.BaseRecognizer;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.DFA;
-import org.antlr.runtime.EarlyExitException;
-import org.antlr.runtime.IntStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.Token;
+import org.antlr.runtime3_3_0.BaseRecognizer;
+import org.antlr.runtime3_3_0.CharStream;
+import org.antlr.runtime3_3_0.CommonToken;
+import org.antlr.runtime3_3_0.DFA;
+import org.antlr.runtime3_3_0.EarlyExitException;
+import org.antlr.runtime3_3_0.IntStream;
+import org.antlr.runtime3_3_0.Lexer;
+import org.antlr.runtime3_3_0.MismatchedSetException;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.Token;
 
 public class ANTLRv3Lexer extends Lexer {
     public static final int EOF=-1;

@@ -35,12 +35,12 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.antlr.Tool;
-import org.antlr.runtime.ANTLRFileStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenSource;
-import org.antlr.runtime.tree.ParseTree;
+import org.antlr.runtime3_3_0.ANTLRFileStream;
+import org.antlr.runtime3_3_0.CharStream;
+import org.antlr.runtime3_3_0.CommonTokenStream;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.TokenSource;
+import org.antlr.runtime3_3_0.tree.ParseTree;
 
 /** Interpret any ANTLR grammar:
  *

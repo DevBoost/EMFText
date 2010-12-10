@@ -3,17 +3,17 @@
 package org.antlr.grammar.v3;
 
 
-import org.antlr.runtime.BaseRecognizer;
-import org.antlr.runtime.BitSet;
-import org.antlr.runtime.DFA;
-import org.antlr.runtime.EarlyExitException;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.tree.TreeNodeStream;
-import org.antlr.runtime.tree.TreeParser;
+import org.antlr.runtime3_3_0.BaseRecognizer;
+import org.antlr.runtime3_3_0.BitSet;
+import org.antlr.runtime3_3_0.DFA;
+import org.antlr.runtime3_3_0.EarlyExitException;
+import org.antlr.runtime3_3_0.MismatchedSetException;
+import org.antlr.runtime3_3_0.NoViableAltException;
+import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.Token;
+import org.antlr.runtime3_3_0.tree.TreeNodeStream;
+import org.antlr.runtime3_3_0.tree.TreeParser;
 
 /** ANTLR v3 tree grammar to walk trees created by ANTLRv3.g */
 public class ANTLRv3Tree extends TreeParser {

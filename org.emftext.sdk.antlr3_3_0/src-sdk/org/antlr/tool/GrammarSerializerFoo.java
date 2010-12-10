@@ -35,7 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Stack;
 
-import org.antlr.runtime.SerializedGrammar;
+import org.antlr.runtime3_3_0.SerializedGrammar;
 
 /** Serialize a grammar into a highly compressed form with
  *  only the info needed to recognize sentences.

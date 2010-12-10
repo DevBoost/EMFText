@@ -53,7 +53,7 @@ import org.antlr.analysis.NFAContext;
 import org.antlr.analysis.NFAToDFAConverter;
 import org.antlr.codegen.CodeGenerator;
 import org.antlr.misc.Graph;
-import org.antlr.runtime.misc.Stats;
+import org.antlr.runtime3_3_0.misc.Stats;
 import org.antlr.tool.BuildDependencyGenerator;
 import org.antlr.tool.CompositeGrammar;
 import org.antlr.tool.DOTGenerator;
