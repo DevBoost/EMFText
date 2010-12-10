@@ -10,52 +10,52 @@ public class CsParser extends CsANTLRParserBase {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUALIFIED_NAME", "QUOTED_60_62", "STRING", "QUOTED_39_39_92", "HEXNUMBER", "TABNUMBER", "QUOTED_36_36", "COMMENTS", "WHITESPACE", "LINEBREAK", "'ABSTRACT'", "'SYNTAXDEF'", "'FOR'", "'START'", "','", "'IMPORTS'", "'{'", "'}'", "'OPTIONS'", "';'", "'TOKENS'", "'TOKENSTYLES'", "'RULES'", "':'", "'WITH'", "'SYNTAX'", "'='", "'::='", "'|'", "'['", "']'", "'+'", "'*'", "'?'", "'('", "')'", "'REDEFINE'", "'AS'", "'DEFINE'", "'COLLECT'", "'IN'", "'FRAGMENT'", "'PRIORITIZE'", "'COLOR'", "'@'"
     };
-    public static final int T__42=42;
-    public static final int T__28=28;
-    public static final int T__23=23;
-    public static final int T__47=47;
-    public static final int T__21=21;
-    public static final int HEXNUMBER=8;
-    public static final int T__19=19;
-    public static final int COMMENTS=11;
-    public static final int T__39=39;
-    public static final int T__30=30;
-    public static final int T__46=46;
-    public static final int T__17=17;
-    public static final int T__27=27;
-    public static final int T__24=24;
-    public static final int QUALIFIED_NAME=4;
-    public static final int T__48=48;
-    public static final int T__34=34;
-    public static final int T__15=15;
-    public static final int T__35=35;
-    public static final int QUOTED_36_36=10;
-    public static final int T__36=36;
-    public static final int T__20=20;
-    public static final int TABNUMBER=9;
-    public static final int STRING=6;
-    public static final int T__44=44;
-    public static final int T__14=14;
-    public static final int T__33=33;
-    public static final int T__22=22;
-    public static final int QUOTED_60_62=5;
-    public static final int WHITESPACE=12;
-    public static final int T__29=29;
-    public static final int T__45=45;
-    public static final int T__43=43;
-    public static final int QUOTED_39_39_92=7;
-    public static final int T__31=31;
-    public static final int T__40=40;
     public static final int EOF=-1;
+    public static final int T__14=14;
+    public static final int T__15=15;
     public static final int T__16=16;
-    public static final int T__32=32;
-    public static final int T__38=38;
-    public static final int LINEBREAK=13;
-    public static final int T__37=37;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__41=41;
+    public static final int T__17=17;
     public static final int T__18=18;
+    public static final int T__19=19;
+    public static final int T__20=20;
+    public static final int T__21=21;
+    public static final int T__22=22;
+    public static final int T__23=23;
+    public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
+    public static final int T__29=29;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int T__33=33;
+    public static final int T__34=34;
+    public static final int T__35=35;
+    public static final int T__36=36;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__48=48;
+    public static final int QUALIFIED_NAME=4;
+    public static final int QUOTED_60_62=5;
+    public static final int STRING=6;
+    public static final int QUOTED_39_39_92=7;
+    public static final int HEXNUMBER=8;
+    public static final int TABNUMBER=9;
+    public static final int QUOTED_36_36=10;
+    public static final int COMMENTS=11;
+    public static final int WHITESPACE=12;
+    public static final int LINEBREAK=13;
 
     // delegates
     // delegators
@@ -8938,23 +8938,23 @@ public class CsParser extends CsANTLRParserBase {
         "\1\60\1\4\1\uffff\1\55\1\uffff\1\60\2\uffff\1\4\1\47\1\6\1\4\1"+
         "\60\2\47\1\6\1\47";
     static final String DFA43_acceptS =
-        "\2\uffff\1\1\1\uffff\1\4\1\uffff\1\3\1\2\11\uffff";
+        "\2\uffff\1\1\1\uffff\1\4\1\uffff\1\2\1\3\11\uffff";
     static final String DFA43_specialS =
         "\21\uffff}>";
     static final String[] DFA43_transitionS = {
             "\1\2\1\uffff\1\3\3\uffff\1\4\1\uffff\1\1",
             "\1\5",
             "",
-            "\1\7\50\uffff\1\6",
+            "\1\6\50\uffff\1\7",
             "",
-            "\1\10\1\uffff\1\2\1\uffff\1\7\5\uffff\1\1",
+            "\1\10\1\uffff\1\2\1\uffff\1\6\5\uffff\1\1",
             "",
             "",
             "\1\11",
             "\1\13\13\uffff\1\12\10\uffff\1\14",
             "\1\15",
             "\1\16",
-            "\1\2\1\uffff\1\7\5\uffff\1\1",
+            "\1\2\1\uffff\1\6\5\uffff\1\1",
             "\1\13\24\uffff\1\14",
             "\1\13\13\uffff\1\17\10\uffff\1\14",
             "\1\20",
@@ -8999,12 +8999,12 @@ public class CsParser extends CsANTLRParserBase {
     static final String DFA44_eofS =
         "\2\uffff\1\7\13\uffff";
     static final String DFA44_minS =
-        "\1\4\1\uffff\1\4\3\uffff\1\4\3\uffff\1\33\3\uffff";
+        "\1\4\1\uffff\1\4\3\uffff\1\4\1\uffff\1\33\5\uffff";
     static final String DFA44_maxS =
-        "\1\46\1\uffff\1\47\3\uffff\1\42\3\uffff\1\42\3\uffff";
+        "\1\46\1\uffff\1\47\3\uffff\1\42\1\uffff\1\42\5\uffff";
     static final String DFA44_acceptS =
-        "\1\uffff\1\1\1\uffff\1\10\1\11\1\12\1\uffff\1\7\1\5\1\4\1\uffff"+
-        "\1\3\1\6\1\2";
+        "\1\uffff\1\1\1\uffff\1\10\1\11\1\12\1\uffff\1\7\1\uffff\1\3\1\4"+
+        "\1\5\1\2\1\6";
     static final String DFA44_specialS =
         "\16\uffff}>";
     static final String[] DFA44_transitionS = {
@@ -9015,11 +9015,11 @@ public class CsParser extends CsANTLRParserBase {
             "",
             "",
             "",
-            "\1\12\1\uffff\1\10\1\11\32\uffff\1\13",
+            "\1\10\1\uffff\1\13\1\12\32\uffff\1\11",
+            "",
+            "\1\15\6\uffff\1\14",
             "",
             "",
-            "",
-            "\1\14\6\uffff\1\15",
             "",
             "",
             ""
