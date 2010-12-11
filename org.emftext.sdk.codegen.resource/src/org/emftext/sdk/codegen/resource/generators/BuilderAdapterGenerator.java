@@ -67,7 +67,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("return false;");
 		sc.add("}");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
-		sc.add("if (resource instanceof " + I_FILE + " && \"" + getContext().getConcreteSyntax().getName() + "\".equals(resource.getFileExtension())) {");
+		sc.add("if (resource instanceof " + I_FILE + " && resource.getName().endsWith(\".\" + \"" + getContext().getConcreteSyntax().getName() + "\")) {");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
 		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") new " + RESOURCE_SET_IMPL + "().getResource(uri, true);");
