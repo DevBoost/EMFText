@@ -1,52 +1,30 @@
-/*******************************************************************************
- * Copyright (c) 2006-2010 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
-// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g 2009-09-10 15:01:23
+// $ANTLR ${project.version} ${buildNumber}
 
 package org.emftext.sdk.regex; 
 
 
 
-import org.antlr.runtime3_3_0.BaseRecognizer;
-import org.antlr.runtime3_3_0.CharStream;
-import org.antlr.runtime3_3_0.DFA;
-import org.antlr.runtime3_3_0.EarlyExitException;
-import org.antlr.runtime3_3_0.IntStream;
-import org.antlr.runtime3_3_0.Lexer;
-import org.antlr.runtime3_3_0.MismatchedSetException;
-import org.antlr.runtime3_3_0.NoViableAltException;
-import org.antlr.runtime3_3_0.RecognitionException;
-import org.antlr.runtime3_3_0.RecognizerSharedState;
+import org.antlr.runtime3_3_0.*;
 
 public class AutomatonRexpLexer extends Lexer {
-    public static final int T__12=12;
-    public static final int T__20=20;
-    public static final int WS=9;
-    public static final int T__13=13;
-    public static final int T__19=19;
-    public static final int T__14=14;
+    public static final int EOF=-1;
+    public static final int T__10=10;
     public static final int T__11=11;
+    public static final int T__12=12;
+    public static final int T__13=13;
+    public static final int T__14=14;
+    public static final int T__15=15;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__19=19;
+    public static final int T__20=20;
+    public static final int CHAR_LITERAL=4;
+    public static final int STRING_LITERAL=5;
+    public static final int LITERAL_CHAR=6;
     public static final int ESC=7;
     public static final int XDIGIT=8;
-    public static final int T__17=17;
-    public static final int CHAR_LITERAL=4;
-    public static final int EOF=-1;
-    public static final int STRING_LITERAL=5;
-    public static final int T__16=16;
-    public static final int T__10=10;
-    public static final int LITERAL_CHAR=6;
-    public static final int T__18=18;
-    public static final int T__15=15;
+    public static final int WS=9;
 
       public java.util.List<RecognitionException> lexerExceptions  = new java.util.ArrayList<RecognitionException>();
 
@@ -68,15 +46,15 @@ public class AutomatonRexpLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g"; }
+    public String getGrammarFileName() { return "AutomatonRexp.g"; }
 
     // $ANTLR start "T__10"
     public final void mT__10() throws RecognitionException {
         try {
             int _type = T__10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:17:7: ( '|' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:17:9: '|'
+            // AutomatonRexp.g:17:7: ( '|' )
+            // AutomatonRexp.g:17:9: '|'
             {
             match('|'); 
 
@@ -95,8 +73,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:18:7: ( '?' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:18:9: '?'
+            // AutomatonRexp.g:18:7: ( '?' )
+            // AutomatonRexp.g:18:9: '?'
             {
             match('?'); 
 
@@ -115,8 +93,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:19:7: ( '*' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:19:9: '*'
+            // AutomatonRexp.g:19:7: ( '*' )
+            // AutomatonRexp.g:19:9: '*'
             {
             match('*'); 
 
@@ -135,8 +113,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:20:7: ( '+' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:20:9: '+'
+            // AutomatonRexp.g:20:7: ( '+' )
+            // AutomatonRexp.g:20:9: '+'
             {
             match('+'); 
 
@@ -155,8 +133,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:21:7: ( '^' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:21:9: '^'
+            // AutomatonRexp.g:21:7: ( '^' )
+            // AutomatonRexp.g:21:9: '^'
             {
             match('^'); 
 
@@ -175,8 +153,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:22:7: ( '!' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:22:9: '!'
+            // AutomatonRexp.g:22:7: ( '!' )
+            // AutomatonRexp.g:22:9: '!'
             {
             match('!'); 
 
@@ -195,8 +173,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:23:7: ( '..' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:23:9: '..'
+            // AutomatonRexp.g:23:7: ( '..' )
+            // AutomatonRexp.g:23:9: '..'
             {
             match(".."); 
 
@@ -216,8 +194,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:24:7: ( '.' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:24:9: '.'
+            // AutomatonRexp.g:24:7: ( '.' )
+            // AutomatonRexp.g:24:9: '.'
             {
             match('.'); 
 
@@ -236,8 +214,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:25:7: ( '(' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:25:9: '('
+            // AutomatonRexp.g:25:7: ( '(' )
+            // AutomatonRexp.g:25:9: '('
             {
             match('('); 
 
@@ -256,8 +234,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:26:7: ( ')' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:26:9: ')'
+            // AutomatonRexp.g:26:7: ( ')' )
+            // AutomatonRexp.g:26:9: ')'
             {
             match(')'); 
 
@@ -276,8 +254,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:27:7: ( '~' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:27:9: '~'
+            // AutomatonRexp.g:27:7: ( '~' )
+            // AutomatonRexp.g:27:9: '~'
             {
             match('~'); 
 
@@ -296,8 +274,8 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = CHAR_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:237:14: ( '\\'' LITERAL_CHAR '\\'' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:237:16: '\\'' LITERAL_CHAR '\\''
+            // AutomatonRexp.g:221:14: ( '\\'' LITERAL_CHAR '\\'' )
+            // AutomatonRexp.g:221:16: '\\'' LITERAL_CHAR '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
@@ -318,12 +296,12 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:239:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:239:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
+            // AutomatonRexp.g:223:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
+            // AutomatonRexp.g:223:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:239:36: ( LITERAL_CHAR )*
+            // AutomatonRexp.g:223:36: ( LITERAL_CHAR )*
             loop1:
             do {
                 int alt1=2;
@@ -336,7 +314,7 @@ public class AutomatonRexpLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:239:36: LITERAL_CHAR
+            	    // AutomatonRexp.g:223:36: LITERAL_CHAR
             	    {
             	    mLITERAL_CHAR(); 
 
@@ -363,7 +341,7 @@ public class AutomatonRexpLexer extends Lexer {
     // $ANTLR start "LITERAL_CHAR"
     public final void mLITERAL_CHAR() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:241:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
+            // AutomatonRexp.g:225:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -381,14 +359,14 @@ public class AutomatonRexpLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:241:25: ESC
+                    // AutomatonRexp.g:225:25: ESC
                     {
                     mESC(); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:241:32: ~ ( '\\'' | '\\\\' )
+                    // AutomatonRexp.g:225:32: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -413,79 +391,79 @@ public class AutomatonRexpLexer extends Lexer {
     // $ANTLR start "ESC"
     public final void mESC() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // AutomatonRexp.g:227:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
+            // AutomatonRexp.g:227:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             {
             match('\\'); 
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // AutomatonRexp.g:227:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             int alt3=11;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:23: 'n'
+                    // AutomatonRexp.g:227:23: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:30: 'r'
+                    // AutomatonRexp.g:227:30: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:37: 't'
+                    // AutomatonRexp.g:227:37: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 4 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:45: 'b'
+                    // AutomatonRexp.g:227:45: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:51: 'f'
+                    // AutomatonRexp.g:227:51: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:57: '\"'
+                    // AutomatonRexp.g:227:57: '\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:62: '\\''
+                    // AutomatonRexp.g:227:62: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:69: '\\\\'
+                    // AutomatonRexp.g:227:69: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:76: '>'
+                    // AutomatonRexp.g:227:76: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 10 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+                    // AutomatonRexp.g:227:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
                     {
                     match('u'); 
                     mXDIGIT(); 
@@ -496,7 +474,7 @@ public class AutomatonRexpLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:243:116: .
+                    // AutomatonRexp.g:227:116: .
                     {
                     matchAny(); 
 
@@ -517,8 +495,8 @@ public class AutomatonRexpLexer extends Lexer {
     // $ANTLR start "XDIGIT"
     public final void mXDIGIT() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:245:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:
+            // AutomatonRexp.g:229:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // AutomatonRexp.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -543,10 +521,10 @@ public class AutomatonRexpLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // AutomatonRexp.g:231:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
+            // AutomatonRexp.g:231:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // AutomatonRexp.g:231:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             int cnt5=0;
             loop5:
             do {
@@ -573,23 +551,23 @@ public class AutomatonRexpLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:8: ' '
+            	    // AutomatonRexp.g:231:8: ' '
             	    {
             	    match(' '); 
 
             	    }
             	    break;
             	case 2 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:14: '\\t'
+            	    // AutomatonRexp.g:231:14: '\\t'
             	    {
             	    match('\t'); 
 
             	    }
             	    break;
             	case 3 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:20: ( '\\r' )? '\\n'
+            	    // AutomatonRexp.g:231:20: ( '\\r' )? '\\n'
             	    {
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:20: ( '\\r' )?
+            	    // AutomatonRexp.g:231:20: ( '\\r' )?
             	    int alt4=2;
             	    int LA4_0 = input.LA(1);
 
@@ -598,7 +576,7 @@ public class AutomatonRexpLexer extends Lexer {
             	    }
             	    switch (alt4) {
             	        case 1 :
-            	            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:247:20: '\\r'
+            	            // AutomatonRexp.g:231:20: '\\r'
             	            {
             	            match('\r'); 
 
@@ -634,103 +612,103 @@ public class AutomatonRexpLexer extends Lexer {
     // $ANTLR end "WS"
 
     public void mTokens() throws RecognitionException {
-        // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | CHAR_LITERAL | STRING_LITERAL | WS )
+        // AutomatonRexp.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | CHAR_LITERAL | STRING_LITERAL | WS )
         int alt6=14;
         alt6 = dfa6.predict(input);
         switch (alt6) {
             case 1 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:10: T__10
+                // AutomatonRexp.g:1:10: T__10
                 {
                 mT__10(); 
 
                 }
                 break;
             case 2 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:16: T__11
+                // AutomatonRexp.g:1:16: T__11
                 {
                 mT__11(); 
 
                 }
                 break;
             case 3 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:22: T__12
+                // AutomatonRexp.g:1:22: T__12
                 {
                 mT__12(); 
 
                 }
                 break;
             case 4 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:28: T__13
+                // AutomatonRexp.g:1:28: T__13
                 {
                 mT__13(); 
 
                 }
                 break;
             case 5 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:34: T__14
+                // AutomatonRexp.g:1:34: T__14
                 {
                 mT__14(); 
 
                 }
                 break;
             case 6 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:40: T__15
+                // AutomatonRexp.g:1:40: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
             case 7 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:46: T__16
+                // AutomatonRexp.g:1:46: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
             case 8 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:52: T__17
+                // AutomatonRexp.g:1:52: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
             case 9 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:58: T__18
+                // AutomatonRexp.g:1:58: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
             case 10 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:64: T__19
+                // AutomatonRexp.g:1:64: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
             case 11 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:70: T__20
+                // AutomatonRexp.g:1:70: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
             case 12 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:76: CHAR_LITERAL
+                // AutomatonRexp.g:1:76: CHAR_LITERAL
                 {
                 mCHAR_LITERAL(); 
 
                 }
                 break;
             case 13 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:89: STRING_LITERAL
+                // AutomatonRexp.g:1:89: STRING_LITERAL
                 {
                 mSTRING_LITERAL(); 
 
                 }
                 break;
             case 14 :
-                // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:1:104: WS
+                // AutomatonRexp.g:1:104: WS
                 {
                 mWS(); 
 
@@ -803,7 +781,7 @@ public class AutomatonRexpLexer extends Lexer {
             this.transition = DFA3_transition;
         }
         public String getDescription() {
-            return "243:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
+            return "227:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -858,8 +836,8 @@ public class AutomatonRexpLexer extends Lexer {
         "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\uffff\1\11\1\12\1\13\1\uffff"+
         "\1\16\1\7\1\10\15\uffff\1\14\1\15\1\uffff\1\14\3\uffff";
     static final String DFA6_specialS =
-        "\13\uffff\1\6\3\uffff\1\17\1\2\1\7\1\0\1\15\1\4\1\21\1\11\1\20\1"+
-        "\3\1\10\1\13\1\12\2\uffff\1\14\1\uffff\1\1\1\5\1\16}>";
+        "\13\uffff\1\12\3\uffff\1\7\1\11\1\14\1\16\1\15\1\21\1\17\1\3\1\1"+
+        "\1\6\1\4\1\20\1\10\2\uffff\1\5\1\uffff\1\0\1\2\1\13}>";
     static final String[] DFA6_transitionS = {
             "\2\14\2\uffff\1\14\22\uffff\1\14\1\6\5\uffff\1\13\1\10\1\11"+
             "\1\3\1\4\2\uffff\1\7\20\uffff\1\2\36\uffff\1\5\35\uffff\1\1"+
@@ -938,16 +916,6 @@ public class AutomatonRexpLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA6_18 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_18>='\u0000' && LA6_18<='&')||(LA6_18>='(' && LA6_18<='\uFFFF')) ) {s = 29;}
-
-                        else if ( (LA6_18=='\'') ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA6_32 = input.LA(1);
 
                         s = -1;
@@ -957,77 +925,27 @@ public class AutomatonRexpLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA6_16 = input.LA(1);
+                    case 1 : 
+                        int LA6_23 = input.LA(1);
 
                         s = -1;
-                        if ( (LA6_16=='\'') ) {s = 28;}
+                        if ( (LA6_23=='\'') ) {s = 28;}
 
-                        else if ( ((LA6_16>='\u0000' && LA6_16<='&')||(LA6_16>='(' && LA6_16<='\uFFFF')) ) {s = 29;}
+                        else if ( ((LA6_23>='\u0000' && LA6_23<='&')||(LA6_23>='(' && LA6_23<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA6_33 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA6_33>='0' && LA6_33<='9')||(LA6_33>='A' && LA6_33<='F')||(LA6_33>='a' && LA6_33<='f')) ) {s = 34;}
+
+                        else if ( ((LA6_33>='\u0000' && LA6_33<='/')||(LA6_33>=':' && LA6_33<='@')||(LA6_33>='G' && LA6_33<='`')||(LA6_33>='g' && LA6_33<='\uFFFF')) ) {s = 29;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA6_24 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_24>='\u0000' && LA6_24<='&')||(LA6_24>='(' && LA6_24<='\uFFFF')) ) {s = 29;}
-
-                        else if ( (LA6_24=='\'') ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA6_20 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_20>='\u0000' && LA6_20<='&')||(LA6_20>='(' && LA6_20<='\uFFFF')) ) {s = 29;}
-
-                        else if ( (LA6_20=='\'') ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA6_33 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_33>='\u0000' && LA6_33<='/')||(LA6_33>=':' && LA6_33<='@')||(LA6_33>='G' && LA6_33<='`')||(LA6_33>='g' && LA6_33<='\uFFFF')) ) {s = 29;}
-
-                        else if ( ((LA6_33>='0' && LA6_33<='9')||(LA6_33>='A' && LA6_33<='F')||(LA6_33>='a' && LA6_33<='f')) ) {s = 34;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA6_11 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA6_11=='\\') ) {s = 15;}
-
-                        else if ( ((LA6_11>='\u0000' && LA6_11<='&')||(LA6_11>='(' && LA6_11<='[')||(LA6_11>=']' && LA6_11<='\uFFFF')) ) {s = 16;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA6_17 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA6_17=='\'') ) {s = 28;}
-
-                        else if ( ((LA6_17>='\u0000' && LA6_17<='&')||(LA6_17>='(' && LA6_17<='\uFFFF')) ) {s = 29;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA6_25 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_25>='\u0000' && LA6_25<='&')||(LA6_25>='(' && LA6_25<='\uFFFF')) ) {s = 29;}
-
-                        else if ( (LA6_25=='\'') ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
                         int LA6_22 = input.LA(1);
 
                         s = -1;
@@ -1037,29 +955,17 @@ public class AutomatonRexpLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA6_27 = input.LA(1);
+                    case 4 : 
+                        int LA6_25 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA6_27>='\u0000' && LA6_27<='&')||(LA6_27>='(' && LA6_27<='\uFFFF')) ) {s = 29;}
+                        if ( (LA6_25=='\'') ) {s = 28;}
 
-                        else if ( (LA6_27=='\'') ) {s = 28;}
+                        else if ( ((LA6_25>='\u0000' && LA6_25<='&')||(LA6_25>='(' && LA6_25<='\uFFFF')) ) {s = 29;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
-                        int LA6_26 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA6_26>='0' && LA6_26<='9')||(LA6_26>='A' && LA6_26<='F')||(LA6_26>='a' && LA6_26<='f')) ) {s = 30;}
-
-                        else if ( ((LA6_26>='\u0000' && LA6_26<='&')||(LA6_26>='(' && LA6_26<='/')||(LA6_26>=':' && LA6_26<='@')||(LA6_26>='G' && LA6_26<='`')||(LA6_26>='g' && LA6_26<='\uFFFF')) ) {s = 29;}
-
-                        else if ( (LA6_26=='\'') ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
+                    case 5 : 
                         int LA6_30 = input.LA(1);
 
                         s = -1;
@@ -1069,27 +975,17 @@ public class AutomatonRexpLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA6_19 = input.LA(1);
+                    case 6 : 
+                        int LA6_24 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA6_19>='\u0000' && LA6_19<='&')||(LA6_19>='(' && LA6_19<='\uFFFF')) ) {s = 29;}
+                        if ( (LA6_24=='\'') ) {s = 28;}
 
-                        else if ( (LA6_19=='\'') ) {s = 28;}
+                        else if ( ((LA6_24>='\u0000' && LA6_24<='&')||(LA6_24>='(' && LA6_24<='\uFFFF')) ) {s = 29;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
-                        int LA6_34 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA6_34=='\'') ) {s = 28;}
-
-                        else if ( ((LA6_34>='\u0000' && LA6_34<='&')||(LA6_34>='(' && LA6_34<='\uFFFF')) ) {s = 29;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
+                    case 7 : 
                         int LA6_15 = input.LA(1);
 
                         s = -1;
@@ -1117,23 +1013,105 @@ public class AutomatonRexpLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
-                        int LA6_23 = input.LA(1);
+                    case 8 : 
+                        int LA6_27 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA6_23>='\u0000' && LA6_23<='&')||(LA6_23>='(' && LA6_23<='\uFFFF')) ) {s = 29;}
+                        if ( (LA6_27=='\'') ) {s = 28;}
 
-                        else if ( (LA6_23=='\'') ) {s = 28;}
+                        else if ( ((LA6_27>='\u0000' && LA6_27<='&')||(LA6_27>='(' && LA6_27<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA6_16 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_16=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_16>='\u0000' && LA6_16<='&')||(LA6_16>='(' && LA6_16<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA6_11 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_11=='\\') ) {s = 15;}
+
+                        else if ( ((LA6_11>='\u0000' && LA6_11<='&')||(LA6_11>='(' && LA6_11<='[')||(LA6_11>=']' && LA6_11<='\uFFFF')) ) {s = 16;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA6_34 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_34=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_34>='\u0000' && LA6_34<='&')||(LA6_34>='(' && LA6_34<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA6_17 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_17=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_17>='\u0000' && LA6_17<='&')||(LA6_17>='(' && LA6_17<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA6_19 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_19=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_19>='\u0000' && LA6_19<='&')||(LA6_19>='(' && LA6_19<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA6_18 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_18=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_18>='\u0000' && LA6_18<='&')||(LA6_18>='(' && LA6_18<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA6_21 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA6_21=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_21>='\u0000' && LA6_21<='&')||(LA6_21>='(' && LA6_21<='\uFFFF')) ) {s = 29;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA6_26 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA6_26>='0' && LA6_26<='9')||(LA6_26>='A' && LA6_26<='F')||(LA6_26>='a' && LA6_26<='f')) ) {s = 30;}
+
+                        else if ( (LA6_26=='\'') ) {s = 28;}
+
+                        else if ( ((LA6_26>='\u0000' && LA6_26<='&')||(LA6_26>='(' && LA6_26<='/')||(LA6_26>=':' && LA6_26<='@')||(LA6_26>='G' && LA6_26<='`')||(LA6_26>='g' && LA6_26<='\uFFFF')) ) {s = 29;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA6_21 = input.LA(1);
+                        int LA6_20 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA6_21>='\u0000' && LA6_21<='&')||(LA6_21>='(' && LA6_21<='\uFFFF')) ) {s = 29;}
+                        if ( (LA6_20=='\'') ) {s = 28;}
 
-                        else if ( (LA6_21=='\'') ) {s = 28;}
+                        else if ( ((LA6_20>='\u0000' && LA6_20<='&')||(LA6_20>='(' && LA6_20<='\uFFFF')) ) {s = 29;}
 
                         if ( s>=0 ) return s;
                         break;

@@ -1,53 +1,35 @@
-/*******************************************************************************
- * Copyright (c) 2006-2010 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
-// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g 2009-09-10 15:01:23
+// $ANTLR ${project.version} ${buildNumber}
 
 package org.emftext.sdk.regex; 
 
 
-import org.antlr.runtime3_3_0.BitSet;
-import org.antlr.runtime3_3_0.NoViableAltException;
-import org.antlr.runtime3_3_0.Parser;
-import org.antlr.runtime3_3_0.RecognitionException;
-import org.antlr.runtime3_3_0.RecognizerSharedState;
-import org.antlr.runtime3_3_0.Token;
-import org.antlr.runtime3_3_0.TokenStream;
+import org.antlr.runtime3_3_0.*;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/
+@SuppressWarnings("unused")
 public class AutomatonRexpParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "CHAR_LITERAL", "STRING_LITERAL", "LITERAL_CHAR", "ESC", "XDIGIT", "WS", "'|'", "'?'", "'*'", "'+'", "'^'", "'!'", "'..'", "'.'", "'('", "')'", "'~'"
     };
-    public static final int T__12=12;
-    public static final int T__20=20;
-    public static final int WS=9;
-    public static final int T__13=13;
-    public static final int T__19=19;
-    public static final int T__14=14;
+    public static final int EOF=-1;
+    public static final int T__10=10;
     public static final int T__11=11;
+    public static final int T__12=12;
+    public static final int T__13=13;
+    public static final int T__14=14;
+    public static final int T__15=15;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__19=19;
+    public static final int T__20=20;
+    public static final int CHAR_LITERAL=4;
+    public static final int STRING_LITERAL=5;
+    public static final int LITERAL_CHAR=6;
     public static final int ESC=7;
     public static final int XDIGIT=8;
-    public static final int T__17=17;
-    public static final int CHAR_LITERAL=4;
-    public static final int EOF=-1;
-    public static final int STRING_LITERAL=5;
-    public static final int T__16=16;
-    public static final int T__10=10;
-    public static final int LITERAL_CHAR=6;
-    public static final int T__18=18;
-    public static final int T__15=15;
+    public static final int WS=9;
 
     // delegates
     // delegators
@@ -63,7 +45,7 @@ public class AutomatonRexpParser extends Parser {
         
 
     public String[] getTokenNames() { return AutomatonRexpParser.tokenNames; }
-    public String getGrammarFileName() { return "./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g"; }
+    public String getGrammarFileName() { return "AutomatonRexp.g"; }
 
 
      private StringBuffer regExpression = new StringBuffer();
@@ -73,7 +55,7 @@ public class AutomatonRexpParser extends Parser {
      }
      
      private String transformIntoRegExpQuotes(String st) {
-    	 return AutomatonRexpUtil.escapeToAutomatonSyntax(st);
+     	return org.emftext.sdk.regex.AutomatonRexpUtil.escapeToAutomatonSyntax(st);
      }
      
      private String removeTicks(String st) {
@@ -89,7 +71,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "root"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:94:1: root returns [StringBuffer buf] : alternative1= alternative ( '|' alternative2= alternative )* ;
+    // AutomatonRexp.g:77:1: root returns [StringBuffer buf] : alternative1= alternative ( '|' alternative2= alternative )* EOF ;
     public final StringBuffer root() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -102,8 +84,8 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:100:1: (alternative1= alternative ( '|' alternative2= alternative )* )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:100:3: alternative1= alternative ( '|' alternative2= alternative )*
+            // AutomatonRexp.g:83:1: (alternative1= alternative ( '|' alternative2= alternative )* EOF )
+            // AutomatonRexp.g:83:3: alternative1= alternative ( '|' alternative2= alternative )* EOF
             {
             pushFollow(FOLLOW_alternative_in_root67);
             alternative1=alternative();
@@ -111,7 +93,7 @@ public class AutomatonRexpParser extends Parser {
             state._fsp--;
 
             buf.append(alternative1);
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:100:63: ( '|' alternative2= alternative )*
+            // AutomatonRexp.g:83:63: ( '|' alternative2= alternative )*
             loop1:
             do {
                 int alt1=2;
@@ -124,7 +106,7 @@ public class AutomatonRexpParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:100:65: '|' alternative2= alternative
+            	    // AutomatonRexp.g:83:65: '|' alternative2= alternative
             	    {
             	    match(input,10,FOLLOW_10_in_root73); 
             	    pushFollow(FOLLOW_alternative_in_root79);
@@ -142,6 +124,7 @@ public class AutomatonRexpParser extends Parser {
                 }
             } while (true);
 
+            match(input,EOF,FOLLOW_EOF_in_root85); 
 
             }
 
@@ -154,7 +137,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "ebnf"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:103:1: ebnf returns [StringBuffer buf] : bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? ;
+    // AutomatonRexp.g:87:1: ebnf returns [StringBuffer buf] : bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? ;
     public final StringBuffer ebnf() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -166,16 +149,16 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:1: (bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:3: bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
+            // AutomatonRexp.g:92:1: (bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? )
+            // AutomatonRexp.g:92:3: bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
             {
-            pushFollow(FOLLOW_block_in_ebnf108);
+            pushFollow(FOLLOW_block_in_ebnf110);
             bl=block();
 
             state._fsp--;
 
             buf.append(bl);
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:38: (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
+            // AutomatonRexp.g:92:38: (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
             int alt2=6;
             switch ( input.LA(1) ) {
                 case 11:
@@ -207,37 +190,37 @@ public class AutomatonRexpParser extends Parser {
 
             switch (alt2) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:40: sign= '?'
+                    // AutomatonRexp.g:92:40: sign= '?'
                     {
-                    sign=(Token)match(input,11,FOLLOW_11_in_ebnf117); 
+                    sign=(Token)match(input,11,FOLLOW_11_in_ebnf119); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:53: sign= '*'
+                    // AutomatonRexp.g:92:53: sign= '*'
                     {
-                    sign=(Token)match(input,12,FOLLOW_12_in_ebnf125); 
+                    sign=(Token)match(input,12,FOLLOW_12_in_ebnf127); 
 
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:64: sign= '+'
+                    // AutomatonRexp.g:92:64: sign= '+'
                     {
-                    sign=(Token)match(input,13,FOLLOW_13_in_ebnf131); 
+                    sign=(Token)match(input,13,FOLLOW_13_in_ebnf133); 
 
                     }
                     break;
                 case 4 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:78: sign= '^'
+                    // AutomatonRexp.g:92:78: sign= '^'
                     {
-                    sign=(Token)match(input,14,FOLLOW_14_in_ebnf140); 
+                    sign=(Token)match(input,14,FOLLOW_14_in_ebnf142); 
 
                     }
                     break;
                 case 5 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:108:91: sign= '!'
+                    // AutomatonRexp.g:92:91: sign= '!'
                     {
-                    sign=(Token)match(input,15,FOLLOW_15_in_ebnf148); 
+                    sign=(Token)match(input,15,FOLLOW_15_in_ebnf150); 
 
                     }
                     break;
@@ -261,7 +244,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "range"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:116:1: range returns [StringBuffer buf] : first= CHAR_LITERAL '..' second= CHAR_LITERAL ;
+    // AutomatonRexp.g:100:1: range returns [StringBuffer buf] : first= CHAR_LITERAL '..' second= CHAR_LITERAL ;
     public final StringBuffer range() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -272,12 +255,12 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:122:2: (first= CHAR_LITERAL '..' second= CHAR_LITERAL )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:122:4: first= CHAR_LITERAL '..' second= CHAR_LITERAL
+            // AutomatonRexp.g:106:2: (first= CHAR_LITERAL '..' second= CHAR_LITERAL )
+            // AutomatonRexp.g:106:4: first= CHAR_LITERAL '..' second= CHAR_LITERAL
             {
-            first=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range176); 
-            match(input,16,FOLLOW_16_in_range178); 
-            second=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range182); 
+            first=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range178); 
+            match(input,16,FOLLOW_16_in_range180); 
+            second=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range184); 
 
             	buf.append("["); buf.append(removeTicks((first!=null?first.getText():null))); buf.append("-"); buf.append(removeTicks((second!=null?second.getText():null))); buf.append("]");
 
@@ -293,7 +276,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "terminal"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:130:1: terminal returns [StringBuffer buf] : (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) ;
+    // AutomatonRexp.g:114:1: terminal returns [StringBuffer buf] : (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) ;
     public final StringBuffer terminal() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -304,10 +287,10 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:1: ( (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
+            // AutomatonRexp.g:120:1: ( (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) )
+            // AutomatonRexp.g:120:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
             {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
+            // AutomatonRexp.g:120:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
             int alt3=3;
             switch ( input.LA(1) ) {
             case CHAR_LITERAL:
@@ -334,23 +317,23 @@ public class AutomatonRexpParser extends Parser {
 
             switch (alt3) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:7: signTerminal= CHAR_LITERAL
+                    // AutomatonRexp.g:120:7: signTerminal= CHAR_LITERAL
                     {
-                    signTerminal=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_terminal218); 
+                    signTerminal=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_terminal220); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:39: signTerminal= STRING_LITERAL
+                    // AutomatonRexp.g:120:39: signTerminal= STRING_LITERAL
                     {
-                    signTerminal=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_terminal228); 
+                    signTerminal=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_terminal230); 
 
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:136:73: signTerminalDot= '.'
+                    // AutomatonRexp.g:120:73: signTerminalDot= '.'
                     {
-                    signTerminalDot=(Token)match(input,17,FOLLOW_17_in_terminal238); 
+                    signTerminalDot=(Token)match(input,17,FOLLOW_17_in_terminal240); 
 
                     }
                     break;
@@ -377,7 +360,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "ebnfSuffix"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:147:1: ebnfSuffix returns [StringBuffer buf] : (sign= '?' | sign= '*' | sign= '+' ) ;
+    // AutomatonRexp.g:131:1: ebnfSuffix returns [StringBuffer buf] : (sign= '?' | sign= '*' | sign= '+' ) ;
     public final StringBuffer ebnfSuffix() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -387,10 +370,10 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:1: ( (sign= '?' | sign= '*' | sign= '+' ) )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:3: (sign= '?' | sign= '*' | sign= '+' )
+            // AutomatonRexp.g:140:1: ( (sign= '?' | sign= '*' | sign= '+' ) )
+            // AutomatonRexp.g:140:3: (sign= '?' | sign= '*' | sign= '+' )
             {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:3: (sign= '?' | sign= '*' | sign= '+' )
+            // AutomatonRexp.g:140:3: (sign= '?' | sign= '*' | sign= '+' )
             int alt4=3;
             switch ( input.LA(1) ) {
             case 11:
@@ -417,23 +400,23 @@ public class AutomatonRexpParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:4: sign= '?'
+                    // AutomatonRexp.g:140:4: sign= '?'
                     {
-                    sign=(Token)match(input,11,FOLLOW_11_in_ebnfSuffix273); 
+                    sign=(Token)match(input,11,FOLLOW_11_in_ebnfSuffix275); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:15: sign= '*'
+                    // AutomatonRexp.g:140:15: sign= '*'
                     {
-                    sign=(Token)match(input,12,FOLLOW_12_in_ebnfSuffix279); 
+                    sign=(Token)match(input,12,FOLLOW_12_in_ebnfSuffix281); 
 
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:156:25: sign= '+'
+                    // AutomatonRexp.g:140:25: sign= '+'
                     {
-                    sign=(Token)match(input,13,FOLLOW_13_in_ebnfSuffix284); 
+                    sign=(Token)match(input,13,FOLLOW_13_in_ebnfSuffix286); 
 
                     }
                     break;
@@ -458,7 +441,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "block"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:162:1: block returns [StringBuffer buf] : '(' alternative1= alternative ( '|' alternative2= alternative )* ')' ;
+    // AutomatonRexp.g:146:1: block returns [StringBuffer buf] : '(' alternative1= alternative ( '|' alternative2= alternative )* ')' ;
     public final StringBuffer block() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -471,17 +454,17 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:168:1: ( '(' alternative1= alternative ( '|' alternative2= alternative )* ')' )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:168:5: '(' alternative1= alternative ( '|' alternative2= alternative )* ')'
+            // AutomatonRexp.g:152:1: ( '(' alternative1= alternative ( '|' alternative2= alternative )* ')' )
+            // AutomatonRexp.g:152:5: '(' alternative1= alternative ( '|' alternative2= alternative )* ')'
             {
-            match(input,18,FOLLOW_18_in_block311); 
-            pushFollow(FOLLOW_alternative_in_block315);
+            match(input,18,FOLLOW_18_in_block313); 
+            pushFollow(FOLLOW_alternative_in_block317);
             alternative1=alternative();
 
             state._fsp--;
 
             buf.append("(" + alternative1);
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:168:75: ( '|' alternative2= alternative )*
+            // AutomatonRexp.g:152:75: ( '|' alternative2= alternative )*
             loop5:
             do {
                 int alt5=2;
@@ -494,10 +477,10 @@ public class AutomatonRexpParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:168:77: '|' alternative2= alternative
+            	    // AutomatonRexp.g:152:77: '|' alternative2= alternative
             	    {
-            	    match(input,10,FOLLOW_10_in_block323); 
-            	    pushFollow(FOLLOW_alternative_in_block328);
+            	    match(input,10,FOLLOW_10_in_block325); 
+            	    pushFollow(FOLLOW_alternative_in_block330);
             	    alternative2=alternative();
 
             	    state._fsp--;
@@ -512,7 +495,7 @@ public class AutomatonRexpParser extends Parser {
                 }
             } while (true);
 
-            match(input,19,FOLLOW_19_in_block336); 
+            match(input,19,FOLLOW_19_in_block338); 
             buf.append(")");
 
             }
@@ -526,7 +509,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "alternative"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:170:1: alternative returns [StringBuffer buf] : (ele= element )* ;
+    // AutomatonRexp.g:154:1: alternative returns [StringBuffer buf] : (ele= element )* ;
     public final StringBuffer alternative() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -537,10 +520,10 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:175:1: ( (ele= element )* )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:175:3: (ele= element )*
+            // AutomatonRexp.g:159:1: ( (ele= element )* )
+            // AutomatonRexp.g:159:3: (ele= element )*
             {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:175:3: (ele= element )*
+            // AutomatonRexp.g:159:3: (ele= element )*
             loop6:
             do {
                 int alt6=2;
@@ -553,9 +536,9 @@ public class AutomatonRexpParser extends Parser {
 
                 switch (alt6) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:175:5: ele= element
+            	    // AutomatonRexp.g:159:5: ele= element
             	    {
-            	    pushFollow(FOLLOW_element_in_alternative364);
+            	    pushFollow(FOLLOW_element_in_alternative366);
             	    ele=element();
 
             	    state._fsp--;
@@ -582,7 +565,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "element"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:178:1: element returns [StringBuffer buf] : ele= elementNoOptionSpec ;
+    // AutomatonRexp.g:162:1: element returns [StringBuffer buf] : ele= elementNoOptionSpec ;
     public final StringBuffer element() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -593,10 +576,10 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:183:2: (ele= elementNoOptionSpec )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:183:4: ele= elementNoOptionSpec
+            // AutomatonRexp.g:167:2: (ele= elementNoOptionSpec )
+            // AutomatonRexp.g:167:4: ele= elementNoOptionSpec
             {
-            pushFollow(FOLLOW_elementNoOptionSpec_in_element394);
+            pushFollow(FOLLOW_elementNoOptionSpec_in_element396);
             ele=elementNoOptionSpec();
 
             state._fsp--;
@@ -616,7 +599,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "elementNoOptionSpec"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:189:1: elementNoOptionSpec returns [StringBuffer buf] : (at= atom (suf= ebnfSuffix )? | eb= ebnf );
+    // AutomatonRexp.g:173:1: elementNoOptionSpec returns [StringBuffer buf] : (at= atom (suf= ebnfSuffix )? | eb= ebnf );
     public final StringBuffer elementNoOptionSpec() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -631,7 +614,7 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:193:1: (at= atom (suf= ebnfSuffix )? | eb= ebnf )
+            // AutomatonRexp.g:177:1: (at= atom (suf= ebnfSuffix )? | eb= ebnf )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -649,14 +632,14 @@ public class AutomatonRexpParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:193:3: at= atom (suf= ebnfSuffix )?
+                    // AutomatonRexp.g:177:3: at= atom (suf= ebnfSuffix )?
                     {
-                    pushFollow(FOLLOW_atom_in_elementNoOptionSpec419);
+                    pushFollow(FOLLOW_atom_in_elementNoOptionSpec421);
                     at=atom();
 
                     state._fsp--;
 
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:193:14: (suf= ebnfSuffix )?
+                    // AutomatonRexp.g:177:14: (suf= ebnfSuffix )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -665,9 +648,9 @@ public class AutomatonRexpParser extends Parser {
                     }
                     switch (alt7) {
                         case 1 :
-                            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:193:16: suf= ebnfSuffix
+                            // AutomatonRexp.g:177:16: suf= ebnfSuffix
                             {
-                            pushFollow(FOLLOW_ebnfSuffix_in_elementNoOptionSpec428);
+                            pushFollow(FOLLOW_ebnfSuffix_in_elementNoOptionSpec430);
                             suf=ebnfSuffix();
 
                             state._fsp--;
@@ -688,9 +671,9 @@ public class AutomatonRexpParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:200:3: eb= ebnf
+                    // AutomatonRexp.g:184:3: eb= ebnf
                     {
-                    pushFollow(FOLLOW_ebnf_in_elementNoOptionSpec443);
+                    pushFollow(FOLLOW_ebnf_in_elementNoOptionSpec445);
                     eb=ebnf();
 
                     state._fsp--;
@@ -712,7 +695,7 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "atom"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:206:1: atom returns [StringBuffer buf] : (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? ;
+    // AutomatonRexp.g:190:1: atom returns [StringBuffer buf] : (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? ;
     public final StringBuffer atom() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -724,10 +707,10 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:1: ( (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:3: (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )?
+            // AutomatonRexp.g:195:1: ( (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? )
+            // AutomatonRexp.g:195:3: (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )?
             {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:3: (exp= range | exp= terminal | exp= notSet )
+            // AutomatonRexp.g:195:3: (exp= range | exp= terminal | exp= notSet )
             int alt9=3;
             switch ( input.LA(1) ) {
             case CHAR_LITERAL:
@@ -768,9 +751,9 @@ public class AutomatonRexpParser extends Parser {
 
             switch (alt9) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:5: exp= range
+                    // AutomatonRexp.g:195:5: exp= range
                     {
-                    pushFollow(FOLLOW_range_in_atom471);
+                    pushFollow(FOLLOW_range_in_atom473);
                     exp=range();
 
                     state._fsp--;
@@ -779,9 +762,9 @@ public class AutomatonRexpParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:23: exp= terminal
+                    // AutomatonRexp.g:195:23: exp= terminal
                     {
-                    pushFollow(FOLLOW_terminal_in_atom482);
+                    pushFollow(FOLLOW_terminal_in_atom484);
                     exp=terminal();
 
                     state._fsp--;
@@ -790,9 +773,9 @@ public class AutomatonRexpParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:42: exp= notSet
+                    // AutomatonRexp.g:195:42: exp= notSet
                     {
-                    pushFollow(FOLLOW_notSet_in_atom492);
+                    pushFollow(FOLLOW_notSet_in_atom494);
                     exp=notSet();
 
                     state._fsp--;
@@ -803,7 +786,7 @@ public class AutomatonRexpParser extends Parser {
 
             }
 
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:59: (sign= '^' | sign= '!' )?
+            // AutomatonRexp.g:195:59: (sign= '^' | sign= '!' )?
             int alt10=3;
             int LA10_0 = input.LA(1);
 
@@ -815,16 +798,16 @@ public class AutomatonRexpParser extends Parser {
             }
             switch (alt10) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:60: sign= '^'
+                    // AutomatonRexp.g:195:60: sign= '^'
                     {
-                    sign=(Token)match(input,14,FOLLOW_14_in_atom502); 
+                    sign=(Token)match(input,14,FOLLOW_14_in_atom504); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:211:72: sign= '!'
+                    // AutomatonRexp.g:195:72: sign= '!'
                     {
-                    sign=(Token)match(input,15,FOLLOW_15_in_atom511); 
+                    sign=(Token)match(input,15,FOLLOW_15_in_atom513); 
 
                     }
                     break;
@@ -849,10 +832,11 @@ public class AutomatonRexpParser extends Parser {
 
 
     // $ANTLR start "notSet"
-    // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:220:1: notSet returns [StringBuffer buf] : sign= '~' (bl= block ) ;
+    // AutomatonRexp.g:204:1: notSet returns [StringBuffer buf] : sign= '~' (bl= block ) ;
     public final StringBuffer notSet() throws RecognitionException {
         StringBuffer buf = null;
 
+        Token sign=null;
         StringBuffer bl = null;
 
 
@@ -860,14 +844,14 @@ public class AutomatonRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:1: (sign= '~' (bl= block ) )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:3: sign= '~' (bl= block )
+            // AutomatonRexp.g:209:1: (sign= '~' (bl= block ) )
+            // AutomatonRexp.g:209:3: sign= '~' (bl= block )
             {
-            match(input,20,FOLLOW_20_in_notSet543); 
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:15: (bl= block )
-            // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:17: bl= block
+            sign=(Token)match(input,20,FOLLOW_20_in_notSet545); 
+            // AutomatonRexp.g:209:15: (bl= block )
+            // AutomatonRexp.g:209:17: bl= block
             {
-            pushFollow(FOLLOW_block_in_notSet552);
+            pushFollow(FOLLOW_block_in_notSet554);
             bl=block();
 
             state._fsp--;
@@ -895,40 +879,41 @@ public class AutomatonRexpParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_alternative_in_root67 = new BitSet(new long[]{0x0000000000000402L});
+    public static final BitSet FOLLOW_alternative_in_root67 = new BitSet(new long[]{0x0000000000000400L});
     public static final BitSet FOLLOW_10_in_root73 = new BitSet(new long[]{0x0000000000160430L});
-    public static final BitSet FOLLOW_alternative_in_root79 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_block_in_ebnf108 = new BitSet(new long[]{0x000000000000F802L});
-    public static final BitSet FOLLOW_11_in_ebnf117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_ebnf125 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_ebnf131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_ebnf140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_ebnf148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CHAR_LITERAL_in_range176 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_range178 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_CHAR_LITERAL_in_range182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CHAR_LITERAL_in_terminal218 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_terminal228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_terminal238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_ebnfSuffix273 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_ebnfSuffix279 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_ebnfSuffix284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_block311 = new BitSet(new long[]{0x00000000001E0430L});
-    public static final BitSet FOLLOW_alternative_in_block315 = new BitSet(new long[]{0x0000000000080400L});
-    public static final BitSet FOLLOW_10_in_block323 = new BitSet(new long[]{0x00000000001E0430L});
-    public static final BitSet FOLLOW_alternative_in_block328 = new BitSet(new long[]{0x0000000000080400L});
-    public static final BitSet FOLLOW_19_in_block336 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_element_in_alternative364 = new BitSet(new long[]{0x0000000000160032L});
-    public static final BitSet FOLLOW_elementNoOptionSpec_in_element394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atom_in_elementNoOptionSpec419 = new BitSet(new long[]{0x0000000000003802L});
-    public static final BitSet FOLLOW_ebnfSuffix_in_elementNoOptionSpec428 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ebnf_in_elementNoOptionSpec443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_range_in_atom471 = new BitSet(new long[]{0x000000000000C002L});
-    public static final BitSet FOLLOW_terminal_in_atom482 = new BitSet(new long[]{0x000000000000C002L});
-    public static final BitSet FOLLOW_notSet_in_atom492 = new BitSet(new long[]{0x000000000000C002L});
-    public static final BitSet FOLLOW_14_in_atom502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_atom511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_notSet543 = new BitSet(new long[]{0x0000000000160030L});
-    public static final BitSet FOLLOW_block_in_notSet552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_alternative_in_root79 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_EOF_in_root85 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_block_in_ebnf110 = new BitSet(new long[]{0x000000000000F802L});
+    public static final BitSet FOLLOW_11_in_ebnf119 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_ebnf127 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_ebnf133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_ebnf142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_ebnf150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CHAR_LITERAL_in_range178 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_range180 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_CHAR_LITERAL_in_range184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CHAR_LITERAL_in_terminal220 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_terminal230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_terminal240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_ebnfSuffix275 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_ebnfSuffix281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_ebnfSuffix286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_block313 = new BitSet(new long[]{0x00000000001E0430L});
+    public static final BitSet FOLLOW_alternative_in_block317 = new BitSet(new long[]{0x0000000000080400L});
+    public static final BitSet FOLLOW_10_in_block325 = new BitSet(new long[]{0x00000000001E0430L});
+    public static final BitSet FOLLOW_alternative_in_block330 = new BitSet(new long[]{0x0000000000080400L});
+    public static final BitSet FOLLOW_19_in_block338 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_element_in_alternative366 = new BitSet(new long[]{0x0000000000160032L});
+    public static final BitSet FOLLOW_elementNoOptionSpec_in_element396 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_elementNoOptionSpec421 = new BitSet(new long[]{0x0000000000003802L});
+    public static final BitSet FOLLOW_ebnfSuffix_in_elementNoOptionSpec430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ebnf_in_elementNoOptionSpec445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_range_in_atom473 = new BitSet(new long[]{0x000000000000C002L});
+    public static final BitSet FOLLOW_terminal_in_atom484 = new BitSet(new long[]{0x000000000000C002L});
+    public static final BitSet FOLLOW_notSet_in_atom494 = new BitSet(new long[]{0x000000000000C002L});
+    public static final BitSet FOLLOW_14_in_atom504 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_atom513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_notSet545 = new BitSet(new long[]{0x0000000000160030L});
+    public static final BitSet FOLLOW_block_in_notSet554 = new BitSet(new long[]{0x0000000000000002L});
 
 }

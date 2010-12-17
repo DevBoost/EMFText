@@ -23,21 +23,20 @@ public class RunAntlr {
 	/**
 	 * @param args
 	 */
-	/*
 	public static void main(String[] args) {
 		System.out.println(System.getProperty("user.dir"));
+		String dest = new java.io.File(".").getAbsolutePath();
 		org.antlr.Tool antlrTool = new org.antlr.Tool(new String[] { "-o",
-				new java.io.File(".").getAbsolutePath(),
-				"./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" });
+				dest ,
+				 "./src/org/emftext/sdk/regex/ANTLRexp.g" });
 		antlrTool.process();
 		
 		antlrTool = new org.antlr.Tool(new String[] { "-o",
-				new java.io.File(".").getAbsolutePath(),
-				"./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g" });
+				dest,
+				 "./src/org/emftext/sdk/regex/AutomatonRexp.g" });
 		antlrTool.process();
-
+		System.out.println(antlrTool.getOutputDirectory());
 
 	
 	}
-	*/
 }

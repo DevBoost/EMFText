@@ -34,7 +34,7 @@ grammar AutomatonRexp;
 @rulecatch { catch (RecognitionException e) { recExceptions.add(e); } } 
 
 @lexer::header{
-package org.emftext.sdk.codegen.regex; 
+package org.emftext.sdk.regex; 
 
 }
 
@@ -49,7 +49,7 @@ package org.emftext.sdk.codegen.regex;
 } 
 
 @header{
-package org.emftext.sdk.codegen.regex; 
+package org.emftext.sdk.regex; 
 }
 
 @members{
@@ -60,7 +60,7 @@ package org.emftext.sdk.codegen.regex;
  }
  
  private String transformIntoRegExpQuotes(String st) {
- 	org.emftext.sdk.regex.AutomatonRexpUtil.escapeToAutomatonSyntax(st);
+ 	return org.emftext.sdk.regex.AutomatonRexpUtil.escapeToAutomatonSyntax(st);
  }
  
  private String removeTicks(String st) {
@@ -80,7 +80,8 @@ root returns [StringBuffer buf]
 	buf = new StringBuffer();
 }
 
-: alternative1 = alternative {buf.append($alternative1.buf);} ( '|' alternative2 = alternative {buf.append("|" + $alternative2.buf);})*; 
+: alternative1 = alternative {buf.append($alternative1.buf);} ( '|' alternative2 = alternative {buf.append("|" + $alternative2.buf);})*
+EOF; 
 
 
 ebnf returns [StringBuffer buf]  
