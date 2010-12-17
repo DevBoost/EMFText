@@ -242,14 +242,21 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("causes.clear();");
 		sc.add("causes.addAll(resultLocus);");
 		sc.add("}");
+		sc.add("boolean hasChildren = status.getChildren() != null && status.getChildren().length > 0;");
+		sc.addComment(
+			"Ignore composite status objects that have children. " +
+			"The actual status information is then contained in the child objects."
+		);
+		sc.add("if (!status.isMultiStatus() || !hasChildren) {");
 		sc.add("if (status.getSeverity() == " + I_STATUS + ".ERROR) {");
 		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("addError(status.getMessage(), cause);");
+		sc.add("addError(status.getMessage(), " + eProblemTypeClassName + ".ANALYSIS_PROBLEM, cause);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (status.getSeverity() == " + I_STATUS + ".WARNING) {");
 		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("addWarning(status.getMessage(), cause);");
+		sc.add("addWarning(status.getMessage(), " + eProblemTypeClassName + ".ANALYSIS_PROBLEM, cause);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + I_STATUS + " child : status.getChildren()) {");
