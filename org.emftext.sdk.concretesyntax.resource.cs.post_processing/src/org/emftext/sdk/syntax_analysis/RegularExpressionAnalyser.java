@@ -79,14 +79,10 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 					errors.add("Invalid regular expression: " + message);
 				}
 			}
-			// TODO cwende: this check worked with ANTLR 3.2.0, but does not
-			// with ANTLR 3.3.0
-			/*
-			// check whether all tokens were consumed
-			if (errors.isEmpty() && tokenStream.index() < tokenStream.size()) {
-				errors.add("End of regular expression expected");
+			List<String> errorMessages = parser.getErrorMessages();
+			for (String m : errorMessages) {
+				errors.add("Invalid regular expression: " + m.replace("EOF", "END"));
 			}
-			*/
 		} catch (Exception e) {
 			errors.add(e.getMessage());
 		}
