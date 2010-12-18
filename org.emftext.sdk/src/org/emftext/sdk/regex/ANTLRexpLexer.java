@@ -274,8 +274,8 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = CHAR_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ANTLRexp.g:245:14: ( '\\'' LITERAL_CHAR '\\'' )
-            // ANTLRexp.g:245:16: '\\'' LITERAL_CHAR '\\''
+            // ANTLRexp.g:258:14: ( '\\'' LITERAL_CHAR '\\'' )
+            // ANTLRexp.g:258:16: '\\'' LITERAL_CHAR '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
@@ -296,12 +296,12 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ANTLRexp.g:247:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
-            // ANTLRexp.g:247:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
+            // ANTLRexp.g:260:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
+            // ANTLRexp.g:260:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
-            // ANTLRexp.g:247:36: ( LITERAL_CHAR )*
+            // ANTLRexp.g:260:36: ( LITERAL_CHAR )*
             loop1:
             do {
                 int alt1=2;
@@ -314,7 +314,7 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ANTLRexp.g:247:36: LITERAL_CHAR
+            	    // ANTLRexp.g:260:36: LITERAL_CHAR
             	    {
             	    mLITERAL_CHAR(); 
 
@@ -341,7 +341,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "LITERAL_CHAR"
     public final void mLITERAL_CHAR() throws RecognitionException {
         try {
-            // ANTLRexp.g:249:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
+            // ANTLRexp.g:262:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -359,14 +359,14 @@ public class ANTLRexpLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // ANTLRexp.g:249:25: ESC
+                    // ANTLRexp.g:262:25: ESC
                     {
                     mESC(); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:249:32: ~ ( '\\'' | '\\\\' )
+                    // ANTLRexp.g:262:32: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -391,79 +391,79 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "ESC"
     public final void mESC() throws RecognitionException {
         try {
-            // ANTLRexp.g:251:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
-            // ANTLRexp.g:251:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // ANTLRexp.g:264:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
+            // ANTLRexp.g:264:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             {
             match('\\'); 
-            // ANTLRexp.g:251:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // ANTLRexp.g:264:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             int alt3=11;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // ANTLRexp.g:251:23: 'n'
+                    // ANTLRexp.g:264:23: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:251:30: 'r'
+                    // ANTLRexp.g:264:30: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 3 :
-                    // ANTLRexp.g:251:37: 't'
+                    // ANTLRexp.g:264:37: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 4 :
-                    // ANTLRexp.g:251:45: 'b'
+                    // ANTLRexp.g:264:45: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // ANTLRexp.g:251:51: 'f'
+                    // ANTLRexp.g:264:51: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // ANTLRexp.g:251:57: '\"'
+                    // ANTLRexp.g:264:57: '\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // ANTLRexp.g:251:62: '\\''
+                    // ANTLRexp.g:264:62: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // ANTLRexp.g:251:69: '\\\\'
+                    // ANTLRexp.g:264:69: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // ANTLRexp.g:251:76: '>'
+                    // ANTLRexp.g:264:76: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 10 :
-                    // ANTLRexp.g:251:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+                    // ANTLRexp.g:264:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
                     {
                     match('u'); 
                     mXDIGIT(); 
@@ -474,7 +474,7 @@ public class ANTLRexpLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // ANTLRexp.g:251:116: .
+                    // ANTLRexp.g:264:116: .
                     {
                     matchAny(); 
 
@@ -495,7 +495,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "XDIGIT"
     public final void mXDIGIT() throws RecognitionException {
         try {
-            // ANTLRexp.g:253:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ANTLRexp.g:266:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             // ANTLRexp.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -521,10 +521,10 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ANTLRexp.g:255:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
-            // ANTLRexp.g:255:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // ANTLRexp.g:268:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
+            // ANTLRexp.g:268:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             {
-            // ANTLRexp.g:255:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // ANTLRexp.g:268:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             int cnt5=0;
             loop5:
             do {
@@ -551,23 +551,23 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ANTLRexp.g:255:8: ' '
+            	    // ANTLRexp.g:268:8: ' '
             	    {
             	    match(' '); 
 
             	    }
             	    break;
             	case 2 :
-            	    // ANTLRexp.g:255:14: '\\t'
+            	    // ANTLRexp.g:268:14: '\\t'
             	    {
             	    match('\t'); 
 
             	    }
             	    break;
             	case 3 :
-            	    // ANTLRexp.g:255:20: ( '\\r' )? '\\n'
+            	    // ANTLRexp.g:268:20: ( '\\r' )? '\\n'
             	    {
-            	    // ANTLRexp.g:255:20: ( '\\r' )?
+            	    // ANTLRexp.g:268:20: ( '\\r' )?
             	    int alt4=2;
             	    int LA4_0 = input.LA(1);
 
@@ -576,7 +576,7 @@ public class ANTLRexpLexer extends Lexer {
             	    }
             	    switch (alt4) {
             	        case 1 :
-            	            // ANTLRexp.g:255:20: '\\r'
+            	            // ANTLRexp.g:268:20: '\\r'
             	            {
             	            match('\r'); 
 
@@ -781,7 +781,7 @@ public class ANTLRexpLexer extends Lexer {
             this.transition = DFA3_transition;
         }
         public String getDescription() {
-            return "251:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
+            return "264:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;

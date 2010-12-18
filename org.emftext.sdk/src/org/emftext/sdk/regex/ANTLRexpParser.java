@@ -2,6 +2,9 @@
 
 package org.emftext.sdk.regex; 
 
+import java.util.List;
+import java.util.ArrayList;
+
 
 import org.antlr.runtime3_3_0.*;
 
@@ -49,6 +52,16 @@ public class ANTLRexpParser extends Parser {
 
 
      private StringBuffer regExpression = new StringBuffer();
+     private List<String> errorMessages = new ArrayList<String>();
+     
+     public void emitErrorMessage(String msg) {
+     	errorMessages.add(msg);
+     }
+     
+     public List<String> getErrorMessages() {
+     	return errorMessages;
+     }
+     
      
      public String getRegExpressionString() {
      		return regExpression.toString();
@@ -93,7 +106,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "root"
-    // ANTLRexp.g:99:1: root returns [StringBuffer buf] : alternative1= alternative ( '|' alternative2= alternative )* EOF ;
+    // ANTLRexp.g:112:1: root returns [StringBuffer buf] : alternative1= alternative ( '|' alternative2= alternative )* EOF ;
     public final StringBuffer root() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -106,8 +119,8 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:105:1: (alternative1= alternative ( '|' alternative2= alternative )* EOF )
-            // ANTLRexp.g:105:3: alternative1= alternative ( '|' alternative2= alternative )* EOF
+            // ANTLRexp.g:118:1: (alternative1= alternative ( '|' alternative2= alternative )* EOF )
+            // ANTLRexp.g:118:3: alternative1= alternative ( '|' alternative2= alternative )* EOF
             {
             pushFollow(FOLLOW_alternative_in_root67);
             alternative1=alternative();
@@ -115,7 +128,7 @@ public class ANTLRexpParser extends Parser {
             state._fsp--;
 
             buf.append(alternative1);
-            // ANTLRexp.g:105:63: ( '|' alternative2= alternative )*
+            // ANTLRexp.g:118:63: ( '|' alternative2= alternative )*
             loop1:
             do {
                 int alt1=2;
@@ -128,7 +141,7 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // ANTLRexp.g:105:65: '|' alternative2= alternative
+            	    // ANTLRexp.g:118:65: '|' alternative2= alternative
             	    {
             	    match(input,10,FOLLOW_10_in_root73); 
             	    pushFollow(FOLLOW_alternative_in_root79);
@@ -159,7 +172,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "ebnf"
-    // ANTLRexp.g:109:1: ebnf returns [StringBuffer buf] : bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? ;
+    // ANTLRexp.g:122:1: ebnf returns [StringBuffer buf] : bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? ;
     public final StringBuffer ebnf() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -171,8 +184,8 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:114:1: (bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? )
-            // ANTLRexp.g:114:3: bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
+            // ANTLRexp.g:127:1: (bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )? )
+            // ANTLRexp.g:127:3: bl= block (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
             {
             pushFollow(FOLLOW_block_in_ebnf110);
             bl=block();
@@ -180,7 +193,7 @@ public class ANTLRexpParser extends Parser {
             state._fsp--;
 
             buf.append(bl);
-            // ANTLRexp.g:114:38: (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
+            // ANTLRexp.g:127:38: (sign= '?' | sign= '*' | sign= '+' | sign= '^' | sign= '!' )?
             int alt2=6;
             switch ( input.LA(1) ) {
                 case 11:
@@ -212,35 +225,35 @@ public class ANTLRexpParser extends Parser {
 
             switch (alt2) {
                 case 1 :
-                    // ANTLRexp.g:114:40: sign= '?'
+                    // ANTLRexp.g:127:40: sign= '?'
                     {
                     sign=(Token)match(input,11,FOLLOW_11_in_ebnf119); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:114:53: sign= '*'
+                    // ANTLRexp.g:127:53: sign= '*'
                     {
                     sign=(Token)match(input,12,FOLLOW_12_in_ebnf127); 
 
                     }
                     break;
                 case 3 :
-                    // ANTLRexp.g:114:64: sign= '+'
+                    // ANTLRexp.g:127:64: sign= '+'
                     {
                     sign=(Token)match(input,13,FOLLOW_13_in_ebnf133); 
 
                     }
                     break;
                 case 4 :
-                    // ANTLRexp.g:114:78: sign= '^'
+                    // ANTLRexp.g:127:78: sign= '^'
                     {
                     sign=(Token)match(input,14,FOLLOW_14_in_ebnf142); 
 
                     }
                     break;
                 case 5 :
-                    // ANTLRexp.g:114:91: sign= '!'
+                    // ANTLRexp.g:127:91: sign= '!'
                     {
                     sign=(Token)match(input,15,FOLLOW_15_in_ebnf150); 
 
@@ -266,7 +279,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "range"
-    // ANTLRexp.g:122:1: range returns [StringBuffer buf] : first= CHAR_LITERAL '..' second= CHAR_LITERAL ;
+    // ANTLRexp.g:135:1: range returns [StringBuffer buf] : first= CHAR_LITERAL '..' second= CHAR_LITERAL ;
     public final StringBuffer range() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -277,8 +290,8 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:128:2: (first= CHAR_LITERAL '..' second= CHAR_LITERAL )
-            // ANTLRexp.g:128:4: first= CHAR_LITERAL '..' second= CHAR_LITERAL
+            // ANTLRexp.g:141:2: (first= CHAR_LITERAL '..' second= CHAR_LITERAL )
+            // ANTLRexp.g:141:4: first= CHAR_LITERAL '..' second= CHAR_LITERAL
             {
             first=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range178); 
             match(input,16,FOLLOW_16_in_range180); 
@@ -298,7 +311,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "terminal"
-    // ANTLRexp.g:136:1: terminal returns [StringBuffer buf] : (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) ;
+    // ANTLRexp.g:149:1: terminal returns [StringBuffer buf] : (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) ;
     public final StringBuffer terminal() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -309,10 +322,10 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:142:1: ( (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) )
-            // ANTLRexp.g:142:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
+            // ANTLRexp.g:155:1: ( (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' ) )
+            // ANTLRexp.g:155:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
             {
-            // ANTLRexp.g:142:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
+            // ANTLRexp.g:155:5: (signTerminal= CHAR_LITERAL | signTerminal= STRING_LITERAL | signTerminalDot= '.' )
             int alt3=3;
             switch ( input.LA(1) ) {
             case CHAR_LITERAL:
@@ -339,21 +352,21 @@ public class ANTLRexpParser extends Parser {
 
             switch (alt3) {
                 case 1 :
-                    // ANTLRexp.g:142:7: signTerminal= CHAR_LITERAL
+                    // ANTLRexp.g:155:7: signTerminal= CHAR_LITERAL
                     {
                     signTerminal=(Token)match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_terminal220); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:142:39: signTerminal= STRING_LITERAL
+                    // ANTLRexp.g:155:39: signTerminal= STRING_LITERAL
                     {
                     signTerminal=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_terminal230); 
 
                     }
                     break;
                 case 3 :
-                    // ANTLRexp.g:142:73: signTerminalDot= '.'
+                    // ANTLRexp.g:155:73: signTerminalDot= '.'
                     {
                     signTerminalDot=(Token)match(input,17,FOLLOW_17_in_terminal240); 
 
@@ -382,7 +395,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "ebnfSuffix"
-    // ANTLRexp.g:153:1: ebnfSuffix returns [StringBuffer buf] : (sign= '?' | sign= '*' | sign= '+' ) ;
+    // ANTLRexp.g:166:1: ebnfSuffix returns [StringBuffer buf] : (sign= '?' | sign= '*' | sign= '+' ) ;
     public final StringBuffer ebnfSuffix() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -392,10 +405,10 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:162:1: ( (sign= '?' | sign= '*' | sign= '+' ) )
-            // ANTLRexp.g:162:3: (sign= '?' | sign= '*' | sign= '+' )
+            // ANTLRexp.g:175:1: ( (sign= '?' | sign= '*' | sign= '+' ) )
+            // ANTLRexp.g:175:3: (sign= '?' | sign= '*' | sign= '+' )
             {
-            // ANTLRexp.g:162:3: (sign= '?' | sign= '*' | sign= '+' )
+            // ANTLRexp.g:175:3: (sign= '?' | sign= '*' | sign= '+' )
             int alt4=3;
             switch ( input.LA(1) ) {
             case 11:
@@ -422,21 +435,21 @@ public class ANTLRexpParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // ANTLRexp.g:162:4: sign= '?'
+                    // ANTLRexp.g:175:4: sign= '?'
                     {
                     sign=(Token)match(input,11,FOLLOW_11_in_ebnfSuffix275); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:162:15: sign= '*'
+                    // ANTLRexp.g:175:15: sign= '*'
                     {
                     sign=(Token)match(input,12,FOLLOW_12_in_ebnfSuffix281); 
 
                     }
                     break;
                 case 3 :
-                    // ANTLRexp.g:162:25: sign= '+'
+                    // ANTLRexp.g:175:25: sign= '+'
                     {
                     sign=(Token)match(input,13,FOLLOW_13_in_ebnfSuffix286); 
 
@@ -463,7 +476,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "block"
-    // ANTLRexp.g:168:1: block returns [StringBuffer buf] : '(' alternative1= alternative ( '|' alternative2= alternative )* ')' ;
+    // ANTLRexp.g:181:1: block returns [StringBuffer buf] : '(' alternative1= alternative ( '|' alternative2= alternative )* ')' ;
     public final StringBuffer block() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -476,8 +489,8 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:174:1: ( '(' alternative1= alternative ( '|' alternative2= alternative )* ')' )
-            // ANTLRexp.g:174:5: '(' alternative1= alternative ( '|' alternative2= alternative )* ')'
+            // ANTLRexp.g:187:1: ( '(' alternative1= alternative ( '|' alternative2= alternative )* ')' )
+            // ANTLRexp.g:187:5: '(' alternative1= alternative ( '|' alternative2= alternative )* ')'
             {
             match(input,18,FOLLOW_18_in_block313); 
             pushFollow(FOLLOW_alternative_in_block317);
@@ -486,7 +499,7 @@ public class ANTLRexpParser extends Parser {
             state._fsp--;
 
             buf.append("(" + alternative1);
-            // ANTLRexp.g:174:75: ( '|' alternative2= alternative )*
+            // ANTLRexp.g:187:75: ( '|' alternative2= alternative )*
             loop5:
             do {
                 int alt5=2;
@@ -499,7 +512,7 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // ANTLRexp.g:174:77: '|' alternative2= alternative
+            	    // ANTLRexp.g:187:77: '|' alternative2= alternative
             	    {
             	    match(input,10,FOLLOW_10_in_block325); 
             	    pushFollow(FOLLOW_alternative_in_block330);
@@ -531,7 +544,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "alternative"
-    // ANTLRexp.g:176:1: alternative returns [StringBuffer buf] : (ele= element )* ;
+    // ANTLRexp.g:189:1: alternative returns [StringBuffer buf] : (ele= element )* ;
     public final StringBuffer alternative() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -542,10 +555,10 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:181:1: ( (ele= element )* )
-            // ANTLRexp.g:181:3: (ele= element )*
+            // ANTLRexp.g:194:1: ( (ele= element )* )
+            // ANTLRexp.g:194:3: (ele= element )*
             {
-            // ANTLRexp.g:181:3: (ele= element )*
+            // ANTLRexp.g:194:3: (ele= element )*
             loop6:
             do {
                 int alt6=2;
@@ -558,7 +571,7 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt6) {
             	case 1 :
-            	    // ANTLRexp.g:181:5: ele= element
+            	    // ANTLRexp.g:194:5: ele= element
             	    {
             	    pushFollow(FOLLOW_element_in_alternative366);
             	    ele=element();
@@ -587,7 +600,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "element"
-    // ANTLRexp.g:184:1: element returns [StringBuffer buf] : ele= elementNoOptionSpec ;
+    // ANTLRexp.g:197:1: element returns [StringBuffer buf] : ele= elementNoOptionSpec ;
     public final StringBuffer element() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -598,8 +611,8 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:189:2: (ele= elementNoOptionSpec )
-            // ANTLRexp.g:189:4: ele= elementNoOptionSpec
+            // ANTLRexp.g:202:2: (ele= elementNoOptionSpec )
+            // ANTLRexp.g:202:4: ele= elementNoOptionSpec
             {
             pushFollow(FOLLOW_elementNoOptionSpec_in_element396);
             ele=elementNoOptionSpec();
@@ -621,7 +634,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "elementNoOptionSpec"
-    // ANTLRexp.g:195:1: elementNoOptionSpec returns [StringBuffer buf] : (at= atom (suf= ebnfSuffix )? | eb= ebnf );
+    // ANTLRexp.g:208:1: elementNoOptionSpec returns [StringBuffer buf] : (at= atom (suf= ebnfSuffix )? | eb= ebnf );
     public final StringBuffer elementNoOptionSpec() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -636,7 +649,7 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:199:1: (at= atom (suf= ebnfSuffix )? | eb= ebnf )
+            // ANTLRexp.g:212:1: (at= atom (suf= ebnfSuffix )? | eb= ebnf )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -654,14 +667,14 @@ public class ANTLRexpParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // ANTLRexp.g:199:3: at= atom (suf= ebnfSuffix )?
+                    // ANTLRexp.g:212:3: at= atom (suf= ebnfSuffix )?
                     {
                     pushFollow(FOLLOW_atom_in_elementNoOptionSpec421);
                     at=atom();
 
                     state._fsp--;
 
-                    // ANTLRexp.g:199:14: (suf= ebnfSuffix )?
+                    // ANTLRexp.g:212:14: (suf= ebnfSuffix )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -670,7 +683,7 @@ public class ANTLRexpParser extends Parser {
                     }
                     switch (alt7) {
                         case 1 :
-                            // ANTLRexp.g:199:16: suf= ebnfSuffix
+                            // ANTLRexp.g:212:16: suf= ebnfSuffix
                             {
                             pushFollow(FOLLOW_ebnfSuffix_in_elementNoOptionSpec430);
                             suf=ebnfSuffix();
@@ -693,7 +706,7 @@ public class ANTLRexpParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:206:3: eb= ebnf
+                    // ANTLRexp.g:219:3: eb= ebnf
                     {
                     pushFollow(FOLLOW_ebnf_in_elementNoOptionSpec445);
                     eb=ebnf();
@@ -717,7 +730,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "atom"
-    // ANTLRexp.g:212:1: atom returns [StringBuffer buf] : (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? ;
+    // ANTLRexp.g:225:1: atom returns [StringBuffer buf] : (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? ;
     public final StringBuffer atom() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -729,10 +742,10 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:217:1: ( (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? )
-            // ANTLRexp.g:217:3: (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )?
+            // ANTLRexp.g:230:1: ( (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )? )
+            // ANTLRexp.g:230:3: (exp= range | exp= terminal | exp= notSet ) (sign= '^' | sign= '!' )?
             {
-            // ANTLRexp.g:217:3: (exp= range | exp= terminal | exp= notSet )
+            // ANTLRexp.g:230:3: (exp= range | exp= terminal | exp= notSet )
             int alt9=3;
             switch ( input.LA(1) ) {
             case CHAR_LITERAL:
@@ -773,7 +786,7 @@ public class ANTLRexpParser extends Parser {
 
             switch (alt9) {
                 case 1 :
-                    // ANTLRexp.g:217:5: exp= range
+                    // ANTLRexp.g:230:5: exp= range
                     {
                     pushFollow(FOLLOW_range_in_atom473);
                     exp=range();
@@ -784,7 +797,7 @@ public class ANTLRexpParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:217:23: exp= terminal
+                    // ANTLRexp.g:230:23: exp= terminal
                     {
                     pushFollow(FOLLOW_terminal_in_atom484);
                     exp=terminal();
@@ -795,7 +808,7 @@ public class ANTLRexpParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // ANTLRexp.g:217:42: exp= notSet
+                    // ANTLRexp.g:230:42: exp= notSet
                     {
                     pushFollow(FOLLOW_notSet_in_atom494);
                     exp=notSet();
@@ -808,7 +821,7 @@ public class ANTLRexpParser extends Parser {
 
             }
 
-            // ANTLRexp.g:217:59: (sign= '^' | sign= '!' )?
+            // ANTLRexp.g:230:59: (sign= '^' | sign= '!' )?
             int alt10=3;
             int LA10_0 = input.LA(1);
 
@@ -820,14 +833,14 @@ public class ANTLRexpParser extends Parser {
             }
             switch (alt10) {
                 case 1 :
-                    // ANTLRexp.g:217:60: sign= '^'
+                    // ANTLRexp.g:230:60: sign= '^'
                     {
                     sign=(Token)match(input,14,FOLLOW_14_in_atom504); 
 
                     }
                     break;
                 case 2 :
-                    // ANTLRexp.g:217:72: sign= '!'
+                    // ANTLRexp.g:230:72: sign= '!'
                     {
                     sign=(Token)match(input,15,FOLLOW_15_in_atom513); 
 
@@ -854,7 +867,7 @@ public class ANTLRexpParser extends Parser {
 
 
     // $ANTLR start "notSet"
-    // ANTLRexp.g:226:1: notSet returns [StringBuffer buf] : sign= '~' (bl= block ) ;
+    // ANTLRexp.g:239:1: notSet returns [StringBuffer buf] : sign= '~' (bl= block ) ;
     public final StringBuffer notSet() throws RecognitionException {
         StringBuffer buf = null;
 
@@ -866,12 +879,12 @@ public class ANTLRexpParser extends Parser {
         	buf = new StringBuffer();
 
         try {
-            // ANTLRexp.g:231:1: (sign= '~' (bl= block ) )
-            // ANTLRexp.g:231:3: sign= '~' (bl= block )
+            // ANTLRexp.g:244:1: (sign= '~' (bl= block ) )
+            // ANTLRexp.g:244:3: sign= '~' (bl= block )
             {
             sign=(Token)match(input,20,FOLLOW_20_in_notSet545); 
-            // ANTLRexp.g:231:15: (bl= block )
-            // ANTLRexp.g:231:17: bl= block
+            // ANTLRexp.g:244:15: (bl= block )
+            // ANTLRexp.g:244:17: bl= block
             {
             pushFollow(FOLLOW_block_in_notSet554);
             bl=block();

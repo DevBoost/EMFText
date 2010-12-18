@@ -50,10 +50,23 @@ package org.emftext.sdk.regex;
 
 @header{
 package org.emftext.sdk.regex; 
+
+import java.util.List;
+import java.util.ArrayList;
 }
 
 @members{
  private StringBuffer regExpression = new StringBuffer();
+ private List<String> errorMessages = new ArrayList<String>();
+ 
+ public void emitErrorMessage(String msg) {
+ 	errorMessages.add(msg);
+ }
+ 
+ public List<String> getErrorMessages() {
+ 	return errorMessages;
+ }
+ 
  
  public String getRegExpressionString() {
  		return regExpression.toString();
