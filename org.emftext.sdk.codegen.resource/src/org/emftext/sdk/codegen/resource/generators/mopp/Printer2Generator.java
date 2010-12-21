@@ -893,7 +893,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("writer.write(validBlock);");
 		sc.addComment("print separating whitespace");
 		// TODO we need some way to specify the string that is used for
-		// automatic whitespace handling
+		// automatic whitespace handling. probably another code generation
+		// option is required.
 		sc.add("writer.write(\" \");");
 		sc.addComment("add current token as initial value for next iteration");
 		sc.add("currentBlock = new StringBuilder(tokenI.getText());");
