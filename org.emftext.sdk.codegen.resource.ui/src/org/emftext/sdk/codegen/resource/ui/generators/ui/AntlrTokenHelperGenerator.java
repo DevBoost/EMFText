@@ -18,9 +18,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOKEN;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -28,35 +31,31 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("A helper class that decides which tokens can be used for custom syntax highlighting.");
+		sc.addJavadoc(
+			"A helper class that decides which tokens can be used for custom syntax highlighting."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
+		addMethods(sc);
+		
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addCanBeUsedForSyntaxColoringMethod(sc);
+		generatorUtil.addCanBeUsedForSyntaxHighlightingMethod(sc);
+		addGetTokenNameMethod(sc);
+	}
+
+	private void addCanBeUsedForSyntaxColoringMethod(JavaComposite sc) {
 		sc.add("public boolean canBeUsedForSyntaxColoring(" + TOKEN + " token) {");
-		sc.add("return canBeUsedForSyntaxColoring(token.getType());");
+		sc.add("return canBeUsedForSyntaxHighlighting(token.getType());");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public boolean canBeUsedForSyntaxColoring(int tokenType) {");
-		sc.add("if (tokenType == " + TOKEN + ".EOF) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".UP) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".DOWN) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".EOR_TOKEN_TYPE) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".INVALID_TOKEN_TYPE) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
-		
+	}
+
+	private void addGetTokenNameMethod(JavaComposite sc) {
 		sc.add("public String getTokenName(String[] tokenNames, int index) {");
 		sc.add("if (tokenNames == null) {");
 		sc.add("return null;");
@@ -68,9 +67,5 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("}");
 	}
-
-	
 }

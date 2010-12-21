@@ -19,13 +19,17 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TO
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 
 public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " implements " + iTextTokenClassName + " {");
 		sc.addLineBreak();
@@ -36,7 +40,7 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private final " + iMetaInformationClassName + " metaInformation = new " +metaInformationClassName + "();");
+		sc.add("private final " + iMetaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("private final " + TOKEN + " antlrToken;");
 		sc.addLineBreak();
 	}
@@ -47,11 +51,20 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		addGetLengthMethod(sc);
 		addGetLineMethod(sc);
 		addGetColumnMethod(sc);
+		// there are two variants of this method with different
+		// parameters
 		addCanBeUsedForSyntaxHighlightingMethod(sc);
+		generatorUtil.addCanBeUsedForSyntaxHighlightingMethod(sc);
 		addGetTextMethod(sc);
 		addGetTokenNameMethod(sc);
 	}
 
+	public void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
+		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
+		sc.add("return canBeUsedForSyntaxHighlighting(antlrToken.getType());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
 	private void addGetColumnMethod(JavaComposite sc) {
 		sc.add("public int getColumn() {");
 		sc.add("return antlrToken.getCharPositionInLine();");
@@ -95,30 +108,6 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.addLineBreak();
 	}
 
-	private void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
-		// TODO this is a copy from AntlrTokenHelperGenerator
-		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
-		sc.add("int tokenType = antlrToken.getType();");
-		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".UP) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".DOWN) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".EOR_TOKEN_TYPE) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".INVALID_TOKEN_TYPE) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetTextMethod(JavaComposite sc) {
 		sc.add("public String getText() {");
 		sc.add("return antlrToken.getText();");
@@ -139,6 +128,4 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

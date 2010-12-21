@@ -81,7 +81,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("return;");
 		sc.add("}");
 		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
-		sc.add("if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {");
+		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
 		sc.add("continue;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -23,6 +23,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
 import java.io.File;
 import java.util.Collection;
@@ -369,5 +370,27 @@ public class GeneratorUtil {
 		GenModel genModel = genPackage.getGenModel();
 		String modelPluginID = genModel.getModelPluginID();
 		requiredBundles.add(modelPluginID);
+	}
+
+	public void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
+		sc.add("public boolean canBeUsedForSyntaxHighlighting(int tokenType) {");
+		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("if (tokenType == " + TOKEN + ".UP) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("if (tokenType == " + TOKEN + ".DOWN) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("if (tokenType == " + TOKEN + ".EOR_TOKEN_TYPE) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("if (tokenType == " + TOKEN + ".INVALID_TOKEN_TYPE) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }

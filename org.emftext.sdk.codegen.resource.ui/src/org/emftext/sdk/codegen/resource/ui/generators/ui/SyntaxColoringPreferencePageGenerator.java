@@ -405,7 +405,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("String[] tokenNames = syntaxPlugin.getTokenNames();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
-		sc.add("if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {");
+		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
 		sc.add("continue;");
 		sc.add("}");
 		sc.addLineBreak();
