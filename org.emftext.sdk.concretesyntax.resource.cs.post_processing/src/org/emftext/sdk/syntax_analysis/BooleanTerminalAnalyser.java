@@ -16,15 +16,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 
-// TODO check that BooleanTerminals refer only to boolean attributes
-
-// TODO check that BooleanTerminals refer only to attribute with upperBound == 1
-
-// TODO check that trueLiteral and falseLiteral are different
-// TODO check that at most one of the two literals is empty
-// TODO check that the feature of the terminal is not the anonymous feature
-
-// TODO check that there can only be multiple BooleanTerminal referring
+// TODO mseifert: check that there can only be multiple BooleanTerminals referring
 //      to the same feature if no literal is empty (otherwise empty syntax
 //      is allowed for one of the values and it is not clear how often this
 //      value must be added to the attribute's list of values)
