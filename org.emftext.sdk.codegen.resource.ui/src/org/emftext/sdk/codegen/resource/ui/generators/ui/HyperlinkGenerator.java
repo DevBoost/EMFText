@@ -93,10 +93,10 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addOpenMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Opens the resource in <code>linkTarget</code> with " +
-			"EMFText editor, if it supports the file extension of this " +
-			"resource, and tries to jump to the definition. Otherwise it tries to open with " +
-			"a default editor."
+			"Opens the resource in <code>linkTarget</code> with the generated " +
+			"editor, if it supports the file extension of this " +
+			"resource, and tries to jump to the definition. Otherwise it tries to open the target with " +
+			"the default editor."
 		);
 		sc.add("public void open() {");
 		sc.add("if (linkTarget == null) {");
@@ -109,11 +109,15 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("try {");
 		sc.add(I_EDITOR_DESCRIPTOR + " desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());");
 		sc.add(I_EDITOR_PART + " editorPart = page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
-		//TODO Here we could use the access plugin to call setCaret() on other EMFText editors as well
+		// TODO instead of checking whether this is an editor of the same kind, 
+		//      we should rather change the selection of the editorPart to the
+		//      target EObject. This way, the code would not only work for all
+		//      kinds of EMFText editors, but also for other EMF-base editors.
 		sc.add("if (editorPart instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
 		sc.add("emftEditor.setCaret(linkTarget, text);");
 		sc.add("}");
+		
 		sc.add("} catch (" + PART_INIT_EXCEPTION + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
@@ -165,6 +169,4 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("private " + I_REGION + " region;");
 		sc.addLineBreak();
 	}
-
-	
 }
