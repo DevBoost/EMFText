@@ -13,9 +13,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_STRING_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BIT_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
@@ -24,28 +25,22 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_HANDLER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LEXER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_TOKEN_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PROXY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
@@ -289,10 +284,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddExpectedElementMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, context);
-		generatorUtil.addAddObjectToListMethod1(sc);
-		generatorUtil.addAddObjectToListMethod2(sc);
-		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
 		addCopyLocalizationInfosMethod2(sc);
@@ -300,13 +291,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addCreateInstanceMethod(lexerName, parserName, sc);
 		addDefaultConstructor(parserName, sc);
 		addDoParseMethod(lexerName, sc);
-		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		addGetMismatchedTokenRecoveryTriesMethod(sc);
 		addGetMissingSymbolMethod(sc);
-		addGetOptionsMethod(sc);
-    	context.addGetMetaInformationMethod(sc);
 		addGetParseToIndexTypeObjectMethod(sc);
-		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
 		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
@@ -314,11 +301,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addRecoverFromMismatchedTokenMethod(sc);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
-		addFormatTokenNameMethod(sc);
-		addSetOptionsMethod(sc);
-		addTerminateMethod(sc);
 		addCompletedElementMethod(sc);
-		addCreateDynamicProxyMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -368,24 +351,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	// TODO move this method to ANTLRParserBaseGenerator
-	private void addFormatTokenNameMethod(ANTLRGrammarComposite sc) {
-		sc.add("private String formatTokenName(int tokenType)  {");
-		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
-		sc.add("tokenName = \"EOF\";");
-		sc.add("} else {");
-		sc.add("if (tokenType < 0) {");
-		sc.add("return tokenName;");
-		sc.add("}");
-		sc.add("tokenName = getTokenNames()[tokenType];");
-		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
-		sc.add("}");
-		sc.add("return tokenName;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
 	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Translates errors thrown by the parser into human readable messages.");
 		sc.add("public void reportError(final " + RECOGNITION_EXCEPTION + " e)  {");
@@ -428,13 +393,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addTerminateMethod(StringComposite sc) {
-		sc.add("public void terminate() {");
-		sc.add("terminateParsing = true;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addParseMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Implementation that calls {@link #doParse()} and handles the thrown RecognitionExceptions.");
 		sc.add("public " + iParseResultClassName + " parse() {");
@@ -467,20 +425,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addApplyMethod(StringComposite sc) {
-		sc.add("protected " + E_OBJECT + " apply(" + E_OBJECT + " target, " + LIST + "<" + E_OBJECT + "> dummyEObjects) {");
-		sc.add(E_OBJECT + " currentTarget = target;");
-		sc.add("for (" + E_OBJECT + " object : dummyEObjects) {");
-		sc.add("assert(object instanceof " + dummyEObjectClassName + ");");
-		sc.add(dummyEObjectClassName + " dummy = (" + dummyEObjectClassName + ") object;");
-		sc.add(E_OBJECT + " newEObject = dummy.applyTo(currentTarget);");
-		sc.add("currentTarget = newEObject;");
-		sc.add("}");
-		sc.add("return currentTarget;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addCompletedElementMethod(StringComposite sc) {
 		// TODO mseifert: instead of passing isContainment, we can call this method only
 		// for contained objects
@@ -492,20 +436,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
 		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetOptionsMethod(StringComposite sc) {
-		sc.add("protected " + MAP + "<?,?> getOptions() {");
-		sc.add("return options;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
-		sc.add("this.options = options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -682,48 +612,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 	
-	private void addCreateDynamicProxyMethod(ANTLRGrammarComposite sc) {
-		sc.addJavadoc("Creates a dynamic Java proxy that mimics the interface of the given class.");
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
-		sc.add("public <T> T createDynamicProxy(Class<T> clazz) {");
-		sc.add("Object proxy = " + PROXY + ".newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, " + E_OBJECT + ".class, " + INTERNAL_E_OBJECT + ".class}, new " + INVOCATION_HANDLER + "() {");
-		sc.addLineBreak();
-		sc.add("private " + E_OBJECT + " dummyObject = new " + E_OBJECT_IMPL + "() {};");
-		sc.addLineBreak();
-		sc.add("public Object invoke(Object object, " + METHOD + " method, Object[] args) throws Throwable {");
-		sc.addComment("search in dummyObject for the requested method");
-		sc.add(METHOD + "[] methodsInDummy = dummyObject.getClass().getMethods();");
-		sc.add("for (" + METHOD + " methodInDummy : methodsInDummy) {");
-		sc.add("boolean matches = true;");
-		sc.add("if (methodInDummy.getName().equals(method.getName())) {");
-		sc.add("Class<?>[] parameterTypes = method.getParameterTypes();");
-		sc.add("Class<?>[] parameterTypesInDummy = methodInDummy.getParameterTypes();");
-		sc.add("if (parameterTypes.length == parameterTypesInDummy.length) {");
-		sc.add("for (int p = 0; p < parameterTypes.length; p++) {");
-		sc.add("Class<?> parameterType = parameterTypes[p];");
-		sc.add("Class<?> parameterTypeInDummy = parameterTypesInDummy[p];");
-		sc.add("if (!parameterType.equals(parameterTypeInDummy)) {");
-		sc.add("matches = false;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("matches = false;");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("matches = false;");
-		sc.add("}");
-		sc.add("if (matches) {");
-		sc.add("return methodInDummy.invoke(dummyObject, args);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("});");
-		sc.add("return (T) proxy;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addFields(ANTLRGrammarComposite sc) {
 		sc.add("private " + iTokenResolverFactoryClassName
 				+ " tokenResolverFactory = new "
@@ -732,11 +620,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		sc.addJavadoc("the index of the last token that was handled by collectHiddenTokens()");
 		sc.add("private int lastPosition;");
-		sc.addLineBreak();
-		
-		sc.add("private " + tokenResolveResultClassName
-				+ " tokenResolveResult = new "
-				+ tokenResolveResultClassName + "();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -761,7 +644,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
-		sc.add("private " + MAP + "<?, ?> options;");
 		
 		sc.addJavadoc("A helper list to allow a lexer to pass errors to its parser");
 		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION
@@ -787,18 +669,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
-		
-		sc.addJavadoc(
-			"A flag to indicate that the parser should stop parsing as soon as possible. " +
-			"The flag is set to false before parsing starts. It can be set to true by invoking " +
-			"the terminateParsing() method from another thread. This feature is used, when documents " +
-			"are parsed in the background (i.e., while editing them). In order to cancel running " +
-			"parsers, the parsing process can be terminated. This is done whenever a document " +
-			"changes, because the previous content of the document is not valid anymore and parsing " +
-			"the old content is not necessary any longer."
-		);
-		sc.add("private boolean terminateParsing;");
-		sc.addLineBreak();
 		
 		sc.add("private int tokenIndexOfLastCompleteElement;");
 		sc.addLineBreak();

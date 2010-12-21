@@ -56,6 +56,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -67,6 +68,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 @SyntaxDependent
 public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private ConcreteSyntax concreteSyntax;
 	private String csSyntaxName;
@@ -111,7 +114,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         
         addGetSyntaxNameMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
-    	getContext().addGetMetaInformationMethod(sc);
+    	generatorUtil.addGetMetaInformationMethod(sc, getContext());
 
     	addResetLocationMapMethod(sc);
     	addAddURIFragmentMethod(sc);

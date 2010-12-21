@@ -33,7 +33,6 @@ import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IPackage;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.ISyntaxContext;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
@@ -196,14 +195,6 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
 		String prefix = "getReferenceResolverSwitch() == null ? null : ";
 		return prefix + "getReferenceResolverSwitch().get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
-	}
-
-	// TODO this does not belong here
-	public void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + " getMetaInformation() {");
-		sc.add("return new " + getQualifiedClassName(TextResourceArtifacts.META_INFORMATION) + "();");
-		sc.add("}");
-		sc.addLineBreak();
 	}
 
 	/**

@@ -436,6 +436,8 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addMethods(JavaComposite sc) {
+		GenerationContext context = getContext();
+
 		addCreateInstanceMethod(sc);
 		addGetResourceMethod(sc);
 		addParseMethod(sc);
@@ -454,15 +456,16 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		addDiscardTokensMethod(sc);
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, getContext());
+
+		generatorUtil.addAddMapEntryMethod(sc, context);
 		generatorUtil.addAddObjectToListMethod1(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
-		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
-		getContext().addGetMetaInformationMethod(sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
+		generatorUtil.addGetMetaInformationMethod(sc, context);
 		// this is the two parameter version
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
-		generatorUtil.addAddErrorToResourceMethod(sc, getContext());
+		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddParseErrorToResourceMethod(sc);
 		addSetLocalizationInfoMethod(sc);
 		addSetScanModeMethod(sc);

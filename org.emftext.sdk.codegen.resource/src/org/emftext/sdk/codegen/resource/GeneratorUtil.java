@@ -166,7 +166,7 @@ public class GeneratorUtil {
 	}
 
 	public void addGetFreshTokenResolveResultMethod(StringComposite sc, String qualifiedTokenResolveResultClassName) {
-		sc.add("private " + qualifiedTokenResolveResultClassName + " getFreshTokenResolveResult() {");
+		sc.add("protected " + qualifiedTokenResolveResultClassName + " getFreshTokenResolveResult() {");
         sc.add("tokenResolveResult.clear();");
         sc.add("return tokenResolveResult;");
         sc.add("}");
@@ -205,7 +205,7 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addGetReferenceResolverSwitchMethod(GenerationContext context, StringComposite sc) {
+	public void addGetReferenceResolverSwitchMethod(StringComposite sc, GenerationContext context) {
 		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
         sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") getMetaInformation().getReferenceResolverSwitch();");
@@ -390,6 +390,15 @@ public class GeneratorUtil {
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	public void addGetMetaInformationMethod(StringComposite sc, GenerationContext context) {
+		String metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		
+		sc.add("public " + metaInformationClassName + " getMetaInformation() {");
+		sc.add("return new " + metaInformationClassName + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
