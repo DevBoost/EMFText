@@ -368,10 +368,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
+	// TODO move this method to ANTLRParserBaseGenerator
 	private void addFormatTokenNameMethod(ANTLRGrammarComposite sc) {
 		sc.add("private String formatTokenName(int tokenType)  {");
 		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (tokenType == " + TOKEN + ".EOF) {");
+		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
 		sc.add("tokenName = \"EOF\";");
 		sc.add("} else {");
 		sc.add("if (tokenType < 0) {");

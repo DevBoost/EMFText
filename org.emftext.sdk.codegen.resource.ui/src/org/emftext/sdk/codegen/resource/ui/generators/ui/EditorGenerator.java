@@ -208,6 +208,9 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("break;");
 		sc.add("}");
 		sc.add("token = lexer.getNextToken();");
+		sc.add("if (token == null) {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add("tokenText = token.getText();");
 		sc.add("}");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");

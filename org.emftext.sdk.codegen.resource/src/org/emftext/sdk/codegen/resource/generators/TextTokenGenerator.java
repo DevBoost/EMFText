@@ -96,9 +96,10 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 	}
 
 	private void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
+		// TODO this is a copy from AntlrTokenHelperGenerator
 		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
 		sc.add("int tokenType = antlrToken.getType();");
-		sc.add("if (tokenType == " + TOKEN + ".EOF) {");
+		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (tokenType == " + TOKEN + ".UP) {");
