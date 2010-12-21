@@ -43,6 +43,7 @@ import org.emftext.sdk.codegen.resource.generators.DefaultResolverDelegateGenera
 import org.emftext.sdk.codegen.resource.generators.DefaultTokenResolverGenerator;
 import org.emftext.sdk.codegen.resource.generators.DelegatingResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.DummyEObjectGenerator;
+import org.emftext.sdk.codegen.resource.generators.EProblemSeverityGenerator;
 import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.resource.generators.ElementMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.FoldingInformationProviderGenerator;
@@ -54,7 +55,6 @@ import org.emftext.sdk.codegen.resource.generators.NewFileContentProviderGenerat
 import org.emftext.sdk.codegen.resource.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.PluginActivatorGenerator;
 import org.emftext.sdk.codegen.resource.generators.ProblemGenerator;
-import org.emftext.sdk.codegen.resource.generators.EProblemSeverityGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolverSwitchGenerator;
 import org.emftext.sdk.codegen.resource.generators.ResourceFactoryDelegatorGenerator;
@@ -131,7 +131,6 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.InputStreamProcess
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
-import org.emftext.sdk.codegen.resource.generators.mopp.BabylonSpecificationGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
@@ -313,7 +312,6 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ABSTRACT_INTERPRETER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "Abstract", "Interpreter", AbstractInterpreterGenerator.class, OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_GRAMMAR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "ANTLR grammar", "", ANTLRGrammarGenerator.class, OptionTypes.OVERRIDE_PARSER); 
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BABYLON_SPECIFICATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Babylon", BabylonSpecificationGenerator.class, OptionTypes.OVERRIDE_PARSER);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_ROOT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_MOPP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "", null, null);

@@ -157,7 +157,6 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		antlrParserClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
 		antlrScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
 		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
-		babylonSpecificationClassName = context.getQualifiedClassName(TextResourceArtifacts.BABYLON_SPECIFICATION);
 		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 		booleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.BOOLEAN_TERMINAL);
 		buildPropertiesClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILD_PROPERTIES);
