@@ -13,6 +13,7 @@
  ******************************************************************************/
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
+
 public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken {
 	
 	private final org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
@@ -44,8 +45,11 @@ public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.I
 	}
 	
 	public boolean canBeUsedForSyntaxHighlighting() {
-		int tokenType = antlrToken.getType();
-		if (tokenType == org.antlr.runtime3_3_0.Token.EOF) {
+		return canBeUsedForSyntaxHighlighting(antlrToken.getType());
+	}
+	
+	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
+		if (tokenType < 0 || tokenType == org.antlr.runtime3_3_0.Token.EOF) {
 			return false;
 		}
 		if (tokenType == org.antlr.runtime3_3_0.Token.UP) {

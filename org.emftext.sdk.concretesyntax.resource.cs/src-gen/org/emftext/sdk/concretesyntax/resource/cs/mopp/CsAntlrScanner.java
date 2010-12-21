@@ -27,6 +27,9 @@ public class CsAntlrScanner implements org.emftext.sdk.concretesyntax.resource.c
 			return null;
 		}
 		final org.antlr.runtime3_3_0.Token current = antlrLexer.nextToken();
+		if (current == null || current.getType() < 0) {
+			return null;
+		}
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken(current);
 		return result;
 	}

@@ -536,7 +536,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		String[] tokenNames = syntaxPlugin.getTokenNames();
 		
 		for (int i = 0; i < tokenNames.length; i++) {
-			if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
 				continue;
 			}
 			

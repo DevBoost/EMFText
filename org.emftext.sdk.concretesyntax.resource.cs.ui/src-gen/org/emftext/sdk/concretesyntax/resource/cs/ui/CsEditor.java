@@ -335,6 +335,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 						break;
 					}
 					token = lexer.getNextToken();
+					if (token == null) {
+						break;
+					}
 					tokenText = token.getText();
 				}
 			} catch (org.eclipse.jface.text.BadLocationException e) {

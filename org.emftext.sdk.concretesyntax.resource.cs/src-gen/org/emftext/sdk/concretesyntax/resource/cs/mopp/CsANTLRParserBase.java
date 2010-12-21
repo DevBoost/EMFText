@@ -33,6 +33,24 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser im
 	 */
 	protected java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> postParseCommands;
 	
+	private java.util.Map<?, ?> options;
+	
+	/**
+	 * A flag to indicate that the parser should stop parsing as soon as possible. The
+	 * flag is set to false before parsing starts. It can be set to true by invoking
+	 * the terminateParsing() method from another thread. This feature is used, when
+	 * documents are parsed in the background (i.e., while editing them). In order to
+	 * cancel running parsers, the parsing process can be terminated. This is done
+	 * whenever a document changes, because the previous content of the document is
+	 * not valid anymore and parsing the old content is not necessary any longer.
+	 */
+	protected boolean terminateParsing;
+	
+	/**
+	 * A reusable container for the result of resolving tokens.
+	 */
+	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult tokenResolveResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult();
+	
 	public CsANTLRParserBase(org.antlr.runtime3_3_0.TokenStream input) {
 		super(input);
 	}
@@ -127,6 +145,119 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser im
 				return true;
 			}
 		});
+	}
+	
+	protected String formatTokenName(int tokenType)  {
+		String tokenName = "<unknown>";
+		if (tokenType < 0 || tokenType == org.antlr.runtime3_3_0.Token.EOF) {
+			tokenName = "EOF";
+		} else {
+			if (tokenType < 0) {
+				return tokenName;
+			}
+			tokenName = getTokenNames()[tokenType];
+			tokenName = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.formatTokenName(tokenName);
+		}
+		return tokenName;
+	}
+	
+	protected java.util.Map<?,?> getOptions() {
+		return options;
+	}
+	
+	public void setOptions(java.util.Map<?,?> options) {
+		this.options = options;
+	}
+	
+	/**
+	 * Creates a dynamic Java proxy that mimics the interface of the given class.
+	 */
+	@SuppressWarnings("unchecked")	
+	public <T> T createDynamicProxy(Class<T> clazz) {
+		Object proxy = java.lang.reflect.Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, org.eclipse.emf.ecore.EObject.class, org.eclipse.emf.ecore.InternalEObject.class}, new java.lang.reflect.InvocationHandler() {
+			
+			private org.eclipse.emf.ecore.EObject dummyObject = new org.eclipse.emf.ecore.impl.EObjectImpl() {};
+			
+			public Object invoke(Object object, java.lang.reflect.Method method, Object[] args) throws Throwable {
+				// search in dummyObject for the requested method
+				java.lang.reflect.Method[] methodsInDummy = dummyObject.getClass().getMethods();
+				for (java.lang.reflect.Method methodInDummy : methodsInDummy) {
+					boolean matches = true;
+					if (methodInDummy.getName().equals(method.getName())) {
+						Class<?>[] parameterTypes = method.getParameterTypes();
+						Class<?>[] parameterTypesInDummy = methodInDummy.getParameterTypes();
+						if (parameterTypes.length == parameterTypesInDummy.length) {
+							for (int p = 0; p < parameterTypes.length; p++) {
+								Class<?> parameterType = parameterTypes[p];
+								Class<?> parameterTypeInDummy = parameterTypesInDummy[p];
+								if (!parameterType.equals(parameterTypeInDummy)) {
+									matches = false;
+								}
+							}
+						} else {
+							matches = false;
+						}
+					} else {
+						matches = false;
+					}
+					if (matches) {
+						return methodInDummy.invoke(dummyObject, args);
+					}
+				}
+				return null;
+			}
+		});
+		return (T) proxy;
+	}
+	
+	public void terminate() {
+		terminateParsing = true;
+	}
+	
+	protected void addMapEntry(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDummyEObject dummy) {
+		Object value = element.eGet(structuralFeature);
+		Object mapKey = dummy.getValueByName("key");
+		Object mapValue = dummy.getValueByName("value");
+		if (value instanceof org.eclipse.emf.common.util.EMap<?, ?>) {
+			org.eclipse.emf.common.util.EMap<Object, Object> valueMap = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.castToEMap(value);
+			if (mapKey != null && mapValue != null) {
+				valueMap.put(mapKey, mapValue);
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")	
+	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, int featureID, Object object) {
+		return ((java.util.List<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);
+	}
+	
+	@SuppressWarnings("unchecked")	
+	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EStructuralFeature feature, Object object) {
+		return ((java.util.List<Object>) container.eGet(feature)).add(object);
+	}
+	
+	protected org.eclipse.emf.ecore.EObject apply(org.eclipse.emf.ecore.EObject target, java.util.List<org.eclipse.emf.ecore.EObject> dummyEObjects) {
+		org.eclipse.emf.ecore.EObject currentTarget = target;
+		for (org.eclipse.emf.ecore.EObject object : dummyEObjects) {
+			assert(object instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDummyEObject);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDummyEObject dummy = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDummyEObject) object;
+			org.eclipse.emf.ecore.EObject newEObject = dummy.applyTo(currentTarget);
+			currentTarget = newEObject;
+		}
+		return currentTarget;
+	}
+	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult getFreshTokenResolveResult() {
+		tokenResolveResult.clear();
+		return tokenResolveResult;
+	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation getMetaInformation() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	}
+	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch getReferenceResolverSwitch() {
+		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) getMetaInformation().getReferenceResolverSwitch();
 	}
 	
 }

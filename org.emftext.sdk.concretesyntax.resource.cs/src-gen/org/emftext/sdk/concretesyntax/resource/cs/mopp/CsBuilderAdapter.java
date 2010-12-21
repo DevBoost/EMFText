@@ -38,7 +38,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 					return false;
 				}
 				org.eclipse.core.resources.IResource resource = delta.getResource();
-				if (resource instanceof org.eclipse.core.resources.IFile && "cs".equals(resource.getFileExtension())) {
+				if (resource instanceof org.eclipse.core.resources.IFile && resource.getName().endsWith("." + "cs")) {
 					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
 					if (builder.isBuildingNeeded(uri)) {
 						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl().getResource(uri, true);

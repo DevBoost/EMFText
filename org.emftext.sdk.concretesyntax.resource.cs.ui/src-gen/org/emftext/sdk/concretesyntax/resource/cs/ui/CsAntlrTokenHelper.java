@@ -21,11 +21,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsAntlrTokenHelper {
 	
 	public boolean canBeUsedForSyntaxColoring(org.antlr.runtime3_3_0.Token token) {
-		return canBeUsedForSyntaxColoring(token.getType());
+		return canBeUsedForSyntaxHighlighting(token.getType());
 	}
 	
-	public boolean canBeUsedForSyntaxColoring(int tokenType) {
-		if (tokenType == org.antlr.runtime3_3_0.Token.EOF) {
+	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
+		if (tokenType < 0 || tokenType == org.antlr.runtime3_3_0.Token.EOF) {
 			return false;
 		}
 		if (tokenType == org.antlr.runtime3_3_0.Token.UP) {
