@@ -222,12 +222,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 
 	private void addGetNameMethod(JavaComposite sc) {
 		sc.add("private String getName(ReferenceType element) {");
-		// TODO the special handling for proxy objects does not belong to the
+		// this special handling for proxy objects does not belong to the
 		// DefaultResolverDelegate, because the very same behavior should be
-		// present when custom reference resolver are used. therefore, this 
+		// present when custom reference resolvers are used. therefore, this 
 		// code has been added to the Printer2Generator, but remains here for 
 		// compatibility reasons.
 		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "element");
+		
 		sc.add("if (deresolvedReference != null) {");
 		sc.add("return deresolvedReference;");
 		sc.add("}");
