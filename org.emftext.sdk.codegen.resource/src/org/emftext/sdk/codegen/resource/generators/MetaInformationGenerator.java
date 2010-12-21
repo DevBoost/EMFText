@@ -86,12 +86,14 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		if (secondaryConcreteSyntaxName == null) {
 			sc.add(RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryClassName + "());");
 		} else {
-			// TODO if this is a secondary syntax, we need to register the ResourceFactory with
-			// the 'additional_extension_parser' extension point. Unfortunately, there is no 
-			// Registry for this available yet.
+			// if this is a secondary syntax, the ResourceFactory is registered 
+			// using the 'additional_extension_parser' extension point. 
+			// Unfortunately, we do not know the name of the corresponding 
+			// registry because it can be implemented in arbitrary ways in the 
+			// base resource plug-in.
 			sc.addComment(
-				"this is a secondary syntax. " +
-				"registering the resource factory is done via the 'additional_extension_parser' extension point."
+				"This is a secondary syntax. " +
+				"Registering the resource factory is done via the 'additional_extension_parser' extension point."
 			);
 		}
 		sc.add("}");
