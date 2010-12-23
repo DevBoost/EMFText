@@ -738,6 +738,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {");
 		sc.add(COMMON_TOKEN + " nextToken = (" + COMMON_TOKEN + ") tokenStream.get(i);");
 		//sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
+		sc.add("if (nextToken.getType() < 0) {");
+		sc.add("break;");
+		sc.add("}");
 		sc.add("if (nextToken.getChannel() == 99) {");
 		sc.addComment("hidden tokens do not reduce the follow set");
 		sc.add("} else {");
