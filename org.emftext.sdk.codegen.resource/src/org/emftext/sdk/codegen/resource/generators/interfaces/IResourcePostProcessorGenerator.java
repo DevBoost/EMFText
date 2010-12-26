@@ -40,6 +40,15 @@ public class IResourcePostProcessorGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("public void process(" + textResourceClassName + " resource);");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"This method is called to request the post processor to terminate. " +
+			"It is called from a different thread than the one that called process(). " +
+			"Terminating post processors is required when text resources are parsed in " +
+			"the background. " +
+			"Implementing this method is optional."
+		);
+		sc.add("public void terminate();");
+		sc.addLineBreak();
 		sc.add("}");
 	}
 }

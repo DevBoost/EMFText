@@ -569,19 +569,28 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.addLineBreak();
 	}
 
-	private void addRunPostProcessorsMethod(StringComposite sc) {
+	private void addRunPostProcessorsMethod(JavaComposite sc) {
     	sc.add("protected void runPostProcessors(" + MAP + "<?, ?> loadOptions) {");
+    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".ANALYSIS_PROBLEM);");
     	sc.add("if (loadOptions == null) {");
     	sc.add("return;");
     	sc.add("}");
-    	sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName + ".ANALYSIS_PROBLEM);");
-		sc.add("Object resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
+    	sc.add("if (terminateReload) {");
+    	sc.add("return;");
+    	sc.add("}");
+    	sc.addComment("first, run the generated post processor");
+    	sc.add("runPostProcessor(new " + resourcePostProcessorClassName + "());");
+    	sc.addComment("then, run post processors that are registered via the load options extension point");
+    	sc.add("Object resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
 		sc.add("if (resourcePostProcessorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");
     	sc.add("runPostProcessor(((" + iResourcePostProcessorProviderClassName + ") resourcePostProcessorProvider).getResourcePostProcessor());");
     	sc.add("} else if (resourcePostProcessorProvider instanceof " + COLLECTION + "<?>) {");
     	sc.add("java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;");
     	sc.add("for (Object processorProvider : resourcePostProcessorProviderCollection) {");
+    	sc.add("if (terminateReload) {");
+    	sc.add("return;");
+    	sc.add("}");
     	sc.add("if (processorProvider instanceof " + iResourcePostProcessorProviderClassName + ") {");
     	sc.add(iResourcePostProcessorProviderClassName + " csProcessorProvider = (" + iResourcePostProcessorProviderClassName + ") processorProvider;");
     	sc.add(iResourcePostProcessorClassName + " postProcessor = csProcessorProvider.getResourcePostProcessor();");
@@ -597,10 +606,12 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addRunPostProcessorMethod(StringComposite sc) {
     	sc.add("protected void runPostProcessor(" + iResourcePostProcessorClassName + " postProcessor) {");
     	sc.add("try {");
+    	sc.add("this.runningPostProcessor = postProcessor;");
     	sc.add("postProcessor.process(this);");
     	sc.add("} catch (Exception e) {");
     	sc.add(pluginActivatorClassName + ".logError(\"Exception while running a post-processor.\", e);");
     	sc.add("}");
+    	sc.add("this.runningPostProcessor = null;");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -805,7 +816,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + iReferenceResolverSwitchClassName + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
     	sc.add("private "+ iLocationMapClassName + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
@@ -816,6 +827,17 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         	sc.add("private String textPrintAfterLoading = null;");
         }
     	sc.add("private " + MAP + "<?, ?> loadOptions;");
+    	sc.addLineBreak();
+    	
+    	sc.addJavadoc(
+    		"If a post-processor is currently running, this field holds a reference to it. " +
+    		"This reference is used to terminate post-processing if needed."
+    	);
+    	sc.add("private " + iResourcePostProcessorClassName + " runningPostProcessor;");
+    	sc.addLineBreak();
+
+    	sc.addJavadoc("A flag to indicate whether reloading of the resource shall be cancelled.");
+    	sc.add("private boolean terminateReload = false;");
     	sc.addLineBreak();
 	}
 
@@ -886,10 +908,11 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addDoLoadMethod(StringComposite sc) {
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("this.loadOptions = options;");
+    	sc.add("this.terminateReload = false;");
 		sc.add("String encoding = null;");
         sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
         sc.add("Object inputStreamPreProcessorProvider = null;");
-        sc.add("if (options!=null) {");
+        sc.add("if (options != null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get(" + iOptionsClassName + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		sc.add("}");
 		sc.add("if (inputStreamPreProcessorProvider != null) {");
@@ -929,7 +952,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
         sc.add("runValidators(root);");
         sc.add("}");
         sc.add("}");
-        if(saveChangedResourcesOnly) {
+        if (saveChangedResourcesOnly) {
         	sc.add("textPrintAfterLoading = getPrint(options);");
         }
         sc.add("}");
@@ -954,6 +977,11 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void cancelReload() {");
         sc.add(iTextParserClassName + " parserCopy = parser;");
         sc.add("parserCopy.terminate();");
+    	sc.add("this.terminateReload = true;");
+        sc.add(iResourcePostProcessorClassName + " runningPostProcessorCopy = runningPostProcessor;");
+        sc.add("if (runningPostProcessorCopy != null) {");
+        sc.add("runningPostProcessorCopy.terminate();");
+        sc.add("}");
         sc.add("}");
         sc.addLineBreak();
 	}

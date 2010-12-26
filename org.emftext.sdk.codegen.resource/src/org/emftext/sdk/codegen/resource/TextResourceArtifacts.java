@@ -139,6 +139,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.MarkerHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.Printer2Generator;
 import org.emftext.sdk.codegen.resource.generators.mopp.PrinterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.QuickFixGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.ResourcePostProcessorGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.SyntaxElementDecoratorGenerator;
@@ -223,6 +224,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BUILDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Builder", BuilderGenerator.class, OptionTypes.OVERRIDE_BUILDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BUILDER_ADAPTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "BuilderAdapter", BuilderAdapterGenerator.class, OptionTypes.OVERRIDE_BUILDER_ADAPTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BUILDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Builder", IBuilderGenerator.class, OptionTypes.OVERRIDE_IBUILDER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_POST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ResourcePostProcessor", ResourcePostProcessorGenerator.class, OptionTypes.OVERRIDE_RESOURCE_POST_PROCESSOR);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultTokenResolver", DefaultTokenResolverGenerator.class, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_RESOLVER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", DefaultResolverDelegateGenerator.class, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 

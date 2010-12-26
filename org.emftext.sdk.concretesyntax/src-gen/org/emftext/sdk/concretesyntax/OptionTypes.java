@@ -1784,7 +1784,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EPROBLEM_SEVERITY(222, "OVERRIDE_EPROBLEM_SEVERITY", "overrideEProblemSeverity");
+	OVERRIDE_EPROBLEM_SEVERITY(222, "OVERRIDE_EPROBLEM_SEVERITY", "overrideEProblemSeverity"), /**
+	 * The '<em><b>OVERRIDE RESOURCE POST PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_POST_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RESOURCE_POST_PROCESSOR(223, "OVERRIDE_RESOURCE_POST_PROCESSOR", "overrideResourcePostProcessor");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5502,6 +5510,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_EPROBLEM_SEVERITY_VALUE = 222;
 /**
+	 * The '<em><b>OVERRIDE RESOURCE POST PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RESOURCE POST PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_POST_PROCESSOR
+	 * @model literal="overrideResourcePostProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RESOURCE_POST_PROCESSOR_VALUE = 223;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5728,6 +5750,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_EXPECTED_ENUMERATION_TERMINAL,
 			OVERRIDE_CHANGE_REFERENCE_QUICK_FIX,
 			OVERRIDE_EPROBLEM_SEVERITY,
+			OVERRIDE_RESOURCE_POST_PROCESSOR,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -5995,6 +6018,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_EXPECTED_ENUMERATION_TERMINAL_VALUE: return OVERRIDE_EXPECTED_ENUMERATION_TERMINAL;
 			case OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE: return OVERRIDE_CHANGE_REFERENCE_QUICK_FIX;
 			case OVERRIDE_EPROBLEM_SEVERITY_VALUE: return OVERRIDE_EPROBLEM_SEVERITY;
+			case OVERRIDE_RESOURCE_POST_PROCESSOR_VALUE: return OVERRIDE_RESOURCE_POST_PROCESSOR;
 		}
 		return null;
 	}
