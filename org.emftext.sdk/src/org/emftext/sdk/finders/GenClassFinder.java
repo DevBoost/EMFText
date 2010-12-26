@@ -149,6 +149,9 @@ public class GenClassFinder {
 	    for (GenClass genClass : allGenClasses) {
 			Collection<String> superClasses = new LinkedList<String>();
 			for (GenClass superClass : genClass.getAllBaseGenClasses()) {
+				if (superClass == null) { // fixes bug 1641
+					continue;
+				}
 				superClasses.add(genClassCache.getQualifiedInterfaceName(superClass));
 			}
 			genClassName2superNames.put(genClassCache.getQualifiedInterfaceName(genClass), superClasses);
