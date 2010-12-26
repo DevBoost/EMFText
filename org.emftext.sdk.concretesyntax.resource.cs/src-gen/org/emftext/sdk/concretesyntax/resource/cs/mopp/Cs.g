@@ -391,6 +391,9 @@ options {
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			org.antlr.runtime3_3_0.CommonToken nextToken = (org.antlr.runtime3_3_0.CommonToken) tokenStream.get(i);
+			if (nextToken.getType() < 0) {
+				break;
+			}
 			if (nextToken.getChannel() == 99) {
 				// hidden tokens do not reduce the follow set
 			} else {

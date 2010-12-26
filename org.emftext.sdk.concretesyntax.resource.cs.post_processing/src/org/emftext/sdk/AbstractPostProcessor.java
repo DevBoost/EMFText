@@ -47,6 +47,8 @@ public abstract class AbstractPostProcessor {
 	
 	private PostProcessingContext context;
 
+	private boolean terminate;
+
 	public final void process(PostProcessingContext context) {
 		this.context = context;
 		boolean hasErrors = getContext().hasErrors();
@@ -161,4 +163,12 @@ public abstract class AbstractPostProcessor {
 	}
 
 	public abstract void analyse(ConcreteSyntax syntax);
+
+	public void terminate() {
+		this.terminate = true;
+	}
+	
+	protected boolean doTerminate() {
+		return terminate;
+	}
 }

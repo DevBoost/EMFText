@@ -51,9 +51,11 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 
 	private final LinkedList<AbstractPostProcessor> postProcessors;
 	
+	private boolean terminate = false;
+	
 	public CompositePostProcessor() {
 		super();
-		// TODO implement terminating of the post processing
+
 		postProcessors = new LinkedList<AbstractPostProcessor>();
 		// first: check the generator model and make sure that there
 		// are no cycles in the imports
@@ -116,8 +118,18 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 	public void process(CsResource resource) {
 		PostProcessingContext context = new PostProcessingContext(resource);
 		for (AbstractPostProcessor postProcessor : postProcessors) {
+			if (terminate) {
+				return;
+			}
 			postProcessor.process(context);
 		}
 		context.addProblemsToResource();
+	}
+
+	public void terminate() {
+		this.terminate = true;
+		for (AbstractPostProcessor postProcessor : postProcessors) {
+			postProcessor.terminate();
+		}
 	}
 }

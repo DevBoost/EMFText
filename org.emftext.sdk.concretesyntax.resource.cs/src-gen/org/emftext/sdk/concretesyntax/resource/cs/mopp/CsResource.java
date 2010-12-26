@@ -141,6 +141,17 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 	private java.util.Map<?, ?> loadOptions;
 	
+	/**
+	 * If a post-processor is currently running, this field holds a reference to it.
+	 * This reference is used to terminate post-processing if needed.
+	 */
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessor;
+	
+	/**
+	 * A flag to indicate whether reloading of the resource shall be cancelled.
+	 */
+	private boolean terminateReload = false;
+	
 	public CsResource() {
 		super();
 		resetLocationMap();
@@ -153,10 +164,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		this.loadOptions = options;
+		this.terminateReload = false;
 		String encoding = null;
 		java.io.InputStream actualInputStream = inputStream;
 		Object inputStreamPreProcessorProvider = null;
-		if (options!=null) {
+		if (options != null) {
 			inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
 		}
 		if (inputStreamPreProcessorProvider != null) {
@@ -211,6 +223,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void cancelReload() {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parserCopy = parser;
 		parserCopy.terminate();
+		this.terminateReload = true;
+		org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessorCopy = runningPostProcessor;
+		if (runningPostProcessorCopy != null) {
+			runningPostProcessorCopy.terminate();
+		}
 	}
 	
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
@@ -384,10 +401,17 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
 		if (loadOptions == null) {
 			return;
 		}
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
+		if (terminateReload) {
+			return;
+		}
+		// first, run the generated post processor
+		runPostProcessor(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourcePostProcessor());
+		// then, run post processors that are registered via the load options extension
+		// point
 		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
@@ -395,6 +419,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} else if (resourcePostProcessorProvider instanceof java.util.Collection<?>) {
 				java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;
 				for (Object processorProvider : resourcePostProcessorProviderCollection) {
+					if (terminateReload) {
+						return;
+					}
 					if (processorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider csProcessorProvider = (org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) processorProvider;
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor = csProcessorProvider.getResourcePostProcessor();
@@ -407,10 +434,12 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	protected void runPostProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor) {
 		try {
+			this.runningPostProcessor = postProcessor;
 			postProcessor.process(this);
 		} catch (Exception e) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while running a post-processor.", e);
 		}
+		this.runningPostProcessor = null;
 	}
 	
 	public void load(java.util.Map<?, ?> options) throws java.io.IOException {

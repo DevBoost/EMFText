@@ -54,9 +54,9 @@ public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink 
 	}
 	
 	/**
-	 * Opens the resource in <code>linkTarget</code> with EMFText editor, if it
+	 * Opens the resource in <code>linkTarget</code> with the generated editor, if it
 	 * supports the file extension of this resource, and tries to jump to the
-	 * definition. Otherwise it tries to open with a default editor.
+	 * definition. Otherwise it tries to open the target with the default editor.
 	 */
 	public void open() {
 		if (linkTarget == null) {
