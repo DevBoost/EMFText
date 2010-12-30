@@ -1,4 +1,4 @@
-EMFText currently supports 219 code generation options. However, most of them (185) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 220 code generation options. However, most of them (186) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -22,7 +22,7 @@ A list of comma separated packages, which will be added as exports to the manife
 
 \noindent\texttt{antlrPluginID}
 \begin{myindentpar}{1cm}
-Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is \texttt{org.emftext.commons.antlr3\_2\_0}.
+Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is \texttt{org.emftext.commons.antlr3\_3\_0}.
 \end{myindentpar}
 
 \noindent\texttt{autofixSimpleLeftrecursion}
@@ -858,6 +858,11 @@ If set to \texttt{false}, the resource factory class will not be overridden. The
 \noindent\texttt{overrideResourceFactoryDelegator}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the ResourceFactoryDelegator class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideResourcePostProcessor}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the ResourcePostProcessor class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideResourceUtil}
