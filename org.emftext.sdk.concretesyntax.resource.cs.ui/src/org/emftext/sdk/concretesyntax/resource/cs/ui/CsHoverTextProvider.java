@@ -126,7 +126,7 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 			try {
 				value = eObject.eGet(attribute);
 			} catch (Exception e) {
-				// TODO: handle exception
+				// do nothing - if eGet() fails, we show 'null'.
 			}
 			if (value == null) {
 				value = "null";

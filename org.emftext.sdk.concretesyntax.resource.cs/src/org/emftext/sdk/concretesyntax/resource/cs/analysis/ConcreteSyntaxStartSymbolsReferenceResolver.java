@@ -33,27 +33,28 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		
 		ConcreteSyntax syntax = resolver.getConcreteSyntax(container);
-		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition(){
+		resolver.doResolve(identifier, syntax, resolveFuzzy, result, new CustomMatchCondition() {
 
 			@Override
 			public boolean matches(GenClass genClass) {
 				boolean isOperatorMetaClass = isCommonOperatorMetaClass(genClass.getName());
-				if(!getGenClassUtil().isNotConcrete(genClass)){
-					if(isOperatorMetaClass){
+				boolean isConcrete = getGenClassUtil().isConcrete(genClass);
+				if (isConcrete) {
+					if (isOperatorMetaClass) {
 						String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is concrete and a common operator metaclass, which is not allowed.";						
 						setMessage(message);
 						return false;
 					}
-					else{
+					else {
 						return true;						
 					}
 				}
 				else{
-					if(!isOperatorMetaClass){
-						String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+" and not an common operator metaclass.";						
+					if (!isOperatorMetaClass) {
+						String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+" and not a common operator metaclass.";						
 						setMessage(message);
 					}	
-					else{
+					else {
 						return true;
 					}
 				}
@@ -72,8 +73,8 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 	}
 
 	public String deResolve(GenClass element, ConcreteSyntax container, EReference reference) {
-		// TODO this does not correctly work when GenClasses are reference using the prefix notation
-		// (e.g., namespace.MyGenClass)
+		// TODO this does not correctly work when GenClasses are referenced 
+		// using the prefix notation (e.g., namespace.MyGenClass)
 		return resolver.deResolve(element, container, reference);
 	}
 

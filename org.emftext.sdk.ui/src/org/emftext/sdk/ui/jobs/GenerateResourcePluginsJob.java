@@ -26,8 +26,10 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
@@ -51,6 +53,9 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 
 		try {
 			final CsResource csResource = CsTextResourceUtil.getResource(csFile);
+			// remove all generation problems
+			CsMarkerHelper.unmark(csResource, CsEProblemType.BUILDER_ERROR);
+			// create problem collector
 			IProblemCollector problemCollector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {
 					addGenerationProblem(csResource, problem);
@@ -96,12 +101,14 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 		return Status.OK_STATUS;
 	}
 
-	private static void addGenerationProblem(CsResource csResource,
-			GenerationProblem problem) {
-		if (problem.getSeverity() == GenerationProblem.Severity.WARNING) {
-			csResource.addProblem(new CsAnalysisProblem(problem.getMessage(), CsAnalysisProblemType.GENERATION_WARNING), problem.getCause());
+	private static void addGenerationProblem(CsResource resource, GenerationProblem genProblem) {
+		CsEProblemSeverity severity;
+		if (genProblem.getSeverity() == GenerationProblem.Severity.WARNING) {
+			severity = CsEProblemSeverity.WARNING;
 		} else {
-			csResource.addProblem(new CsAnalysisProblem(problem.getMessage(), CsAnalysisProblemType.GENERATION_ERROR), problem.getCause());
+			severity = CsEProblemSeverity.ERROR;
 		}
+		CsProblem problem = new CsProblem(genProblem.getMessage(), CsEProblemType.BUILDER_ERROR, severity);
+		resource.addProblem(problem, genProblem.getCause());
 	}
 }

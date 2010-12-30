@@ -33,9 +33,6 @@ public enum CsAnalysisProblemType {
 	EMPTY_CS_STRING(CsEProblemSeverity.ERROR), 
 	EXPLICIT_SYNTAX_CHOICE(CsEProblemSeverity.WARNING), 
 	FEATURE_WITHOUT_SYNTAX(CsEProblemSeverity.WARNING),
-	// TODO mseifert: the generation problems are not really analysis problems
-	GENERATION_ERROR(CsEProblemSeverity.ERROR), 
-	GENERATION_WARNING(CsEProblemSeverity.WARNING),
 	INVALID_DEFAULT_TOKEN_NAME(CsEProblemSeverity.ERROR), 
 	INVALID_ESCAPE_IN_CS_STRING(CsEProblemSeverity.ERROR),
 	INVALID_GEN_MODEL(CsEProblemSeverity.ERROR),
