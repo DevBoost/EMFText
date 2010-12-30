@@ -237,7 +237,7 @@ public abstract class CodeGenerator {
         // Search back from the end for a non alphanumeric.  That marks the
         // beginning of the identifier
         for (int i = s.length() - 2; i >= 0; i--) {
-            // TODO: make this work for language-independent identifiers?
+            // todo: make this work for language-independent identifiers?
             if (!Character.isLetterOrDigit(s.charAt(i)) && s.charAt(i) != '_') {
                 // Found end of type part
                 return s.substring(i + 1);
@@ -273,7 +273,7 @@ public abstract class CodeGenerator {
         // Search back from the end for a non alphanumeric.  That marks the
         // beginning of the identifier
         for (int i = s.length() - 2; i >= 0; i--) {
-            // TODO: make this work for language-independent identifiers?
+            // todo: make this work for language-independent identifiers?
             if (!Character.isLetterOrDigit(s.charAt(i)) && s.charAt(i) != '_') {
                 // Found end of type part
                 return s.substring(0, i + 1);

@@ -28,7 +28,7 @@
 lexer grammar ActionTranslator;
 options {
   filter=true;  // try all non-fragment rules in order specified
-  // output=template;  TODO: can we make tokens return templates somehow?
+  // output=template;  todo: can we make tokens return templates somehow?
 }
 
 @header {
@@ -395,7 +395,7 @@ String refdRuleName=null;
 			st.setAttribute("attr", $y.text);
 		}
 		else if ( scope.isParameterScope ) {
-			// TODO: error!
+			// todo: error!
 		}
 		else {
 			st = template("ruleLabelRef");
@@ -480,7 +480,7 @@ ISOLATED_LEXER_RULE_REF
  * 				:	{$i, $j, $start, $stop, $st, $tree}
  *              ;
  *
- *	TODO: this might get the dynamic scope's elements too.!!!!!!!!!
+ *	todo: this might get the dynamic scope's elements too.!!!!!!!!!
  */
 SET_LOCAL_ATTR
 	:	'$' ID WS? '=' expr=ATTR_VALUE_EXPR ';' {enclosingRule!=null

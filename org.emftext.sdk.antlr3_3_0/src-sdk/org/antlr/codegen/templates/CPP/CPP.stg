@@ -127,7 +127,7 @@ class <name> : public antlr3::Lexer\<StreamType,TokenType,TokenBuilder> {
 	typedef antlr3::EarlyExitException\<position_type>       EarlyExitException;
 	typedef antlr3::NoViableAltException\<position_type>     NoViableAltException;
 <if(backtracking)>
-	// @TODO backtracking ruleMemo = new HashMap[<numRules>+1];<\n> <! index from 1..n !>
+	// @todo backtracking ruleMemo = new HashMap[<numRules>+1];<\n> <! index from 1..n !>
 <endif>
 
 public:
@@ -290,8 +290,8 @@ public:
 	}
 	<@end>
 
-	//@TODO public String[] getTokenNames() { return tokenNames; }
-	//@TODO public String getGrammarFileName() { return "<fileName>"; }
+	//@todo public String[] getTokenNames() { return tokenNames; }
+	//@todo public String getGrammarFileName() { return "<fileName>"; }
 	<members>
 
 	<rules; separator="\n\n">

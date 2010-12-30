@@ -2000,7 +2000,7 @@ rulePropertyRef_text(scope,attr) ::= <<
 rulePropertyRef_st(scope,attr) ::= "retval.st"
 
 /* hideous: find a way to cut down on the number of templates to support read/write access */
-/* TODO: also, which ones are valid to write to? ask Ter */
+/* todo: also, which ones are valid to write to? ask Ter */
 lexerRuleSetPropertyRef_text(scope,attr,expr) ::= "[state setText:<expr>];"
 lexerRuleSetPropertyRef_type(scope,attr,expr) ::= "_type"
 lexerRuleSetPropertyRef_line(scope,attr,expr) ::= "[state getTokenStartLine]"

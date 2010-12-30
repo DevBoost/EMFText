@@ -247,7 +247,7 @@ public abstract class Lexer extends BaseRecognizer implements TokenSource {
 	}
 
 	public void reportError(RecognitionException e) {
-		/** TODO: not thought about recovery in lexer yet.
+		/** todo: not thought about recovery in lexer yet.
 		 *
 		// if we've already reported an error and have not matched a token
 		// yet successfully, don't report any errors.

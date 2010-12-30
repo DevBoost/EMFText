@@ -637,7 +637,7 @@ public class DFA {
 		// number all special states from 0...n-1 instead of their usual numbers
 		boolean hasSemPred = false;
 
-		// TODO this code is very similar to canGenerateSwitch.  Refactor to share
+		// todo this code is very similar to canGenerateSwitch.  Refactor to share
 		for (int j = 0; j < s.getNumberOfTransitions(); j++) {
 			Transition edge = (Transition) s.transition(j);
 			Label label = edge.label;
@@ -935,7 +935,7 @@ public class DFA {
 	 *
 	 *  Also computes whether the DFA is cyclic.
 	 *
-     *  TODO: I call getUniquelyPredicatedAlt too much; cache predicted alt
+     *  todo: I call getUniquelyPredicatedAlt too much; cache predicted alt
      */
     protected boolean doesStateReachAcceptState(DFAState d) {
 		if ( d.isAcceptState() ) {

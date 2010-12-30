@@ -86,12 +86,12 @@ import antlr.Token;
  *  can I do errors properly?  For example, if the string template group file
  *  full of messages has an error, how could I print to anything but System.err?
  *
- *  TODO: how to map locale to a file encoding for the stringtemplate group file?
+ *  todo: how to map locale to a file encoding for the stringtemplate group file?
  *  StringTemplate knows how to pay attention to the default encoding so it
  *  should probably just work unless a GUI sets the local to some chinese
  *  variation but System.getProperty("file.encoding") is US.  Hmm...
  *
- *  TODO: get antlr.g etc.. parsing errors to come here.
+ *  todo: get antlr.g etc.. parsing errors to come here.
  */
 public class ErrorManager {
 	// TOOL ERRORS
@@ -224,7 +224,7 @@ public class ErrorManager {
 			add(MSG_LEXER_RULES_NOT_ALLOWED);
             add(MSG_WILDCARD_AS_ROOT);
             add(MSG_CIRCULAR_DEPENDENCY);
-            // TODO: ...
+            // todo: ...
 		}
 	};
 
@@ -238,7 +238,7 @@ public class ErrorManager {
 			add(MSG_INVALID_IMPORT);
 			add(MSG_AST_OP_WITH_NON_AST_OUTPUT_OPTION);
             add(MSG_CIRCULAR_DEPENDENCY);
-			// TODO: ...
+			// todo: ...
 		}
 	};
 
@@ -270,7 +270,7 @@ public class ErrorManager {
 		 */
 		public BitSet errorMsgIDs = new BitSet();
 		public BitSet warningMsgIDs = new BitSet();
-		// TODO: figure out how to do info messages. these do not have IDs...kr
+		// todo: figure out how to do info messages. these do not have IDs...kr
 		//public BitSet infoMsgIDs = new BitSet();
 	}
 
@@ -725,7 +725,7 @@ public class ErrorManager {
 	}
 
 	/*
-	// TODO: we can remove I think.  All detected now with cycles check.
+	// todo: we can remove I think.  All detected now with cycles check.
 	public static void leftRecursion(DecisionProbe probe,
 									 int alt,
 									 Collection targetRules,

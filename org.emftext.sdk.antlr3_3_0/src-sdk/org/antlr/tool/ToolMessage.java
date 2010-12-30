@@ -37,7 +37,7 @@ import org.antlr.stringtemplate.StringTemplate;
  *  Allow a generic object to be passed in and the string template can deal
  *  with just printing it or pulling a property out of it.
  *
- *  TODO what to do with exceptions?  Want stack trace for internal errors?
+ *  todo what to do with exceptions?  Want stack trace for internal errors?
  */
 public class ToolMessage extends Message {
 

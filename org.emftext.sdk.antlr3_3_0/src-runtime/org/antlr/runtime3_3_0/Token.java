@@ -38,7 +38,7 @@ public interface Token {
 	public static final int MIN_TOKEN_TYPE = UP+1;
 
     public static final int EOF = CharStream.EOF;
-    // TODO: remove once we go ANTLR v3.3
+    // todo: remove once we go ANTLR v3.3
     public static final Token EOF_TOKEN = new CommonToken(EOF);
 
 	public static final int INVALID_TOKEN_TYPE = 0;

@@ -421,7 +421,7 @@ rewriteElement(e) ::= <<
 
 /** Gen ID or ID[args] */
 rewriteTokenRef(token,elementIndex,hetero,args) ::= <<
- // TODO: args: <args; separator=", ">
+ // todo: args: <args; separator=", ">
 [treeAdaptor addChild:<createRewriteNodeFromElement(...)> toTree:root_<treeLevel>];<\n>
 >>
 

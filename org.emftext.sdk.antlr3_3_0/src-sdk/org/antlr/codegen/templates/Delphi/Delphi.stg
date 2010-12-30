@@ -189,7 +189,7 @@ end;
 constructor T<grammar.recognizerName>.Create(const AInput: ICharStream; const AState: IRecognizerSharedState<grammar.delegators:{g|; const A<g:delegateName()>: IBaseRecognizer{<g.recognizerName>}}>);
 begin
   inherited Create(AInput, AState);
-  InitializeCyclicDFAs; { TODO: Necessary in Delphi??? Not removed yet. }
+  InitializeCyclicDFAs; { todo: Necessary in Delphi??? Not removed yet. }
   <if(memoize)>
   <if(grammar.grammarIsRoot)>
   State.RuleMemoCount := <numRules>+1;<\n> <! index from 1..n !>

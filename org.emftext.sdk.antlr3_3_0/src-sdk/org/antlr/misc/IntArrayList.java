@@ -31,7 +31,7 @@ import java.util.AbstractList;
 
 /** An ArrayList based upon int members.  Not quite a real implementation of a
  *  modifiable list as I don't do, for example, add(index,element).
- *  TODO: unused?
+ *  todo: unused?
  */
 public class IntArrayList extends AbstractList implements Cloneable {
 	private static final int DEFAULT_CAPACITY = 10;

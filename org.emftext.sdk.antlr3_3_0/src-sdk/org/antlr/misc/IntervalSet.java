@@ -386,7 +386,7 @@ public class IntervalSet implements IntSet {
     }
 	 */
 
-    /** TODO: implement this! */
+    /** todo: implement this! */
 	public IntSet or(IntSet a) {
 		IntervalSet o = new IntervalSet();
 		o.addAll(this);

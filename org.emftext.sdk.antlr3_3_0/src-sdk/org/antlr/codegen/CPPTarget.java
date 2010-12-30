@@ -126,7 +126,7 @@ public class CPPTarget extends Target {
 		return prefix+escapeString(buf.toString())+"\"";
 	}
 	/** Character constants get truncated to this value.
-	 * TODO: This should be derived from the charVocabulary. Depending on it
+	 * todo: This should be derived from the charVocabulary. Depending on it
 	 * being 255 or 0xFFFF the templates should generate normal character
 	 * constants or multibyte ones.
 	 */

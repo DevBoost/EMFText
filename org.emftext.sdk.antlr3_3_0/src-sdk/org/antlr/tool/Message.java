@@ -89,7 +89,7 @@ public abstract class Message {
 	}
 
 	/** Return a new template instance for the location part of a Message.
-	 *  TODO: Is this really necessary? -Kay
+	 *  todo: Is this really necessary? -Kay
 	 */
 	public StringTemplate getLocationTemplate() {
 		return locationST.getInstanceOf();

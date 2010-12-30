@@ -66,7 +66,7 @@ public class GrammarReport {
 		int numTokens;
 		long DFACreationWallClockTimeInMS;
 		int numberOfSemanticPredicates;
-		int numberOfManualLookaheadOptions; // TODO: verify
+		int numberOfManualLookaheadOptions; // todo: verify
 		int numNonLLStarDecisions;
 		int numNondeterministicDecisions;
 		int numNondeterministicDecisionNumbersResolvedWithPredicates;

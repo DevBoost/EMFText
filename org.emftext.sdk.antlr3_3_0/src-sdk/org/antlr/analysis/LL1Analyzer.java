@@ -283,7 +283,7 @@ public class LL1Analyzer {
 	 *  the rule enclosing s?  This accounts for most predicate situations
 	 *  and lets ANTLR do a simple LL(1)+pred computation.
 	 *
-	 *  TODO: what about gated vs regular preds?
+	 *  todo: what about gated vs regular preds?
 	 */
 	public boolean detectConfoundingPredicates(NFAState s) {
 		lookBusy.clear();

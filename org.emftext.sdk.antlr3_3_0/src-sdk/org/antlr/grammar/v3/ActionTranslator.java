@@ -752,7 +752,7 @@ public class ActionTranslator extends Lexer {
               			st.setAttribute("attr", (y!=null?y.getText():null));
               		}
               		else if ( scope.isParameterScope ) {
-              			// TODO: error!
+              			// todo: error!
               		}
               		else {
               			st = template("ruleLabelRef");

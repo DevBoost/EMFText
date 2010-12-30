@@ -2165,7 +2165,7 @@ public class PythonCodeGenerator extends CodeGenerator {
       // Search back from the end for a non alphanumeric.  That marks the
       // beginning of the identifier
       for (int j = s.length() - 1; j >= 0; j--) {
-        // TODO: make this work for language-independent identifiers?
+        // todo: make this work for language-independent identifiers?
         if (!Character.isLetterOrDigit(s.charAt(j)) &&
           s.charAt(j) != '_') {
           // Found end of type part

@@ -402,7 +402,7 @@ public class RemoteDebugEventSocketListener implements Runnable {
 			listener.nilNode(node);
 		}
 		else if ( elements[0].equals("errorNode") ) {
-			// TODO: do we need a special tree here?
+			// todo: do we need a special tree here?
 			int ID = Integer.parseInt(elements[1]);
 			int type = Integer.parseInt(elements[2]);
 			String text = elements[3];

@@ -405,7 +405,7 @@ StateCluster down=null, up=null;
 		   g=element
 		   {
            down = factory.build_Atom(Label.DOWN, el);
-           // TODO set following states for imaginary nodes?
+           // todo set following states for imaginary nodes?
            //el.followingNFAState = down.right;
 		   g = factory.build_AB(g,down);
 		   }

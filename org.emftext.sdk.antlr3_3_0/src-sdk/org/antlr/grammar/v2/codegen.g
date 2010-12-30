@@ -591,7 +591,7 @@ finallyClause[StringTemplate ruleST]
 alternative returns [StringTemplate code=templates.getInstanceOf("alt")]
 {
 /*
-// TODO: can we use Rule.altsWithRewrites???
+// todo: can we use Rule.altsWithRewrites???
 if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL ) {
 	GrammarAST aRewriteNode = #alternative.findFirstType(REWRITE);
 	if ( grammar.buildAST() &&
@@ -725,7 +725,7 @@ returns [StringTemplate code=null]
         {
         int ttype=0;
         if ( grammar.type==Grammar.LEXER ) {
-            // TODO: error!
+            // todo: error!
         }
         else {
             ttype = grammar.getTokenType(assign_s.getText());

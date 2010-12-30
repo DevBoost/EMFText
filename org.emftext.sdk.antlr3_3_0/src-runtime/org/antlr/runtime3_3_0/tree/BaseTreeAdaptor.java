@@ -146,8 +146,8 @@ public abstract class BaseTreeAdaptor implements TreeAdaptor {
             int nc = newRootTree.getChildCount();
             if ( nc==1 ) newRootTree = (Tree)newRootTree.getChild(0);
             else if ( nc >1 ) {
-				// TODO: make tree run time exceptions hierarchy
-				throw new RuntimeException("more than one node as root (TODO: make exception hierarchy)");
+				// todo: make tree run time exceptions hierarchy
+				throw new RuntimeException("more than one node as root (todo: make exception hierarchy)");
 			}
         }
 		// add oldRoot to newRoot; addChild takes care of case where oldRoot

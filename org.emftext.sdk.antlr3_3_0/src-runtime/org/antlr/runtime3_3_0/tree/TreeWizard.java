@@ -55,7 +55,7 @@ public class TreeWizard {
 	protected Map tokenNameToTypeMap;
 
 	public interface ContextVisitor {
-		// TODO: should this be called visit or something else?
+		// todo: should this be called visit or something else?
 		public void visit(Object t, Object parent, int childIndex, Map labels);
 	}
 
@@ -98,7 +98,7 @@ public class TreeWizard {
 		}
 	}
 
-	// TODO: build indexes for the wizard
+	// todo: build indexes for the wizard
 
 	/** During fillBuffer(), we can make a reverse index from a set
 	 *  of token types of interest to the list of indexes into the
@@ -169,7 +169,7 @@ public class TreeWizard {
 	 *  more efficient.  Returns Map<Integer, List> where the List is
 	 *  of your AST node type.  The Integer is the token type of the node.
 	 *
-	 *  TODO: save this index so that find and visit are faster
+	 *  todo: save this index so that find and visit are faster
 	 */
 	public Map index(Object t) {
 		Map m = new HashMap();
@@ -305,7 +305,7 @@ public class TreeWizard {
 	 *  If a node specifies a text arg in pattern, then that must match
 	 *  for that node in t.
 	 *
-	 *  TODO: what's a better way to indicate bad pattern? Exceptions are a hassle 
+	 *  todo: what's a better way to indicate bad pattern? Exceptions are a hassle 
 	 */
 	public boolean parse(Object t, String pattern, Map labels) {
 		TreePatternLexer tokenizer = new TreePatternLexer(pattern);
@@ -385,8 +385,8 @@ public class TreeWizard {
 	/** Compare t1 and t2; return true if token types/text, structure match exactly.
 	 *  The trees are examined in their entirety so that (A B) does not match
 	 *  (A B C) nor (A (B C)). 
-	 // TODO: allow them to pass in a comparator
-	 *  TODO: have a version that is nonstatic so it can use instance adaptor
+	 // todo: allow them to pass in a comparator
+	 *  todo: have a version that is nonstatic so it can use instance adaptor
 	 *
 	 *  I cannot rely on the tree node's equals() implementation as I make
 	 *  no constraints at all on the node types nor interface etc... 
@@ -430,7 +430,7 @@ public class TreeWizard {
 		return true;
 	}
 
-	// TODO: next stuff taken from CommonTreeNodeStream
+	// todo: next stuff taken from CommonTreeNodeStream
 	
 		/** Given a node, add this to the reverse index tokenTypeToStreamIndexesMap.
 	 *  You can override this method to alter how indexing occurs.  The

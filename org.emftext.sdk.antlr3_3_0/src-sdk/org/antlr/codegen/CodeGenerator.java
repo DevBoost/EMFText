@@ -355,7 +355,7 @@ public class CodeGenerator {
                                grammar.composite.getRootGrammar().atLeastOneBacktrackOption ||
                                filterMode;
 
-        // TODO: move this down further because generating the recognizer
+        // todo: move this down further because generating the recognizer
 		// alters the model with info on who uses predefined properties etc...
 		// The actions here might refer to something.
 
@@ -607,7 +607,7 @@ public class CodeGenerator {
 			follow = new LookaheadSet();
 		}
 		if ( follow.member(Label.EOF) ) {
-			// TODO: can we just remove?  Seems needed here:
+			// todo: can we just remove?  Seems needed here:
 			// compilation_unit : global_statement* EOF
 			// Actually i guess we resync to EOF regardless
 			follow.remove(Label.EOF);

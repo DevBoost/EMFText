@@ -234,7 +234,7 @@ returns [ BitSet b ]
 	BitSet tmpSet = null;
 }
 	:
-		// TODO: generate a bit set
+		// todo: generate a bit set
 		b = setBlockElement
 		(
 			OR

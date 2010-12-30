@@ -242,7 +242,7 @@ public class NFAToDFAConverter {
 		// When a loop is nongreedy and we find an EOT transition, the DFA
 		// state should become an accept state, predicting exit of loop.  It's
 		// just reversing the resolution of ambiguity.
-		// TODO: should this be done in the resolveAmbig method?
+		// todo: should this be done in the resolveAmbig method?
 		Label EOTLabel = new Label(Label.EOT);
 		boolean containsEOT = labels!=null && labels.contains(EOTLabel);
 		if ( !dfa.isGreedy() && containsEOT ) {
@@ -328,8 +328,8 @@ public class NFAToDFAConverter {
 		//System.out.println("DFA after reach / closures:\n"+dfa);
 		if ( !d.isResolvedWithPredicates() && numberOfEdgesEmanating==0 ) {
 			//System.out.println("dangling DFA state "+d+"\nAfter reach / closures:\n"+dfa);
-			// TODO: can fixed lookahead hit a dangling state case?
-			// TODO: yes, with left recursion
+			// todo: can fixed lookahead hit a dangling state case?
+			// todo: yes, with left recursion
 			//System.err.println("dangling state alts: "+d.getAltSet());
 			dfa.probe.reportDanglingState(d);
 			// turn off all configurations except for those associated with
@@ -916,7 +916,7 @@ public class NFAToDFAConverter {
 	 *  be converted to an accept state predicting the c.alt.  Blast
 	 *  d's current configuration set and make it just have config c.
 	 *
-	 *  TODO: can there be more than one config with EOT transition?
+	 *  todo: can there be more than one config with EOT transition?
 	 *  That would mean that two NFA configurations could reach the
 	 *  end of the token with possibly different predicted alts.
 	 *  Seems like that would be rare or impossible.  Perhaps convert
@@ -1036,7 +1036,7 @@ public class NFAToDFAConverter {
 
 	/** If > 1 NFA configurations within this DFA state have identical
 	 *  NFA state and context, but differ in their predicted
-	 *  TODO update for new context suffix stuff 3-9-2005
+	 *  todo update for new context suffix stuff 3-9-2005
 	 *  alternative then a single input sequence predicts multiple alts.
 	 *  The NFA decision is therefore syntactically indistinguishable
 	 *  from the left edge upon at least one input sequence.  We may
@@ -1218,9 +1218,9 @@ public class NFAToDFAConverter {
 		// if we're not a conflicting lexer rule and we didn't abort, report ambig
 		// We should get a report for abort so don't give another
 		if ( !d.abortedDueToRecursionOverflow && !conflictingLexerRules ) {
-			// TODO: with k=x option set, this is called twice for same state
+			// todo: with k=x option set, this is called twice for same state
 			dfa.probe.reportNondeterminism(d, nondeterministicAlts);
-			// TODO: how to turn off when it's only the FOLLOW that is
+			// todo: how to turn off when it's only the FOLLOW that is
 			// conflicting.  This used to shut off even alts i,j < n
 			// conflict warnings. :(
 		}
@@ -1425,7 +1425,7 @@ public class NFAToDFAConverter {
 			altToPredMap.put(Utils.integer(nakedAlt), nakedAltPred);
 			// set all config with alt=nakedAlt to have the computed predicate
 			int numConfigs = d.nfaConfigurations.size();
-			for (int i = 0; i < numConfigs; i++) { // TODO: I don't think we need to do this; altToPredMap has it
+			for (int i = 0; i < numConfigs; i++) { // todo: I don't think we need to do this; altToPredMap has it
 			 //7/27/10  theok, I removed it and it still seems to work with everything; leave in anyway just in case
 				NFAConfiguration configuration = (NFAConfiguration)d.nfaConfigurations.get(i);
 				if ( configuration.alt == nakedAlt ) {

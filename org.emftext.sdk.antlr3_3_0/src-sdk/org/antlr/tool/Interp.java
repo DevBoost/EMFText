@@ -75,7 +75,7 @@ public class Interp {
 		String startRule = args[2];
 		String inputFileName = args[3];
 
-		// TODO: using wrong constructor now
+		// todo: using wrong constructor now
 		Tool tool = new Tool();
 		CompositeGrammar composite = new CompositeGrammar();
 		Grammar parser = new Grammar(tool, grammarFileName, composite);

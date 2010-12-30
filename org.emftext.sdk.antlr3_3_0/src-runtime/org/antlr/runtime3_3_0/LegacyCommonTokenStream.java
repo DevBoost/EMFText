@@ -39,7 +39,7 @@ import java.util.Set;
  *  see these tokens and cannot change the filter channel number during the
  *  parse).
  *
- *  TODO: how to access the full token stream?  How to track all tokens matched per rule?
+ *  todo: how to access the full token stream?  How to track all tokens matched per rule?
  */
 public class LegacyCommonTokenStream implements TokenStream {
     protected TokenSource tokenSource;

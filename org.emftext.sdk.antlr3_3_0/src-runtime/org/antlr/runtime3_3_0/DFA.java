@@ -106,7 +106,7 @@ public class DFA {
 							if ( debug ) System.err.println("EOT transition");
 							s = eot[s];
 							input.consume();
-							// TODO: I had this as return accept[eot[s]]
+							// todo: I had this as return accept[eot[s]]
 							// which assumed here that the EOT edge always
 							// went to an accept...faster to do this, but
 							// what about predicated edges coming from EOT

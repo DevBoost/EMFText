@@ -86,7 +86,7 @@ public class Label implements Comparable, Cloneable {
      */
     public static final int MIN_ATOM_VALUE = EOT;
 
-    // TODO: is 0 a valid unicode char? max is FFFF -1, right?
+    // todo: is 0 a valid unicode char? max is FFFF -1, right?
     public static final int MIN_CHAR_VALUE = '\u0000';
     public static final int MAX_CHAR_VALUE = '\uFFFF';
 
@@ -118,7 +118,7 @@ public class Label implements Comparable, Cloneable {
     protected int label;
 
     /** A set of token types or character codes if label==SET */
-	// TODO: try IntervalSet for everything
+	// todo: try IntervalSet for everything
     protected IntSet labelSet;
 
     public Label(int label) {
@@ -272,7 +272,7 @@ public class Label implements Comparable, Cloneable {
 		}
 	}
 
-	// TODO: do we care about comparing set {A} with atom A? Doesn't now.
+	// todo: do we care about comparing set {A} with atom A? Doesn't now.
 	public boolean equals(Object o) {
 		if ( o==null ) {
 			return false;

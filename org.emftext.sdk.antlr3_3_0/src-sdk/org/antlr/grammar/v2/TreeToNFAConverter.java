@@ -2049,7 +2049,7 @@ public TreeToNFAConverter() {
 			_t = _retTree;
 			
 			down = factory.build_Atom(Label.DOWN, el);
-			// TODO set following states for imaginary nodes?
+			// todo set following states for imaginary nodes?
 			//el.followingNFAState = down.right;
 					   g = factory.build_AB(g,down);
 					

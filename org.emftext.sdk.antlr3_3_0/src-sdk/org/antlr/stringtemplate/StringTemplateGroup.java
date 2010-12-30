@@ -439,7 +439,7 @@ public class StringTemplateGroup {
 						   " with native group "+enclosingInstance.getNativeGroup().getName());
 						   */
 		StringTemplate st = null;
-		// TODO: seems like this should go into lookupTemplate
+		// todo: seems like this should go into lookupTemplate
 		if ( name.startsWith("super.") ) {
 			// for super.foo() refs, ensure that we look at the native
 			// group for the embedded instance not the current evaluation

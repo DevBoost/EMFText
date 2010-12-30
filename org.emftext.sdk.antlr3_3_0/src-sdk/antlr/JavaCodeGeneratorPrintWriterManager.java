@@ -8,7 +8,7 @@ import java.util.Map;
  * Defines a strategy that can be used to manage the printwriter
  *   being used to write JavaCodeGenerator output
  *   
- * TODO generalize so all code gens could use?
+ * todo generalize so all code gens could use?
  */
 public interface JavaCodeGeneratorPrintWriterManager {
     public PrintWriter setupOutput(Tool tool, Grammar grammar) throws IOException;

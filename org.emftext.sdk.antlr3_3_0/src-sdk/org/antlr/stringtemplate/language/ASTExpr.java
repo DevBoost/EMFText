@@ -444,7 +444,7 @@ public class ASTExpr extends Expr {
 
         // Special case: if it's a template, pull property from
         // it's attribute table.
-        // TODO: TJP just asked himself why we can't do inherited attr here?
+        // todo: TJP just asked himself why we can't do inherited attr here?
         else if ( c==StringTemplate.class ) {
             Map attributes = ((StringTemplate)o).getAttributes();
             if ( attributes!=null ) {

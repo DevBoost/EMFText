@@ -7,7 +7,7 @@ package antlr;
  * $Id:$
  */
 
-/** TODO: strip comments from javadoc entries
+/** todo: strip comments from javadoc entries
  */
 
 import java.io.IOException;

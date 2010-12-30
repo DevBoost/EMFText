@@ -87,7 +87,7 @@ public class PythonTarget extends Target {
     }
 
     public List postProcessAction(List chunks, antlr.Token actionToken) {
-		/* TODO
+		/* todo
 		   - check for and report TAB usage
 		 */
 

@@ -46,7 +46,7 @@ import org.antlr.misc.IntervalSet;
 /** Routines to construct StateClusters from EBNF grammar constructs.
  *  No optimization is done to remove unnecessary epsilon edges.
  *
- *  TODO: add an optimization that reduces number of states and transitions
+ *  todo: add an optimization that reduces number of states and transitions
  *  will help with speed of conversion and make it easier to view NFA.  For
  *  example, o-A->o-->o-B->o should be o-A->o-B->o
  */
@@ -187,7 +187,7 @@ public class NFAFactory {
 	/** From char 'c' build StateCluster o-intValue(c)->o
 	 *  can include unicode spec likes '\u0024' later.  Accepts
 	 *  actual unicode 16-bit now, of course, by default.
-     *  TODO not supplemental char clean!
+     *  todo not supplemental char clean!
 	 */
 	public StateCluster build_CharRange(String a, String b) {
 		int from = Grammar.getCharValueFromGrammarCharLiteral(a);
@@ -235,7 +235,7 @@ public class NFAFactory {
      *  the rule reference, but i'm not doing this yet as I'm not sure
      *  it would help much in the NFA->DFA construction.
      *
-     *  TODO add to codegen: collapse alt blks that are sets into single matchSet
+     *  todo add to codegen: collapse alt blks that are sets into single matchSet
      */
     public StateCluster build_RuleRef(Rule refDef, NFAState ruleStart) {
         //System.out.println("building ref to rule "+nfa.grammar.name+"."+refDef.name);
@@ -642,7 +642,7 @@ public class NFAFactory {
         NFAState firstAlt = null; // the start state for the "rule"
         NFAState prevAlternative = null;
         Iterator iter = nfa.grammar.getRules().iterator();
-		// TODO: add a single decision node/state for good description
+		// todo: add a single decision node/state for good description
         while (iter.hasNext()) {
 			Rule r = (Rule) iter.next();
             String ruleName = r.name;

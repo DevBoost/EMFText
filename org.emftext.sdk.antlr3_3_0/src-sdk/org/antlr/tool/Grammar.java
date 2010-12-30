@@ -178,7 +178,7 @@ public class Grammar {
 
 				map(TREE_PARSER, TREE_PARSER);
 
-				// TODO: allow COMBINED
+				// todo: allow COMBINED
 				// map(COMBINED, COMBINED);
 			}
 		};
@@ -350,7 +350,7 @@ public class Grammar {
 	 */
 	public String label;
 
-	/** TODO: hook this to the charVocabulary option */
+	/** todo: hook this to the charVocabulary option */
 	protected IntSet charVocabulary = null;
 
 	/** For ANTLRWorks, we want to be able to map a line:col to a specific
@@ -1210,7 +1210,7 @@ outer:
 		}
 		//System.out.println("edge map: "+edgeMap);
 
-		// TODO: how do we know we covered stuff?
+		// todo: how do we know we covered stuff?
 
 		// build an LL(1) optimized DFA with edge for each altLook[i]
 		DFA lookaheadDFA = new LL1DFA(decision, decisionStartState, edgeMap);
@@ -1308,7 +1308,7 @@ outer:
 			// set k=1 option and try again.
 			// First, clean up tracking stuff
 			decisionsWhoseDFAsUsesSynPreds.remove(lookaheadDFA);
-			// TODO: clean up synPredNamesUsedInDFA also (harder)
+			// todo: clean up synPredNamesUsedInDFA also (harder)
 			d.blockAST.setBlockOption(this, "k", Utils.integer(1));
 			if ( composite.watchNFAConversion ) {
 				System.out.print("trying decision "+decision+

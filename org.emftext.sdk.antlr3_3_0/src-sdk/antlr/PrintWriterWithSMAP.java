@@ -12,7 +12,7 @@ import java.util.Map;
 
 // assumes one source file for now -- may need to change if ANTLR allows
 //   file inclusion in the future
-// TODO optimize the output using line ranges for input/output files
+// todo optimize the output using line ranges for input/output files
 //      currently this writes one mapping per line
 public class PrintWriterWithSMAP extends PrintWriter {
 	private int currentOutputLine = 1;

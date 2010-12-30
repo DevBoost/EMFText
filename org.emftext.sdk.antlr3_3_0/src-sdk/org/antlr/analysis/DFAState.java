@@ -528,7 +528,7 @@ public class DFAState extends State {
 	 *  rule NFA states; they will be resolved in favor of the first rule.
      */
     protected Set<Integer> getConflictingAlts() {
-		// TODO this is called multiple times: cache result?
+		// todo this is called multiple times: cache result?
 		//System.out.println("getNondetAlts for DFA state "+stateNumber);
  		Set<Integer> nondeterministicAlts = new HashSet<Integer>();
 
@@ -703,7 +703,7 @@ public class DFAState extends State {
 	 *  can't test p.  You can get to the same place with and w/o the context.
 	 *  Therefore, it is never ok to test p in this situation. 
 	 *
-	 *  TODO: cache this as it's called a lot; or at least set bit if >1 present in state
+	 *  todo: cache this as it's called a lot; or at least set bit if >1 present in state
 	 */
 	public SemanticContext getGatedPredicatesInNFAConfigurations() {
 		SemanticContext unionOfPredicatesFromAllAlts = null;

@@ -67,8 +67,8 @@ public class GrammarSyntaxMessage extends Message {
 			line = offendingToken.getLine();
 			column = offendingToken.getColumn();
 		}
-		// TODO: actually set the right Grammar instance to get the filename
-		// TODO: have to update all v2 grammar files for this. or use errormanager and tool to get the current grammar
+		// todo: actually set the right Grammar instance to get the filename
+		// todo: have to update all v2 grammar files for this. or use errormanager and tool to get the current grammar
 		if (g != null) {
 			file = g.getFileName();
 		}

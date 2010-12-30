@@ -113,7 +113,7 @@ public class DebugTreeNodeStream implements TreeNodeStream {
 	}
 
 	public void seek(int index) {
-		// TODO: implement seek in dbg interface
+		// todo: implement seek in dbg interface
 		// db.seek(index);
 		input.seek(index);
 	}

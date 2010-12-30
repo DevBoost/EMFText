@@ -630,7 +630,7 @@ public abstract class BaseRecognizer {
 			// we don't know how to conjure up a token for sets yet
 			return getMissingSymbol(input, e, Token.INVALID_TOKEN_TYPE, follow);
 		}
-		// TODO do single token deletion like above for Token mismatch
+		// todo do single token deletion like above for Token mismatch
 		throw e;
 	}
 
@@ -720,7 +720,7 @@ public abstract class BaseRecognizer {
 	 *  stack trace.  This routine is shared with all recognizers, hence,
 	 *  static.
 	 *
-	 *  TODO: move to a utility class or something; weird having lexer call this
+	 *  todo: move to a utility class or something; weird having lexer call this
 	 */
 	public static List getRuleInvocationStack(Throwable e,
 											  String recognizerClassName)
@@ -849,7 +849,7 @@ public abstract class BaseRecognizer {
 	}
 
 	/** return how many rule/input-index pairs there are in total.
-	 *  TODO: this includes synpreds. :(
+	 *  todo: this includes synpreds. :(
 	 */
 	public int getRuleMemoizationCacheSize() {
 		int n = 0;

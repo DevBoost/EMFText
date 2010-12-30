@@ -313,7 +313,7 @@ if ( this.blockLevel==1 ) {this.outerAltNum=1;}
          {this.blockLevel--;}
     ;
 
-// TODO: this does nothing now! subrules cannot have init actions. :(
+// todo: this does nothing now! subrules cannot have init actions. :(
 blockAction
 	:	#(amp:AMPERSAND id:ID a:ACTION ) // {r.defineAction(#amp,#id,#a);}
 	;

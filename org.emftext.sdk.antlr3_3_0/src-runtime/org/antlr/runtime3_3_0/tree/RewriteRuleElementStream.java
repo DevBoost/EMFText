@@ -41,7 +41,7 @@ import java.util.List;
  *  @see org.antlr.runtime3_3_0.tree.RewriteRuleSubtreeStream
  *  @see org.antlr.runtime3_3_0.tree.RewriteRuleTokenStream
  *
- *  TODO: add mechanism to detect/puke on modification after reading from stream
+ *  todo: add mechanism to detect/puke on modification after reading from stream
  */
 public abstract class RewriteRuleElementStream {
 	/** Cursor 0..n-1.  If singleElement!=null, cursor is 0 until you next(),
@@ -63,7 +63,7 @@ public abstract class RewriteRuleElementStream {
 	 *  I wanted to use "naughty bit" here, but couldn't think of a way
 	 *  to use "naughty".
 	 *
-	 *  TODO: unused?
+	 *  todo: unused?
 	 */
 	protected boolean dirty = false;
 
