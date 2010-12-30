@@ -354,10 +354,12 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addSetFocusMethod(StringComposite sc) {
+	private void addSetFocusMethod(JavaComposite sc) {
 		sc.add("public void setFocus() {");
 		sc.add("super.setFocus();");
 		sc.add("this.invalidateTextRepresentation();");
+		sc.addComment("Parse the document again to remove errors that stem from unresolvable proxy objects");
+		sc.add("bgParsingStrategy.parse(getSourceViewer().getDocument(), resource, this, 10);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

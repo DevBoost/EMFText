@@ -16,18 +16,21 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.JOB;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	private static final String PARSE_METHOD_JAVADOC = "Schedules a task for background parsing that will be started after " +
+				"a delay.";
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -44,32 +47,51 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		
 		addFields(sc);
-		addParseMethod(sc);
-		addCancelMethod(sc);
+		addParseMethod1(sc);
+		addParseMethod2(sc);
+		addParseMethod3(sc);
 		
 		sc.add("}");
 	}
 
-	private void addCancelMethod(StringComposite sc) {
-		sc.add("protected void canceling() {");
-		sc.add("resource.cancelReload();");
-		sc.add("}");
-		sc.add("};");
-		sc.add("job.schedule(DELAY);");
-		sc.add("}");
-		sc.add("}");
+	private void addFields(JavaComposite sc) {
+		sc.add("private static long DELAY = 500;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"this timer is used to schedule a parsing task and execute " +
+			"it after a given delay"
+		);
+		sc.add("private Object lock = new Object();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("the background parsing task (may be null)");
+		sc.add("private " + JOB + " job;");
+		sc.addLineBreak();
 	}
 
-	private void addParseMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Schedules a task for background parsing that will be started after " +
-			"a delay."
-		);
+	private void addParseMethod1(JavaComposite sc) {
+		sc.addJavadoc(PARSE_METHOD_JAVADOC);
 		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor) {");
+		sc.add("parse(event.getDocument(), resource, editor, DELAY);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addParseMethod2(JavaComposite sc) {
+		sc.addJavadoc(PARSE_METHOD_JAVADOC);
+		sc.add("public void parse(" + I_DOCUMENT + " document, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor, long delay) {");
+		sc.add("parse(document.get(), resource, editor, delay);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addParseMethod3(JavaComposite sc) {
+		sc.addJavadoc(PARSE_METHOD_JAVADOC);
+		sc.add("public void parse(final String contents, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor, long delay) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("final String contents = event.getDocument().get();");
 		sc.add("if (contents == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -116,23 +138,13 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-
-	private void addFields(JavaComposite sc) {
-		sc.add("private static long DELAY = 500;");
-		sc.addLineBreak();
-
-		sc.addJavadoc(
-			"this timer is used to schedule a parsing task and execute " +
-			"it after a given delay"
-		);
-		sc.add("private Object lock = new Object();");
-		sc.addLineBreak();
-		
-		sc.addJavadoc("the background parsing task (may be null)");
-		sc.add("private " + JOB + " job;");
+		sc.add("protected void canceling() {");
+		sc.add("resource.cancelReload();");
+		sc.add("}");
+		sc.add("};");
+		sc.add("job.schedule(delay);");
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }
