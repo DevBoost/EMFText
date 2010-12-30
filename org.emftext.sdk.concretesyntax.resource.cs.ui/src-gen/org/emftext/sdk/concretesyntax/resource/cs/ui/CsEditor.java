@@ -206,6 +206,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	public void setFocus() {
 		super.setFocus();
 		this.invalidateTextRepresentation();
+		// Parse the document again to remove errors that stem from unresolvable proxy
+		// objects
+		bgParsingStrategy.parse(getSourceViewer().getDocument(), resource, this, 10);
 	}
 	
 	protected void performSaveAs(org.eclipse.core.runtime.IProgressMonitor progressMonitor) {

@@ -38,10 +38,23 @@ public class CsBackgroundParsingStrategy {
 	 * Schedules a task for background parsing that will be started after a delay.
 	 */
 	public void parse(org.eclipse.jface.text.DocumentEvent event, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+		parse(event.getDocument(), resource, editor, DELAY);
+	}
+	
+	/**
+	 * Schedules a task for background parsing that will be started after a delay.
+	 */
+	public void parse(org.eclipse.jface.text.IDocument document, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor, long delay) {
+		parse(document.get(), resource, editor, delay);
+	}
+	
+	/**
+	 * Schedules a task for background parsing that will be started after a delay.
+	 */
+	public void parse(final String contents, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor, long delay) {
 		if (resource == null) {
 			return;
 		}
-		final String contents = event.getDocument().get();
 		if (contents == null) {
 			return;
 		}
@@ -85,7 +98,8 @@ public class CsBackgroundParsingStrategy {
 					resource.cancelReload();
 				}
 			};
-			job.schedule(DELAY);
+			job.schedule(delay);
 		}
 	}
+	
 }

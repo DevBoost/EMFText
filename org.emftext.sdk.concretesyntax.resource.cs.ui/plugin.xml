@@ -8,7 +8,8 @@
 	
 	<extension point="org.eclipse.ui.editors">
 		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cs" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
-			<contentTypeBinding contentTypeId="org.emftext.sdk.concretesyntax.resource.cs"/>
+			<contentTypeBinding contentTypeId="org.emftext.sdk.concretesyntax.resource.cs">
+			</contentTypeBinding>
 		</editor>
 	</extension>
 	
@@ -34,29 +35,37 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.ide.markerResolution">
-		<markerResolutionGenerator class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator" markerType="org.emftext.sdk.concretesyntax.resource.cs.problem" />
+		<markerResolutionGenerator class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator" markerType="org.emftext.sdk.concretesyntax.resource.cs.problem">
+		</markerResolutionGenerator>
 	</extension>
 	
 	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
-		<factory class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsAnnotationModelFactory" extensions="cs" />
+		<factory class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsAnnotationModelFactory" extensions="cs">
+		</factory>
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<content-type id="org.emftext.sdk.concretesyntax.resource.cs" name=".cs File" base-type="org.eclipse.core.runtime.text" file-extensions="cs"/>
+		<content-type id="org.emftext.sdk.concretesyntax.resource.cs" name=".cs File" base-type="org.eclipse.core.runtime.text" file-extensions="cs">
+		</content-type>
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors.documentProviders">
-		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cs" id="org.emftext.sdk.concretesyntax.resource.cs.ui.provider" />
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cs" id="org.emftext.sdk.concretesyntax.resource.cs.ui.provider">
+		</provider>
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors.annotationTypes">
-		<type name="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences" />
-		<type name="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences.declaration" super="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences" />
+		<type name="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences">
+		</type>
+		<type name="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences.declaration" super="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences">
+		</type>
 	</extension>
 	
 	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
-		<specification annotationType="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences" label="Occurrences (in .cs files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="cs.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="cs.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="cs.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cs.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cs.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="cs.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="cs.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="cs.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="cs.occurrenceTextStyle" textStylePreferenceValue="NONE" />
-		<specification annotationType="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences.declaration" label="Declarations (in .cs files)" textPreferenceKey="cs.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cs.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cs.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cs.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cs.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cs.declarationTextStyle" textStylePreferenceValue="NONE" />
+		<specification annotationType="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences" label="Occurrences (in .cs files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="cs.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="cs.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="cs.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cs.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cs.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="cs.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="cs.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="cs.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="cs.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.sdk.concretesyntax.resource.cs.ui.occurences.declaration" label="Declarations (in .cs files)" textPreferenceKey="cs.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cs.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cs.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cs.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cs.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cs.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
 	</extension>
 	
 </plugin>
