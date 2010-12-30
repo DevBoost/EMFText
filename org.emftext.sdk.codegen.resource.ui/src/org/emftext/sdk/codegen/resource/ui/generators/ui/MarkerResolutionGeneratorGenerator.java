@@ -24,7 +24,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-// TODO mseifert: complete implementation
 public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
@@ -100,7 +99,6 @@ public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
 
 	private void addGetQuickFixesMethod(JavaComposite sc) {
 		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + iTextResourceClassName + " resource, " + I_MARKER + " marker) {");
