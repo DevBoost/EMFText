@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.generators;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 import java.util.Map;

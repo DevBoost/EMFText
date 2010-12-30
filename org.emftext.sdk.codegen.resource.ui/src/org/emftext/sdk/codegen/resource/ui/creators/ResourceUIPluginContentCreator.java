@@ -152,7 +152,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 	    add(creators, TextResourceUIArtifacts.IMAGE_PROVIDER);
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
-	    creators.add(new org.emftext.sdk.codegen.resource.creators.PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
+	    creators.add(new org.emftext.sdk.codegen.creators.PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
 	    return creators;
 	}
 	

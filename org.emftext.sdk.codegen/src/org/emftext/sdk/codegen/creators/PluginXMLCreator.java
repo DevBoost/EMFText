@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.creators;
+package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 import java.util.Collection;
@@ -19,10 +19,8 @@ import java.util.Collection;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
-import org.emftext.sdk.codegen.creators.IArtifact;
+import org.emftext.sdk.codegen.generators.PluginXMLGenerator;
 import org.emftext.sdk.codegen.parameters.XMLParameters;
-import org.emftext.sdk.codegen.resource.generators.PluginXMLGenerator;
 
 /**
  * Creates a plugin.xml file using the content provided by the 
