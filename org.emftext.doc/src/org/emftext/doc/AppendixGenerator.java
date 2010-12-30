@@ -40,12 +40,12 @@ public class AppendixGenerator {
 					Class<?> generatorClass = descriptor.getGeneratorClass();
 					String artifactName = descriptor.getClassNamePrefix() + descriptor.getClassNameSuffix();
 					if (generatorClass == null) {
-						System.out.println("Artifact " + field.getName() + " has no generator.");
+						//System.out.println("Artifact " + field.getName() + " has no generator.");
 						continue;
 					}
 					Annotation annotation = generatorClass.getAnnotation(SyntaxDependent.class);
 					if (annotation != null) {
-						System.out.println("Artifact " + artifactName + " is syntax dependent.");
+						//System.out.println("Artifact " + artifactName + " is syntax dependent.");
 						syntaxDependentClasses.add(artifactName);
 					}
 				}
@@ -91,9 +91,13 @@ public class AppendixGenerator {
 			EEnumLiteral enumLiteral = ConcretesyntaxPackage.eINSTANCE.getOptionTypes().getEEnumLiteral(optionType.getName());
 			String literal = optionType.getLiteral();
 			String documentation = EcoreUtil.getDocumentation(enumLiteral);
+			if (documentation == null) {
+				System.err.println("ERROR: Cannot find documentation for " + enumLiteral.getEEnum().getName() + "." + enumLiteral.getName());
+				return;
+			}
 			documentation = documentation.replaceAll("<code>(.[^<]*)</code>", "\\\\texttt{$1}");
 			documentation = documentation.replace("_", "\\_");
-			System.out.println(literal + " : " + documentation);
+			//System.out.println(literal + " : " + documentation);
 			latexCode.append("\\noindent\\texttt{" + literal + "}\n");
 			latexCode.append("\\begin{myindentpar}{1cm}\n");
 			latexCode.append(documentation);
