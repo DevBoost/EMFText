@@ -176,8 +176,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 */
 	public boolean isOverrideRule(GenClass metaClass) {
 		
-				// TODO figure out why 'metaClass == null' is needed
-				if (metaClass == null || getMetaclass() == metaClass) {
+						if (metaClass == null || getMetaclass() == metaClass) {
 					if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
 						return true;
 					}

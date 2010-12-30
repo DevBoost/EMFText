@@ -2591,7 +2591,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (ruleEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t// TODO figure out why \'metaClass == null\' is needed\r\n\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
+			 "body", "\r\n\t\t\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override.\r\n"
 		   });		
 		addAnnotation

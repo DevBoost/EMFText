@@ -91,7 +91,6 @@ eclass Rule {
 	 * Checks whether this rule is annotated with @Override.
 	 */
 	isOverrideRule() {
-		// TODO figure out why 'metaClass == null' is needed
 		if (metaClass == null || getMetaclass() == metaClass) {
 			if (hasAnnotation(AnnotationType.OVERRIDE, null, null)) {
 				return true;
