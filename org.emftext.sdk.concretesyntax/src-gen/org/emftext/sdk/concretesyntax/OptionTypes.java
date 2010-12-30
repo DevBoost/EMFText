@@ -5517,6 +5517,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_RESOURCE_POST_PROCESSOR
 	 * @model literal="overrideResourcePostProcessor"
 	 * @generated

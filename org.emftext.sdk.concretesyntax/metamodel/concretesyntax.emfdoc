@@ -522,6 +522,8 @@ OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX : "If set to <code>false</code>,
 
 OptionTypes.OVERRIDE_EPROBLEM_SEVERITY : "If set to <code>false</code>, the EProblemSeverity class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_RESOURCE_POST_PROCESSOR : "If set to <code>false</code>, the ResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
