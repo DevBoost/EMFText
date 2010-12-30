@@ -17,35 +17,35 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.creators.IArtifact;
-import org.emftext.sdk.codegen.parameters.ArtifactParameter;
-import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
 import org.emftext.sdk.codegen.resource.generators.PluginXMLGenerator;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Creates a plugin.xml file using the content provided by the 
  * PluginXMLGenerator class.
- * 
- * TODO mseifert: make this creator reusable
  */
-public class PluginXMLCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
+public class PluginXMLCreator<ContextType extends IContext<ContextType>> extends GenericArtifactCreator<ContextType, XMLParameters<ContextType>> {
 
 	public static final String FILENAME = "plugin.xml";
+	
+	private boolean override;
 
-	public PluginXMLCreator() {
-		super(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.PLUGIN_XML));
+	public PluginXMLCreator(XMLParameters<ContextType> parameters, boolean override) {
+		super(parameters);
+		this.override = override;
 	}
 
 	@Override
-	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, GenerationContext context, ArtifactParameter<GenerationContext> parameters) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
-		File project = context.getFileSystemConnector().getProjectFolder(resourcePlugin);
+	public Collection<IArtifact> getArtifactsToCreate(IPluginDescriptor plugin, ContextType context, XMLParameters<ContextType> parameters) {
+		IPluginDescriptor targetPlugin = parameters.getPlugin();
+		File project = context.getFileSystemConnector().getProjectFolder(targetPlugin);
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + FILENAME);
 
-		IGenerator<GenerationContext, ArtifactParameter<GenerationContext>> generator = new PluginXMLGenerator();
+		IGenerator<ContextType, XMLParameters<ContextType>> generator = new PluginXMLGenerator<ContextType>();
 
 	    return createArtifact(
 	    		context,
@@ -56,7 +56,8 @@ public class PluginXMLCreator extends TextResourceArtifactCreator<ArtifactParame
 	    );
 	}
 
-	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_PLUGIN_XML;
+	@Override
+	public boolean doOverride(ContextType context) {
+		return override;
 	}
 }

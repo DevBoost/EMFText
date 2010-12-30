@@ -30,6 +30,7 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
 import org.emftext.sdk.codegen.resource.creators.AdditionalExtensionParserExtensionPointSchemaCreator;
 import org.emftext.sdk.codegen.resource.creators.DefaultLoadOptionsExtensionPointSchemaCreator;
 import org.emftext.sdk.codegen.resource.creators.PluginXMLCreator;
@@ -172,7 +173,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
 
 	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, null);
 
 	// the classes
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_LEXER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER);

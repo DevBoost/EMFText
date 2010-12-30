@@ -12,8 +12,9 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.creators.PluginXMLCreator;
+import org.emftext.sdk.codegen.resource.creators.PluginXMLCreator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
@@ -72,7 +73,7 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_PROJECT);
 	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, null);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_COMPLETION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeCompletionHelper", CodeCompletionHelperGenerator.class, OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROPOSAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProposal", CompletionProposalGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROPOSAL); 

@@ -35,11 +35,14 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
+import org.emftext.sdk.codegen.parameters.xml.XMLElement;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.TokenResolverParameters;
+import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator.PROBLEM_TYPES;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -107,7 +110,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_SCANNER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(resourcePlugin, TextResourceArtifacts.SCANNERLESS_PARSER), TextResourceArtifacts.PACKAGE_MOPP, context.getClassName(TextResourceArtifacts.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
-	    creators.add(new PluginXMLCreator());
+		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceArtifacts.PLUGIN_XML;
+	    creators.add(new PluginXMLCreator<GenerationContext>(getResourcePluginXMLParameters(context), doOverride(syntax, pluginXML)));
 	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator());
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE)));
 	    creators.add(new SyntaxArtifactCreator<ArtifactParameter<GenerationContext>>(new ArtifactParameter<GenerationContext>(TextResourceArtifacts.RESOURCE_FACTORY)));
@@ -279,6 +283,118 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    
 	    add(creators, TextResourceArtifacts.TEXT_TOKEN);
 		return creators;
+	}
+
+	private XMLParameters<GenerationContext> getResourcePluginXMLParameters(GenerationContext context) {
+		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		String pluginID = resourcePlugin.getName();
+		String builderID = nameUtil.getBuilderID(context.getConcreteSyntax());
+		
+		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
+		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
+		final String qualifiedResourceFactoryClassName;
+		if (secondaryConcreteSyntaxName == null) {
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
+		} else {
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
+		}
+		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
+
+		// register the syntax meta information
+		String metaInformationClass = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		
+		XMLElement root = new XMLElement("plugin");
+		
+		XMLElement accessExtension = root.createChild("extension");
+		accessExtension.setAttribute("point", "org.emftext.access.syntax");
+		XMLElement informationProvider = accessExtension.createChild("metaInformationProvider");
+		informationProvider.setAttribute("class", metaInformationClass);
+		informationProvider.setAttribute("id", metaInformationClass);
+		
+		String problemID = pluginID + ".problem";
+
+		XMLElement problemExtension = root.createChild("extension");
+		problemExtension.setAttribute("id", problemID);
+		problemExtension.setAttribute("name", "EMFText Problem");
+		problemExtension.setAttribute("point", "org.eclipse.core.resources.markers");
+		
+		XMLElement persistent = problemExtension.createChild("persistent");
+		persistent.setAttribute("value", "true");
+		XMLElement superType1 = problemExtension.createChild("super");
+		superType1.setAttribute("type", "org.eclipse.core.resources.problemmarker");
+		XMLElement superType2 = problemExtension.createChild("super");
+		superType2.setAttribute("type", "org.eclipse.core.resources.textmarker");
+		XMLElement superType3 = problemExtension.createChild("super");
+		superType3.setAttribute("type", "org.eclipse.emf.ecore.diagnostic");
+		
+		for (PROBLEM_TYPES nextType : PROBLEM_TYPES.values()) {
+			if (nextType == PROBLEM_TYPES.UNKNOWN) {
+				continue;
+			}
+			String nextProblemTypeID = problemID + "." + nextType.name().toLowerCase();
+			XMLElement nextProblemExtension = root.createChild("extension");
+			nextProblemExtension.setAttribute("id", nextProblemTypeID);
+			nextProblemExtension.setAttribute("name", "EMFText Problem");
+			nextProblemExtension.setAttribute("point", "org.eclipse.core.resources.markers");
+			XMLElement nextPersistent = nextProblemExtension.createChild("persistent");
+			nextPersistent.setAttribute("value", "true");
+			XMLElement nextSuperType = nextProblemExtension.createChild("super");
+			nextSuperType.setAttribute("type", problemID);
+		}
+		
+		XMLElement natureExtension = root.createChild("extension");
+		natureExtension.setAttribute("id", nameUtil.getNatureID(concreteSyntax));
+		natureExtension.setAttribute("name", concreteSyntax.getName() + " nature");
+		natureExtension.setAttribute("point", "org.eclipse.core.resources.natures");
+		XMLElement runtime = natureExtension.createChild("runtime");
+		XMLElement run = runtime.createChild("run");
+		run.setAttribute("class", context.getQualifiedClassName(TextResourceArtifacts.NATURE)); 
+		if (!disableBuilder) {
+			XMLElement builder = natureExtension.createChild("builder");
+			builder.setAttribute("id", builderID);
+		}
+
+		if (!disableBuilder) {
+			XMLElement builderExtension = root.createChild("extension");
+			builderExtension.setAttribute("point", "org.eclipse.core.resources.builders");
+			builderExtension.setAttribute("id" , builderID);
+			builderExtension.setAttribute("name" , concreteSyntax.getName() + " Builder");
+			XMLElement builder = builderExtension.createChild("builder");
+			builder.setAttribute("hasNature", "true");
+			XMLElement builderRun = builder.createChild("run");
+			builderRun.setAttribute("class", context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER));
+		}
+		
+		XMLElement loadOptionsPoint = root.createChild("extension-point");
+		loadOptionsPoint.setAttribute("id", pluginID + ".default_load_options");
+		loadOptionsPoint.setAttribute("name", "Default Load Options");
+		loadOptionsPoint.setAttribute("schema", "schema/default_load_options.exsd");
+		
+		String qualifiedBasePluginName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.BASE_RESOURCE_PLUGIN);
+		if (secondaryConcreteSyntaxName == null) {
+			// register the generated resource factory
+			XMLElement parserExtension = root.createChild("extension");
+			parserExtension.setAttribute("point", "org.eclipse.emf.ecore.extension_parser");
+			XMLElement parser = parserExtension.createChild("parser");
+			parser.setAttribute("class", qualifiedResourceFactoryClassName);
+			parser.setAttribute("type", primaryConcreteSyntaxName);
+			
+			XMLElement additionalParserPoint = root.createChild("extension-point");
+			additionalParserPoint.setAttribute("id", pluginID + ".additional_extension_parser");
+			additionalParserPoint.setAttribute("name", "Additional Extension Parser");
+			additionalParserPoint.setAttribute("schema", "schema/additional_extension_parser.exsd");
+		}
+		else if (qualifiedBasePluginName != null) {
+			XMLElement additionalParserExtension = root.createChild("extension");
+			additionalParserExtension.setAttribute("point", qualifiedBasePluginName + ".additional_extension_parser");
+			XMLElement parser = additionalParserExtension.createChild("parser");
+			parser.setAttribute("class", qualifiedResourceFactoryClassName);
+			parser.setAttribute("type", secondaryConcreteSyntaxName);
+		}
+
+		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourcePlugin, root);
+		return parameters;
 	}
 
 	private void add(

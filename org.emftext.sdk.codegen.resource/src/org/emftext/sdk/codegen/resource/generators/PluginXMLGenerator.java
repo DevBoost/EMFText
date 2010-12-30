@@ -14,146 +14,52 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import java.io.PrintWriter;
+import java.util.Map;
 
-import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.AbstractGenerator;
+import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
-import org.emftext.sdk.codegen.parameters.ArtifactParameter;
-import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
-import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator.PROBLEM_TYPES;
-import org.emftext.sdk.codegen.util.NameUtil;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
+import org.emftext.sdk.codegen.parameters.xml.XMLElement;
 
 /**
- * A generator for the plugin.xml file.
- * 
- * TODO mseifert: make this generator reusable
+ * A generator for plugin.xml files.
  */
 @SyntaxDependent
-public class PluginXMLGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
-
-	private final NameUtil nameUtil = new NameUtil();
-	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
-
-	private String pluginID;
-	private String builderID;
+public class PluginXMLGenerator<ContextType extends IContext<ContextType>> extends AbstractGenerator<ContextType, XMLParameters<ContextType>> {
 
 	@Override
 	public void doGenerate(PrintWriter out) {
-		super.doGenerate(out);
-		IPluginDescriptor resourcePlugin = getContext().getResourcePlugin();
-		pluginID = resourcePlugin.getName();
-		builderID = nameUtil.getBuilderID(getContext().getConcreteSyntax());
-		out.write(getContentOfPluginXML());
-		out.flush();
-	}
-
-	/**
-	 * Generate the XML file describing the plug-in.
-	 * 
-	 * @return Generated code.
-	 */
-	private String getContentOfPluginXML() {
-		final ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
-		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
-		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
-		final String qualifiedResourceFactoryClassName;
-		if (secondaryConcreteSyntaxName == null) {
-			qualifiedResourceFactoryClassName = resourceFactoryDelegatorClassName;
-		} else {
-			qualifiedResourceFactoryClassName = resourceFactoryClassName;
-		}
-		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
-
 		StringComposite sc = new XMLComposite();
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<?eclipse version=\"3.2\"?>");
-		sc.add("<plugin>");
+		XMLElement xmlContent = getParameters().getXmlContent();
+		addContent(sc, xmlContent);
+		out.write(sc.toString());
+		out.flush();
+	}
 
-		// register the syntax meta information
-		String metaInformationClass = getContext().getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
-		sc.add("<extension point=\"org.emftext.access.syntax\">");
-		sc.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
-		sc.add("</metaInformationProvider>");
-		sc.add("</extension>");
-		sc.addLineBreak();
+	private void addContent(StringComposite sc, XMLElement xmlElement) {
+		String name = xmlElement.getName();
+		Map<String, String> attributes = xmlElement.getAttributes();
 		
-		String problemID = pluginID + ".problem";
-		sc.add("<extension id=\"" + problemID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
-		sc.add("<persistent value=\"true\">");
-		sc.add("</persistent>");
-		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
-		sc.add("</super>");
-		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
-		sc.add("</super>");
-		sc.add("<super type=\"org.eclipse.emf.ecore.diagnostic\">");
-		sc.add("</super>");
-		sc.add("</extension>");
-		sc.addLineBreak();
-		
-		for (PROBLEM_TYPES nextType : PROBLEM_TYPES.values()) {
-			if (nextType == PROBLEM_TYPES.UNKNOWN) {
-				continue;
-			}
-			String nextProblemTypeID = problemID + "." + nextType.name().toLowerCase();
-			sc.add("<extension id=\"" + nextProblemTypeID + "\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
-			sc.add("<persistent value=\"true\">");
-			sc.add("</persistent>");
-			sc.add("<super type=\"" + problemID + "\">");
-			sc.add("</super>");
-			sc.add("</extension>");
-			sc.addLineBreak();
+		String openingTag = "<" + name;
+		for (String attributeName : attributes.keySet()) {
+			openingTag += " " + attributeName + "=\"" + attributes.get(attributeName) + "\"";
 		}
-		
-		sc.add("<extension id=\"" + nameUtil.getNatureID(concreteSyntax) + "\" name=\"" + concreteSyntax.getName() + " nature\" point=\"org.eclipse.core.resources.natures\">"); 
-		sc.add("<runtime>");
-		sc.add("<run class=\"" + getContext().getQualifiedClassName(TextResourceArtifacts.NATURE)+ "\" />"); 
-		sc.add("</runtime>");
-		if (!disableBuilder) {
-			sc.add("<builder id=\"" + builderID + "\" />");
-		}
-		sc.add("</extension>");
-		sc.addLineBreak();
+		openingTag += ">";
 
-		if (!disableBuilder) {
-			sc.add("<extension point=\"org.eclipse.core.resources.builders\" id=\"" + builderID + "\" name=\"" + concreteSyntax.getName() + " Builder\">");
-			sc.add("<builder hasNature=\"true\">");
-			sc.add("<run class=\"" + getContext().getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER)+ "\" />");
-			sc.add("</builder>");
-			sc.add("</extension>");
+		String closingTag = "</" + name + ">";
+		
+		sc.add(openingTag);
+		for (XMLElement child : xmlElement.getChildren()) {
+			addContent(sc, child);
+		}
+		sc.add(closingTag);
+		if ("extension".equals(name) || "extension-point".equals(name)) {
 			sc.addLineBreak();
 		}
-		
-		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
-		sc.addLineBreak();
-		
-		String qualifiedBasePluginName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.BASE_RESOURCE_PLUGIN);
-		if (secondaryConcreteSyntaxName == null) {
-			// register the generated resource factory
-			sc.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
-			sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + primaryConcreteSyntaxName + "\">");
-			sc.add("</parser>");
-			sc.add("</extension>");
-			sc.addLineBreak();
-			
-			sc.add("<extension-point id=\"" + pluginID + ".additional_extension_parser\" name=\"Additional Extension Parser\" schema=\"schema/additional_extension_parser.exsd\"/>");
-			sc.addLineBreak();
-		}
-		else if (qualifiedBasePluginName != null) {
-			sc.add("<extension point=\""+  qualifiedBasePluginName + ".additional_extension_parser\">");
-			sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + secondaryConcreteSyntaxName + "\">");
-			sc.add("</parser>");
-			sc.add("</extension>");
-			sc.addLineBreak();
-		}
-		
-		sc.add("</plugin>");
-
-		return sc.toString();
 	}
 }

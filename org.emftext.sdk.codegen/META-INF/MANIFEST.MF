@@ -11,6 +11,7 @@ Export-Package: org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.creators,
  org.emftext.sdk.codegen.generators,
  org.emftext.sdk.codegen.parameters,
+ org.emftext.sdk.codegen.parameters.xml,
  org.emftext.sdk.codegen.util
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,

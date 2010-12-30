@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.ArtifactDescriptor;
@@ -22,8 +23,11 @@ import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
+import org.emftext.sdk.codegen.parameters.XMLParameters;
+import org.emftext.sdk.codegen.parameters.xml.XMLElement;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
 import org.emftext.sdk.codegen.resource.creators.SyntaxArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -147,10 +151,221 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 	    add(creators, TextResourceUIArtifacts.IMAGE_PROVIDER);
-	    creators.add(new PluginXMLCreator());
+		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
+	    creators.add(new org.emftext.sdk.codegen.resource.creators.PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
 	    return creators;
 	}
+	
+	private XMLParameters<GenerationContext> getPluginXmlParamters(GenerationContext context) {
+		final String newWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
+		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
+		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		final IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
+		final String resourcePluginID = resourcePlugin.getName();
+		final String uiPluginID = resourceUIPlugin.getName();
+		final String uiMetaInformationClass = context.getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
+		final String newFileWizard = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
+		final String problemID = resourcePluginID + ".problem";
+		final String occurrenceAnnotationTypeID = context.getOccurrenceAnnotationTypeID();
+		final String declarationAnnotationTypeID = context.getDeclarationAnnotationTypeID();
+		final String markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
+		final String annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 
+		XMLElement root = new XMLElement("plugin");
+
+		XMLElement uiAccessExtension = root.createChild("extension");
+		uiAccessExtension.setAttribute("point", "org.emftext.access.syntax.ui");
+		XMLElement informationProvider = uiAccessExtension.createChild("metaInformationProvider");
+		informationProvider.setAttribute("class", uiMetaInformationClass);
+		informationProvider.setAttribute("id", uiMetaInformationClass);
+
+		String editorName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
+
+		// registers the editor itself
+		XMLElement editorExtension = root.createChild("extension");
+		editorExtension.setAttribute("point", "org.eclipse.ui.editors");
+		XMLElement editor = editorExtension.createChild("editor");
+		editor.setAttribute("class", editorName);
+		editor.setAttribute("contributorClass", "org.eclipse.ui.texteditor.BasicTextEditorActionContributor");
+		editor.setAttribute("extensions", primaryConcreteSyntaxName);
+		editor.setAttribute("icon", "icons/" + UIConstants.DEFAULT_EDITOR_ICON_NAME);
+		editor.setAttribute("id", editorName);
+		editor.setAttribute("name", "EMFText " + concreteSyntax.getName() + " Editor");
+		
+		XMLElement contentTypeBinding = editor.createChild("contentTypeBinding");
+		contentTypeBinding.setAttribute("contentTypeId", resourcePluginID);
+
+		XMLElement preferencesExtension = root.createChild("extension");
+		preferencesExtension.setAttribute("point", "org.eclipse.core.runtime.preferences");
+		XMLElement initializer = preferencesExtension.createChild("initializer");
+		initializer.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_INITIALIZER));
+		
+		XMLElement preferencePageExtension = root.createChild("extension");
+		preferencePageExtension.setAttribute("point", "org.eclipse.ui.preferencePages");
+		//main page
+		XMLElement mainPage = preferencePageExtension.createChild("page");
+		mainPage.setAttribute("name", context.getCapitalizedConcreteSyntaxName() + " Text Editor");
+		mainPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
+		mainPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
+		mainPage.setAttribute("category", "org.eclipse.ui.preferencePages.GeneralTextEditor");
+
+		//sub pages
+		XMLElement syntaxPage = preferencePageExtension.createChild("page");
+		syntaxPage.setAttribute("name", "Syntax Coloring");
+		syntaxPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE));
+		syntaxPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE));
+		syntaxPage.setAttribute("category", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
+		
+		XMLElement bracketPage = preferencePageExtension.createChild("page");
+		bracketPage.setAttribute("name", "Brackets");
+		bracketPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE));
+		bracketPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE));
+		bracketPage.setAttribute("category", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
+
+		XMLElement newWizardExtension = root.createChild("extension");
+		newWizardExtension.setAttribute("point", "org.eclipse.ui.newWizards");
+		XMLElement category = newWizardExtension.createChild("category");
+		category.setAttribute("id", newWizardCategoryID);
+		category.setAttribute("name", "EMFText File");
+		
+		XMLElement wizard = newWizardExtension.createChild("wizard");
+		wizard.setAttribute("category", newWizardCategoryID);
+		wizard.setAttribute("icon", getProjectRelativeNewIconPath());
+		wizard.setAttribute("class", newFileWizard);
+		wizard.setAttribute("id", newFileWizard);
+		wizard.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
+		
+		XMLElement markerResolutionExtension = root.createChild("extension");
+		markerResolutionExtension.setAttribute("point", "org.eclipse.ui.ide.markerResolution");
+		XMLElement markerResolutionGenerator = markerResolutionExtension.createChild("markerResolutionGenerator");
+		markerResolutionGenerator.setAttribute("class", markerResolutionGeneratorClassName);
+		markerResolutionGenerator.setAttribute("markerType", problemID);
+		
+		XMLElement annotationModelExtension = root.createChild("extension");
+		annotationModelExtension.setAttribute("point", "org.eclipse.core.filebuffers.annotationModelCreation");
+		XMLElement factory = annotationModelExtension.createChild("factory");
+		factory.setAttribute("class", annotationModelFactoryClassName);
+		factory.setAttribute("extensions", primaryConcreteSyntaxName);
+		
+		XMLElement contentTypeExtension = root.createChild("extension");
+		contentTypeExtension.setAttribute("point", "org.eclipse.core.contenttype.contentTypes");
+		XMLElement contentType = contentTypeExtension.createChild("content-type");
+		contentType.setAttribute("id", resourcePluginID);
+		contentType.setAttribute("name", "." + primaryConcreteSyntaxName + " File");
+		contentType.setAttribute("base-type", "org.eclipse.core.runtime.text");
+		contentType.setAttribute("file-extensions", primaryConcreteSyntaxName);
+		
+		XMLElement documentProviderExtension = root.createChild("extension");
+		documentProviderExtension.setAttribute("point", "org.eclipse.ui.editors.documentProviders");
+		XMLElement provider = documentProviderExtension.createChild("provider");
+		provider.setAttribute("class", "org.eclipse.ui.editors.text.TextFileDocumentProvider");
+		provider.setAttribute("extensions", primaryConcreteSyntaxName);
+		provider.setAttribute("id", uiPluginID + ".provider");
+		
+		XMLElement annotationTypeExtension = root.createChild("extension");
+		annotationTypeExtension.setAttribute("point", "org.eclipse.ui.editors.annotationTypes");
+		XMLElement occurrenceType = annotationTypeExtension.createChild("type");
+		occurrenceType.setAttribute("name", occurrenceAnnotationTypeID);
+
+		XMLElement declarationAnnotationType = annotationTypeExtension.createChild("type");
+		declarationAnnotationType.setAttribute("name", declarationAnnotationTypeID);
+		declarationAnnotationType.setAttribute("super", occurrenceAnnotationTypeID);
+
+		final String syntaxName = context.getConcreteSyntax().getName();
+		XMLElement markerAnnotationExtension = root.createChild("extension");
+		markerAnnotationExtension.setAttribute("point", "org.eclipse.ui.editors.markerAnnotationSpecification");
+
+		XMLElement specification = markerAnnotationExtension.createChild("specification");
+		specification.setAttribute("annotationType", occurrenceAnnotationTypeID);
+		specification.setAttribute("label", "Occurrences (in ." + syntaxName + " files)");
+		specification.setAttribute("icon", "/icons/" + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME);
+		specification.setAttribute("textPreferenceKey", syntaxName + ".occurrenceIndication");
+		specification.setAttribute("textPreferenceValue", "false");
+		specification.setAttribute("highlightPreferenceKey", syntaxName + ".occurrenceHighlighting");
+		specification.setAttribute("highlightPreferenceValue", "true");
+		specification.setAttribute("contributesToHeader", "false");
+		specification.setAttribute("overviewRulerPreferenceKey", syntaxName + ".occurrenceIndicationInOverviewRuler");
+		specification.setAttribute("overviewRulerPreferenceValue", "true");
+		specification.setAttribute("verticalRulerPreferenceKey", syntaxName + ".occurrenceIndicationInVerticalRuler");
+		specification.setAttribute("verticalRulerPreferenceValue", "false");
+		specification.setAttribute("colorPreferenceKey", syntaxName + ".occurrenceIndicationColor");
+		specification.setAttribute("colorPreferenceValue", "212,212,212");
+		specification.setAttribute("presentationLayer", "4");
+		specification.setAttribute("showInNextPrevDropdownToolbarActionKey", syntaxName + ".showOccurrenceInNextPrevDropdownToolbarAction");
+		specification.setAttribute("showInNextPrevDropdownToolbarAction", "true");
+		specification.setAttribute("isGoToNextNavigationTargetKey", syntaxName + ".isOccurrenceGoToNextNavigationTarget");
+		specification.setAttribute("isGoToNextNavigationTarget", "false");
+		specification.setAttribute("isGoToPreviousNavigationTargetKey", syntaxName + ".isOccurrenceGoToPreviousNavigationTarget");
+		specification.setAttribute("isGoToPreviousNavigationTarget" , "false");
+		specification.setAttribute("textStylePreferenceKey", syntaxName + ".occurrenceTextStyle");
+		specification.setAttribute("textStylePreferenceValue", "NONE");
+
+		XMLElement specification2 = markerAnnotationExtension.createChild("specification");
+		specification2.setAttribute("annotationType", declarationAnnotationTypeID);
+		specification2.setAttribute("label", "Declarations (in ." + syntaxName + " files)");
+		specification2.setAttribute("textPreferenceKey", syntaxName + ".declarationIndication");
+		specification2.setAttribute("textPreferenceValue", "false");
+		specification2.setAttribute("highlightPreferenceKey", syntaxName + ".declarationHighlighting");
+		specification2.setAttribute("highlightPreferenceValue", "true");
+		specification2.setAttribute("overviewRulerPreferenceKey", syntaxName + ".declarationIndicationInOverviewRuler");
+		specification2.setAttribute("overviewRulerPreferenceValue", "true");
+		specification2.setAttribute("verticalRulerPreferenceKey", syntaxName + ".declarationIndicationInVerticalRuler");
+		specification2.setAttribute("verticalRulerPreferenceValue", "false");
+		specification2.setAttribute("colorPreferenceKey", syntaxName + ".declarationIndicationColor");
+		specification2.setAttribute("colorPreferenceValue", "240,216,168");
+		specification2.setAttribute("presentationLayer", "4");
+		specification2.setAttribute("textStylePreferenceKey", syntaxName + ".declarationTextStyle");
+		specification2.setAttribute("textStylePreferenceValue", "NONE");
+		
+		if (context.isGenerateTestActionEnabled()) {
+			root.addChild(generateTestActionExtension(context));
+		}
+
+		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourceUIPlugin, root);
+		return parameters;
+	}
+
+	private String getPrimarySyntaxName(ConcreteSyntax concreteSyntax) {
+		 String fullConcreteSyntaxName = concreteSyntax.getName();
+		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
+		 if (idx != -1) {
+			 return fullConcreteSyntaxName.substring(idx + 1);
+		 }
+		 return fullConcreteSyntaxName;
+	}
+	
+	private XMLElement generateTestActionExtension(GenerationContext context) {
+
+		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String concreteSyntaxName = concreteSyntax.getName();
+		final GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
+		final String concreteSyntaxBasePackage = concreteSyntaxPackage.getBasePackage();
+		final String baseId = (concreteSyntaxBasePackage == null ? ""
+				: concreteSyntaxBasePackage + ".")
+				+ concreteSyntaxName;
+
+		XMLElement popupMenuExtension = new XMLElement("extension");
+		popupMenuExtension.setAttribute("point", "org.eclipse.ui.popupMenus");
+		XMLElement objectContribution = popupMenuExtension.createChild("objectContribution");
+		objectContribution.setAttribute("id", baseId + ".contributions");
+		objectContribution.setAttribute("objectClass", "org.eclipse.core.resources.IFile");
+		objectContribution.setAttribute("nameFilter", "*." + concreteSyntaxName);
+		XMLElement action = objectContribution.createChild("action");
+		action.setAttribute("class", "org.emftext.sdk.ui.actions.ValidateParserPrinterAction");
+		action.setAttribute("enablesFor", "1");
+		action.setAttribute("id", baseId + ".validate");
+		action.setAttribute("label", "Validate");
+		action.setAttribute("menubarPath", "org.emftext.sdk.ui.menu1/group1");
+		return popupMenuExtension;
+	}
+
+	private String getProjectRelativeNewIconPath() {
+		// it is OK to use slashes here, because this path is put into
+		// the plugin.xml
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_NEW_ICON_NAME;
+	}
+	
 	private void add(
 			List<IArtifactCreator<GenerationContext>> creators,
 			ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> hoverTextProvider) {
