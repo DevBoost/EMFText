@@ -563,7 +563,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
     	sc.add("super.load(loadOptions);");
     	if (resolveProxies) {
-        	sc.add(ECORE_UTIL + ".resolveAll(this);");
+        	sc.add(ECORE_UTIL + ".resolveAll(this.getResourceSet());");
 		}
     	sc.add("}");
     	sc.addLineBreak();
