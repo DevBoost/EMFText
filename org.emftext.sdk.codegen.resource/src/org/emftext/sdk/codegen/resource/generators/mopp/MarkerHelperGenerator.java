@@ -15,11 +15,11 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
@@ -305,8 +305,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (object == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("if (object.eIsProxy() && object instanceof " + E_OBJECT_IMPL + ") {");
-		sc.add("return ((" + E_OBJECT_IMPL + ") object).eProxyURI().toString();");
+		sc.add("if (object.eIsProxy() && object instanceof " + BASIC_E_OBJECT_IMPL + ") {");
+		sc.add("return ((" + BASIC_E_OBJECT_IMPL + ") object).eProxyURI().toString();");
 		sc.add("}");
 		sc.add(RESOURCE + " eResource = object.eResource();");
 		sc.add("if (eResource == null) {");
