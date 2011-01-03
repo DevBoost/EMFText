@@ -133,6 +133,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -166,6 +167,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String ARRAYS = java.util.Arrays.class.getName();
 	public static String ASSERT = Assert.class.getName();
 	public static String BASIC_COMMAND_STACK = BasicCommandStack.class.getName();
+	public static String BASIC_E_OBJECT_IMPL = BasicEObjectImpl.class.getName();
 	public static String BASIC_E_LIST = BasicEList.class.getName();
 	public static String BASIC_E_MAP = BasicEMap.class.getName();
 	public static String BASIC_INTERNAL_E_LIST = BasicInternalEList.class.getName();
