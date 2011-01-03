@@ -272,8 +272,8 @@ public class CsMarkerHelper {
 		if (object == null) {
 			return null;
 		}
-		if (object.eIsProxy() && object instanceof org.eclipse.emf.ecore.impl.EObjectImpl) {
-			return ((org.eclipse.emf.ecore.impl.EObjectImpl) object).eProxyURI().toString();
+		if (object.eIsProxy() && object instanceof org.eclipse.emf.ecore.impl.BasicEObjectImpl) {
+			return ((org.eclipse.emf.ecore.impl.BasicEObjectImpl) object).eProxyURI().toString();
 		}
 		org.eclipse.emf.ecore.resource.Resource eResource = object.eResource();
 		if (eResource == null) {
