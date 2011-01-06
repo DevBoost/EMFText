@@ -15,9 +15,7 @@ package org.emftext.sdk.finders;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +54,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
-	protected Collection<IResolvedGenPackage> findGenPackages(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI, boolean resolveFuzzy) {
+	protected GenPackageResolveResult findGenPackages(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI, boolean resolveFuzzy) {
 		Resource genModelResource = null;
 		
 		try {
@@ -69,6 +67,10 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		}
 		if (contents != null && contents.size() > 0) {
 			GenModel genModel = (GenModel) contents.get(0);
+			GenPackageResolveResult resolveResult = new GenPackageResolveResult();
+			if (genModel != null) {
+				resolveResult.setLocationHintCorrect();
+			}
 			File ecoreFile = null;
 			File genmodelFile = null;
 			
@@ -119,7 +121,6 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 				}
 			}
 
-			Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
 			Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
 			for (String uri : packages.keySet()) {
 				if (uri == null) {
@@ -131,15 +132,15 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 						continue;
 					}
 					GenPackageInFile nextResult = new GenPackageInFile(genPackage, ecoreFile, genmodelFile);
-					result.add(nextResult);
+					resolveResult.addResolvedGenPackage(nextResult);
 					if (!resolveFuzzy) {
 						break;
 					}
 				}
 			}
-			return result;
+			return resolveResult;
 		}
-		return Collections.emptySet();
+		return new GenPackageResolveResult(); // empty
 	}
 
 	private GenModel reloadGeneratorModel(GenModel genModel, ResourceSet rs) {

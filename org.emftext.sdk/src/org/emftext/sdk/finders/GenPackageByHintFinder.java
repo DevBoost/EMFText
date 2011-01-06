@@ -13,9 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
@@ -30,33 +28,33 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	
-	private Set<String> faultyHints = new HashSet<String>();
+	private Set<String> faultyHints = new LinkedHashSet<String>();
 	
-	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	public GenPackageResolveResult findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (locationHint == null) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		if (faultyHints.contains(locationHint)) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		return findGenPackagesUsingHint(nsURI, locationHint, container, resource, resolveFuzzy);
 	}
 
 	/**
-	 * Search the current project generator models.
+	 * Search in the current project for generator models.
 	 * 
 	 * @param nsURI
 	 * @param rs
-	 * @param platformString
+	 * 
 	 * @return
 	 */
-	private Collection<IResolvedGenPackage> findGenPackagesUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	private GenPackageResolveResult findGenPackagesUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		if (resource == null) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		ResourceSet rs = resource.getResourceSet();
 		if (rs == null) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		try {
 			URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
@@ -67,6 +65,6 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 			EMFTextSDKPlugin.logError("Exception while looking for generator package.", e);
 		}
 		
-		return Collections.emptySet();
+		return new GenPackageResolveResult(); // empty
 	}
 }

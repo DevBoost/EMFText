@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -23,6 +22,7 @@ import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
+import org.emftext.sdk.finders.GenPackageSearchResult;
 
 public class GenPackageDependentElementPackageReferenceResolver implements ICsReferenceResolver<GenPackageDependentElement, GenPackage> {
 	
@@ -31,13 +31,19 @@ public class GenPackageDependentElementPackageReferenceResolver implements ICsRe
 
 	public void resolve(String nsURI, GenPackageDependentElement container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenPackage> result) {
 		String locationHint = container.getPackageLocationHint();
-		Collection<GenPackage> genPackages = mmHelper.findGenPackages(options, container, nsURI, locationHint, container.eResource(), resolveFuzzy);
-		if (genPackages == null || genPackages.isEmpty()) {
-			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved." + 
-					(locationHint == null ? "" : " Maybe " + locationHint + " is wrong?")
-			);
+		GenPackageSearchResult searchResult = mmHelper.findGenPackages(options, container, nsURI, locationHint, container.eResource(), resolveFuzzy);
+		if (searchResult == null || searchResult.getFoundPackages().isEmpty()) {
+			String message = "Generator model \"" + nsURI + "\" could not be resolved.";
+			if (locationHint != null) {
+				if (searchResult.isLocationHintCorrect()) {
+					message += " The GenModel at the given URI (" + locationHint + ") does not contain a matching GenPackage.";
+				} else {
+					message += " Maybe " + locationHint + " is wrong?";
+				}
+			}
+			result.setErrorMessage(message);
 		} else {
-			for (GenPackage genPackage : genPackages) {
+			for (GenPackage genPackage : searchResult.getFoundPackages()) {
 				result.addMapping(genPackage.getNSURI(), genPackage);
 				if (!resolveFuzzy) {
 					break;

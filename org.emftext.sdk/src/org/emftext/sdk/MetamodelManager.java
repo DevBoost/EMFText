@@ -15,7 +15,6 @@ package org.emftext.sdk;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -30,6 +29,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.finders.GenPackageResolveResult;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IConcreteSyntaxFinderResult;
 import org.emftext.sdk.finders.IGenPackageFinder;
@@ -103,31 +103,34 @@ public class MetamodelManager implements IGenPackageFinder {
 		genPackageFinders.add(finder);
 	}
 
-	public Collection<IResolvedGenPackage> findGenPackages(String nsURI,
+	public GenPackageResolveResult findGenPackages(String nsURI,
 			String locationHint, GenPackageDependentElement container,
 			Resource resource, boolean resolveFuzzy) {
 
 		if (nsURI == null) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		if (cache.isInvalidUri(nsURI) && !resolveFuzzy) {
-			return Collections.emptySet();
+			return new GenPackageResolveResult(); // empty
 		}
 		if (cache.isCached(nsURI) && !resolveFuzzy) {
 			IResolvedGenPackage genPackageFromCache = cache.lookUp(nsURI);
 			Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>(1);
 			result.add(genPackageFromCache);
-			return result;
+			return new GenPackageResolveResult(result); // empty
 		}
 		
-		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>(1);
+		GenPackageResolveResult result = new GenPackageResolveResult();
 		boolean foundPackage = false;
 		for (IGenPackageFinder finder : genPackageFinders) {
-			Collection<IResolvedGenPackage> finderResult = finder.findGenPackages(nsURI, locationHint, container, resource, resolveFuzzy);
+			GenPackageResolveResult finderResult = finder.findGenPackages(nsURI, locationHint, container, resource, resolveFuzzy);
 			if (finderResult != null) {
-				for (IResolvedGenPackage nextResult : finderResult) {
+				if (finderResult.isLocationHintCorrect()) {
+					result.setLocationHintCorrect();
+				}
+				for (IResolvedGenPackage nextResult : finderResult.getResolvedPackages()) {
 					cache.store(nsURI, nextResult);
-					result.add(nextResult);
+					result.addResolvedGenPackage(nextResult);
 					foundPackage = true;
 				}
 			}

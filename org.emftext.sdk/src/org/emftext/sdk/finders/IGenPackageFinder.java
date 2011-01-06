@@ -13,8 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
-import java.util.Collection;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
@@ -32,7 +30,8 @@ public interface IGenPackageFinder {
 	 * @param resource the resource that contains a link to the generator package
 	 *                 (needed if generator packages that reside in the same folder 
 	 *                 shall be preferred)
-	 * @return
+	 *
+	 * @return the set of matching generator packages
 	 */
-	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy);
+	public GenPackageResolveResult findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy);
 }

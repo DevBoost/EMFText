@@ -151,7 +151,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		}
 	}
 	
-	public Collection<IResolvedGenPackage> findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
+	public GenPackageResolveResult findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		init();
 		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
 		for (String nextNsURI : cache.keySet()) {
@@ -162,6 +162,6 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 				result.add(cache.get(nextNsURI));
 			}
 		}
-		return result;
+		return new GenPackageResolveResult(result);
 	}
 }

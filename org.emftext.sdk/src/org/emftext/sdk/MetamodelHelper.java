@@ -14,8 +14,6 @@
 package org.emftext.sdk;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +27,8 @@ import org.emftext.sdk.finders.ConcreteSyntaxInRegistryFinder;
 import org.emftext.sdk.finders.GenPackageByHintFinder;
 import org.emftext.sdk.finders.GenPackageByNameFinder;
 import org.emftext.sdk.finders.GenPackageInRegistryFinder;
+import org.emftext.sdk.finders.GenPackageResolveResult;
+import org.emftext.sdk.finders.GenPackageSearchResult;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IGenPackageFinder;
 import org.emftext.sdk.finders.IResolvedGenPackage;
@@ -51,18 +51,21 @@ public class MetamodelHelper {
 
 	private MetamodelManager mmManager = new MetamodelManager();
 
-	public Collection<GenPackage> findGenPackages(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource, boolean resolveFuzzy) {
+	public GenPackageSearchResult findGenPackages(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource, boolean resolveFuzzy) {
 		configureMetaModelManager(options);
-		final Collection<IResolvedGenPackage> result = mmManager.findGenPackages(uri, locationHint, container, resource, resolveFuzzy);
-		if (result != null) {
-			Collection<GenPackage> foundPackages = new LinkedHashSet<GenPackage>();
-			for (IResolvedGenPackage resolvedPackage : result) {
+		GenPackageSearchResult result = new GenPackageSearchResult();
+		final GenPackageResolveResult resolveResult = mmManager.findGenPackages(uri, locationHint, container, resource, resolveFuzzy);
+		if (resolveResult != null) {
+			if (resolveResult.isLocationHintCorrect()) {
+				result.setLocationHintCorrect();
+			}
+			for (IResolvedGenPackage resolvedPackage : resolveResult.getResolvedPackages()) {
 				GenPackage genPackage = resolvedPackage.getResult();
 				if (genPackage != null) {
-					foundPackages.add(genPackage);
+					result.addGenPackage(genPackage);
 				}
 			}
-			return foundPackages;
+			return result;
 		} else {
 			return null;
 		}
