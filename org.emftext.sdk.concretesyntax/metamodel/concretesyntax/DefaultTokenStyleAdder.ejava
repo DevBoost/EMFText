@@ -62,6 +62,11 @@ eclass DefaultTokenStyleAdder {
 			}
 		}
 	}
+	
+	getKeywordRegex() {
+		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
+		return KEYWORD_REGEX;
+	}
 
 	addTokenStylesForKeywords(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
 		/**
@@ -69,8 +74,7 @@ eclass DefaultTokenStyleAdder {
 		 * as keywords and a default token style (purple and bold face font) 
 		 * will be assigned.
 		 */
-		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
-		final Pattern KEYWORD_PATTERN = Pattern.compile(KEYWORD_REGEX);
+		final Pattern KEYWORD_PATTERN = Pattern.compile(getKeywordRegex());
 		final String KEYWORD_COLOR = "800055";
 		for (Rule rule : syntax.getAllRules()) {
 			EList<CsString> csStrings = getAllKeywords(rule);

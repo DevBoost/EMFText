@@ -82,9 +82,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 				 * as keywords and a default token style (purple and bold face font) 
 				 * will be assigned.
 				 */
-				final  java.lang.String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
-		
-				final  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(KEYWORD_REGEX);
+				final  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(getKeywordRegex());
 		
 				final  java.lang.String KEYWORD_COLOR = "800055";
 		
@@ -209,6 +207,19 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 				}
 		
 				return allPlaceholders;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getKeywordRegex() {
+		
+				final  java.lang.String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
+		
+				return KEYWORD_REGEX;
 		
 	}
 

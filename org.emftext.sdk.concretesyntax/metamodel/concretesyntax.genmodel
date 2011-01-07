@@ -562,6 +562,7 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllPlaceholdersInQuotes">
         <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllPlaceholdersInQuotes/rule"/>
       </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/getKeywordRegex"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

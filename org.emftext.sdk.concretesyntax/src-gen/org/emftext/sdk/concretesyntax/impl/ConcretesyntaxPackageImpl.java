@@ -2205,6 +2205,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		op = addEOperation(defaultTokenStyleAdderEClass, this.getPlaceholderInQuotes(), "getAllPlaceholdersInQuotes", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(defaultTokenStyleAdderEClass, theEcorePackage.getEString(), "getKeywordRegex", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(cardinalityEEnum, Cardinality.class, "Cardinality");
 		addEEnumLiteral(cardinalityEEnum, Cardinality.NONE);
@@ -4384,7 +4386,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t/**\r\n\t\t * All CsStrings that match this regular expression will be recognized\r\n\t\t * as keywords and a default token style (purple and bold face font) \r\n\t\t * will be assigned.\r\n\t\t */\r\n\t\tfinal  java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)\";\r\n\r\n\t\tfinal  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(KEYWORD_REGEX);\r\n\r\n\t\tfinal  java.lang.String KEYWORD_COLOR = \"800055\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> csStrings = getAllKeywords(rule);\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.CsString csString : csStrings) {\r\n\t\t\t\tif (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\r\n\t\t\t\t\tnewStyle.getTokenNames().add(csString.getValue());\r\n\t\t\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\t\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "body", "\r\n\t\t/**\r\n\t\t * All CsStrings that match this regular expression will be recognized\r\n\t\t * as keywords and a default token style (purple and bold face font) \r\n\t\t * will be assigned.\r\n\t\t */\r\n\t\tfinal  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(getKeywordRegex());\r\n\r\n\t\tfinal  java.lang.String KEYWORD_COLOR = \"800055\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> csStrings = getAllKeywords(rule);\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.CsString csString : csStrings) {\r\n\t\t\t\tif (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\r\n\t\t\t\t\tnewStyle.getTokenNames().add(csString.getValue());\r\n\t\t\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\t\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -4420,6 +4422,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();\r\n\r\n\t\t org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\r\n\r\n\t\twhile (iterator.hasNext()) {\r\n\t\t\t org.eclipse.emf.ecore.EObject next = iterator.next();\r\n\t\t\tif (next instanceof  org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {\r\n\t\t\t\tallPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allPlaceholders;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(7), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfinal  java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)\";\r\n\r\n\t\treturn KEYWORD_REGEX;\r\n",
 			 "documentation", ""
 		   });
 	}
