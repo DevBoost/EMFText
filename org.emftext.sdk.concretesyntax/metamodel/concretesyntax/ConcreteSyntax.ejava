@@ -28,13 +28,6 @@ eclass ConcreteSyntax {
 		return rule.getSyntax() != this;
 	}
 
-	isAbstract() {
-		if (getModifier() != null) {
-			return true;
-		}
-		return false;
-	}
-
 	getGenClassCache() {
 		if (get_genClassCache() == null) {
 			set_genClassCache(#GenClassCache);
@@ -177,5 +170,58 @@ eclass ConcreteSyntax {
 			}
 		}
 		return subClasses;
+	}
+
+	addTokenStyle() {
+		for (String tokenName : newStyle.getTokenNames()) {
+			boolean exists = containsTokenStyle(existingStyles, tokenName);
+			if (!exists) {
+				TokenStyle newTokenStyle = #TokenStyle;
+				newTokenStyle.getTokenNames().add(tokenName);
+				newTokenStyle.setRgb(newStyle.getRgb());
+				newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
+				existingStyles.add(newTokenStyle);
+			}
+		}
+	}
+
+	containsTokenStyle() {
+		for (TokenStyle existingStyle : styles) {
+			for (String existingName : existingStyle.getTokenNames()) {
+				if (existingName.equals(tokenName)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	getAllTokenStyles() {
+		EList<TokenStyle> allStyles = new BasicEList<TokenStyle>();
+		allStyles.addAll(getTokenStyles());
+		addImportedTokenStyles(allStyles);
+		DefaultTokenStyleAdder adder = #DefaultTokenStyleAdder;
+		adder.addDefaultTokenStyles(this, allStyles);
+		return allStyles;
+	}
+
+	/**
+	 * Reads all token styles from imported syntaxes and
+	 * merges them with the styles defined in the current syntax. If a token
+	 * styles exists both in an imported and in the current syntax the one from
+	 * the current syntax overrides the imported one.
+	 */
+	addImportedTokenStyles() {
+		// add the imported token styles
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				EList<TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+				for (TokenStyle importedStyle : importedStyles) {
+					addTokenStyle(allStyles, importedStyle);
+				}
+			}
+		}
 	}
 }

@@ -1,0 +1,112 @@
+epackage concretesyntax;
+
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.regex.Pattern;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+/**
+ * The DefaultTokenStyleAdder adds default styles from comments, keywords
+ * and quoted tokens. Comments are recognized heuristically by their regular
+ * expression and keywords are by their value.
+ */
+eclass DefaultTokenStyleAdder {
+
+	addDefaultTokenStyles(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+		// add default styles
+		addTokenStylesForKeywords(syntax, allStyles);
+		addTokenStylesForQuotedTokens(syntax, allStyles);
+		addTokenStylesForComments(syntax, allStyles);
+	}
+
+	addTokenStylesForComments(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+		final String COMMENT_COLOR = "3F805D";
+		Collection<CompleteTokenDefinition> tokens = syntax.getActiveTokens();
+		for (CompleteTokenDefinition tokenDefinition : tokens) {
+			String regex = tokenDefinition.getRegex();
+			if (isCommentPattern(regex)) {
+				TokenStyle newStyle = #TokenStyle;
+				newStyle.setRgb(COMMENT_COLOR);
+				newStyle.getTokenNames().add(tokenDefinition.getName());
+				syntax.addTokenStyle(allStyles, newStyle);
+			}
+		}
+	}
+
+	isCommentPattern(/*String regex*/) {
+		final String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
+		final String ML_COMMENT = "'/*'.*'*/'";
+		return SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);
+	}
+
+	addTokenStylesForQuotedTokens(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+		String QUOTED_TOKEN_COLOR = "2A00FF";
+		for (Rule rule : syntax.getAllRules()) {
+			EList<PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);
+			for (PlaceholderInQuotes placeholder : placeholders) {
+				ReferencableTokenDefinition token = placeholder.getToken();
+				if (token == null) {
+					continue;
+				}
+				String tokenName = token.getName();
+
+				TokenStyle newStyle = #TokenStyle;
+				newStyle.setRgb(QUOTED_TOKEN_COLOR);
+				newStyle.getTokenNames().add(tokenName);
+				syntax.addTokenStyle(allStyles, newStyle);
+			}
+		}
+	}
+
+	addTokenStylesForKeywords(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+		/**
+		 * All CsStrings that match this regular expression will be recognized
+		 * as keywords and a default token style (purple and bold face font) 
+		 * will be assigned.
+		 */
+		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
+		final Pattern KEYWORD_PATTERN = Pattern.compile(KEYWORD_REGEX);
+		final String KEYWORD_COLOR = "800055";
+		for (Rule rule : syntax.getAllRules()) {
+			EList<CsString> csStrings = getAllKeywords(rule);
+			for (CsString csString : csStrings) {
+				if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
+					TokenStyle newStyle = #TokenStyle;
+					newStyle.setRgb(KEYWORD_COLOR);
+					newStyle.getTokenNames().add(csString.getValue());
+					newStyle.getFontStyles().add(FontStyle.BOLD);
+					syntax.addTokenStyle(allStyles, newStyle);
+				}
+			}
+		}
+	}
+
+	/* EList<CsString> */getAllKeywords(/*Rule rule*/) {
+		EList<CsString> allKeywords = new BasicEList<CsString>();
+		TreeIterator<EObject> iterator = rule.eAllContents();
+		while (iterator.hasNext()) {
+			EObject next = iterator.next();
+			if (next instanceof CsString) {
+				allKeywords.add((CsString) next);
+			}
+		}
+		return allKeywords;
+	}
+
+	/* EList<CsString> */getAllPlaceholdersInQuotes(/*Rule rule*/) {
+		EList<PlaceholderInQuotes> allPlaceholders = new BasicEList<PlaceholderInQuotes>();
+		TreeIterator<EObject> iterator = rule.eAllContents();
+		while (iterator.hasNext()) {
+			EObject next = iterator.next();
+			if (next instanceof PlaceholderInQuotes) {
+				allPlaceholders.add((PlaceholderInQuotes) next);
+			}
+		}
+		return allPlaceholders;
+	}
+}

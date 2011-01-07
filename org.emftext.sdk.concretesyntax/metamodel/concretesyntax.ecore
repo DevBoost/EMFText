@@ -58,7 +58,7 @@
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9;return rule.getSyntax() != this;&#xD;&#xA;"/>
-        <details key="documentation" value="Returns true if the given rule was defined in the given syntax.&#xD;&#xA;If the rule is defined in an imported syntax, this method returns false.&#xD;&#xA; &#xD;&#xA;@param syntax the syntax that refers to the rule&#xD;&#xA;@param rule the rule to check&#xD;&#xA;@return true if the rule is contained, false if it is imported"/>
+        <details key="documentation" value="&#xD;&#xA; Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
@@ -71,17 +71,46 @@
     <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.util.Collection&lt; org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {&#xD;&#xA;&#x9;&#x9;&#x9;if (excludeOperatorRules &amp;&amp; rule.getOperatorAnnotation() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();&#xD;&#xA;&#x9;&#x9;&#x9;foundGenClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return foundGenClasses;&#xD;&#xA;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
     <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {&#xD;&#xA;&#x9;&#x9;&#x9;if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;subClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return subClasses;&#xD;&#xA;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    </eOperations>
+    <eOperations name="getAllTokenStyles" upperBound="-1" eType="#//TokenStyle">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.TokenStyle>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;allStyles.addAll(getTokenStyles());&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;addImportedTokenStyles(allStyles);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;adder.addDefaultTokenStyles(this, allStyles);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return allStyles;&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="addTokenStyle">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( java.lang.String tokenName : newStyle.getTokenNames()) {&#xD;&#xA;&#x9;&#x9;&#x9;boolean exists = containsTokenStyle(existingStyles, tokenName);&#xD;&#xA;&#x9;&#x9;&#x9;if (!exists) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newTokenStyle.getTokenNames().add(tokenName);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newTokenStyle.setRgb(newStyle.getRgb());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;existingStyles.add(newTokenStyle);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="existingStyles" upperBound="-1" eType="#//TokenStyle"/>
+      <eParameters name="newStyle" eType="#//TokenStyle"/>
+    </eOperations>
+    <eOperations name="containsTokenStyle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {&#xD;&#xA;&#x9;&#x9;&#x9;for ( java.lang.String existingName : existingStyle.getTokenNames()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (existingName.equals(tokenName)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return true;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return false;&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="styles" upperBound="-1" eType="#//TokenStyle"/>
+      <eParameters name="tokenName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    </eOperations>
+    <eOperations name="addImportedTokenStyles">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;// add the imported token styles&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.Import> imports = getImports();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {&#xD;&#xA;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();&#xD;&#xA;&#x9;&#x9;&#x9;if (importedSyntax != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;addTokenStyle(allStyles, importedStyle);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
+        <details key="documentation" value="&#xD;&#xA; Reads all token styles from imported syntaxes and&#xD;&#xA; merges them with the styles defined in the current syntax. If a token&#xD;&#xA; styles exists both in an imported and in the current syntax the one from&#xD;&#xA; the current syntax overrides the imported one.&#xD;&#xA;"/>
+      </eAnnotations>
+      <eParameters name="allStyles" upperBound="-1" eType="#//TokenStyle"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="startSymbols" upperBound="-1"
@@ -102,8 +131,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
         eType="#//TokenStyle" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="allTokenStyles" upperBound="-1"
-        eType="#//TokenStyle" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allTokenDirectives" upperBound="-1"
         eType="#//TokenDirective" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" lowerBound="1" upperBound="-1"
@@ -1804,6 +1831,61 @@
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="eClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DefaultTokenStyleAdder">
+    <eOperations name="addDefaultTokenStyles">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;// add default styles&#xD;&#xA;&#x9;&#x9;addTokenStylesForKeywords(syntax, allStyles);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;addTokenStylesForQuotedTokens(syntax, allStyles);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;addTokenStylesForComments(syntax, allStyles);&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" eType="#//ConcreteSyntax"/>
+      <eParameters name="allStyles" upperBound="-1" eType="#//TokenStyle"/>
+    </eOperations>
+    <eOperations name="addTokenStylesForKeywords">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;/**&#xD;&#xA;&#x9;&#x9; * All CsStrings that match this regular expression will be recognized&#xD;&#xA;&#x9;&#x9; * as keywords and a default token style (purple and bold face font) &#xD;&#xA;&#x9;&#x9; * will be assigned.&#xD;&#xA;&#x9;&#x9; */&#xD;&#xA;&#x9;&#x9;final  java.lang.String KEYWORD_REGEX = &quot;([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;final  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(KEYWORD_REGEX);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;final  java.lang.String KEYWORD_COLOR = &quot;800055&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.CsString> csStrings = getAllKeywords(rule);&#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.CsString csString : csStrings) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;newStyle.setRgb(KEYWORD_COLOR);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;newStyle.getTokenNames().add(csString.getValue());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;syntax.addTokenStyle(allStyles, newStyle);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" eType="#//ConcreteSyntax"/>
+      <eParameters name="allStyles" upperBound="-1" eType="#//TokenStyle"/>
+    </eOperations>
+    <eOperations name="addTokenStylesForQuotedTokens">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.lang.String QUOTED_TOKEN_COLOR = &quot;2A00FF&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);&#xD;&#xA;&#x9;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder : placeholders) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (token == null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; java.lang.String tokenName = token.getName();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newStyle.setRgb(QUOTED_TOKEN_COLOR);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newStyle.getTokenNames().add(tokenName);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;syntax.addTokenStyle(allStyles, newStyle);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" eType="#//ConcreteSyntax"/>
+      <eParameters name="allStyles" upperBound="-1" eType="#//TokenStyle"/>
+    </eOperations>
+    <eOperations name="isCommentPattern" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;final  java.lang.String SL_COMMENT = &quot;'//'(~('\n'|'\r'|'\uffff'))*&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;final  java.lang.String ML_COMMENT = &quot;'/*'.*'*/'&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="regex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    </eOperations>
+    <eOperations name="addTokenStylesForComments">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9;final  java.lang.String COMMENT_COLOR = &quot;3F805D&quot;;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; java.util.Collection&lt; org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {&#xD;&#xA;&#x9;&#x9;&#x9; java.lang.String regex = tokenDefinition.getRegex();&#xD;&#xA;&#x9;&#x9;&#x9;if (isCommentPattern(regex)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9; org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newStyle.setRgb(COMMENT_COLOR);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;newStyle.getTokenNames().add(tokenDefinition.getName());&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;syntax.addTokenStyle(allStyles, newStyle);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="syntax" eType="#//ConcreteSyntax"/>
+      <eParameters name="allStyles" upperBound="-1" eType="#//TokenStyle"/>
+    </eOperations>
+    <eOperations name="getAllKeywords" upperBound="-1" eType="#//CsString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.CsString> allKeywords = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.CsString>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.TreeIterator&lt; org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;while (iterator.hasNext()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.ecore.EObject next = iterator.next();&#xD;&#xA;&#x9;&#x9;&#x9;if (next instanceof  org.emftext.sdk.concretesyntax.CsString) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;allKeywords.add(( org.emftext.sdk.concretesyntax.CsString) next);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return allKeywords;&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="rule" eType="#//Rule"/>
+    </eOperations>
+    <eOperations name="getAllPlaceholdersInQuotes" upperBound="-1" eType="#//PlaceholderInQuotes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new  org.eclipse.emf.common.util.BasicEList&lt; org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.TreeIterator&lt; org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;while (iterator.hasNext()) {&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.ecore.EObject next = iterator.next();&#xD;&#xA;&#x9;&#x9;&#x9;if (next instanceof  org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;allPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return allPlaceholders;&#xD;&#xA;"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+      <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
   </eClassifiers>
 </ecore:EPackage>

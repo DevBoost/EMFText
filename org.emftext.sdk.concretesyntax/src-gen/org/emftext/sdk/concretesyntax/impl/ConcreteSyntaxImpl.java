@@ -60,7 +60,6 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokens <em>Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokenStyles <em>Token Styles</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenStyles <em>All Token Styles</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#get_operatorRules <em>operator Rules</em>}</li>
@@ -174,16 +173,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected EList<TokenStyle> tokenStyles;
-
-	/**
-	 * The cached value of the '{@link #getAllTokenStyles() <em>All Token Styles</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAllTokenStyles()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<TokenStyle> allTokenStyles;
 
 	/**
 	 * The cached value of the '{@link #getAllTokenDirectives() <em>All Token Directives</em>}' reference list.
@@ -427,10 +416,80 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 */
 	public EList<TokenStyle> getAllTokenStyles() {
-		if (allTokenStyles == null) {
-			allTokenStyles = new EObjectResolvingEList<TokenStyle>(TokenStyle.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
-		}
-		return allTokenStyles;
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();
+		
+				allStyles.addAll(getTokenStyles());
+		
+				addImportedTokenStyles(allStyles);
+		
+				 org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();
+		
+				adder.addDefaultTokenStyles(this, allStyles);
+		
+				return allStyles;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle) {
+		
+				for ( java.lang.String tokenName : newStyle.getTokenNames()) {
+					boolean exists = containsTokenStyle(existingStyles, tokenName);
+					if (!exists) {
+						 org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+						newTokenStyle.getTokenNames().add(tokenName);
+						newTokenStyle.setRgb(newStyle.getRgb());
+						newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
+						existingStyles.add(newTokenStyle);
+					}
+				}
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName) {
+		
+				for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {
+					for ( java.lang.String existingName : existingStyle.getTokenNames()) {
+						if (existingName.equals(tokenName)) {
+							return true;
+						}
+					}
+				}
+		
+				return false;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void addImportedTokenStyles(EList<TokenStyle> allStyles) {
+		
+				// add the imported token styles
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
+		
+				for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
+					 org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+					if (importedSyntax != null) {
+						 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+						for ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {
+							addTokenStyle(allStyles, importedStyle);
+						}
+					}
+				}
+		
 	}
 
 	/**
@@ -925,8 +984,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getSyntheticTokens();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				return getTokenStyles();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
-				return getAllTokenStyles();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
 				return getAllTokenDirectives();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
@@ -990,10 +1047,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				getTokenStyles().clear();
 				getTokenStyles().addAll((Collection<? extends TokenStyle>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
-				getAllTokenStyles().clear();
-				getAllTokenStyles().addAll((Collection<? extends TokenStyle>)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
 				getAllTokenDirectives().clear();
@@ -1062,9 +1115,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				getTokenStyles().clear();
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
-				getAllTokenStyles().clear();
-				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
 				getAllTokenDirectives().clear();
 				return;
@@ -1119,8 +1169,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return syntheticTokens != null && !syntheticTokens.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				return tokenStyles != null && !tokenStyles.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
-				return allTokenStyles != null && !allTokenStyles.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
 				return allTokenDirectives != null && !allTokenDirectives.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:

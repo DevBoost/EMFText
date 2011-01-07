@@ -41,11 +41,9 @@ import org.emftext.sdk.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_annotations.SuppressWarnings;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
-import org.emftext.sdk.syntax_extension.DefaultTokenStyleAdder;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.TokenDefinitionMerger;
-import org.emftext.sdk.syntax_extension.TokenStyleMerger;
 
 public class CompositePostProcessor implements ICsResourcePostProcessorProvider, ICsResourcePostProcessor {
 
@@ -67,8 +65,10 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 		postProcessors.add(new DerivedTokenCreator());
 		postProcessors.add(new TokenDefinitionMerger());
 		postProcessors.add(new DefaultTokenConnector());
-		postProcessors.add(new TokenStyleMerger());
-		postProcessors.add(new DefaultTokenStyleAdder());
+		
+		// moved to metamodel
+		//postProcessors.add(new TokenStyleMerger());
+		//postProcessors.add(new DefaultTokenStyleAdder());
 		
 		postProcessors.add(new CyclicTokenDefinitionAnalyser());
 		

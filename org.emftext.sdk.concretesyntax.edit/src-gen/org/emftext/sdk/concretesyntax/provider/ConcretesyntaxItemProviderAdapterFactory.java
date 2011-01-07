@@ -794,6 +794,29 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DefaultTokenStyleAdderItemProvider defaultTokenStyleAdderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDefaultTokenStyleAdderAdapter() {
+		if (defaultTokenStyleAdderItemProvider == null) {
+			defaultTokenStyleAdderItemProvider = new DefaultTokenStyleAdderItemProvider(this);
+		}
+
+		return defaultTokenStyleAdderItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -923,6 +946,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (genClassCacheItemProvider != null) genClassCacheItemProvider.dispose();
 		if (genClassCacheEntryItemProvider != null) genClassCacheEntryItemProvider.dispose();
 		if (eClassUtilItemProvider != null) eClassUtilItemProvider.dispose();
+		if (defaultTokenStyleAdderItemProvider != null) defaultTokenStyleAdderItemProvider.dispose();
 	}
 
 }

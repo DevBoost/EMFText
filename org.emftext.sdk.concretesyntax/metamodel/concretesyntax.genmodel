@@ -274,7 +274,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokens"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/syntheticTokens"/>
       <genFeatures property="None" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokenStyles"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenStyles"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokenDirectives"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/rules"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/_operatorRules"/>
@@ -302,6 +301,18 @@
       <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax">
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/superClass"/>
         <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/getSubClassesWithSyntax/excludeOperatorRules"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/getAllTokenStyles"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/addTokenStyle">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/addTokenStyle/existingStyles"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/addTokenStyle/newStyle"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/containsTokenStyle">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/containsTokenStyle/styles"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/containsTokenStyle/tokenName"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//ConcreteSyntax/addImportedTokenStyles">
+        <genParameters ecoreParameter="concretesyntax.ecore#//ConcreteSyntax/addImportedTokenStyles/allStyles"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Import">
@@ -523,6 +534,33 @@
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isNotConcrete">
         <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isNotConcrete/eClass"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="concretesyntax.ecore#//DefaultTokenStyleAdder">
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/addDefaultTokenStyles">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addDefaultTokenStyles/syntax"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addDefaultTokenStyles/allStyles"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForKeywords">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForKeywords/syntax"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForKeywords/allStyles"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForQuotedTokens">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForQuotedTokens/syntax"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForQuotedTokens/allStyles"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/isCommentPattern">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/isCommentPattern/regex"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForComments">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForComments/syntax"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStylesForComments/allStyles"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllKeywords">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllKeywords/rule"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllPlaceholdersInQuotes">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllPlaceholdersInQuotes/rule"/>
       </genOperations>
     </genClasses>
   </genPackages>

@@ -74,7 +74,6 @@ public class ConcreteSyntaxItemProvider
 			addStartSymbolsPropertyDescriptor(object);
 			addActiveTokensPropertyDescriptor(object);
 			addOptionsPropertyDescriptor(object);
-			addAllTokenStylesPropertyDescriptor(object);
 			addAllTokenDirectivesPropertyDescriptor(object);
 			add_operatorRulesPropertyDescriptor(object);
 			add_operatorRuleSubsetsPropertyDescriptor(object);
@@ -164,28 +163,6 @@ public class ConcreteSyntaxItemProvider
 				 getString("_UI_ConcreteSyntax_options_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_options_feature", "_UI_ConcreteSyntax_type"),
 				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the All Token Styles feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAllTokenStylesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ConcreteSyntax_allTokenStyles_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConcreteSyntax_allTokenStyles_feature", "_UI_ConcreteSyntax_type"),
-				 ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES,
 				 true,
 				 false,
 				 true,
@@ -321,7 +298,6 @@ public class ConcreteSyntaxItemProvider
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES);
 			//childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__GEN_CLASS_CACHE);
 			//childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ECLASS_UTIL);
@@ -404,7 +380,6 @@ public class ConcreteSyntaxItemProvider
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__GEN_CLASS_CACHE:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL:
@@ -487,11 +462,6 @@ public class ConcreteSyntaxItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES,
-				 ConcretesyntaxFactory.eINSTANCE.createTokenStyle()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES,
 				 ConcretesyntaxFactory.eINSTANCE.createRule()));
 
@@ -519,9 +489,7 @@ public class ConcreteSyntaxItemProvider
 
 		boolean qualify =
 			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS ||
-			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS ||
-			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKEN_STYLES ||
-			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES;
+			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS;
 
 		if (qualify) {
 			return getString

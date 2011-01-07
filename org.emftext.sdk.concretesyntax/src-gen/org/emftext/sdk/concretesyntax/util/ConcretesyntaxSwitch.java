@@ -35,6 +35,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
@@ -513,6 +514,12 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.ECLASS_UTIL: {
 				EClassUtil eClassUtil = (EClassUtil)theEObject;
 				T result = caseEClassUtil(eClassUtil);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.DEFAULT_TOKEN_STYLE_ADDER: {
+				DefaultTokenStyleAdder defaultTokenStyleAdder = (DefaultTokenStyleAdder)theEObject;
+				T result = caseDefaultTokenStyleAdder(defaultTokenStyleAdder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1207,6 +1214,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseEClassUtil(EClassUtil object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Default Token Style Adder</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Default Token Style Adder</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDefaultTokenStyleAdder(DefaultTokenStyleAdder object) {
 		return null;
 	}
 

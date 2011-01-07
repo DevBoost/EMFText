@@ -52,6 +52,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	
 	public ResultType interprete(org.eclipse.emf.ecore.EObject object, ContextType context) {
 		ResultType result = null;
+		if (object instanceof org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder) {
+			result = interprete_org_emftext_sdk_concretesyntax_DefaultTokenStyleAdder((org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.EClassUtil) {
 			result = interprete_org_emftext_sdk_concretesyntax_EClassUtil((org.emftext.sdk.concretesyntax.EClassUtil) object, context);
 		}
@@ -512,6 +518,10 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	}
 	
 	public ResultType interprete_org_emftext_sdk_concretesyntax_EClassUtil(org.emftext.sdk.concretesyntax.EClassUtil object, ContextType context) {
+		return null;
+	}
+	
+	public ResultType interprete_org_emftext_sdk_concretesyntax_DefaultTokenStyleAdder(org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder object, ContextType context) {
 		return null;
 	}
 	

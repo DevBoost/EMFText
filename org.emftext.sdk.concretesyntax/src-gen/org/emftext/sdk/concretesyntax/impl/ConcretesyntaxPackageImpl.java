@@ -43,6 +43,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
@@ -415,6 +416,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass defaultTokenStyleAdderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum cardinalityEEnum = null;
 
 	/**
@@ -629,7 +637,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_AllTokenStyles() {
+	public EReference getConcreteSyntax_AllTokenDirectives() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -638,7 +646,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_AllTokenDirectives() {
+	public EReference getConcreteSyntax_Rules() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -647,7 +655,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_Rules() {
+	public EReference getConcreteSyntax__operatorRules() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -656,17 +664,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax__operatorRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getConcreteSyntax__operatorRuleSubsets() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(12);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -675,7 +674,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EAttribute getConcreteSyntax__operatorRulesInitialized() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(13);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -684,7 +683,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax__genClassCache() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(14);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -693,7 +692,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax__eClassUtil() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(15);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -702,7 +701,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EAttribute getConcreteSyntax_Abstract() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(16);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -1538,6 +1537,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDefaultTokenStyleAdder() {
+		return defaultTokenStyleAdderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOptionTypes() {
 		return optionTypesEEnum;
 	}
@@ -1619,7 +1627,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKEN_STYLES);
-		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__RULES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__OPERATOR_RULES);
@@ -1764,6 +1771,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		eClassUtilEClass = createEClass(ECLASS_UTIL);
 
+		defaultTokenStyleAdderEClass = createEClass(DEFAULT_TOKEN_STYLE_ADDER);
+
 		// Create enums
 		cardinalityEEnum = createEEnum(CARDINALITY);
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
@@ -1863,7 +1872,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDirective(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_SyntheticTokens(), this.getCompleteTokenDefinition(), null, "syntheticTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_TokenStyles(), this.getTokenStyle(), null, "tokenStyles", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConcreteSyntax_AllTokenStyles(), this.getTokenStyle(), null, "allTokenStyles", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllTokenDirectives(), this.getTokenDirective(), null, "allTokenDirectives", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Rules(), this.getRule(), this.getRule_Syntax(), "rules", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax__operatorRules(), this.getRule(), null, "_operatorRules", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -1899,6 +1907,19 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		op = addEOperation(concreteSyntaxEClass, theGenModelPackage.getGenClass(), "getSubClassesWithSyntax", 0, -1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theGenModelPackage.getGenClass(), "superClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEBoolean(), "excludeOperatorRules", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(concreteSyntaxEClass, this.getTokenStyle(), "getAllTokenStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(concreteSyntaxEClass, null, "addTokenStyle", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "existingStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "newStyle", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(concreteSyntaxEClass, theEcorePackage.getEBoolean(), "containsTokenStyle", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "styles", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "tokenName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(concreteSyntaxEClass, null, "addImportedTokenStyles", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_Prefix(), ecorePackage.getEString(), "prefix", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2156,6 +2177,33 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isNotConcrete", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(defaultTokenStyleAdderEClass, DefaultTokenStyleAdder.class, "DefaultTokenStyleAdder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, null, "addDefaultTokenStyles", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, null, "addTokenStylesForKeywords", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, null, "addTokenStylesForQuotedTokens", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, theEcorePackage.getEBoolean(), "isCommentPattern", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "regex", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, null, "addTokenStylesForComments", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, this.getCsString(), "getAllKeywords", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(defaultTokenStyleAdderEClass, this.getPlaceholderInQuotes(), "getAllPlaceholdersInQuotes", 0, -1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRule(), "rule", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(cardinalityEEnum, Cardinality.class, "Cardinality");
@@ -2486,7 +2534,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\treturn rule.getSyntax() != this;\r\n",
-			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\nIf the rule is defined in an imported syntax, this method returns false.\r\n \r\n@param syntax the syntax that refers to the rule\r\n@param rule the rule to check\r\n@return true if the rule is contained, false if it is imported"
+			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
@@ -2500,14 +2548,42 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\r\n\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\r\n\t\t\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\r\n\t\t\t\tcontinue;\r\n\t\t\t}\r\n\t\t\t org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\r\n\t\t\tfoundGenClasses.add(subClassCand);\r\n\t\t}\r\n\r\n\t\treturn foundGenClasses;\r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\t org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\r\n\r\n\t\t org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\r\n\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\r\n\t\t\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\r\n\t\t\t\tsubClasses.add(subClassCand);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subClasses;\r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
+		   });		
+		addAnnotation
+		  (concreteSyntaxEClass.getEOperations().get(11), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\r\n\r\n\t\tallStyles.addAll(getTokenStyles());\r\n\r\n\t\taddImportedTokenStyles(allStyles);\r\n\r\n\t\t org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\r\n\r\n\t\tadder.addDefaultTokenStyles(this, allStyles);\r\n\r\n\t\treturn allStyles;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (concreteSyntaxEClass.getEOperations().get(12), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfor ( java.lang.String tokenName : newStyle.getTokenNames()) {\r\n\t\t\tboolean exists = containsTokenStyle(existingStyles, tokenName);\r\n\t\t\tif (!exists) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewTokenStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tnewTokenStyle.setRgb(newStyle.getRgb());\r\n\t\t\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\r\n\t\t\t\texistingStyles.add(newTokenStyle);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (concreteSyntaxEClass.getEOperations().get(13), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\r\n\t\t\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\r\n\t\t\t\tif (existingName.equals(tokenName)) {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (concreteSyntaxEClass.getEOperations().get(14), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t// add the imported token styles\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\r\n\t\t\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\r\n\t\t\t\t\taddTokenStyle(allStyles, importedStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n styles exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
 		   });		
 		addAnnotation
 		  (getConcreteSyntax_SyntheticTokens(), 
@@ -4295,6 +4371,55 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\treturn !isConcrete(eClass);\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(0), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(1), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t/**\r\n\t\t * All CsStrings that match this regular expression will be recognized\r\n\t\t * as keywords and a default token style (purple and bold face font) \r\n\t\t * will be assigned.\r\n\t\t */\r\n\t\tfinal  java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)\";\r\n\r\n\t\tfinal  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(KEYWORD_REGEX);\r\n\r\n\t\tfinal  java.lang.String KEYWORD_COLOR = \"800055\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> csStrings = getAllKeywords(rule);\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.CsString csString : csStrings) {\r\n\t\t\t\tif (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\r\n\t\t\t\t\tnewStyle.getTokenNames().add(csString.getValue());\r\n\t\t\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\t\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(2), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t java.lang.String QUOTED_TOKEN_COLOR = \"2A00FF\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder : placeholders) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();\r\n\t\t\t\tif (token == null) {\r\n\t\t\t\t\tcontinue;\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String tokenName = token.getName();\r\n\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewStyle.setRgb(QUOTED_TOKEN_COLOR);\r\n\t\t\t\tnewStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(3), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'\\uffff\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'*/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(4), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfinal  java.lang.String COMMENT_COLOR = \"3F805D\";\r\n\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {\r\n\t\t\t java.lang.String regex = tokenDefinition.getRegex();\r\n\t\t\tif (isCommentPattern(regex)) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewStyle.setRgb(COMMENT_COLOR);\r\n\t\t\t\tnewStyle.getTokenNames().add(tokenDefinition.getName());\r\n\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(5), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> allKeywords = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.CsString>();\r\n\r\n\t\t org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\r\n\r\n\t\twhile (iterator.hasNext()) {\r\n\t\t\t org.eclipse.emf.ecore.EObject next = iterator.next();\r\n\t\t\tif (next instanceof  org.emftext.sdk.concretesyntax.CsString) {\r\n\t\t\t\tallKeywords.add(( org.emftext.sdk.concretesyntax.CsString) next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allKeywords;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(6), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();\r\n\r\n\t\t org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\r\n\r\n\t\twhile (iterator.hasNext()) {\r\n\t\t\t org.eclipse.emf.ecore.EObject next = iterator.next();\r\n\t\t\tif (next instanceof  org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {\r\n\t\t\t\tallPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allPlaceholders;\r\n",
 			 "documentation", ""
 		   });
 	}

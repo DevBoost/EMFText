@@ -306,6 +306,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	EClassUtil createEClassUtil();
 
 	/**
+	 * Returns a new object of class '<em>Default Token Style Adder</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Default Token Style Adder</em>'.
+	 * @generated
+	 */
+	DefaultTokenStyleAdder createDefaultTokenStyleAdder();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

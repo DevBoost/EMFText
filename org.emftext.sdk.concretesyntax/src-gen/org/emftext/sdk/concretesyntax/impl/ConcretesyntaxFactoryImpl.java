@@ -37,6 +37,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 import org.emftext.sdk.concretesyntax.EnumTerminal;
@@ -139,6 +140,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.GEN_CLASS_CACHE: return createGenClassCache();
 			case ConcretesyntaxPackage.GEN_CLASS_CACHE_ENTRY: return (EObject)createGenClassCacheEntry();
 			case ConcretesyntaxPackage.ECLASS_UTIL: return createEClassUtil();
+			case ConcretesyntaxPackage.DEFAULT_TOKEN_STYLE_ADDER: return createDefaultTokenStyleAdder();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -502,6 +504,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public EClassUtil createEClassUtil() {
 		EClassUtilImpl eClassUtil = new EClassUtilImpl();
 		return eClassUtil;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DefaultTokenStyleAdder createDefaultTokenStyleAdder() {
+		DefaultTokenStyleAdderImpl defaultTokenStyleAdder = new DefaultTokenStyleAdderImpl();
+		return defaultTokenStyleAdder;
 	}
 
 	/**

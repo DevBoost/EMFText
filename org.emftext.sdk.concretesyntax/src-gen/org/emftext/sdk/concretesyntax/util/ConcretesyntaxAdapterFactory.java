@@ -36,6 +36,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
@@ -309,6 +310,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEClassUtil(EClassUtil object) {
 				return createEClassUtilAdapter();
+			}
+			@Override
+			public Adapter caseDefaultTokenStyleAdder(DefaultTokenStyleAdder object) {
+				return createDefaultTokenStyleAdderAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -971,6 +976,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEClassUtilAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder <em>Default Token Style Adder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder
+	 * @generated
+	 */
+	public Adapter createDefaultTokenStyleAdderAdapter() {
 		return null;
 	}
 
