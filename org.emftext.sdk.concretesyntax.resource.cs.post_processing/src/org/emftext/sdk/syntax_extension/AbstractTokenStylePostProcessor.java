@@ -12,7 +12,7 @@ public abstract class AbstractTokenStylePostProcessor extends AbstractPostProces
 	protected void addStyle(EList<TokenStyle> allStyles, TokenStyle style) {
 		for (String tokenName : style.getTokenNames()) {
 			boolean exists = containsStyle(allStyles, tokenName);
-			if (!exists){
+			if (!exists) {
 				TokenStyle newTokenStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				newTokenStyle.getTokenNames().add(tokenName);
 				newTokenStyle.setRgb(style.getRgb());

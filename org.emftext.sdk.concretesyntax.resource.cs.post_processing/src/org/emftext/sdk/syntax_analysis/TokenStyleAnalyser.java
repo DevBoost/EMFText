@@ -79,6 +79,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 				return true;
 			}
 		}
+		// TODO do we need to consider enumeration terminals here?
 		return false;
 	}
 }
