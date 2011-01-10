@@ -208,8 +208,9 @@ notSet returns [StringBuffer buf]
 
 :	sign = '~' 	( bl = block) 	
 {
-buf.append("~");
+buf.append("~(()|");
 buf.append($bl.buf);
+buf.append(")");
 return buf;
 }
 

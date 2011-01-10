@@ -859,9 +859,9 @@ public class AutomatonRexpParser extends Parser {
 
             }
 
-
-            buf.append("~");
+            buf.append("~(()|");
             buf.append(bl);
+            buf.append(")");
             return buf;
 
 
