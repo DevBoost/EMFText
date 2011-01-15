@@ -173,7 +173,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_DOT_PROJECT);
 
 	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, null);
+	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, OptionTypes.OVERRIDE_PLUGIN_XML);
 
 	// the classes
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_LEXER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Lexer", null, OptionTypes.OVERRIDE_PARSER);
