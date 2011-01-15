@@ -37,11 +37,11 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The key for the option to provide a stream pre-processor.");
-		sc.add("public String INPUT_STREAM_PREPROCESSOR_PROVIDER = \"INPUT_STREAM_PREPROCESSOR_PROVIDER\";");
+		sc.add("public String INPUT_STREAM_PREPROCESSOR_PROVIDER = new " + metaInformationClassName + "().getInputStreamPreprocessorProviderOptionKey();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The key for the option to provide a resource post-processor.");
-		sc.add("public String RESOURCE_POSTPROCESSOR_PROVIDER = \"RESOURCE_POSTPROCESSOR_PROVIDER\";");
+		sc.add("public String RESOURCE_POSTPROCESSOR_PROVIDER = new " + metaInformationClassName + "().getResourcePostProcessorProviderOptionKey();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

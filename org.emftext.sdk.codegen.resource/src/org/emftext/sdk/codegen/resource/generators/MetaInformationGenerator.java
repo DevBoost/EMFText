@@ -77,6 +77,8 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         addCreateResourceFactoryMethod(sc);
         addGetNewFileContentProviderMethod(sc);
         addRegisterResourceFactoryMethod(sc);
+        addGetInputStreamPreprocessorProviderOptionKey(sc);
+        addGetResourcePostProcessorProviderOptionKey(sc);
 	}
 
 	private void addRegisterResourceFactoryMethod(JavaComposite sc) {
@@ -215,6 +217,32 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
 		sc.add("public " + iTokenResolverFactoryClassName + " getTokenResolverFactory() {");
 		sc.add("return new " + tokenResolverFactoryClassName + "();");
+		sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetInputStreamPreprocessorProviderOptionKey(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the key of the option that can be used to register a preprocessor that " +
+			"is used as a pipe when loading resources. This key is language-specific. To " +
+			"register one preprocessor for multiple resource types, it must be registered " +
+			"individually using all keys."
+		);
+		sc.add("public String getInputStreamPreprocessorProviderOptionKey() {");
+		sc.add("return getSyntaxName() + \"_\" + \"INPUT_STREAM_PREPROCESSOR_PROVIDER\";");
+		sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetResourcePostProcessorProviderOptionKey(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the key of the option that can be used to register a post-processors that " +
+			"are invoked after loading resources. This key is language-specific. To " +
+			"register one post-processor for multiple resource types, it must be registered " +
+			"individually using all keys."
+		);
+		sc.add("public String getResourcePostProcessorProviderOptionKey() {");
+		sc.add("return getSyntaxName() + \"_\" + \"RESOURCE_POSTPROCESSOR_PROVIDER\";");
 		sc.add("}");
         sc.addLineBreak();
 	}
