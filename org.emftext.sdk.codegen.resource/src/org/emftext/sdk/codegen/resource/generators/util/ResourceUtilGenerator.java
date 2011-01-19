@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -22,10 +21,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -53,7 +54,8 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addFindUnresolvedProxiesMethod(sc);
+		addFindUnresolvedProxiesMethod2(sc);
+		addFindUnresolvedProxiesMethod1(sc);
 		addResolveAllMethod(sc);
 		addSaveResourceMethod(sc);
 		addContainsErrorsMethod(sc);
@@ -61,14 +63,31 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addContainsProblemsMethod(sc);
 	}
 
-	private void addFindUnresolvedProxiesMethod(JavaComposite sc) {
+	private void addFindUnresolvedProxiesMethod2(JavaComposite sc) {
 		sc.addJavadoc(
-			"Searches for all unresolved proxy object in the given resource.",
-			"@param resource",
-			"@return all proxy object that are not resolvable"
+			"Searches for all unresolved proxy objects in the given resource set.",
+			"@param resourceSet",
+			"@return all proxy objects that are not resolvable"
 		);
-		sc.add("public static " + LIST + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
-		sc.add(LIST + "<" + E_OBJECT + "> unresolvedProxies = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add("public static " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE_SET + " resourceSet) {");
+		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
+		sc.addLineBreak();
+		sc.add("for (" + RESOURCE + " resource : resourceSet.getResources()) {");
+		sc.add("unresolvedProxies.addAll(findUnresolvedProxies(resource));");
+		sc.add("}");
+		sc.add("return unresolvedProxies;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindUnresolvedProxiesMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches for all unresolved proxy objects in the given resource.",
+			"@param resource",
+			"@return all proxy objects that are not resolvable"
+		);
+		sc.add("public static " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
+		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
 		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
