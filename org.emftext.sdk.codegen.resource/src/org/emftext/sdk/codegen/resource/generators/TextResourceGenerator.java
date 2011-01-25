@@ -186,7 +186,7 @@ public class TextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");
 			sc.add("try {");
 			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
-			sc.add(I_BATCH_VALIDATOR + " validator = (" + I_BATCH_VALIDATOR + ") service.newValidator(" + EVALUATION_MODE + ".BATCH);");
+			sc.add(I_BATCH_VALIDATOR + " validator = service.<" + E_OBJECT + ", " + I_BATCH_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".BATCH);");
 			sc.add("validator.setIncludeLiveConstraints(true);");
 			sc.add(I_STATUS + " status = validator.validate(root);");
 			sc.add("addStatus(status, root);");
