@@ -17,6 +17,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
@@ -81,7 +82,7 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			}
 			ResourceSet resourceSet = csResource.getResourceSet();
 			EcoreUtil.resolveAll(resourceSet);
-			List<EObject> unresolvedProxies = CsResourceUtil.findUnresolvedProxies(csResource);
+			Set<EObject> unresolvedProxies = CsResourceUtil.findUnresolvedProxies(resourceSet);
 			for (EObject unresolvedProxy : unresolvedProxies) {
 				log("Found unresolved proxy: " + unresolvedProxy);
 			}
