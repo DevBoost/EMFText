@@ -21,14 +21,30 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 public class CsResourceUtil {
 	
 	/**
-	 * Searches for all unresolved proxy object in the given resource.
+	 * Searches for all unresolved proxy objects in the given resource set.
+	 * 
+	 * @param resourceSet
+	 * 
+	 * @return all proxy objects that are not resolvable
+	 */
+	public static java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.ResourceSet resourceSet) {
+		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+		
+		for (org.eclipse.emf.ecore.resource.Resource resource : resourceSet.getResources()) {
+			unresolvedProxies.addAll(findUnresolvedProxies(resource));
+		}
+		return unresolvedProxies;
+	}
+	
+	/**
+	 * Searches for all unresolved proxy objects in the given resource.
 	 * 
 	 * @param resource
 	 * 
-	 * @return all proxy object that are not resolvable
+	 * @return all proxy objects that are not resolvable
 	 */
-	public static java.util.List<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.Resource resource) {
-		java.util.List<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
+	public static java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.Resource resource) {
+		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
 		
 		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
 			org.eclipse.emf.ecore.InternalEObject nextElement = (org.eclipse.emf.ecore.InternalEObject) elementIt.next();
