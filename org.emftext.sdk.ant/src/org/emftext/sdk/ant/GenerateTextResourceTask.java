@@ -27,7 +27,9 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.IFileSystemConnector;
@@ -35,6 +37,7 @@ import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 
 /**
@@ -75,6 +78,15 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 					}
 				}
 				throw new BuildException("Generation failed, because the syntax file could not be loaded. Probably it contains syntactical errors.");
+			}
+			ResourceSet resourceSet = csResource.getResourceSet();
+			EcoreUtil.resolveAll(resourceSet);
+			List<EObject> unresolvedProxies = CsResourceUtil.findUnresolvedProxies(csResource);
+			for (EObject unresolvedProxy : unresolvedProxies) {
+				log("Found unresolved proxy: " + unresolvedProxy);
+			}
+			if (unresolvedProxies.size() > 0) {
+				throw new BuildException("Generation failed, because the syntax file contains unresolved proxy objects.");
 			}
 			ConcreteSyntax syntax = (ConcreteSyntax) contents.get(0);
 			performPreprocessing(syntax);
