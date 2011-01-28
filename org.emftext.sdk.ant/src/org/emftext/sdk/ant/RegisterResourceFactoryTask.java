@@ -13,25 +13,17 @@
  ******************************************************************************/
 package org.emftext.sdk.ant;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
-import org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil;
 
 /**
- * Ant task to register a new specific resource factory for Ecore 
- * (e.g., Ecore TEXT).
+ * Ant task to register a resource factory for a file extension.
  */
-public class RegisterEcoreResourceFactoryTask extends AbstractEMFTextAntTask {
+public class RegisterResourceFactoryTask extends AbstractEMFTextAntTask {
 	
 	private String className;
 	private String type;
-
-	private Resource.Factory ecoreFactoryDelagator = null;
 	
 	@Override
 	public void execute() throws BuildException {
@@ -44,30 +36,11 @@ public class RegisterEcoreResourceFactoryTask extends AbstractEMFTextAntTask {
 		
 		AntClassLoader taskloader = setClassLoader();
 		
-		Resource.Factory newEcoreFactory = instantiateFactory(className);
-		String ecoreEcoreResourceFactoryDelegatorClassName = 
-			"org.emftext.language.ecore.resource.EcoreResourceFactoryDelegator";
-	
-		if (ecoreFactoryDelagator == null) {
-			ecoreFactoryDelagator = (Resource.Factory) instantiateFactory(ecoreEcoreResourceFactoryDelegatorClassName);
-			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-					"ecore",
-					ecoreFactoryDelagator);
-		}
+		Resource.Factory newResourceFactory = instantiateFactory(className);
 
-		try {
-			Class<?> factoryClass = Class.forName(ecoreEcoreResourceFactoryDelegatorClassName);
-			Method m = factoryClass.getMethod("getResourceFactoriesMap");
-			Map<Object, Object> ecoreFactoriesMap = CsMapUtil.castToMap(m.invoke(ecoreFactoryDelagator, (Object[]) null));
-			if (!ecoreFactoriesMap.containsKey(getType())) {
-				ecoreFactoriesMap.put(getType(), newEcoreFactory);
-			}
-			ecoreFactoriesMap.put("", new EcoreResourceFactoryImpl());
-		} catch (Exception e) {
-			e.printStackTrace();
-			resetClassLoader(taskloader); 
-			throw new BuildException(e);
-		}
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				getType(), newResourceFactory);
+		
 		resetClassLoader(taskloader); 
 	}
 
