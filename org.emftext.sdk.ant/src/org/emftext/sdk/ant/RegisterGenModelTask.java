@@ -64,7 +64,6 @@ public class RegisterGenModelTask extends Task {
     
 	private EPackage getUML2GenPackage() {
 		try {
-			System.out.println("USING ADAPTER FACTORY");
 			Class<?> factoryClass = Class.forName(
 					"org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage");
 			Field eINSTANCE = factoryClass.getField("eINSTANCE");
