@@ -1,17 +1,20 @@
 package org.emftext.sdk.ant;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 public class RegisterGenModelTask extends Task {
        
@@ -27,7 +30,10 @@ public class RegisterGenModelTask extends Task {
 		EPackage.Registry.INSTANCE.put(
 				EcorePackage.eNS_URI,
 				EcorePackage.eINSTANCE);
-
+		EPackage.Registry.INSTANCE.put(
+				"http://www.eclipse.org/uml2/2.2.0/GenModel",
+				getUML2GenPackage());
+		
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 			"ecore",
 			new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
@@ -38,12 +44,37 @@ public class RegisterGenModelTask extends Task {
         final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
         URI genModelURIObject = URI.createURI(genModelURI);
         ResourceSet rs = new ResourceSetImpl();
-        Resource r = rs.getResource(genModelURIObject, true);
-        if (r == null) {
-        	throw new BuildException("Can't load generator model from " + genModelURIObject);
+        Resource r = null;
+        try {
+        	r = rs.getResource(genModelURIObject, true);
+        	
+        	System.out.println(r.getContents());
+        	
+            for (GenPackage genPackage : ((GenModel)r.getContents().get(0)).getGenPackages()) {
+            	EPackage.Registry.INSTANCE.put(genPackage.getEcorePackage().getNsURI(),
+            			genPackage.getEcorePackage());
+            }
+        } catch (Exception e) {
+        	e.printStackTrace();
+          	throw new BuildException("Can't load generator model from " + genModelURIObject);
         }
+    	
         packageNsURIToGenModelLocationMap.put(namespaceURI, genModelURIObject);
     }
+    
+	private EPackage getUML2GenPackage() {
+		try {
+			System.out.println("USING ADAPTER FACTORY");
+			Class<?> factoryClass = Class.forName(
+					"org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage");
+			Field eINSTANCE = factoryClass.getField("eINSTANCE");
+			EPackage p = (EPackage) eINSTANCE.get(null);
+			return p;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BuildException("Error while creating UML2 gen model adapter.", e);
+		}
+	}
 
 	public String getNamespaceURI() {
 		return namespaceURI;
