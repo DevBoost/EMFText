@@ -346,6 +346,9 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void refreshHighlighting() {");
+		sc.add("if (textWidget.isDisposed()) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("int textCaret = textWidget.getCaretOffset();");
 		sc.add("if (textCaret < 0 || textCaret > textWidget.getCharCount()) {");
 		sc.add("return;");
