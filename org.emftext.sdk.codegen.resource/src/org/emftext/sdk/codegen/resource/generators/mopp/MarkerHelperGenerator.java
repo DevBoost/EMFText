@@ -110,6 +110,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetMarkerIDMethod(sc);
 		addGetFileMethod(sc);
 		addGetObjectURIMethod(sc);
+		addHandleExceptionMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -155,11 +156,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("try {");
 		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE + ".DEPTH_ZERO);");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
-		sc.addComment("ignore");
-		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
-		sc.add("}");
+		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");
@@ -167,7 +164,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
+	
 	private void addUnmarkMethod3(JavaComposite sc) {
 		sc.addJavadoc(
 			"Removes all markers that were caused by the given object from the resource. " +
@@ -195,11 +192,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("}");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
-		sc.addComment("ignore");
-		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
-		sc.add("}");
+		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");
@@ -286,11 +279,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("marker.setAttribute(" + I_MARKER + ".SOURCE_ID, " + stringUtilClassName + ".explode(sourceIDs, \"|\"));");
 		sc.add("}");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
-		sc.addComment("ignore");
-		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error while creating marks for resource:\", ce);");
-		sc.add("}");
+		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");
@@ -345,5 +334,17 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("createMarkerFromDiagnostic(file, diagnostic);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+	
+	private void addHandleExceptionMethod(JavaComposite sc) {
+		sc.add("private static void handleException(" + CORE_EXCEPTION + " ce) {");
+		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
+		sc.addComment("ignore");
+		sc.add("}else if (ce.getMessage().matches(\"Resource.*does not exist.\")) {");
+		sc.addComment("ignore");
+		sc.add("} else {");
+		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
+		sc.add("}");	
+		sc.add("}");
 	}
 }
