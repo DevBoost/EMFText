@@ -48,8 +48,6 @@ public class RegisterGenModelTask extends Task {
         try {
         	r = rs.getResource(genModelURIObject, true);
         	
-        	System.out.println(r.getContents());
-        	
             for (GenPackage genPackage : ((GenModel)r.getContents().get(0)).getGenPackages()) {
             	EPackage.Registry.INSTANCE.put(genPackage.getEcorePackage().getNsURI(),
             			genPackage.getEcorePackage());
