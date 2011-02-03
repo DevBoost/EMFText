@@ -229,7 +229,6 @@ public class TextResourceArtifacts {
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultTokenResolver", DefaultTokenResolverGenerator.class, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_RESOLVER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", DefaultResolverDelegateGenerator.class, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 
-	public final static ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(ANALYSIS_PACKAGE, "", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_INPUT_STREAM_PROCESSOR_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "InputStreamProcessorProvider", IInputStreamProcessorProviderGenerator.class, OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> INPUT_STREAM_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "InputStreamProcessor", InputStreamProcessorGenerator.class, OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR);
@@ -327,6 +326,7 @@ public class TextResourceArtifacts {
 	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_LOAD_OPTIONS_EXSD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, DefaultLoadOptionsExtensionPointSchemaCreator.FILENAME, "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, ReferenceResolverParameters> REFERENCE_RESOLVER = new ArtifactDescriptor<GenerationContext, ReferenceResolverParameters>(null, "reference resolvers", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> REFERENCE_RESOLVERS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, "reference resolvers", "", null, null);
+	public final static ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(ANALYSIS_PACKAGE, "token resolvers", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 	public static final ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVERS = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(null, "token resolvers", "", null, null);
 	
 	public static final ArtifactDescriptor<GenerationContext, ClassParameters> EMPTY_CLASS = new ArtifactDescriptor<GenerationContext, ClassParameters>(null, "empty ", "", null, null);
