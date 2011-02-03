@@ -15,6 +15,7 @@ package org.emftext.sdk.ant;
 
 import org.apache.tools.ant.Task;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.IProblemCollector;
 
 /**
@@ -31,6 +32,10 @@ public class AntProblemCollector implements IProblemCollector {
 	}
 
 	public void addProblem(GenerationProblem problem) {
-		antTask.log("Error while generating text resource: " + problem.getMessage());
+		if (problem.getSeverity() == Severity.ERROR) {
+			antTask.log("Error while generating text resource: " + problem.getMessage());
+		} else {
+			antTask.log("Warning while generating text resource: " + problem.getMessage());
+		}
 	}
 }
