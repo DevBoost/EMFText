@@ -4,7 +4,7 @@ FOR       <http://www.emftext.org/sdk/concretesyntax> <concretesyntax.genmodel>
 START     ConcreteSyntax
 
 OPTIONS {	
-	licenceHeader ="platform:/resource/org.reuseware/licence.txt";
+	licenceHeader ="../../org.dropsbox/licence.txt";
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
 	usePredefinedTokens = "false";

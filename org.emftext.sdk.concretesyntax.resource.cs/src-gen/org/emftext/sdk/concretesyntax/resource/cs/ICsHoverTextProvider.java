@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2010 
+ * Copyright (c) 2006-2011
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,7 +11,6 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 public interface ICsHoverTextProvider {
