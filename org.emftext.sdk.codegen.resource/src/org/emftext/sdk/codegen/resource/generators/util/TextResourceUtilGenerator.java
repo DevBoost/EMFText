@@ -26,6 +26,8 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
+// TODO move all generated methods to ResourceUtilGenerator, add delegating methods here and
+// tag them as deprecated. having to resource utility classes does not make sense.
 public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
