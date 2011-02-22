@@ -606,9 +606,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addLoadMethod(StringComposite sc) {
-		boolean resolveProxies = OptionManager.INSTANCE.getBooleanOptionValue(
-				getContext().getConcreteSyntax(),
-				OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+		boolean resolveProxies = doResolveProxiesAfterParsing();
 
 		sc.add("public void load(" + MAP + "<?, ?> options) throws "
 				+ IO_EXCEPTION + " {");
@@ -620,6 +618,13 @@ public class TextResourceGenerator extends
 		}
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private boolean doResolveProxiesAfterParsing() {
+		boolean resolveProxies = OptionManager.INSTANCE.getBooleanOptionValue(
+				getContext().getConcreteSyntax(),
+				OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+		return resolveProxies;
 	}
 
 	private void addRunPostProcessorsMethod(JavaComposite sc) {
@@ -1119,6 +1124,8 @@ public class TextResourceGenerator extends
 	}
 
 	private void addReloadMethod(JavaComposite sc) {
+		boolean resolveProxies = doResolveProxiesAfterParsing();
+
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("try {");
@@ -1126,6 +1133,9 @@ public class TextResourceGenerator extends
 		sc.add(MAP
 				+ "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
 		sc.add("doLoad(inputStream, loadOptions);");
+		if (resolveProxies) {
+			sc.add(ECORE_UTIL + ".resolveAll(this.getResourceSet());");
+		}
 		sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
 		sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
 		sc.add("}");
