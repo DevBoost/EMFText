@@ -52,14 +52,28 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("return getResource(file, null);");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file, " + MAP + "<?,?> options) {");
+		sc.add("return getResource(" + URI + ".createFileURI(file.getAbsolutePath()), options);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri) {");
+		sc.add("return getResource(uri, null);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri, " + MAP + "<?,?> options) {");
+		sc.add("new " + metaInformationClassName + "().registerResourceFactory();");
 		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
 		sc.add("if (options != null) {");
 		sc.add("rs.getLoadOptions().putAll(options);");
 		sc.add("}");
-		sc.add(RESOURCE + " csResource = rs.getResource(" + URI + ".createFileURI(file.getAbsolutePath()), true);");
-		sc.add("return (" + textResourceClassName + ") csResource;");
+		sc.add(RESOURCE + " resource = rs.getResource(uri, true);");
+		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
+		sc.addLineBreak();
+		
 		sc.add("}");
 	}
 }
