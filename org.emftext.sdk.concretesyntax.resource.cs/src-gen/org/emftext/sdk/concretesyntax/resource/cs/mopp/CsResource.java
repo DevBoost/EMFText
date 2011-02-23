@@ -410,14 +410,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
-		if (loadOptions == null) {
-			return;
-		}
 		if (terminateReload) {
 			return;
 		}
 		// first, run the generated post processor
 		runPostProcessor(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourcePostProcessor());
+		if (loadOptions == null) {
+			return;
+		}
 		// then, run post processors that are registered via the load options extension
 		// point
 		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
