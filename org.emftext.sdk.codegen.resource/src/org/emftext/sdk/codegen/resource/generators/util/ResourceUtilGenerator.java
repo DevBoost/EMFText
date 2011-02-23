@@ -21,12 +21,15 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -57,6 +60,10 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addFindUnresolvedProxiesMethod2(sc);
 		addFindUnresolvedProxiesMethod1(sc);
 		addResolveAllMethod(sc);
+		addGetResourceMethod1(sc);
+		addGetResourceMethod2(sc);
+		addGetResourceMethod3(sc);
+		addGetResourceMethod4(sc);
 		addSaveResourceMethod(sc);
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
@@ -153,6 +160,45 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addContainsProblemsMethod(JavaComposite sc) {
 		sc.add("public static boolean containsProblems(" + RESOURCE + " resource) {");
 		sc.add("return containsErrors(resource) || containsWarnings(resource);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod1(JavaComposite sc) {
+		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");
+		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
+		sc.add(RESOURCE + " csResource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(),true), true);");
+		sc.add("return (" + textResourceClassName + ") csResource;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file) {");
+		sc.add("return getResource(file, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod2(JavaComposite sc) {
+		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file, " + MAP + "<?,?> options) {");
+		sc.add("return getResource(" + URI + ".createFileURI(file.getAbsolutePath()), options);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod3(JavaComposite sc) {
+		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri) {");
+		sc.add("return getResource(uri, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	private void addGetResourceMethod4(JavaComposite sc) {
+		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri, " + MAP + "<?,?> options) {");
+		sc.add("new " + metaInformationClassName + "().registerResourceFactory();");
+		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
+		sc.add("if (options != null) {");
+		sc.add("rs.getLoadOptions().putAll(options);");
+		sc.add("}");
+		sc.add(RESOURCE + " resource = rs.getResource(uri, true);");
+		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
