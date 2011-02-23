@@ -12,6 +12,7 @@ OPTIONS {
 	overrideHoverTextProvider = "false";
 	//overrideProblemClass = "false";
 	overrideProposalPostProcessor = "false";
+	overrideResourcePostProcessor = "false";
 	disableBuilder = "true";
 	// we need to disable the use of the EMF validation framework, because
 	// it does not run outside of Eclipse properly, which conflicts with
