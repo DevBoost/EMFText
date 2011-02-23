@@ -37,7 +37,6 @@ import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
-import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 
 /**
@@ -68,7 +67,7 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			ICsTextResource csResource = CsResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ICsTextResource csResource = CsResourceUtil.getResource(syntaxFile);
 			EList<EObject> contents = csResource.getContents();
 			if (contents.size() < 1) {
 				if (!csResource.getErrors().isEmpty()) {
