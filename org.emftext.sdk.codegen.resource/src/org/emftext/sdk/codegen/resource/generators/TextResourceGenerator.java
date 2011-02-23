@@ -632,15 +632,15 @@ public class TextResourceGenerator extends
 				+ "<?, ?> loadOptions) {");
 		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
 				+ ".ANALYSIS_PROBLEM);");
-		sc.add("if (loadOptions == null) {");
-		sc.add("return;");
-		sc.add("}");
 		sc.add("if (terminateReload) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.addComment("first, run the generated post processor");
 		sc.add("runPostProcessor(new " + resourcePostProcessorClassName
 				+ "());");
+		sc.add("if (loadOptions == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.addComment("then, run post processors that are registered via the load options extension point");
 		sc.add("Object resourcePostProcessorProvider = loadOptions.get("
 				+ iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
