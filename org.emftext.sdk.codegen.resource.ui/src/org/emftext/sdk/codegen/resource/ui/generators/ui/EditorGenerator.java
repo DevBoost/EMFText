@@ -304,7 +304,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addGetResourceMethod(StringComposite sc) {
 		sc.add("public " + iTextResourceClassName + " getResource() {");
-		sc.add("assert resource != null;");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
