@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 /**
@@ -250,7 +251,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource getResource() {
-		assert resource != null;
 		return resource;
 	}
 	

@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource {
@@ -273,7 +274,15 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (internalURIFragmentMap.containsKey(id)) {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment = internalURIFragmentMap.get(id);
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<? extends org.eclipse.emf.ecore.EObject> result = uriFragment.resolve();
+			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<? extends org.eclipse.emf.ecore.EObject> result = null;
+			// catch and report all Exceptions that occur during proxy resolving
+			try {
+				result = uriFragment.resolve();
+			} catch (Exception e) {
+				String message = "An expection occured while resolving the proxy for: "+ id + ". (" + e.toString() + ")";
+				addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR),uriFragment.getProxy());
+				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError(message, e);
+			}
 			if (result == null) {
 				// the resolving did call itself
 				return null;

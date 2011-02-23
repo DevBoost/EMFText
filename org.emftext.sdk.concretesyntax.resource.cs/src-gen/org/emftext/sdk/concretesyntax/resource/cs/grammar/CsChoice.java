@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
 public class CsChoice extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {

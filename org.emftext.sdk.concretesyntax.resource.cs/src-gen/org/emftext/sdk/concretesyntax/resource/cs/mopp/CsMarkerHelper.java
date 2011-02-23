@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 /**
@@ -138,11 +139,7 @@ public class CsMarkerHelper {
 						marker.setAttribute(org.eclipse.core.resources.IMarker.SOURCE_ID, org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(sourceIDs, "|"));
 					}
 				} catch (org.eclipse.core.runtime.CoreException ce) {
-					if (ce.getMessage().matches("Marker.*not found.")) {
-						// ignore
-					} else {
-						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while creating marks for resource:", ce);
-					}
+					handleException(ce);
 				}
 				return true;
 			}
@@ -183,11 +180,7 @@ public class CsMarkerHelper {
 				try {
 					file.deleteMarkers(markerType, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
 				} catch (org.eclipse.core.runtime.CoreException ce) {
-					if (ce.getMessage().matches("Marker.*not found.")) {
-						// ignore
-					} else {
-						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while removing markers from resource:", ce);
-					}
+					handleException(ce);
 				}
 				return true;
 			}
@@ -223,11 +216,7 @@ public class CsMarkerHelper {
 						}
 					}
 				} catch (org.eclipse.core.runtime.CoreException ce) {
-					if (ce.getMessage().matches("Marker.*not found.")) {
-						// ignore
-					} else {
-						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while removing markers from resource:", ce);
-					}
+					handleException(ce);
 				}
 				return true;
 			}
@@ -281,4 +270,13 @@ public class CsMarkerHelper {
 		return eResource.getURI().toString() + "#" + eResource.getURIFragment(object);
 	}
 	
+	private static void handleException(org.eclipse.core.runtime.CoreException ce) {
+		if (ce.getMessage().matches("Marker.*not found.")) {
+			// ignore
+		}else if (ce.getMessage().matches("Resource.*does not exist.")) {
+			// ignore
+		} else {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while removing markers from resource:", ce);
+		}
+	}
 }

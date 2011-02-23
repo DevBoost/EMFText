@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 /**
@@ -56,6 +57,9 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		}
 		
 		private void refreshHighlighting() {
+			if (textWidget.isDisposed()) {
+				return;
+			}
 			int textCaret = textWidget.getCaretOffset();
 			if (textCaret < 0 || textCaret > textWidget.getCharCount()) {
 				return;

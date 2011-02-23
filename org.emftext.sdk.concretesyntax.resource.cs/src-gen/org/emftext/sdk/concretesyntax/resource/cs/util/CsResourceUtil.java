@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 /**
@@ -76,6 +77,34 @@ public class CsResourceUtil {
 		} else {
 			return true;
 		}
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {
+		org.eclipse.emf.ecore.resource.ResourceSet rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		org.eclipse.emf.ecore.resource.Resource csResource = rs.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) csResource;
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file) {
+		return getResource(file, null);
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file, java.util.Map<?,?> options) {
+		return getResource(org.eclipse.emf.common.util.URI.createFileURI(file.getAbsolutePath()), options);
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri) {
+		return getResource(uri, null);
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri, java.util.Map<?,?> options) {
+		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().registerResourceFactory();
+		org.eclipse.emf.ecore.resource.ResourceSet rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		if (options != null) {
+			rs.getLoadOptions().putAll(options);
+		}
+		org.eclipse.emf.ecore.resource.Resource resource = rs.getResource(uri, true);
+		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) resource;
 	}
 	
 	public static void saveResource(java.io.File file, org.eclipse.emf.ecore.resource.Resource resource) throws java.io.IOException {

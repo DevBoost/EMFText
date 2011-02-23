@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser {
