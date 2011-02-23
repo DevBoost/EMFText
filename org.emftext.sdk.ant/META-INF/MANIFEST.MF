@@ -14,7 +14,6 @@ Require-Bundle: org.apache.ant,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.emftext.sdk.codegen,
- org.emftext.sdk.concretesyntax.resource.cs.post_processing,
  org.emftext.sdk.codegen.antlr,
  org.emftext.sdk.codegen.resource,
  org.emftext.sdk.codegen.resource.ui
