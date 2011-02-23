@@ -11,21 +11,12 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+package org.emftext.sdk.concretesyntax.resource.cs.postprocessing;
 
-package org.emftext.sdk.concretesyntax.resource.cs.mopp;
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
 
-import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor;
-import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.CompositePostProcessor;
-
-public class CsResourcePostProcessor implements ICsResourcePostProcessor {
-	
-	private CompositePostProcessor compositeProcessor = new CompositePostProcessor();
-	
-	public void process(CsResource resource) {
-		compositeProcessor.process(resource);
-	}
-	
-	public void terminate() {
-		compositeProcessor.terminate();
-	}	
+public interface IProblemWrapper {
+	public ICsProblem getProblem();
+	public boolean wasCausedBy(EObject element);
 }

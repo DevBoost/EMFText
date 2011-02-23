@@ -32,12 +32,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.IPluginDescriptor;
-import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
+import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 
 /**

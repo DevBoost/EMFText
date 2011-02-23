@@ -11,21 +11,21 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+package org.emftext.sdk.concretesyntax.resource.cs.postprocessing.quickfixes;
 
-package org.emftext.sdk.concretesyntax.resource.cs.mopp;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsQuickFix;
 
-import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor;
-import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.CompositePostProcessor;
+public class MakeSyntaxConcreteFix extends CsQuickFix {
 
-public class CsResourcePostProcessor implements ICsResourcePostProcessor {
-	
-	private CompositePostProcessor compositeProcessor = new CompositePostProcessor();
-	
-	public void process(CsResource resource) {
-		compositeProcessor.process(resource);
+	private ConcreteSyntax syntax;
+
+	public MakeSyntaxConcreteFix(ConcreteSyntax syntax) {
+		super("Remove modifier ABSTRACT", "IMG_ETOOL_DELETE", syntax);
+		this.syntax = syntax;
 	}
-	
-	public void terminate() {
-		compositeProcessor.terminate();
-	}	
+
+	public void applyChanges() {
+		syntax.setAbstract(false);
+	}
 }

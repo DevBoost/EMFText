@@ -3,7 +3,7 @@
 <plugin>
    <extension point="org.emftext.sdk.concretesyntax.resource.cs.default_load_options">
       <provider
-            class="org.emftext.sdk.SDKOptionProvider"
+            class="org.emftext.sdk.concretesyntax.resource.cs.postprocessing.SDKOptionProvider"
             id="org.emftext.sdk.default_option_provider" >
       </provider>
    </extension>
