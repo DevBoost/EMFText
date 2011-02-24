@@ -66,7 +66,7 @@ public interface ICsMetaInformation {
 	 * 
 	 * @return a new instance of the printer class
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream ouputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource);
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource);
 	
 	/**
 	 * Returns all meta classes for which syntax was defined. This information is used
