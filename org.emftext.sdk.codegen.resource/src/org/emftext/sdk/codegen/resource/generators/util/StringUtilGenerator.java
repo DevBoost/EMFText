@@ -345,7 +345,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"ANTLR grammar as keyword (i.e., an in-line token). Single quotes " +
 			"are escaped using a backslash. Backslashes are escaped using a " +
 			"backslash.",
-			"@param text the text to escape",
+			"@param value the text to escape",
 			"@return the escaped text"
 		);
 		sc.add("public static String escapeToANTLRKeyword(String value) {");

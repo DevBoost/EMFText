@@ -189,7 +189,8 @@ public class NameUtil {
 	 * Returns the unqualified name of the token resolver class for the given
 	 * token definition.
 	 * 
-	 * @param proxyReference
+	 * @param syntax the main syntax
+	 * @param tokenDefinition the token to derive the resolver class name for
 	 * @return
 	 */
 	public String getTokenResolverClassName(ConcreteSyntax syntax, CompleteTokenDefinition tokenDefinition) {

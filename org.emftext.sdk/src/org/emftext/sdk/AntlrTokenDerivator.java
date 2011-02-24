@@ -65,8 +65,7 @@ public class AntlrTokenDerivator {
      * excepting the suffix, is created and returned. The name of this definition is the conjunction of the value 
      * in DERIVED_TOKEN_NAME, "_", prefix, "_" and suffix. </p>
      * 
-     * @param prefix
-     * @param suffix
+     * @param placeholder the Placeholder to derive an expression for
      * @return
      */
 	public String deriveTokenExpression(PlaceholderInQuotes placeholder) {

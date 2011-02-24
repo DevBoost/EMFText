@@ -131,8 +131,7 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 			"Creates a new browser information control input.",
 			"@param previous previous input, or <code>null</code> if none available",
 			"@param element the element, or <code>null</code> if none available",
-			"@param htmlContent HTML contents, must not be null",
-			"@param leadingImageWidth the indent required for the element image"
+			"@param htmlContent HTML contents, must not be null"
 		);
 		sc.add("public " + getResourceClassName() + "(" + getResourceClassName() + " previous, " + E_OBJECT + " element, " + RESOURCE + " resource, String htmlContent, String tokenText) {");
 		sc.add("fPrevious= previous;");

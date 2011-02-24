@@ -29,8 +29,6 @@ public class CollectInFeatureHelper {
 	 * feature. Note that the feature may also be defined as collect-in
 	 * token in imported syntaxes. 
 	 * 
-	 * @see DefinedPlaceholderTokenReferenceResolver
-	 * 
 	 * @param feature the feature to check
 	 * @param syntax the syntax containing the reference to the feature
 	 * 

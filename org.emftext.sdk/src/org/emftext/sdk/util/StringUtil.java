@@ -347,7 +347,7 @@ public class StringUtil {
 	 * The same behavior observed, when javac reads plain Java files 
 	 * with String literals.
 	 * 
-	 * @param string
+	 * @param text the string to unescape
 	 * @return
 	 */
 	public static String unescapeJavaString(String text) {
@@ -405,7 +405,7 @@ public class StringUtil {
 	 * are escaped using a backslash. Backslashes are escaped using a 
 	 * backslash.
 	 * 
-	 * @param text the text to escape
+	 * @param value the text to escape
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRKeyword(String value) {

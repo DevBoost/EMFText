@@ -79,7 +79,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 			"@param resource that contains the elements that will be printed",
 			"@return a new instance of the printer class"
 		);
-		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " ouputStream, " + iTextResourceClassName + " resource);");
+		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

@@ -49,7 +49,7 @@ public class GenClassFinder {
 	 * 
 	 * @param syntax the syntax to search in
 	 * @param includingImports indicates whether included package shall be included in the search
-	 * @param genClassCache 
+	 * @param includeUsedGeneratorModels indicates whether to include used generator models
 	 * 
 	 * @return a found classes
 	 */
