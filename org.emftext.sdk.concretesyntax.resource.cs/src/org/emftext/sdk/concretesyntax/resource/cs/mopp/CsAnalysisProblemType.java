@@ -88,6 +88,7 @@ public enum CsAnalysisProblemType {
 	OPERATOR_ANNOTATION_MALFORMED_RULE(CsEProblemSeverity.ERROR), 
 	INVALID_START_SYMBOL(CsEProblemSeverity.ERROR),
 	NO_SYNTAX_FOR_CONTAINMENT_REFERENCE(CsEProblemSeverity.ERROR),
+	UNREACHABLE_RULE(CsEProblemSeverity.WARNING),
 	;
 
 	private CsEProblemSeverity severity;

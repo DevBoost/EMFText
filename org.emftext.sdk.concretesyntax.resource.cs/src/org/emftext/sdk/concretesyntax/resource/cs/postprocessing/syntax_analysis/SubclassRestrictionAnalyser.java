@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -65,47 +64,11 @@ public class SubclassRestrictionAnalyser extends AbstractPostProcessor {
 			EClass allowedEType = allowedType.getEcoreClass();
 			for (Rule existingRule : rules) {
 				EClass metaclass = existingRule.getMetaclass().getEcoreClass();
-				if (isSuperTypeOf(allowedEType, metaclass)) {
+				if (existingRule.getSyntax().getEClassUtil().isSubClass(metaclass, allowedEType)) {
 					return true;
 				}
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * TODO this is a quick fix for bug
-	 * http://mantis-st.inf.tu-dresden.de/view.php?id=1676 and should be
-	 * replaced by a real fix
-	 * 
-	 * @param expectedSupertype
-	 *            the expected supertype
-	 * @param subtype
-	 *            the expected subtype
-	 * @return
-	 */
-	private boolean isSuperTypeOf(EClass expectedSupertype, EClass subtype) {
-		// TODO this should work, however fails as reported in bug
-		// http://mantis-st.inf.tu-dresden.de/view.php?id=1676
-		// return allowedEType.isSuperTypeOf(metaclass);
-		//
-		// dirty quickfix below...
-		
-		if (subtype.getName().equals(expectedSupertype.getName())
-				&& subtype.getEPackage().getName()
-						.equals(expectedSupertype.getEPackage().getName())) {
-			return true;
-		}
-		EList<EClass> eAllSuperTypes = subtype.getEAllSuperTypes();
-		for (EClass supertypeCandidate : eAllSuperTypes) {
-			if (supertypeCandidate.getName()
-					.equals(expectedSupertype.getName())
-					&& supertypeCandidate.getEPackage().getName()
-							.equals(expectedSupertype.getEPackage().getName())) {
-				return true;
-			}
-		}
-		return false;
-		
 	}
 }

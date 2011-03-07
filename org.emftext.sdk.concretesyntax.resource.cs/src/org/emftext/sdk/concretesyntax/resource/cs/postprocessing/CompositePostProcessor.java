@@ -49,6 +49,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.TokenConflictsAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.TokenNameAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.TokenStyleAnalyser;
+import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnreachableRuleAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedTokenAnalyser;
@@ -93,6 +94,7 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 		postProcessors.add(new ChoiceAnalyser());
 		postProcessors.add(new RegularExpressionAnalyser());
 		postProcessors.add(new LeftRecursionAnalyser());
+		postProcessors.add(new UnreachableRuleAnalyser());
 		postProcessors.add(new MissingRulesAnalyser());
 		postProcessors.add(new ModifierAnalyser());
 		postProcessors.add(new DuplicateRuleAnalyser());
