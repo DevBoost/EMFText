@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
@@ -69,7 +70,7 @@ public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 		// A rule is reachable if it is a subclass of a rule that can be reached
 		for (Rule reachableRule : reachableRules) {
 			EClass reachableClass = reachableRule.getMetaclass().getEcoreClass();
-			if (reachableRule.getSyntax().getEClassUtil().isSubClass(maybeReachableClass, reachableClass)) {
+			if (isSubClassOrEqual(reachableRule.getSyntax().getEClassUtil(), maybeReachableClass, reachableClass)) {
 				//System.err.println("rule " + maybeReachableRule + " is reachable through subclass");
 				return true;
 			}
@@ -84,7 +85,7 @@ public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 				List<GenClass> allowedTypes = containment.getAllowedSubTypes();
 				for (GenClass allowedType : allowedTypes) {
 					EClass allowedEType = allowedType.getEcoreClass();
-					if (reachableRule.getSyntax().getEClassUtil().isSubClass(maybeReachableClass, allowedEType)) {
+					if (isSubClassOrEqual(reachableRule.getSyntax().getEClassUtil(), maybeReachableClass, allowedEType)) {
 						//System.err.println("rule " + maybeReachableRule + " is reachable through containment");
 						return true;
 					}
@@ -101,11 +102,18 @@ public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 		// Add initial rules based on start symbols.
 		for (GenClass startGenClass : syntax.getStartSymbols()) {
 			for (Rule rule : syntax.getAllRules()) {
-				if (rule.getSyntax().getEClassUtil().isSubClass(rule.getMetaclass().getEcoreClass(), startGenClass.getEcoreClass())) {
+				if (isSubClassOrEqual(rule.getSyntax().getEClassUtil(), rule.getMetaclass().getEcoreClass(), startGenClass.getEcoreClass())) {
 					startRules.add(rule);
 				}
 			}
 		}
 		return startRules;
+	}
+
+	// TODO move this method to EClassUtil.ejava
+	private boolean isSubClassOrEqual(EClassUtil eClassUtil, EClass subclassCandidate, EClass superType) {
+		boolean isEqual = eClassUtil.namesAndPackageURIsAreEqual(subclassCandidate, superType);
+		boolean isSubclass = eClassUtil.isSubClass(subclassCandidate, superType);
+		return isEqual || isSubclass;
 	}
 }

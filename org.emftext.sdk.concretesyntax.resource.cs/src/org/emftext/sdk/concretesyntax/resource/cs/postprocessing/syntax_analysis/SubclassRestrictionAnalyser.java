@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.EClassUtil;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
@@ -64,7 +65,10 @@ public class SubclassRestrictionAnalyser extends AbstractPostProcessor {
 			EClass allowedEType = allowedType.getEcoreClass();
 			for (Rule existingRule : rules) {
 				EClass metaclass = existingRule.getMetaclass().getEcoreClass();
-				if (existingRule.getSyntax().getEClassUtil().isSubClass(metaclass, allowedEType)) {
+				EClassUtil eClassUtil = existingRule.getSyntax().getEClassUtil();
+				boolean isEqual = eClassUtil.namesAndPackageURIsAreEqual(metaclass, allowedEType);
+				boolean isSubclass = eClassUtil.isSubClass(metaclass, allowedEType);
+				if (isEqual || isSubclass) {
 					return true;
 				}
 			}
