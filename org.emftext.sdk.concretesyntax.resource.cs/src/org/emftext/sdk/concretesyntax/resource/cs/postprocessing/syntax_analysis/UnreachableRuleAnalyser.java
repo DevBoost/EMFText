@@ -32,7 +32,12 @@ import org.emftext.sdk.util.EObjectUtil;
 public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 	
 	@Override
-	public void analyse(ConcreteSyntax syntax) {		
+	public void analyse(ConcreteSyntax syntax) {
+		// abstract syntax definitions cannot be analyzed w.r.t. rule
+		// reachability
+		if (syntax.isAbstract()) {
+			return;
+		}
 		Set<Rule> reachableRules = getStartRules(syntax);
 		int oldSize = -1;
 		do {

@@ -115,4 +115,10 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		}
 		return false;
 	}
+
+	@Override
+	protected boolean doAnalysisAfterPreviousErrors() {
+		// we must suppress warning even if the syntax contains errors
+		return true;
+	}	
 }
