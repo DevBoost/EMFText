@@ -42,6 +42,11 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
+				// TODO this is not correct. there are still cases where left recursion can be
+				// caused by operator rules, but the analysis that is required to detect these
+				// is complex. since we exclude all warnings here, we may end up with too few
+				// warnings, while we get too many if do not exclude them. the only way to
+				// solve this is to implement the aforementioned analysis.
 				if (recursionRule.getOperatorAnnotation() != null) {
 					continue;
 				}
