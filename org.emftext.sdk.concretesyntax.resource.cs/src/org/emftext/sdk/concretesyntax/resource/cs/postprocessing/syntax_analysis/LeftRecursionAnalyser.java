@@ -42,6 +42,9 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
+				if (recursionRule.getOperatorAnnotation() != null) {
+					continue;
+				}
 				String message = RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName();
 				addRuleProblem(
 					CsAnalysisProblemType.LEFT_RECURSIVE_RULE, 
