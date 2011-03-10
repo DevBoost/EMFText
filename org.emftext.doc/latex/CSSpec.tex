@@ -569,14 +569,14 @@ tab.
 \subsection{Syntax for Expressions}
 When defining syntax for an expression language (e.g., arithmetic expressions) 
 EMFText's standard mechanisms for specifying syntax can lead to structures that 
-can not be optimally handled by an intepreter or evaluator. Furthermore, the 
+can not be optimally handled by an interpreter or evaluator. Furthermore, the 
 underlying parser generator technology used by EMFText causes problems if 
 left recursive rules are required to build an optimal expression tree, which is 
 the case for all expression languages with left-associative binary operators 
 (e.g.,~\texttt{-}). Therefore, EMFText provides a special feature called
-operator precendence annotations (\texttt{@Operator}). These annotations can be added to 
-all rules, which refer to expression metaclasses with a common superclass. 
-For example, the rule:
+operator precendence annotations (\texttt{@Operator}). These annotations can be
+added to all rules, which refer to expression metaclasses with a common
+superclass. For example, the rule:
 
 \lstset{language=CS}
 \begin{lstlisting}
@@ -584,9 +584,9 @@ For example, the rule:
 Additive ::= left "+" right;
 \end{lstlisting}
 
-defines syntax for a metaclass \texttt{Additive}. The references
-\texttt{left} and \texttt{right} must be containment references and have the type
-\texttt{Expression}, which is the abstract supertype for all metaclasses of the 
+defines syntax for a metaclass \texttt{Additive}. The references \texttt{left}
+and \texttt{right} must be containment references and have the type
+\texttt{Expression}, which is the abstract supertype for all metaclasses of the
 expression metamodel.
 
 The \texttt{type} attribute specifies the kind of expression at hand, which can
@@ -626,6 +626,15 @@ IntegerLiteralExp ::= intValue[INTEGER_LITERAL];
 
 They should be used for literals (e.g., numbers, constants or variables).
 
+One can certainly mix syntax rules that use the \texttt{@Operator} annotation
+with ones that do not in the same CS specification. However, one must be careful
+with the inheritance hierarchy in the metamodel in this case. All rules that
+use the \texttt{@Operator} annotation must refer to a metaclass that extends the
+metaclass specified with the \texttt{superclass} attribute. For subclasses of
+this superclass there must not be other non-\texttt{@Operator} rules. One could
+say that subtrees of the metaclass hierarchy must be either consistently
+specified as \texttt{@Operator} rules or not. Mixing is not possible.
+
 For examples how to use \texttt{@Operator} annotations see the SimpleMath
 language in the EMFText Syntax
 Zoo\footnote{\url{http://www.emftext.org/language/simplemath}} and the
@@ -633,12 +642,12 @@ ThreeValuedLogic
 DSL\footnote{\url{http://www.emftext.org/language/threevaluedlogic}}. These do
 also come with an interpreter which shows how expression trees can be evaluated.
 
-\section{Suppressing warnings}
+\section{Suppressing Warnings}
 
 To suppress warnings issued by EMFText in \texttt{.cs} files one can use the
 \texttt{@SuppressWarnings} annotation. This annotation can be added to rules,
 token definitions or complete syntax definitions. One can either suppress all 
-warnings or just specific types. To suppress all warning for a syntax use the
+warnings or just specific types. To suppress all warnings for a syntax use the
 following syntax:
 
 \lstset{language=CS}

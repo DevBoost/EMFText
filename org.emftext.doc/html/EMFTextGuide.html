@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="EMFTextGuide.tex"> 
-<meta name="date" content="2011-03-08 11:20:00"> 
+<meta name="date" content="2011-03-10 10:15:00"> 
 <link rel="stylesheet" type="text/css" href="EMFTextGuide.css"> 
 </head><body 
 >
@@ -32,7 +32,7 @@ class="phvr8t-x-x-400">USER GUIDE</span>
 >
 <!--l. 86--><p class="noindent" > 
 <span 
-class="aer12-">March 8, 2011</span></div>
+class="aer12-">March 10, 2011</span></div>
                                                                                      
 
                                                                                      
@@ -109,7 +109,7 @@ href="#x1-370003.4.4" id="QQ2-1-40">Syntax for Printing Instructions</a></span>
 <br />  &#x00A0;&#x00A0;<span class="subsectionToc" >3.4.5&#x00A0;&#x00A0;<a 
 href="#x1-400003.4.5" id="QQ2-1-43">Syntax for Expressions</a></span>
 <br />  &#x00A0;<span class="sectionToc" >3.5&#x00A0;&#x00A0;<a 
-href="#x1-410003.5" id="QQ2-1-44">Suppressing warnings</a></span>
+href="#x1-410003.5" id="QQ2-1-44">Suppressing Warnings</a></span>
 <br />  <span class="chapterToc" >4&#x00A0;&#x00A0;<a 
 href="#x1-420004" id="QQ2-1-45">DSL Customization</a></span>
 <br />  &#x00A0;<span class="sectionToc" >4.1&#x00A0;&#x00A0;<a 
@@ -3820,7 +3820,7 @@ tab.
  id="x1-400003.4.5"></a>Syntax for Expressions</h4>
 <!--l. 570--><p class="noindent" >When defining syntax for an expression language (e.g., arithmetic expressions) EMFText&#8217;s standard
 mechanisms for specifying syntax can lead to structures that can not be optimally handled by an
-intepreter or evaluator. Furthermore, the underlying parser generator technology used by EMFText
+interpreter or evaluator. Furthermore, the underlying parser generator technology used by EMFText
 causes problems if left recursive rules are required to build an optimal expression tree, which is the
 case for all expression languages with left-associative binary operators (e.g.,&#x00A0;<span 
 class="ul9r8t-x-x-95">-</span>). Therefore, EMFText
@@ -4015,7 +4015,19 @@ class="ul9r8t-x-x-95">];</span>
   
   </div>
 <!--l. 627--><p class="indent" >  They should be used for literals (e.g., numbers, constants or variables).
-<!--l. 629--><p class="indent" >  For examples how to use <span 
+<!--l. 629--><p class="indent" >  One can certainly mix syntax rules that use the <span 
+class="ul9r8t-x-x-95">@Operator </span>annotation with ones that do not in the
+same CS specification. However, one must be careful with the inheritance hierarchy in the metamodel
+in this case. All rules that use the <span 
+class="ul9r8t-x-x-95">@Operator </span>annotation must refer to a metaclass that extends the
+metaclass specified with the <span 
+class="ul9r8t-x-x-95">superclass </span>attribute. For subclasses of this superclass there
+must not be other non-<span 
+class="ul9r8t-x-x-95">@Operator </span>rules. One could say that subtrees of the metaclass
+hierarchy must be either consistently specified as <span 
+class="ul9r8t-x-x-95">@Operator </span>rules or not. Mixing is not
+possible.
+<!--l. 638--><p class="indent" >  For examples how to use <span 
 class="ul9r8t-x-x-95">@Operator </span>annotations see the SimpleMath language in the EMFText Syntax
 Zoo<span class="footnote-mark"><a 
 href="EMFTextGuide2.html#fn1x3"><sup class="textsuperscript">1</sup></a></span><a 
@@ -4024,19 +4036,19 @@ ThreeValuedLogic DSL<span class="footnote-mark"><a
 href="EMFTextGuide3.html#fn2x3"><sup class="textsuperscript">2</sup></a></span><a 
  id="x1-40010f2"></a> .
 These do also come with an interpreter which shows how expression trees can be evaluated.
-<!--l. 636--><p class="noindent" >
-  <h3 class="sectionHead"><span class="titlemark">3.5</span>&#x00A0;&#x00A0;<a 
- id="x1-410003.5"></a>Suppressing warnings</h3>
-<!--l. 638--><p class="noindent" >To suppress warnings issued by EMFText in <span 
-class="ul9r8t-x-x-95">.cs </span>files one can use the <span 
-class="ul9r8t-x-x-95">@SuppressWarnings</span>
-annotation. This annotation can be added to rules, token definitions or complete syntax definitions.
-One can either suppress all warnings or just specific types. To suppress all warning for a syntax use
-the following syntax:
-  <!--l. 645-->
+<!--l. 645--><p class="noindent" >
                                                                                      
 
                                                                                      
+  <h3 class="sectionHead"><span class="titlemark">3.5</span>&#x00A0;&#x00A0;<a 
+ id="x1-410003.5"></a>Suppressing Warnings</h3>
+<!--l. 647--><p class="noindent" >To suppress warnings issued by EMFText in <span 
+class="ul9r8t-x-x-95">.cs </span>files one can use the <span 
+class="ul9r8t-x-x-95">@SuppressWarnings</span>
+annotation. This annotation can be added to rules, token definitions or complete syntax definitions.
+One can either suppress all warnings or just specific types. To suppress all warnings for a syntax use
+the following syntax:
+  <!--l. 654-->
   <div class="lstlisting" id="listing-45"><span class="label"><a 
  id="x1-41001r1"></a></span><span 
 class="ul9r8t-x-x-95">@SuppressWarnings</span><span 
@@ -4052,10 +4064,10 @@ class="ul9r8t-x-x-95">"</span><span
 class="ul9r8t-x-x-95">;</span>
   
   </div>
-<!--l. 650--><p class="indent" >  A list of all warning types can be found in Appendix&#x00A0;<a 
+<!--l. 659--><p class="indent" >  A list of all warning types can be found in Appendix&#x00A0;<a 
 href="#x1-63000A2">A2<!--tex4ht:ref: app:warnings --></a>. For example, to suppress warnings about
 features without syntax, you may use:
-  <!--l. 654-->
+  <!--l. 663-->
   <div class="lstlisting" id="listing-46"><span class="label"><a 
  id="x1-41003r1"></a></span><span 
 class="ul9r8t-x-x-95">@SuppressWarnings</span><span 
