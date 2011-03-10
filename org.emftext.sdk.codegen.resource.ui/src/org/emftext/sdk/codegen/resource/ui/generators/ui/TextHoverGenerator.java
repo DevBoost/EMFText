@@ -292,7 +292,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addGetFirstProxyMethod(StringComposite sc) {
 		sc.add("private static " + E_OBJECT + " getFirstProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
-		sc.add("return getFirstObject(elements, false);");
+		sc.add("return getFirstObject(elements, true);");
 		sc.add("}");
 	}
 
